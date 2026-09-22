@@ -1,7 +1,9 @@
-name: Validate branch manually
+name: Validate v1.9 release candidate
 
 on:
   workflow_dispatch:
+  push:
+    branches: ["feature/harmony-sequencer-v19"]
 
 permissions:
   contents: read
