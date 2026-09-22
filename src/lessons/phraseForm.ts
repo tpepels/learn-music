@@ -1,19 +1,36 @@
 import {
+  activeLayerCount,
+  arrangementLayers,
+  type ArrangementBar,
+} from "../music/model";
+import {
   exerciseContentSchema,
   lessonContentSchema,
   type LessonDefinition,
 } from "./types";
+
+function signature(layers: ArrangementBar): string {
+  return arrangementLayers.map((layer) => (layers[layer] ? "1" : "0")).join("");
+}
+
+function differenceCount(left: ArrangementBar, right: ArrangementBar): number {
+  return arrangementLayers.filter((layer) => left[layer] !== right[layer]).length;
+}
+
+function sharedCount(left: ArrangementBar, right: ArrangementBar): number {
+  return arrangementLayers.filter((layer) => left[layer] && right[layer]).length;
+}
 
 const lesson = lessonContentSchema.parse({
   id: "composition.phrase-form",
   number: 17,
   title: "Phrase & form",
   eyebrow: "Composition · Structure",
-  hero: "Design repetition and contrast above the level of individual bars.",
+  hero: "Make repetition and contrast happen in the music.",
   description:
-    "Map four 4-bar sections before filling every detail. Learn antecedent/consequent thinking, binary and ternary form, then AABA as a compact large-scale design.",
+    "Build four audible four-bar sections. The A/B/A′ labels describe relationships, but the learner must create those relationships by changing and restoring real musical layers.",
   overview:
-    "Form is memory management for the listener. Repetition creates familiarity; contrast refreshes attention; return makes earlier material meaningful in retrospect. Section labels are analytical tools, not rules about genre.",
+    "Form is heard through memory. Repeating A only matters if something recognisable returns; calling a section B only matters if the music actually changes. In this lesson the labels and the layer plan must agree.",
 });
 
 export const phraseFormLesson: LessonDefinition = {
@@ -24,126 +41,122 @@ export const phraseFormLesson: LessonDefinition = {
         id: "composition.phrase-form.a",
         letter: "A",
         title: "Make statement and answer",
-        learn: "Use A and A′ to create two related four-bar phrases rather than eight bars with no punctuation.",
+        learn: "Turn A and A′ into two related but audibly different sections.",
         explanation:
-          "An antecedent/consequent pair behaves like question and answer. The second phrase often resembles the first but changes its ending, harmony, or melodic contour so it feels more complete.",
+          "A′ means a varied return of an idea, not a new letter pasted onto the timeline. The second section should preserve enough of A to be recognised while changing at least one musical layer.",
         instruction:
-          "Set section 1 to A and section 2 to A′. Leave the later sections however you like for now.",
+          "Set section 1 to A and section 2 to A′. Give both at least two active layers. Keep at least two layers shared between them, but change at least one layer in A′. Play through bar 8 and hear what stayed versus what changed.",
         recognition:
-          "A′ should imply 'same family, different ending' rather than a completely new section.",
+          "The second four bars should feel related to the first, but not identical. You should be able to name the layer that changed without looking.",
         terms: [
-          { term: "Phrase", definition: "A coherent musical span that feels like one statement or gesture." },
-          { term: "Antecedent", definition: "The opening phrase of a question–answer pair, often ending less conclusively." },
-          { term: "Consequent", definition: "The answering phrase, often related to the antecedent but ending more conclusively." },
-          { term: "A′", definition: "A varied return of A: recognizably the same section with meaningful change." },
+          { term: "Statement", definition: "An initial presentation of musical material that establishes an identity." },
+          { term: "Answer", definition: "A related continuation or response that develops or completes the statement." },
+          { term: "A′", definition: "A varied version of A: recognisably related, but not identical." },
         ],
         workspace: "phrase-form",
-        checksLabel: "Create a related pair",
-        successLabel: "The first eight bars now have statement-and-answer logic",
+        checksLabel: "Make it audible",
+        successLabel: "A and A′ now sound related but different",
       }),
-      evaluate: ({ formSettings }) => [
-        {
-          label: "First section is A",
-          complete: formSettings.sections[0] === "A",
-        },
-        {
-          label: "Second section is A′",
-          complete: formSettings.sections[1] === "A′",
-        },
-      ],
+      evaluate: ({ formSettings }) => {
+        const first = formSettings.layers[0];
+        const second = formSettings.layers[1];
+        return [
+          { label: "Sections 1–2 are labelled A → A′", complete: formSettings.sections[0] === "A" && formSettings.sections[1] === "A′" },
+          { label: "Both sections contain at least two sounding layers", complete: activeLayerCount(first) >= 2 && activeLayerCount(second) >= 2 },
+          { label: "A′ keeps at least two layers from A", complete: sharedCount(first, second) >= 2 },
+          { label: "A′ changes at least one layer", complete: differenceCount(first, second) >= 1 },
+        ];
+      },
     },
     {
       ...exerciseContentSchema.parse({
         id: "composition.phrase-form.b",
         letter: "B",
         title: "Create binary form",
-        learn: "Organize sixteen bars into two larger contrasting halves.",
+        learn: "Make A and B sound like two stable regions.",
         explanation:
-          "Binary form divides material into A and B sections. Each half can contain internal repetition, but the large-scale experience is departure from one identity into another.",
+          "Binary form needs more than two names. The repeated A should have a stable identity, the repeated B should have its own identity, and the listener should hear a boundary between them.",
         instruction:
-          "Set the four sections to A → A → B → B. Think of the first eight bars as one world and the second eight as another.",
+          "Set the sections to A → A → B → B. Make sections 1 and 2 use the same layer combination, sections 3 and 4 use another matching combination, and make A and B differ by at least two layers. Play all sixteen bars.",
         recognition:
-          "The form should read as two balanced halves rather than four unrelated blocks.",
+          "Bars 1–8 should establish one texture. At bar 9 a new texture should arrive and remain stable long enough to feel like a second section.",
         terms: [
-          { term: "Binary form", definition: "A form organized primarily into two contrasting sections, commonly labelled A and B." },
-          { term: "Section", definition: "A larger structural unit containing one or more phrases." },
+          { term: "Binary form", definition: "A two-part form organised as one region followed by a contrasting second region." },
+          { term: "Section identity", definition: "The recurring musical features that make a section recognisable when it returns." },
         ],
         workspace: "phrase-form",
-        checksLabel: "Build two halves",
-        successLabel: "The macro map now shows a clear A/B binary design",
+        checksLabel: "Build A/B",
+        successLabel: "The labels now correspond to two audible sections",
       }),
-      evaluate: ({ formSettings }) => [
-        {
-          label: "Sections read A → A → B → B",
-          complete:
-            formSettings.sections.join("|") === "A|A|B|B",
-        },
-      ],
+      evaluate: ({ formSettings }) => {
+        const [a1, a2, b1, b2] = formSettings.layers;
+        return [
+          { label: "Labels read A → A → B → B", complete: formSettings.sections.join("|") === "A|A|B|B" },
+          { label: "The two A sections sound the same", complete: signature(a1) === signature(a2) && activeLayerCount(a1) >= 2 },
+          { label: "The two B sections sound the same", complete: signature(b1) === signature(b2) && activeLayerCount(b1) >= 2 },
+          { label: "A and B differ by at least two layers", complete: differenceCount(a1, b1) >= 2 },
+        ];
+      },
     },
     {
       ...exerciseContentSchema.parse({
         id: "composition.phrase-form.c",
         letter: "C",
         title: "Leave and return",
-        learn: "Use ternary form so contrast gains meaning through a return to familiar material.",
+        learn: "Make the return of A recognisable after a contrasting B.",
         explanation:
-          "Ternary form is fundamentally A–B–A: establish an identity, move somewhere contrasting, then return. The return changes how the contrast is remembered.",
+          "Ternary thinking depends on memory: the return has meaning because something familiar comes back after contrast. The musical fingerprint of A therefore has to reappear, not merely its letter.",
         instruction:
-          "Set sections 1–3 to A → B → A. Use A or A′ for section 4 as an extended return.",
+          "Set A → B → A → A′. Make section 3 restore section 1 exactly. Make B differ from A by at least two layers. Give A′ at least two shared layers with A but one audible change.",
         recognition:
-          "The third block should feel like recognition after the contrast of B.",
+          "Section 3 should create a clear recognition moment: the texture from the opening returns after B. Section 4 can then vary it without losing that identity.",
         terms: [
-          { term: "Ternary form", definition: "A three-part A–B–A design based on departure and return." },
-          { term: "Return", definition: "The reappearance of earlier material after contrasting material." },
+          { term: "Ternary form", definition: "A form organised around departure and return, commonly A–B–A." },
+          { term: "Return", definition: "The reappearance of familiar material after contrasting material." },
         ],
         workspace: "phrase-form",
-        checksLabel: "Create departure and return",
-        successLabel: "The large-scale form now depends on recognition after contrast",
+        checksLabel: "Make the return",
+        successLabel: "The A return is now something the ear can recognise",
       }),
-      evaluate: ({ formSettings }) => [
-        {
-          label: "First three sections read A → B → A",
-          complete:
-            formSettings.sections[0] === "A" &&
-            formSettings.sections[1] === "B" &&
-            formSettings.sections[2] === "A",
-        },
-        {
-          label: "Final section continues the A-family return",
-          complete:
-            formSettings.sections[3] === "A" ||
-            formSettings.sections[3] === "A′",
-        },
-      ],
+      evaluate: ({ formSettings }) => {
+        const [a1, b, aReturn, aPrime] = formSettings.layers;
+        return [
+          { label: "Labels begin A → B → A → A′", complete: formSettings.sections.join("|") === "A|B|A|A′" },
+          { label: "The returning A restores the opening layer plan", complete: activeLayerCount(a1) >= 2 && signature(a1) === signature(aReturn) },
+          { label: "B contrasts with A by at least two layers", complete: differenceCount(a1, b) >= 2 && activeLayerCount(b) >= 1 },
+          { label: "A′ keeps A recognisable but changes it", complete: sharedCount(a1, aPrime) >= 2 && differenceCount(a1, aPrime) >= 1 },
+        ];
+      },
     },
     {
       ...exerciseContentSchema.parse({
         id: "composition.phrase-form.d",
         letter: "D",
-        title: "Build AABA",
-        learn: "Use repeated identity, one contrasting bridge, and return as a compact song-form strategy.",
+        title: "Build AABA as music",
+        learn: "Use repetition, contrast, and return in one complete sixteen-bar form.",
         explanation:
-          "AABA establishes A twice, introduces a contrasting bridge (B), then returns to A. The bridge feels especially contrasting because A is already strongly established before it arrives.",
+          "AABA works because the first two A sections create memory, B interrupts that pattern, and the final A restores it. The form should remain understandable with the labels hidden.",
         instruction:
-          "Set the four sections to A → A → B → A. Imagine each block as four bars: 16 bars total.",
+          "Set A → A → B → A. Give A at least two layers and use the exact same layer plan in sections 1, 2, and 4. Make B differ from A by at least two layers. Play all sixteen bars without watching the labels and listen for the departure and return.",
         recognition:
-          "B should feel like the one clear departure in a form dominated by A material.",
+          "You should hear eight familiar bars, four contrasting bars, then the opening identity return. If B is too similar, the form disappears; if B is unrelated, the track can feel disconnected.",
         terms: [
-          { term: "AABA", definition: "A four-section form with three A sections surrounding one contrasting B section." },
-          { term: "Bridge", definition: "A contrasting section that connects or separates repeated primary material." },
-          { term: "Formal proportion", definition: "The relative amount of time given to repeated and contrasting sections." },
+          { term: "AABA", definition: "A four-section form with repeated A material, a contrasting B section, and a final return to A." },
+          { term: "Formal contrast", definition: "A difference large enough to mark a structural boundary while remaining part of the same piece." },
         ],
         workspace: "phrase-form",
-        checksLabel: "Plan AABA",
-        successLabel: "The sixteen-bar map now has a clear repeated identity and bridge",
+        checksLabel: "Complete the form",
+        successLabel: "Your sixteen-bar AABA form is audible, not merely labelled",
       }),
-      evaluate: ({ formSettings }) => [
-        {
-          label: "Sections read A → A → B → A",
-          complete:
-            formSettings.sections.join("|") === "A|A|B|A",
-        },
-      ],
+      evaluate: ({ formSettings }) => {
+        const [a1, a2, b, a3] = formSettings.layers;
+        return [
+          { label: "Labels read A → A → B → A", complete: formSettings.sections.join("|") === "A|A|B|A" },
+          { label: "All three A sections use the same musical layers", complete: activeLayerCount(a1) >= 2 && signature(a1) === signature(a2) && signature(a1) === signature(a3) },
+          { label: "B contains audible material", complete: activeLayerCount(b) >= 1 },
+          { label: "B differs from A by at least two layers", complete: differenceCount(a1, b) >= 2 },
+        ];
+      },
     },
   ],
 };
