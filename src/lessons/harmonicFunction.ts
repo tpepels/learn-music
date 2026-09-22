@@ -21,11 +21,11 @@ const lesson = lessonContentSchema.parse({
   number: 16,
   title: "Harmonic function",
   eyebrow: "Harmony · Composition",
-  hero: "Hear function by rewriting the notes that create it.",
+  hero: "Hear where the chords want to go."
   description:
-    "Tonic, predominant and dominant are not labels to memorize. Change the progression, rewrite its MIDI notes, and hear how the same groove and melody acquire different direction.",
+    "Change the chords under the same groove and melody, then rewrite the notes that make those chords. Listen for home, departure, pull and return as movement through the phrase.",
   overview:
-    "Function describes what harmony does over time: tonic provides stability, predominant moves away, dominant creates expectation, and resolution answers it. The chord lane names those roles; the piano roll makes them audible.",
+    "Chord function is about direction. Some harmonies let the phrase rest, some move away, and some make the next chord feel strongly expected. The useful part is hearing that pull while you write the notes.",
 });
 
 export const harmonicFunctionLesson: LessonDefinition = {
@@ -38,11 +38,11 @@ export const harmonicFunctionLesson: LessonDefinition = {
         title: "Write home → departure → tension → return",
         learn: "Connect harmonic function to notes you actually perform.",
         explanation:
-          "C, F, G, and C create a simple functional arc in C major. The useful knowledge is not the sequence of letters by itself, but the audible change produced when C/E/G becomes F/A/C, then G/B/D, then returns home.",
+          "C–F–G–C gives you a clear route away from home and back again. The change matters because the notes under each bar change, and G leaves the ear wanting the return to C.",
         instruction:
           "Set C → F → G → C. Rewrite the harmony piano roll so every bar contains all chord tones and at least eight time positions contain harmony overall. Keep Play running while you replace notes that no longer belong.",
         recognition:
-          "The same groove should feel stable, then displaced, then tense, then settled. Put a wrong note in briefly if you need to hear why the highlighted chord tones matter.",
+          "Stop after each bar in your head: which chord feels settled, which one feels like movement, and which one makes you expect what comes next?",
         terms: [
           { term: "Tonic", definition: "Harmony that feels like the tonal home or point of stability." },
           { term: "Predominant", definition: "Harmony that commonly moves away from tonic and prepares dominant." },
@@ -51,7 +51,7 @@ export const harmonicFunctionLesson: LessonDefinition = {
         ],
         workspace: "harmonic-function",
         checksLabel: "Write the function",
-        successLabel: "The functional arc is in the MIDI you wrote",
+        successLabel: "The chord movement is now in the part you wrote",
       }),
       evaluate: ({ chordProgression, harmonySequence, experiments }) => [
         {
@@ -89,7 +89,7 @@ export const harmonicFunctionLesson: LessonDefinition = {
         instruction:
           "Change the first three bars to Dm → G → C and keep C in bar 4. Rewrite the notes in the changed bars until every written note belongs to its chord and bars 1–3 each contain all chord tones.",
         recognition:
-          "The first bar changes colour, but the G→C arrival should retain the same directional pull.",
+          "Compare F→G→C with Dm→G→C. What changes in the first move, and what stays the same about the G→C arrival?",
         terms: [
           { term: "ii chord", definition: "The minor chord on scale degree 2; D minor in C major." },
           { term: "Cadential motion", definition: "Harmonic movement that creates and then resolves expectation near a phrase ending." },
@@ -133,7 +133,7 @@ export const harmonicFunctionLesson: LessonDefinition = {
         instruction:
           "Create C → G → Am → F. Rewrite the harmony so every bar contains playable chord tones, use at least eight time positions, and place at least two harmony events on offbeat eighths.",
         recognition:
-          "The move G→Am should feel like continuation rather than full closure. The offbeat rhythm keeps the lesson inside your actual accompaniment rather than a chord demonstration.",
+          "Compare G→C with G→Am. Which one closes the phrase, and which one sounds as if the music still has somewhere to go?",
         terms: [
           { term: "Deceptive resolution", definition: "A dominant harmony resolving somewhere other than the expected tonic, often to vi." },
           { term: "vi chord", definition: "The chord on scale degree 6; A minor in C major." },
@@ -180,7 +180,7 @@ export const harmonicFunctionLesson: LessonDefinition = {
         instruction:
           "Set D7 → G → C in bars 1–3 and choose C, Em, or Am in bar 4. In the piano roll, write every tone of D7—including F♯—then rewrite the remaining bars so every sounding note fits its chord.",
         recognition:
-          "F♯ should sound purposeful because it leads into G. Try F natural in that spot once if you want to hear how much of the secondary-dominant pull disappears.",
+          "Replace F♯ with F for one pass, then restore it. Which version makes G feel more strongly prepared?",
         terms: [
           { term: "Secondary dominant", definition: "A dominant chord that temporarily points to a chord other than the main tonic." },
           { term: "Tonicization", definition: "Briefly making a non-tonic chord sound like a local point of arrival." },
