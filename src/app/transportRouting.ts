@@ -11,3 +11,10 @@ export function resolveTransportWorkspace(
   if (appMode === "studio") return studioWorkspace;
   return "arrangement";
 }
+
+
+export function canWorkspaceUseTransport(
+  workspace: ExerciseDefinition["workspace"],
+): boolean {
+  return workspace !== "piano-key" && workspace !== "synth";
+}
