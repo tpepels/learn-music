@@ -4,6 +4,7 @@ import {
   cloneAutomationSettings,
   clonePattern,
   chordMidi,
+  initialAccompanimentPattern,
   initialArrangement,
   initialAutomationSettings,
   initialBassSequence,
@@ -65,6 +66,7 @@ function context(overrides: Partial<LessonContext> = {}): LessonContext {
     selectedPitchClasses: [],
     melody: [...initialMelody],
     chordProgression: [...initialChordProgression],
+    accompanimentPattern: initialAccompanimentPattern,
     synthSettings: { ...initialSynthSettings },
     arrangement: cloneArrangement(initialArrangement),
     mixerSettings: {
@@ -219,26 +221,28 @@ describe("lesson 3: keys and melody", () => {
 });
 
 describe("lesson 4: chords and progressions", () => {
-  it("recognises the tonic triad", () => {
-    const progression: ChordProgression = ["C", null, null, null];
+  it("introduces I, IV, and V before contextual application", () => {
+    const progression: ChordProgression = ["C", "F", "G", null];
     expect(
       chordProgressionLesson.exercises[0]
         .evaluate(context({ chordProgression: progression }))
         .every((check) => check.complete),
     ).toBe(true);
+    expect(chordProgressionLesson.exercises[0].workspace).toBe("chords");
   });
 
-  it("recognises I-IV-V", () => {
-    const progression: ChordProgression = ["C", "F", "G", null];
+  it("requires a complete functional phrase for the application exercise", () => {
+    const progression: ChordProgression = ["C", "F", "G", "C"];
     expect(
       chordProgressionLesson.exercises[1]
         .evaluate(context({ chordProgression: progression }))
         .every((check) => check.complete),
     ).toBe(true);
+    expect(chordProgressionLesson.exercises[1].workspace).toBe("harmony-song");
   });
 
-  it("recognises I-IV-V-I cadence", () => {
-    const progression: ChordProgression = ["C", "F", "G", "C"];
+  it("uses a changed resolution to compare closure", () => {
+    const progression: ChordProgression = ["C", "F", "G", "Am"];
     expect(
       chordProgressionLesson.exercises[2]
         .evaluate(context({ chordProgression: progression }))
@@ -246,33 +250,103 @@ describe("lesson 4: chords and progressions", () => {
     ).toBe(true);
   });
 
-  it("recognises I-V-vi-IV", () => {
-    const progression: ChordProgression = ["C", "G", "Am", "F"];
-    expect(
-      chordProgressionLesson.exercises[3]
-        .evaluate(context({ chordProgression: progression }))
-        .every((check) => check.complete),
-    ).toBe(true);
+  it("does not accept four correct block chords as the final accompaniment exercise", () => {
+    const progression: ChordProgression = ["C", "F", "G", "C"];
+    const blockChecks = chordProgressionLesson.exercises[3].evaluate(
+      context({
+        chordProgression: progression,
+        accompanimentPattern: "block",
+      }),
+    );
+    expect(blockChecks.every((check) => check.complete)).toBe(false);
+
+    const musicalChecks = chordProgressionLesson.exercises[3].evaluate(
+      context({
+        chordProgression: progression,
+        accompanimentPattern: "arpeggio",
+      }),
+    );
+    expect(musicalChecks.every((check) => check.complete)).toBe(true);
+  });
+
+  it("keeps harmonic identity independent from the chosen performance pattern", () => {
+    const progression: ChordProgression = ["C", "G", "F", "C"];
+    const checks = chordProgressionLesson.exercises[3].evaluate(
+      context({
+        chordProgression: progression,
+        accompanimentPattern: "broken",
+      }),
+    );
+    expect(checks.every((check) => check.complete)).toBe(true);
   });
 });
 
 
 describe("lesson 5: sound and synthesis", () => {
-  it("accepts a deliberately shaped warm pad", () => {
-    const ctx = context({
+  it("moves from raw waveform and filtering into two contrasting musical roles", () => {
+    const raw = context({
+      synthSettings: {
+        waveform: "sawtooth",
+        cutoff: 12000,
+        attack: 0.01,
+        release: 0.25,
+      },
+    });
+    expect(
+      soundSynthesisLesson.exercises[0]
+        .evaluate(raw)
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    const dark = context({
       synthSettings: {
         waveform: "sawtooth",
         cutoff: 1500,
-        attack: 0.5,
-        release: 1.2,
+        attack: 0.01,
+        release: 0.25,
       },
     });
+    expect(
+      soundSynthesisLesson.exercises[1]
+        .evaluate(dark)
+        .every((check) => check.complete),
+    ).toBe(true);
 
-    for (const exercise of soundSynthesisLesson.exercises) {
-      expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
-    }
+    const pluck = context({
+      synthSettings: {
+        waveform: "triangle",
+        cutoff: 1800,
+        attack: 0.04,
+        release: 0.3,
+      },
+    });
+    expect(
+      soundSynthesisLesson.exercises[2]
+        .evaluate(pluck)
+        .every((check) => check.complete),
+    ).toBe(true);
+    expect(
+      soundSynthesisLesson.exercises[3]
+        .evaluate(pluck)
+        .every((check) => check.complete),
+    ).toBe(false);
+
+    const pad = context({
+      synthSettings: {
+        waveform: "triangle",
+        cutoff: 1800,
+        attack: 0.55,
+        release: 1.4,
+      },
+    });
+    expect(
+      soundSynthesisLesson.exercises[3]
+        .evaluate(pad)
+        .every((check) => check.complete),
+    ).toBe(true);
   });
 });
+
 
 describe("lesson 6: arrangement and form", () => {
   it("accepts an eight-bar density arc with A/B contrast, climax, and release", () => {
