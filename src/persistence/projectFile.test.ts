@@ -11,10 +11,12 @@ import {
   initialDynamicsSettings,
   initialEffectsSettings,
   initialGrooveFeelSettings,
+  initialFormSettings,
   initialMelody,
   initialMixerSettings,
   initialPattern,
   initialSynthSettings,
+  initialTextureSettings,
   initialVoicingSettings,
   type ProjectData,
 } from "../music/model";
@@ -45,6 +47,11 @@ function sampleProject(): ProjectData {
         hat: [...initialGrooveFeelSettings.velocities.hat],
       },
     },
+    formSettings: {
+      sections: [...initialFormSettings.sections],
+      roles: [...initialFormSettings.roles],
+    },
+    textureSettings: { ...initialTextureSettings },
   };
 }
 
