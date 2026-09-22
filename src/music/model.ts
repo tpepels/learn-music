@@ -226,3 +226,17 @@ export type ProjectMilestones = {
 export const initialProjectMilestones: ProjectMilestones = {
   exported: false,
 };
+
+
+export type ProjectData = {
+  bpm: number;
+  patterns: Record<PatternId, StepPattern>;
+  melody: MelodySequence;
+  chordProgression: ChordProgression;
+  synthSettings: SynthSettings;
+  arrangement: Arrangement;
+  mixerSettings: MixerSettings;
+  automationSettings: AutomationSettings;
+  dynamicsSettings: DynamicsSettings;
+  effectsSettings: EffectsSettings;
+};
