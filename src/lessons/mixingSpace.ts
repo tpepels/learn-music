@@ -22,7 +22,7 @@ const lesson = lessonContentSchema.parse({
   description:
     "Use the same music to explore level, pan, low-cut and effects sends. Each exercise asks you to hear an exaggerated or unhelpful version before settling on a choice that supports your own track.",
   overview:
-    "Mixing is relational. A number such as −7 dB or 140 Hz has no meaning by itself; it matters because of what it does to the other parts. The exercises therefore grade audible relationships and whether you actually explored the control, not one secret preset.",
+    "Mixing is about relationships. A fader value or cutoff frequency is useful only because of what it does to the other parts. Push a control too far, hear the failure clearly, then come back to the point where the track works.",
 });
 
 export const mixingSpaceLesson: LessonDefinition = {
@@ -39,7 +39,7 @@ export const mixingSpaceLesson: LessonDefinition = {
         instruction:
           "Loop the arrangement. Move the MELODY through at least an 8 dB range so you hear it dominate and then disappear. Do the same more gently with CHORDS. Finish with melody clearly above chords, drums clearly above chords, and bass close enough to the drums to form one foundation.",
         recognition:
-          "You should be able to move the melody a few dB and immediately hear its role change. The final balance does not need to match a prescribed set of fader numbers.",
+          "Move the melody a few dB either way. At what point does it stop leading? At what point does it start covering the rest of the track?",
         terms: [
           { term: "Fader", definition: "A level control used to change one channel relative to the rest of the mix." },
           { term: "Balance", definition: "The relative loudness relationship between the parts of a mix." },
@@ -84,7 +84,7 @@ export const mixingSpaceLesson: LessonDefinition = {
         instruction:
           "Keep BASS near the centre. Move CHORDS far to the left, then far to the right while the track loops. After hearing both extremes, settle chords moderately on one side and MELODY moderately on the opposite side.",
         recognition:
-          "The extreme passes should make the location obvious. The final version should widen the track without making either side feel abandoned.",
+          "Close your eyes while moving the pan. Can you point to the sound? In the final position, does either side feel noticeably heavier?",
         terms: [
           { term: "Pan", definition: "A control that places a channel between the left and right sides of the stereo field." },
           { term: "Stereo field", definition: "The perceived left-to-right space between two playback channels." },
@@ -132,7 +132,7 @@ export const mixingSpaceLesson: LessonDefinition = {
         instruction:
           "On CHORDS, sweep LOW CUT from near the bottom to at least 250 Hz and listen for the moment the part becomes obviously thin. Bring it back until the useful body returns. Keep BASS mostly unfiltered and choose a similarly restrained low-cut for MELODY.",
         recognition:
-          "The correct point is the compromise just below obvious damage: less unnecessary low energy without making the musical part sound hollow.",
+          "Sweep past the useful point, then return. Where does the chord body come back without the low end becoming crowded again?",
         terms: [
           { term: "Low-cut filter", definition: "A filter that reduces frequencies below a chosen cutoff." },
           { term: "Masking", definition: "One sound making another harder to hear because they occupy competing sonic space." },
@@ -176,7 +176,7 @@ export const mixingSpaceLesson: LessonDefinition = {
         instruction:
           "Push CHORD reverb close to the top of its range until the attacks blur, then bring it back. Add some reverb to melody and a small melody delay. Keep bass comparatively dry. Choose the final amounts by ear rather than copying one percentage.",
         recognition:
-          "The final mix should keep clear dry attacks with a softer space behind them. If you can no longer tell where notes begin, you have crossed back into the washed-out version.",
+          "Focus on the start of each chord and melody note. Can you still locate the dry attack while the tail sits behind it?",
         terms: [
           { term: "Send", definition: "A control that copies part of a channel to a shared processing path." },
           { term: "Return", definition: "The mixer path carrying the processed effect signal back into the mix." },
