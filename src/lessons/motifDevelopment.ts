@@ -24,11 +24,11 @@ const lesson = lessonContentSchema.parse({
   number: 14,
   title: "Motif development",
   eyebrow: "Composition · Development",
-  hero: "Make more music from less material.",
+  hero: "Keep one small idea alive across the phrase."
   description:
     "Take one short idea and develop it through repetition, transposition, fragmentation, and response. The goal is coherence: later material should feel related without becoming a copy-and-paste loop.",
   overview:
-    "A motif is a small recognizable musical idea. Composers develop motifs instead of inventing every bar from scratch. Repetition creates identity; transformation creates motion while preserving that identity.",
+    "A short idea becomes useful when you can recognise it after it changes. Repeat it first so the ear learns it, then move, shorten and answer it without losing the family resemblance.",
 });
 
 export const motifDevelopmentLesson: LessonDefinition = {
@@ -45,7 +45,7 @@ export const motifDevelopmentLesson: LessonDefinition = {
         instruction:
           "Write at least three notes in steps 1–4. Then make steps 5–8 an exact repetition. Use the Repeat button or copy the notes manually.",
         recognition:
-          "The second four-step block should sound immediately familiar—like the same musical word spoken twice.",
+          "Look away from the piano roll. Does the second block register immediately as the same idea?",
         terms: [
           { term: "Motif", definition: "A short recognizable musical idea used as source material for a larger passage." },
           { term: "Repetition", definition: "Restating material without changing its essential pitch/rhythm identity." },
@@ -81,7 +81,7 @@ export const motifDevelopmentLesson: LessonDefinition = {
         instruction:
           "Keep steps 1–8. In steps 9–12, transpose the source motif up exactly 2 semitones. The rhythm/rest positions should stay the same.",
         recognition:
-          "The new block should feel like the same shape moved upward—not a new melody.",
+          "Hum the first block, then the transposed one. Is the contour recognisable even though every pitch is higher?",
         terms: [
           { term: "Transposition", definition: "Moving every note of an idea by the same interval." },
           { term: "Interval pattern", definition: "The sequence of pitch distances that defines a melodic shape." },
@@ -120,7 +120,7 @@ export const motifDevelopmentLesson: LessonDefinition = {
         instruction:
           "In steps 13–16, use only one or two notes from the source motif and leave at least two rests. The notes you keep should come directly from steps 1–4.",
         recognition:
-          "You should hear a hint of the original idea rather than the whole statement.",
+          "Does the fragment remind you of the motif before you consciously identify which notes survived?",
         terms: [
           { term: "Fragmentation", definition: "Developing a motif by using only a smaller piece of it." },
           { term: "Fragment", definition: "A recognizable subset of a larger musical idea." },
@@ -165,7 +165,7 @@ export const motifDevelopmentLesson: LessonDefinition = {
         instruction:
           "Treat steps 1–8 as the call and steps 9–16 as the response. Keep at least four notes in the response, make it different from the call, and end the response on C, E, or G.",
         recognition:
-          "The second half should sound like it belongs to the first half but provides a sense of reply or arrival.",
+          "Play only the call, then only the response. Do they sound related enough to belong together and different enough to feel conversational?",
         terms: [
           { term: "Call and response", definition: "A phrase relationship where one idea is followed by a related answering idea." },
           { term: "Response", definition: "Material that follows and reacts to an earlier statement." },
