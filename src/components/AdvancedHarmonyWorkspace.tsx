@@ -42,6 +42,13 @@ const configs = {
   },
 } as const;
 
+function chordToneLabel(chord: ChordName): string {
+  if (chord === "E7") return "E · G♯ · B · D";
+  if (chord === "Fm") return "F · A♭ · C";
+  if (chord === "B♭") return "B♭ · D · F";
+  return chordMidi[chord].map(midiNoteName).join(" · ");
+}
+
 export function AdvancedHarmonyWorkspace({ mode }: { mode: Mode }) {
   const progression = useStudioStore((state) => state.chordProgression);
   const setChordSlot = useStudioStore((state) => state.setChordSlot);
@@ -95,7 +102,7 @@ export function AdvancedHarmonyWorkspace({ mode }: { mode: Mode }) {
           >
             <strong>{chord}</strong>
             <span>{config.numeral[chord] ?? "—"}</span>
-            <small>{chordMidi[chord].map(midiNoteName).join(" · ")}</small>
+            <small>{chordToneLabel(chord)}</small>
           </button>
         ))}
       </div>
