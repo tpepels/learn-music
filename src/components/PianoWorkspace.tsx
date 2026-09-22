@@ -23,8 +23,13 @@ export function PianoKeyWorkspace() {
     <div className="piano-card">
       <div className="workspace-heading">
         <div>
-          <span className="section-label">One octave · chromatic keyboard</span>
+          <span className="section-label">MIDI keyboard · one octave</span>
           <h2>Map C major</h2>
+          <div className="daw-strip">
+            <span>KEY C MAJOR</span>
+            <span>OCTAVE 4</span>
+            <span>NOTE AUDITION</span>
+          </div>
         </div>
         <span className="workspace-hint">Click a key to select and hear it</span>
       </div>
@@ -73,8 +78,13 @@ export function MelodyWorkspace({ title }: { title: string }) {
     <div className="piano-card melody-card">
       <div className="workspace-heading">
         <div>
-          <span className="section-label">Two bars · eighth-note grid</span>
+          <span className="section-label">MIDI clip · piano roll</span>
           <h2>{title}</h2>
+          <div className="daw-strip">
+            <span>KEY C MAJOR</span>
+            <span>GRID 1/8</span>
+            <span>2 BARS</span>
+          </div>
         </div>
         <span className="workspace-hint">One note per column · click an active note again to remove it</span>
       </div>
