@@ -123,6 +123,36 @@ export function ConceptVisual({ kind }: { kind: ConceptVisualKind }) {
         </svg>
       );
 
+    case "automation":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="Automation curve and compressor diagram">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          <g transform="translate(22 29)">
+            {Array.from({ length: 6 }, (_, i) => (
+              <line key={"v"+i} x1={i*32} y1="0" x2={i*32} y2="70" className="diagram-grid" />
+            ))}
+            {Array.from({ length: 5 }, (_, i) => (
+              <line key={"h"+i} x1="0" y1={i*17.5} x2="160" y2={i*17.5} className="diagram-grid" />
+            ))}
+            <polyline
+              points="0,58 31,55 63,48 95,34 127,23 160,13"
+              className="diagram-automation-line"
+            />
+            {[["0","58"],["31","55"],["63","48"],["95","34"],["127","23"],["160","13"]].map(([x,y],i)=>(
+              <circle key={i} cx={x} cy={y} r="4" className="diagram-automation-point" />
+            ))}
+            <text x="0" y="87" className="diagram-caption">AUTOMATION LANE</text>
+          </g>
+          <g transform="translate(205 34)">
+            <rect x="0" y="0" width="82" height="67" rx="11" className="diagram-module" />
+            <text x="41" y="17" textAnchor="middle" className="diagram-label">COMP</text>
+            <path d="M 14 49 L 29 24 L 42 43 L 55 20 L 69 46" className="diagram-transient" />
+            <path d="M 14 54 L 29 35 L 42 47 L 55 31 L 69 49" className="diagram-envelope" />
+          </g>
+          <text x="204" y="119" className="diagram-caption">TRANSIENT / DYNAMICS</text>
+        </svg>
+      );
+
     case "mixer":
       return (
         <svg viewBox="0 0 320 150" role="img" aria-label="DAW mixer channel diagram">
