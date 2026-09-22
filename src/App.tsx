@@ -395,11 +395,13 @@ function App() {
   const openExercise = (index: number) => {
     if (index === exerciseIndex) return;
     stopTransport();
+    setConfirmLessonReset(false);
     setExerciseIndex(lesson.id, index);
   };
 
   const advance = () => {
     if (!exerciseReady && !exerciseCompleted) return;
+    setConfirmLessonReset(false);
 
     if (!exerciseCompleted) {
       completeExercise(exercise.id);
@@ -631,6 +633,9 @@ function App() {
               <span>{lesson.title}</span>
               <strong>{lessonCompletedExercises}/{lessonExerciseCount} exercises</strong>
             </div>
+            <small className="progress-cookie-note">
+              Progress saved in this browser
+            </small>
           </div>
         </aside>
 
