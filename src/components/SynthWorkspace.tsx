@@ -119,6 +119,9 @@ export function SynthWorkspace() {
               {note.label}
             </button>
           ))}
+          <button className="synth-phrase-button" onClick={() => audioEngine.playSynthPhrase()}>
+            Play current melody
+          </button>
         </div>
       </div>
     </div>
