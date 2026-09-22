@@ -1,7 +1,9 @@
-name: Validate branch manually
+name: Validate v2.0 applied-learning release candidate
 
 on:
   workflow_dispatch:
+  push:
+    branches: ["feature/curriculum-application-audit-v20"]
 
 permissions:
   contents: read
