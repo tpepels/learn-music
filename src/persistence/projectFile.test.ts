@@ -4,6 +4,7 @@ import {
   cloneAutomationSettings,
   cloneMixerSettings,
   clonePattern,
+  initialAccompanimentPattern,
   initialArrangement,
   initialAutomationSettings,
   initialBassSequence,
@@ -36,6 +37,7 @@ function sampleProject(): ProjectData {
     },
     melody: [...initialMelody],
     chordProgression: [...initialChordProgression],
+    accompanimentPattern: initialAccompanimentPattern,
     synthSettings: { ...initialSynthSettings },
     arrangement: cloneArrangement(initialArrangement),
     mixerSettings: cloneMixerSettings(initialMixerSettings),
@@ -116,6 +118,20 @@ describe("PLAY / LAB project files", () => {
       "Fm",
       "B♭",
     ]);
+  });
+
+  it("defaults accompaniment to block when opening an older project", () => {
+    const project = sampleProject();
+    const { accompanimentPattern: _accompanimentPattern, ...legacyProject } = project;
+
+    const parsed = parseProjectFile({
+      format: "play-lab-project",
+      version: 1,
+      exportedAt: "2026-09-22T12:00:00.000Z",
+      project: legacyProject,
+    });
+
+    expect(parsed.accompanimentPattern).toBe("block");
   });
 
   it("fills advanced-production defaults when opening a pre-1.4 project", () => {
