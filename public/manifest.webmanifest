@@ -2,14 +2,14 @@
   "name": "PLAY / LAB — Learn Music",
   "short_name": "PLAY / LAB",
   "description": "Learn music composition and production by making music.",
-  "start_url": "/learn-music/",
-  "scope": "/learn-music/",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#11101b",
   "theme_color": "#11101b",
   "icons": [
     {
-      "src": "/learn-music/icon.svg",
+      "src": "./icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
