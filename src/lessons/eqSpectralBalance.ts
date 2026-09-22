@@ -28,7 +28,7 @@ export const eqSpectralBalanceLesson: LessonDefinition = {
         explanation:
           "A high-pass filter attenuates frequencies below its cutoff. It is useful when a sound contains low rumble or body that adds little musically but occupies the same region as the low-end foundation.",
         instruction:
-          "Select CHORDS. Raise the high-pass cutoff to somewhere between 100 and 220 Hz. Loop the arrangement and compare the chord layer with and without that low-frequency weight.",
+          "Select CHORDS and loop the arrangement. Sweep HIGH-PASS from near the bottom to at least 280 Hz so you clearly hear the chord body disappear. Then bring it back until the mud is reduced without making the chords obviously thin.",
         recognition:
           "The chords should lose some low body while kick and bass become easier to perceive. If the chords become thin, the cutoff has gone too high.",
         terms: [
@@ -59,7 +59,7 @@ export const eqSpectralBalanceLesson: LessonDefinition = {
         explanation:
           "A common EQ search technique is to boost a narrow bell and sweep its centre frequency. The boost is not the final mix decision—it makes a frequency region obvious enough to identify by ear.",
         instruction:
-          "On CHORDS, set Q to at least 3 and boost the bell by at least +6 dB. Move the frequency somewhere between 300 Hz and 4 kHz while listening. Stop where the coloration becomes especially obvious.",
+          "On CHORDS, use a narrow Q and a large temporary boost. Sweep the bell across at least 2 kHz of the midrange while the loop plays. Stop only after you have heard several obviously different resonances, then leave the bell on one region that sounds especially coloured or annoying.",
         recognition:
           "A narrow boost should make one character jump forward—boxiness, nasal tone, bite, or presence—depending on the selected frequency.",
         terms: [
@@ -71,7 +71,7 @@ export const eqSpectralBalanceLesson: LessonDefinition = {
         checksLabel: "Make the frequency obvious",
         successLabel: "You have created a deliberate narrow search boost",
       }),
-      evaluate: ({ eqSettings }) => [
+      evaluate: ({ eqSettings, experiments }) => [
         {
           label: "Chord bell is boosted by at least +6 dB",
           complete: eqSettings.chords.gain >= 6,
@@ -97,7 +97,7 @@ export const eqSpectralBalanceLesson: LessonDefinition = {
         explanation:
           "Once a troublesome region is identified, producers usually remove the temporary boost and try a much smaller cut. The aim is not to erase the sound's character but to reduce what distracts from the mix.",
         instruction:
-          "Keep the chord bell in the region you found, keep Q at 2 or higher, and change the gain to a cut between −2 and −6 dB.",
+          "Keep roughly the region you found, but flip the exaggerated boost into a moderate cut. Move Gain back and forth across 0 dB once so you hear boost, flat and cut on the same frequency before settling on a cut.",
         recognition:
           "The sound should become less congested without feeling hollow. If the EQ itself becomes the most obvious thing you hear, the cut is probably too deep.",
         terms: [
@@ -108,7 +108,7 @@ export const eqSpectralBalanceLesson: LessonDefinition = {
         checksLabel: "Back the search move off",
         successLabel: "The exaggerated search has become a practical corrective cut",
       }),
-      evaluate: ({ eqSettings }) => [
+      evaluate: ({ eqSettings, experiments }) => [
         {
           label: "Chord bell is cutting between −2 and −6 dB",
           complete:
@@ -130,7 +130,7 @@ export const eqSpectralBalanceLesson: LessonDefinition = {
         explanation:
           "Complementary EQ means reducing a region in one part while allowing or gently emphasizing that region in another. It is not a fixed recipe; it is a way of making parts cooperate instead of treating each one in isolation.",
         instruction:
-          "Keep a chord cut of at least −2 dB somewhere between 700 Hz and 3 kHz. On MELODY, place a gentle boost of +1 to +4 dB somewhere between 1.2 and 4 kHz.",
+          "Keep a useful midrange cut on CHORDS. Now move the MELODY bell around while the full mix plays and create a small complementary boost where it helps the melody read more clearly. Avoid simply copying the chord frequency; make the two choices serve different roles.",
         recognition:
           "The melody should become easier to locate without simply turning it up, while the chords remain present behind it.",
         terms: [
