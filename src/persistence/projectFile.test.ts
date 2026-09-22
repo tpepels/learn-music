@@ -95,6 +95,36 @@ describe("PLAY / LAB project files", () => {
     expect(parseProjectFile(file)).toEqual(file.project);
   });
 
+
+
+  it("fills advanced-production defaults when opening a pre-1.4 project", () => {
+    const project = sampleProject();
+    const {
+      eqSettings: _eqSettings,
+      saturationSettings: _saturationSettings,
+      sidechainSettings: _sidechainSettings,
+      stereoSettings: _stereoSettings,
+      referenceMixSettings: _referenceMixSettings,
+      ...legacyProject
+    } = project;
+
+    const parsed = parseProjectFile({
+      format: "play-lab-project",
+      version: 1,
+      exportedAt: "2026-09-22T12:00:00.000Z",
+      project: legacyProject,
+    });
+
+    expect(parsed.eqSettings).toEqual(initialEqSettings);
+    expect(parsed.saturationSettings).toEqual(initialSaturationSettings);
+    expect(parsed.sidechainSettings).toEqual(initialSidechainSettings);
+    expect(parsed.stereoSettings).toEqual(initialStereoSettings);
+    expect(parsed.referenceMixSettings).toEqual({
+      ...initialReferenceMixSettings,
+      snapshot: null,
+    });
+  });
+
   it("rejects malformed or incompatible project data", () => {
     const file = {
       format: "play-lab-project",
