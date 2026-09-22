@@ -31,13 +31,13 @@ export function PhraseFormWorkspace() {
       <div className="workspace-heading">
         <div>
           <span className="section-label">Macro form · four 4-bar sections</span>
-          <h2>Make sixteen bars actually change</h2>
+          <h2>Make sixteen bars change by ear</h2>
           <div className="daw-strip">
             <span>16 BARS</span><span>REPEAT</span><span>CONTRAST</span><span>RETURN</span>
           </div>
         </div>
         <span className="workspace-hint">
-          Labels describe the relationship. The layer buttons below determine what the listener actually hears in each four-bar section.
+          The labels name the relationship. The layer buttons decide what each four-bar section sounds like.
         </span>
       </div>
 
@@ -103,15 +103,15 @@ export function PhraseFormWorkspace() {
         </article>
         <article>
           <strong>Develop</strong>
-          <p>A′ should retain enough of A to be recognised while changing something audible.</p>
+          <p>Keep enough of A to recognise it, then change one audible part.</p>
         </article>
         <article>
           <strong>Contrast</strong>
-          <p>B should change the texture enough that the listener notices a new region without becoming a different song.</p>
+          <p>Change the texture enough for B to register as a new section while keeping the track connected.</p>
         </article>
         <article>
           <strong>Return</strong>
-          <p>When A comes back, restore its musical fingerprint so the form is heard rather than merely read.</p>
+          <p>When A returns, bring back the musical detail that made the opening recognisable.</p>
         </article>
       </div>
     </div>
