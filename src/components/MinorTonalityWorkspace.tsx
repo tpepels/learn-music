@@ -91,7 +91,7 @@ export function MinorTonalityWorkspace({ harmonic }: { harmonic: boolean }) {
       <div className="minor-keyboard" aria-label="A minor chromatic keyboard">
         {chromaticKeys.map((key) => {
           const selected = selectedPitchClasses.includes(key.pitchClass);
-          const scaleTone = scale.includes(key.pitchClass as never);
+          const scaleTone = (scale as readonly string[]).includes(key.pitchClass);
           return (
             <button
               key={key.pitchClass}
