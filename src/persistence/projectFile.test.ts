@@ -10,6 +10,7 @@ import {
   initialChordProgression,
   initialDynamicsSettings,
   initialEffectsSettings,
+  initialGrooveFeelSettings,
   initialMelody,
   initialMixerSettings,
   initialPattern,
@@ -36,6 +37,14 @@ function sampleProject(): ProjectData {
     effectsSettings: { ...initialEffectsSettings },
     voicingSettings: { inversions: [...initialVoicingSettings.inversions] },
     bassSequence: [...initialBassSequence],
+    grooveFeelSettings: {
+      swing: initialGrooveFeelSettings.swing,
+      velocities: {
+        kick: [...initialGrooveFeelSettings.velocities.kick],
+        snare: [...initialGrooveFeelSettings.velocities.snare],
+        hat: [...initialGrooveFeelSettings.velocities.hat],
+      },
+    },
   };
 }
 
