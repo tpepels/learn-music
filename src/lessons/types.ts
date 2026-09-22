@@ -3,6 +3,7 @@ import type {
   Arrangement,
   ChordProgression,
   MelodySequence,
+  MixerSettings,
   StepPattern,
   SynthSettings,
 } from "../music/model";
@@ -29,6 +30,7 @@ export const exerciseContentSchema = z.object({
     "chords",
     "synth",
     "arrangement",
+    "mixer",
   ]),
   checksLabel: z.string(),
   successLabel: z.string(),
@@ -54,6 +56,7 @@ export type LessonContext = {
   chordProgression: ChordProgression;
   synthSettings: SynthSettings;
   arrangement: Arrangement;
+  mixerSettings: MixerSettings;
 };
 
 export type ExerciseDefinition = z.infer<typeof exerciseContentSchema> & {
