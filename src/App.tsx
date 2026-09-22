@@ -32,7 +32,6 @@ import {
   courseOutline,
   getLesson,
   getNextImplementedLesson,
-  implementedLessons,
 } from "./lessons/course";
 import { getAdvanceDestination } from "./lessons/progression";
 import type { ExerciseDefinition } from "./lessons/types";
@@ -296,38 +295,6 @@ const lessonGlyphs: Record<string, string> = {
   "harmony.modal-mixture": "⇆",
 };
 
-const workspaceNames: Record<ExerciseDefinition["workspace"], string> = {
-  drums: "Drum machine",
-  compare: "Pattern lab",
-  "piano-key": "Keyboard",
-  melody: "Piano roll",
-  chords: "Chord track",
-  synth: "Synthesizer",
-  arrangement: "Arrangement view",
-  mixer: "Mixer",
-  "automation-dynamics": "Automation + dynamics",
-  effects: "Creative FX rack",
-  "final-project": "Final project",
-  voicing: "Voicing lab",
-  bass: "Bass piano roll",
-  "groove-feel": "Velocity + swing",
-  motif: "Motif lab",
-  "melody-harmony": "Melody + harmony",
-  "harmonic-function": "Functional harmony",
-  "phrase-form": "Macro form map",
-  texture: "Texture + orchestration",
-  eq: "Parametric EQ",
-  saturation: "Saturation",
-  sidechain: "Sidechain ducking",
-  stereo: "Stereo field",
-  reference: "Reference A/B",
-  "minor-key": "A-minor piano roll",
-  "harmonic-minor": "Harmonic-minor piano roll",
-  "minor-harmony": "Minor-key chord track",
-  "seventh-harmony": "Seventh-chord track",
-  "borrowed-harmony": "Borrowed-chord track",
-};
-
 function App() {
   const currentLessonId = useStudioStore((state) => state.currentLessonId);
   const exerciseIndexByLesson = useStudioStore((state) => state.exerciseIndexByLesson);
@@ -393,6 +360,70 @@ function App() {
   const exerciseIndex = Math.min(storedExerciseIndex, lesson.exercises.length - 1);
   const exercise = lesson.exercises[exerciseIndex];
   const nextLesson = getNextImplementedLesson(currentLessonId);
+
+  const exerciseStateFingerprint = useMemo(
+    () =>
+      JSON.stringify({
+        patterns,
+        selectedPitchClasses,
+        melody,
+        chordProgression,
+        synthSettings,
+        arrangement,
+        mixerSettings,
+        automationSettings,
+        dynamicsSettings,
+        effectsSettings,
+        projectMilestones,
+        voicingSettings,
+        bassSequence,
+        grooveFeelSettings,
+        formSettings,
+        textureSettings,
+        eqSettings,
+        saturationSettings,
+        sidechainSettings,
+        stereoSettings,
+        referenceMixSettings,
+      }),
+    [
+      patterns,
+      selectedPitchClasses,
+      melody,
+      chordProgression,
+      synthSettings,
+      arrangement,
+      mixerSettings,
+      automationSettings,
+      dynamicsSettings,
+      effectsSettings,
+      projectMilestones,
+      voicingSettings,
+      bassSequence,
+      grooveFeelSettings,
+      formSettings,
+      textureSettings,
+      eqSettings,
+      saturationSettings,
+      sidechainSettings,
+      stereoSettings,
+      referenceMixSettings,
+    ],
+  );
+  const [exerciseEntry, setExerciseEntry] = useState({
+    id: exercise.id,
+    fingerprint: exerciseStateFingerprint,
+  });
+
+  useEffect(() => {
+    setExerciseEntry({
+      id: exercise.id,
+      fingerprint: exerciseStateFingerprint,
+    });
+    // Snapshot only when a different exercise opens; later project edits must not
+    // move the baseline or inherited state would count as fresh work.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [exercise.id]);
 
   useEffect(() => {
     audioEngine.setPattern(patterns[activePattern]);
@@ -514,8 +545,13 @@ function App() {
     ],
   );
 
-  const exerciseReady = checks.every((check) => check.complete);
+  const checksReady = checks.every((check) => check.complete);
   const exerciseCompleted = completedExerciseIds.includes(exercise.id);
+  const exerciseChangedSinceEntry =
+    exerciseEntry.id === exercise.id &&
+    exerciseEntry.fingerprint !== exerciseStateFingerprint;
+  const exerciseReady =
+    checksReady && (exerciseCompleted || exerciseChangedSinceEntry);
   const lessonCompleted = completedLessonIds.includes(lesson.id);
   const isLastExercise = exerciseIndex === lesson.exercises.length - 1;
 
@@ -670,6 +706,13 @@ function App() {
   };
 
   const actionLabel = (() => {
+    if (
+      checksReady &&
+      !exerciseCompleted &&
+      !exerciseChangedSinceEntry
+    ) {
+      return "Try one change here to continue";
+    }
     if (!exerciseReady && !exerciseCompleted) return "Complete the exercise to continue";
     if (!isLastExercise) return "Continue to " + lesson.exercises[exerciseIndex + 1].letter;
     if (nextLesson) return "Complete lesson & continue to lesson " + nextLesson.number;
@@ -806,9 +849,7 @@ function App() {
               <span>{lesson.title}</span>
               <strong>{lessonCompletedExercises}/{lessonExerciseCount} exercises</strong>
             </div>
-            <small className="progress-cookie-note">
-              Progress saved in this browser
-            </small>
+
           </div>
         </aside>
 
@@ -883,11 +924,7 @@ function App() {
                 ? "Confirm · lose this lesson's progress"
                 : "↺ Reset lesson progress"}
             </button>
-            <small>
-              {confirmLessonReset
-                ? "This clears completed exercises for this lesson. Your musical project stays intact."
-                : "Start this lesson again from A without deleting your music."}
-            </small>
+
             {confirmLessonReset && (
               <button
                 className="lesson-reset-cancel"
