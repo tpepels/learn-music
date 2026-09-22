@@ -44,7 +44,7 @@ export function MotifWorkspace() {
           </div>
         </div>
         <span className="workspace-hint">
-          The first four steps are the source. Build later material from that identity rather than starting over each time.
+          The first four steps are the source. Let later material keep something recognisable from that idea.
         </span>
       </div>
 
