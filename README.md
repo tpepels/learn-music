@@ -12,7 +12,7 @@ All three modes operate on the same persistent local project.
 
 ## Current interactive curriculum
 
-There are currently **13 lessons and 52 guided exercises**.
+There are currently **18 lessons and 72 guided exercises**.
 
 1. **Pulse & groove** — four-on-the-floor, backbeat, eighths, syncopation
 2. **Repetition & variation** — related variation, fill, anticipation, turnaround
@@ -27,6 +27,11 @@ There are currently **13 lessons and 52 guided exercises**.
 11. **Voicing & voice leading** — root position, first inversion, second inversion, smooth voice motion
 12. **Bass lines** — roots, chord tones, approach notes, complete four-bar bass phrase
 13. **Velocity, accents & swing** — MIDI velocity, accent patterns, ghost notes, swung timing
+14. **Motif development** — repetition, transposition, fragmentation, call and response
+15. **Melody over harmony** — chord tones, passing tones, neighbour notes, tension/resolution
+16. **Harmonic function** — tonic/predominant/dominant, ii–V–I, deceptive resolution, V/V
+17. **Phrase & form** — antecedent/consequent, binary, ternary, AABA
+18. **Texture & orchestration** — register, open voicing, octave doubling, density contrast
 
 Every exercise explains:
 
@@ -53,6 +58,11 @@ Current workspaces include:
 - voicing / inversion lab
 - four-bar bass piano roll
 - velocity lane + swing/groove editor
+- motif-development piano roll
+- melody-over-harmony overlay
+- harmonic-function chord lane
+- sixteen-bar macro-form map
+- texture/orchestration register controls
 - subtractive synthesizer
 - arrangement view
 - four-channel mixer
@@ -83,11 +93,16 @@ Current modules:
 - Groove
 - Feel
 - Piano roll
+- Motif
+- Melody + chords
 - Chords
+- Function
 - Voicing
 - Bass
 - Synth
+- Form
 - Arrangement
+- Texture
 - Mixer
 - Automation
 - FX
@@ -110,6 +125,9 @@ Current signal paths include:
 - post-fader sends → shared **reverb** and **delay** returns
 - drum hits read real per-step **MIDI velocity** values
 - Tone transport applies the project **swing** amount to eighth-note subdivision timing
+- chord playback supports full seventh chords such as D7 / V/V
+- texture settings transpose bass/chords/melody by octave during playback
+- open chord spacing and melody octave doubling alter the actual rendered voices
 
 Automation is real playback automation:
 
@@ -122,7 +140,7 @@ Mixer and effects controls manipulate the real audio graph rather than a decorat
 
 The musical project persists locally through Zustand/local storage.
 
-**Learning progress is also stored in a first-party browser cookie** (`play_lab_progress_v1`). It keeps the current lesson, per-lesson exercise position, completed exercises, and completed lessons across reloads. Existing local progress is migrated into the cookie automatically on upgrade.
+**Learning progress is also stored in a first-party browser cookie** (`play_lab_progress_v1`). It keeps the current lesson, per-lesson exercise position, completed exercises, and completed lessons across reloads. The current compact v2 codec stores A/B/C/D completion as a four-bit mask per lesson so the cookie remains small as the curriculum grows. Existing verbose v1 cookies are decoded and migrated automatically.
 
 Each lesson has a **Reset lesson progress** action. Resetting:
 - returns that lesson to exercise A;
@@ -153,6 +171,8 @@ The project file contains:
 - chord inversions / voicings
 - programmed bass line
 - groove velocity values and swing amount
+- sixteen-bar macro-form map
+- register / open-voicing / octave-doubling texture settings
 
 The project file is the editable session. It is intentionally distinguished from a future standalone WAV/audio render.
 
