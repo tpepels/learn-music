@@ -4,6 +4,7 @@ import { ArrangementWorkspace } from "./components/ArrangementWorkspace";
 import { ChordWorkspace } from "./components/ChordWorkspace";
 import { DrumWorkspace } from "./components/DrumWorkspace";
 import { MelodyWorkspace, PianoKeyWorkspace } from "./components/PianoWorkspace";
+import { ProducerContext } from "./components/ProducerContext";
 import { SynthWorkspace } from "./components/SynthWorkspace";
 import {
   courseOutline,
@@ -149,6 +150,25 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
       return <ArrangementWorkspace />;
   }
 }
+
+const lessonGlyphs: Record<string, string> = {
+  "rhythm.pulse-and-groove": "●",
+  "rhythm.variation": "↻",
+  "pitch.melody": "♩",
+  "harmony.chords": "Ⅳ",
+  "sound.synthesis": "∿",
+  "form.arrangement": "▦",
+};
+
+const workspaceNames: Record<ExerciseDefinition["workspace"], string> = {
+  drums: "Drum machine",
+  compare: "Pattern lab",
+  "piano-key": "Keyboard",
+  melody: "Piano roll",
+  chords: "Chord track",
+  synth: "Synthesizer",
+  arrangement: "Arrangement view",
+};
 
 function App() {
   const currentLessonId = useStudioStore((state) => state.currentLessonId);
@@ -320,16 +340,17 @@ function App() {
     <div className="app-shell">
       <header className="topbar">
         <div className="brand">
-          <div className="brand-mark">LM</div>
+          <div className="brand-mark">♪</div>
           <div>
-            <strong>Learn Music</strong>
-            <span>Composition + production</span>
+            <strong>PLAY / LAB</strong>
+            <span>learn music by making it</span>
           </div>
         </div>
 
         <div className="lesson-title">
-          <span>Lesson {lesson.number} · Exercise {exercise.letter}</span>
-          <strong>{lesson.title}</strong>
+          <span className="topbar-lesson-kicker">LESSON {String(lesson.number).padStart(2, "0")} · {exercise.letter}</span>
+          <strong>{exercise.title}</strong>
+          <small>{workspaceNames[exercise.workspace]}</small>
         </div>
 
         <Transport workspace={exercise.workspace} />
@@ -338,8 +359,9 @@ function App() {
       <div className="workspace">
         <aside className="course-panel">
           <div className="panel-heading">
-            <span className="section-label">Course</span>
-            <strong>Foundations</strong>
+            <span className="section-label">Your set</span>
+            <strong>Music maker foundations</strong>
+            <p>Each lesson unlocks a new part of the studio.</p>
           </div>
 
           <nav className="course-list" aria-label="Course lessons">
@@ -363,8 +385,14 @@ function App() {
                   key={item.id}
                   onClick={() => openLesson(item.id)}
                 >
-                  <span className="course-number">{String(item.number).padStart(2, "0")}</span>
-                  <span>{item.title}</span>
+                  <span className="course-number">
+                    <b>{lessonGlyphs[item.id] ?? "•"}</b>
+                    {String(item.number).padStart(2, "0")}
+                  </span>
+                  <span>
+                    <strong>{item.title}</strong>
+                    <small>{completed ? "done" : active ? "playing now" : unlocked ? "ready" : "locked"}</small>
+                  </span>
                   <i>{completed ? "✓" : ""}</i>
                 </button>
               );
@@ -391,13 +419,20 @@ function App() {
 
         <main className="music-panel">
           <section className="music-intro">
-            <span className="section-label">{lesson.eyebrow}</span>
+            <div className="lesson-chip-row">
+              <span className="lesson-chip">{lesson.eyebrow}</span>
+              <span className="lesson-chip lesson-chip-tool">{workspaceNames[exercise.workspace]}</span>
+              <span className="lesson-chip lesson-chip-progress">{lessonCompletedExercises + 1}/{lessonExerciseCount}</span>
+            </div>
             <h1>{lesson.hero}</h1>
-            <p>{lesson.description}</p>
+            <p>{exercise.learn}</p>
 
-            <div className="lesson-overview">
-              <span className="section-label">What this lesson teaches</span>
-              <p>{lesson.overview}</p>
+            <div className="play-loop">
+              <span>1</span><i />
+              <span>Listen</span><i />
+              <span>Tweak</span><i />
+              <span>Compare</span><i />
+              <span>Keep what works</span>
             </div>
           </section>
 
@@ -413,22 +448,60 @@ function App() {
         </main>
 
         <aside className="teacher-panel">
-          <div className="teacher-badge">
-            {lesson.number}{exercise.letter}
+          <div className="coach-header">
+            <div className="teacher-badge">{lesson.number}{exercise.letter}</div>
+            <div>
+              <span className="section-label">Studio coach</span>
+              <h2>{exercise.title}</h2>
+            </div>
           </div>
 
-          <span className="section-label">What you are learning</span>
-          <h2>{exercise.title}</h2>
-          <p className="learning-goal">{exercise.learn}</p>
+          <div className="instruction-card instruction-card-primary">
+            <span className="section-label">Play with this</span>
+            <p>{exercise.instruction}</p>
+          </div>
 
-          <div className="concept-card">
-            <span className="section-label">Explanation</span>
+          <div className="checks">
+            <div className="checks-heading">
+              <span className="section-label">{exercise.checksLabel}</span>
+              <strong>{checks.filter((check) => check.complete).length}/{checks.length}</strong>
+            </div>
+            {checks.map((check) => (
+              <div className={check.complete ? "check is-complete" : "check"} key={check.label}>
+                <span>{check.complete ? "✓" : "○"}</span>
+                <p>{check.label}</p>
+              </div>
+            ))}
+          </div>
+
+          <button
+            className="lesson-action"
+            disabled={(!exerciseReady && !exerciseCompleted) || (lessonCompleted && !nextLesson && isLastExercise)}
+            onClick={advance}
+          >
+            <span>{actionLabel}</span>
+            <b>→</b>
+          </button>
+
+          <button className="text-button" onClick={resetWorkspace}>
+            ↺ Reset this instrument
+          </button>
+
+          <ProducerContext exerciseId={exercise.id} />
+
+          <div className="concept-card concept-card-learn">
+            <span className="section-label">What is happening?</span>
             <p>{exercise.explanation}</p>
+          </div>
+
+          <div className="recognition-card">
+            <span className="section-label">Hear it</span>
+            <p>{exercise.recognition}</p>
           </div>
 
           {exercise.terms.length > 0 && (
             <div className="term-section">
-              <span className="section-label">Terms introduced here</span>
+              <span className="section-label">Words musicians use</span>
               <div className="term-list">
                 {exercise.terms.map((item) => (
                   <div className="term-card" key={item.term}>
@@ -440,54 +513,11 @@ function App() {
             </div>
           )}
 
-          <div className="recognition-card">
-            <span className="section-label">How to recognise it</span>
-            <p>{exercise.recognition}</p>
-          </div>
-
-          <div className="instruction-card">
-            <span className="section-label">Try it</span>
-            <p>{exercise.instruction}</p>
-          </div>
-
-          <div className="checks">
-            <span className="section-label">{exercise.checksLabel}</span>
-            {checks.map((check) => (
-              <div className={check.complete ? "check is-complete" : "check"} key={check.label}>
-                <span>{check.complete ? "✓" : "○"}</span>
-                <p>{check.label}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className={exerciseReady || exerciseCompleted ? "completion is-complete" : "completion"}>
-            <span>
-              {exerciseCompleted
-                ? "Exercise completed"
-                : exerciseReady
-                  ? exercise.successLabel
-                  : "Explore until the checks are complete"}
-            </span>
-            <strong>{checks.filter((check) => check.complete).length} / {checks.length}</strong>
-          </div>
-
-          <button
-            className="lesson-action"
-            disabled={(!exerciseReady && !exerciseCompleted) || (lessonCompleted && !nextLesson && isLastExercise)}
-            onClick={advance}
-          >
-            {actionLabel}
-          </button>
-
-          <button className="text-button" onClick={resetWorkspace}>
-            Reset this workspace
-          </button>
-
           <div className="implemented-note">
-            <span className="section-label">Current course build</span>
+            <span className="section-label">Studio so far</span>
             <p>
-              {implementedLessons.length} interactive lessons ·{" "}
-              {implementedLessons.reduce((total, item) => total + item.exercises.length, 0)} exercises.
+              {implementedLessons.length} instruments / views ·{" "}
+              {implementedLessons.reduce((total, item) => total + item.exercises.length, 0)} guided experiments.
             </p>
           </div>
         </aside>
