@@ -28,7 +28,7 @@ export const stereoMonoLesson: LessonDefinition = {
         explanation:
           "Panning can stop supporting parts from stacking in the same perceived position. Kick and bass are commonly kept near the centre because stable low-frequency energy translates reliably across playback systems.",
         instruction:
-          "Keep BASS centred between −0.1 and +0.1. Pan CHORDS at least 20% to one side and MELODY at least 20% to the opposite side.",
+          "First put CHORDS and MELODY noticeably on the same side and hear the mix lean. Then move CHORDS across the centre to the opposite side while keeping BASS centred. Leave chords and melody moderately separated.",
         recognition:
           "The mix should feel wider without the bass pulling toward one speaker.",
         terms: [
@@ -40,7 +40,13 @@ export const stereoMonoLesson: LessonDefinition = {
         checksLabel: "Create stable stereo placement",
         successLabel: "Supporting parts now spread around a centred low end",
       }),
-      evaluate: ({ mixerSettings }) => [
+      evaluate: ({ mixerSettings, experiments }) => [
+        {
+          label: "You moved chords across the stereo field during the comparison",
+          complete:
+            (experiments["mixer.chords.pan"]?.min ?? 0) <= -0.2 &&
+            (experiments["mixer.chords.pan"]?.max ?? 0) >= 0.2,
+        },
         {
           label: "Bass remains near the centre",
           complete: Math.abs(mixerSettings.bass.pan) <= 0.1,
@@ -67,7 +73,7 @@ export const stereoMonoLesson: LessonDefinition = {
         explanation:
           "A stereo widener changes the balance between mid information and side information. Wider is not automatically better: foundational parts often benefit from a stable centre while pads, chords, and effects can occupy more side energy.",
         instruction:
-          "Keep BASS width at 50% or less on the app scale. Set CHORDS width to at least 140% and MELODY to at least 110%.",
+          "Temporarily widen BASS to at least 160% and listen to the low end lose its stable centre. Then narrow bass back to 100% or less while making CHORDS clearly wider and MELODY somewhat wider than the bass.",
         recognition:
           "Harmony should open outward while bass stays visually and audibly anchored.",
         terms: [
@@ -79,9 +85,13 @@ export const stereoMonoLesson: LessonDefinition = {
         checksLabel: "Use width selectively",
         successLabel: "Width now supports hierarchy instead of affecting every channel equally",
       }),
-      evaluate: ({ stereoSettings }) => [
+      evaluate: ({ stereoSettings, experiments }) => [
         {
-          label: "Bass width is 100% or less on the display scale",
+          label: "You deliberately over-widened bass first",
+          complete: (experiments["stereo.bass.width"]?.max ?? 0) >= 0.8,
+        },
+        {
+          label: "Bass width returns to 100% or less on the display scale",
           complete: stereoSettings.widths.bass <= 0.5,
         },
         {
