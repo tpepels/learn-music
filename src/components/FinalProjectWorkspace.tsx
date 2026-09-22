@@ -65,6 +65,7 @@ export function FinalProjectWorkspace() {
   const patterns = useStudioStore((state) => state.patterns);
   const melody = useStudioStore((state) => state.melody);
   const chords = useStudioStore((state) => state.chordProgression);
+  const harmonySequence = useStudioStore((state) => state.harmonySequence);
   const arrangement = useStudioStore((state) => state.arrangement);
   const mixer = useStudioStore((state) => state.mixerSettings);
   const automation = useStudioStore((state) => state.automationSettings);
@@ -76,7 +77,8 @@ export function FinalProjectWorkspace() {
   const compositionReady =
     countActivePattern(patterns.A) >= 8 &&
     melody.filter((note) => note !== null).length >= 6 &&
-    chords.filter(Boolean).length === 4;
+    chords.filter(Boolean).length === 4 &&
+    harmonySequence.reduce((total, notes) => total + notes.length, 0) >= 12;
 
   const activeBars = arrangement.filter((bar) => activeLayerCount(bar) > 0).length;
   const arrangementReady =
@@ -115,7 +117,7 @@ export function FinalProjectWorkspace() {
   };
 
   const checks = [
-    ["Composition", compositionReady, "Groove, melody, and four-chord progression"],
+    ["Composition", compositionReady, "Groove, melody, chord progression, and written harmony part"],
     ["Arrangement", arrangementReady, "At least six active bars with a peak and release"],
     ["Mix", mixReady, "Foreground/background balance plus spatial treatment"],
     ["Movement", movementReady, "Meaningful volume and filter automation"],
