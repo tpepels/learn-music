@@ -3,6 +3,7 @@ import { automationDynamicsLesson } from "./automationDynamics";
 import { bassLinesLesson } from "./bassLines";
 import { chordProgressionLesson } from "./chordProgressions";
 import { effectsTransitionsLesson } from "./effectsTransitions";
+import { eqSpectralBalanceLesson } from "./eqSpectralBalance";
 import { finalProjectLesson } from "./finalProject";
 import { grooveFeelLesson } from "./grooveFeel";
 import { mixingSpaceLesson } from "./mixingSpace";
@@ -13,8 +14,12 @@ import { phraseFormLesson } from "./phraseForm";
 import { textureOrchestrationLesson } from "./textureOrchestration";
 import { pianoCompositionLesson } from "./pianoComposition";
 import { pulseAndGrooveLesson } from "./pulseAndGroove";
+import { referenceMixingLesson } from "./referenceMixing";
 import { rhythmVariationLesson } from "./rhythmVariation";
+import { saturationLesson } from "./saturation";
+import { sidechainLesson } from "./sidechain";
 import { soundSynthesisLesson } from "./soundSynthesis";
+import { stereoMonoLesson } from "./stereoMono";
 import { voiceLeadingLesson } from "./voiceLeading";
 import type { LessonDefinition } from "./types";
 
@@ -37,6 +42,11 @@ export const implementedLessons: LessonDefinition[] = [
   harmonicFunctionLesson,
   phraseFormLesson,
   textureOrchestrationLesson,
+  eqSpectralBalanceLesson,
+  saturationLesson,
+  sidechainLesson,
+  stereoMonoLesson,
+  referenceMixingLesson,
 ];
 
 export const courseOutline = implementedLessons.map((lesson) => ({
