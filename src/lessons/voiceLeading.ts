@@ -13,7 +13,7 @@ const lesson = lessonContentSchema.parse({
   number: 11,
   title: "Voicing & voice leading",
   eyebrow: "Composition · Harmony",
-  hero: "Make one chord grow into the next instead of jumping there."
+  hero: "Make one chord grow into the next instead of jumping there.",
   description:
     "Keep the same chord progression but rearrange the notes inside each triad. Learn root position, first and second inversion, then use those inversions to reduce unnecessary movement between chords.",
   overview:
