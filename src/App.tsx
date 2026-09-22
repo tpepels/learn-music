@@ -8,6 +8,7 @@ import { ChordWorkspace } from "./components/ChordWorkspace";
 import { CreateMode } from "./components/CreateMode";
 import { DrumWorkspace } from "./components/DrumWorkspace";
 import { EffectsWorkspace } from "./components/EffectsWorkspace";
+import { EqWorkspace } from "./components/EqWorkspace";
 import { FinalProjectWorkspace } from "./components/FinalProjectWorkspace";
 import { GrooveFeelWorkspace } from "./components/GrooveFeelWorkspace";
 import { HarmonicFunctionWorkspace } from "./components/HarmonicFunctionWorkspace";
@@ -17,6 +18,10 @@ import { MixerWorkspace } from "./components/MixerWorkspace";
 import { LearningPanel } from "./components/LearningPanel";
 import { MelodyWorkspace, PianoKeyWorkspace } from "./components/PianoWorkspace";
 import { PhraseFormWorkspace } from "./components/PhraseFormWorkspace";
+import { ReferenceWorkspace } from "./components/ReferenceWorkspace";
+import { SaturationWorkspace } from "./components/SaturationWorkspace";
+import { SidechainWorkspace } from "./components/SidechainWorkspace";
+import { StereoWorkspace } from "./components/StereoWorkspace";
 import { StudioMode } from "./components/StudioMode";
 import { SynthWorkspace } from "./components/SynthWorkspace";
 import { TextureWorkspace } from "./components/TextureWorkspace";
@@ -75,7 +80,12 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
         workspace === "effects" ||
         workspace === "final-project" ||
         workspace === "phrase-form" ||
-        workspace === "texture"
+        workspace === "texture" ||
+        workspace === "eq" ||
+        workspace === "saturation" ||
+        workspace === "sidechain" ||
+        workspace === "stereo" ||
+        workspace === "reference"
       ) {
         await audioEngine.playArrangement(bpm, setCurrentStep);
       } else {
@@ -226,6 +236,16 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
       return <PhraseFormWorkspace />;
     case "texture":
       return <TextureWorkspace />;
+    case "eq":
+      return <EqWorkspace />;
+    case "saturation":
+      return <SaturationWorkspace />;
+    case "sidechain":
+      return <SidechainWorkspace />;
+    case "stereo":
+      return <StereoWorkspace />;
+    case "reference":
+      return <ReferenceWorkspace />;
   }
 }
 
@@ -248,6 +268,11 @@ const lessonGlyphs: Record<string, string> = {
   "harmony.function": "→",
   "composition.phrase-form": "▤",
   "composition.texture-orchestration": "⌘",
+  "production.eq-spectral-balance": "⌁",
+  "production.saturation": "≈",
+  "production.sidechain": "⇣",
+  "production.stereo-mono": "↔",
+  "production.reference-mixing": "A/B",
 };
 
 const workspaceNames: Record<ExerciseDefinition["workspace"], string> = {
@@ -270,6 +295,11 @@ const workspaceNames: Record<ExerciseDefinition["workspace"], string> = {
   "harmonic-function": "Functional harmony",
   "phrase-form": "Macro form map",
   texture: "Texture + orchestration",
+  eq: "Parametric EQ",
+  saturation: "Saturation",
+  sidechain: "Sidechain ducking",
+  stereo: "Stereo field",
+  reference: "Reference A/B",
 };
 
 function App() {
@@ -294,6 +324,11 @@ function App() {
   const grooveFeelSettings = useStudioStore((state) => state.grooveFeelSettings);
   const formSettings = useStudioStore((state) => state.formSettings);
   const textureSettings = useStudioStore((state) => state.textureSettings);
+  const eqSettings = useStudioStore((state) => state.eqSettings);
+  const saturationSettings = useStudioStore((state) => state.saturationSettings);
+  const sidechainSettings = useStudioStore((state) => state.sidechainSettings);
+  const stereoSettings = useStudioStore((state) => state.stereoSettings);
+  const referenceMixSettings = useStudioStore((state) => state.referenceMixSettings);
   const appMode = useStudioStore((state) => state.appMode);
   const [studioTransportWorkspace, setStudioTransportWorkspace] =
     useState<ExerciseDefinition["workspace"]>("compare");
@@ -319,6 +354,11 @@ function App() {
   const resetGrooveFeel = useStudioStore((state) => state.resetGrooveFeel);
   const resetFormSettings = useStudioStore((state) => state.resetFormSettings);
   const resetTextureSettings = useStudioStore((state) => state.resetTextureSettings);
+  const resetEq = useStudioStore((state) => state.resetEq);
+  const resetSaturation = useStudioStore((state) => state.resetSaturation);
+  const resetSidechain = useStudioStore((state) => state.resetSidechain);
+  const resetStereo = useStudioStore((state) => state.resetStereo);
+  const resetReferenceMix = useStudioStore((state) => state.resetReferenceMix);
   const resetLessonProgress = useStudioStore((state) => state.resetLessonProgress);
   const setAppMode = useStudioStore((state) => state.setAppMode);
 
@@ -380,6 +420,22 @@ function App() {
     audioEngine.setTextureSettings(textureSettings);
   }, [textureSettings]);
 
+  useEffect(() => {
+    audioEngine.setEqSettings(eqSettings);
+  }, [eqSettings]);
+
+  useEffect(() => {
+    audioEngine.setSaturationSettings(saturationSettings);
+  }, [saturationSettings]);
+
+  useEffect(() => {
+    audioEngine.setSidechainSettings(sidechainSettings);
+  }, [sidechainSettings]);
+
+  useEffect(() => {
+    audioEngine.setStereoSettings(stereoSettings);
+  }, [stereoSettings]);
+
   const checks = useMemo(
     () =>
       exercise.evaluate({
@@ -400,6 +456,11 @@ function App() {
         grooveFeelSettings,
         formSettings,
         textureSettings,
+        eqSettings,
+        saturationSettings,
+        sidechainSettings,
+        stereoSettings,
+        referenceMixSettings,
       }),
     [
       exercise,
@@ -419,6 +480,11 @@ function App() {
       grooveFeelSettings,
       formSettings,
       textureSettings,
+      eqSettings,
+      saturationSettings,
+      sidechainSettings,
+      stereoSettings,
+      referenceMixSettings,
     ],
   );
 
@@ -534,6 +600,21 @@ function App() {
         break;
       case "texture":
         resetTextureSettings();
+        break;
+      case "eq":
+        resetEq();
+        break;
+      case "saturation":
+        resetSaturation();
+        break;
+      case "sidechain":
+        resetSidechain();
+        break;
+      case "stereo":
+        resetStereo();
+        break;
+      case "reference":
+        resetReferenceMix();
         break;
     }
   };
