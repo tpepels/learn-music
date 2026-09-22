@@ -202,6 +202,74 @@ export function ConceptVisual({ kind }: { kind: ConceptVisualKind }) {
         </svg>
       );
 
+    case "voice-leading":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="Chord inversion and voice-leading diagram">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          {[0,1,2,3].map((column) => {
+            const x = 32 + column * 70;
+            const ys = [
+              [88,66,44],
+              [86,62,43],
+              [82,60,41],
+              [84,61,42],
+            ][column];
+            return (
+              <g key={column}>
+                {ys.map((y, voice) => (
+                  <rect
+                    key={voice}
+                    x={x}
+                    y={y}
+                    width="42"
+                    height="10"
+                    rx="4"
+                    className={voice === 0 ? "diagram-note is-bass" : "diagram-note"}
+                  />
+                ))}
+                <text x={x} y="116" className="diagram-small">
+                  {["I","V⁶","vi⁶","IV⁶⁴"][column]}
+                </text>
+              </g>
+            );
+          })}
+          <path d="M 53 49 C 92 48, 101 48, 123 48 S 178 46, 193 46 S 244 47, 263 47" className="diagram-envelope" />
+          <path d="M 53 71 C 89 70, 108 67, 123 67 S 176 64, 193 64 S 246 65, 263 65" className="diagram-envelope" />
+          <path d="M 53 93 C 86 91, 105 91, 123 91 S 176 87, 193 87 S 245 89, 263 89" className="diagram-envelope" />
+          <text x="32" y="130" className="diagram-caption">COMMON TONES + SMALLER VOICE MOVES</text>
+        </svg>
+      );
+
+    case "bassline":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="Bass piano roll and approach-note diagram">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          {Array.from({ length: 6 }, (_, row) => (
+            <line key={"h"+row} x1="48" y1={34+row*15} x2="298" y2={34+row*15} className="diagram-grid" />
+          ))}
+          {Array.from({ length: 17 }, (_, col) => (
+            <line key={"v"+col} x1={48+col*15.6} y1="34" x2={48+col*15.6} y2="109" className="diagram-grid" />
+          ))}
+          {[
+            [0,4],[4,3],[7,2],[8,1],[12,3],[15,4],
+          ].map(([step,row],i)=>(
+            <rect
+              key={i}
+              x={52+step*15.6}
+              y={38+row*15}
+              width="12"
+              height="9"
+              rx="3"
+              className={step===7||step===15 ? "diagram-step is-alt" : "diagram-step is-lit"}
+            />
+          ))}
+          <text x="18" y="54" className="diagram-small">G</text>
+          <text x="18" y="84" className="diagram-small">D</text>
+          <text x="18" y="99" className="diagram-small">C</text>
+          <text x="49" y="124" className="diagram-caption">ROOTS · CHORD TONES · APPROACH NOTES</text>
+        </svg>
+      );
+
     case "mixer":
       return (
         <svg viewBox="0 0 320 150" role="img" aria-label="DAW mixer channel diagram">
