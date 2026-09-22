@@ -2,117 +2,170 @@
 
 PLAY / LAB is a browser-based environment for learning **music composition and music production together by making music**.
 
-The application deliberately grows toward the visual language of real music software and hardware without exposing a beginner to a full DAW all at once.
+The product now has three connected modes:
 
-## Design direction
+- **Learn** — guided, progressive lessons with checks and explanations;
+- **Create** — open-ended briefs without a single correct answer;
+- **Studio** — the same real instruments and production tools collected into a reusable workstation.
 
-The interface is now built around a **friendly music workstation** rather than a course dashboard.
-
-- the instrument or production tool is always the main surface;
-- transport, grid, pattern, MIDI, chord-track, synth, and arrangement terminology appears where students will later see it in real DAWs and hardware;
-- controls behave like pads, keys, clips, and instrument parameters rather than form inputs;
-- different musical roles have stable visual identities and illuminated playback states;
-- the studio coach is now intentionally narrow and single-purpose: task, checks, continue/reset;
-- explanatory material lives in a larger collapsible centre panel directly under the instrument;
-- typography has been raised substantially across navigation, tools, explanations, and status text;
-- completed experiments give immediate positive feedback while remaining editable;
-- later lessons progressively expose real DAW routing concepts such as channels, faders, pan, EQ, sends, returns, buses, and the master output.
-
-The visual language uses bright studio colours, tactile button states, playhead lighting, track identity, and small inline diagrams. The diagrams deliberately resemble production concepts such as a step sequencer, piano roll, chord track, subtractive-synth signal flow, and DAW arrangement view.
-
-## Every exercise answers four practical questions
-
-For all 32 current exercises the app now explicitly explains:
-
-1. **WHY** — why music makers use the technique;
-2. **WHEN** — where it usually appears in the writing/production process;
-3. **WHAT** — the real tools, controls, or software views used to do it;
-4. **WHAT IT LOOKS LIKE** — how the same idea appears on hardware or in a DAW.
-
-A regression test requires that every implemented exercise has this production context and a visual.
+All three modes operate on the same persistent local project.
 
 ## Current interactive curriculum
 
-There are currently **8 lessons and 32 guided exercises**.
+There are currently **10 lessons and 40 guided exercises**.
 
-### 1. Pulse & groove
-A. Four-on-the-floor  
-B. Backbeat  
-C. Eighth-note subdivision  
-D. Syncopation
+1. **Pulse & groove** — four-on-the-floor, backbeat, eighths, syncopation
+2. **Repetition & variation** — related variation, fill, anticipation, turnaround
+3. **Keys & melody** — C major, in-key writing, scale degrees, motif and phrase
+4. **Chords & progressions** — tonic triad, I/IV/V, cadence, I–V–vi–IV
+5. **Sound & synthesis** — waveforms, filtering, envelopes, subtractive synthesis
+6. **Arrangement & form** — density, A/B contrast, climax, release
+7. **Mixing & space** — faders, pan, low-cut EQ, send/return reverb and delay
+8. **Automation & dynamics** — volume rides, filter sweeps, compression, transients
+9. **Creative effects & transitions** — reverb depth, rhythmic delay, chorus, transition design
+10. **Finish the track** — composition audit, arrangement audit, production audit, project export
 
-Workspace: drum machine / 16-step sequencer.
+Every exercise explains:
 
-### 2. Repetition & variation
-A. Close variation  
-B. Drum fill  
-C. Anticipation  
-D. Turnaround
+- **WHY** music makers use the technique;
+- **WHEN** it appears in the writing/production process;
+- **WHAT** real tools are used;
+- **WHAT IT LOOKS LIKE** in DAWs or hardware;
+- how to recognize the result by ear;
+- the terminology musicians and producers use.
 
-Workspace: A/B pattern lab.
+Coverage is regression-tested for every implemented exercise.
 
-### 3. Keys & melody
-A. Map C major  
-B. Compose inside the key  
-C. Use scale degrees 1, 3, and 5  
-D. Build a motif and phrase
+## Learn
 
-Workspaces: MIDI keyboard and piano roll.
+Learn progressively reveals controls instead of presenting a full DAW immediately.
 
-### 4. Chords & progressions
-A. Build the tonic triad  
-B. Add IV and V  
-C. Hear a V-I cadence  
-D. Build I-V-vi-IV
+Current workspaces include:
 
-Workspace: chord track with Roman numerals.
+- drum machine / 16-step sequencer
+- A/B pattern lab
+- MIDI keyboard
+- piano roll
+- chord track
+- subtractive synthesizer
+- arrangement view
+- four-channel mixer
+- automation lanes
+- drum-bus compressor
+- creative FX rack
+- final project audit/export
 
-### 5. Sound & synthesis
-A. Compare oscillator waveforms  
-B. Shape brightness with a low-pass filter  
-C. Shape attack and release  
-D. Design a warm pad
+Completing exercise D moves directly into exercise A of the next lesson.
 
-Workspace: subtractive synthesizer with visible OSC → FILTER → AMP ENV signal flow.
+## Create
 
-### 6. Arrangement & form
-A. Shape texture with layer density  
-B. Create A/B contrast  
-C. Build toward a climax  
-D. Release after the climax
+Create provides open-ended prompts such as:
 
-Workspace: eight-bar DAW-style arrangement view with drums, bass, chords, and melody.
+- make one groove feel like two sections;
+- write an eight-bar miniature;
+- create one unmistakable energy peak;
+- improve a production without rewriting the notes.
 
-### 7. Mixing & space
-A. Balance with faders  
-B. Place sounds in stereo  
-C. Clear unnecessary low end  
-D. Create depth with sends
+These prompts intentionally do not use automatic “correct composition” scoring. They hand the learner into the same Studio project.
 
-Workspace: a real four-channel mixer. Drums, bass, chords, and melody are routed through channel faders, pan controls, low-cut filters, and shared reverb/delay send buses. The controls manipulate the actual Tone.js signal graph, so students hear the result of every mix decision.
+## Studio
 
-### 8. Automation & dynamics
-A. Draw a volume ride  
-B. Create a filter sweep  
-C. Catch drum peaks  
-D. Preserve punch and shape the section
+Studio collects the learned tools into a single workstation. Modules unlock as their corresponding lessons are completed.
 
-Workspace: two editable automation lanes plus a real drum-bus compressor. Melody level and chord-filter cutoff ramp smoothly between bar breakpoints during arrangement playback. Compressor threshold, ratio, attack, and release reshape the actual drum signal, so students can compare controlled peaks with transient-preserving punch.
+Current modules:
 
-## Progression
+- Groove
+- Piano roll
+- Chords
+- Synth
+- Arrangement
+- Mixer
+- Automation
+- FX
+- Finish
 
-Each lesson contains four experiments. Finishing D completes the lesson and opens A of the next lesson immediately. Progression has dedicated regression tests across the complete implemented course.
+Edits made in Learn, Create, or Studio are edits to the same project.
+
+## Audio architecture
+
+Tone.js / Web Audio drives real playback and processing.
+
+Current signal paths include:
+
+- drum voices → **drum-bus compressor** → mixer channel
+- melody → **chorus insert** → mixer channel
+- chords → **automated low-pass filter** → mixer channel
+- mixer channels → master
+- post-fader sends → shared **reverb** and **delay** returns
+
+Automation is real playback automation:
+
+- melody channel volume ramps between bar breakpoints;
+- chord low-pass cutoff ramps between bar breakpoints.
+
+Mixer and effects controls manipulate the real audio graph rather than a decorative UI.
+
+## Project persistence
+
+Projects persist locally through Zustand/local storage.
+
+The final workspace can:
+
+- **export** a versioned `play-lab-project` JSON file;
+- **import** that file later;
+- validate imports with Zod before replacing current project state.
+
+The project file contains:
+
+- tempo
+- patterns
+- melody
+- chord progression
+- synth settings
+- arrangement
+- mixer
+- automation
+- dynamics
+- effects
+
+The project file is the editable session. It is intentionally distinguished from a future standalone WAV/audio render.
+
+## Install / offline
+
+The GitHub Pages build is now a small PWA:
+
+- web-app manifest
+- standalone app metadata
+- installable icon
+- production service-worker registration
+- same-origin runtime asset caching
+- cached navigation fallback when offline
+
+All current instruments are synthesized in the browser, so the current course does not require remote sample downloads.
+
+## Interface
+
+The design follows a “friendly workstation” approach:
+
+- the instrument or production tool is the main surface;
+- the right rail has one purpose: task, checks, continue/reset;
+- WHY / WHEN / WHAT / terminology lives in a larger collapsible centre panel;
+- typography has a readability floor rather than 7–9 px instructional copy;
+- controls look and behave like pads, keys, clips, faders, mixer sends, automation lanes, and synth parameters;
+- real DAW labels such as GRID, MIDI CLIP, CHORD TRACK, OSC, FILTER, AMP ENV, RETURN, MASTER, and AUTOMATION appear where learners will later encounter them.
 
 ## Architecture
 
 - React + TypeScript + Vite
 - Tone.js / Web Audio
 - Tonal
-- Zustand + local persistence
-- Zod content schemas
+- Zustand + persistent local project state
+- Zod content and project-file schemas
 - inline SVG concept diagrams
-- Vitest curriculum, progression, and production-context coverage
-- GitHub Actions + GitHub Pages
+- Vitest curriculum, progression, production-context, and project-file tests
+- GitHub Actions
+- GitHub Pages
+- PWA manifest + service worker
 
 ## Development
 
@@ -129,7 +182,7 @@ npm test
 npm run build
 ```
 
-Feature branches run CI without publishing. `main` deploys to GitHub Pages after validation.
+Feature branches validate without publishing. `main` deploys to GitHub Pages only after the production workflow passes.
 
 Production base:
 
