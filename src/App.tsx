@@ -254,6 +254,7 @@ function App() {
   const appMode = useStudioStore((state) => state.appMode);
   const [studioTransportWorkspace, setStudioTransportWorkspace] =
     useState<ExerciseDefinition["workspace"]>("compare");
+  const [confirmLessonReset, setConfirmLessonReset] = useState(false);
 
   const setCurrentLesson = useStudioStore((state) => state.setCurrentLesson);
   const setExerciseIndex = useStudioStore((state) => state.setExerciseIndex);
@@ -272,6 +273,7 @@ function App() {
   const resetEffects = useStudioStore((state) => state.resetEffects);
   const resetVoicings = useStudioStore((state) => state.resetVoicings);
   const clearBass = useStudioStore((state) => state.clearBass);
+  const resetLessonProgress = useStudioStore((state) => state.resetLessonProgress);
   const setAppMode = useStudioStore((state) => state.setAppMode);
 
   const lesson = getLesson(currentLessonId);
@@ -373,6 +375,7 @@ function App() {
   const openLesson = (lessonId: string) => {
     if (lessonId === currentLessonId) return;
     stopTransport();
+    setConfirmLessonReset(false);
     setCurrentLesson(lessonId);
   };
 
@@ -455,6 +458,20 @@ function App() {
         clearBass();
         break;
     }
+  };
+
+  const resetCurrentLessonProgress = () => {
+    if (!confirmLessonReset) {
+      setConfirmLessonReset(true);
+      return;
+    }
+
+    stopTransport();
+    resetLessonProgress(
+      lesson.id,
+      lesson.exercises.map((item) => item.id),
+    );
+    setConfirmLessonReset(false);
   };
 
   const actionLabel = (() => {
@@ -682,6 +699,30 @@ function App() {
           <button className="text-button" onClick={resetWorkspace}>
             ↺ Reset this instrument
           </button>
+
+          <div className="lesson-reset-block">
+            <button
+              className={confirmLessonReset ? "text-button lesson-reset-confirm" : "text-button"}
+              onClick={resetCurrentLessonProgress}
+            >
+              {confirmLessonReset
+                ? "Confirm · lose this lesson's progress"
+                : "↺ Reset lesson progress"}
+            </button>
+            <small>
+              {confirmLessonReset
+                ? "This clears completed exercises for this lesson. Your musical project stays intact."
+                : "Start this lesson again from A without deleting your music."}
+            </small>
+            {confirmLessonReset && (
+              <button
+                className="lesson-reset-cancel"
+                onClick={() => setConfirmLessonReset(false)}
+              >
+                Cancel
+              </button>
+            )}
+          </div>
 
           <div className="coach-footer">
             <span className="section-label">Studio progress</span>
