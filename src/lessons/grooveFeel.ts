@@ -21,7 +21,7 @@ const lesson = lessonContentSchema.parse({
   number: 13,
   title: "Velocity, accents & swing",
   eyebrow: "Rhythm · Feel",
-  hero: "The notes can stay on the grid while the groove changes completely."
+  hero: "The notes can stay on the grid while the groove changes completely.",
   description:
     "Shape how hard individual drum hits speak, add quiet ghost notes, and delay alternating subdivisions with swing. The rhythm stays recognisable while its feel changes substantially.",
   overview:
