@@ -1275,16 +1275,28 @@ class AudioEngine {
     this.ensureVoices();
     this.applySynthSettings();
 
-    const projectNotes = this.melody.filter(
-      (midi): midi is number => midi !== null,
-    );
-    const sequence =
-      projectNotes.length >= 4
-        ? projectNotes.slice(0, 8)
-        : [60, 64, 67, 64, 62, 65, 67, 60];
+    const projectEvents = this.melody
+      .map((midi, step) => ({ midi, step }))
+      .filter(
+        (event): event is { midi: number; step: number } =>
+          event.midi !== null,
+      );
     const now = Tone.now() + 0.05;
 
-    sequence.forEach((midi, index) => {
+    if (projectEvents.length >= 4) {
+      const eighth = Tone.Time("8n").toSeconds();
+      projectEvents.slice(0, 8).forEach(({ midi, step }) => {
+        this.soundSynth?.triggerAttackRelease(
+          Tone.Frequency(midi, "midi").toNote(),
+          this.noteDuration(this.melodyDurations[step] ?? 1),
+          now + step * eighth,
+          0.62,
+        );
+      });
+      return;
+    }
+
+    [60, 64, 67, 64, 62, 65, 67, 60].forEach((midi, index) => {
       this.soundSynth?.triggerAttackRelease(
         Tone.Frequency(midi, "midi").toNote(),
         "8n",
