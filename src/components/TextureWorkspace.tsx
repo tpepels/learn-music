@@ -58,7 +58,7 @@ export function TextureWorkspace() {
           </div>
         </div>
         <span className="workspace-hint">
-          These are orchestration choices, not mix fixes: change octave/register before reaching for EQ when parts simply occupy the same musical space.
+          Change the register before reaching for EQ when two parts are fighting for the same musical space.
         </span>
       </div>
 
