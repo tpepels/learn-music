@@ -647,7 +647,11 @@ class AudioEngine {
 
       if (localStep === 0) {
         const melodyChannel = this.mixerChannels.melody;
-        const baseMelodyVolume = this.mixerSettings.melody.volume;
+        const baseMelodyVolume =
+          (this.referenceSnapshot?.mixerSettings.melody.volume ??
+            this.mixerSettings.melody.volume) +
+          (this.referenceSnapshot ? this.referenceTrimDb : 0) +
+          this.quietAuditionDb;
         const currentVolume = this.automationSettings.melodyVolumeDb[barIndex] ?? 0;
         const nextVolume =
           this.automationSettings.melodyVolumeDb[(barIndex + 1) % this.arrangement.length] ??
@@ -865,9 +869,6 @@ class AudioEngine {
     transport.position = 0;
     this.clearEvent();
     this.step = 0;
-    this.referenceSnapshot = null;
-    this.referenceTrimDb = 0;
-    this.quietAuditionDb = 0;
     this.applyMixerSettings();
     this.applyAdvancedChannelSettings();
     if (this.chordAutomationFilter) {
