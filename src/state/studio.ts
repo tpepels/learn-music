@@ -11,7 +11,9 @@ import {
   cloneArrangement,
   cloneEqSettings,
   cloneGrooveFeelSettings,
+  cloneHarmonyDurations,
   cloneHarmonySequence,
+  cloneNoteDurationLane,
   clonePattern,
   cloneReferenceSnapshot,
   cloneSaturationSettings,
@@ -19,14 +21,17 @@ import {
   initialAccompanimentPattern,
   initialArrangement,
   initialAutomationSettings,
+  initialBassDurations,
   initialBassSequence,
   initialChordProgression,
   initialMelody,
+  initialMelodyDurations,
   initialDynamicsSettings,
   initialEffectsSettings,
   initialEqSettings,
   initialFormSettings,
   initialGrooveFeelSettings,
+  initialHarmonyDurations,
   initialHarmonySequence,
   initialMixerSettings,
   initialPattern,
@@ -52,8 +57,10 @@ import {
   type FormSectionLabel,
   type FormSettings,
   type GrooveFeelSettings,
+  type HarmonyDurations,
   type HarmonySequence,
   type MelodySequence,
+  type NoteDurationLane,
   type MixerSettings,
   type MixerTrackId,
   type PatternId,
@@ -101,8 +108,10 @@ type StudioState = {
   completedLessonIds: string[];
   selectedPitchClasses: string[];
   melody: MelodySequence;
+  melodyDurations: NoteDurationLane;
   chordProgression: ChordProgression;
   harmonySequence: HarmonySequence;
+  harmonyDurations: HarmonyDurations;
   accompanimentPattern: AccompanimentPattern;
   synthSettings: SynthSettings;
   arrangement: Arrangement;
@@ -113,6 +122,7 @@ type StudioState = {
   projectMilestones: ProjectMilestones;
   voicingSettings: VoicingSettings;
   bassSequence: BassSequence;
+  bassDurations: NoteDurationLane;
   grooveFeelSettings: GrooveFeelSettings;
   formSettings: FormSettings;
   textureSettings: TextureSettings;
@@ -138,10 +148,12 @@ type StudioState = {
   togglePitchClass: (pitchClass: string) => void;
   clearPitchClasses: () => void;
   setMelodyStep: (step: number, midi: number | null) => void;
+  setMelodyDuration: (step: number, duration: number) => void;
   clearMelody: () => void;
   setChordSlot: (slot: number, chord: ChordName | null) => void;
   clearChords: () => void;
   toggleHarmonyNote: (step: number, midi: number) => void;
+  setHarmonyDuration: (step: number, midi: number, duration: number) => void;
   clearHarmonyBar: (bar: number) => void;
   clearHarmonySequence: () => void;
   setAccompanimentPattern: (pattern: AccompanimentPattern) => void;
@@ -171,6 +183,7 @@ type StudioState = {
   setChordInversion: (slot: number, inversion: 0 | 1 | 2) => void;
   resetVoicings: () => void;
   setBassStep: (step: number, midi: number | null) => void;
+  setBassDuration: (step: number, duration: number) => void;
   clearBass: () => void;
   resetLessonProgress: (lessonId: string, exerciseIds: string[]) => void;
   setGrooveVelocity: (track: TrackName, step: number, velocity: number) => void;
@@ -279,8 +292,10 @@ export const useStudioStore = create<StudioState>()(
       completedLessonIds: cookieProgress?.completedLessonIds ?? [],
       selectedPitchClasses: [],
       melody: [...initialMelody],
+      melodyDurations: [...initialMelodyDurations],
       chordProgression: [...initialChordProgression],
       harmonySequence: cloneHarmonySequence(initialHarmonySequence),
+      harmonyDurations: cloneHarmonyDurations(initialHarmonyDurations),
       accompanimentPattern: initialAccompanimentPattern,
       synthSettings: { ...initialSynthSettings },
       arrangement: cloneArrangement(initialArrangement),
@@ -299,6 +314,7 @@ export const useStudioStore = create<StudioState>()(
       projectMilestones: { ...initialProjectMilestones },
       voicingSettings: { inversions: [...initialVoicingSettings.inversions] },
       bassSequence: [...initialBassSequence],
+      bassDurations: [...initialBassDurations],
       grooveFeelSettings: cloneGrooveFeelSettings(initialGrooveFeelSettings),
       formSettings: {
         sections: [...initialFormSettings.sections],
@@ -406,9 +422,12 @@ export const useStudioStore = create<StudioState>()(
       setMelodyStep: (step, midi) =>
         set((state) => {
           const melody = [...state.melody];
+          const melodyDurations = [...state.melodyDurations];
           melody[step] = melody[step] === midi ? null : midi;
+          if (melody[step] === null) melodyDurations[step] = 1;
           return {
             melody,
+            melodyDurations,
             learningExperiments: recordExperimentValue(
               state,
               "melody.edit",
@@ -417,7 +436,29 @@ export const useStudioStore = create<StudioState>()(
           };
         }),
 
-      clearMelody: () => set({ melody: [...initialMelody], currentStep: 0 }),
+      setMelodyDuration: (step, duration) =>
+        set((state) => {
+          const melodyDurations = [...state.melodyDurations];
+          melodyDurations[step] = Math.max(
+            1,
+            Math.min(state.melody.length - step, Math.round(duration)),
+          );
+          return {
+            melodyDurations,
+            learningExperiments: recordExperimentValue(
+              state,
+              "melody.duration",
+              melodyDurations[step],
+            ),
+          };
+        }),
+
+      clearMelody: () =>
+        set({
+          melody: [...initialMelody],
+          melodyDurations: [...initialMelodyDurations],
+          currentStep: 0,
+        }),
 
       setChordSlot: (slot, chord) =>
         set((state) => {
@@ -439,16 +480,41 @@ export const useStudioStore = create<StudioState>()(
       toggleHarmonyNote: (step, midi) =>
         set((state) => {
           const harmonySequence = cloneHarmonySequence(state.harmonySequence);
+          const harmonyDurations = cloneHarmonyDurations(state.harmonyDurations);
           const notes = harmonySequence[step] ?? [];
-          harmonySequence[step] = notes.includes(midi)
+          const removing = notes.includes(midi);
+          harmonySequence[step] = removing
             ? notes.filter((note) => note !== midi)
             : [...notes, midi].sort((left, right) => left - right);
+          if (removing) {
+            delete harmonyDurations[step][midi];
+          } else {
+            harmonyDurations[step][midi] = 1;
+          }
           return {
             harmonySequence,
+            harmonyDurations,
             learningExperiments: recordExperimentValue(
               state,
               "harmony.note-edit",
               step + ":" + midi,
+            ),
+          };
+        }),
+
+      setHarmonyDuration: (step, midi, duration) =>
+        set((state) => {
+          const harmonyDurations = cloneHarmonyDurations(state.harmonyDurations);
+          harmonyDurations[step][midi] = Math.max(
+            1,
+            Math.min(state.harmonySequence.length - step, Math.round(duration)),
+          );
+          return {
+            harmonyDurations,
+            learningExperiments: recordExperimentValue(
+              state,
+              "harmony.duration",
+              step + ":" + midi + ":" + harmonyDurations[step][midi],
             ),
           };
         }),
@@ -459,8 +525,13 @@ export const useStudioStore = create<StudioState>()(
           for (let step = bar * 8; step < bar * 8 + 8; step += 1) {
             harmonySequence[step] = [];
           }
+          const harmonyDurations = cloneHarmonyDurations(state.harmonyDurations);
+          for (let step = bar * 8; step < bar * 8 + 8; step += 1) {
+            harmonyDurations[step] = {};
+          }
           return {
             harmonySequence,
+            harmonyDurations,
             learningExperiments: recordExperimentValue(
               state,
               "harmony.clear-bar",
@@ -472,6 +543,7 @@ export const useStudioStore = create<StudioState>()(
       clearHarmonySequence: () =>
         set({
           harmonySequence: cloneHarmonySequence(initialHarmonySequence),
+          harmonyDurations: cloneHarmonyDurations(initialHarmonyDurations),
           currentStep: 0,
         }),
 
@@ -644,12 +716,28 @@ export const useStudioStore = create<StudioState>()(
       setBassStep: (step, midi) =>
         set((state) => {
           const bassSequence = [...state.bassSequence];
+          const bassDurations = [...state.bassDurations];
           bassSequence[step] = bassSequence[step] === midi ? null : midi;
-          return { bassSequence };
+          if (bassSequence[step] === null) bassDurations[step] = 1;
+          return { bassSequence, bassDurations };
+        }),
+
+      setBassDuration: (step, duration) =>
+        set((state) => {
+          const bassDurations = [...state.bassDurations];
+          bassDurations[step] = Math.max(
+            1,
+            Math.min(state.bassSequence.length - step, Math.round(duration)),
+          );
+          return { bassDurations };
         }),
 
       clearBass: () =>
-        set({ bassSequence: [...initialBassSequence], currentStep: 0 }),
+        set({
+          bassSequence: [...initialBassSequence],
+          bassDurations: [...initialBassDurations],
+          currentStep: 0,
+        }),
 
       resetLessonProgress: (lessonId, exerciseIds) =>
         set((state) => {
@@ -932,8 +1020,13 @@ export const useStudioStore = create<StudioState>()(
             B: clonePattern(project.patterns.B),
           },
           melody: [...project.melody],
+          melodyDurations: cloneNoteDurationLane(
+            project.melodyDurations,
+            project.melody.length,
+          ),
           chordProgression: [...project.chordProgression],
           harmonySequence: cloneHarmonySequence(project.harmonySequence),
+          harmonyDurations: cloneHarmonyDurations(project.harmonyDurations),
           accompanimentPattern: project.accompanimentPattern,
           synthSettings: { ...project.synthSettings },
           arrangement: project.arrangement.map((bar) => ({ ...bar })),
@@ -952,6 +1045,10 @@ export const useStudioStore = create<StudioState>()(
           projectMilestones: { exported: false },
           voicingSettings: { inversions: [...project.voicingSettings.inversions] },
           bassSequence: [...project.bassSequence],
+          bassDurations: cloneNoteDurationLane(
+            project.bassDurations,
+            project.bassSequence.length,
+          ),
           grooveFeelSettings: cloneGrooveFeelSettings(project.grooveFeelSettings),
           formSettings: {
             sections: [...project.formSettings.sections],
@@ -983,8 +1080,10 @@ export const useStudioStore = create<StudioState>()(
         completedLessonIds: state.completedLessonIds,
         selectedPitchClasses: state.selectedPitchClasses,
         melody: state.melody,
+        melodyDurations: state.melodyDurations,
         chordProgression: state.chordProgression,
         harmonySequence: state.harmonySequence,
+        harmonyDurations: state.harmonyDurations,
         accompanimentPattern: state.accompanimentPattern,
         synthSettings: state.synthSettings,
         arrangement: state.arrangement,
@@ -995,6 +1094,7 @@ export const useStudioStore = create<StudioState>()(
         projectMilestones: state.projectMilestones,
         voicingSettings: state.voicingSettings,
         bassSequence: state.bassSequence,
+        bassDurations: state.bassDurations,
         grooveFeelSettings: state.grooveFeelSettings,
         formSettings: state.formSettings,
         textureSettings: state.textureSettings,
@@ -1013,8 +1113,19 @@ export const useStudioStore = create<StudioState>()(
         return {
           ...currentState,
           ...persisted,
+          melodyDurations: cloneNoteDurationLane(
+            persisted.melodyDurations ?? currentState.melodyDurations,
+            currentState.melody.length,
+          ),
           harmonySequence:
             persisted.harmonySequence ?? currentState.harmonySequence,
+          harmonyDurations: cloneHarmonyDurations(
+            persisted.harmonyDurations ?? currentState.harmonyDurations,
+          ),
+          bassDurations: cloneNoteDurationLane(
+            persisted.bassDurations ?? currentState.bassDurations,
+            currentState.bassSequence.length,
+          ),
           learningExperiments:
             persisted.learningExperiments ?? currentState.learningExperiments,
           formSettings: migrateFormSettings(persisted.formSettings),
