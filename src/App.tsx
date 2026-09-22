@@ -746,8 +746,8 @@ function App() {
         <div className="lesson-title">
           {appMode === "learn" ? (
             <>
-              <span className="topbar-lesson-kicker">LESSON {String(lesson.number).padStart(2, "0")} · {exercise.letter}</span>
-              <strong>{exercise.title}</strong>
+              <span className="topbar-lesson-kicker">LESSON {String(lesson.number).padStart(2, "0")}</span>
+              <strong>{lesson.title}</strong>
 
             </>
           ) : appMode === "create" ? (
@@ -862,7 +862,6 @@ function App() {
 
         <main className="music-panel">
           <section className="music-intro">
-            <span className="lesson-context">{lesson.title} · {exercise.letter}</span>
             <h1>{exercise.title}</h1>
             <p>{exercise.learn}</p>
           </section>
