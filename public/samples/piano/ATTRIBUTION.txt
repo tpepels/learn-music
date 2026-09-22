@@ -1,6 +1,7 @@
 Salamander Grand Piano V2 (Yamaha C5)
 Author: Alexander Holm
-License: CC BY 3.0
+License: Creative Commons Attribution 3.0 (CC BY 3.0)
+License URL: https://creativecommons.org/licenses/by/3.0/
 Source: https://github.com/Tonejs/audio/tree/master/salamander
 
 Reduced sample set used by PLAY / LAB:
