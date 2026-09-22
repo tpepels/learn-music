@@ -1,6 +1,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import {
+  readLearningProgressCookie,
+  writeLearningProgressCookie,
+  type LearningProgressCookie,
+} from "../persistence/progressCookie";
+import {
   cloneArrangement,
   clonePattern,
   initialArrangement,
@@ -36,6 +41,23 @@ import {
 } from "../music/model";
 
 const FIRST_LESSON_ID = "rhythm.pulse-and-groove";
+const cookieProgress = readLearningProgressCookie();
+
+function progressSnapshot(state: Pick<
+  StudioState,
+  | "currentLessonId"
+  | "exerciseIndexByLesson"
+  | "completedExerciseIds"
+  | "completedLessonIds"
+>): LearningProgressCookie {
+  return {
+    version: 1,
+    currentLessonId: state.currentLessonId,
+    exerciseIndexByLesson: state.exerciseIndexByLesson,
+    completedExerciseIds: state.completedExerciseIds,
+    completedLessonIds: state.completedLessonIds,
+  };
+}
 
 type StudioState = {
   bpm: number;
@@ -103,6 +125,7 @@ type StudioState = {
   resetVoicings: () => void;
   setBassStep: (step: number, midi: number | null) => void;
   clearBass: () => void;
+  resetLessonProgress: (lessonId: string, exerciseIds: string[]) => void;
 };
 
 export const useStudioStore = create<StudioState>()(
@@ -111,15 +134,15 @@ export const useStudioStore = create<StudioState>()(
       bpm: 96,
       isPlaying: false,
       currentStep: 0,
-      currentLessonId: FIRST_LESSON_ID,
-      exerciseIndexByLesson: {},
-      completedExerciseIds: [],
+      currentLessonId: cookieProgress?.currentLessonId ?? FIRST_LESSON_ID,
+      exerciseIndexByLesson: cookieProgress?.exerciseIndexByLesson ?? {},
+      completedExerciseIds: cookieProgress?.completedExerciseIds ?? [],
       activePattern: "A",
       patterns: {
         A: clonePattern(initialPattern),
         B: clonePattern(initialPattern),
       },
-      completedLessonIds: [],
+      completedLessonIds: cookieProgress?.completedLessonIds ?? [],
       selectedPitchClasses: [],
       melody: [...initialMelody],
       chordProgression: [...initialChordProgression],
@@ -359,6 +382,23 @@ export const useStudioStore = create<StudioState>()(
       clearBass: () =>
         set({ bassSequence: [...initialBassSequence], currentStep: 0 }),
 
+      resetLessonProgress: (lessonId, exerciseIds) =>
+        set((state) => {
+          const exerciseIndexByLesson = { ...state.exerciseIndexByLesson };
+          exerciseIndexByLesson[lessonId] = 0;
+
+          return {
+            exerciseIndexByLesson,
+            completedExerciseIds: state.completedExerciseIds.filter(
+              (id) => !exerciseIds.includes(id),
+            ),
+            completedLessonIds: state.completedLessonIds.filter(
+              (id) => id !== lessonId,
+            ),
+            currentStep: state.currentLessonId === lessonId ? 0 : state.currentStep,
+          };
+        }),
+
       loadProject: (project) =>
         set({
           bpm: project.bpm,
@@ -413,6 +453,35 @@ export const useStudioStore = create<StudioState>()(
         bassSequence: state.bassSequence,
         appMode: state.appMode,
       }),
+      merge: (persistedState, currentState) => {
+        const persisted = (persistedState ?? {}) as Partial<StudioState>;
+        const progress = readLearningProgressCookie();
+
+        return {
+          ...currentState,
+          ...persisted,
+          ...(progress
+            ? {
+                currentLessonId: progress.currentLessonId,
+                exerciseIndexByLesson: progress.exerciseIndexByLesson,
+                completedExerciseIds: progress.completedExerciseIds,
+                completedLessonIds: progress.completedLessonIds,
+              }
+            : {}),
+        };
+      },
     },
   ),
 );
+
+let lastProgressCookie = "";
+const syncProgressCookie = (state: StudioState) => {
+  const snapshot = progressSnapshot(state);
+  const serialized = JSON.stringify(snapshot);
+  if (serialized === lastProgressCookie) return;
+  lastProgressCookie = serialized;
+  writeLearningProgressCookie(snapshot);
+};
+
+syncProgressCookie(useStudioStore.getState());
+useStudioStore.subscribe(syncProgressCookie);
