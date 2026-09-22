@@ -270,6 +270,35 @@ export function ConceptVisual({ kind }: { kind: ConceptVisualKind }) {
         </svg>
       );
 
+    case "groove-feel":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="Velocity lane and swing timing diagram">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          {Array.from({ length: 8 }, (_, i) => (
+            <g key={i}>
+              <rect
+                x={28 + i * 31}
+                y={42 + (i % 2 === 0 ? 0 : 13)}
+                width="18"
+                height={i % 2 === 0 ? 48 : 35}
+                rx="4"
+                className={i % 2 === 0 ? "diagram-step is-lit" : "diagram-step is-alt"}
+              />
+              <line
+                x1={37 + i * 31}
+                y1="98"
+                x2={37 + i * 31}
+                y2={98 - (i % 2 === 0 ? 28 : 15)}
+                className="diagram-envelope"
+              />
+            </g>
+          ))}
+          <path d="M 28 118 H 92 L 116 118 H 180 L 204 118 H 268" className="diagram-grid" />
+          <path d="M 46 118 Q 61 128 77 118 M 139 118 Q 154 128 170 118 M 232 118 Q 247 128 263 118" className="diagram-automation-line" />
+          <text x="28" y="132" className="diagram-caption">VELOCITY HEIGHT + SWUNG SUBDIVISIONS</text>
+        </svg>
+      );
+
     case "mixer":
       return (
         <svg viewBox="0 0 320 150" role="img" aria-label="DAW mixer channel diagram">
