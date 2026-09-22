@@ -23,8 +23,13 @@ export function ChordWorkspace() {
     <div className="chord-card">
       <div className="workspace-heading">
         <div>
-          <span className="section-label">Four bars · one chord per bar</span>
+          <span className="section-label">Chord track · four bars</span>
           <h2>Build the progression</h2>
+          <div className="daw-strip">
+            <span>KEY C MAJOR</span>
+            <span>1 CHORD / BAR</span>
+            <span>ROMAN NUMERALS</span>
+          </div>
         </div>
         <span className="workspace-hint">Select a slot, then choose a chord</span>
       </div>
