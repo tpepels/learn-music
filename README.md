@@ -2,41 +2,73 @@
 
 Learn Music is a browser-based teaching environment for learning **music composition and music production together**.
 
-The interface grows with the learner: early lessons expose only a few musically meaningful controls, while later lessons can develop into a compact DAW-like workspace.
+The interface grows with the learner. Concepts are introduced by name, explained in plain language, connected to listening cues, and then explored through several hands-on variations before the next lesson unlocks.
 
-## Current prototype
+## Current interactive curriculum
 
-Two interactive lessons are implemented.
+There are currently **4 lessons and 16 guided exercises**.
 
 ### 1. Pulse & groove
 
-- 16-step mouse-driven drum sequencer;
-- browser audio using Tone.js/Web Audio;
-- play/stop transport and tempo control;
-- kick, snare and hi-hat roles;
-- live playhead;
-- automatic lesson checks.
+A. Four-on-the-floor  
+B. Backbeat  
+C. Eighth-note subdivision  
+D. Syncopation
 
-### 2. Rhythm & variation
+Students learn beat, bar, 4/4, accents, subdivision, offbeats, and syncopation while building one groove progressively.
 
-- A/B pattern comparison;
-- original pattern preserved as a listen-only reference;
-- editable B variation;
-- constraints that teach recognisable variation rather than arbitrary change;
-- live switching between A and B during playback.
+### 2. Repetition & variation
 
-Course state now persists locally. Completed lessons, both patterns, the current lesson, active pattern and tempo survive reloads through Zustand's persistence layer.
+A. Close variation  
+B. Drum fill  
+C. Anticipation  
+D. Turnaround
+
+Pattern A remains the reference while Pattern B is edited and compared in real time.
+
+### 3. Keys & melody
+
+A. Map C major on a chromatic keyboard  
+B. Compose a melody inside the key  
+C. Use scale degrees 1, 3, and 5  
+D. Build a motif, repeat it, and answer it as a phrase
+
+The piano workspace supports direct note auditioning and a 16-step piano-roll-style melody grid.
+
+### 4. Chords & progressions
+
+A. Build the tonic triad  
+B. Add IV and V  
+C. Hear a V-I cadence in I-IV-V-I  
+D. Build I-V-vi-IV
+
+Students work with four chord slots and a diatonic chord palette labelled with Roman numerals.
+
+## Teaching structure
+
+Every exercise contains:
+
+- a clear statement of what the student is learning;
+- an explanation of the underlying musical idea;
+- named terminology when it is first introduced;
+- a description of how to recognise the concept by ear;
+- a hands-on task;
+- automatic completion checks;
+- a Continue action that unlocks the next exercise.
+
+Progress, patterns, key selections, melodies, and chord progressions are persisted locally in the browser.
 
 ## Architecture
 
 - React + TypeScript + Vite
-- Tone.js / Web Audio
-- Zustand + persistence
-- Zod lesson schemas
-- Vitest lesson-logic tests
+- Tone.js / Web Audio for playback and synthesis
+- Tonal for music-theory data and analysis
+- Zustand + local persistence
+- Zod lesson/content schemas
+- Vitest curriculum tests
 - GitHub Actions + GitHub Pages
 
-Lesson content and evaluators live outside the main UI. The music model remains independent of Tone.js, and the audio engine receives the currently active pattern rather than owning project data.
+The music model remains separate from Tone.js. Lesson content and evaluators remain separate from UI rendering.
 
 ## Development
 
@@ -53,11 +85,9 @@ npm test
 npm run build
 ```
 
-## Deployment
+Feature branches also run `.github/workflows/ci.yml` without publishing. Pushes to `main` run the Pages workflow and deploy the Vite build.
 
-Pushes to `main` run `.github/workflows/pages.yml`, validate the lesson logic, build the Vite application, and deploy `dist/` to GitHub Pages.
-
-The production Vite base is configured for:
+The production Vite base is:
 
 ```text
 /learn-music/
