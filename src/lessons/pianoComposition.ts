@@ -20,7 +20,7 @@ const lesson = lessonContentSchema.parse({
   number: 3,
   title: "Keys & melody",
   eyebrow: "Piano · Composition",
-  hero: "Write a melody, then hear why some notes feel settled."
+  hero: "Write a melody, then hear why some notes feel settled.",
   description:
     "First map the notes of C major on the keyboard. Then use that key to write melodies, work with scale degrees, and build a short phrase from a repeated motif.",
   overview:
