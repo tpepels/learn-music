@@ -9,11 +9,11 @@ const lesson = lessonContentSchema.parse({
   number: 20,
   title: "Saturation & distortion",
   eyebrow: "Production · Harmonics",
-  hero: "Make a sound denser before making it louder.",
+  hero: "Add colour until you hear it, then decide how much to keep."
   description:
     "Drive signals into nonlinear processing, hear the added harmonics, use wet/dry blending for parallel colour, and learn why saturation is often subtle while distortion can be an obvious effect.",
   overview:
-    "Saturation and distortion reshape a waveform. The process adds harmonics and changes transients. Drive controls how hard the signal is pushed; wet/dry controls how much processed signal is blended with the clean path.",
+    "Drive changes the shape of the sound and creates extra harmonics. Wet/dry decides how much of that colour you keep. Push it far enough to recognise the effect, then back off to the amount the part can use.",
 });
 
 export const saturationLesson: LessonDefinition = {
@@ -30,7 +30,7 @@ export const saturationLesson: LessonDefinition = {
         instruction:
           "Select BASS. Start with Wet near 0%, then raise it until the added harmonics are obvious. Move back and forth between almost dry and clearly saturated before choosing a blend that gives the bass more audible weight without replacing its clean tone.",
         recognition:
-          "The bass should feel denser and easier to hear, not fuzzier than the rest of the track.",
+          "On a quiet playback, does the bass remain easier to follow with some saturation? At what point does useful weight turn into fuzz?",
         terms: [
           { term: "Saturation", definition: "Mild nonlinear processing that adds harmonics and softens waveform peaks." },
           { term: "Harmonic", definition: "A frequency at an integer multiple of a fundamental frequency that contributes to timbre." },
@@ -66,7 +66,7 @@ export const saturationLesson: LessonDefinition = {
         instruction:
           "Select DRUMS and use strong Drive. Push Wet high enough that the transients become obviously crushed, then back it down until the clean attack returns over a gritty parallel layer.",
         recognition:
-          "The drums should feel thicker while the kick/snare attack remains recognizable. If the groove turns into a fuzzy block, reduce Wet.",
+          "Listen to the front edge of the kick and snare. Can you keep that attack while adding grit underneath it?",
         terms: [
           { term: "Parallel processing", definition: "Blending a processed signal with an unprocessed version of the same source." },
           { term: "Transient", definition: "The short initial burst of energy at the start of a sound, such as a drum hit." },
@@ -102,7 +102,7 @@ export const saturationLesson: LessonDefinition = {
         instruction:
           "Select CHORDS. Compare almost dry with a clearly coloured setting, then back off until the saturation is easier to miss than on the drums or bass. The goal is to learn subtle colour after hearing the obvious version.",
         recognition:
-          "The chords should feel slightly denser or warmer. You should not hear a clearly broken-up edge.",
+          "Toggle between dry and the final setting. Is the difference easier to feel than to identify as distortion?",
         terms: [
           { term: "Colour", definition: "A tonal character added by processing that changes timbre without changing the notes." },
           { term: "Soft clipping", definition: "A gradual rounding of waveform peaks rather than an abrupt hard limit." },
@@ -137,7 +137,7 @@ export const saturationLesson: LessonDefinition = {
         instruction:
           "Use saturation as orchestration: keep it active on at least two channels, but give them different amounts. Let drums carry more obvious colour than melody and decide whether bass or chords need any saturation at all while the full arrangement plays.",
         recognition:
-          "The mix should gain density in selected layers while the melody remains comparatively clean and articulate.",
+          "Listen to drums, bass, chords and melody as separate textures. Do they still have different amounts of roughness and clarity?",
         terms: [
           { term: "Processing contrast", definition: "Using different amounts or types of processing so parts retain distinct roles." },
           { term: "Articulation", definition: "The clarity of note attacks, endings, and small performance details." },
