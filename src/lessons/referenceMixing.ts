@@ -19,7 +19,7 @@ const lesson = lessonContentSchema.parse({
   number: 23,
   title: "Reference mixing",
   eyebrow: "Production · Critical listening",
-  hero: "Stop trusting the version you heard last."
+  hero: "Stop trusting the version you heard last.",
   description:
     "Freeze one version, change the mix, match their loudness and switch between them often. Use quiet and mono playback to reset your ears when the new version starts sounding better simply because it is new.",
   overview:
