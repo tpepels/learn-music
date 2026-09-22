@@ -2,6 +2,7 @@ import { z } from "zod";
 import {
   ARRANGEMENT_BARS,
   BASS_STEPS,
+  HARMONY_STEPS,
   MELODY_STEPS,
   STEPS,
   accompanimentPatterns,
@@ -9,6 +10,7 @@ import {
   initialAccompanimentPattern,
   initialBassSequence,
   initialGrooveFeelSettings,
+  initialHarmonySequence,
   initialEqSettings,
   initialFormSettings,
   initialReferenceMixSettings,
@@ -52,6 +54,10 @@ export const projectFileSchema = z.object({
     chordProgression: z
       .array(z.union([z.enum(chordNames), z.null()]))
       .length(4),
+    harmonySequence: z
+      .array(z.array(z.number().int().min(0).max(127)))
+      .length(HARMONY_STEPS)
+      .optional(),
     accompanimentPattern: z.enum(accompanimentPatterns).optional(),
     synthSettings: z.object({
       waveform: z.enum(synthWaveforms),
@@ -207,6 +213,8 @@ export function parseProjectFile(input: unknown): ProjectData {
 
   return {
     ...project,
+    harmonySequence:
+      project.harmonySequence ?? initialHarmonySequence.map((notes) => [...notes]),
     accompanimentPattern:
       project.accompanimentPattern ?? initialAccompanimentPattern,
     voicingSettings: project.voicingSettings ?? {
