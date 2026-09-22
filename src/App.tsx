@@ -4,8 +4,8 @@ import { ArrangementWorkspace } from "./components/ArrangementWorkspace";
 import { ChordWorkspace } from "./components/ChordWorkspace";
 import { DrumWorkspace } from "./components/DrumWorkspace";
 import { MixerWorkspace } from "./components/MixerWorkspace";
+import { LearningPanel } from "./components/LearningPanel";
 import { MelodyWorkspace, PianoKeyWorkspace } from "./components/PianoWorkspace";
-import { ProducerContext } from "./components/ProducerContext";
 import { SynthWorkspace } from "./components/SynthWorkspace";
 import {
   courseOutline,
@@ -461,6 +461,8 @@ function App() {
           />
 
           <Workspace exercise={exercise} />
+
+          <LearningPanel exercise={exercise} />
         </main>
 
         <aside className="teacher-panel">
@@ -513,37 +515,11 @@ function App() {
             ↺ Reset this instrument
           </button>
 
-          <ProducerContext exerciseId={exercise.id} />
-
-          <div className="concept-card concept-card-learn">
-            <span className="section-label">What is happening?</span>
-            <p>{exercise.explanation}</p>
-          </div>
-
-          <div className="recognition-card">
-            <span className="section-label">Hear it</span>
-            <p>{exercise.recognition}</p>
-          </div>
-
-          {exercise.terms.length > 0 && (
-            <div className="term-section">
-              <span className="section-label">Words musicians use</span>
-              <div className="term-list">
-                {exercise.terms.map((item) => (
-                  <div className="term-card" key={item.term}>
-                    <strong>{item.term}</strong>
-                    <p>{item.definition}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <div className="implemented-note">
-            <span className="section-label">Studio so far</span>
+          <div className="coach-footer">
+            <span className="section-label">Studio progress</span>
             <p>
-              {implementedLessons.length} instruments / views ·{" "}
-              {implementedLessons.reduce((total, item) => total + item.exercises.length, 0)} guided experiments.
+              {implementedLessons.length} lessons ·{" "}
+              {implementedLessons.reduce((total, item) => total + item.exercises.length, 0)} experiments
             </p>
           </div>
         </aside>
