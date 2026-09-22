@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import {
   activeLayerCount,
+  arrangementLayers,
   trackNames,
 } from "../music/model";
 import { parseProjectFile } from "../persistence/projectFile";
@@ -80,26 +81,42 @@ export function FinalProjectWorkspace() {
     chords.filter(Boolean).length === 4 &&
     harmonySequence.reduce((total, notes) => total + notes.length, 0) >= 12;
 
-  const activeBars = arrangement.filter((bar) => activeLayerCount(bar) > 0).length;
+  const arrangementDensities = arrangement.map(activeLayerCount);
+  const activeBars = arrangementDensities.filter((density) => density > 0).length;
+  const arrangementPeak = Math.max(...arrangementDensities);
+  const peakIndex = arrangementDensities.findIndex((density) => density === arrangementPeak);
+  const arrangementSignatures = new Set(
+    arrangement
+      .filter((bar) => activeLayerCount(bar) > 0)
+      .map((bar) =>
+        arrangementLayers.map((layer) => (bar[layer] ? "1" : "0")).join(""),
+      ),
+  );
   const arrangementReady =
     activeBars >= 6 &&
-    activeLayerCount(arrangement[6]) >= 3 &&
-    activeLayerCount(arrangement[7]) < activeLayerCount(arrangement[6]);
+    arrangementSignatures.size >= 3 &&
+    arrangementDensities.some((density) => density >= 1 && density <= 2) &&
+    arrangementPeak >= 3 &&
+    arrangementDensities
+      .slice(peakIndex + 1)
+      .some((density) => density > 0 && density < arrangementPeak);
 
-  const mixReady =
-    mixer.chords.volume < mixer.drums.volume &&
-    mixer.melody.volume <= 0 &&
-    (mixer.chords.reverb > 0 || mixer.melody.reverb > 0);
+  const mixVolumes = Object.values(mixer).map((settings) => settings.volume);
+  const mixReady = Math.max(...mixVolumes) - Math.min(...mixVolumes) >= 3;
 
   const movementReady =
-    Math.max(...automation.melodyVolumeDb) - Math.min(...automation.melodyVolumeDb) >= 6 &&
-    Math.max(...automation.chordFilterHz) - Math.min(...automation.chordFilterHz) >= 4000;
+    Math.max(...automation.melodyVolumeDb) - Math.min(...automation.melodyVolumeDb) >= 4 ||
+    Math.max(...automation.chordFilterHz) - Math.min(...automation.chordFilterHz) >= 3000;
 
-  const dynamicsReady = dynamics.ratio >= 2.5 && dynamics.attack >= 0.015;
+  const dynamicsReady = dynamics.ratio >= 2;
   const effectsReady =
+    mixer.chords.reverb >= 0.08 ||
+    mixer.melody.reverb >= 0.08 ||
+    mixer.melody.delay >= 0.05 ||
     effects.chorusWet >= 0.12 ||
-    effects.delayFeedback >= 0.3 ||
-    effects.reverbDecay >= 3.2;
+    effects.delayFeedback >= 0.25 ||
+    effects.reverbDecay >= 3;
+  const productionChoiceReady = movementReady || dynamicsReady || effectsReady;
 
   const importProject = async (file: File) => {
     try {
@@ -117,28 +134,26 @@ export function FinalProjectWorkspace() {
   };
 
   const checks = [
-    ["Composition", compositionReady, "Groove, melody, chord progression, and written harmony part"],
-    ["Arrangement", arrangementReady, "At least six active bars with a peak and release"],
-    ["Mix", mixReady, "Foreground/background balance plus spatial treatment"],
-    ["Movement", movementReady, "Meaningful volume and filter automation"],
-    ["Dynamics", dynamicsReady, "Intentional drum compression"],
-    ["Creative FX", effectsReady, "At least one clearly shaped creative effect"],
-    ["Export", milestones.exported, "Portable PLAY / LAB project file created"],
+    ["Composition", compositionReady, "A groove, melody, progression, and harmony part you wrote"],
+    ["Arrangement", arrangementReady, "Several textures, a fuller moment, and space after it"],
+    ["Mix", mixReady, "A level hierarchy instead of four equally loud parts"],
+    ["Production choice", productionChoiceReady, "Automation, compression, or effects only where you want them"],
+    ["Export", milestones.exported, "An editable snapshot of the version you decided to keep"],
   ] as const;
 
   return (
     <div className="final-project-card">
       <div className="workspace-heading">
         <div>
-          <span className="section-label">Final project · integrated studio</span>
-          <h2>Finish the track</h2>
+          <span className="section-label">Final project · full track</span>
+          <h2>Listen, decide, finish</h2>
           <div className="daw-strip">
             <span>WRITE</span><span>ARRANGE</span><span>MIX</span>
             <span>AUTOMATE</span><span>FX</span><span>EXPORT</span>
           </div>
         </div>
         <span className="workspace-hint">
-          Nothing new to memorize here: this is where the separate skills become one production workflow.
+          Play the whole track. Keep what helps the music, remove what does not, and save the version you would actually come back to.
         </span>
       </div>
 
@@ -161,11 +176,9 @@ export function FinalProjectWorkspace() {
       <div className="export-project-panel">
         <div>
           <span className="section-label">Project file</span>
-          <strong>Save or reopen what you made</strong>
+          <strong>Save this version or reopen an earlier one</strong>
           <p>
-            Export a versioned JSON project containing the composition, arrangement,
-            mixer, automation, dynamics, and effects settings. Import validates that
-            format before replacing the current project.
+            Export keeps the full editable session: notes, arrangement, mix and production settings.
           </p>
           {importMessage && <small className="project-import-message">{importMessage}</small>}
         </div>
