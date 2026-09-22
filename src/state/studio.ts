@@ -24,6 +24,7 @@ import {
   type MixerSettings,
   type MixerTrackId,
   type PatternId,
+  type ProjectData,
   type ProjectMilestones,
   type StepPattern,
   type SynthSettings,
@@ -91,6 +92,7 @@ type StudioState = {
   resetEffects: () => void;
   markProjectExported: () => void;
   setAppMode: (mode: "learn" | "create" | "studio") => void;
+  loadProject: (project: ProjectData) => void;
 };
 
 export const useStudioStore = create<StudioState>()(
@@ -322,6 +324,34 @@ export const useStudioStore = create<StudioState>()(
         }),
 
       setAppMode: (appMode) => set({ appMode }),
+
+      loadProject: (project) =>
+        set({
+          bpm: project.bpm,
+          patterns: {
+            A: clonePattern(project.patterns.A),
+            B: clonePattern(project.patterns.B),
+          },
+          melody: [...project.melody],
+          chordProgression: [...project.chordProgression],
+          synthSettings: { ...project.synthSettings },
+          arrangement: project.arrangement.map((bar) => ({ ...bar })),
+          mixerSettings: {
+            drums: { ...project.mixerSettings.drums },
+            bass: { ...project.mixerSettings.bass },
+            chords: { ...project.mixerSettings.chords },
+            melody: { ...project.mixerSettings.melody },
+          },
+          automationSettings: {
+            melodyVolumeDb: [...project.automationSettings.melodyVolumeDb],
+            chordFilterHz: [...project.automationSettings.chordFilterHz],
+          },
+          dynamicsSettings: { ...project.dynamicsSettings },
+          effectsSettings: { ...project.effectsSettings },
+          projectMilestones: { exported: false },
+          currentStep: 0,
+          isPlaying: false,
+        }),
     }),
     {
       name: "learn-music-studio-v2",
