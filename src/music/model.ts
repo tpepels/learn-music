@@ -88,3 +88,46 @@ export const romanNumerals: Record<ChordName, string> = {
 export function isCMajorMidi(midi: number): boolean {
   return [0, 2, 4, 5, 7, 9, 11].includes(midi % 12);
 }
+
+
+export const synthWaveforms = ["sine", "triangle", "sawtooth", "square"] as const;
+export type SynthWaveform = (typeof synthWaveforms)[number];
+
+export type SynthSettings = {
+  waveform: SynthWaveform;
+  cutoff: number;
+  attack: number;
+  release: number;
+};
+
+export const initialSynthSettings: SynthSettings = {
+  waveform: "sine",
+  cutoff: 12000,
+  attack: 0.01,
+  release: 0.25,
+};
+
+export const arrangementLayers = ["drums", "bass", "chords", "melody"] as const;
+export type ArrangementLayer = (typeof arrangementLayers)[number];
+export type ArrangementBar = Record<ArrangementLayer, boolean>;
+export type Arrangement = ArrangementBar[];
+
+export const ARRANGEMENT_BARS = 8;
+
+export const initialArrangement: Arrangement = Array.from(
+  { length: ARRANGEMENT_BARS },
+  () => ({
+    drums: false,
+    bass: false,
+    chords: false,
+    melody: false,
+  }),
+);
+
+export function cloneArrangement(arrangement: Arrangement): Arrangement {
+  return arrangement.map((bar) => ({ ...bar }));
+}
+
+export function activeLayerCount(bar: ArrangementBar): number {
+  return arrangementLayers.filter((layer) => bar[layer]).length;
+}
