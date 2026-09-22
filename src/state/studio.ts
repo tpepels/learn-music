@@ -601,7 +601,14 @@ export const useStudioStore = create<StudioState>()(
         set((state) => {
           const inversions = [...state.voicingSettings.inversions];
           inversions[slot] = inversion;
-          return { voicingSettings: { inversions } };
+          return {
+            voicingSettings: { inversions },
+            learningExperiments: recordExperimentValue(
+              state,
+              "voicing.slot." + slot,
+              inversion,
+            ),
+          };
         }),
 
       resetVoicings: () =>
