@@ -14,6 +14,7 @@ import {
   initialEqSettings,
   initialFormSettings,
   initialGrooveFeelSettings,
+  initialHarmonySequence,
   initialMelody,
   initialMixerSettings,
   initialPattern,
@@ -26,6 +27,7 @@ import {
   initialVoicingSettings,
   bassRootMidi,
   type ChordProgression,
+  type HarmonySequence,
   type MelodySequence,
   type StepPattern,
 } from "../music/model";
@@ -66,6 +68,7 @@ function context(overrides: Partial<LessonContext> = {}): LessonContext {
     selectedPitchClasses: [],
     melody: [...initialMelody],
     chordProgression: [...initialChordProgression],
+    harmonySequence: initialHarmonySequence.map((notes) => [...notes]),
     accompanimentPattern: initialAccompanimentPattern,
     synthSettings: { ...initialSynthSettings },
     arrangement: cloneArrangement(initialArrangement),
@@ -220,64 +223,114 @@ describe("lesson 3: keys and melody", () => {
   });
 });
 
+function harmonyFor(
+  progression: ChordProgression,
+  rhythms: number[][] = [
+    [0, 2, 4],
+    [0, 3, 5],
+    [0, 2, 5],
+    [0, 3, 6],
+  ],
+): HarmonySequence {
+  const sequence = initialHarmonySequence.map((notes) => [...notes]);
+  const chordMidis: Record<string, number[]> = {
+    C: [48, 52, 55],
+    Dm: [50, 53, 57],
+    Em: [52, 55, 59],
+    F: [53, 57, 60],
+    G: [55, 59, 62],
+    Am: [57, 60, 64],
+    Bdim: [59, 62, 65],
+  };
+
+  progression.forEach((chord, bar) => {
+    if (!chord) return;
+    const notes = chordMidis[chord];
+    if (!notes) return;
+    const positions = rhythms[bar] ?? [0];
+    positions.forEach((localStep, index) => {
+      const step = bar * 8 + localStep;
+      sequence[step] = index === 0 ? [...notes] : [notes[index % notes.length]];
+    });
+  });
+
+  return sequence;
+}
+
 describe("lesson 4: chords and progressions", () => {
-  it("introduces I, IV, and V before contextual application", () => {
-    const progression: ChordProgression = ["C", "F", "G", null];
-    expect(
-      chordProgressionLesson.exercises[0]
-        .evaluate(context({ chordProgression: progression }))
-        .every((check) => check.complete),
-    ).toBe(true);
-    expect(chordProgressionLesson.exercises[0].workspace).toBe("chords");
-  });
+  it("requires the learner to place C, E, and G into the sequencer", () => {
+    const sequence = initialHarmonySequence.map((notes) => [...notes]);
+    sequence[0] = [48, 52, 55];
 
-  it("requires a complete functional phrase for the application exercise", () => {
-    const progression: ChordProgression = ["C", "F", "G", "C"];
-    expect(
-      chordProgressionLesson.exercises[1]
-        .evaluate(context({ chordProgression: progression }))
-        .every((check) => check.complete),
-    ).toBe(true);
-    expect(chordProgressionLesson.exercises[1].workspace).toBe("harmony-song");
-  });
-
-  it("uses a changed resolution to compare closure", () => {
-    const progression: ChordProgression = ["C", "F", "G", "Am"];
-    expect(
-      chordProgressionLesson.exercises[2]
-        .evaluate(context({ chordProgression: progression }))
-        .every((check) => check.complete),
-    ).toBe(true);
-  });
-
-  it("does not accept four correct block chords as the final accompaniment exercise", () => {
-    const progression: ChordProgression = ["C", "F", "G", "C"];
-    const blockChecks = chordProgressionLesson.exercises[3].evaluate(
+    const checks = chordProgressionLesson.exercises[0].evaluate(
       context({
-        chordProgression: progression,
-        accompanimentPattern: "block",
+        chordProgression: ["C", null, null, null],
+        harmonySequence: sequence,
       }),
     );
-    expect(blockChecks.every((check) => check.complete)).toBe(false);
 
-    const musicalChecks = chordProgressionLesson.exercises[3].evaluate(
-      context({
-        chordProgression: progression,
-        accompanimentPattern: "arpeggio",
-      }),
-    );
-    expect(musicalChecks.every((check) => check.complete)).toBe(true);
-  });
-
-  it("keeps harmonic identity independent from the chosen performance pattern", () => {
-    const progression: ChordProgression = ["C", "G", "F", "C"];
-    const checks = chordProgressionLesson.exercises[3].evaluate(
-      context({
-        chordProgression: progression,
-        accompanimentPattern: "broken",
-      }),
-    );
     expect(checks.every((check) => check.complete)).toBe(true);
+    expect(chordProgressionLesson.exercises[0].workspace).toBe("harmony-song");
+  });
+
+  it("requires every bar of I-IV-V-I to contain its own chord tones", () => {
+    const progression: ChordProgression = ["C", "F", "G", "C"];
+    const sequence = harmonyFor(progression);
+
+    const checks = chordProgressionLesson.exercises[1].evaluate(
+      context({ chordProgression: progression, harmonySequence: sequence }),
+    );
+
+    expect(checks.every((check) => check.complete)).toBe(true);
+  });
+
+  it("rejects automatic-looking bar-start blocks as rhythmic application", () => {
+    const progression: ChordProgression = ["C", "F", "G", "C"];
+    const blocks = harmonyFor(progression, [[0], [0], [0], [0]]);
+    const checks = chordProgressionLesson.exercises[2].evaluate(
+      context({ chordProgression: progression, harmonySequence: blocks }),
+    );
+
+    expect(checks.every((check) => check.complete)).toBe(false);
+  });
+
+  it("accepts a chord-tone accompaniment with offbeats and multiple positions", () => {
+    const progression: ChordProgression = ["C", "F", "G", "C"];
+    const sequence = harmonyFor(progression);
+
+    const checks = chordProgressionLesson.exercises[2].evaluate(
+      context({ chordProgression: progression, harmonySequence: sequence }),
+    );
+
+    expect(checks.every((check) => check.complete)).toBe(true);
+  });
+
+  it("accepts an independently written four-bar accompaniment", () => {
+    const progression: ChordProgression = ["C", "Am", "G", "C"];
+    const sequence = harmonyFor(progression, [
+      [0, 2, 5],
+      [0, 3, 6],
+      [0, 1, 4],
+      [0, 3, 5, 7],
+    ]);
+
+    const checks = chordProgressionLesson.exercises[3].evaluate(
+      context({ chordProgression: progression, harmonySequence: sequence }),
+    );
+
+    expect(checks.every((check) => check.complete)).toBe(true);
+  });
+
+  it("rejects notes that do not belong to the chord above their bar", () => {
+    const progression: ChordProgression = ["C", "F", "G", "C"];
+    const sequence = harmonyFor(progression);
+    sequence[9] = [61];
+
+    const checks = chordProgressionLesson.exercises[3].evaluate(
+      context({ chordProgression: progression, harmonySequence: sequence }),
+    );
+
+    expect(checks.at(-1)?.complete).toBe(false);
   });
 });
 
