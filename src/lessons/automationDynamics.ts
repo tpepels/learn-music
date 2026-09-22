@@ -17,7 +17,7 @@ const lesson = lessonContentSchema.parse({
   description:
     "Draw parameter changes across the arrangement, then shape drum dynamics with compression. The goal is to hear production as movement over time rather than as a collection of static settings.",
   overview:
-    "Automation records how a parameter changes over time. Dynamics processing changes the relationship between loud and quiet moments. Together they let producers build energy, reveal details, control peaks, and reshape transients without rewriting the notes.",
+    "Automation makes a control move while the track plays. Compression changes how the loud parts behave. Use both to shape what happens over time, not to make a static loop look more complicated.",
 });
 
 export const automationDynamicsLesson: LessonDefinition = {
@@ -34,7 +34,7 @@ export const automationDynamicsLesson: LessonDefinition = {
         instruction:
           "Draw a rising Melody volume curve across the eight bars. Use at least four different values and span at least 8 dB from the quietest to the loudest point. Play the whole section and shape the curve until the melody seems to emerge rather than simply switch on.",
         recognition:
-          "The melody should feel as if it moves from background toward foreground across the eight bars, even though its MIDI notes do not change.",
+          "Play from bar 1. At what point does the melody start demanding your attention? Does the rise feel gradual or stepped?",
         terms: [
           { term: "Automation", definition: "Recorded parameter movement that changes automatically during playback." },
           { term: "Automation lane", definition: "A timeline view showing one parameter's changes over time." },
@@ -71,7 +71,7 @@ export const automationDynamicsLesson: LessonDefinition = {
         instruction:
           "Draw a chord-filter opening across the section. Make the final bar at least 6000 Hz brighter than the opening and use at least four different cutoff values. Try a non-smooth point once, hear the sudden jump, then reshape the curve into the motion you want.",
         recognition:
-          "The chord part should begin muffled and gradually reveal more high-frequency detail. The notes remain identical; only their spectral brightness changes.",
+          "Listen to the top edge of the chords. Does it open continuously, or can you hear a breakpoint jump out?",
         terms: [
           { term: "Filter sweep", definition: "Automated movement of a filter cutoff, usually used to make a sound open or close over time." },
           { term: "Cutoff automation", definition: "Recording or drawing changes to a filter's cutoff frequency on the timeline." },
@@ -107,7 +107,7 @@ export const automationDynamicsLesson: LessonDefinition = {
         instruction:
           "With the drums looping, set Ratio near 1:1 and listen to the uncompressed attack. Then push Ratio above 3:1, lower Threshold until the louder hits are controlled, and use a fast attack. Finish with a clearly compressed setting, but only after hearing the bypass-like version.",
         recognition:
-          "With stronger, fast compression, the loudest drum attacks should feel less spiky and the groove more even. If it becomes dull or lifeless, the compressor may be grabbing too quickly or too strongly.",
+          "Compare the first few milliseconds of the kick and snare. When does control turn into a duller attack?",
         terms: [
           { term: "Compressor", definition: "A dynamics processor that reduces level when a signal becomes louder than a chosen threshold." },
           { term: "Threshold", definition: "The level above which compression begins." },
@@ -153,7 +153,7 @@ export const automationDynamicsLesson: LessonDefinition = {
         instruction:
           "Keep the volume rise and filter opening. On the compressor, compare a very fast attack (12 ms or less) with a slower attack (25 ms or more) while the same drums loop. Leave the slower version if it restores the punch you want, then play the full eight-bar build.",
         recognition:
-          "Compared with the fast-attack setting, the kick and snare should regain a clearer initial hit. At the same time the automation should make the whole section feel as though it is moving toward an arrival rather than simply looping.",
+          "Switch between fast and slower attack. Which version keeps the hit alive? Then play all eight bars: do the level, filter and drums all point toward the same arrival?",
         terms: [
           { term: "Transient", definition: "The short burst of energy at the beginning of a sound, especially important for the perceived punch of drums." },
           { term: "Punch", definition: "The impression of a strong, clearly defined attack, often associated with drums and bass." },
