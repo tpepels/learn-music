@@ -6,8 +6,13 @@ import {
   chromaticPitches,
   isAHarmonicMinorMidi,
   isANaturalMinorMidi,
+  noteDurationLabel,
 } from "../music/model";
 import { useStudioStore } from "../state/studio";
+import {
+  findMonophonicNoteStart,
+  useNoteLengthDrag,
+} from "./noteLengthDrag";
 
 const minorRollPitches = [
   ...chromaticPitches,
@@ -44,7 +49,9 @@ export function MinorTonalityWorkspace({ harmonic }: { harmonic: boolean }) {
   const selectedPitchClasses = useStudioStore((state) => state.selectedPitchClasses);
   const togglePitchClass = useStudioStore((state) => state.togglePitchClass);
   const melody = useStudioStore((state) => state.melody);
+  const durations = useStudioStore((state) => state.melodyDurations);
   const setMelodyStep = useStudioStore((state) => state.setMelodyStep);
+  const setMelodyDuration = useStudioStore((state) => state.setMelodyDuration);
   const currentStep = useStudioStore((state) => state.currentStep);
   const isPlaying = useStudioStore((state) => state.isPlaying);
 
@@ -56,10 +63,14 @@ export function MinorTonalityWorkspace({ harmonic }: { harmonic: boolean }) {
     await audioEngine.playPianoNote(midi);
   };
 
-  const chooseNote = async (step: number, midi: number) => {
-    setMelodyStep(step, midi);
-    await audioEngine.playPianoNote(midi);
-  };
+  const { beginNoteDrag, moveNoteDrag } = useNoteLengthDrag({
+    maxSteps: MELODY_STEPS,
+    addNote: (step, midi) => setMelodyStep(step, midi),
+    removeNote: (step, midi) => setMelodyStep(step, midi),
+    setDuration: (step, _midi, duration) =>
+      setMelodyDuration(step, duration),
+    audition: (midi) => audioEngine.playPianoNote(midi),
+  });
 
   return (
     <div className="minor-tonality-card">
@@ -74,7 +85,7 @@ export function MinorTonalityWorkspace({ harmonic }: { harmonic: boolean }) {
           </div>
         </div>
         <span className="workspace-hint">
-          Select scale notes above, then write directly in the piano roll below.
+          Select scale notes above, then write directly in the piano roll below. Drag a note right to sustain it.
         </span>
       </div>
 
@@ -128,7 +139,7 @@ export function MinorTonalityWorkspace({ harmonic }: { harmonic: boolean }) {
         })}
       </div>
 
-      <div className="minor-roll">
+      <div className="minor-roll" onPointerMove={moveNoteDrag}>
         {minorRollPitches.map((pitch) => (
           <div
             key={pitch.midi}
@@ -149,18 +160,57 @@ export function MinorTonalityWorkspace({ harmonic }: { harmonic: boolean }) {
 
             {Array.from({ length: MELODY_STEPS }, (_, step) => {
               const active = melody[step] === pitch.midi;
+              const coveringStart = findMonophonicNoteStart(
+                melody,
+                durations,
+                pitch.midi,
+                step,
+              );
+              const sustained =
+                coveringStart !== null && coveringStart !== step;
+              const duration =
+                coveringStart === null ? 1 : durations[coveringStart] ?? 1;
+              const noteEnd =
+                coveringStart !== null &&
+                coveringStart + duration - 1 === step;
+
               return (
                 <button
                   key={step}
                   className={[
                     "minor-roll-cell",
-                    active ? "is-active" : "",
+                    active ? "is-active is-note-start" : "",
+                    sustained ? "is-sustain" : "",
+                    noteEnd && duration > 1 ? "is-note-end" : "",
                     isPlaying && currentStep === step ? "is-playhead" : "",
                     step === 8 ? "is-phrase-start" : "",
                   ].filter(Boolean).join(" ")}
-                  onClick={() => chooseNote(step, pitch.midi)}
-                  aria-label={"Set step " + (step + 1) + " to " + displayPitch(pitch.midi, harmonic)}
-                  aria-pressed={active}
+                  data-note-step={step}
+                  data-note-midi={pitch.midi}
+                  onPointerDown={(event) =>
+                    beginNoteDrag(event, {
+                      step,
+                      midi: pitch.midi,
+                      isStart: active,
+                      coveringStart,
+                    })
+                  }
+                  aria-label={
+                    (active || sustained ? "Note " : "Set step " + (step + 1) + " to ") +
+                    displayPitch(pitch.midi, harmonic) +
+                    (active || sustained
+                      ? " · length " + noteDurationLabel(duration)
+                      : "")
+                  }
+                  aria-pressed={active || sustained}
+                  title={
+                    active || sustained
+                      ? displayPitch(pitch.midi, harmonic) +
+                        " · " +
+                        noteDurationLabel(duration) +
+                        " · drag horizontally to resize"
+                      : "Click or drag to draw " + displayPitch(pitch.midi, harmonic)
+                  }
                 >
                   <span />
                 </button>
@@ -175,6 +225,7 @@ export function MinorTonalityWorkspace({ harmonic }: { harmonic: boolean }) {
         <span><i className="is-scale" /> scale tone</span>
         {harmonic && <span><i className="is-leading" /> leading tone G♯</span>}
         <span><i className="is-outside" /> chromatic note</span>
+        <span>Drag right to lengthen a note in 1/8 steps</span>
       </div>
     </div>
   );
