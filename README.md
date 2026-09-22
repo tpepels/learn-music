@@ -12,7 +12,7 @@ All three modes operate on the same persistent local project.
 
 ## Current interactive curriculum
 
-There are currently **12 lessons and 48 guided exercises**.
+There are currently **13 lessons and 52 guided exercises**.
 
 1. **Pulse & groove** — four-on-the-floor, backbeat, eighths, syncopation
 2. **Repetition & variation** — related variation, fill, anticipation, turnaround
@@ -26,6 +26,7 @@ There are currently **12 lessons and 48 guided exercises**.
 10. **Finish the track** — composition audit, arrangement audit, production audit, project export
 11. **Voicing & voice leading** — root position, first inversion, second inversion, smooth voice motion
 12. **Bass lines** — roots, chord tones, approach notes, complete four-bar bass phrase
+13. **Velocity, accents & swing** — MIDI velocity, accent patterns, ghost notes, swung timing
 
 Every exercise explains:
 
@@ -51,6 +52,7 @@ Current workspaces include:
 - chord track
 - voicing / inversion lab
 - four-bar bass piano roll
+- velocity lane + swing/groove editor
 - subtractive synthesizer
 - arrangement view
 - four-channel mixer
@@ -79,6 +81,7 @@ Studio collects the learned tools into a single workstation. Modules unlock as t
 Current modules:
 
 - Groove
+- Feel
 - Piano roll
 - Chords
 - Voicing
@@ -105,6 +108,8 @@ Current signal paths include:
 - chords → **automated low-pass filter** → mixer channel
 - mixer channels → master
 - post-fader sends → shared **reverb** and **delay** returns
+- drum hits read real per-step **MIDI velocity** values
+- Tone transport applies the project **swing** amount to eighth-note subdivision timing
 
 Automation is real playback automation:
 
@@ -115,7 +120,17 @@ Mixer and effects controls manipulate the real audio graph rather than a decorat
 
 ## Project persistence
 
-Projects persist locally through Zustand/local storage.
+The musical project persists locally through Zustand/local storage.
+
+**Learning progress is also stored in a first-party browser cookie** (`play_lab_progress_v1`). It keeps the current lesson, per-lesson exercise position, completed exercises, and completed lessons across reloads. Existing local progress is migrated into the cookie automatically on upgrade.
+
+Each lesson has a **Reset lesson progress** action. Resetting:
+- returns that lesson to exercise A;
+- removes completion for that lesson's A/B/C/D exercises;
+- removes the lesson-complete flag;
+- keeps the shared musical project intact.
+
+This distinction is deliberate: restarting a lesson should not erase a melody, mix, chord progression, bass line, or other work reused by later lessons.
 
 The final workspace can:
 
@@ -137,6 +152,7 @@ The project file contains:
 - effects
 - chord inversions / voicings
 - programmed bass line
+- groove velocity values and swing amount
 
 The project file is the editable session. It is intentionally distinguished from a future standalone WAV/audio render.
 
@@ -172,7 +188,7 @@ The design follows a “friendly workstation” approach:
 - Zustand + persistent local project state
 - Zod content and project-file schemas
 - inline SVG concept diagrams
-- Vitest curriculum, progression, production-context, and project-file tests
+- Vitest curriculum, progression, production-context, cookie-progress, lesson-reset, and project-file tests
 - GitHub Actions
 - GitHub Pages
 - PWA manifest + service worker
