@@ -1,5 +1,28 @@
 import { z } from "zod";
-import type { StepPattern } from "../music/model";
+import type {
+  ChordProgression,
+  MelodySequence,
+  StepPattern,
+} from "../music/model";
+
+const termSchema = z.object({
+  term: z.string(),
+  definition: z.string(),
+});
+
+export const exerciseContentSchema = z.object({
+  id: z.string(),
+  letter: z.string(),
+  title: z.string(),
+  learn: z.string(),
+  explanation: z.string(),
+  instruction: z.string(),
+  recognition: z.string(),
+  terms: z.array(termSchema),
+  workspace: z.enum(["drums", "compare", "piano-key", "melody", "chords"]),
+  checksLabel: z.string(),
+  successLabel: z.string(),
+});
 
 export const lessonContentSchema = z.object({
   id: z.string(),
@@ -8,17 +31,23 @@ export const lessonContentSchema = z.object({
   eyebrow: z.string(),
   hero: z.string(),
   description: z.string(),
-  instruction: z.string(),
-  concept: z.string(),
-  sequencerTitle: z.string(),
-  checksLabel: z.string(),
-  successLabel: z.string(),
-  patternMode: z.enum(["single", "compare"]),
+  overview: z.string(),
 });
 
-export type LessonContent = z.infer<typeof lessonContentSchema>;
 export type LessonCheck = { label: string; complete: boolean };
-export type LessonContext = { A: StepPattern; B: StepPattern };
-export type LessonDefinition = LessonContent & {
+
+export type LessonContext = {
+  A: StepPattern;
+  B: StepPattern;
+  selectedPitchClasses: string[];
+  melody: MelodySequence;
+  chordProgression: ChordProgression;
+};
+
+export type ExerciseDefinition = z.infer<typeof exerciseContentSchema> & {
   evaluate: (context: LessonContext) => LessonCheck[];
+};
+
+export type LessonDefinition = z.infer<typeof lessonContentSchema> & {
+  exercises: ExerciseDefinition[];
 };
