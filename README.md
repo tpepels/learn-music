@@ -10,7 +10,7 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v1.9.0**.
+Current curriculum release: **v2.0.0**.
 
 ## Current interactive curriculum
 
@@ -31,8 +31,8 @@ There are currently **28 lessons and 112 guided exercises**.
 13. **Velocity, accents & swing** — MIDI velocity, accent patterns, ghost notes, swung timing
 14. **Motif development** — repetition, transposition, fragmentation, call and response
 15. **Melody over harmony** — chord tones, passing tones, neighbour notes, tension/resolution
-16. **Harmonic function** — tonic/predominant/dominant, ii–V–I, deceptive resolution, V/V
-17. **Phrase & form** — antecedent/consequent, binary, ternary, AABA
+16. **Harmonic function** — rewrite real harmony MIDI for tonic/predominant/dominant, ii–V–I, deceptive resolution, and V/V
+17. **Phrase & form** — build audible 16-bar A/A′/B relationships with real layer changes, returns, binary, ternary, and AABA
 18. **Texture & orchestration** — register, open voicing, octave doubling, density contrast
 19. **EQ & spectral balance** — low-cut cleanup, search sweeps, corrective cuts, complementary EQ
 20. **Saturation & distortion** — harmonic weight, parallel drum crunch, subtle colour, selective processing
@@ -41,9 +41,9 @@ There are currently **28 lessons and 112 guided exercises**.
 23. **Reference mixing** — snapshots, A/B comparison, level matching, quiet and mono checks
 24. **Relative minor** — A natural minor, shared C-major pitch collection, tonic gravity, relative-key pivot
 25. **Harmonic minor & leading tone** — raised 7th, G♯→A resolution, augmented second, cadential melody
-26. **Minor-key progressions** — i/iv, V7–i, Andalusian cadence, deceptive minor resolution
-27. **Seventh chords** — maj7/min7/dominant7 colour, ii7–V7–Imaj7, I–vi–ii–V turnaround
-28. **Borrowed chords & modal mixture** — minor iv, ♭VII, IV–iv–I, combined borrowed colour
+26. **Minor-key progressions** — write i/iv, V7–i, Andalusian, and deceptive cadences directly into the harmony piano roll
+27. **Seventh chords** — add and remove the seventh as actual MIDI, then write ii7–V7–Imaj7 and I–vi–ii–V accompaniments
+28. **Borrowed chords & modal mixture** — alter A→A♭ and write B♭/Fm directly into four-bar accompaniments
 
 Every exercise explains:
 
@@ -55,6 +55,8 @@ Every exercise explains:
 - the terminology musicians and producers use.
 
 Coverage is regression-tested for every implemented exercise. Newly opened incomplete exercises also require a fresh learner interaction before they can be completed, so inherited state from exercise C cannot silently pre-complete exercise D.
+
+The v2.0 curriculum audit also distinguishes **final state** from **learning process** where that matters. A production exercise can record local per-exercise evidence such as the parameter range the learner actually explored, while harmony lessons can require real MIDI edits rather than chord labels alone. This lets exercises require actions such as hearing an exaggerated/bad setting and backing away from it instead of accepting a memorized target value.
 
 ## Learn
 
@@ -73,12 +75,12 @@ Current workspaces include:
 - velocity lane + swing/groove editor
 - motif-development piano roll
 - melody-over-harmony overlay
-- harmonic-function chord lane
+- harmonic-function harmony piano roll
 - A-natural-minor / A-harmonic-minor piano roll with scale-degree map
-- minor-key chord palette with real E7 dominant
-- seventh-chord palette with maj7, min7, dominant7, and half-diminished colour
-- modal-mixture palette with borrowed Fm (iv) and B♭ (♭VII)
-- sixteen-bar macro-form map
+- minor-key harmony piano roll with a real E7/G♯ dominant
+- seventh-chord harmony piano roll with editable fourth chord tones
+- modal-mixture harmony piano roll with editable A♭ and B♭
+- sixteen-bar macro-form player with per-section layer choices
 - texture/orchestration register controls
 - parametric EQ display and controls
 - saturation / parallel-distortion processor
@@ -163,7 +165,9 @@ Current signal paths include:
 - keyboard and melody playback use a bundled sampled Salamander Grand Piano rather than a generic triangle synth
 - the early harmony lesson loops the learner's existing groove and melody while the learner writes every harmony note in a 32-step polyphonic piano roll
 - chord-tone shading follows the selected chord in each bar, but outside notes remain clickable so mistakes and tension can be heard rather than silently prevented
-- learner-written harmony is also used by arrangement playback when present; older projects without it retain the existing chord fallback
+- chord slots and their MIDI bars have explicit clear actions; changing or removing a label never traps the learner in a preset
+- learner-written harmony is also used by arrangement playback when present; later function/minor/seventh/modal-mixture lessons reuse the same editable piano roll instead of reverting to chord-button exercises
+- macro-form playback expands four section layer plans into a real sixteen-bar arrangement so A/B/A′ relationships are heard, not only labelled
 - chord playback supports full seventh chords such as D7 / V/V, E7 / V7 in A minor, Cmaj7, Dm7, G7, Am7, and Bm7♭5
 - chromatic chord playback includes correctly voiced borrowed Fm and B♭ major
 - texture settings transpose bass/chords/melody by octave during playback
@@ -186,10 +190,13 @@ The musical project persists locally through Zustand/local storage.
 
 **Learning progress is also stored in a first-party browser cookie** (`play_lab_progress_v1`). It keeps the current lesson, per-lesson exercise position, completed exercises, and completed lessons across reloads. The current compact v2 codec stores A/B/C/D completion as a four-bit mask per lesson so the cookie remains small as the curriculum grows. Existing verbose v1 cookies are decoded and migrated automatically.
 
+Exercise-specific exploration evidence is kept locally with the learning state and is not part of exported musical project files. It records only interaction summaries needed by checks, such as values tried or the min/max of a control during that exercise.
+
 Each lesson has a **Reset lesson progress** action. Resetting:
 - returns that lesson to exercise A;
 - removes completion for that lesson's A/B/C/D exercises;
 - removes the lesson-complete flag;
+- clears that lesson's exploration evidence;
 - keeps the shared musical project intact.
 
 This distinction is deliberate: restarting a lesson should not erase a melody, mix, chord progression, bass line, or other work reused by later lessons.
@@ -207,6 +214,7 @@ The project file contains:
 - melody
 - chord progression, including minor-key, seventh-chord, and borrowed-chord symbols
 - learner-written 32-step polyphonic harmony sequence
+- four macro-form section layer plans
 - legacy chord accompaniment pattern for older/fallback project playback
 - synth settings
 - arrangement
