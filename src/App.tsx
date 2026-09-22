@@ -10,11 +10,16 @@ import { DrumWorkspace } from "./components/DrumWorkspace";
 import { EffectsWorkspace } from "./components/EffectsWorkspace";
 import { FinalProjectWorkspace } from "./components/FinalProjectWorkspace";
 import { GrooveFeelWorkspace } from "./components/GrooveFeelWorkspace";
+import { HarmonicFunctionWorkspace } from "./components/HarmonicFunctionWorkspace";
+import { MelodyHarmonyWorkspace } from "./components/MelodyHarmonyWorkspace";
+import { MotifWorkspace } from "./components/MotifWorkspace";
 import { MixerWorkspace } from "./components/MixerWorkspace";
 import { LearningPanel } from "./components/LearningPanel";
 import { MelodyWorkspace, PianoKeyWorkspace } from "./components/PianoWorkspace";
+import { PhraseFormWorkspace } from "./components/PhraseFormWorkspace";
 import { StudioMode } from "./components/StudioMode";
 import { SynthWorkspace } from "./components/SynthWorkspace";
+import { TextureWorkspace } from "./components/TextureWorkspace";
 import { VoicingWorkspace } from "./components/VoicingWorkspace";
 import {
   courseOutline,
@@ -49,9 +54,17 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
     setPlaybackError(null);
 
     try {
-      if (workspace === "melody") {
+      if (
+        workspace === "melody" ||
+        workspace === "motif" ||
+        workspace === "melody-harmony"
+      ) {
         await audioEngine.playMelody(bpm, setCurrentStep);
-      } else if (workspace === "chords" || workspace === "voicing") {
+      } else if (
+        workspace === "chords" ||
+        workspace === "voicing" ||
+        workspace === "harmonic-function"
+      ) {
         await audioEngine.playChords(bpm, setCurrentStep);
       } else if (workspace === "bass") {
         await audioEngine.playBass(bpm, setCurrentStep);
@@ -60,7 +73,9 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
         workspace === "mixer" ||
         workspace === "automation-dynamics" ||
         workspace === "effects" ||
-        workspace === "final-project"
+        workspace === "final-project" ||
+        workspace === "phrase-form" ||
+        workspace === "texture"
       ) {
         await audioEngine.playArrangement(bpm, setCurrentStep);
       } else {
@@ -201,6 +216,16 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
       return <BassWorkspace />;
     case "groove-feel":
       return <GrooveFeelWorkspace />;
+    case "motif":
+      return <MotifWorkspace />;
+    case "melody-harmony":
+      return <MelodyHarmonyWorkspace />;
+    case "harmonic-function":
+      return <HarmonicFunctionWorkspace />;
+    case "phrase-form":
+      return <PhraseFormWorkspace />;
+    case "texture":
+      return <TextureWorkspace />;
   }
 }
 
@@ -218,6 +243,11 @@ const lessonGlyphs: Record<string, string> = {
   "harmony.voice-leading": "⇄",
   "composition.bass-lines": "♭",
   "rhythm.groove-feel": "◌",
+  "composition.motif-development": "◆",
+  "composition.melody-over-harmony": "♪",
+  "harmony.function": "→",
+  "composition.phrase-form": "▤",
+  "composition.texture-orchestration": "⌘",
 };
 
 const workspaceNames: Record<ExerciseDefinition["workspace"], string> = {
@@ -235,6 +265,11 @@ const workspaceNames: Record<ExerciseDefinition["workspace"], string> = {
   voicing: "Voicing lab",
   bass: "Bass piano roll",
   "groove-feel": "Velocity + swing",
+  motif: "Motif lab",
+  "melody-harmony": "Melody + harmony",
+  "harmonic-function": "Functional harmony",
+  "phrase-form": "Macro form map",
+  texture: "Texture + orchestration",
 };
 
 function App() {
@@ -257,6 +292,8 @@ function App() {
   const voicingSettings = useStudioStore((state) => state.voicingSettings);
   const bassSequence = useStudioStore((state) => state.bassSequence);
   const grooveFeelSettings = useStudioStore((state) => state.grooveFeelSettings);
+  const formSettings = useStudioStore((state) => state.formSettings);
+  const textureSettings = useStudioStore((state) => state.textureSettings);
   const appMode = useStudioStore((state) => state.appMode);
   const [studioTransportWorkspace, setStudioTransportWorkspace] =
     useState<ExerciseDefinition["workspace"]>("compare");
@@ -280,6 +317,8 @@ function App() {
   const resetVoicings = useStudioStore((state) => state.resetVoicings);
   const clearBass = useStudioStore((state) => state.clearBass);
   const resetGrooveFeel = useStudioStore((state) => state.resetGrooveFeel);
+  const resetFormSettings = useStudioStore((state) => state.resetFormSettings);
+  const resetTextureSettings = useStudioStore((state) => state.resetTextureSettings);
   const resetLessonProgress = useStudioStore((state) => state.resetLessonProgress);
   const setAppMode = useStudioStore((state) => state.setAppMode);
 
@@ -337,6 +376,10 @@ function App() {
     audioEngine.setGrooveFeelSettings(grooveFeelSettings);
   }, [grooveFeelSettings]);
 
+  useEffect(() => {
+    audioEngine.setTextureSettings(textureSettings);
+  }, [textureSettings]);
+
   const checks = useMemo(
     () =>
       exercise.evaluate({
@@ -355,6 +398,8 @@ function App() {
         voicingSettings,
         bassSequence,
         grooveFeelSettings,
+        formSettings,
+        textureSettings,
       }),
     [
       exercise,
@@ -372,6 +417,8 @@ function App() {
       voicingSettings,
       bassSequence,
       grooveFeelSettings,
+      formSettings,
+      textureSettings,
     ],
   );
 
@@ -474,6 +521,19 @@ function App() {
         break;
       case "groove-feel":
         resetGrooveFeel();
+        break;
+      case "motif":
+      case "melody-harmony":
+        clearMelody();
+        break;
+      case "harmonic-function":
+        clearChords();
+        break;
+      case "phrase-form":
+        resetFormSettings();
+        break;
+      case "texture":
+        resetTextureSettings();
         break;
     }
   };
