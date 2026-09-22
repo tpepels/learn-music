@@ -4,7 +4,9 @@ import {
   BASS_STEPS,
   MELODY_STEPS,
   STEPS,
+  accompanimentPatterns,
   chordNames,
+  initialAccompanimentPattern,
   initialBassSequence,
   initialGrooveFeelSettings,
   initialEqSettings,
@@ -50,6 +52,7 @@ export const projectFileSchema = z.object({
     chordProgression: z
       .array(z.union([z.enum(chordNames), z.null()]))
       .length(4),
+    accompanimentPattern: z.enum(accompanimentPatterns).optional(),
     synthSettings: z.object({
       waveform: z.enum(synthWaveforms),
       cutoff: z.number().positive(),
@@ -204,6 +207,8 @@ export function parseProjectFile(input: unknown): ProjectData {
 
   return {
     ...project,
+    accompanimentPattern:
+      project.accompanimentPattern ?? initialAccompanimentPattern,
     voicingSettings: project.voicingSettings ?? {
       inversions: [...initialVoicingSettings.inversions],
     },
