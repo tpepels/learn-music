@@ -6,11 +6,11 @@ const lesson = lessonContentSchema.parse({
   number: 2,
   title: "Repetition & variation",
   eyebrow: "Composition · Rhythm",
-  hero: "Keep an idea recognisable while changing its surface.",
+  hero: "Change the groove without losing the groove."
   description:
     "Pattern A is your reference. Pattern B starts as a copy and becomes a variation. You will change small details, create a fill, use anticipation, and shape the end of the bar.",
   overview:
-    "Composition depends heavily on memory. Repetition lets the listener recognise an idea; variation prevents that idea from becoming static. The useful question is usually not 'change or repeat?' but 'what should remain the same while something else changes?'",
+    "A loop becomes memorable through repetition, but a completely fixed loop can go flat. Keep enough of Pattern A that the ear recognises it, then change only the part that needs motion.",
 });
 
 function rangeDifferences(A: boolean[], B: boolean[], start: number, end: number): number {
@@ -35,7 +35,7 @@ export const rhythmVariationLesson: LessonDefinition = {
         instruction:
           "Edit Pattern B so it differs from A in two to four steps. Keep the snare backbeat on beats 2 and 4. Switch between A and B while playing.",
         recognition:
-          "A good close variation should make you think 'the same groove, but slightly different' rather than 'a new groove'.",
+          "Switch A/B without watching the grid. Does B still feel like the same groove? Which change do you notice first?",
         terms: [
           { term: "Repetition", definition: "Reusing musical material so the listener can recognise it." },
           { term: "Variation", definition: "Changing some features of an idea while preserving enough of it to remain recognisable." },
@@ -64,7 +64,7 @@ export const rhythmVariationLesson: LessonDefinition = {
         instruction:
           "In Pattern B, add one or more extra snare hits during the final beat of the bar, after beat 4. Keep the main backbeat intact.",
         recognition:
-          "A fill usually sounds busier than the groove around it and often points toward the next downbeat.",
+          "Loop A/B. Does the busier ending make beat 1 feel more prepared, or does it simply add noise?",
         terms: [
           { term: "Fill", definition: "A short decorative rhythmic passage that interrupts or embellishes the main groove." },
           { term: "Downbeat", definition: "The first beat of a bar, usually felt as the strongest point of arrival." },
@@ -90,7 +90,7 @@ export const rhythmVariationLesson: LessonDefinition = {
         instruction:
           "Add a kick immediately before beat 3, beat 4, or the next bar. On the grid those positions are steps 8, 12, or 16 in ordinary counting: indices 7, 11, or 15.",
         recognition:
-          "If a hit seems to pull you into the following beat because it arrives a fraction early, you are hearing anticipation.",
+          "Listen to the note before the strong beat. Does it make the next beat feel as if it arrives sooner?",
         terms: [
           { term: "Anticipation", definition: "A note that arrives shortly before the beat or harmony it seems to belong to." },
         ],
@@ -114,7 +114,7 @@ export const rhythmVariationLesson: LessonDefinition = {
         instruction:
           "Now make a distinct turnaround rather than only adding more hits. Keep the first half close to A. In the second half, remove at least one event from A and add at least two new events. Listen for the ending to change shape before beat 1 returns.",
         recognition:
-          "You should hear relative stability at the start of the bar and increased activity or difference near the end, followed by a satisfying return to beat 1.",
+          "With your eyes off the grid, can you hear where the bar starts changing shape and where beat 1 feels like a return?",
         terms: [
           { term: "Turnaround", definition: "Music near the end of a phrase that leads back to its beginning or into the next phrase." },
           { term: "Phrase", definition: "A coherent span of music that feels like a musical sentence or unit." },
