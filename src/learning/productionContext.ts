@@ -7,7 +7,9 @@ export type ConceptVisualKind =
   | "synth"
   | "arrangement"
   | "mixer"
-  | "automation";
+  | "automation"
+  | "effects"
+  | "final";
 
 export type ProductionContext = {
   why: string;
@@ -248,6 +250,64 @@ export const productionContext: Record<string, ProductionContext> = {
     tools: ["Compressor timing", "Automation curves", "Drum bus", "Arrangement view", "A/B bypass"],
     visual: "automation",
     realWorld: "Producers often loop a section, adjust compressor attack/release by ear, then draw automation around the same section so punch, brightness, and level all reinforce its structure.",
+  },
+
+  "production.effects-transitions.a": {
+    why: "Reverb is one of the main ways producers create front-to-back depth. Decay, pre-delay, and send amount let a sound feel spacious without automatically becoming blurry.",
+    when: "After the dry balance is working, during mixing and transition design. Reverb is also revisited later when arrangement density changes.",
+    tools: ["Reverb return", "Decay", "Pre-delay", "Send level", "Aux bus"],
+    visual: "effects",
+    realWorld: "DAWs often place reverb on a return/aux channel. Individual tracks feed it with send knobs while the return contains the shared reverb plugin.",
+  },
+  "production.effects-transitions.b": {
+    why: "Delay can become a rhythmic part of the arrangement. Feedback controls how long that secondary rhythm continues after each source note.",
+    when: "During sound design, mixing, fills, phrase endings, and transitions when a part should leave rhythmic traces behind it.",
+    tools: ["Tempo-synced delay", "Feedback", "Send level", "Delay return"],
+    visual: "effects",
+    realWorld: "A DAW delay often displays note-value timing such as 1/8 or 1/4 plus a feedback control. The source reaches it through a send or insert.",
+  },
+  "production.effects-transitions.c": {
+    why: "Chorus creates width and motion without writing another musical line. It can make a lead or pad feel larger while leaving its centre position recognizable.",
+    when: "During sound design or mixing when a source feels too narrow or static but should not simply be made louder.",
+    tools: ["Chorus insert", "Wet/dry mix", "Modulation rate", "Stereo spread"],
+    visual: "effects",
+    realWorld: "Chorus usually appears as an insert plugin directly on one track, unlike a shared reverb return. Hardware chorus pedals and synth effects use the same modulation idea.",
+  },
+  "production.effects-transitions.d": {
+    why: "Transitions feel stronger when several cues move in the same direction. Combining filter movement, ambience, delay, and width creates one larger gesture rather than unrelated tricks.",
+    when: "At section boundaries, builds, breakdowns, intros, outros, and anywhere the arrangement needs to signal that something is about to change.",
+    tools: ["FX automation", "Filter sweep", "Send automation", "Riser", "Delay throw"],
+    visual: "effects",
+    realWorld: "In a DAW, transition work often looks like several automation lanes rising or changing around the same bar while effect returns become temporarily more active.",
+  },
+
+  "production.final-project.a": {
+    why: "A production is easier to finish when the musical foundation can stand without heavy processing. Auditing the composition prevents endless mixing of material that still needs writing.",
+    when: "Before final mixing and again whenever production work starts feeling like compensation for a weak musical idea.",
+    tools: ["Arrangement playback", "Mute/bypass", "Piano roll", "Chord track", "Drum editor"],
+    visual: "final",
+    realWorld: "Producers often bypass effects or mute layers to check whether the groove, melody, and harmony still communicate on their own.",
+  },
+  "production.final-project.b": {
+    why: "A complete track needs a large-scale reason to keep listening. Arrangement auditing checks whether energy, density, and contrast actually change across time.",
+    when: "Before the final production pass, after the main writing and arrangement decisions have been made.",
+    tools: ["Arrangement view", "Section markers", "Track mutes", "Energy reference"],
+    visual: "final",
+    realWorld: "A DAW arrangement often reveals structure visually before playback: dense and sparse regions, repeated blocks, transitions, and section boundaries are visible across the timeline.",
+  },
+  "production.final-project.c": {
+    why: "The final production pass is about relationships rather than adding more processing. It checks whether level, space, movement, dynamics, and effects all support the same musical priorities.",
+    when: "Near the end of the project, after all major writing and structural decisions are stable.",
+    tools: ["Mixer", "Automation", "Compressor", "Effects rack", "A/B bypass"],
+    visual: "final",
+    realWorld: "Engineers repeatedly compare processed and unprocessed states, loop problem sections, and make small changes rather than rebuilding the whole mix.",
+  },
+  "production.final-project.d": {
+    why: "Saving a versioned project preserves the decisions behind the sound. The editable session and the final audio render serve different purposes and should not be confused.",
+    when: "At milestones, before risky changes, before collaboration, and at the end of a session or project.",
+    tools: ["Project file", "Save As", "Version number", "Bounce/export"],
+    visual: "final",
+    realWorld: "DAWs save editable project/session files and separately render WAV/AIFF/MP3 audio. Versioned filenames let producers return to earlier decisions.",
   },
 };
 
