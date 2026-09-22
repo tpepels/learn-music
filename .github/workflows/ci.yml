@@ -1,8 +1,6 @@
-name: Validate v1.7 release candidate
+name: Validate branch manually
 
 on:
-  push:
-    branches: ["feature/compact-progress-persistent-playback"]
   workflow_dispatch:
 
 permissions:
