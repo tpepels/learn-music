@@ -23,6 +23,7 @@ describe("transport routing", () => {
     expect(canWorkspaceUseTransport("drums")).toBe(true);
     expect(canWorkspaceUseTransport("melody")).toBe(true);
     expect(canWorkspaceUseTransport("chords")).toBe(true);
+    expect(canWorkspaceUseTransport("harmony-song")).toBe(true);
     expect(canWorkspaceUseTransport("mixer")).toBe(true);
   });
 
