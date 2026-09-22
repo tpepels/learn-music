@@ -17,7 +17,7 @@ const lesson = lessonContentSchema.parse({
   number: 25,
   title: "Harmonic minor & leading tone",
   eyebrow: "Piano · Tonality",
-  hero: "Raise G to G♯ and hear the phrase lean harder toward A.",
+  hero: "Keep the minor phrase moving, then raise G to G♯ and hear it lean harder toward A.",
   description:
     "Change A natural minor's G into G♯. Hear the leading tone, the unusual augmented-second colour, and the much stronger pull from dominant harmony back to tonic.",
   overview:
