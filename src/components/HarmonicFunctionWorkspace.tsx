@@ -68,6 +68,13 @@ export function HarmonicFunctionWorkspace() {
                 </button>
               ))}
             </div>
+            <button
+              className="chord-clear-button"
+              onClick={() => setChordSlot(slot, null)}
+              disabled={chord === null}
+            >
+              Clear chord
+            </button>
           </section>
         ))}
       </div>
