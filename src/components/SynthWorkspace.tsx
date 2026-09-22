@@ -31,6 +31,13 @@ export function SynthWorkspace() {
         <div>
           <span className="section-label">Subtractive synthesizer · one voice</span>
           <h2>Shape the sound</h2>
+          <div className="daw-strip signal-strip">
+            <span>OSC</span>
+            <b>→</b>
+            <span>FILTER</span>
+            <b>→</b>
+            <span>AMP ENV</span>
+          </div>
         </div>
         <span className="workspace-hint">Change one parameter, then audition the same note again</span>
       </div>
