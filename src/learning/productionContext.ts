@@ -12,7 +12,12 @@ export type ConceptVisualKind =
   | "final"
   | "voice-leading"
   | "bassline"
-  | "groove-feel";
+  | "groove-feel"
+  | "motif"
+  | "melody-harmony"
+  | "harmonic-function"
+  | "phrase-form"
+  | "texture";
 
 export type ProductionContext = {
   why: string;
@@ -398,6 +403,151 @@ export const productionContext: Record<string, ProductionContext> = {
     tools: ["Swing amount", "Groove template", "Quantize settings", "Drum machine"],
     visual: "groove-feel",
     realWorld: "Most DAWs and grooveboxes provide a Swing/Groove control that delays alternating subdivisions while notes can remain visually quantized.",
+  },
+
+  "composition.motif-development.a": {
+    why: "Exact repetition establishes a musical identity before variation begins, so listeners know which shape later changes are referring back to.",
+    when: "Early in melody, riff, hook, or thematic writing, before extending a small idea into a longer phrase.",
+    tools: ["MIDI clip", "Piano roll", "Duplicate/copy", "Loop playback"],
+    visual: "motif",
+    realWorld: "In a DAW, an exact motif repeat appears as the same small MIDI-note shape duplicated later in the clip.",
+  },
+  "composition.motif-development.b": {
+    why: "Transposition creates fresh pitch direction while preserving the interval pattern that makes the motif recognizable.",
+    when: "When a phrase needs continuation without introducing completely unrelated melodic material.",
+    tools: ["Transpose command", "Piano roll", "MIDI selection", "Keyboard"],
+    visual: "motif",
+    realWorld: "Producers often select a MIDI phrase and drag it vertically or use a transpose command so the whole shape moves together.",
+  },
+  "composition.motif-development.c": {
+    why: "Fragmentation keeps a trace of the source idea while creating more space and flexibility than another full repetition.",
+    when: "During development, transitions, fills, and moments where the original motif should be hinted at rather than restated.",
+    tools: ["MIDI edit", "Delete/mute notes", "Clip duplicate", "Loop"],
+    visual: "motif",
+    realWorld: "In a MIDI editor, fragmentation often looks like only the first one or two notes of a familiar shape surviving in a later phrase.",
+  },
+  "composition.motif-development.d": {
+    why: "Call and response turns repetition into dialogue: the second phrase relates to the first but provides contrast and closure.",
+    when: "While building hooks, vocal phrases, lead lines, riffs, bass phrases, and question-answer structures.",
+    tools: ["Piano roll", "Phrase loop", "Duplicate/edit", "MIDI keyboard"],
+    visual: "motif",
+    realWorld: "A DAW often shows two adjacent MIDI shapes with similar rhythm or contour but different endings, making the response visibly related.",
+  },
+
+  "composition.melody-over-harmony.a": {
+    why: "Landing on chord tones at important moments makes melody and harmony feel deliberately connected rather than coincidentally layered.",
+    when: "After the chord progression exists, while revising melodic notes around chord changes and strong beats.",
+    tools: ["Chord track", "Piano roll", "Scale highlighting", "Keyboard"],
+    visual: "melody-harmony",
+    realWorld: "Many DAWs can display chord or scale context behind the piano roll; composers also inspect which melody notes line up vertically with chord notes.",
+  },
+  "composition.melody-over-harmony.b": {
+    why: "Passing tones connect stable notes smoothly and create motion without making every melody note a harmonic destination.",
+    when: "While smoothing a melody that sounds too chordal, static, or jumpy between anchor notes.",
+    tools: ["Piano roll", "Stepwise MIDI edit", "Chord track", "Loop"],
+    visual: "melody-harmony",
+    realWorld: "Passing tones appear as short in-between MIDI notes connecting more stable notes by semitone or whole-tone movement.",
+  },
+  "composition.melody-over-harmony.c": {
+    why: "Neighbour notes create a small departure-and-return gesture around one stable pitch, adding decoration without losing focus.",
+    when: "During melodic embellishment after the main contour and harmonic anchors already work.",
+    tools: ["Piano roll", "MIDI keyboard", "Loop", "Note nudge"],
+    visual: "melody-harmony",
+    realWorld: "In a piano roll, neighbour motion looks like three notes where the middle block moves one step away and the third returns to the first pitch.",
+  },
+  "composition.melody-over-harmony.d": {
+    why: "A tense non-chord note becomes expressive when it has a clear destination; resolution gives dissonance direction instead of randomness.",
+    when: "During detailed melody writing, especially around chord changes, phrase peaks, suspensions, and expressive approach notes.",
+    tools: ["Chord track", "Piano roll", "Tension note", "Target tone"],
+    visual: "melody-harmony",
+    realWorld: "A DAW view makes tension-resolution visible as a note outside the current chord moving by a small interval into a chord tone.",
+  },
+
+  "harmony.function.a": {
+    why: "Functional roles explain why a progression moves: tonic stabilizes, predominant departs, dominant intensifies, and tonic resolves.",
+    when: "While inventing chord progressions from harmonic goals rather than memorized chord-symbol sequences.",
+    tools: ["Chord track", "Roman numerals", "Keyboard", "Function labels"],
+    visual: "harmonic-function",
+    realWorld: "DAWs usually show chord symbols rather than function automatically, so producers commonly annotate I, IV, V or think in functional roles while writing.",
+  },
+  "harmony.function.b": {
+    why: "ii–V–I is a compact example of predominant–dominant–tonic motion and makes functional direction especially easy to hear.",
+    when: "During harmony study, songwriting, jazz-influenced writing, turnarounds, intros, and cadential passages.",
+    tools: ["Chord track", "Keyboard", "Roman numerals", "Loop region"],
+    visual: "harmonic-function",
+    realWorld: "In a chord lane, ii–V–I is simply three adjacent chord events, but musicians hear them as departure, tension, and arrival.",
+  },
+  "harmony.function.c": {
+    why: "A deceptive resolution uses an established expectation and redirects it, extending the phrase without removing all harmonic momentum.",
+    when: "When a dominant-to-tonic cadence feels too final or predictable and the phrase should continue.",
+    tools: ["Chord track", "V–vi progression", "Keyboard", "Loop playback"],
+    visual: "harmonic-function",
+    realWorld: "The chord lane looks almost cadential until V moves to vi instead of I; the surprise comes from function, not from a special DAW tool.",
+  },
+  "harmony.function.d": {
+    why: "A secondary dominant briefly intensifies a non-tonic chord by giving it its own dominant, introducing purposeful chromatic harmony.",
+    when: "When a diatonic progression needs stronger forward pull toward V or another temporary local destination.",
+    tools: ["Chord track", "D7 / V/V", "Chromatic note", "Keyboard"],
+    visual: "harmonic-function",
+    realWorld: "In C major, a D7 chord clip contains F-sharp, visibly outside the key, before resolving to G and then C.",
+  },
+
+  "composition.phrase-form.a": {
+    why: "Statement-and-answer phrasing gives medium-scale punctuation so music feels spoken in coherent spans rather than as one endless line.",
+    when: "After a motif or short phrase exists, before expanding it into full song sections.",
+    tools: ["Section markers", "Arrangement view", "Phrase labels", "Loop regions"],
+    visual: "phrase-form",
+    realWorld: "DAW markers often divide eight bars into related four-bar phrases; A and A-prime labels describe similarity with a changed ending.",
+  },
+  "composition.phrase-form.b": {
+    why: "Binary form creates large-scale contrast by dividing music into two primary identities, A and B.",
+    when: "During structural planning before detailed arrangement, production, and transitions are finalized.",
+    tools: ["Arrangement markers", "Section labels", "Clip groups", "Timeline"],
+    visual: "phrase-form",
+    realWorld: "Producers often color or label first-half and second-half blocks differently in the arrangement view to make binary structure visible.",
+  },
+  "composition.phrase-form.c": {
+    why: "Ternary A–B–A gives contrast meaning through return: familiar material is heard differently after the contrasting middle.",
+    when: "When a composition needs a clear departure and recognizable return without continuously introducing new sections.",
+    tools: ["Section markers", "Arrangement view", "Duplicate section", "Timeline"],
+    visual: "phrase-form",
+    realWorld: "In a DAW timeline, A–B–A often looks like an earlier block duplicated after a contrasting middle section.",
+  },
+  "composition.phrase-form.d": {
+    why: "AABA establishes the main identity strongly, creates one contrasting bridge, then restores the familiar material.",
+    when: "During song-form planning, especially when sixteen- or thirty-two-bar structures need one controlled contrast point.",
+    tools: ["Section markers", "Bridge marker", "Arrangement blocks", "Timeline"],
+    visual: "phrase-form",
+    realWorld: "AABA is visible as three similarly colored/labeled A blocks surrounding one contrasting B/bridge block.",
+  },
+
+  "composition.texture-orchestration.a": {
+    why: "Register separation can solve clarity problems at the composition stage by giving bass, harmony, and melody different pitch territories.",
+    when: "Before EQ and mixing, whenever parts sound crowded despite reasonable levels and timbres.",
+    tools: ["Octave transpose", "Piano roll", "Register view", "Arrangement"],
+    visual: "texture",
+    realWorld: "In a DAW piano roll, register separation is literally vertical distance between bass, chord, and melody MIDI regions.",
+  },
+  "composition.texture-orchestration.b": {
+    why: "Open voicing spreads chord tones over a wider range, reducing midrange congestion while making harmony feel larger.",
+    when: "While arranging piano, pads, strings, synth chords, or ensemble parts before detailed mixing.",
+    tools: ["Chord voicing", "Octave transpose", "Piano roll", "Keyboard"],
+    visual: "texture",
+    realWorld: "Opening a chord in MIDI often means selecting the top note and moving it up twelve semitones while the chord identity stays the same.",
+  },
+  "composition.texture-orchestration.c": {
+    why: "Octave doubling reinforces a line across two registers, increasing weight and brightness without changing its pitch-class contour.",
+    when: "At climaxes, choruses, lead entrances, orchestral tuttis, or other moments where a line needs more presence.",
+    tools: ["Duplicate MIDI", "Octave transpose", "Layered instrument", "Arrangement"],
+    visual: "texture",
+    realWorld: "Producers often duplicate a MIDI melody to another instrument or octave; the two clips share rhythm and contour but occupy different registers.",
+  },
+  "composition.texture-orchestration.d": {
+    why: "Density contrast makes large moments feel large because sparse moments establish space beforehand.",
+    when: "During arrangement and orchestration when energy needs to rise and fall without relying only on volume automation.",
+    tools: ["Arrangement view", "Track mute", "Layer count", "Register planning"],
+    visual: "texture",
+    realWorld: "Dense DAW sections visibly contain more simultaneous clips and layers, while sparse sections expose fewer active tracks.",
   },
 };
 
