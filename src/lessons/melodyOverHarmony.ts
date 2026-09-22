@@ -21,7 +21,7 @@ const lesson = lessonContentSchema.parse({
   number: 15,
   title: "Melody over harmony",
   eyebrow: "Composition · Melody",
-  hero: "Make a note rub against the chord, then give it somewhere to go."
+  hero: "Make a note rub against the chord, then give it somewhere to go.",
   description:
     "See each melody note in relation to the chord beneath it. Strong beats can anchor with chord tones while passing, neighbour, and chromatic notes create controlled tension between those anchors.",
   overview:
