@@ -148,6 +148,7 @@ describe("lesson 2: repetition and variation", () => {
     const B = clonePattern(A);
 
     B.kick[7] = true;
+    B.kick[11] = true;
     B.snare[13] = true;
     B.hat[14] = false;
 
@@ -156,6 +157,31 @@ describe("lesson 2: repetition and variation", () => {
     for (const exercise of rhythmVariationLesson.exercises) {
       expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
     }
+  });
+
+  it("does not pre-complete the turnaround after doing the fill and anticipation exercises", () => {
+    const A = completedGroove();
+    const B = clonePattern(A);
+
+    B.snare[13] = true;
+    B.kick[11] = true;
+
+    const ctx = context({ A, B });
+    expect(
+      rhythmVariationLesson.exercises[1]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+    expect(
+      rhythmVariationLesson.exercises[2]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+    expect(
+      rhythmVariationLesson.exercises[3]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(false);
   });
 });
 
@@ -166,6 +192,15 @@ describe("lesson 3: keys and melody", () => {
     62, 65, 67, 69,
     67, 64, 62, 60,
   ];
+
+
+  it("does not mark the 'no outside notes' objective complete before the student selects anything", () => {
+    const checks = pianoCompositionLesson.exercises[0].evaluate(
+      context({ selectedPitchClasses: [] }),
+    );
+    expect(checks[0].complete).toBe(false);
+    expect(checks[1].complete).toBe(false);
+  });
 
   it("recognises a correct C-major key map", () => {
     const checks = pianoCompositionLesson.exercises[0].evaluate(
