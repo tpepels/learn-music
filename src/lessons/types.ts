@@ -6,6 +6,7 @@ import type {
   ChordProgression,
   DynamicsSettings,
   EffectsSettings,
+  GrooveFeelSettings,
   MelodySequence,
   MixerSettings,
   StepPattern,
@@ -41,6 +42,7 @@ export const exerciseContentSchema = z.object({
     "final-project",
     "voicing",
     "bass",
+    "groove-feel",
   ]),
   checksLabel: z.string(),
   successLabel: z.string(),
@@ -73,6 +75,7 @@ export type LessonContext = {
   projectMilestones: { exported: boolean };
   voicingSettings: VoicingSettings;
   bassSequence: BassSequence;
+  grooveFeelSettings: GrooveFeelSettings;
 };
 
 export type ExerciseDefinition = z.infer<typeof exerciseContentSchema> & {
