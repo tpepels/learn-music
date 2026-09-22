@@ -141,6 +141,7 @@ type StudioState = {
   setChordSlot: (slot: number, chord: ChordName | null) => void;
   clearChords: () => void;
   toggleHarmonyNote: (step: number, midi: number) => void;
+  clearHarmonyBar: (bar: number) => void;
   clearHarmonySequence: () => void;
   setAccompanimentPattern: (pattern: AccompanimentPattern) => void;
   resetAccompanimentPattern: () => void;
@@ -435,6 +436,22 @@ export const useStudioStore = create<StudioState>()(
               state,
               "harmony.note-edit",
               step + ":" + midi,
+            ),
+          };
+        }),
+
+      clearHarmonyBar: (bar) =>
+        set((state) => {
+          const harmonySequence = cloneHarmonySequence(state.harmonySequence);
+          for (let step = bar * 8; step < bar * 8 + 8; step += 1) {
+            harmonySequence[step] = [];
+          }
+          return {
+            harmonySequence,
+            learningExperiments: recordExperimentValue(
+              state,
+              "harmony.clear-bar",
+              bar,
             ),
           };
         }),
