@@ -1,20 +1,31 @@
 import { chordFunction } from "../music/model";
 import {
+  barUsesAllChordTones,
+  everyActiveBarWritten,
+  harmonyActiveSteps,
+  harmonyOffbeats,
+  writtenHarmonyFitsChords,
+} from "./harmonyApplication";
+import {
   exerciseContentSchema,
   lessonContentSchema,
   type LessonDefinition,
 } from "./types";
 
+function edits(experiments: Parameters<LessonDefinition["exercises"][number]["evaluate"]>[0]["experiments"]) {
+  return experiments["harmony.note-edit"]?.changes ?? 0;
+}
+
 const lesson = lessonContentSchema.parse({
   id: "harmony.function",
   number: 16,
   title: "Harmonic function",
-  eyebrow: "Composition · Harmony",
-  hero: "Stop memorizing progressions as recipes.",
+  eyebrow: "Harmony · Composition",
+  hero: "Hear function by rewriting the notes that create it.",
   description:
-    "Hear chords as roles: tonic provides home, predominant moves away, dominant creates expectation, and resolution completes the motion. Then use deceptive resolution and a secondary dominant.",
+    "Tonic, predominant and dominant are not labels to memorize. Change the progression, rewrite its MIDI notes, and hear how the same groove and melody acquire different direction.",
   overview:
-    "Functional harmony describes what a chord is doing in a tonal context. Different chord symbols can share similar roles. Understanding function makes progressions easier to invent because you can choose a role first and a specific chord second.",
+    "Function describes what harmony does over time: tonic provides stability, predominant moves away, dominant creates expectation, and resolution answers it. The chord lane names those roles; the piano roll makes them audible.",
 });
 
 export const harmonicFunctionLesson: LessonDefinition = {
@@ -24,25 +35,25 @@ export const harmonicFunctionLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "harmony.function.a",
         letter: "A",
-        title: "Build home → departure → tension → return",
-        learn: "Hear tonic, predominant, and dominant as a directed cycle rather than four unrelated chords.",
+        title: "Write home → departure → tension → return",
+        learn: "Connect harmonic function to notes you actually perform.",
         explanation:
-          "Tonic feels stable, predominant moves away from tonic, dominant creates strong expectation, and tonic resolves that expectation. This functional path underlies a huge amount of tonal music.",
+          "C, F, G, and C create a simple functional arc in C major. The useful knowledge is not the sequence of letters by itself, but the audible change produced when C/E/G becomes F/A/C, then G/B/D, then returns home.",
         instruction:
-          "Set the four slots to C → F → G → C. Play it and follow the function strip: TONIC → PREDOMINANT → DOMINANT → TONIC.",
+          "Set C → F → G → C. Rewrite the harmony piano roll so every bar contains all chord tones and at least eight time positions contain harmony overall. Keep Play running while you replace notes that no longer belong.",
         recognition:
-          "C feels like home, F opens the phrase, G feels unfinished, and the final C answers that tension.",
+          "The same groove should feel stable, then displaced, then tense, then settled. Put a wrong note in briefly if you need to hear why the highlighted chord tones matter.",
         terms: [
-          { term: "Tonic", definition: "The harmonic function associated with stability and home." },
-          { term: "Predominant", definition: "A function that moves away from tonic and commonly prepares dominant harmony." },
-          { term: "Dominant", definition: "A tension-producing function that strongly points toward tonic." },
-          { term: "Harmonic function", definition: "The role a chord plays in creating stability, departure, tension, or resolution." },
+          { term: "Tonic", definition: "Harmony that feels like the tonal home or point of stability." },
+          { term: "Predominant", definition: "Harmony that commonly moves away from tonic and prepares dominant." },
+          { term: "Dominant", definition: "Harmony that creates a strong expectation of resolution toward tonic." },
+          { term: "Function", definition: "The directional role a harmony plays within a key." },
         ],
         workspace: "harmonic-function",
-        checksLabel: "Build the functional cycle",
-        successLabel: "The progression now demonstrates the basic tonal motion",
+        checksLabel: "Write the function",
+        successLabel: "The functional arc is in the MIDI you wrote",
       }),
-      evaluate: ({ chordProgression }) => [
+      evaluate: ({ chordProgression, harmonySequence, experiments }) => [
         {
           label: "Progression is C → F → G → C",
           complete:
@@ -52,11 +63,18 @@ export const harmonicFunctionLesson: LessonDefinition = {
             chordProgression[3] === "C",
         },
         {
-          label: "Functions read tonic → predominant → dominant → tonic",
-          complete:
-            chordProgression.every(Boolean) &&
-            chordProgression.map((chord) => chord && chordFunction[chord]).join("|") ===
-              "tonic|predominant|dominant|tonic",
+          label: "Every bar contains all of its chord tones",
+          complete: [0, 1, 2, 3].every((bar) =>
+            barUsesAllChordTones(harmonySequence, chordProgression, bar),
+          ),
+        },
+        {
+          label: "The part occupies at least eight time positions",
+          complete: harmonyActiveSteps(harmonySequence) >= 8,
+        },
+        {
+          label: "You actually rewrote the harmony in this exercise",
+          complete: edits(experiments) >= 4,
         },
       ],
     },
@@ -64,29 +82,43 @@ export const harmonicFunctionLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "harmony.function.b",
         letter: "B",
-        title: "Use ii–V–I",
-        learn: "Hear one of the clearest predominant–dominant–tonic progressions.",
+        title: "Rewrite it as ii–V–I",
+        learn: "Hear a different predominant while preserving dominant-to-tonic direction.",
         explanation:
-          "In C major, D minor is ii and acts as predominant; G is V and acts as dominant; C is I and tonic. ii–V–I is important because its roots, voices, and functions all create strong forward motion.",
+          "Dm is ii in C major. Moving Dm→G→C creates predominant→dominant→tonic with different voice content from F→G→C.",
         instruction:
-          "Set slots 1–3 to Dm → G → C. Put C in slot 4 so the resolution has time to settle.",
+          "Change the first three bars to Dm → G → C and keep C in bar 4. Rewrite the notes in the changed bars until every written note belongs to its chord and bars 1–3 each contain all chord tones.",
         recognition:
-          "Dm should sound like departure, G like the strongest tension, and C like arrival.",
+          "The first bar changes colour, but the G→C arrival should retain the same directional pull.",
         terms: [
-          { term: "ii–V–I", definition: "A predominant–dominant–tonic progression built on scale degrees 2, 5, and 1." },
-          { term: "Cadential progression", definition: "A harmonic pattern that strongly creates or confirms arrival." },
+          { term: "ii chord", definition: "The minor chord on scale degree 2; D minor in C major." },
+          { term: "Cadential motion", definition: "Harmonic movement that creates and then resolves expectation near a phrase ending." },
         ],
         workspace: "harmonic-function",
-        checksLabel: "Make a ii–V–I",
-        successLabel: "Predominant, dominant, and tonic now form one directed cadence",
+        checksLabel: "Reharmonize",
+        successLabel: "You rebuilt the phrase as ii–V–I",
       }),
-      evaluate: ({ chordProgression }) => [
+      evaluate: ({ chordProgression, harmonySequence, experiments }) => [
         {
-          label: "First three slots are Dm → G → C",
+          label: "The phrase begins Dm → G → C",
           complete:
             chordProgression[0] === "Dm" &&
             chordProgression[1] === "G" &&
             chordProgression[2] === "C",
+        },
+        {
+          label: "The first three bars contain every chord tone",
+          complete: [0, 1, 2].every((bar) =>
+            barUsesAllChordTones(harmonySequence, chordProgression, bar),
+          ),
+        },
+        {
+          label: "No written note fights the chord above it",
+          complete: writtenHarmonyFitsChords(harmonySequence, chordProgression),
+        },
+        {
+          label: "You edited the MIDI rather than only the labels",
+          complete: edits(experiments) >= 3,
         },
       ],
     },
@@ -94,29 +126,46 @@ export const harmonicFunctionLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "harmony.function.c",
         letter: "C",
-        title: "Avoid the expected tonic",
-        learn: "Create a deceptive resolution by letting dominant move somewhere tonic-like but unexpected.",
+        title: "Redirect the expected resolution",
+        learn: "Make a deceptive resolution happen in the actual accompaniment.",
         explanation:
-          "After V, the ear strongly expects I. A deceptive resolution redirects that expectation—often to vi—so the tension changes character instead of closing completely.",
+          "G normally points strongly toward C. Moving from G to Am redirects that expectation toward vi. Hearing the effect requires the notes under G to become the notes of Am, not merely changing a chord label.",
         instruction:
-          "Create C → G → Am → F. Listen closely to G → Am: the dominant moves to vi instead of the expected C.",
+          "Create C → G → Am → F. Rewrite the harmony so every bar contains playable chord tones, use at least eight time positions, and place at least two harmony events on offbeat eighths.",
         recognition:
-          "The G chord should make you expect C. Am partially satisfies the motion but keeps the phrase open.",
+          "The move G→Am should feel like continuation rather than full closure. The offbeat rhythm keeps the lesson inside your actual accompaniment rather than a chord demonstration.",
         terms: [
-          { term: "Deceptive resolution", definition: "A dominant chord resolving somewhere other than the expected tonic, commonly V→vi." },
-          { term: "Expectation", definition: "A listener's learned sense that a musical event is likely to lead to another event." },
+          { term: "Deceptive resolution", definition: "A dominant harmony resolving somewhere other than the expected tonic, often to vi." },
+          { term: "vi chord", definition: "The chord on scale degree 6; A minor in C major." },
         ],
         workspace: "harmonic-function",
-        checksLabel: "Redirect the dominant",
-        successLabel: "The dominant now resolves deceptively to vi",
+        checksLabel: "Redirect it",
+        successLabel: "The deceptive move is part of your accompaniment",
       }),
-      evaluate: ({ chordProgression }) => [
+      evaluate: ({ chordProgression, harmonySequence, experiments }) => [
         {
-          label: "Progression contains G → Am as the central resolution",
+          label: "Progression is C → G → Am → F",
           complete:
             chordProgression[0] === "C" &&
             chordProgression[1] === "G" &&
-            chordProgression[2] === "Am",
+            chordProgression[2] === "Am" &&
+            chordProgression[3] === "F",
+        },
+        {
+          label: "Every active bar has written harmony that fits",
+          complete:
+            everyActiveBarWritten(harmonySequence, chordProgression) &&
+            writtenHarmonyFitsChords(harmonySequence, chordProgression),
+        },
+        {
+          label: "The accompaniment has rhythm, including offbeats",
+          complete:
+            harmonyActiveSteps(harmonySequence) >= 8 &&
+            harmonyOffbeats(harmonySequence) >= 2,
+        },
+        {
+          label: "You rewrote the changed harmony",
+          complete: edits(experiments) >= 4,
         },
       ],
     },
@@ -124,43 +173,51 @@ export const harmonicFunctionLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "harmony.function.d",
         letter: "D",
-        title: "Tonicize the dominant",
-        learn: "Use a chromatic secondary dominant to make one diatonic chord temporarily feel like a destination.",
+        title: "Write the secondary dominant",
+        learn: "Hear chromatic function by placing the altered note yourself.",
         explanation:
-          "D7 contains F♯, a pitch outside C major. That chromatic note gives D7 dominant function toward G. D7 is therefore V/V: the dominant of the dominant.",
+          "D7 contains F♯, a note outside C major. That F♯ pulls upward to G and temporarily makes G feel like a goal. G then resumes its dominant role and points back to C.",
         instruction:
-          "Set D7 → G → C in the first three slots. Use any tonic-function chord in slot 4. Play the loop and hear how D7 makes G sound temporarily like an arrival before G itself points to C.",
+          "Set D7 → G → C in bars 1–3 and choose C, Em, or Am in bar 4. In the piano roll, write every tone of D7—including F♯—then rewrite the remaining bars so every sounding note fits its chord.",
         recognition:
-          "D7 should sound brighter and more urgent than diatonic Dm. Its F♯ pulls toward G, then G pulls onward toward C.",
+          "F♯ should sound purposeful because it leads into G. Try F natural in that spot once if you want to hear how much of the secondary-dominant pull disappears.",
         terms: [
-          { term: "Secondary dominant", definition: "A dominant-function chord that temporarily points to a diatonic chord other than the tonic." },
-          { term: "V/V", definition: "The dominant of the dominant; in C major this is D7 resolving to G." },
-          { term: "Tonicization", definition: "Temporarily making a non-tonic chord feel like a local point of arrival." },
-          { term: "Chromatic harmony", definition: "Harmony using pitches or chords outside the current diatonic scale." },
+          { term: "Secondary dominant", definition: "A dominant chord that temporarily points to a chord other than the main tonic." },
+          { term: "Tonicization", definition: "Briefly making a non-tonic chord sound like a local point of arrival." },
+          { term: "Chromatic note", definition: "A pitch outside the prevailing diatonic scale, used here for harmonic direction." },
         ],
         workspace: "harmonic-function",
-        checksLabel: "Use V/V",
-        successLabel: "A chromatic dominant now intensifies the route to V and I",
+        checksLabel: "Write the chromatic pull",
+        successLabel: "F♯ now creates the secondary dominant you can hear",
       }),
-      evaluate: ({ chordProgression }) => [
+      evaluate: ({ chordProgression, harmonySequence, experiments }) => [
         {
-          label: "D7 resolves to G",
+          label: "D7 resolves to G and G resolves to C",
           complete:
             chordProgression[0] === "D7" &&
-            chordProgression[1] === "G",
-        },
-        {
-          label: "G then resolves to C",
-          complete:
             chordProgression[1] === "G" &&
             chordProgression[2] === "C",
         },
         {
-          label: "Slot 4 returns to tonic function",
+          label: "Bar 4 returns to tonic function",
           complete: Boolean(
             chordProgression[3] &&
               chordFunction[chordProgression[3]] === "tonic",
           ),
+        },
+        {
+          label: "D7 contains all four written chord tones",
+          complete: barUsesAllChordTones(harmonySequence, chordProgression, 0),
+        },
+        {
+          label: "The whole written accompaniment fits its current chords",
+          complete:
+            everyActiveBarWritten(harmonySequence, chordProgression) &&
+            writtenHarmonyFitsChords(harmonySequence, chordProgression),
+        },
+        {
+          label: "You edited the harmony rather than only choosing D7",
+          complete: edits(experiments) >= 4,
         },
       ],
     },
