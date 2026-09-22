@@ -203,3 +203,26 @@ export const initialDynamicsSettings: DynamicsSettings = {
   attack: 0.003,
   release: 0.2,
 };
+
+
+export type EffectsSettings = {
+  reverbDecay: number;
+  reverbPreDelay: number;
+  delayFeedback: number;
+  chorusWet: number;
+};
+
+export const initialEffectsSettings: EffectsSettings = {
+  reverbDecay: 2.7,
+  reverbPreDelay: 0.015,
+  delayFeedback: 0.28,
+  chorusWet: 0,
+};
+
+export type ProjectMilestones = {
+  exported: boolean;
+};
+
+export const initialProjectMilestones: ProjectMilestones = {
+  exported: false,
+};
