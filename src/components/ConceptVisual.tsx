@@ -384,7 +384,7 @@ export function ConceptVisual({ kind }: { kind: ConceptVisualKind }) {
           ))}
           <path d="M 84 68 H 98 M 179 68 H 191 M 254 68 H 255" className="diagram-arrow" />
           <path d="M 130 99 C 165 123, 216 123, 245 99" className="diagram-envelope" />
-          <text x="24" y="128" className="diagram-caption">FUNCTION DESCRIBES ROLE, NOT JUST CHORD NAME</text>
+          <text x="24" y="128" className="diagram-caption">FUNCTION = WHERE THE CHORD WANTS TO GO</text>
         </svg>
       );
 
