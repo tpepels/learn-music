@@ -23,7 +23,7 @@ const lesson = lessonContentSchema.parse({
   eyebrow: "Harmony · Composition",
   hero: "Hear where the chords want to go.",
   description:
-    "Change the chords under the same groove and melody, then rewrite the notes that make those chords. Listen for home, departure, pull and return as movement through the phrase.",
+    "Keep the groove and melody you have already shaped, but change the chords underneath them. Rewriting the harmony against familiar material makes home, departure, pull, and return easier to hear.",
   overview:
     "Chord function is about direction. Some harmonies let the phrase rest, some move away, and some make the next chord feel strongly expected. The useful part is hearing that pull while you write the notes.",
 });
