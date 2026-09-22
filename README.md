@@ -10,7 +10,7 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v1.6.0**.
+Current curriculum release: **v1.7.0**.
 
 ## Current interactive curriculum
 
@@ -243,7 +243,10 @@ The design follows a “friendly workstation” approach:
 - WHY / WHEN / WHAT / terminology lives in a larger collapsible centre panel;
 - instructional text now uses a substantially larger readability floor;
 - the central explanation is a single collapsible two-column reading surface rather than a grid of small cards;
+- exercise A–D navigation is now a compact set of progress lights in the right rail, keeping the centre for instruments, theory, and explanation;
+- the top lesson intro shows one short summary sentence before the instrument;
 - redundant status copy, repeated headings, chips, and decorative instructional slogans have been removed;
+- transport keeps playing while moving between playable exercises/lessons and automatically re-routes when the workspace changes;
 - controls look and behave like pads, keys, clips, faders, mixer sends, automation lanes, and synth parameters;
 - real DAW labels such as GRID, MIDI CLIP, CHORD TRACK, OSC, FILTER, AMP ENV, RETURN, MASTER, and AUTOMATION appear where learners will later encounter them.
 
