@@ -59,7 +59,7 @@ export type MelodySequence = Array<number | null>;
 
 export const initialMelody: MelodySequence = Array(MELODY_STEPS).fill(null);
 
-export const chordNames = ["C", "Dm", "Em", "F", "G", "Am", "Bdim"] as const;
+export const chordNames = ["C", "Dm", "Em", "F", "G", "Am", "Bdim", "D7"] as const;
 export type ChordName = (typeof chordNames)[number];
 export type ChordProgression = Array<ChordName | null>;
 
@@ -73,6 +73,7 @@ export const chordMidi: Record<ChordName, number[]> = {
   G: [55, 59, 62],
   Am: [57, 60, 64],
   Bdim: [59, 62, 65],
+  D7: [50, 54, 57, 60],
 };
 
 export const romanNumerals: Record<ChordName, string> = {
@@ -83,6 +84,7 @@ export const romanNumerals: Record<ChordName, string> = {
   G: "V",
   Am: "vi",
   Bdim: "vii°",
+  D7: "V/V",
 };
 
 export function isCMajorMidi(midi: number): boolean {
@@ -242,6 +244,8 @@ export type ProjectData = {
   voicingSettings: VoicingSettings;
   bassSequence: BassSequence;
   grooveFeelSettings: GrooveFeelSettings;
+  formSettings: FormSettings;
+  textureSettings: TextureSettings;
 };
 
 
@@ -367,4 +371,78 @@ export function cloneGrooveFeelSettings(
       hat: [...settings.velocities.hat],
     },
   };
+}
+
+
+export const chordFunctions = ["tonic", "predominant", "dominant", "secondary-dominant"] as const;
+export type ChordFunction = (typeof chordFunctions)[number];
+
+export const chordFunction: Record<ChordName, ChordFunction> = {
+  C: "tonic",
+  Dm: "predominant",
+  Em: "tonic",
+  F: "predominant",
+  G: "dominant",
+  Am: "tonic",
+  Bdim: "dominant",
+  D7: "secondary-dominant",
+};
+
+export function chordPitchClasses(chord: ChordName): number[] {
+  return [...new Set(chordMidi[chord].map((midi) => ((midi % 12) + 12) % 12))];
+}
+
+export function isChordTone(midi: number, chord: ChordName): boolean {
+  return chordPitchClasses(chord).includes(((midi % 12) + 12) % 12);
+}
+
+export type FormSectionLabel = "A" | "A′" | "B" | "C";
+export type PhraseRole = "statement" | "answer" | "contrast" | "return";
+
+export type FormSettings = {
+  sections: FormSectionLabel[];
+  roles: PhraseRole[];
+};
+
+export const initialFormSettings: FormSettings = {
+  sections: ["A", "A′", "B", "A"],
+  roles: ["statement", "answer", "contrast", "return"],
+};
+
+export type TextureSettings = {
+  bassOctave: -1 | 0 | 1;
+  chordsOctave: -1 | 0 | 1;
+  melodyOctave: -1 | 0 | 1;
+  openChords: boolean;
+  melodyOctaveDouble: boolean;
+};
+
+export const initialTextureSettings: TextureSettings = {
+  bassOctave: 0,
+  chordsOctave: 0,
+  melodyOctave: 0,
+  openChords: false,
+  melodyOctaveDouble: false,
+};
+
+export function applyChordTexture(
+  notes: number[],
+  settings: TextureSettings,
+): number[] {
+  const shifted = notes.map((note) => note + settings.chordsOctave * 12);
+
+  if (!settings.openChords || shifted.length < 3) {
+    return shifted;
+  }
+
+  return shifted.map((note, index) =>
+    index === shifted.length - 1 ? note + 12 : note,
+  );
+}
+
+export function transposeMelodyNote(
+  midi: number,
+  semitones: number,
+): number {
+  return Math.max(0, Math.min(127, midi + semitones));
 }
