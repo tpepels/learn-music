@@ -7,7 +7,12 @@ import {
   chordNames,
   initialBassSequence,
   initialGrooveFeelSettings,
+  initialEqSettings,
   initialFormSettings,
+  initialReferenceMixSettings,
+  initialSaturationSettings,
+  initialSidechainSettings,
+  initialStereoSettings,
   initialTextureSettings,
   initialVoicingSettings,
   patternIds,
@@ -119,6 +124,76 @@ export const projectFileSchema = z.object({
         melodyOctaveDouble: z.boolean(),
       })
       .optional(),
+    eqSettings: z
+      .object({
+        drums: z.object({ frequency: z.number(), gain: z.number(), q: z.number().positive() }),
+        bass: z.object({ frequency: z.number(), gain: z.number(), q: z.number().positive() }),
+        chords: z.object({ frequency: z.number(), gain: z.number(), q: z.number().positive() }),
+        melody: z.object({ frequency: z.number(), gain: z.number(), q: z.number().positive() }),
+      })
+      .optional(),
+    saturationSettings: z
+      .object({
+        drums: z.object({ drive: z.number().min(0).max(1), wet: z.number().min(0).max(1) }),
+        bass: z.object({ drive: z.number().min(0).max(1), wet: z.number().min(0).max(1) }),
+        chords: z.object({ drive: z.number().min(0).max(1), wet: z.number().min(0).max(1) }),
+        melody: z.object({ drive: z.number().min(0).max(1), wet: z.number().min(0).max(1) }),
+      })
+      .optional(),
+    sidechainSettings: z
+      .object({
+        enabled: z.boolean(),
+        amountDb: z.number().min(0).max(12),
+        release: z.number().min(0.05).max(0.8),
+      })
+      .optional(),
+    stereoSettings: z
+      .object({
+        widths: z.object({
+          drums: z.number().min(0).max(1),
+          bass: z.number().min(0).max(1),
+          chords: z.number().min(0).max(1),
+          melody: z.number().min(0).max(1),
+        }),
+        monoAudition: z.boolean(),
+        monoChecked: z.boolean(),
+      })
+      .optional(),
+    referenceMixSettings: z
+      .object({
+        snapshot: z
+          .object({
+            mixerSettings: z.object({
+              drums: mixerTrackSchema,
+              bass: mixerTrackSchema,
+              chords: mixerTrackSchema,
+              melody: mixerTrackSchema,
+            }),
+            eqSettings: z.object({
+              drums: z.object({ frequency: z.number(), gain: z.number(), q: z.number().positive() }),
+              bass: z.object({ frequency: z.number(), gain: z.number(), q: z.number().positive() }),
+              chords: z.object({ frequency: z.number(), gain: z.number(), q: z.number().positive() }),
+              melody: z.object({ frequency: z.number(), gain: z.number(), q: z.number().positive() }),
+            }),
+            saturationSettings: z.object({
+              drums: z.object({ drive: z.number().min(0).max(1), wet: z.number().min(0).max(1) }),
+              bass: z.object({ drive: z.number().min(0).max(1), wet: z.number().min(0).max(1) }),
+              chords: z.object({ drive: z.number().min(0).max(1), wet: z.number().min(0).max(1) }),
+              melody: z.object({ drive: z.number().min(0).max(1), wet: z.number().min(0).max(1) }),
+            }),
+            stereoWidths: z.object({
+              drums: z.number().min(0).max(1),
+              bass: z.number().min(0).max(1),
+              chords: z.number().min(0).max(1),
+              melody: z.number().min(0).max(1),
+            }),
+          })
+          .nullable(),
+        trimDb: z.number().min(-12).max(12),
+        comparisons: z.number().int().min(0),
+        quietChecked: z.boolean(),
+      })
+      .optional(),
   }),
 });
 
@@ -147,6 +222,30 @@ export function parseProjectFile(input: unknown): ProjectData {
     },
     textureSettings: project.textureSettings ?? {
       ...initialTextureSettings,
+    },
+    eqSettings: project.eqSettings ?? {
+      drums: { ...initialEqSettings.drums },
+      bass: { ...initialEqSettings.bass },
+      chords: { ...initialEqSettings.chords },
+      melody: { ...initialEqSettings.melody },
+    },
+    saturationSettings: project.saturationSettings ?? {
+      drums: { ...initialSaturationSettings.drums },
+      bass: { ...initialSaturationSettings.bass },
+      chords: { ...initialSaturationSettings.chords },
+      melody: { ...initialSaturationSettings.melody },
+    },
+    sidechainSettings: project.sidechainSettings ?? {
+      ...initialSidechainSettings,
+    },
+    stereoSettings: project.stereoSettings ?? {
+      widths: { ...initialStereoSettings.widths },
+      monoAudition: initialStereoSettings.monoAudition,
+      monoChecked: initialStereoSettings.monoChecked,
+    },
+    referenceMixSettings: project.referenceMixSettings ?? {
+      ...initialReferenceMixSettings,
+      snapshot: null,
     },
   } as ProjectData;
 }
