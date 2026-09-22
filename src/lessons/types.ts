@@ -10,6 +10,7 @@ import type {
   EqSettings,
   GrooveFeelSettings,
   FormSettings,
+  HarmonySequence,
   MelodySequence,
   MixerSettings,
   ReferenceMixSettings,
