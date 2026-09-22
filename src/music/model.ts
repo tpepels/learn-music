@@ -263,17 +263,23 @@ export function voicedChordMidi(
   chord: ChordName,
   inversion: ChordInversion,
 ): number[] {
-  const [root, third, fifth] = chordMidi[chord];
+  const notes = chordMidi[chord];
 
   if (inversion === 1) {
-    return [third - 12, fifth - 12, root];
+    return [
+      ...notes.slice(1).map((note) => note - 12),
+      notes[0],
+    ];
   }
 
   if (inversion === 2) {
-    return [fifth - 12, root, third];
+    return [
+      ...notes.slice(2).map((note) => note - 12),
+      ...notes.slice(0, 2),
+    ];
   }
 
-  return [root, third, fifth];
+  return [...notes];
 }
 
 export function voiceLeadingDistance(
@@ -289,10 +295,13 @@ export function voiceLeadingDistance(
     const current = voicedChordMidi(chord, inversions[index] ?? 0);
 
     if (previous) {
-      distance += current.reduce(
-        (sum, midi, voice) => sum + Math.abs(midi - previous![voice]),
-        0,
-      );
+      distance += current.reduce((sum, midi, voice) => {
+        const previousMidi =
+          previous![voice] ??
+          previous![previous!.length - 1] ??
+          midi;
+        return sum + Math.abs(midi - previousMidi);
+      }, 0);
     }
 
     previous = current;
