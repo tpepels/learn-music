@@ -9,7 +9,7 @@ const lesson = lessonContentSchema.parse({
   number: 9,
   title: "Creative effects & transitions",
   eyebrow: "Production · FX",
-  hero: "Make the space and echoes move with the music."
+  hero: "Make the space and echoes move with the music.",
   description:
     "Shape shared space with reverb, create rhythmic echoes with delay, widen a lead with chorus, and combine effects with automation to make transitions feel intentional.",
   overview:
