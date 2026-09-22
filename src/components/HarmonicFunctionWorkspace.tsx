@@ -1,7 +1,7 @@
 import { audioEngine } from "../audio/engine";
 import {
   chordFunction,
-  chordNames,
+  basicChordNames,
   romanNumerals,
   type ChordName,
 } from "../music/model";
@@ -12,6 +12,7 @@ const functionLabels = {
   predominant: "PREDOMINANT",
   dominant: "DOMINANT",
   "secondary-dominant": "SECONDARY DOMINANT",
+  borrowed: "BORROWED",
 } as const;
 
 export function HarmonicFunctionWorkspace() {
@@ -55,7 +56,7 @@ export function HarmonicFunctionWorkspace() {
             </div>
 
             <div className="function-choice-grid">
-              {chordNames.map((choice) => (
+              {basicChordNames.map((choice) => (
                 <button
                   key={choice}
                   className={progression[slot] === choice ? "is-active" : ""}
