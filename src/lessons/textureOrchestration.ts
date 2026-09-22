@@ -31,7 +31,7 @@ export const textureOrchestrationLesson: LessonDefinition = {
         explanation:
           "Register is where a part sits from low to high. Two well-written parts can still obscure one another if they occupy the same register. Moving one an octave is often a compositional solution, not a mixing trick.",
         instruction:
-          "Set bass to LOWER (−12), chords to ORIGINAL, and melody to HIGHER (+12). Play the arrangement and compare the separation with all three at ORIGINAL.",
+          "First make the register problem worse: put BASS one octave higher and MELODY one octave lower and listen to them crowd the middle. Then reverse it: BASS lower, CHORDS original, MELODY higher. Leave the separated version in place.",
         recognition:
           "The layers should become easier to identify because their pitch ranges overlap less.",
         terms: [
@@ -43,7 +43,13 @@ export const textureOrchestrationLesson: LessonDefinition = {
         checksLabel: "Separate the vertical space",
         successLabel: "Bass, harmony, and melody now occupy distinct registers",
       }),
-      evaluate: ({ textureSettings }) => [
+      evaluate: ({ textureSettings, experiments }) => [
+        {
+          label: "You tried the deliberately crowded opposite registers first",
+          complete:
+            experiments["texture.bassOctave"]?.values.includes("1") === true &&
+            experiments["texture.melodyOctave"]?.values.includes("-1") === true,
+        },
         {
           label: "Bass is one octave lower",
           complete: textureSettings.bassOctave === -1,
@@ -67,7 +73,7 @@ export const textureOrchestrationLesson: LessonDefinition = {
         explanation:
           "Open voicing spreads chord tones over a wider range. Raising one voice by an octave can make harmony feel larger and reduce congestion in the middle register.",
         instruction:
-          "Keep the separated registers and turn OPEN CHORD VOICING on. Compare it with the closed version while the progression plays.",
+          "Turn OPEN CHORD VOICING on, off, and on again while the progression plays. Listen to whether the wider spacing helps this arrangement or simply makes it thinner; leave it on for this exercise.",
         recognition:
           "The chord should feel wider and less compact even though the chord symbol has not changed.",
         terms: [
@@ -79,7 +85,13 @@ export const textureOrchestrationLesson: LessonDefinition = {
         checksLabel: "Widen the harmony",
         successLabel: "The chord texture now has more internal space",
       }),
-      evaluate: ({ textureSettings }) => [
+      evaluate: ({ textureSettings, experiments }) => [
+        {
+          label: "You compared closed and open voicing during this exercise",
+          complete:
+            experiments["texture.openChords"]?.values.includes("true") === true &&
+            experiments["texture.openChords"]?.values.includes("false") === true,
+        },
         {
           label: "Open chord voicing is enabled",
           complete: textureSettings.openChords,
@@ -95,7 +107,7 @@ export const textureOrchestrationLesson: LessonDefinition = {
         explanation:
           "Doubling the same melody at the octave keeps pitch-class identity but adds another register and more energy. It can make a lead feel larger, but constant doubling can also reduce contrast.",
         instruction:
-          "Turn MELODY OCTAVE DOUBLE on. Compare one melody voice with the doubled version, then keep the doubling enabled for this exercise.",
+          "Turn MELODY OCTAVE DOUBLE on, then off, then on again while the phrase loops. Listen for the point where extra size becomes extra brightness rather than just extra loudness.",
         recognition:
           "The melody should become broader and brighter, with the same contour reinforced an octave above.",
         terms: [
@@ -107,7 +119,13 @@ export const textureOrchestrationLesson: LessonDefinition = {
         checksLabel: "Strengthen the foreground",
         successLabel: "The melody now uses a deliberate octave double",
       }),
-      evaluate: ({ textureSettings }) => [
+      evaluate: ({ textureSettings, experiments }) => [
+        {
+          label: "You auditioned both single and octave-doubled melody",
+          complete:
+            experiments["texture.melodyOctaveDouble"]?.values.includes("true") === true &&
+            experiments["texture.melodyOctaveDouble"]?.values.includes("false") === true,
+        },
         {
           label: "Melody octave doubling is enabled",
           complete: textureSettings.melodyOctaveDouble,
