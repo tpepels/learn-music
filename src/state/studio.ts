@@ -17,11 +17,13 @@ import {
   initialMelody,
   initialDynamicsSettings,
   initialEffectsSettings,
+  initialFormSettings,
   initialGrooveFeelSettings,
   initialMixerSettings,
   initialPattern,
   initialProjectMilestones,
   initialSynthSettings,
+  initialTextureSettings,
   initialVoicingSettings,
   type Arrangement,
   type ArrangementLayer,
@@ -31,6 +33,8 @@ import {
   type ChordProgression,
   type DynamicsSettings,
   type EffectsSettings,
+  type FormSectionLabel,
+  type FormSettings,
   type GrooveFeelSettings,
   type MelodySequence,
   type MixerSettings,
@@ -40,6 +44,7 @@ import {
   type ProjectMilestones,
   type StepPattern,
   type SynthSettings,
+  type TextureSettings,
   type TrackName,
   type VoicingSettings,
 } from "../music/model";
@@ -86,6 +91,8 @@ type StudioState = {
   voicingSettings: VoicingSettings;
   bassSequence: BassSequence;
   grooveFeelSettings: GrooveFeelSettings;
+  formSettings: FormSettings;
+  textureSettings: TextureSettings;
   appMode: "learn" | "create" | "studio";
 
   setBpm: (bpm: number) => void;
@@ -134,6 +141,10 @@ type StudioState = {
   setGrooveVelocity: (track: TrackName, step: number, velocity: number) => void;
   setSwing: (swing: number) => void;
   resetGrooveFeel: () => void;
+  setFormSection: (index: number, label: FormSectionLabel) => void;
+  resetFormSettings: () => void;
+  setTextureSettings: (settings: Partial<TextureSettings>) => void;
+  resetTextureSettings: () => void;
 };
 
 export const useStudioStore = create<StudioState>()(
@@ -172,6 +183,11 @@ export const useStudioStore = create<StudioState>()(
       voicingSettings: { inversions: [...initialVoicingSettings.inversions] },
       bassSequence: [...initialBassSequence],
       grooveFeelSettings: cloneGrooveFeelSettings(initialGrooveFeelSettings),
+      formSettings: {
+        sections: [...initialFormSettings.sections],
+        roles: [...initialFormSettings.roles],
+      },
+      textureSettings: { ...initialTextureSettings },
       appMode: "learn",
 
       setBpm: (bpm) => set({ bpm }),
@@ -431,6 +447,37 @@ export const useStudioStore = create<StudioState>()(
           grooveFeelSettings: cloneGrooveFeelSettings(initialGrooveFeelSettings),
         }),
 
+      setFormSection: (index, label) =>
+        set((state) => {
+          const sections = [...state.formSettings.sections];
+          sections[index] = label;
+          return {
+            formSettings: {
+              ...state.formSettings,
+              sections,
+            },
+          };
+        }),
+
+      resetFormSettings: () =>
+        set({
+          formSettings: {
+            sections: [...initialFormSettings.sections],
+            roles: [...initialFormSettings.roles],
+          },
+        }),
+
+      setTextureSettings: (settings) =>
+        set((state) => ({
+          textureSettings: {
+            ...state.textureSettings,
+            ...settings,
+          },
+        })),
+
+      resetTextureSettings: () =>
+        set({ textureSettings: { ...initialTextureSettings } }),
+
       loadProject: (project) =>
         set({
           bpm: project.bpm,
@@ -458,6 +505,11 @@ export const useStudioStore = create<StudioState>()(
           voicingSettings: { inversions: [...project.voicingSettings.inversions] },
           bassSequence: [...project.bassSequence],
           grooveFeelSettings: cloneGrooveFeelSettings(project.grooveFeelSettings),
+          formSettings: {
+            sections: [...project.formSettings.sections],
+            roles: [...project.formSettings.roles],
+          },
+          textureSettings: { ...project.textureSettings },
           currentStep: 0,
           isPlaying: false,
         }),
@@ -485,6 +537,8 @@ export const useStudioStore = create<StudioState>()(
         voicingSettings: state.voicingSettings,
         bassSequence: state.bassSequence,
         grooveFeelSettings: state.grooveFeelSettings,
+        formSettings: state.formSettings,
+        textureSettings: state.textureSettings,
         appMode: state.appMode,
       }),
       merge: (persistedState, currentState) => {
