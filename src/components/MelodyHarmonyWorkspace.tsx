@@ -18,11 +18,11 @@ export function MelodyHarmonyWorkspace() {
           <span className="section-label">Melody + harmony overlay</span>
           <h2>See tension against each chord</h2>
           <div className="daw-strip">
-            <span>CHORD TONE</span><span>SCALE TONE</span><span>CHROMATIC</span><span>RESOLUTION</span>
+            <span>CHORD TONE</span><span>SCALE TONE</span><span>CHROMATIC</span><span>RESOLUTION</span><span>YOUR GROOVE + CHORDS</span>
           </div>
         </div>
         <span className="workspace-hint">
-          Every four melody steps belong to one chord slot. Strong chord tones are highlighted differently from passing/tension notes.
+          Play puts your melody over the current groove and chord progression, so tension and resolution are heard in context.
         </span>
       </div>
 
