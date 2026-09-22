@@ -81,6 +81,14 @@ export function ChordWorkspace({ contextual = false }: { contextual?: boolean })
         ))}
       </div>
 
+      <button
+        className="chord-clear-button"
+        onClick={() => setChordSlot(selectedSlot, null)}
+        disabled={progression[selectedSlot] === null}
+      >
+        Clear selected chord
+      </button>
+
       <div className="accompaniment-strip">
         <div className="chord-note">
           <strong>Accompaniment</strong>
