@@ -20,11 +20,11 @@ const lesson = lessonContentSchema.parse({
   number: 3,
   title: "Keys & melody",
   eyebrow: "Piano · Composition",
-  hero: "Learn where melodies get their sense of home.",
+  hero: "Write a melody, then hear why some notes feel settled."
   description:
     "First map the notes of C major on the keyboard. Then use that key to write melodies, work with scale degrees, and build a short phrase from a repeated motif.",
   overview:
-    "A key gives a collection of notes a hierarchy. The tonic feels like home; other notes create different degrees of stability and tension around it. Melody becomes easier to understand when you hear notes as positions inside a key rather than isolated piano keys.",
+    "A key gives the notes a centre of gravity. In C major, C is the strongest point of rest; the other notes can feel more or less settled depending on where the line is going. Use that pull while you write instead of treating the scale as a list of allowed keys.",
 });
 
 export const pianoCompositionLesson: LessonDefinition = {
@@ -41,7 +41,7 @@ export const pianoCompositionLesson: LessonDefinition = {
         instruction:
           "Click the pitch classes that belong to C major. Audition them as you go. Select C, D, E, F, G, A, and B, but leave the black-key notes unselected.",
         recognition:
-          "Play the selected notes in order from C upward. A major scale has the familiar do-re-mi-fa-sol-la-ti-do shape; in C major that shape uses only white keys.",
+          "Play the scale upward, then stop on B before returning to C. Which of those two notes feels finished?",
         terms: [
           { term: "Key", definition: "A tonal system organised around a home note and its related scale." },
           { term: "Tonic", definition: "Scale degree 1: the home note of a key. In C major, the tonic is C." },
@@ -76,7 +76,7 @@ export const pianoCompositionLesson: LessonDefinition = {
         instruction:
           "Use the piano roll to place at least five notes. Keep every note inside C major and begin on C. Leave some empty steps if you want rests.",
         recognition:
-          "A melody in C major will generally sound compatible with the C-major note collection you just mapped. Starting on C makes the tonal centre especially obvious.",
+          "Loop the line. Does C feel like a starting point only, or does the rest of the melody keep referring back to it?",
         terms: [
           { term: "Melody", definition: "A sequence of pitches perceived as a coherent musical line." },
           { term: "Contour", definition: "The overall rising, falling, or arch-like shape of a melody." },
@@ -106,7 +106,7 @@ export const pianoCompositionLesson: LessonDefinition = {
         instruction:
           "Edit your melody so it uses C, E, and G somewhere. End the melody on C and listen to the sense of arrival.",
         recognition:
-          "Degree 1 sounds most settled. Degrees 3 and 5 also sound stable, while degrees such as 2, 4, and 7 often feel as though they want to move somewhere else.",
+          "Pause on C, E and G, then on D, F or B. Which notes let the phrase rest, and which seem to ask for another note?",
         terms: [
           { term: "Scale degree", definition: "The numbered position of a note inside a scale." },
           { term: "Degree 1", definition: "The tonic or home note." },
@@ -139,7 +139,7 @@ export const pianoCompositionLesson: LessonDefinition = {
         instruction:
           "Write a four-step motif in steps 1-4. Repeat that exact motif in steps 5-8. Then use steps 9-16 as an answer that differs from the opening and ends on C.",
         recognition:
-          "You should be able to point to a small idea, hear it return immediately, and then hear a longer answering gesture. The final C should make the whole phrase feel finished.",
+          "Can you sing or tap the opening four-step idea after one loop? Does the second half sound like an answer, or only like unrelated new notes?",
         terms: [
           { term: "Motif", definition: "A short recurring musical idea with a recognisable pitch or rhythmic shape." },
           { term: "Phrase", definition: "A larger musical unit that feels like a complete or partial musical sentence." },
