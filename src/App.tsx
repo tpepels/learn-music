@@ -16,6 +16,7 @@ import { EqWorkspace } from "./components/EqWorkspace";
 import { FinalProjectWorkspace } from "./components/FinalProjectWorkspace";
 import { GrooveFeelWorkspace } from "./components/GrooveFeelWorkspace";
 import { HarmonicFunctionWorkspace } from "./components/HarmonicFunctionWorkspace";
+import { HarmonySequencerWorkspace } from "./components/HarmonySequencerWorkspace";
 import { MelodyHarmonyWorkspace } from "./components/MelodyHarmonyWorkspace";
 import { MotifWorkspace } from "./components/MotifWorkspace";
 import { MixerWorkspace } from "./components/MixerWorkspace";
@@ -277,7 +278,7 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
     case "chords":
       return <ChordWorkspace />;
     case "harmony-song":
-      return <ChordWorkspace contextual />;
+      return <HarmonySequencerWorkspace />;
     case "synth":
       return <SynthWorkspace />;
     case "arrangement":
@@ -370,6 +371,7 @@ function App() {
   const selectedPitchClasses = useStudioStore((state) => state.selectedPitchClasses);
   const melody = useStudioStore((state) => state.melody);
   const chordProgression = useStudioStore((state) => state.chordProgression);
+  const harmonySequence = useStudioStore((state) => state.harmonySequence);
   const accompanimentPattern = useStudioStore((state) => state.accompanimentPattern);
   const synthSettings = useStudioStore((state) => state.synthSettings);
   const arrangement = useStudioStore((state) => state.arrangement);
@@ -402,6 +404,7 @@ function App() {
   const clearPitchClasses = useStudioStore((state) => state.clearPitchClasses);
   const clearMelody = useStudioStore((state) => state.clearMelody);
   const clearChords = useStudioStore((state) => state.clearChords);
+  const clearHarmonySequence = useStudioStore((state) => state.clearHarmonySequence);
   const resetAccompanimentPattern = useStudioStore(
     (state) => state.resetAccompanimentPattern,
   );
@@ -442,6 +445,7 @@ function App() {
         selectedPitchClasses,
         melody,
         chordProgression,
+        harmonySequence,
         accompanimentPattern,
         synthSettings,
         arrangement,
@@ -466,6 +470,7 @@ function App() {
       selectedPitchClasses,
       melody,
       chordProgression,
+      harmonySequence,
       accompanimentPattern,
       synthSettings,
       arrangement,
@@ -512,6 +517,10 @@ function App() {
   useEffect(() => {
     audioEngine.setChordProgression(chordProgression);
   }, [chordProgression]);
+
+  useEffect(() => {
+    audioEngine.setHarmonySequence(harmonySequence);
+  }, [harmonySequence]);
 
   useEffect(() => {
     audioEngine.setAccompanimentPattern(accompanimentPattern);
@@ -581,6 +590,7 @@ function App() {
         selectedPitchClasses,
         melody,
         chordProgression,
+        harmonySequence,
         accompanimentPattern,
         synthSettings,
         arrangement,
@@ -606,6 +616,7 @@ function App() {
       selectedPitchClasses,
       melody,
       chordProgression,
+      harmonySequence,
       accompanimentPattern,
       synthSettings,
       arrangement,
@@ -705,9 +716,12 @@ function App() {
         clearMelody();
         break;
       case "chords":
-      case "harmony-song":
         clearChords();
         resetAccompanimentPattern();
+        break;
+      case "harmony-song":
+        clearChords();
+        clearHarmonySequence();
         break;
       case "synth":
         resetSynthSettings();
