@@ -1,9 +1,12 @@
 import { z } from "zod";
 import {
   ARRANGEMENT_BARS,
+  BASS_STEPS,
   MELODY_STEPS,
   STEPS,
   chordNames,
+  initialBassSequence,
+  initialVoicingSettings,
   patternIds,
   synthWaveforms,
   type ProjectData,
@@ -77,11 +80,28 @@ export const projectFileSchema = z.object({
       delayFeedback: z.number().min(0).max(0.99),
       chorusWet: z.number().min(0).max(1),
     }),
+    voicingSettings: z
+      .object({
+        inversions: z.array(z.union([z.literal(0), z.literal(1), z.literal(2)])).length(4),
+      })
+      .optional(),
+    bassSequence: z
+      .array(z.union([z.number().int().min(0).max(127), z.null()]))
+      .length(BASS_STEPS)
+      .optional(),
   }),
 });
 
 export type ProjectFile = z.infer<typeof projectFileSchema>;
 
 export function parseProjectFile(input: unknown): ProjectData {
-  return projectFileSchema.parse(input).project as ProjectData;
+  const project = projectFileSchema.parse(input).project;
+
+  return {
+    ...project,
+    voicingSettings: project.voicingSettings ?? {
+      inversions: [...initialVoicingSettings.inversions],
+    },
+    bassSequence: project.bassSequence ?? [...initialBassSequence],
+  } as ProjectData;
 }
