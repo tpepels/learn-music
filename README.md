@@ -10,7 +10,7 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v2.1.1**.
+Current curriculum release: **v2.1.2**.
 
 ## Current interactive curriculum
 
@@ -52,6 +52,8 @@ The curriculum is regression-tested for every implemented exercise. Completion i
 The v2.1 editorial and pedagogy pass applies one rule across the course: **listen, alter, compare, decide**. Theory and parameter values are used to focus attention, not as an answer key. Several exercises deliberately ask for a bad or exaggerated version first so the learner can hear the boundary before choosing a result.
 
 v2.1.1 also repairs persisted pre-v2 form data on startup. Older local projects that have section labels/roles but no sixteen-bar layer plan are migrated to safe defaults instead of crashing the app.
+
+v2.1.2 strengthens **project continuity** between lessons. Melody writing now happens over the groove the learner already made; harmony is written under that groove and melody; bass is written against the existing groove and harmony; motif, harmonic-function, and minor lessons keep developing shared project material. Continuity is selective rather than automatic: the later C-major seventh/borrowed-chord lessons keep the groove but omit the preceding A-minor melody so incompatible material cannot obscure the harmony being taught.
 
 ## Learn
 
@@ -160,8 +162,11 @@ Current signal paths include:
 - keyboard and melody playback use a bundled sampled Salamander Grand Piano rather than a generic triangle synth
 - the early harmony lesson loops the learner's existing groove and melody while the learner writes every harmony note in a 32-step polyphonic piano roll
 - chord-tone shading follows the selected chord in each bar, but outside notes remain clickable so mistakes and tension can be heard rather than silently prevented
+- chord palette buttons are explicit **target + preview** controls: they set the selected bar's harmonic target, recolour chord-tone guidance, and audibly preview the chord without writing MIDI for the learner
 - chord slots and their MIDI bars have explicit clear actions; changing or removing a label never traps the learner in a preset
-- learner-written harmony is also used by arrangement playback when present; later function/minor/seventh/modal-mixture lessons reuse the same editable piano roll instead of reverting to chord-button exercises
+- learner-written harmony is also used by arrangement playback when present; bass playback now keeps the learner's groove and harmony running while the bass line is written
+- melody-over-harmony playback combines the learner's groove, current chord progression, and melody so chord-tone/tension decisions are heard rather than only colour-coded
+- later function/minor/seventh/modal-mixture lessons reuse the same editable piano roll instead of reverting to chord-button exercises
 - macro-form playback expands four section layer plans into a real sixteen-bar arrangement so A/B/A′ relationships are heard, not only labelled
 - chord playback supports full seventh chords such as D7 / V/V, E7 / V7 in A minor, Cmaj7, Dm7, G7, Am7, and Bm7♭5
 - chromatic chord playback includes correctly voiced borrowed Fm and B♭ major
