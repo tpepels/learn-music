@@ -24,11 +24,11 @@ const lesson = lessonContentSchema.parse({
   number: 24,
   title: "Relative minor",
   eyebrow: "Piano · Tonality",
-  hero: "The same seven notes can tell a different story.",
+  hero: "Keep the seven notes. Move the feeling of home."
   description:
     "Move from C major to A natural minor without changing the pitch collection. Hear how tonic, scale degrees, phrase endings, and melodic emphasis create a new tonal centre.",
   overview:
-    "C major and A minor are relative keys: they share the same seven pitch classes but organise them around different tonics. A minor treats A as degree 1, C as the minor third, and G as the lowered seventh. Tonality depends on hierarchy, not only on which notes are available.",
+    "C major and A minor use the same seven notes. What changes is where the line settles and which notes feel structural. Put A in the places where C used to feel final and the same pitch collection starts behaving like A minor.",
 });
 
 export const relativeMinorLesson: LessonDefinition = {
@@ -45,7 +45,7 @@ export const relativeMinorLesson: LessonDefinition = {
         instruction:
           "Select A, B, C, D, E, F, and G on the chromatic keyboard. Leave all other pitch classes unselected. Then place A as the first note of the melody.",
         recognition:
-          "Play the selected notes from A upward. The collection is familiar from C major, but beginning and settling on A changes the scale into the natural-minor pattern.",
+          "Play the same seven notes once from C and once from A. Which starting point changes the shape of the scale most clearly to your ear?",
         terms: [
           { term: "Relative minor", definition: "The minor key sharing the same key signature and pitch collection as a major key. A minor is relative to C major." },
           { term: "Natural minor", definition: "A seven-note minor scale with degrees 1, 2, ♭3, 4, 5, ♭6, and ♭7." },
@@ -88,7 +88,7 @@ export const relativeMinorLesson: LessonDefinition = {
         instruction:
           "Write at least six notes using only A natural minor. Begin on A and make the final sounding note A as well.",
         recognition:
-          "The phrase should feel as though it departs from A and returns to A. C may still sound stable, but it should no longer feel like the final destination.",
+          "Stop the phrase on C once, then restore the final A. Which ending sounds complete in the version you wrote?",
         terms: [
           { term: "Tonic gravity", definition: "The tendency for notes and phrases to feel oriented toward the tonic as a point of rest." },
           { term: "Structural note", definition: "A note given extra importance by position, duration, repetition, or harmony." },
@@ -125,7 +125,7 @@ export const relativeMinorLesson: LessonDefinition = {
         instruction:
           "Use only A-natural-minor/C-major notes. Make the last sounding note of steps 1–8 a C. Make the last sounding note of steps 9–16 an A.",
         recognition:
-          "The first half should feel comparatively major or open around C; the second half should pull the same pitch collection toward A.",
+          "Play the two halves separately. Do their endings make the same seven notes point to different centres?",
         terms: [
           { term: "Relative keys", definition: "A major and minor key that share the same key signature and pitch collection." },
           { term: "Pivot", definition: "A musical element that can be understood in two tonal contexts and helps connect them." },
@@ -165,7 +165,7 @@ export const relativeMinorLesson: LessonDefinition = {
         instruction:
           "Write at least eight notes. Include C, F, and G somewhere, stay inside A natural minor, and finish on A.",
         recognition:
-          "Listen for the darker distance from A to C, the lowered sixth F, and the whole-step approach from G to A.",
+          "Listen to C, F and G against A. Which of those notes most strongly changes the colour from the major-key phrases you wrote earlier?",
         terms: [
           { term: "♭3", definition: "The lowered third scale degree; one of the defining intervals of a minor scale." },
           { term: "♭6", definition: "The lowered sixth scale degree of natural minor." },
