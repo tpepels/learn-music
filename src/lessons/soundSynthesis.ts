@@ -11,7 +11,7 @@ const lesson = lessonContentSchema.parse({
   eyebrow: "Production · Sound design",
   hero: "Keep the notes. Change what kind of instrument they become.",
   description:
-    "Keep the pitch and phrase fixed while you change waveform, brightness and envelope. The point is to hear what the sound itself contributes to the part.",
+    "Keep the melody you wrote in the previous lesson, but change what is playing it. Holding the notes fixed makes waveform, brightness, and envelope easier to hear as sound-design choices rather than new composition.",
   overview:
     "A subtractive synth starts with an oscillator, removes brightness with a filter, then shapes the note in time with an envelope. Those three decisions can turn the same MIDI phrase into a pluck, a lead or a pad.",
 });
