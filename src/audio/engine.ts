@@ -45,6 +45,7 @@ class AudioEngine {
   private hatFilter: Tone.Filter | null = null;
   private piano: Tone.Synth | null = null;
   private melodyChorus: Tone.Chorus | null = null;
+  private melodyChorusSend: Tone.Gain | null = null;
   private chordSynth: Tone.PolySynth | null = null;
   private bassSynth: Tone.MonoSynth | null = null;
   private drumCompressor: Tone.Compressor | null = null;
@@ -108,19 +109,6 @@ class AudioEngine {
   }
 
   private ensureMixerGraph() {
-    if (!this.mixReverb) {
-      this.mixReverb = new Tone.Reverb({
-        decay: this.effectsSettings.reverbDecay,
-        preDelay: this.effectsSettings.reverbPreDelay,
-        wet: 1,
-      }).toDestination();
-     }
-
-    if (!this.mixDelay) {
-      this.mixDelay = new Tone.FeedbackDelay("8n", this.effectsSettings.delayFeedback).toDestination();
-      this.mixDelay.wet.value = 1;
-     }
-
     mixerTrackIds.forEach((track) => {
       if (this.mixerFilters[track]) return;
 
@@ -129,20 +117,68 @@ class AudioEngine {
         volume: 0,
         pan: 0,
       }).toDestination();
-      const reverbSend = new Tone.Gain(0).connect(this.mixReverb!);
-      const delaySend = new Tone.Gain(0).connect(this.mixDelay!);
 
       filter.connect(channel);
-      channel.connect(reverbSend);
-      channel.connect(delaySend);
 
       this.mixerFilters[track] = filter;
       this.mixerChannels[track] = channel;
-      this.reverbSends[track] = reverbSend;
-      this.delaySends[track] = delaySend;
     });
 
     this.applyMixerSettings();
+  }
+
+  private ensureEffectsGraph() {
+    if (!this.mixReverb) {
+      this.mixReverb = new Tone.Reverb({
+        decay: this.effectsSettings.reverbDecay,
+        preDelay: this.effectsSettings.reverbPreDelay,
+        wet: 1,
+      }).toDestination();
+    }
+
+    if (!this.mixDelay) {
+      this.mixDelay = new Tone.FeedbackDelay(
+        "8n",
+        this.effectsSettings.delayFeedback,
+      ).toDestination();
+      this.mixDelay.wet.value = 1;
+    }
+
+    mixerTrackIds.forEach((track) => {
+      const channel = this.mixerChannels[track];
+      if (!channel) return;
+
+      if (!this.reverbSends[track]) {
+        const reverbSend = new Tone.Gain(0).connect(this.mixReverb!);
+        channel.connect(reverbSend);
+        this.reverbSends[track] = reverbSend;
+      }
+
+      if (!this.delaySends[track]) {
+        const delaySend = new Tone.Gain(0).connect(this.mixDelay!);
+        channel.connect(delaySend);
+        this.delaySends[track] = delaySend;
+      }
+    });
+
+    if (!this.melodyChorus) {
+      this.melodyChorus = new Tone.Chorus({
+        frequency: 1.5,
+        delayTime: 3.5,
+        depth: 0.7,
+        spread: 180,
+        wet: 1,
+      }).connect(this.inputFor("melody"));
+      this.melodyChorus.start();
+    }
+
+    if (!this.melodyChorusSend && this.piano) {
+      this.melodyChorusSend = new Tone.Gain(0).connect(this.melodyChorus);
+      this.piano.connect(this.melodyChorusSend);
+    }
+
+    this.applyMixerSettings();
+    this.applyEffectsSettings();
   }
 
   private inputFor(track: MixerTrackId): Tone.Filter {
@@ -187,22 +223,11 @@ class AudioEngine {
       this.hat.volume.value = -15;
     }
 
-    if (!this.melodyChorus) {
-      this.melodyChorus = new Tone.Chorus({
-        frequency: 1.5,
-        delayTime: 3.5,
-        depth: 0.7,
-        spread: 180,
-        wet: this.effectsSettings.chorusWet,
-      }).connect(this.inputFor("melody"));
-      this.melodyChorus.start();
-    }
-
     if (!this.piano) {
       this.piano = new Tone.Synth({
         oscillator: { type: "triangle" },
         envelope: { attack: 0.006, decay: 0.32, sustain: 0.18, release: 0.8 },
-      }).connect(this.melodyChorus);
+      }).connect(this.inputFor("melody"));
       this.piano.volume.value = -8;
     }
 
@@ -255,7 +280,6 @@ class AudioEngine {
     this.applySynthSettings();
     this.applyMixerSettings();
     this.applyDynamicsSettings();
-    this.applyEffectsSettings();
   }
 
   private applySynthSettings() {
@@ -291,8 +315,11 @@ class AudioEngine {
       this.mixDelay.feedback.rampTo(this.effectsSettings.delayFeedback, 0.05);
     }
 
-    if (this.melodyChorus) {
-      this.melodyChorus.wet.rampTo(this.effectsSettings.chorusWet, 0.05);
+    if (this.melodyChorusSend) {
+      this.melodyChorusSend.gain.rampTo(
+        Math.min(0.65, this.effectsSettings.chorusWet),
+        0.05,
+      );
     }
   }
 
@@ -332,7 +359,15 @@ class AudioEngine {
 
   private async prepare(bpm: number, onStep: (step: number) => void) {
     await Tone.start();
+
+    // Core playback must never depend on optional creative effects.
     this.ensureVoices();
+
+    try {
+      this.ensureEffectsGraph();
+    } catch (error) {
+      console.error("PLAY / LAB optional effects failed to initialise", error);
+    }
 
     const transport = Tone.getTransport();
     transport.stop();
