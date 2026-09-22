@@ -191,7 +191,9 @@ class AudioEngine {
     this.formSettings = {
       sections: [...settings.sections],
       roles: [...settings.roles],
-      layers: settings.layers.map((entry) => ({ ...entry })),
+      layers: (settings.layers ?? initialFormSettings.layers).map((entry) => ({
+        ...entry,
+      })),
     };
   }
 
