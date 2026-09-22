@@ -9,11 +9,11 @@ const lesson = lessonContentSchema.parse({
   number: 22,
   title: "Stereo width & mono",
   eyebrow: "Production · Stereo field",
-  hero: "Width only matters if the mix still works when width disappears.",
+  hero: "Use the sides, but make the song survive without them."
   description:
     "Use pan and mid/side width deliberately, keep foundational low end stable, and perform a real mono compatibility check.",
   overview:
-    "Pan changes left/right position. Stereo width changes the balance between centre information and differences between the left and right channels. A mono check removes those differences and reveals whether important parts depend too heavily on stereo separation.",
+    "Panning moves a part left or right; width spreads or narrows what is already stereo. Keep the foundation stable, use the sides for contrast, and collapse to mono often enough to know the mix is not relying on width to stay understandable.",
 });
 
 export const stereoMonoLesson: LessonDefinition = {
@@ -30,7 +30,7 @@ export const stereoMonoLesson: LessonDefinition = {
         instruction:
           "First put CHORDS and MELODY noticeably on the same side and hear the mix lean. Then move CHORDS across the centre to the opposite side while keeping BASS centred. Leave chords and melody moderately separated.",
         recognition:
-          "The mix should feel wider without the bass pulling toward one speaker.",
+          "After you separate the support parts, does the centre still feel anchored by the low end? Does one side feel heavier than the other?",
         terms: [
           { term: "Pan", definition: "The left/right placement of a signal in the stereo field." },
           { term: "Stereo field", definition: "The perceived horizontal space between left, centre, and right." },
@@ -75,7 +75,7 @@ export const stereoMonoLesson: LessonDefinition = {
         instruction:
           "Temporarily widen BASS to at least 160% and listen to the low end lose its stable centre. Then narrow bass back to 100% or less while making CHORDS clearly wider and MELODY somewhat wider than the bass.",
         recognition:
-          "Harmony should open outward while bass stays visually and audibly anchored.",
+          "Compare the over-wide bass with the narrowed version. Which one gives the kick and bass a firmer centre?",
         terms: [
           { term: "Mid/side", definition: "A stereo representation separating information common to both channels (mid) from left/right differences (side)." },
           { term: "Stereo width", definition: "The perceived amount of side information relative to the centre." },
@@ -115,7 +115,7 @@ export const stereoMonoLesson: LessonDefinition = {
         instruction:
           "Press CHECK IN MONO while the arrangement plays. Listen to kick/bass balance, melody audibility, and whether the harmony still supports the track. Then return to stereo.",
         recognition:
-          "The mix will become narrower, but its important musical hierarchy should remain understandable.",
+          "In mono, what becomes harder to hear first? If an important part almost disappears, return to stereo and find out what it was relying on.",
         terms: [
           { term: "Mono", definition: "A single-channel presentation with no left/right separation." },
           { term: "Phase cancellation", definition: "Partial loss of signal when similar waveforms combine with opposing phase relationships." },
@@ -143,7 +143,7 @@ export const stereoMonoLesson: LessonDefinition = {
         instruction:
           "Keep BASS centred and at 100% width or less. Keep CHORDS wider than BASS, use opposite-side pan contrast between CHORDS and MELODY, and make sure you have performed the mono check.",
         recognition:
-          "Stereo playback should feel spacious; mono playback should feel narrower but still musically intact.",
+          "Switch between stereo and mono. Does width add space, or is it doing essential work that the balance itself should be doing?",
         terms: [
           { term: "Stereo hierarchy", definition: "A deliberate distribution of central, panned, and widened elements according to musical importance." },
           { term: "Width contrast", definition: "Using different stereo widths across parts or sections rather than maximizing all of them." },
