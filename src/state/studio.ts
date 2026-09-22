@@ -1,15 +1,21 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import {
+  cloneArrangement,
   clonePattern,
+  initialArrangement,
   initialChordProgression,
   initialMelody,
   initialPattern,
+  initialSynthSettings,
+  type Arrangement,
+  type ArrangementLayer,
   type ChordName,
   type ChordProgression,
   type MelodySequence,
   type PatternId,
   type StepPattern,
+  type SynthSettings,
   type TrackName,
 } from "../music/model";
 
@@ -28,6 +34,8 @@ type StudioState = {
   selectedPitchClasses: string[];
   melody: MelodySequence;
   chordProgression: ChordProgression;
+  synthSettings: SynthSettings;
+  arrangement: Arrangement;
 
   setBpm: (bpm: number) => void;
   setPlaying: (playing: boolean) => void;
@@ -45,6 +53,10 @@ type StudioState = {
   clearMelody: () => void;
   setChordSlot: (slot: number, chord: ChordName | null) => void;
   clearChords: () => void;
+  setSynthSettings: (settings: Partial<SynthSettings>) => void;
+  resetSynthSettings: () => void;
+  toggleArrangementLayer: (bar: number, layer: ArrangementLayer) => void;
+  clearArrangement: () => void;
 };
 
 export const useStudioStore = create<StudioState>()(
@@ -65,6 +77,8 @@ export const useStudioStore = create<StudioState>()(
       selectedPitchClasses: [],
       melody: [...initialMelody],
       chordProgression: [...initialChordProgression],
+      synthSettings: { ...initialSynthSettings },
+      arrangement: cloneArrangement(initialArrangement),
 
       setBpm: (bpm) => set({ bpm }),
       setPlaying: (isPlaying) => set({ isPlaying }),
@@ -164,6 +178,30 @@ export const useStudioStore = create<StudioState>()(
 
       clearChords: () =>
         set({ chordProgression: [...initialChordProgression], currentStep: 0 }),
+
+      setSynthSettings: (settings) =>
+        set((state) => ({
+          synthSettings: {
+            ...state.synthSettings,
+            ...settings,
+          },
+        })),
+
+      resetSynthSettings: () =>
+        set({ synthSettings: { ...initialSynthSettings } }),
+
+      toggleArrangementLayer: (bar, layer) =>
+        set((state) => {
+          const arrangement = cloneArrangement(state.arrangement);
+          arrangement[bar][layer] = !arrangement[bar][layer];
+          return { arrangement };
+        }),
+
+      clearArrangement: () =>
+        set({
+          arrangement: cloneArrangement(initialArrangement),
+          currentStep: 0,
+        }),
     }),
     {
       name: "learn-music-studio-v2",
@@ -178,6 +216,8 @@ export const useStudioStore = create<StudioState>()(
         selectedPitchClasses: state.selectedPitchClasses,
         melody: state.melody,
         chordProgression: state.chordProgression,
+        synthSettings: state.synthSettings,
+        arrangement: state.arrangement,
       }),
     },
   ),
