@@ -4,6 +4,7 @@ import { bassLinesLesson } from "./bassLines";
 import { chordProgressionLesson } from "./chordProgressions";
 import { effectsTransitionsLesson } from "./effectsTransitions";
 import { finalProjectLesson } from "./finalProject";
+import { grooveFeelLesson } from "./grooveFeel";
 import { mixingSpaceLesson } from "./mixingSpace";
 import { pianoCompositionLesson } from "./pianoComposition";
 import { pulseAndGrooveLesson } from "./pulseAndGroove";
@@ -25,6 +26,7 @@ export const implementedLessons: LessonDefinition[] = [
   finalProjectLesson,
   voiceLeadingLesson,
   bassLinesLesson,
+  grooveFeelLesson,
 ];
 
 export const courseOutline = implementedLessons.map((lesson) => ({
