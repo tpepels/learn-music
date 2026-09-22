@@ -519,6 +519,124 @@ export function ConceptVisual({ kind }: { kind: ConceptVisualKind }) {
         </svg>
       );
 
+
+    case "relative-minor":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="C major and A minor relative-key diagram">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          <circle cx="101" cy="72" r="40" className="diagram-module" />
+          <circle cx="219" cy="72" r="40" className="diagram-chord" />
+          <text x="101" y="62" textAnchor="middle" className="diagram-label">C MAJOR</text>
+          <text x="101" y="80" textAnchor="middle" className="diagram-small">C D E F G A B</text>
+          <text x="219" y="62" textAnchor="middle" className="diagram-label">A MINOR</text>
+          <text x="219" y="80" textAnchor="middle" className="diagram-small">A B C D E F G</text>
+          <path d="M 139 72 H 181" className="diagram-arrow" />
+          <text x="160" y="103" textAnchor="middle" className="diagram-caption">SAME NOTES · DIFFERENT TONIC</text>
+          <text x="36" y="125" className="diagram-caption">C = HOME</text>
+          <text x="229" y="125" className="diagram-caption">A = HOME</text>
+        </svg>
+      );
+
+    case "harmonic-minor":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="A harmonic minor raised seventh diagram">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          {["A","B","C","D","E","F","G♯","A"].map((note,i)=>(
+            <g key={note+i}>
+              <rect
+                x={24+i*35}
+                y={i===6?48:72}
+                width="27"
+                height="24"
+                rx="7"
+                className={i===6 ? "diagram-step is-alt" : i===7 ? "diagram-note" : "diagram-module"}
+              />
+              <text x={37.5+i*35} y={i===6?64:88} textAnchor="middle" className="diagram-small">{note}</text>
+            </g>
+          ))}
+          <path d="M 245 72 Q 260 42 276 72" className="diagram-envelope" />
+          <text x="214" y="36" className="diagram-caption">RAISED 7TH</text>
+          <text x="223" y="118" className="diagram-caption">G♯ → A = SEMITONE</text>
+        </svg>
+      );
+
+    case "minor-cadence":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="Minor-key dominant seventh cadence diagram">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          {[
+            ["Am","i",26],
+            ["Dm","iv",94],
+            ["E7","V7",162],
+            ["Am","i",230],
+          ].map(([chord,roman,x],i)=>(
+            <g key={String(chord)+i}>
+              <rect
+                x={Number(x)}
+                y="48"
+                width="56"
+                height="42"
+                rx="10"
+                className={chord==="E7" ? "diagram-chord is-tension" : "diagram-module"}
+              />
+              <text x={Number(x)+28} y="66" textAnchor="middle" className="diagram-label">{chord}</text>
+              <text x={Number(x)+28} y="82" textAnchor="middle" className="diagram-small">{roman}</text>
+            </g>
+          ))}
+          <path d="M 83 69 H 92 M 151 69 H 160 M 219 69 H 228" className="diagram-arrow" />
+          <path d="M 182 105 C 203 121, 231 121, 255 98" className="diagram-envelope" />
+          <text x="159" y="125" className="diagram-caption">G♯ IN E7 PULLS TOWARD TONIC A</text>
+        </svg>
+      );
+
+    case "seventh-chords":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="Seventh chord stacking and cadence diagram">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          {[
+            ["Dm7",["D","F","A","C"],24],
+            ["G7",["G","B","D","F"],118],
+            ["Cmaj7",["C","E","G","B"],212],
+          ].map(([name,notes,x],group)=>(
+            <g key={String(name)}>
+              {(notes as string[]).map((note,i)=>(
+                <rect
+                  key={note}
+                  x={Number(x)+i*10}
+                  y={83-i*13}
+                  width="30"
+                  height="10"
+                  rx="4"
+                  className={i===3 ? "diagram-step is-alt" : "diagram-note"}
+                />
+              ))}
+              <text x={Number(x)} y="108" className="diagram-small">{name}</text>
+              {group<2 && <path d={"M "+(Number(x)+53)+" 68 H "+(Number(x)+88)} className="diagram-arrow" />}
+            </g>
+          ))}
+          <text x="24" y="128" className="diagram-caption">STACKED 3RDS · ii7 → V7 → Imaj7</text>
+        </svg>
+      );
+
+    case "modal-mixture":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="C major borrowing chords from C minor">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          <rect x="25" y="38" width="112" height="44" rx="11" className="diagram-module" />
+          <text x="81" y="57" textAnchor="middle" className="diagram-label">C MAJOR</text>
+          <text x="81" y="73" textAnchor="middle" className="diagram-small">I · IV · V · vi</text>
+          <rect x="183" y="38" width="112" height="44" rx="11" className="diagram-chord" />
+          <text x="239" y="57" textAnchor="middle" className="diagram-label">C MINOR</text>
+          <text x="239" y="73" textAnchor="middle" className="diagram-small">iv · ♭VII</text>
+          <path d="M 180 60 H 143" className="diagram-arrow" />
+          <rect x="94" y="96" width="58" height="24" rx="7" className="diagram-chord is-tension" />
+          <text x="123" y="112" textAnchor="middle" className="diagram-small">Fm · iv</text>
+          <rect x="168" y="96" width="58" height="24" rx="7" className="diagram-step is-alt" />
+          <text x="197" y="112" textAnchor="middle" className="diagram-small">B♭ · ♭VII</text>
+          <text x="25" y="128" className="diagram-caption">BORROW COLOUR · KEEP C AS TONIC</text>
+        </svg>
+      );
+
     case "mixer":
       return (
         <svg viewBox="0 0 320 150" role="img" aria-label="DAW mixer channel diagram">
