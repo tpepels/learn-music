@@ -23,7 +23,7 @@ const lesson = lessonContentSchema.parse({
   eyebrow: "Composition · Melody",
   hero: "Make a note rub against the chord, then give it somewhere to go.",
   description:
-    "See each melody note in relation to the chord beneath it. Strong beats can anchor with chord tones while passing, neighbour, and chromatic notes create controlled tension between those anchors.",
+    "Put the melody you have been developing back over its chord progression. Now each note can be judged by what is sounding underneath it, not only by whether it belongs to the key.",
   overview:
     "The chord underneath changes what a melody note means. One note can feel settled over one harmony and exposed over the next. Use that difference to decide where the line rests and where it moves.",
 });
@@ -40,7 +40,7 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
         explanation:
           "Chord tones are the notes already inside the current harmony. Landing on them at important moments makes melody and chords feel connected instead of like two unrelated clips playing together.",
         instruction:
-          "Make sure all four chord slots are filled. Put a chord tone on melody steps 1, 5, 9, and 13—the first step of each chord region.",
+          "Press Play: you now hear your groove, chord progression, and melody together. Make sure all four chord slots are filled, then put a chord tone on melody steps 1, 5, 9, and 13—the start of each chord region.",
         recognition:
           "At each chord change, listen to the melody note first. Does it settle into the chord, or does it immediately ask to move?",
         terms: [
