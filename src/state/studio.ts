@@ -7,6 +7,7 @@ import {
 } from "../persistence/progressCookie";
 import {
   cloneArrangement,
+  cloneGrooveFeelSettings,
   clonePattern,
   initialArrangement,
   initialAutomationSettings,
@@ -15,6 +16,7 @@ import {
   initialMelody,
   initialDynamicsSettings,
   initialEffectsSettings,
+  initialGrooveFeelSettings,
   initialMixerSettings,
   initialPattern,
   initialProjectMilestones,
@@ -28,6 +30,7 @@ import {
   type ChordProgression,
   type DynamicsSettings,
   type EffectsSettings,
+  type GrooveFeelSettings,
   type MelodySequence,
   type MixerSettings,
   type MixerTrackId,
@@ -81,6 +84,7 @@ type StudioState = {
   projectMilestones: ProjectMilestones;
   voicingSettings: VoicingSettings;
   bassSequence: BassSequence;
+  grooveFeelSettings: GrooveFeelSettings;
   appMode: "learn" | "create" | "studio";
 
   setBpm: (bpm: number) => void;
@@ -126,6 +130,9 @@ type StudioState = {
   setBassStep: (step: number, midi: number | null) => void;
   clearBass: () => void;
   resetLessonProgress: (lessonId: string, exerciseIds: string[]) => void;
+  setGrooveVelocity: (track: TrackName, step: number, velocity: number) => void;
+  setSwing: (swing: number) => void;
+  resetGrooveFeel: () => void;
 };
 
 export const useStudioStore = create<StudioState>()(
@@ -163,6 +170,7 @@ export const useStudioStore = create<StudioState>()(
       projectMilestones: { ...initialProjectMilestones },
       voicingSettings: { inversions: [...initialVoicingSettings.inversions] },
       bassSequence: [...initialBassSequence],
+      grooveFeelSettings: cloneGrooveFeelSettings(initialGrooveFeelSettings),
       appMode: "learn",
 
       setBpm: (bpm) => set({ bpm }),
@@ -399,6 +407,31 @@ export const useStudioStore = create<StudioState>()(
           };
         }),
 
+      setGrooveVelocity: (track, step, velocity) =>
+        set((state) => {
+          const grooveFeelSettings = cloneGrooveFeelSettings(
+            state.grooveFeelSettings,
+          );
+          grooveFeelSettings.velocities[track][step] = Math.max(
+            0.05,
+            Math.min(1, velocity),
+          );
+          return { grooveFeelSettings };
+        }),
+
+      setSwing: (swing) =>
+        set((state) => ({
+          grooveFeelSettings: {
+            ...state.grooveFeelSettings,
+            swing: Math.max(0, Math.min(0.6, swing)),
+          },
+        })),
+
+      resetGrooveFeel: () =>
+        set({
+          grooveFeelSettings: cloneGrooveFeelSettings(initialGrooveFeelSettings),
+        }),
+
       loadProject: (project) =>
         set({
           bpm: project.bpm,
@@ -425,6 +458,7 @@ export const useStudioStore = create<StudioState>()(
           projectMilestones: { exported: false },
           voicingSettings: { inversions: [...project.voicingSettings.inversions] },
           bassSequence: [...project.bassSequence],
+          grooveFeelSettings: cloneGrooveFeelSettings(project.grooveFeelSettings),
           currentStep: 0,
           isPlaying: false,
         }),
@@ -451,6 +485,7 @@ export const useStudioStore = create<StudioState>()(
         projectMilestones: state.projectMilestones,
         voicingSettings: state.voicingSettings,
         bassSequence: state.bassSequence,
+        grooveFeelSettings: state.grooveFeelSettings,
         appMode: state.appMode,
       }),
       merge: (persistedState, currentState) => {
