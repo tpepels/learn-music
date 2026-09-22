@@ -93,7 +93,7 @@ export const chordProgressionLesson: LessonDefinition = {
         explanation:
           "C major is built from C, E and G. You can stack them, spread them across octaves, or place them at different moments. The symbol tells you the harmony; your MIDI decides how it sounds in time.",
         instruction:
-          "Choose C for bar 1. On the first eighth-note position, stack a C, E, and G yourself in the piano roll. Press Play and hear your own notes enter with the groove and melody.",
+          "The groove and melody are the ones you made in the previous lessons. Choose C for bar 1, then stack C, E, and G on the first eighth-note position. Press Play and hear that chord enter underneath your existing music.",
         recognition:
           "Play the three notes together, then remove one and add it back. What changes when the third or fifth disappears?",
         terms: [
