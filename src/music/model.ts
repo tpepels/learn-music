@@ -131,3 +131,41 @@ export function cloneArrangement(arrangement: Arrangement): Arrangement {
 export function activeLayerCount(bar: ArrangementBar): number {
   return arrangementLayers.filter((layer) => bar[layer]).length;
 }
+
+
+export const mixerTrackIds = ["drums", "bass", "chords", "melody"] as const;
+export type MixerTrackId = (typeof mixerTrackIds)[number];
+
+export type MixerTrackSettings = {
+  volume: number;
+  pan: number;
+  highpass: number;
+  reverb: number;
+  delay: number;
+};
+
+export type MixerSettings = Record<MixerTrackId, MixerTrackSettings>;
+
+const neutralMixerTrack = (): MixerTrackSettings => ({
+  volume: 0,
+  pan: 0,
+  highpass: 20,
+  reverb: 0,
+  delay: 0,
+});
+
+export const initialMixerSettings: MixerSettings = {
+  drums: neutralMixerTrack(),
+  bass: neutralMixerTrack(),
+  chords: neutralMixerTrack(),
+  melody: neutralMixerTrack(),
+};
+
+export function cloneMixerSettings(settings: MixerSettings): MixerSettings {
+  return {
+    drums: { ...settings.drums },
+    bass: { ...settings.bass },
+    chords: { ...settings.chords },
+    melody: { ...settings.melody },
+  };
+}
