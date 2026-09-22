@@ -6,11 +6,16 @@ import type {
   ChordProgression,
   DynamicsSettings,
   EffectsSettings,
+  EqSettings,
   GrooveFeelSettings,
   FormSettings,
   MelodySequence,
   MixerSettings,
+  ReferenceMixSettings,
+  SaturationSettings,
+  SidechainSettings,
   StepPattern,
+  StereoSettings,
   SynthSettings,
   TextureSettings,
   VoicingSettings,
@@ -50,6 +55,11 @@ export const exerciseContentSchema = z.object({
     "harmonic-function",
     "phrase-form",
     "texture",
+    "eq",
+    "saturation",
+    "sidechain",
+    "stereo",
+    "reference",
   ]),
   checksLabel: z.string(),
   successLabel: z.string(),
@@ -85,6 +95,11 @@ export type LessonContext = {
   grooveFeelSettings: GrooveFeelSettings;
   formSettings: FormSettings;
   textureSettings: TextureSettings;
+  eqSettings: EqSettings;
+  saturationSettings: SaturationSettings;
+  sidechainSettings: SidechainSettings;
+  stereoSettings: StereoSettings;
+  referenceMixSettings: ReferenceMixSettings;
 };
 
 export type ExerciseDefinition = z.infer<typeof exerciseContentSchema> & {
