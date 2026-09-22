@@ -136,7 +136,7 @@ export function EffectsWorkspace() {
           <header>
             <span className="fx-led" />
             <div>
-              <small>MELODY INSERT</small>
+              <small>MELODY PARALLEL FX</small>
               <strong>CHORUS</strong>
             </div>
           </header>
