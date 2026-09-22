@@ -123,6 +123,28 @@ export function ConceptVisual({ kind }: { kind: ConceptVisualKind }) {
         </svg>
       );
 
+    case "mixer":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="DAW mixer channel diagram">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          {[0,1,2,3].map((i) => (
+            <g key={i} transform={"translate(" + (24 + i * 64) + " 28)"}>
+              <rect x="0" y="0" width="50" height="92" rx="9" className="diagram-module" />
+              <circle cx="25" cy="17" r="7" className="diagram-knob" />
+              <line x1="25" y1="36" x2="25" y2="76" className="diagram-grid" />
+              <rect x="19" y={48 + (i % 2) * 9} width="12" height="20" rx="4" className="diagram-fader" />
+              <rect x="38" y="33" width="4" height="43" rx="2" className="diagram-meter-bg" />
+              <rect x="38" y={49 - i * 3} width="4" height={27 + i * 3} rx="2" className="diagram-meter" />
+              <text x="25" y="87" textAnchor="middle" className="diagram-small">
+                {["DRM","BAS","CHR","MEL"][i]}
+              </text>
+            </g>
+          ))}
+          <path d="M 44 123 C 90 139, 226 139, 276 123" className="diagram-envelope" />
+          <text x="112" y="142" className="diagram-caption">CHANNELS → SENDS / RETURNS → MASTER</text>
+        </svg>
+      );
+
     case "arrangement":
       return (
         <svg viewBox="0 0 320 150" role="img" aria-label="DAW arrangement timeline diagram">
