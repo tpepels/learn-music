@@ -21,11 +21,11 @@ const lesson = lessonContentSchema.parse({
   number: 15,
   title: "Melody over harmony",
   eyebrow: "Composition · Melody",
-  hero: "Write tension against chords, then decide where it resolves.",
+  hero: "Make a note rub against the chord, then give it somewhere to go."
   description:
     "See each melody note in relation to the chord beneath it. Strong beats can anchor with chord tones while passing, neighbour, and chromatic notes create controlled tension between those anchors.",
   overview:
-    "A melody does not exist independently of harmony. The same pitch may sound settled over one chord and tense over another. Composers use that relationship deliberately: chord tones stabilize, non-chord tones create motion, and resolution gives tension direction.",
+    "The chord underneath changes what a melody note means. One note can feel settled over one harmony and exposed over the next. Use that difference to decide where the line rests and where it moves.",
 });
 
 export const melodyOverHarmonyLesson: LessonDefinition = {
@@ -38,11 +38,11 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
         title: "Land on chord tones",
         learn: "Anchor important moments of the melody in the harmony beneath them.",
         explanation:
-          "Chord tones belong directly to the current harmony. Putting them at important structural moments makes the melody and progression sound connected instead of accidentally superimposed.",
+          "Chord tones are the notes already inside the current harmony. Landing on them at important moments makes melody and chords feel connected instead of like two unrelated clips playing together.",
         instruction:
           "Make sure all four chord slots are filled. Put a chord tone on melody steps 1, 5, 9, and 13—the first step of each chord region.",
         recognition:
-          "Each chord change should feel supported by the melody rather than immediately rubbing against it.",
+          "At each chord change, listen to the melody note first. Does it settle into the chord, or does it immediately ask to move?",
         terms: [
           { term: "Chord tone", definition: "A melody note that is part of the chord sounding underneath it." },
           { term: "Non-chord tone", definition: "A melody note that is not contained in the current chord." },
@@ -78,7 +78,7 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
         instruction:
           "Create at least two in-key passing tones inside chord regions. A passing tone should be a non-chord note between two nearby notes, moving in the same direction.",
         recognition:
-          "The middle note should feel like motion through the harmony, not a place where the phrase wants to stop.",
+          "Hold the middle note in your ear. Does it sound like a destination, or like a bridge between the notes on either side?",
         terms: [
           { term: "Passing tone", definition: "A non-chord note that connects two more stable notes by stepwise motion." },
           { term: "Stepwise motion", definition: "Melodic movement by a semitone or whole tone." },
@@ -141,7 +141,7 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
         instruction:
           "Create at least one three-note neighbour figure inside a chord region: stable note → one step away → same stable note.",
         recognition:
-          "The middle note should feel like a brief detour around a pitch that clearly remains the centre of the gesture.",
+          "Does the middle note feel like a detour while the repeated outer note still feels like the point of rest?",
         terms: [
           { term: "Neighbour note", definition: "A non-chord or decorative note approached by step and followed by a return to the original note." },
           { term: "Decoration", definition: "A note whose role is to embellish a more structurally important pitch." },
@@ -188,7 +188,7 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
         instruction:
           "Create at least two places where a non-chord note resolves on the very next step to a chord tone. End the phrase on a chord tone of the final active chord.",
         recognition:
-          "The tense notes should sound temporary. The following chord tones should feel like small arrivals.",
+          "Pause mentally on the non-chord note, then hear the next step. Does the second note answer the tension the first one created?",
         terms: [
           { term: "Tension", definition: "A note or harmony that sounds unstable relative to its context and creates expectation." },
           { term: "Resolution", definition: "Movement from tension into a more stable note or harmony." },
