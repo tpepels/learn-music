@@ -6,7 +6,8 @@ export type ConceptVisualKind =
   | "harmony"
   | "synth"
   | "arrangement"
-  | "mixer";
+  | "mixer"
+  | "automation";
 
 export type ProductionContext = {
   why: string;
@@ -218,6 +219,35 @@ export const productionContext: Record<string, ProductionContext> = {
     tools: ["Send knob", "Return channel", "Reverb bus", "Delay bus", "Aux track"],
     visual: "mixer",
     realWorld: "DAWs commonly show send knobs on each channel and separate return/aux channels labelled A/B or Reverb/Delay. Hardware mixers use AUX SEND and RETURN controls for the same routing idea.",
+  },
+
+  "production.automation-dynamics.a": {
+    why: "A static fader can be correct at one moment and wrong at another. Volume automation lets producers shape the foreground continuously so important phrases come forward without changing the performance itself.",
+    when: "Usually after the rough mix is established, during detailed mixing and arrangement refinement. It is also common during vocal rides, builds, fades, and transitions.",
+    tools: ["Automation lane", "Volume automation", "Breakpoints", "DAW arrangement view"],
+    visual: "automation",
+    realWorld: "In most DAWs, pressing an automation key or opening an automation lane reveals a line across the track. Producers add breakpoints and drag the line up or down over time.",
+  },
+  "production.automation-dynamics.b": {
+    why: "A filter sweep creates motion in timbre without rewriting notes. Producers use it to hide and reveal harmonics gradually, making a section feel as though it is opening, closing, or building toward an arrival.",
+    when: "During arrangement and transition design, especially before choruses, drops, climaxes, and breakdowns.",
+    tools: ["Filter cutoff", "Automation lane", "Low-pass filter", "Synth or EQ plugin"],
+    visual: "automation",
+    realWorld: "A cutoff automation curve often slopes upward across several bars while the filter knob moves automatically during playback.",
+  },
+  "production.automation-dynamics.c": {
+    why: "Compression controls peaks and narrows dynamic range. Producers use it when individual hits jump out too much or when a drum bus needs more consistent impact.",
+    when: "During mixing after basic level balance. Compression is often inserted directly on a channel or bus before or after EQ depending on the goal.",
+    tools: ["Compressor", "Threshold", "Ratio", "Attack", "Release", "Gain-reduction meter"],
+    visual: "automation",
+    realWorld: "A compressor plugin normally shows threshold, ratio, attack, release, and a gain-reduction meter. Hardware compressors use the same controls as knobs and meters.",
+  },
+  "production.automation-dynamics.d": {
+    why: "Compression is not only about making things even. Attack and release reshape transients, while automation shapes the larger energy curve. Using both together lets production decisions support the same musical arrival.",
+    when: "During detailed mixing and final arrangement refinement, after the core groove, harmony, and structure are already working.",
+    tools: ["Compressor timing", "Automation curves", "Drum bus", "Arrangement view", "A/B bypass"],
+    visual: "automation",
+    realWorld: "Producers often loop a section, adjust compressor attack/release by ear, then draw automation around the same section so punch, brightness, and level all reinforce its structure.",
   },
 };
 
