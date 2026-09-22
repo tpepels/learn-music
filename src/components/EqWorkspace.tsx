@@ -26,7 +26,7 @@ export function EqWorkspace() {
       <div className="workspace-heading">
         <div>
           <span className="section-label">Channel EQ · high-pass + parametric bell</span>
-          <h2>Shape frequency, not just volume</h2>
+          <h2>Find the part of the sound you want to change</h2>
           <div className="daw-strip">
             <span>HPF</span><span>FREQUENCY</span><span>GAIN</span><span>Q</span>
           </div>
