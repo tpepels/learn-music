@@ -474,11 +474,11 @@ export const productionContext: Record<string, ProductionContext> = {
   },
 
   "harmony.function.a": {
-    why: "Functional roles explain why a progression moves: tonic stabilizes, predominant departs, dominant intensifies, and tonic resolves.",
-    when: "While inventing chord progressions from harmonic goals rather than memorized chord-symbol sequences.",
-    tools: ["Chord track", "Roman numerals", "Keyboard", "Function labels"],
+    why: "Functional roles become useful when they change music the learner is already hearing. Rewriting the MIDI under C, F, G, and C connects tonic, predominant, and dominant to the notes producing those sensations.",
+    when: "While reharmonizing a melody or groove and deciding whether a bar should feel stable, departing, tense, or resolved.",
+    tools: ["Chord track", "Polyphonic piano roll", "Loop playback", "Roman numerals"],
     visual: "harmonic-function",
-    realWorld: "DAWs usually show chord symbols rather than function automatically, so producers commonly annotate I, IV, V or think in functional roles while writing.",
+    realWorld: "A producer may use chord symbols as a map, but the audible part still consists of recorded or drawn MIDI notes that must be rewritten when the harmony changes.",
   },
   "harmony.function.b": {
     why: "ii–V–I is a compact example of predominant–dominant–tonic motion and makes functional direction especially easy to hear.",
@@ -503,11 +503,11 @@ export const productionContext: Record<string, ProductionContext> = {
   },
 
   "composition.phrase-form.a": {
-    why: "Statement-and-answer phrasing gives medium-scale punctuation so music feels spoken in coherent spans rather than as one endless line.",
-    when: "After a motif or short phrase exists, before expanding it into full song sections.",
-    tools: ["Section markers", "Arrangement view", "Phrase labels", "Loop regions"],
+    why: "A and A′ only teach form if the listener can hear what is retained and what changes. The lesson therefore pairs labels with actual layer combinations that play across sixteen bars.",
+    when: "After musical layers exist and the writer starts deciding what repeats, develops, contrasts, and returns at section scale.",
+    tools: ["Section markers", "Arrangement layers", "Loop playback", "Macro-form view"],
     visual: "phrase-form",
-    realWorld: "DAW markers often divide eight bars into related four-bar phrases; A and A-prime labels describe similarity with a changed ending.",
+    realWorld: "DAW markers name sections, but duplicated clips, muted layers, and changed instrumentation are what make A, B, or A′ audible.",
   },
   "composition.phrase-form.b": {
     why: "Binary form creates large-scale contrast by dividing music into two primary identities, A and B.",
@@ -764,11 +764,11 @@ export const productionContext: Record<string, ProductionContext> = {
   },
 
   "harmony.minor-cadences.a": {
-    why: "Minor tonic and minor subdominant establish the key's basic home-and-departure relationship before dominant tension is introduced.",
-    when: "Early in writing a minor-key progression, especially when sketching harmonic function with simple triads.",
-    tools: ["Chord track", "MIDI chord pads", "Piano", "Roman-numeral analysis"],
+    why: "Minor function is easier to retain when the learner writes the chord tones that produce it. Am→Dm becomes a change in actual notes rather than a pair of chord buttons.",
+    when: "While building a minor accompaniment and deciding how tonic should move toward predominant and later dominant tension.",
+    tools: ["Chord track", "Polyphonic piano roll", "Loop playback", "Roman-numeral analysis"],
     visual: "minor-cadence",
-    realWorld: "A DAW chord lane may show Am and Dm while the MIDI notes reveal the shared A-minor collection underneath.",
+    realWorld: "In a DAW, Am and Dm may appear above the timeline, but the keyboard or MIDI part underneath still has to contain A–C–E and D–F–A.",
   },
   "harmony.minor-cadences.b": {
     why: "E7 contains the raised seventh G♯, converting a weak natural-minor v chord into a strong dominant V7 that resolves decisively to Am.",
@@ -793,11 +793,11 @@ export const productionContext: Record<string, ProductionContext> = {
   },
 
   "harmony.seventh-chords.a": {
-    why: "Adding the seventh introduces colour and internal tension while preserving the basic tonic identity of the chord.",
-    when: "After triads are comfortable and the harmony needs more nuance without becoming fully chromatic.",
-    tools: ["Chord track", "Piano voicing", "MIDI chord editor", "Chord analyser"],
+    why: "The seventh is easiest to understand as one additional pitch the learner can add and remove. Hearing C–E–G with and without B makes the colour concrete.",
+    when: "After triads are comfortable and the writer wants richer tonic, predominant, or dominant colour.",
+    tools: ["Chord track", "Polyphonic piano roll", "Piano", "Loop playback"],
     visual: "seventh-chords",
-    realWorld: "A Cmaj7 MIDI clip looks like a C-major triad plus one additional B stacked above or distributed through the voicing.",
+    realWorld: "A Cmaj7 MIDI clip is literally a C-major triad plus B; producers can mute that B to compare the triad and seventh chord instantly.",
   },
   "harmony.seventh-chords.b": {
     why: "The dominant seventh contains two guide tones that move by semitone into tonic, making the cadence stronger than a plain major V chord.",
@@ -822,11 +822,11 @@ export const productionContext: Record<string, ProductionContext> = {
   },
 
   "harmony.modal-mixture.a": {
-    why: "Borrowed minor iv introduces A♭ into C major, creating a chromatic colour that is expressive without requiring a full modulation.",
-    when: "When a major-key progression needs a darker or bittersweet turn while keeping the same tonic.",
-    tools: ["Chord track", "Piano", "Roman numerals", "Chromatic voice-leading view"],
+    why: "Borrowed minor iv becomes concrete when the learner changes A to A♭ inside an F chord. One semitone creates the colour that the label Fm merely names.",
+    when: "When a C-major phrase needs a darker turn without abandoning C as the tonal centre.",
+    tools: ["Chord track", "Chromatic piano roll", "Loop playback", "Voice-leading view"],
     visual: "modal-mixture",
-    realWorld: "A chord lane may show Fm inside an otherwise C-major section; the single changed note A→A♭ is often the most important voice-leading detail.",
+    realWorld: "In a DAW, switching F major to F minor can be as direct as dragging the A note down one semitone to A♭ while the other chord tones stay put.",
   },
   "harmony.modal-mixture.b": {
     why: "Borrowed ♭VII removes the major-key leading tone and produces a broader, more modal kind of motion than dominant harmony.",
