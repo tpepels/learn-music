@@ -5,6 +5,7 @@ import {
   clonePattern,
   initialArrangement,
   initialAutomationSettings,
+  initialBassSequence,
   initialChordProgression,
   initialMelody,
   initialDynamicsSettings,
@@ -13,9 +14,11 @@ import {
   initialPattern,
   initialProjectMilestones,
   initialSynthSettings,
+  initialVoicingSettings,
   type Arrangement,
   type ArrangementLayer,
   type AutomationSettings,
+  type BassSequence,
   type ChordName,
   type ChordProgression,
   type DynamicsSettings,
@@ -29,6 +32,7 @@ import {
   type StepPattern,
   type SynthSettings,
   type TrackName,
+  type VoicingSettings,
 } from "../music/model";
 
 const FIRST_LESSON_ID = "rhythm.pulse-and-groove";
@@ -53,6 +57,8 @@ type StudioState = {
   dynamicsSettings: DynamicsSettings;
   effectsSettings: EffectsSettings;
   projectMilestones: ProjectMilestones;
+  voicingSettings: VoicingSettings;
+  bassSequence: BassSequence;
   appMode: "learn" | "create" | "studio";
 
   setBpm: (bpm: number) => void;
@@ -93,6 +99,10 @@ type StudioState = {
   markProjectExported: () => void;
   setAppMode: (mode: "learn" | "create" | "studio") => void;
   loadProject: (project: ProjectData) => void;
+  setChordInversion: (slot: number, inversion: 0 | 1 | 2) => void;
+  resetVoicings: () => void;
+  setBassStep: (step: number, midi: number | null) => void;
+  clearBass: () => void;
 };
 
 export const useStudioStore = create<StudioState>()(
@@ -128,6 +138,8 @@ export const useStudioStore = create<StudioState>()(
       dynamicsSettings: { ...initialDynamicsSettings },
       effectsSettings: { ...initialEffectsSettings },
       projectMilestones: { ...initialProjectMilestones },
+      voicingSettings: { inversions: [...initialVoicingSettings.inversions] },
+      bassSequence: [...initialBassSequence],
       appMode: "learn",
 
       setBpm: (bpm) => set({ bpm }),
@@ -325,6 +337,28 @@ export const useStudioStore = create<StudioState>()(
 
       setAppMode: (appMode) => set({ appMode }),
 
+      setChordInversion: (slot, inversion) =>
+        set((state) => {
+          const inversions = [...state.voicingSettings.inversions];
+          inversions[slot] = inversion;
+          return { voicingSettings: { inversions } };
+        }),
+
+      resetVoicings: () =>
+        set({
+          voicingSettings: { inversions: [...initialVoicingSettings.inversions] },
+        }),
+
+      setBassStep: (step, midi) =>
+        set((state) => {
+          const bassSequence = [...state.bassSequence];
+          bassSequence[step] = bassSequence[step] === midi ? null : midi;
+          return { bassSequence };
+        }),
+
+      clearBass: () =>
+        set({ bassSequence: [...initialBassSequence], currentStep: 0 }),
+
       loadProject: (project) =>
         set({
           bpm: project.bpm,
@@ -349,6 +383,8 @@ export const useStudioStore = create<StudioState>()(
           dynamicsSettings: { ...project.dynamicsSettings },
           effectsSettings: { ...project.effectsSettings },
           projectMilestones: { exported: false },
+          voicingSettings: { inversions: [...initialVoicingSettings.inversions] },
+          bassSequence: [...initialBassSequence],
           currentStep: 0,
           isPlaying: false,
         }),
@@ -373,6 +409,8 @@ export const useStudioStore = create<StudioState>()(
         dynamicsSettings: state.dynamicsSettings,
         effectsSettings: state.effectsSettings,
         projectMilestones: state.projectMilestones,
+        voicingSettings: state.voicingSettings,
+        bassSequence: state.bassSequence,
         appMode: state.appMode,
       }),
     },
