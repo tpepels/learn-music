@@ -52,7 +52,7 @@ type StudioState = {
   dynamicsSettings: DynamicsSettings;
   effectsSettings: EffectsSettings;
   projectMilestones: ProjectMilestones;
-  appMode: "learn" | "studio";
+  appMode: "learn" | "create" | "studio";
 
   setBpm: (bpm: number) => void;
   setPlaying: (playing: boolean) => void;
@@ -90,7 +90,7 @@ type StudioState = {
   setEffectsSettings: (settings: Partial<EffectsSettings>) => void;
   resetEffects: () => void;
   markProjectExported: () => void;
-  setAppMode: (mode: "learn" | "studio") => void;
+  setAppMode: (mode: "learn" | "create" | "studio") => void;
 };
 
 export const useStudioStore = create<StudioState>()(
