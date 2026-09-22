@@ -4,16 +4,25 @@ import {
   type LessonDefinition,
 } from "./types";
 
+function exploredRange(
+  experiments: Parameters<LessonDefinition["exercises"][number]["evaluate"]>[0]["experiments"],
+  key: string,
+): number {
+  const item = experiments[key];
+  if (!item || item.min === null || item.max === null) return 0;
+  return item.max - item.min;
+}
+
 const lesson = lessonContentSchema.parse({
   id: "mixing.balance-space",
   number: 7,
   title: "Mixing & space",
   eyebrow: "Production · Mixer",
-  hero: "Make the same music feel clearer, wider, and more intentional.",
+  hero: "Learn the mixer by making the track worse, then better.",
   description:
-    "The notes and arrangement are already there. Now you will decide what sits forward, what stays behind, what occupies the centre, and how much shared space the sounds receive.",
+    "Use the same music to explore level, pan, low-cut and effects sends. Each exercise asks you to hear an exaggerated or unhelpful version before settling on a choice that supports your own track.",
   overview:
-    "Mixing is the stage where existing parts are balanced and shaped so they work together. A mixer does not usually change the composition itself; it changes how clearly each part is perceived. You will work with level, pan, low-cut EQ, and send effects using the same controls found in DAWs and hardware mixers.",
+    "Mixing is relational. A number such as −7 dB or 140 Hz has no meaning by itself; it matters because of what it does to the other parts. The exercises therefore grade audible relationships and whether you actually explored the control, not one secret preset.",
 });
 
 export const mixingSpaceLesson: LessonDefinition = {
@@ -23,41 +32,44 @@ export const mixingSpaceLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "mixing.balance-space.a",
         letter: "A",
-        title: "Balance with faders",
-        learn: "Use relative level to decide which parts feel foreground, support, and foundation.",
+        title: "Find a balance by losing it first",
+        learn: "Hear foreground and background as relative level relationships.",
         explanation:
-          "A fader controls a channel's level after the sound has already been created. Mixing starts with balance because a part that is simply too loud can mask other parts even before EQ or effects are considered. There is no universal correct set of numbers; this exercise gives you one workable starting balance for this project so you can learn what relative level changes sound like.",
+          "A fader changes the level of one part relative to all the others. The quickest way to learn that relationship is to deliberately make a part too loud and too quiet, then place it where its musical role becomes clear.",
         instruction:
-          "Press Play and set a rough balance: drums around -4 dB, bass around -7 dB, chords around -11 dB, and melody around -7 dB. Move one fader at a time and notice which part suddenly takes over the track.",
+          "Loop the arrangement. Move the MELODY through at least an 8 dB range so you hear it dominate and then disappear. Do the same more gently with CHORDS. Finish with melody clearly above chords, drums clearly above chords, and bass close enough to the drums to form one foundation.",
         recognition:
-          "A balanced mix lets you hear the main parts without one channel constantly covering the others. Lowering a fader should make a part feel farther back even though its notes stay unchanged.",
+          "You should be able to move the melody a few dB and immediately hear its role change. The final balance does not need to match a prescribed set of fader numbers.",
         terms: [
-          { term: "Mixer", definition: "A set of channel controls used to combine and balance multiple audio signals." },
-          { term: "Channel", definition: "One signal path in a mixer, usually corresponding to a track or instrument." },
-          { term: "Fader", definition: "A level control, usually vertical, used to make a mixer channel louder or quieter." },
-          { term: "dB", definition: "Decibels: the unit commonly used to describe audio level. 0 dB on a channel fader is its reference position, not 'silence'." },
+          { term: "Fader", definition: "A level control used to change one channel relative to the rest of the mix." },
           { term: "Balance", definition: "The relative loudness relationship between the parts of a mix." },
+          { term: "Foreground", definition: "Material perceived as especially present or attention-grabbing." },
+          { term: "Background", definition: "Supporting material perceived behind more prominent elements." },
         ],
         workspace: "mixer",
-        checksLabel: "Set the balance",
-        successLabel: "The four channels have a clear rough balance",
+        checksLabel: "Explore and balance",
+        successLabel: "You found a balance after hearing its failures",
       }),
-      evaluate: ({ mixerSettings }) => [
+      evaluate: ({ mixerSettings, experiments }) => [
         {
-          label: "Drums sit around -4 dB",
-          complete: mixerSettings.drums.volume >= -6 && mixerSettings.drums.volume <= -2,
+          label: "You explored at least 8 dB of melody level",
+          complete: exploredRange(experiments, "mixer.melody.volume") >= 8,
         },
         {
-          label: "Bass sits around -7 dB",
-          complete: mixerSettings.bass.volume >= -9 && mixerSettings.bass.volume <= -5,
+          label: "You also moved the chord level enough to compare it",
+          complete: exploredRange(experiments, "mixer.chords.volume") >= 4,
         },
         {
-          label: "Chords are tucked behind the foreground",
-          complete: mixerSettings.chords.volume >= -14 && mixerSettings.chords.volume <= -9,
+          label: "Melody finishes at least 2 dB above chords",
+          complete: mixerSettings.melody.volume - mixerSettings.chords.volume >= 2,
         },
         {
-          label: "Melody stays present without dominating",
-          complete: mixerSettings.melody.volume >= -10 && mixerSettings.melody.volume <= -5,
+          label: "Drums finish at least 3 dB above chords",
+          complete: mixerSettings.drums.volume - mixerSettings.chords.volume >= 3,
+        },
+        {
+          label: "Bass stays within 6 dB of the drum foundation",
+          complete: Math.abs(mixerSettings.bass.volume - mixerSettings.drums.volume) <= 6,
         },
       ],
     },
@@ -65,80 +77,91 @@ export const mixingSpaceLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "mixing.balance-space.b",
         letter: "B",
-        title: "Place sounds in stereo",
-        learn: "Use panning to create horizontal space without changing volume.",
+        title: "Cross the stereo field",
+        learn: "Hear panning as placement rather than a target percentage.",
         explanation:
-          "Panning positions a mono signal between the left and right speakers. Keeping kick, bass, and other foundational material near the centre gives the mix a stable anchor, while moving supporting parts slightly left or right can reduce competition and make the mix feel wider.",
+          "Panning only makes sense in relation to the centre and the other channels. Crossing one sound from left to right makes the stereo field much easier to hear than immediately typing in a moderate pan value.",
         instruction:
-          "Keep drums and bass centred. Pan chords moderately left and melody moderately right. Do not push them to the extremes; aim for a clear but natural separation.",
+          "Keep BASS near the centre. Move CHORDS far to the left, then far to the right while the track loops. After hearing both extremes, settle chords moderately on one side and MELODY moderately on the opposite side.",
         recognition:
-          "With headphones or two speakers, the mix should feel wider while the low-end foundation remains stable in the middle. If one side feels empty or the whole track leans sideways, the panning is probably too extreme.",
+          "The extreme passes should make the location obvious. The final version should widen the track without making either side feel abandoned.",
         terms: [
           { term: "Pan", definition: "A control that places a channel between the left and right sides of the stereo field." },
           { term: "Stereo field", definition: "The perceived left-to-right space between two playback channels." },
-          { term: "Centre", definition: "A sound sent equally to left and right, perceived as coming from the middle." },
+          { term: "Centre", definition: "A sound sent equally to left and right and perceived in the middle." },
         ],
         workspace: "mixer",
-        checksLabel: "Place the channels",
-        successLabel: "The mix has a stable centre and a wider supporting field",
+        checksLabel: "Cross and place",
+        successLabel: "You heard the extremes and chose a stereo placement",
       }),
-      evaluate: ({ mixerSettings }) => [
-        {
-          label: "Drums remain centred",
-          complete: Math.abs(mixerSettings.drums.pan) <= 0.1,
-        },
-        {
-          label: "Bass remains centred",
-          complete: Math.abs(mixerSettings.bass.pan) <= 0.1,
-        },
-        {
-          label: "Chords are moderately left",
-          complete: mixerSettings.chords.pan <= -0.2 && mixerSettings.chords.pan >= -0.65,
-        },
-        {
-          label: "Melody is moderately right",
-          complete: mixerSettings.melody.pan >= 0.2 && mixerSettings.melody.pan <= 0.65,
-        },
-      ],
+      evaluate: ({ mixerSettings, experiments }) => {
+        const chordPan = experiments["mixer.chords.pan"];
+        return [
+          {
+            label: "Chords travelled from one side of the field to the other",
+            complete:
+              chordPan?.min !== null &&
+              chordPan?.max !== null &&
+              chordPan!.min! <= -0.55 &&
+              chordPan!.max! >= 0.55,
+          },
+          {
+            label: "Bass finishes near the centre",
+            complete: Math.abs(mixerSettings.bass.pan) <= 0.12,
+          },
+          {
+            label: "Chords and melody finish on opposite sides",
+            complete:
+              Math.abs(mixerSettings.chords.pan) >= 0.15 &&
+              Math.abs(mixerSettings.chords.pan) <= 0.7 &&
+              Math.abs(mixerSettings.melody.pan) >= 0.15 &&
+              Math.abs(mixerSettings.melody.pan) <= 0.7 &&
+              mixerSettings.chords.pan * mixerSettings.melody.pan < 0,
+          },
+        ];
+      },
     },
     {
       ...exerciseContentSchema.parse({
         id: "mixing.balance-space.c",
         letter: "C",
-        title: "Clear unnecessary low end",
-        learn: "Use a low-cut filter to make frequency space for bass and kick.",
+        title: "Find the point where filtering hurts",
+        learn: "Use a low-cut by listening for what can be removed and what must remain.",
         explanation:
-          "Many sounds contain low-frequency energy that is not musically useful. A low-cut filter—also called a high-pass filter—reduces frequencies below its cutoff. Producers often remove unnecessary lows from chords, pads, vocals, and melodies so the kick and bass have more room. The point is not to make every track thin; it is to remove low content that the part does not need.",
+          "A low-cut is useful only until it begins removing musically important body. Sweeping too high on purpose teaches the boundary more clearly than memorising a recommended frequency.",
         instruction:
-          "Leave drums and bass almost unfiltered. Raise the chord low-cut into roughly 90–180 Hz and the melody into roughly 120–250 Hz. Keep the track playing and listen for whether the low end becomes less cloudy.",
+          "On CHORDS, sweep LOW CUT from near the bottom to at least 250 Hz and listen for the moment the part becomes obviously thin. Bring it back until the useful body returns. Keep BASS mostly unfiltered and choose a similarly restrained low-cut for MELODY.",
         recognition:
-          "The kick and bass should become easier to identify while the musical identity of chords and melody remains intact. If a part becomes obviously thin or weak, the cutoff is probably too high.",
+          "The correct point is the compromise just below obvious damage: less unnecessary low energy without making the musical part sound hollow.",
         terms: [
-          { term: "EQ", definition: "Equalization: changing the level of selected frequency ranges in a sound." },
-          { term: "Low-cut filter", definition: "A filter that reduces frequencies below a chosen cutoff point." },
-          { term: "High-pass filter", definition: "Another name for a low-cut filter: it passes higher frequencies while reducing lower ones." },
-          { term: "Masking", definition: "When one sound makes another harder to hear because they compete in similar frequency or level ranges." },
+          { term: "Low-cut filter", definition: "A filter that reduces frequencies below a chosen cutoff." },
+          { term: "Masking", definition: "One sound making another harder to hear because they occupy competing sonic space." },
+          { term: "Body", definition: "The lower and low-mid energy that gives a sound weight and fullness." },
         ],
         workspace: "mixer",
-        checksLabel: "Make frequency space",
-        successLabel: "The low end now has clearer ownership",
+        checksLabel: "Sweep and recover",
+        successLabel: "You found the useful low-cut by ear",
       }),
-      evaluate: ({ mixerSettings }) => [
+      evaluate: ({ mixerSettings, experiments }) => [
         {
-          label: "Drums keep their low-frequency impact",
-          complete: mixerSettings.drums.highpass <= 50,
+          label: "You swept the chord low-cut through at least 150 Hz",
+          complete: exploredRange(experiments, "mixer.chords.highpass") >= 150,
         },
         {
-          label: "Bass keeps its fundamental low end",
-          complete: mixerSettings.bass.highpass <= 50,
+          label: "You pushed the chord cutoff high enough to hear damage",
+          complete: (experiments["mixer.chords.highpass"]?.max ?? 0) >= 250,
         },
         {
-          label: "Chords remove unnecessary lows",
-          complete: mixerSettings.chords.highpass >= 90 && mixerSettings.chords.highpass <= 180,
+          label: "Bass finishes with its low foundation intact",
+          complete: mixerSettings.bass.highpass <= 60,
         },
         {
-          label: "Melody removes unnecessary lows",
-          complete: mixerSettings.melody.highpass >= 120 && mixerSettings.melody.highpass <= 250,
+          label: "Chords return to a useful rather than extreme cutoff",
+          complete: mixerSettings.chords.highpass >= 70 && mixerSettings.chords.highpass <= 210,
+        },
+        {
+          label: "Melody has some low cleanup without becoming extreme",
+          complete: mixerSettings.melody.highpass >= 80 && mixerSettings.melody.highpass <= 260,
         },
       ],
     },
@@ -146,46 +169,44 @@ export const mixingSpaceLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "mixing.balance-space.d",
         letter: "D",
-        title: "Create depth with sends",
-        learn: "Use shared reverb and delay to place sounds in a common space without washing out the mix.",
+        title: "Hear washed out, then create depth",
+        learn: "Learn effects sends by crossing the point where they stop helping.",
         explanation:
-          "Instead of inserting a separate reverb on every track, mixers often send several channels to one shared effect return. This saves processing and, more importantly, makes different sounds feel as though they exist in the same acoustic space. Reverb mainly creates depth and ambience; delay creates distinct echoes and can reinforce rhythm.",
+          "Shared reverb and delay create depth and continuity, but too much reverb blurs attacks and too much delay crowds the rhythm. Hearing that failure gives the final restrained setting a reason.",
         instruction:
-          "Add moderate reverb to chords and melody. Add a small amount of delay to the melody. Keep bass comparatively dry and avoid large delay sends on drums. Listen for depth, then briefly push a send too far so you can hear what 'washed out' means before returning to a restrained setting.",
+          "Push CHORD reverb close to the top of its range until the attacks blur, then bring it back. Add some reverb to melody and a small melody delay. Keep bass comparatively dry. Choose the final amounts by ear rather than copying one percentage.",
         recognition:
-          "With sensible sends, the dry sound remains clear while a softer tail or echo appears behind it. Too much reverb blurs attacks and pushes everything backward; too much delay can clutter the rhythm.",
+          "The final mix should keep clear dry attacks with a softer space behind them. If you can no longer tell where notes begin, you have crossed back into the washed-out version.",
         terms: [
-          { term: "Send", definition: "A control that copies part of a channel signal to another processing path." },
-          { term: "Return", definition: "The mixer channel that receives the processed signal from a shared effect." },
-          { term: "Bus", definition: "A shared audio path used to route multiple signals to a common destination or processor." },
-          { term: "Reverb", definition: "A dense collection of reflections that creates the impression of acoustic space and distance." },
-          { term: "Delay", definition: "An effect that repeats the signal after a controllable amount of time." },
-          { term: "Dry / wet", definition: "Dry is the original signal; wet is the effected signal." },
+          { term: "Send", definition: "A control that copies part of a channel to a shared processing path." },
+          { term: "Return", definition: "The mixer path carrying the processed effect signal back into the mix." },
+          { term: "Dry / wet", definition: "Dry is the original sound; wet is the effected sound." },
+          { term: "Depth", definition: "The perception that sounds occupy different front-to-back positions." },
         ],
         workspace: "mixer",
-        checksLabel: "Add shared space",
-        successLabel: "The mix has depth without losing clarity",
+        checksLabel: "Overdo and recover",
+        successLabel: "You created depth after hearing the washed-out version",
       }),
-      evaluate: ({ mixerSettings }) => [
+      evaluate: ({ mixerSettings, experiments }) => [
         {
-          label: "Chords use moderate reverb",
-          complete: mixerSettings.chords.reverb >= 0.12 && mixerSettings.chords.reverb <= 0.28,
+          label: "You deliberately pushed chord reverb into an exaggerated range",
+          complete: (experiments["mixer.chords.reverb"]?.max ?? 0) >= 0.34,
         },
         {
-          label: "Melody uses moderate reverb",
-          complete: mixerSettings.melody.reverb >= 0.1 && mixerSettings.melody.reverb <= 0.25,
+          label: "Chord reverb finishes below the exaggerated setting",
+          complete: mixerSettings.chords.reverb >= 0.08 && mixerSettings.chords.reverb <= 0.3,
         },
         {
-          label: "Melody gets a small rhythmic delay",
-          complete: mixerSettings.melody.delay >= 0.05 && mixerSettings.melody.delay <= 0.18,
+          label: "Melody shares some space",
+          complete: mixerSettings.melody.reverb >= 0.06 && mixerSettings.melody.reverb <= 0.3,
+        },
+        {
+          label: "Melody uses a restrained rhythmic delay",
+          complete: mixerSettings.melody.delay >= 0.03 && mixerSettings.melody.delay <= 0.2,
         },
         {
           label: "Bass stays comparatively dry",
-          complete: mixerSettings.bass.reverb <= 0.08 && mixerSettings.bass.delay <= 0.05,
-        },
-        {
-          label: "Drum delay stays restrained",
-          complete: mixerSettings.drums.delay <= 0.05,
+          complete: mixerSettings.bass.reverb <= 0.1 && mixerSettings.bass.delay <= 0.06,
         },
       ],
     },
