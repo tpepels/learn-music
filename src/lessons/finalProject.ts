@@ -15,6 +15,10 @@ function patternEvents(pattern: Record<(typeof trackNames)[number], boolean[]>) 
   );
 }
 
+function harmonyEvents(sequence: number[][]) {
+  return sequence.reduce((total, notes) => total + notes.length, 0);
+}
+
 const lesson = lessonContentSchema.parse({
   id: "production.final-project",
   number: 10,
@@ -39,7 +43,7 @@ export const finalProjectLesson: LessonDefinition = {
         explanation:
           "Production cannot rescue a composition that has no clear material. Before final mixing, producers often return to the musical essentials: groove, melody, harmony, and repetition. The question is not 'is it complex enough?' but 'does the listener have something to follow?'",
         instruction:
-          "Open the final-project checklist. Make sure Pattern A contains at least 8 drum events, the melody contains at least 6 notes, and all four chord slots are filled. Return to Studio modules if anything is missing.",
+          "Open the final-project checklist. Make sure Pattern A contains at least 8 drum events, the melody contains at least 6 notes, all four chord slots are filled, and the harmony piano roll contains at least 12 notes you wrote. Return to Studio modules if anything is missing.",
         recognition:
           "You should be able to identify the groove, hum or trace the melody, and hear a complete harmonic loop without relying on effects.",
         terms: [
@@ -50,10 +54,11 @@ export const finalProjectLesson: LessonDefinition = {
         checksLabel: "Composition audit",
         successLabel: "The track has a complete musical foundation",
       }),
-      evaluate: ({ A, melody, chordProgression }) => [
+      evaluate: ({ A, melody, chordProgression, harmonySequence }) => [
         { label: "Groove has at least 8 active drum events", complete: patternEvents(A) >= 8 },
         { label: "Melody contains at least 6 notes", complete: melody.filter((note) => note !== null).length >= 6 },
         { label: "All four chord slots are filled", complete: chordProgression.filter(Boolean).length === 4 },
+        { label: "Harmony contains at least 12 learner-written notes", complete: harmonyEvents(harmonySequence) >= 12 },
       ],
     },
     {
