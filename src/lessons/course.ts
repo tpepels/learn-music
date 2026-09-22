@@ -6,6 +6,11 @@ import { effectsTransitionsLesson } from "./effectsTransitions";
 import { finalProjectLesson } from "./finalProject";
 import { grooveFeelLesson } from "./grooveFeel";
 import { mixingSpaceLesson } from "./mixingSpace";
+import { motifDevelopmentLesson } from "./motifDevelopment";
+import { melodyOverHarmonyLesson } from "./melodyOverHarmony";
+import { harmonicFunctionLesson } from "./harmonicFunction";
+import { phraseFormLesson } from "./phraseForm";
+import { textureOrchestrationLesson } from "./textureOrchestration";
 import { pianoCompositionLesson } from "./pianoComposition";
 import { pulseAndGrooveLesson } from "./pulseAndGroove";
 import { rhythmVariationLesson } from "./rhythmVariation";
@@ -27,6 +32,11 @@ export const implementedLessons: LessonDefinition[] = [
   voiceLeadingLesson,
   bassLinesLesson,
   grooveFeelLesson,
+  motifDevelopmentLesson,
+  melodyOverHarmonyLesson,
+  harmonicFunctionLesson,
+  phraseFormLesson,
+  textureOrchestrationLesson,
 ];
 
 export const courseOutline = implementedLessons.map((lesson) => ({
