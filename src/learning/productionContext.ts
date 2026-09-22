@@ -271,9 +271,9 @@ export const productionContext: Record<string, ProductionContext> = {
   "production.effects-transitions.c": {
     why: "Chorus creates width and motion without writing another musical line. It can make a lead or pad feel larger while leaving its centre position recognizable.",
     when: "During sound design or mixing when a source feels too narrow or static but should not simply be made louder.",
-    tools: ["Chorus insert", "Wet/dry mix", "Modulation rate", "Stereo spread"],
+    tools: ["Chorus effect", "Wet amount", "Modulation rate", "Stereo spread"],
     visual: "effects",
-    realWorld: "Chorus usually appears as an insert plugin directly on one track, unlike a shared reverb return. Hardware chorus pedals and synth effects use the same modulation idea.",
+    realWorld: "Chorus can be inserted directly or blended in parallel. PLAY / LAB uses a parallel chorus path so the dry melody remains available even if the optional effect cannot initialise.",
   },
   "production.effects-transitions.d": {
     why: "Transitions feel stronger when several cues move in the same direction. Combining filter movement, ambience, delay, and width creates one larger gesture rather than unrelated tricks.",
