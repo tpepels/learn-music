@@ -9,11 +9,11 @@ const lesson = lessonContentSchema.parse({
   number: 5,
   title: "Sound & synthesis",
   eyebrow: "Production · Sound design",
-  hero: "Learn why the same note can sound completely different.",
+  hero: "Keep the notes. Change what kind of instrument they become."
   description:
-    "Keep pitch constant while changing waveform, filter, and envelope. You will hear timbre as something you can deliberately shape rather than as a mysterious preset choice.",
+    "Keep the pitch and phrase fixed while you change waveform, brightness and envelope. The point is to hear what the sound itself contributes to the part.",
   overview:
-    "A subtractive synthesizer begins with a harmonically rich oscillator and shapes it with a filter and amplitude envelope. Waveform affects the raw spectrum; the filter controls brightness; attack and release control how the sound enters and leaves.",
+    "A subtractive synth starts with an oscillator, removes brightness with a filter, then shapes the note in time with an envelope. Those three decisions can turn the same MIDI phrase into a pluck, a lead or a pad.",
 });
 
 export const soundSynthesisLesson: LessonDefinition = {
@@ -30,7 +30,7 @@ export const soundSynthesisLesson: LessonDefinition = {
         instruction:
           "Click sine, triangle, square, and sawtooth so the same C is actually auditioned with every waveform. Go back and forth if you cannot yet describe the difference. Finish on sawtooth.",
         recognition:
-          "A sine is very pure, triangle is soft but slightly richer, square sounds hollow and bright, and sawtooth is dense and buzzy because it contains many harmonics.",
+          "Use the same C for every waveform. Which one has the least edge? Which one feels hollow? Which one gives the filter the most bright material to remove?",
         terms: [
           { term: "Oscillator", definition: "A synthesizer component that generates a repeating waveform and therefore a pitched sound." },
           { term: "Waveform", definition: "The shape of an oscillator's repeating cycle, such as sine, square, or sawtooth." },
@@ -54,13 +54,13 @@ export const soundSynthesisLesson: LessonDefinition = {
         id: "sound.synthesis.b",
         letter: "B",
         title: "Filter the brightness",
-        learn: "Connect spectral brightness to low-pass cutoff.",
+        learn: "Hear how filter cutoff changes brightness without changing pitch.",
         explanation:
           "A low-pass filter lets low frequencies through while reducing frequencies above its cutoff. Lowering the cutoff removes upper harmonics from a sawtooth wave, making the sound darker without changing the played note.",
         instruction:
           "Move Brightness through a wide range while repeatedly auditioning the same note. Deliberately hear the almost-fully-open sound and a much darker one before settling somewhere between 800 and 2500 Hz.",
         recognition:
-          "When the cutoff falls, the sound loses edge and sparkle. The pitch remains C, but the timbre becomes darker and more muffled.",
+          "Sweep slowly. At what point does the note stop losing useful brightness and start sounding covered over?",
         terms: [
           { term: "Filter", definition: "A processor that changes a sound by attenuating selected frequency ranges." },
           { term: "Low-pass filter", definition: "A filter that passes lower frequencies and reduces higher frequencies." },
@@ -92,7 +92,7 @@ export const soundSynthesisLesson: LessonDefinition = {
         instruction:
           "Switch to triangle, set Attack to 0.08 seconds or less and Release to 0.4 seconds or less, then use Play current melody. Compare the result with the darker sustained sawtooth from B: the notes should now speak separately and rhythmically.",
         recognition:
-          "A fast attack makes each note arrive clearly. A short release leaves space before the next note, so the phrase behaves more like a plucked part than a sustained layer.",
+          "Listen between notes. Can you hear clean gaps, and does each onset feel separate enough to carry the rhythm?",
         terms: [
           { term: "Envelope", definition: "A time-varying shape that controls a parameter such as amplitude." },
           { term: "Attack", definition: "How long a sound takes to rise from silence after a note begins." },
@@ -121,7 +121,7 @@ export const soundSynthesisLesson: LessonDefinition = {
         instruction:
           "Without changing the notes, turn the plucked phrase into a warm sustained layer: use triangle or sawtooth, keep cutoff between 900 and 4500 Hz, set Attack to at least 0.4 seconds and Release to at least 1.1 seconds, then play the current melody again.",
         recognition:
-          "The musical line is unchanged, but its role should be different: attacks blur, notes overlap, and the same pitches feel more like a background layer than a rhythmic lead.",
+          "Play the same phrase again. Do the note starts still define the rhythm, or has the sound become a continuous bed behind it?",
         terms: [
           { term: "Subtractive synthesis", definition: "Sound design that begins with a waveform and shapes it by filtering or reducing parts of its spectrum." },
           { term: "Pad", definition: "A sustained, usually smooth sound used to support harmony or atmosphere." },
