@@ -34,6 +34,7 @@ import {
   getNextImplementedLesson,
 } from "./lessons/course";
 import { getAdvanceDestination } from "./lessons/progression";
+import { isExerciseReady } from "./lessons/exerciseReadiness";
 import type { ExerciseDefinition } from "./lessons/types";
 import { useStudioStore } from "./state/studio";
 
@@ -550,8 +551,14 @@ function App() {
   const exerciseChangedSinceEntry =
     exerciseEntry.id === exercise.id &&
     exerciseEntry.fingerprint !== exerciseStateFingerprint;
-  const exerciseReady =
-    checksReady && (exerciseCompleted || exerciseChangedSinceEntry);
+  const exerciseReady = isExerciseReady({
+    checksReady,
+    completed: exerciseCompleted,
+    entryExerciseId: exerciseEntry.id,
+    currentExerciseId: exercise.id,
+    entryFingerprint: exerciseEntry.fingerprint,
+    currentFingerprint: exerciseStateFingerprint,
+  });
   const lessonCompleted = completedLessonIds.includes(lesson.id);
   const isLastExercise = exerciseIndex === lesson.exercises.length - 1;
 
