@@ -50,8 +50,14 @@ export function DrumWorkspace({
       <div className="sequencer" aria-label="16-step drum sequencer">
         <div className="sequencer-heading">
           <div>
-            <span className="section-label">One bar · 4/4 · Pattern {activePattern}</span>
+            <span className="section-label">Drum machine · 16-step sequencer</span>
             <h2>{title}</h2>
+            <div className="daw-strip">
+              <span>PATTERN {activePattern}</span>
+              <span>4/4</span>
+              <span>GRID 1/16</span>
+              <span>1 BAR</span>
+            </div>
           </div>
           <div className="grid-key">
             {readOnly && <span className="reference-label">Reference · listen only</span>}
@@ -70,7 +76,7 @@ export function DrumWorkspace({
         </div>
 
         {trackNames.map((track) => (
-          <div className="track-row" key={track}>
+          <div className={"track-row track-" + track} key={track}>
             <div className="track-label">
               <strong>{trackLabels[track]}</strong>
               <span>{track === "kick" ? "low" : track === "snare" ? "mid" : "high"}</span>
