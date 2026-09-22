@@ -26,7 +26,7 @@ const lesson = lessonContentSchema.parse({
   eyebrow: "Composition · Development",
   hero: "Keep one small idea alive across the phrase.",
   description:
-    "Take one short idea and develop it through repetition, transposition, fragmentation, and response. The goal is coherence: later material should feel related without becoming a copy-and-paste loop.",
+    "Return to the melody in your project and treat its opening as source material. Develop that idea through repetition, transposition, fragmentation, and response instead of starting a new melody from scratch.",
   overview:
     "A short idea becomes useful when you can recognise it after it changes. Repeat it first so the ear learns it, then move, shorten and answer it without losing the family resemblance.",
 });
@@ -43,7 +43,7 @@ export const motifDevelopmentLesson: LessonDefinition = {
         explanation:
           "A motif is usually short enough to recognize after one hearing. Exact repetition teaches the listener what matters: pitch shape, rhythm, or both. Once that identity is clear, later variations are easier to hear as related.",
         instruction:
-          "Write at least three notes in steps 1–4. Then make steps 5–8 an exact repetition. Use the Repeat button or copy the notes manually.",
+          "Look at the opening of the melody already in your project. Keep or reshape steps 1–4 into a motif with at least three notes, then make steps 5–8 an exact repetition. Use Repeat or copy it manually.",
         recognition:
           "Look away from the piano roll. Does the second block register immediately as the same idea?",
         terms: [
