@@ -7604,3 +7604,83 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ==========================================================================
+   COMPACT EXERCISE NAVIGATION · v1.7
+   ========================================================================== */
+
+/* A–D belongs to progress/navigation, not to the instrument canvas. */
+.exercise-lights {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 34px;
+  margin: 0 0 18px;
+  padding: 0 2px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.exercise-light {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 50%;
+  background: rgba(255,255,255,0.035);
+  color: var(--dim);
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 120ms ease;
+}
+
+.exercise-light:hover:not(:disabled) {
+  border-color: rgba(95,225,239,0.5);
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+.exercise-light.is-active {
+  border-color: var(--pink);
+  background: rgba(255,114,173,0.15);
+  color: #fff;
+  box-shadow: 0 0 0 3px rgba(255,114,173,0.08);
+}
+
+.exercise-light.is-complete {
+  border-color: rgba(101,226,178,0.42);
+  background: rgba(101,226,178,0.12);
+  color: var(--green);
+}
+
+.exercise-light.is-active.is-complete {
+  border-color: var(--green);
+  background: rgba(101,226,178,0.16);
+  color: #fff;
+}
+
+.exercise-light:disabled {
+  opacity: 0.28;
+  cursor: default;
+}
+
+/* The central opening is now intentionally just title + lesson summary. */
+.music-intro {
+  margin-bottom: 26px;
+}
+
+.music-intro > p {
+  max-width: 760px;
+  font-size: 17px;
+  line-height: 1.55;
+  color: #c7c1d1;
+}
+
+/* Retire the old large A–D card navigation completely. */
+.exercise-tabs,
+.exercise-tab {
+  display: none;
+}
