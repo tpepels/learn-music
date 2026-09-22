@@ -91,9 +91,10 @@ export const initialHarmonySequence: HarmonySequence = Array.from(
   { length: HARMONY_STEPS },
   () => [],
 );
-export const harmonyPitches = [
-  72, 71, 69, 67, 65, 64, 62, 60, 59, 57, 55, 53, 52, 50, 48,
-] as const;
+export const harmonyPitches = Array.from(
+  { length: 25 },
+  (_, index) => 72 - index,
+);
 
 export function cloneHarmonySequence(
   sequence: HarmonySequence,
@@ -452,6 +453,15 @@ export const initialProjectMilestones: ProjectMilestones = {
 };
 
 
+export type ControlExperiment = {
+  changes: number;
+  min: number | null;
+  max: number | null;
+  values: string[];
+};
+
+export type ExerciseExperiments = Record<string, ControlExperiment>;
+
 export type ProjectData = {
   bpm: number;
   patterns: Record<PatternId, StepPattern>;
@@ -650,11 +660,18 @@ export type PhraseRole = "statement" | "answer" | "contrast" | "return";
 export type FormSettings = {
   sections: FormSectionLabel[];
   roles: PhraseRole[];
+  layers: ArrangementBar[];
 };
 
 export const initialFormSettings: FormSettings = {
   sections: ["A", "A′", "B", "A"],
   roles: ["statement", "answer", "contrast", "return"],
+  layers: Array.from({ length: 4 }, () => ({
+    drums: false,
+    bass: false,
+    chords: false,
+    melody: false,
+  })),
 };
 
 export type TextureSettings = {
