@@ -169,3 +169,37 @@ export function cloneMixerSettings(settings: MixerSettings): MixerSettings {
     melody: { ...settings.melody },
   };
 }
+
+
+export type AutomationSettings = {
+  melodyVolumeDb: number[];
+  chordFilterHz: number[];
+};
+
+export const initialAutomationSettings: AutomationSettings = {
+  melodyVolumeDb: Array(ARRANGEMENT_BARS).fill(0),
+  chordFilterHz: Array(ARRANGEMENT_BARS).fill(12000),
+};
+
+export function cloneAutomationSettings(
+  settings: AutomationSettings,
+): AutomationSettings {
+  return {
+    melodyVolumeDb: [...settings.melodyVolumeDb],
+    chordFilterHz: [...settings.chordFilterHz],
+  };
+}
+
+export type DynamicsSettings = {
+  threshold: number;
+  ratio: number;
+  attack: number;
+  release: number;
+};
+
+export const initialDynamicsSettings: DynamicsSettings = {
+  threshold: -24,
+  ratio: 1,
+  attack: 0.003,
+  release: 0.2,
+};
