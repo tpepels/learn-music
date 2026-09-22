@@ -24,6 +24,13 @@ export type HarmonySequencerMode =
   | "sevenths"
   | "borrowed";
 
+function harmonyNoteName(midi: number, mode: HarmonySequencerMode): string {
+  const pitchClass = ((midi % 12) + 12) % 12;
+  const octave = Math.floor(midi / 12) - 1;
+  if (mode === "minor" && pitchClass === 8) return "G♯" + octave;
+  return harmonyNoteName(midi, mode);
+}
+
 const configs: Record<
   HarmonySequencerMode,
   {
@@ -194,9 +201,9 @@ export function HarmonySequencerWorkspace({
               <button
                 className="harmony-note-label"
                 onClick={() => audioEngine.playPianoNote(midi)}
-                title={"Audition " + midiNoteName(midi)}
+                title={"Audition " + harmonyNoteName(midi, mode)}
               >
-                {midiNoteName(midi)}
+                {harmonyNoteName(midi, mode)}
               </button>
 
               {Array.from({ length: HARMONY_STEPS }, (_, step) => {
@@ -222,7 +229,7 @@ export function HarmonySequencerWorkspace({
                     onClick={() => toggleNote(step, midi)}
                     aria-label={
                       "Toggle " +
-                      midiNoteName(midi) +
+                      harmonyNoteName(midi, mode) +
                       " at bar " +
                       (Math.floor(step / 8) + 1) +
                       ", eighth " +
