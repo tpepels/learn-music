@@ -31,6 +31,22 @@ const briefs = [
     focus: ["Density", "Automation", "Build", "Release"],
   },
   {
+    id: "relative-key-study",
+    eyebrow: "Tonality study",
+    title: "Make the same notes change emotional centre",
+    prompt:
+      "Use the shared C-major/A-minor pitch collection. Make one phrase resolve clearly to C and a second phrase resolve clearly to A. Change emphasis and endings rather than adding chromatic notes.",
+    focus: ["Relative keys", "Tonic", "Phrase ending", "Melodic emphasis"],
+  },
+  {
+    id: "reharmonization-study",
+    eyebrow: "Harmony study",
+    title: "Reharmonize four bars without losing home",
+    prompt:
+      "Start from a clear C-major tonic. Use at least one seventh chord and one borrowed chord such as Fm or B♭, but make the final C still sound inevitable. Keep the melody simple enough that you can hear what the harmony changed.",
+    focus: ["Seventh chords", "Modal mixture", "Voice leading", "Tonal centre"],
+  },
+  {
     id: "production-study",
     eyebrow: "Production study",
     title: "Make the same notes feel more finished",
