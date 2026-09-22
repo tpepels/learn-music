@@ -474,6 +474,16 @@ function App() {
             ))}
           </div>
 
+          {(exerciseReady || exerciseCompleted) && (
+            <div className="ready-banner">
+              <span>✓</span>
+              <div>
+                <strong>{exerciseCompleted ? "Saved!" : "Nice — you found it."}</strong>
+                <small>{exerciseCompleted ? "You can keep experimenting or move on." : exercise.successLabel}</small>
+              </div>
+            </div>
+          )}
+
           <button
             className="lesson-action"
             disabled={(!exerciseReady && !exerciseCompleted) || (lessonCompleted && !nextLesson && isLastExercise)}
