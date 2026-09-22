@@ -11,6 +11,7 @@ const demoNotes = [
 export function SynthWorkspace() {
   const settings = useStudioStore((state) => state.synthSettings);
   const setSynthSettings = useStudioStore((state) => state.setSynthSettings);
+  const recordExperiment = useStudioStore((state) => state.recordLearningExperiment);
 
   const setWaveform = async (waveform: SynthWaveform) => {
     const next = { ...settings, waveform };
@@ -115,11 +116,23 @@ export function SynthWorkspace() {
         </div>
         <div>
           {demoNotes.map((note) => (
-            <button key={note.midi} onClick={() => audioEngine.playSynthNote(note.midi)}>
+            <button
+              key={note.midi}
+              onClick={async () => {
+                recordExperiment("synth.note-audition", note.midi);
+                await audioEngine.playSynthNote(note.midi);
+              }}
+            >
               {note.label}
             </button>
           ))}
-          <button className="synth-phrase-button" onClick={() => audioEngine.playSynthPhrase()}>
+          <button
+            className="synth-phrase-button"
+            onClick={async () => {
+              recordExperiment("synth.phrase-audition", true);
+              await audioEngine.playSynthPhrase();
+            }}
+          >
             Play current melody
           </button>
         </div>
