@@ -39,6 +39,7 @@ const configs: Record<
     keyLabel: string;
     palette: readonly ChordName[];
     numeral: Partial<Record<ChordName, string>>;
+    contextLabel: string;
     hint: string;
   }
 > = {
@@ -48,7 +49,8 @@ const configs: Record<
     keyLabel: "KEY C MAJOR",
     palette: basicChordNames.filter((chord) => chord !== "D7"),
     numeral: romanNumerals,
-    hint: "Choose the harmony for a bar, then decide which notes happen and when.",
+    contextLabel: "YOUR GROOVE + MELODY",
+    hint: "Play uses the groove and melody you already made. Set a harmonic target, then write the notes that make it real.",
   },
   function: {
     eyebrow: "Harmonic function · four bars",
@@ -56,7 +58,8 @@ const configs: Record<
     keyLabel: "FUNCTION IN C",
     palette: basicChordNames,
     numeral: romanNumerals,
-    hint: "The chord label names the role; the piano roll is the part you write.",
+    contextLabel: "YOUR GROOVE + MELODY",
+    hint: "The same groove and melody stay in place while you change what the harmony is doing underneath them.",
   },
   minor: {
     eyebrow: "A-minor harmony · four bars",
@@ -64,7 +67,8 @@ const configs: Record<
     keyLabel: "KEY A MINOR",
     palette: minorKeyChordNames,
     numeral: aMinorRomanNumerals,
-    hint: "E7 contains G♯, so the chromatic rows matter here. Write what you want to hear.",
+    contextLabel: "YOUR GROOVE + MINOR MELODY",
+    hint: "Your groove and minor melody stay in place. Write the harmony underneath them, including G♯ when E7 needs it.",
   },
   sevenths: {
     eyebrow: "Seventh-chord MIDI clip · four bars",
@@ -72,7 +76,8 @@ const configs: Record<
     keyLabel: "SEVENTH CHORDS",
     palette: seventhChordNames,
     numeral: seventhRomanNumerals,
-    hint: "A seventh chord is not a label to collect: place the fourth chord tone and hear what it changes.",
+    contextLabel: "YOUR GROOVE",
+    hint: "The groove stays as context while you focus on the added seventh. The previous minor melody is left out here so it cannot confuse the C-major harmony.",
   },
   borrowed: {
     eyebrow: "Modal mixture · four bars",
@@ -80,7 +85,8 @@ const configs: Record<
     keyLabel: "HOME C MAJOR",
     palette: borrowedChordNames,
     numeral: borrowedRomanNumerals,
-    hint: "Borrowed notes such as A♭ and B♭ stay fully editable. Hear the colour inside the phrase.",
+    contextLabel: "YOUR GROOVE",
+    hint: "The groove stays as context while the inherited minor melody stays out. That leaves the borrowed C-major colour clear.",
   },
 };
 
@@ -131,6 +137,7 @@ export function HarmonySequencerWorkspace({
             <span>GRID 1/8</span>
             <span>POLYPHONIC</span>
             <span>32 STEPS</span>
+            <span>{config.contextLabel}</span>
           </div>
         </div>
         <span className="workspace-hint">{config.hint}</span>
