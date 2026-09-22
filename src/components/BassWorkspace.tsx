@@ -29,10 +29,11 @@ export function BassWorkspace() {
             <span>4 BARS</span>
             <span>CHORD ROOTS</span>
             <span>APPROACH NOTES</span>
+            <span>YOUR GROOVE + HARMONY</span>
           </div>
         </div>
         <span className="workspace-hint">
-          One bass note per column. Strong beats are brighter; bar lines are heavier.
+          Play keeps your groove and harmony running while you add the bass line underneath them.
         </span>
       </div>
 
