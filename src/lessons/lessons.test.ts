@@ -9,11 +9,13 @@ import {
   initialChordProgression,
   initialDynamicsSettings,
   initialEffectsSettings,
+  initialFormSettings,
   initialGrooveFeelSettings,
   initialMelody,
   initialMixerSettings,
   initialPattern,
   initialSynthSettings,
+  initialTextureSettings,
   initialVoicingSettings,
   bassRootMidi,
   type ChordProgression,
@@ -28,6 +30,11 @@ import { effectsTransitionsLesson } from "./effectsTransitions";
 import { finalProjectLesson } from "./finalProject";
 import { grooveFeelLesson } from "./grooveFeel";
 import { mixingSpaceLesson } from "./mixingSpace";
+import { motifDevelopmentLesson } from "./motifDevelopment";
+import { melodyOverHarmonyLesson } from "./melodyOverHarmony";
+import { harmonicFunctionLesson } from "./harmonicFunction";
+import { phraseFormLesson } from "./phraseForm";
+import { textureOrchestrationLesson } from "./textureOrchestration";
 import { pianoCompositionLesson } from "./pianoComposition";
 import { pulseAndGrooveLesson } from "./pulseAndGroove";
 import { rhythmVariationLesson } from "./rhythmVariation";
@@ -64,6 +71,11 @@ function context(overrides: Partial<LessonContext> = {}): LessonContext {
         hat: [...initialGrooveFeelSettings.velocities.hat],
       },
     },
+    formSettings: {
+      sections: [...initialFormSettings.sections],
+      roles: [...initialFormSettings.roles],
+    },
+    textureSettings: { ...initialTextureSettings },
     ...overrides,
   };
 }
@@ -492,6 +504,159 @@ describe("lesson 13: velocity, accents, and swing", () => {
     const ctx = context({ A, grooveFeelSettings });
 
     for (const exercise of grooveFeelLesson.exercises) {
+      expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
+    }
+  });
+});
+
+
+describe("lesson 14: motif development", () => {
+  it("recognises repetition, transposition, fragmentation, and response", () => {
+    const melody: MelodySequence = [
+      60, 64, 67, 64,
+      60, 64, 67, 64,
+      62, 66, 69, 66,
+      60, null, null, null,
+    ];
+    const ctx = context({ melody });
+
+    for (const exercise of motifDevelopmentLesson.exercises) {
+      expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
+    }
+  });
+});
+
+describe("lesson 15: melody over harmony", () => {
+  it("recognises chord-tone anchors, passing tones, neighbour motion, and resolutions", () => {
+    const melody: MelodySequence = [
+      60, 62, 64, 65,
+      65, 67, 65, 69,
+      67, 69, 71, 66,
+      67, 62, 64, 60,
+    ];
+    const chordProgression: ChordProgression = ["C", "F", "G", "C"];
+    const ctx = context({ melody, chordProgression });
+
+    for (const exercise of melodyOverHarmonyLesson.exercises) {
+      expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
+    }
+  });
+});
+
+describe("lesson 16: harmonic function", () => {
+  it("recognises the tonic-predominant-dominant-tonic cycle", () => {
+    const ctx = context({ chordProgression: ["C", "F", "G", "C"] });
+    expect(
+      harmonicFunctionLesson.exercises[0]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+
+  it("recognises ii-V-I", () => {
+    const ctx = context({ chordProgression: ["Dm", "G", "C", "C"] });
+    expect(
+      harmonicFunctionLesson.exercises[1]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+
+  it("recognises deceptive V-vi motion", () => {
+    const ctx = context({ chordProgression: ["C", "G", "Am", "F"] });
+    expect(
+      harmonicFunctionLesson.exercises[2]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+
+  it("recognises V/V resolving through V to I", () => {
+    const ctx = context({ chordProgression: ["D7", "G", "C", "Am"] });
+    expect(
+      harmonicFunctionLesson.exercises[3]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+});
+
+describe("lesson 17: phrase and form", () => {
+  it("recognises antecedent/consequent A to A-prime", () => {
+    const ctx = context({
+      formSettings: {
+        sections: ["A", "A′", "B", "A"],
+        roles: ["statement", "answer", "contrast", "return"],
+      },
+    });
+    expect(
+      phraseFormLesson.exercises[0]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+
+  it("recognises binary form", () => {
+    const ctx = context({
+      formSettings: {
+        sections: ["A", "A", "B", "B"],
+        roles: ["statement", "answer", "contrast", "return"],
+      },
+    });
+    expect(
+      phraseFormLesson.exercises[1]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+
+  it("recognises ternary return", () => {
+    const ctx = context({
+      formSettings: {
+        sections: ["A", "B", "A", "A′"],
+        roles: ["statement", "answer", "contrast", "return"],
+      },
+    });
+    expect(
+      phraseFormLesson.exercises[2]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+
+  it("recognises AABA", () => {
+    const ctx = context({
+      formSettings: {
+        sections: ["A", "A", "B", "A"],
+        roles: ["statement", "answer", "contrast", "return"],
+      },
+    });
+    expect(
+      phraseFormLesson.exercises[3]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+});
+
+describe("lesson 18: texture and orchestration", () => {
+  it("accepts register separation, open voicing, doubling, and density contrast", () => {
+    const arrangement = cloneArrangement(initialArrangement);
+    arrangement[0] = { drums: true, bass: false, chords: false, melody: false };
+    arrangement[6] = { drums: true, bass: true, chords: true, melody: true };
+
+    const ctx = context({
+      arrangement,
+      textureSettings: {
+        bassOctave: -1,
+        chordsOctave: 0,
+        melodyOctave: 1,
+        openChords: true,
+        melodyOctaveDouble: true,
+      },
+    });
+
+    for (const exercise of textureOrchestrationLesson.exercises) {
       expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
     }
   });
