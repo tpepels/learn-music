@@ -33,6 +33,8 @@ function downloadProject() {
       voicingSettings: state.voicingSettings,
       bassSequence: state.bassSequence,
       grooveFeelSettings: state.grooveFeelSettings,
+      formSettings: state.formSettings,
+      textureSettings: state.textureSettings,
     },
   };
 
