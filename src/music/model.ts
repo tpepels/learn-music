@@ -241,6 +241,7 @@ export type ProjectData = {
   effectsSettings: EffectsSettings;
   voicingSettings: VoicingSettings;
   bassSequence: BassSequence;
+  grooveFeelSettings: GrooveFeelSettings;
 };
 
 
@@ -334,4 +335,36 @@ export function bassChordToneMidis(chord: ChordName): number[] {
     while (bass < 35) bass += 12;
     return bass;
   });
+}
+
+
+export type GrooveFeelSettings = {
+  swing: number;
+  velocities: Record<TrackName, number[]>;
+};
+
+function velocityLane(value: number): number[] {
+  return Array(STEPS).fill(value);
+}
+
+export const initialGrooveFeelSettings: GrooveFeelSettings = {
+  swing: 0,
+  velocities: {
+    kick: velocityLane(0.9),
+    snare: velocityLane(0.72),
+    hat: velocityLane(0.42),
+  },
+};
+
+export function cloneGrooveFeelSettings(
+  settings: GrooveFeelSettings,
+): GrooveFeelSettings {
+  return {
+    swing: settings.swing,
+    velocities: {
+      kick: [...settings.velocities.kick],
+      snare: [...settings.velocities.snare],
+      hat: [...settings.velocities.hat],
+    },
+  };
 }
