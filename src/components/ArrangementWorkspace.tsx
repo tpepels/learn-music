@@ -22,8 +22,14 @@ export function ArrangementWorkspace() {
     <div className="arrangement-card">
       <div className="workspace-heading">
         <div>
-          <span className="section-label">Eight bars · four musical layers</span>
+          <span className="section-label">DAW arrangement view · eight bars</span>
           <h2>Arrange the track</h2>
+          <div className="daw-strip">
+            <span>4 TRACKS</span>
+            <span>8 BARS</span>
+            <span>CLIP VIEW</span>
+            <span>SECTION A / B</span>
+          </div>
         </div>
         <span className="workspace-hint">Each column is one bar. Add or remove layers to shape energy over time.</span>
       </div>
