@@ -8108,3 +8108,84 @@ body {
   background: var(--cyan);
   box-shadow: 0 0 8px rgba(95,225,239,0.35);
 }
+
+
+/* ==========================================================================
+   DRAWN MIDI NOTE LENGTHS · v2.1.3
+   ========================================================================== */
+
+[data-note-step][data-note-midi] {
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.melody-cell.is-sustain,
+.harmony-roll-cell.is-sustain,
+.bass-cell.is-sustain,
+.motif-cell.is-sustain,
+.mh-cell.is-sustain,
+.minor-roll-cell.is-sustain {
+  opacity: 1;
+  border-color: rgba(95,225,239,0.34);
+  background: rgba(95,225,239,0.09) !important;
+}
+
+.melody-cell.is-sustain span,
+.harmony-roll-cell.is-sustain span,
+.bass-cell.is-sustain span,
+.motif-cell.is-sustain span,
+.mh-cell.is-sustain span,
+.minor-roll-cell.is-sustain span {
+  position: absolute;
+  inset: 5px -2px;
+  border-radius: 0;
+  background: linear-gradient(90deg, var(--cyan), #8ef3d2);
+  opacity: 0.82;
+}
+
+.harmony-roll-cell.is-sustain span {
+  inset: 4px -2px;
+  background: var(--accent);
+}
+
+.bass-cell.is-sustain span {
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+}
+
+.melody-cell.is-note-start:not(.is-note-end) span,
+.harmony-roll-cell.is-note-start:not(.is-note-end) span,
+.bass-cell.is-note-start:not(.is-note-end) span,
+.motif-cell.is-note-start:not(.is-note-end) span,
+.mh-cell.is-note-start:not(.is-note-end) span,
+.minor-roll-cell.is-note-start:not(.is-note-end) span {
+  right: -2px;
+  border-radius: 4px 0 0 4px;
+}
+
+.melody-cell.is-note-end span,
+.harmony-roll-cell.is-note-end span,
+.bass-cell.is-note-end span,
+.motif-cell.is-note-end span,
+.mh-cell.is-note-end span,
+.minor-roll-cell.is-note-end span {
+  right: 3px;
+  border-radius: 0 4px 4px 0;
+}
+
+.melody-cell.is-note-end::after,
+.harmony-roll-cell.is-note-end::after,
+.bass-cell.is-note-end::after,
+.motif-cell.is-note-end::after,
+.mh-cell.is-note-end::after,
+.minor-roll-cell.is-note-end::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  right: 2px;
+  bottom: 5px;
+  width: 2px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.72);
+  pointer-events: none;
+}
