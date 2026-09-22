@@ -1,7 +1,9 @@
-name: Validate branch manually
+name: Validate v2.1.2 project-continuity release candidate
 
 on:
   workflow_dispatch:
+  push:
+    branches: ["feature/project-continuity-chord-targets-v212"]
 
 permissions:
   contents: read
