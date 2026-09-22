@@ -9,11 +9,11 @@ const lesson = lessonContentSchema.parse({
   number: 21,
   title: "Sidechain ducking",
   eyebrow: "Production · Dynamics",
-  hero: "Let the kick and bass take turns.",
+  hero: "Make the bass move around the kick.",
   description:
-    "Use the kick as a trigger that temporarily lowers the bass channel. Explore subtle low-end separation, exaggerated pumping, and release timing.",
+    "Let the kick push the bass down for a moment, exaggerate the motion until it is impossible to miss, then bring it back into the groove.",
   overview:
-    "A sidechain is an external control signal. A compressor can listen to one signal while changing another. Here the kick is the key input and the bass is the target: every kick event creates a short bass-volume dip followed by recovery.",
+    "The kick is not being made louder. Instead, every kick tells the bass to dip and recover. How deep that dip is and how long the bass takes to return determines whether you hear cleaner low end or an obvious rhythmic pump.",
 });
 
 export const sidechainLesson: LessonDefinition = {
@@ -24,13 +24,13 @@ export const sidechainLesson: LessonDefinition = {
         id: "production.sidechain.a",
         letter: "A",
         title: "Create low-end separation",
-        learn: "Use a moderate kick-triggered duck so kick and bass do not peak at exactly the same moment.",
+        learn: "Hear what changes when the bass gets out of the kick's way for a moment.",
         explanation:
-          "Kick and bass often share low-frequency space. Ducking the bass briefly when the kick arrives can create room without changing either pattern or permanently lowering the bass.",
+          "When kick and bass arrive together, their low end can blur into one event. A short dip in the bass can make the kick read more clearly without turning the bass down for the whole bar.",
         instruction:
-          "Make sure Pattern A contains at least four kicks. Turn sidechain ON, set Duck Amount between 3 and 6 dB, and Release between 120 and 300 ms.",
+          "Loop the track. Turn sidechain on, off, and on again. While it is on, sweep Release from clearly short to clearly long, then settle on a moderate duck where the kick separates but the bass still feels continuous.",
         recognition:
-          "The kick should become easier to distinguish while the bass still feels continuous between kicks.",
+          "Listen to the start of each kick. With sidechain off, do kick and bass arrive as one lump? With it on, can you hear the kick edge without hearing an obvious hole in the bass?",
         terms: [
           { term: "Sidechain", definition: "A control path where one signal influences processing applied to another signal." },
           { term: "Key input", definition: "The signal that triggers a dynamics processor; here, the kick." },
@@ -40,27 +40,25 @@ export const sidechainLesson: LessonDefinition = {
         checksLabel: "Make room for each kick",
         successLabel: "Kick-triggered bass ducking is now musically moderate",
       }),
-      evaluate: ({ A, sidechainSettings }) => [
+      evaluate: ({ A, sidechainSettings, experiments }) => [
+        { label: "You listened to sidechain in the track", complete: (experiments["transport.play"]?.changes ?? 0) >= 1 },
+        { label: "Pattern A contains at least four kick hits", complete: A.kick.filter(Boolean).length >= 4 },
         {
-          label: "Pattern A contains at least four kick hits",
-          complete: A.kick.filter(Boolean).length >= 4,
-        },
-        {
-          label: "Sidechain is enabled",
-          complete: sidechainSettings.enabled,
-        },
-        {
-          label: "Duck amount is 3–6 dB",
+          label: "You compared sidechain on and off",
           complete:
-            sidechainSettings.amountDb >= 3 &&
-            sidechainSettings.amountDb <= 6,
+            experiments["sidechain.enabled"]?.values.includes("true") === true &&
+            experiments["sidechain.enabled"]?.values.includes("false") === true,
         },
         {
-          label: "Release is 120–300 ms",
+          label: "You explored release timing before settling",
           complete:
-            sidechainSettings.release >= 0.12 &&
-            sidechainSettings.release <= 0.3,
+            experiments["sidechain.release"]?.min !== null &&
+            experiments["sidechain.release"]?.max !== null &&
+            (experiments["sidechain.release"]!.max! - experiments["sidechain.release"]!.min!) >= 0.15,
         },
+        { label: "Sidechain is enabled", complete: sidechainSettings.enabled },
+        { label: "Final duck is moderate", complete: sidechainSettings.amountDb >= 2 && sidechainSettings.amountDb <= 6 },
+        { label: "Final release stays connected to the groove", complete: sidechainSettings.release >= 0.08 && sidechainSettings.release <= 0.35 },
       ],
     },
     {
@@ -68,13 +66,13 @@ export const sidechainLesson: LessonDefinition = {
         id: "production.sidechain.b",
         letter: "B",
         title: "Exaggerate the pump",
-        learn: "Push sidechain settings far enough that the envelope becomes a rhythmic effect.",
+        learn: "Push the same process until the gain movement becomes part of the rhythm.",
         explanation:
-          "Sidechain can be transparent, but electronic producers also exaggerate it deliberately. A deep reduction with a slower recovery makes the whole bass envelope appear to breathe around the kick.",
+          "A deep duck with a slow recovery turns the bass envelope into something you can almost conduct with your hand. This is the same routing as before; only the amount and timing have crossed from transparent into audible.",
         instruction:
-          "Keep sidechain ON. Set Duck Amount to at least 8 dB and Release to at least 350 ms.",
+          "Keep the loop running. Push Duck Amount past 8 dB and make Release long enough that the bass clearly swells back between kicks. Move Release around until you can hear its rhythm, not just its loudness.",
         recognition:
-          "You should hear an obvious pumping motion rather than only improved kick clarity.",
+          "Follow the bass, not the kick: can you hear it dip, wait, and rise on every trigger?",
         terms: [
           { term: "Pumping", definition: "An audible rise-and-fall in level caused by repeated dynamics gain reduction and recovery." },
           { term: "Release", definition: "How quickly a dynamics processor stops reducing gain after the trigger subsides." },
@@ -83,7 +81,8 @@ export const sidechainLesson: LessonDefinition = {
         checksLabel: "Make the envelope audible",
         successLabel: "The sidechain is now an obvious rhythmic effect",
       }),
-      evaluate: ({ sidechainSettings }) => [
+      evaluate: ({ sidechainSettings, experiments }) => [
+        { label: "You listened to the exaggerated pump", complete: (experiments["transport.play"]?.changes ?? 0) >= 1 },
         {
           label: "Sidechain is enabled",
           complete: sidechainSettings.enabled,
@@ -103,13 +102,13 @@ export const sidechainLesson: LessonDefinition = {
         id: "production.sidechain.c",
         letter: "C",
         title: "Back it off to transparency",
-        learn: "Return from the exaggerated demonstration to settings that solve a mix problem without dominating the groove.",
+        learn: "Keep the separation while making the processing harder to notice.",
         explanation:
-          "Extreme settings are useful for learning because they reveal what a parameter does. Mixing often means backing the parameter down until the benefit remains but the processing itself is no longer the main event.",
+          "Once you know what the exaggerated version sounds like, the useful question is how far you can back it off before the kick and bass start masking each other again.",
         instruction:
-          "Reduce Duck Amount to 2–5 dB and Release to 100–250 ms.",
+          "Reduce the pump until it stops calling attention to itself. Toggle sidechain off and on several times while the same section loops. Leave it at the weakest setting that still makes the kick/bass relationship clearer.",
         recognition:
-          "You should miss the clarity when bypassing sidechain, but not immediately hear 'pumping' when it is enabled.",
+          "When you bypass it, do you miss the separation? When you turn it back on, does the groove still sound like the groove rather than a sidechain demonstration?",
         terms: [
           { term: "Transparent processing", definition: "Processing that achieves its purpose without drawing obvious attention to itself." },
           { term: "A/B comparison", definition: "Switching between two states so a processing decision can be judged directly." },
@@ -118,7 +117,13 @@ export const sidechainLesson: LessonDefinition = {
         checksLabel: "Keep the benefit, lose the effect",
         successLabel: "The sidechain now behaves like a subtle mix tool",
       }),
-      evaluate: ({ sidechainSettings }) => [
+      evaluate: ({ sidechainSettings, experiments }) => [
+        {
+          label: "You compared the subtle version with bypass",
+          complete:
+            experiments["sidechain.enabled"]?.values.includes("true") === true &&
+            experiments["sidechain.enabled"]?.values.includes("false") === true,
+        },
         {
           label: "Duck is 2–5 dB",
           complete:
@@ -137,23 +142,25 @@ export const sidechainLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "production.sidechain.d",
         letter: "D",
-        title: "Use sidechain inside the arrangement",
-        learn: "Treat sidechain as a relationship between arrangement layers rather than an isolated compressor trick.",
+        title: "Make the duck follow your groove",
+        learn: "Use the kick pattern itself to shape when the bass breathes.",
         explanation:
-          "Ducking only matters when kick and bass actually overlap. Production decisions should follow the arrangement: if one layer disappears, the interaction changes too.",
+          "Sidechain is a rhythmic relationship. Change the kick and the bass envelope changes with it. That is why the setting only makes sense together with the pattern and arrangement.",
         instruction:
-          "Keep sidechain ON with a 2–5 dB duck and 100–250 ms release. In Arrangement, make at least one bar contain both drums and bass.",
+          "Keep a subtle sidechain setting. Make sure at least one arrangement bar contains both drums and bass. While that bar loops, edit the kick at least twice—add or move an offbeat hit, hear the bass react, then keep the kick pattern that gives you the groove you prefer.",
         recognition:
-          "In bars where kick and bass coexist, the low end should interlock. In bars without both layers, the sidechain relationship should be irrelevant.",
+          "Listen to the bass recovery after the kick you moved. Does the new trigger create useful space and motion, or does it make the bass stumble?",
         terms: [
           { term: "Interlock", definition: "Two parts arranged or processed so their timing and spectral roles fit together rather than compete." },
           { term: "Context-dependent processing", definition: "A processing decision whose usefulness depends on what else is happening in the arrangement." },
         ],
         workspace: "sidechain",
         checksLabel: "Connect dynamics to arrangement",
-        successLabel: "The ducking now serves a real kick/bass overlap in the track",
+        successLabel: "The sidechain now follows a groove you shaped",
       }),
-      evaluate: ({ sidechainSettings, arrangement }) => [
+      evaluate: ({ sidechainSettings, arrangement, experiments }) => [
+        { label: "You listened to the kick/bass interaction", complete: (experiments["transport.play"]?.changes ?? 0) >= 1 },
+        { label: "You edited the kick while hearing the sidechain response", complete: (experiments["drums.A.kick.edit"]?.changes ?? 0) >= 2 },
         {
           label: "Sidechain remains enabled",
           complete: sidechainSettings.enabled,
