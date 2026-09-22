@@ -1,7 +1,9 @@
-name: Validate branch manually
+name: Validate v2.1 music-maker editorial release candidate
 
 on:
   workflow_dispatch:
+  push:
+    branches: ["feature/music-maker-editorial-audit-v21"]
 
 permissions:
   contents: read
