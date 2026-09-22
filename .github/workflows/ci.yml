@@ -1,6 +1,8 @@
-name: Validate branch manually
+name: Validate release candidate
 
 on:
+  push:
+    branches: ["feature/eq-saturation-sidechain-stereo-reference"]
   workflow_dispatch:
 
 permissions:
