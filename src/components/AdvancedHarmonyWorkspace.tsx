@@ -109,6 +109,14 @@ export function AdvancedHarmonyWorkspace({ mode }: { mode: Mode }) {
         ))}
       </div>
 
+      <button
+        className="chord-clear-button"
+        onClick={() => setChordSlot(selectedSlot, null)}
+        disabled={progression[selectedSlot] === null}
+      >
+        Clear selected chord
+      </button>
+
       <div className="advanced-harmony-note">
         {mode === "minor" && (
           <>
