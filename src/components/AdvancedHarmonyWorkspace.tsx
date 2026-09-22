@@ -56,6 +56,8 @@ export function AdvancedHarmonyWorkspace({ mode }: { mode: Mode }) {
   const isPlaying = useStudioStore((state) => state.isPlaying);
   const [selectedSlot, setSelectedSlot] = useState(0);
   const config = configs[mode];
+  const palette = config.palette as readonly ChordName[];
+  const numerals = config.numeral as Partial<Record<ChordName, string>>;
 
   const choose = async (chord: ChordName) => {
     setChordSlot(selectedSlot, chord);
@@ -88,20 +90,20 @@ export function AdvancedHarmonyWorkspace({ mode }: { mode: Mode }) {
           >
             <span>BAR {index + 1}</span>
             <strong>{chord ?? "—"}</strong>
-            <small>{chord ? config.numeral[chord] ?? "colour chord" : "choose chord"}</small>
+            <small>{chord ? numerals[chord] ?? "colour chord" : "choose chord"}</small>
           </button>
         ))}
       </div>
 
       <div className="advanced-chord-palette">
-        {config.palette.map((chord) => (
+        {palette.map((chord) => (
           <button
             key={chord}
             className={progression[selectedSlot] === chord ? "is-active" : ""}
             onClick={() => choose(chord)}
           >
             <strong>{chord}</strong>
-            <span>{config.numeral[chord] ?? "—"}</span>
+            <span>{numerals[chord] ?? "—"}</span>
             <small>{chordToneLabel(chord)}</small>
           </button>
         ))}
