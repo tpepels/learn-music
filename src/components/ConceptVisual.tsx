@@ -436,6 +436,89 @@ export function ConceptVisual({ kind }: { kind: ConceptVisualKind }) {
         </svg>
       );
 
+
+    case "eq":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="Parametric EQ frequency response diagram">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          {Array.from({ length: 6 }, (_, i) => (
+            <line key={"v"+i} x1={38+i*47} y1="30" x2={38+i*47} y2="110" className="diagram-grid" />
+          ))}
+          {Array.from({ length: 5 }, (_, i) => (
+            <line key={"h"+i} x1="38" y1={30+i*20} x2="285" y2={30+i*20} className="diagram-grid" />
+          ))}
+          <path d="M 38 94 Q 52 94 66 68 L 95 68" className="diagram-envelope" />
+          <path d="M 95 68 C 130 68, 138 42, 163 42 C 188 42, 196 68, 231 68 L 285 68" className="diagram-automation-line" />
+          <circle cx="163" cy="42" r="5" className="diagram-automation-point" />
+          <text x="38" y="126" className="diagram-caption">HPF · FREQUENCY · GAIN · Q</text>
+        </svg>
+      );
+
+    case "saturation":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="Saturation waveform diagram">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          <path d="M 24 74 C 52 26, 82 26, 112 74 S 172 122, 202 74 S 262 26, 296 74" className="diagram-envelope" />
+          <path d="M 24 74 C 44 43, 66 39, 92 42 C 111 45, 118 67, 134 74 C 154 84, 166 105, 189 106 C 220 107, 239 43, 296 74" className="diagram-transient" />
+          <line x1="24" y1="74" x2="296" y2="74" className="diagram-grid" />
+          <text x="24" y="124" className="diagram-caption">DRIVE → WAVESHAPING → WET / DRY</text>
+        </svg>
+      );
+
+    case "sidechain":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="Kick sidechain ducking bass diagram">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          <rect x="24" y="40" width="64" height="32" rx="9" className="diagram-module" />
+          <text x="56" y="60" textAnchor="middle" className="diagram-label">KICK</text>
+          <path d="M 90 56 H 126" className="diagram-arrow" />
+          <rect x="129" y="37" width="76" height="38" rx="10" className="diagram-chord is-tension" />
+          <text x="167" y="60" textAnchor="middle" className="diagram-small">KEY / DUCK</text>
+          <path d="M 207 56 H 235" className="diagram-arrow" />
+          <rect x="238" y="40" width="58" height="32" rx="9" className="diagram-module" />
+          <text x="267" y="60" textAnchor="middle" className="diagram-label">BASS</text>
+          <path d="M 26 102 L 52 102 L 60 78 L 73 102 L 106 102 L 114 78 L 127 102 L 160 102 L 168 78 L 181 102 L 214 102" className="diagram-transient" />
+          <path d="M 26 112 C 50 112, 58 86, 82 104 S 120 86, 144 104 S 182 86, 206 104 S 246 91, 290 105" className="diagram-envelope" />
+          <text x="24" y="128" className="diagram-caption">TRIGGER → GAIN REDUCTION → RELEASE</text>
+        </svg>
+      );
+
+    case "stereo":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="Stereo field and mono collapse diagram">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          <text x="26" y="43" className="diagram-label">L</text>
+          <text x="286" y="43" className="diagram-label">R</text>
+          <line x1="160" y1="28" x2="160" y2="111" className="diagram-section-line" />
+          <ellipse cx="160" cy="92" rx="28" ry="12" className="diagram-step is-alt" />
+          <ellipse cx="102" cy="68" rx="46" ry="13" className="diagram-note" />
+          <ellipse cx="220" cy="48" rx="54" ry="13" className="diagram-chord" />
+          <path d="M 80 119 H 240" className="diagram-grid" />
+          <path d="M 112 119 H 208" className="diagram-arrow" />
+          <text x="24" y="129" className="diagram-caption">PAN / WIDTH → MONO COMPATIBILITY</text>
+        </svg>
+      );
+
+    case "reference":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="Reference mix A B level matching diagram">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          <rect x="28" y="39" width="82" height="48" rx="11" className="diagram-module" />
+          <text x="69" y="58" textAnchor="middle" className="diagram-label">A</text>
+          <text x="69" y="75" textAnchor="middle" className="diagram-small">CURRENT MIX</text>
+          <rect x="210" y="39" width="82" height="48" rx="11" className="diagram-chord" />
+          <text x="251" y="58" textAnchor="middle" className="diagram-label">B</text>
+          <text x="251" y="75" textAnchor="middle" className="diagram-small">REFERENCE</text>
+          <path d="M 113 63 H 151 M 169 63 H 207" className="diagram-arrow" />
+          <circle cx="160" cy="63" r="15" className="diagram-knob" />
+          <text x="160" y="67" textAnchor="middle" className="diagram-small">TRIM</text>
+          <path d="M 50 106 H 126 M 194 106 H 270" className="diagram-grid" />
+          <rect x="50" y="98" width="64" height="8" rx="4" className="diagram-meter" />
+          <rect x="194" y="98" width="64" height="8" rx="4" className="diagram-meter" />
+          <text x="28" y="126" className="diagram-caption">LEVEL MATCH FIRST · THEN A/B REPEATEDLY</text>
+        </svg>
+      );
+
     case "mixer":
       return (
         <svg viewBox="0 0 320 150" role="img" aria-label="DAW mixer channel diagram">
