@@ -173,6 +173,138 @@ export function cloneMixerSettings(settings: MixerSettings): MixerSettings {
 }
 
 
+
+
+export type ParametricEqBand = {
+  frequency: number;
+  gain: number;
+  q: number;
+};
+
+export type EqSettings = Record<MixerTrackId, ParametricEqBand>;
+
+const neutralEqBand = (frequency: number): ParametricEqBand => ({
+  frequency,
+  gain: 0,
+  q: 1,
+});
+
+export const initialEqSettings: EqSettings = {
+  drums: neutralEqBand(1800),
+  bass: neutralEqBand(250),
+  chords: neutralEqBand(800),
+  melody: neutralEqBand(2500),
+};
+
+export function cloneEqSettings(settings: EqSettings): EqSettings {
+  return {
+    drums: { ...settings.drums },
+    bass: { ...settings.bass },
+    chords: { ...settings.chords },
+    melody: { ...settings.melody },
+  };
+}
+
+export type SaturationTrackSettings = {
+  drive: number;
+  wet: number;
+};
+
+export type SaturationSettings = Record<MixerTrackId, SaturationTrackSettings>;
+
+const neutralSaturation = (): SaturationTrackSettings => ({
+  drive: 0,
+  wet: 0,
+});
+
+export const initialSaturationSettings: SaturationSettings = {
+  drums: neutralSaturation(),
+  bass: neutralSaturation(),
+  chords: neutralSaturation(),
+  melody: neutralSaturation(),
+};
+
+export function cloneSaturationSettings(
+  settings: SaturationSettings,
+): SaturationSettings {
+  return {
+    drums: { ...settings.drums },
+    bass: { ...settings.bass },
+    chords: { ...settings.chords },
+    melody: { ...settings.melody },
+  };
+}
+
+export type SidechainSettings = {
+  enabled: boolean;
+  amountDb: number;
+  release: number;
+};
+
+export const initialSidechainSettings: SidechainSettings = {
+  enabled: false,
+  amountDb: 0,
+  release: 0.18,
+};
+
+export type StereoSettings = {
+  widths: Record<MixerTrackId, number>;
+  monoAudition: boolean;
+  monoChecked: boolean;
+};
+
+export const initialStereoSettings: StereoSettings = {
+  widths: {
+    drums: 0.5,
+    bass: 0.5,
+    chords: 0.5,
+    melody: 0.5,
+  },
+  monoAudition: false,
+  monoChecked: false,
+};
+
+export function cloneStereoSettings(settings: StereoSettings): StereoSettings {
+  return {
+    widths: { ...settings.widths },
+    monoAudition: settings.monoAudition,
+    monoChecked: settings.monoChecked,
+  };
+}
+
+export type ReferenceSnapshot = {
+  mixerSettings: MixerSettings;
+  eqSettings: EqSettings;
+  saturationSettings: SaturationSettings;
+  stereoWidths: Record<MixerTrackId, number>;
+};
+
+export type ReferenceMixSettings = {
+  snapshot: ReferenceSnapshot | null;
+  trimDb: number;
+  comparisons: number;
+  quietChecked: boolean;
+};
+
+export const initialReferenceMixSettings: ReferenceMixSettings = {
+  snapshot: null,
+  trimDb: 0,
+  comparisons: 0,
+  quietChecked: false,
+};
+
+export function cloneReferenceSnapshot(
+  snapshot: ReferenceSnapshot | null,
+): ReferenceSnapshot | null {
+  if (!snapshot) return null;
+  return {
+    mixerSettings: cloneMixerSettings(snapshot.mixerSettings),
+    eqSettings: cloneEqSettings(snapshot.eqSettings),
+    saturationSettings: cloneSaturationSettings(snapshot.saturationSettings),
+    stereoWidths: { ...snapshot.stereoWidths },
+  };
+}
+
 export type AutomationSettings = {
   melodyVolumeDb: number[];
   chordFilterHz: number[];
@@ -246,6 +378,11 @@ export type ProjectData = {
   grooveFeelSettings: GrooveFeelSettings;
   formSettings: FormSettings;
   textureSettings: TextureSettings;
+  eqSettings: EqSettings;
+  saturationSettings: SaturationSettings;
+  sidechainSettings: SidechainSettings;
+  stereoSettings: StereoSettings;
+  referenceMixSettings: ReferenceMixSettings;
 };
 
 
