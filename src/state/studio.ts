@@ -60,7 +60,7 @@ function progressSnapshot(state: Pick<
   | "completedLessonIds"
 >): LearningProgressCookie {
   return {
-    version: 1,
+    version: 2,
     currentLessonId: state.currentLessonId,
     exerciseIndexByLesson: state.exerciseIndexByLesson,
     completedExerciseIds: state.completedExerciseIds,
