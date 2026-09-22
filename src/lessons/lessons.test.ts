@@ -9,11 +9,16 @@ import {
   initialChordProgression,
   initialDynamicsSettings,
   initialEffectsSettings,
+  initialEqSettings,
   initialFormSettings,
   initialGrooveFeelSettings,
   initialMelody,
   initialMixerSettings,
   initialPattern,
+  initialReferenceMixSettings,
+  initialSaturationSettings,
+  initialSidechainSettings,
+  initialStereoSettings,
   initialSynthSettings,
   initialTextureSettings,
   initialVoicingSettings,
@@ -27,6 +32,7 @@ import { automationDynamicsLesson } from "./automationDynamics";
 import { bassLinesLesson } from "./bassLines";
 import { chordProgressionLesson } from "./chordProgressions";
 import { effectsTransitionsLesson } from "./effectsTransitions";
+import { eqSpectralBalanceLesson } from "./eqSpectralBalance";
 import { finalProjectLesson } from "./finalProject";
 import { grooveFeelLesson } from "./grooveFeel";
 import { mixingSpaceLesson } from "./mixingSpace";
@@ -37,8 +43,12 @@ import { phraseFormLesson } from "./phraseForm";
 import { textureOrchestrationLesson } from "./textureOrchestration";
 import { pianoCompositionLesson } from "./pianoComposition";
 import { pulseAndGrooveLesson } from "./pulseAndGroove";
+import { referenceMixingLesson } from "./referenceMixing";
 import { rhythmVariationLesson } from "./rhythmVariation";
+import { saturationLesson } from "./saturation";
+import { sidechainLesson } from "./sidechain";
 import { soundSynthesisLesson } from "./soundSynthesis";
+import { stereoMonoLesson } from "./stereoMono";
 import { voiceLeadingLesson } from "./voiceLeading";
 import type { LessonContext } from "./types";
 
@@ -76,6 +86,28 @@ function context(overrides: Partial<LessonContext> = {}): LessonContext {
       roles: [...initialFormSettings.roles],
     },
     textureSettings: { ...initialTextureSettings },
+    eqSettings: {
+      drums: { ...initialEqSettings.drums },
+      bass: { ...initialEqSettings.bass },
+      chords: { ...initialEqSettings.chords },
+      melody: { ...initialEqSettings.melody },
+    },
+    saturationSettings: {
+      drums: { ...initialSaturationSettings.drums },
+      bass: { ...initialSaturationSettings.bass },
+      chords: { ...initialSaturationSettings.chords },
+      melody: { ...initialSaturationSettings.melody },
+    },
+    sidechainSettings: { ...initialSidechainSettings },
+    stereoSettings: {
+      widths: { ...initialStereoSettings.widths },
+      monoAudition: false,
+      monoChecked: false,
+    },
+    referenceMixSettings: {
+      ...initialReferenceMixSettings,
+      snapshot: null,
+    },
     ...overrides,
   } as LessonContext;
 }
@@ -657,6 +689,225 @@ describe("lesson 18: texture and orchestration", () => {
     });
 
     for (const exercise of textureOrchestrationLesson.exercises) {
+      expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
+    }
+  });
+});
+
+
+describe("lesson 19: EQ and spectral balance", () => {
+  it("recognises low-cut cleanup", () => {
+    const mixerSettings = {
+      ...initialMixerSettings,
+      drums: { ...initialMixerSettings.drums },
+      bass: { ...initialMixerSettings.bass },
+      chords: { ...initialMixerSettings.chords, highpass: 140 },
+      melody: { ...initialMixerSettings.melody },
+    };
+    expect(
+      eqSpectralBalanceLesson.exercises[0]
+        .evaluate(context({ mixerSettings }))
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+
+  it("recognises a narrow boosted search sweep", () => {
+    const eqSettings = {
+      ...initialEqSettings,
+      drums: { ...initialEqSettings.drums },
+      bass: { ...initialEqSettings.bass },
+      chords: { frequency: 1200, gain: 8, q: 4 },
+      melody: { ...initialEqSettings.melody },
+    };
+    expect(
+      eqSpectralBalanceLesson.exercises[1]
+        .evaluate(context({ eqSettings }))
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+
+  it("recognises a corrective cut", () => {
+    const eqSettings = {
+      ...initialEqSettings,
+      drums: { ...initialEqSettings.drums },
+      bass: { ...initialEqSettings.bass },
+      chords: { frequency: 1200, gain: -3.5, q: 3 },
+      melody: { ...initialEqSettings.melody },
+    };
+    expect(
+      eqSpectralBalanceLesson.exercises[2]
+        .evaluate(context({ eqSettings }))
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+
+  it("recognises complementary EQ between chords and melody", () => {
+    const eqSettings = {
+      ...initialEqSettings,
+      drums: { ...initialEqSettings.drums },
+      bass: { ...initialEqSettings.bass },
+      chords: { frequency: 1500, gain: -3, q: 2 },
+      melody: { frequency: 2400, gain: 2.5, q: 1.2 },
+    };
+    expect(
+      eqSpectralBalanceLesson.exercises[3]
+        .evaluate(context({ eqSettings }))
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+});
+
+describe("lesson 20: saturation and distortion", () => {
+  it("accepts a selective saturation palette", () => {
+    const saturationSettings = {
+      drums: { drive: 0.6, wet: 0.3 },
+      bass: { drive: 0.28, wet: 0.4 },
+      chords: { drive: 0.22, wet: 0.2 },
+      melody: { drive: 0.05, wet: 0.05 },
+    };
+
+    const ctx = context({ saturationSettings });
+    for (const exercise of saturationLesson.exercises) {
+      expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
+    }
+  });
+});
+
+describe("lesson 21: sidechain ducking", () => {
+  it("accepts moderate kick-triggered ducking", () => {
+    const A = completedGroove();
+    const ctx = context({
+      A,
+      sidechainSettings: { enabled: true, amountDb: 4, release: 0.18 },
+    });
+    expect(
+      sidechainLesson.exercises[0]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+
+  it("recognises obvious pumping", () => {
+    const ctx = context({
+      sidechainSettings: { enabled: true, amountDb: 9, release: 0.45 },
+    });
+    expect(
+      sidechainLesson.exercises[1]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+
+  it("recognises transparent settings", () => {
+    const ctx = context({
+      sidechainSettings: { enabled: true, amountDb: 3.5, release: 0.16 },
+    });
+    expect(
+      sidechainLesson.exercises[2]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+
+  it("connects ducking to a real kick/bass arrangement overlap", () => {
+    const arrangement = cloneArrangement(initialArrangement);
+    arrangement[2] = { drums: true, bass: true, chords: false, melody: false };
+    const ctx = context({
+      arrangement,
+      sidechainSettings: { enabled: true, amountDb: 3.5, release: 0.16 },
+    });
+    expect(
+      sidechainLesson.exercises[3]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+});
+
+describe("lesson 22: stereo width and mono", () => {
+  it("accepts a centred low end, opposite pan support, width contrast, and mono check", () => {
+    const mixerSettings = {
+      drums: { ...initialMixerSettings.drums, pan: 0 },
+      bass: { ...initialMixerSettings.bass, pan: 0 },
+      chords: { ...initialMixerSettings.chords, pan: -0.35 },
+      melody: { ...initialMixerSettings.melody, pan: 0.35 },
+    };
+    const stereoSettings = {
+      widths: {
+        drums: 0.5,
+        bass: 0.4,
+        chords: 0.8,
+        melody: 0.65,
+      },
+      monoAudition: false,
+      monoChecked: true,
+    };
+    const ctx = context({ mixerSettings, stereoSettings });
+
+    for (const exercise of stereoMonoLesson.exercises) {
+      expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
+    }
+  });
+});
+
+describe("lesson 23: reference mixing", () => {
+  it("accepts captured, changed, level-matched, repeatedly compared translation checks", () => {
+    const snapshotMixer = {
+      drums: { ...initialMixerSettings.drums, volume: -4 },
+      bass: { ...initialMixerSettings.bass, volume: -7 },
+      chords: { ...initialMixerSettings.chords, volume: -10 },
+      melody: { ...initialMixerSettings.melody, volume: -8 },
+    };
+    const currentMixer = {
+      drums: { ...snapshotMixer.drums },
+      bass: { ...snapshotMixer.bass, volume: -4 },
+      chords: { ...snapshotMixer.chords },
+      melody: { ...snapshotMixer.melody },
+    };
+    const snapshot = {
+      mixerSettings: snapshotMixer,
+      eqSettings: {
+        drums: { ...initialEqSettings.drums },
+        bass: { ...initialEqSettings.bass },
+        chords: { ...initialEqSettings.chords },
+        melody: { ...initialEqSettings.melody },
+      },
+      saturationSettings: {
+        drums: { ...initialSaturationSettings.drums },
+        bass: { ...initialSaturationSettings.bass },
+        chords: { ...initialSaturationSettings.chords },
+        melody: { ...initialSaturationSettings.melody },
+      },
+      stereoWidths: { ...initialStereoSettings.widths },
+    };
+    const suggested =
+      (currentMixer.drums.volume +
+        currentMixer.bass.volume +
+        currentMixer.chords.volume +
+        currentMixer.melody.volume) /
+        4 -
+      (snapshotMixer.drums.volume +
+        snapshotMixer.bass.volume +
+        snapshotMixer.chords.volume +
+        snapshotMixer.melody.volume) /
+        4;
+
+    const ctx = context({
+      mixerSettings: currentMixer,
+      referenceMixSettings: {
+        snapshot,
+        trimDb: suggested,
+        comparisons: 4,
+        quietChecked: true,
+      },
+      stereoSettings: {
+        widths: { ...initialStereoSettings.widths },
+        monoAudition: false,
+        monoChecked: true,
+      },
+    });
+
+    for (const exercise of referenceMixingLesson.exercises) {
       expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
     }
   });
