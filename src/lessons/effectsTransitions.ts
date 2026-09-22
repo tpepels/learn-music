@@ -41,10 +41,14 @@ export const effectsTransitionsLesson: LessonDefinition = {
         checksLabel: "Shape the room",
         successLabel: "The chords now sit inside a controlled shared space",
       }),
-      evaluate: ({ effectsSettings, mixerSettings }) => [
+      evaluate: ({ effectsSettings, mixerSettings, experiments }) => [
         {
-          label: "Reverb decay is musical rather than extreme",
-          complete: effectsSettings.reverbDecay >= 2.5 && effectsSettings.reverbDecay <= 4.5,
+          label: "You pushed reverb decay past 6 seconds to hear wash",
+          complete: (experiments["effects.reverbDecay"]?.max ?? 0) >= 6,
+        },
+        {
+          label: "Reverb decay returns to a usable range",
+          complete: effectsSettings.reverbDecay >= 2.2 && effectsSettings.reverbDecay <= 4.8,
         },
         {
           label: "Pre-delay leaves room for the dry attack",
@@ -65,7 +69,7 @@ export const effectsTransitionsLesson: LessonDefinition = {
         explanation:
           "A tempo-synced delay repeats sound in time with the beat. Feedback sends part of each repeat back into the delay, creating more echoes. The send amount determines how strongly the source enters that repeating pattern.",
         instruction:
-          "Set delay feedback between 28% and 48% and melody delay send between 8% and 18%. Listen to how the eighth-note repeats answer the melody without replacing it.",
+          "Raise melody delay until the repeats begin to crowd the phrase, then back it off. Change feedback enough to hear the number of repeats change. Finish with echoes that answer the melody without replacing it.",
         recognition:
           "You should hear a few clear rhythmic echoes after melody notes. If feedback is too high, repeats accumulate and begin to compete with new notes.",
         terms: [
@@ -77,14 +81,25 @@ export const effectsTransitionsLesson: LessonDefinition = {
         checksLabel: "Create rhythmic echoes",
         successLabel: "The delay now behaves like a supporting rhythmic layer",
       }),
-      evaluate: ({ effectsSettings, mixerSettings }) => [
+      evaluate: ({ effectsSettings, mixerSettings, experiments }) => [
         {
-          label: "Feedback creates several repeats without runaway echoes",
-          complete: effectsSettings.delayFeedback >= 0.28 && effectsSettings.delayFeedback <= 0.48,
+          label: "You explored at least 15% of feedback range",
+          complete:
+            experiments["effects.delayFeedback"]?.min !== null &&
+            experiments["effects.delayFeedback"]?.max !== null &&
+            (experiments["effects.delayFeedback"]!.max! - experiments["effects.delayFeedback"]!.min!) >= 0.15,
         },
         {
-          label: "Melody send feeds the delay clearly",
-          complete: mixerSettings.melody.delay >= 0.08 && mixerSettings.melody.delay <= 0.18,
+          label: "You pushed melody delay high enough to hear clutter",
+          complete: (experiments["mixer.melody.delay"]?.max ?? 0) >= 0.22,
+        },
+        {
+          label: "Final delay is audible but restrained",
+          complete:
+            effectsSettings.delayFeedback >= 0.2 &&
+            effectsSettings.delayFeedback <= 0.5 &&
+            mixerSettings.melody.delay >= 0.05 &&
+            mixerSettings.melody.delay <= 0.18,
         },
       ],
     },
@@ -109,10 +124,16 @@ export const effectsTransitionsLesson: LessonDefinition = {
         checksLabel: "Add width",
         successLabel: "The melody has stereo movement without losing focus",
       }),
-      evaluate: ({ effectsSettings }) => [
+      evaluate: ({ effectsSettings, experiments }) => [
         {
-          label: "Chorus is audible but not extreme",
-          complete: effectsSettings.chorusWet >= 0.2 && effectsSettings.chorusWet <= 0.45,
+          label: "You compared nearly dry chorus with an exaggerated setting",
+          complete:
+            (experiments["effects.chorusWet"]?.min ?? Infinity) <= 0.05 &&
+            (experiments["effects.chorusWet"]?.max ?? 0) >= 0.6,
+        },
+        {
+          label: "Chorus finishes audible but not extreme",
+          complete: effectsSettings.chorusWet >= 0.15 && effectsSettings.chorusWet <= 0.45,
         },
       ],
     },
