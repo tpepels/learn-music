@@ -9,11 +9,11 @@ const lesson = lessonContentSchema.parse({
   number: 9,
   title: "Creative effects & transitions",
   eyebrow: "Production · FX",
-  hero: "Use effects as musical events, not decoration.",
+  hero: "Make the space and echoes move with the music."
   description:
     "Shape shared space with reverb, create rhythmic echoes with delay, widen a lead with chorus, and combine effects with automation to make transitions feel intentional.",
   overview:
-    "Effects can solve mix problems, but they can also become part of the composition. Reverb creates depth, delay creates repeated rhythm, chorus creates movement and width, and automation can turn any of them into a transition device.",
+    "Reverb changes distance, delay adds a second rhythm, and chorus spreads a sound. Push each effect far enough to recognise it, then decide whether the track needs it and how much.",
 });
 
 export const effectsTransitionsLesson: LessonDefinition = {
@@ -30,7 +30,7 @@ export const effectsTransitionsLesson: LessonDefinition = {
         instruction:
           "Keep the arrangement playing. Set reverb decay between 2.5 and 4.5 seconds, pre-delay between 15 and 50 ms, and send at least 15% of the chords to Return A. Push decay above 6 seconds briefly so you can hear 'washed out', then return to the useful range.",
         recognition:
-          "The chords should gain a tail and feel farther back, while the original chord attack remains readable. Too much decay or send will blur one chord into the next.",
+          "Listen to the gap between the dry chord and the tail. Can you still hear where the chord begins, or has the room swallowed the attack?",
         terms: [
           { term: "Decay time", definition: "How long a reverb takes to fade after the source stops." },
           { term: "Pre-delay", definition: "The short gap between the dry sound and the start of the reverb reflections." },
@@ -71,7 +71,7 @@ export const effectsTransitionsLesson: LessonDefinition = {
         instruction:
           "Raise melody delay until the repeats begin to crowd the phrase, then back it off. Change feedback enough to hear the number of repeats change. Finish with echoes that answer the melody without replacing it.",
         recognition:
-          "You should hear a few clear rhythmic echoes after melody notes. If feedback is too high, repeats accumulate and begin to compete with new notes.",
+          "Follow one melody note into its repeats. At what point do the echoes stop answering the phrase and start competing with the next note?",
         terms: [
           { term: "Feedback", definition: "The amount of a delay's output sent back into its input, controlling how many repeats continue." },
           { term: "Tempo-synced delay", definition: "A delay whose repeat time is locked to a musical subdivision such as 1/8 or 1/4 note." },
@@ -114,7 +114,7 @@ export const effectsTransitionsLesson: LessonDefinition = {
         instruction:
           "Raise melody chorus wet to between 20% and 45%. Compare 0%, your chosen setting, and an exaggerated value above 60%, then return to the moderate range.",
         recognition:
-          "The melody should feel wider and slightly more animated while remaining clearly identifiable in the centre. At extreme settings it becomes obviously swirly.",
+          "Compare dry, moderate and exaggerated chorus. When does width become wobble? Keep the point before the effect starts announcing itself.",
         terms: [
           { term: "Chorus", definition: "A modulation effect that mixes the dry signal with slightly delayed and pitch-modulated copies." },
           { term: "Modulation effect", definition: "An effect that changes a parameter continuously over time, often creating movement or width." },
@@ -142,13 +142,13 @@ export const effectsTransitionsLesson: LessonDefinition = {
         id: "production.effects-transitions.d",
         letter: "D",
         title: "Design a transition",
-        learn: "Combine automation and effects so several production moves point toward the same arrival.",
+        learn: "Choose a small set of production moves that all point toward the same arrival.",
         explanation:
-          "Strong transitions usually come from multiple small cues working together: a filter opens, ambience grows, echoes become more noticeable, density changes, or a fill signals the boundary. The important principle is direction: each move should help the listener feel where the music is going.",
+          "A transition is stronger when several cues agree, but that does not mean every effect must be active. A filter opening plus growing space may be enough; a rhythmic echo plus width may work better in another track.",
         instruction:
-          "Keep a chord-filter sweep of at least 6000 Hz across the section, use at least 3.2 seconds of reverb decay, keep melody delay active above 8%, and use at least 15% chorus. Play all eight bars and listen for one continuous build rather than four unrelated effects.",
+          "Keep a clear chord-filter opening across the section. Then choose at least two of these to support it: larger reverb, audible melody delay, or chorus width. Play all eight bars. If one effect calls attention to itself more than the arrival does, back it off or leave it out.",
         recognition:
-          "The transition should feel directional: brightness, width, and space increase toward the later bars. If you mostly notice individual effects rather than the arrival, simplify the settings.",
+          "Listen to the destination, not the processors. Do the changes make the later bars feel inevitable, or are you mostly hearing a list of effects?",
         terms: [
           { term: "Transition", definition: "A passage that connects sections and prepares the listener for a change." },
           { term: "Ear candy", definition: "Small production details or effects added for interest, often around phrase and section boundaries." },
@@ -159,27 +159,25 @@ export const effectsTransitionsLesson: LessonDefinition = {
         checksLabel: "Make one coherent transition",
         successLabel: "The effects and automation now point toward the same arrival",
       }),
-      evaluate: ({ effectsSettings, mixerSettings, automationSettings }) => [
-        {
-          label: "Chord filter creates a clear opening motion",
-          complete:
-            Math.max(...automationSettings.chordFilterHz) -
-              Math.min(...automationSettings.chordFilterHz) >=
-            6000,
-        },
-        {
-          label: "Reverb has enough tail to create atmosphere",
-          complete: effectsSettings.reverbDecay >= 3.2,
-        },
-        {
-          label: "Melody delay participates in the transition",
-          complete: mixerSettings.melody.delay >= 0.08,
-        },
-        {
-          label: "Chorus adds width",
-          complete: effectsSettings.chorusWet >= 0.15,
-        },
-      ],
+      evaluate: ({ effectsSettings, mixerSettings, automationSettings, experiments }) => {
+        const choices = [
+          effectsSettings.reverbDecay >= 3.2 && mixerSettings.chords.reverb >= 0.12,
+          mixerSettings.melody.delay >= 0.08 && effectsSettings.delayFeedback >= 0.25,
+          effectsSettings.chorusWet >= 0.15,
+        ].filter(Boolean).length;
+
+        return [
+          { label: "You listened through the whole transition", complete: (experiments["transport.play"]?.changes ?? 0) >= 1 },
+          {
+            label: "Chord filter creates a clear opening motion",
+            complete:
+              Math.max(...automationSettings.chordFilterHz) -
+                Math.min(...automationSettings.chordFilterHz) >=
+              5000,
+          },
+          { label: "At least two effect ideas support the transition", complete: choices >= 2 },
+        ];
+      },
     },
   ],
 };
