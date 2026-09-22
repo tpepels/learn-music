@@ -1,20 +1,27 @@
 import * as Tone from "tone";
 import {
   chordMidi,
+  cloneArrangement,
   clonePattern,
+  initialArrangement,
   initialChordProgression,
   initialMelody,
   initialPattern,
+  initialSynthSettings,
+  type Arrangement,
   type ChordName,
   type ChordProgression,
   type MelodySequence,
   type StepPattern,
+  type SynthSettings,
 } from "../music/model";
 
 class AudioEngine {
   private pattern: StepPattern = clonePattern(initialPattern);
   private melody: MelodySequence = [...initialMelody];
   private chordProgression: ChordProgression = [...initialChordProgression];
+  private arrangement: Arrangement = cloneArrangement(initialArrangement);
+  private synthSettings: SynthSettings = { ...initialSynthSettings };
 
   private kick: Tone.MembraneSynth | null = null;
   private snare: Tone.NoiseSynth | null = null;
@@ -22,6 +29,9 @@ class AudioEngine {
   private hatFilter: Tone.Filter | null = null;
   private piano: Tone.Synth | null = null;
   private chordSynth: Tone.PolySynth | null = null;
+  private bassSynth: Tone.MonoSynth | null = null;
+  private soundFilter: Tone.Filter | null = null;
+  private soundSynth: Tone.Synth | null = null;
 
   private eventId: number | null = null;
   private step = 0;
@@ -37,6 +47,15 @@ class AudioEngine {
 
   setChordProgression(chords: ChordProgression) {
     this.chordProgression = [...chords];
+  }
+
+  setArrangement(arrangement: Arrangement) {
+    this.arrangement = cloneArrangement(arrangement);
+  }
+
+  setSynthSettings(settings: SynthSettings) {
+    this.synthSettings = { ...settings };
+    this.applySynthSettings();
   }
 
   setBpm(bpm: number) {
@@ -79,6 +98,54 @@ class AudioEngine {
         envelope: { attack: 0.02, decay: 0.4, sustain: 0.28, release: 1.1 },
       }).toDestination();
       this.chordSynth.volume.value = -11;
+    }
+
+    if (!this.bassSynth) {
+      this.bassSynth = new Tone.MonoSynth({
+        oscillator: { type: "square" },
+        filter: { type: "lowpass", Q: 1, rolloff: -24 },
+        filterEnvelope: {
+          attack: 0.01,
+          decay: 0.15,
+          sustain: 0.15,
+          release: 0.5,
+          baseFrequency: 90,
+          octaves: 2.2,
+        },
+        envelope: { attack: 0.01, decay: 0.2, sustain: 0.5, release: 0.35 },
+      }).toDestination();
+      this.bassSynth.volume.value = -13;
+    }
+
+    if (!this.soundFilter) {
+      this.soundFilter = new Tone.Filter(this.synthSettings.cutoff, "lowpass").toDestination();
+    }
+
+    if (!this.soundSynth) {
+      this.soundSynth = new Tone.Synth({
+        oscillator: { type: this.synthSettings.waveform },
+        envelope: {
+          attack: this.synthSettings.attack,
+          decay: 0.2,
+          sustain: 0.6,
+          release: this.synthSettings.release,
+        },
+      }).connect(this.soundFilter);
+      this.soundSynth.volume.value = -8;
+    }
+
+    this.applySynthSettings();
+  }
+
+  private applySynthSettings() {
+    if (this.soundFilter) {
+      this.soundFilter.frequency.rampTo(this.synthSettings.cutoff, 0.03);
+    }
+
+    if (this.soundSynth) {
+      this.soundSynth.oscillator.type = this.synthSettings.waveform;
+      this.soundSynth.envelope.attack = this.synthSettings.attack;
+      this.soundSynth.envelope.release = this.synthSettings.release;
     }
   }
 
@@ -166,6 +233,70 @@ class AudioEngine {
     transport.start();
   }
 
+  async playArrangement(bpm: number, onStep: (bar: number) => void) {
+    await this.prepare(bpm, onStep);
+    const transport = Tone.getTransport();
+    const totalSteps = this.arrangement.length * 16;
+
+    this.eventId = transport.scheduleRepeat((time) => {
+      const globalStep = this.step;
+      const barIndex = Math.floor(globalStep / 16);
+      const localStep = globalStep % 16;
+      const bar = this.arrangement[barIndex];
+
+      if (bar?.drums) {
+        if (this.pattern.kick[localStep]) {
+          this.kick?.triggerAttackRelease("C1", "16n", time, 0.9);
+        }
+        if (this.pattern.snare[localStep]) {
+          this.snare?.triggerAttackRelease("16n", time, 0.45);
+        }
+        if (this.pattern.hat[localStep]) {
+          this.hat?.triggerAttackRelease("32n", time, 0.2);
+        }
+      }
+
+      const chord = this.chordProgression[barIndex % this.chordProgression.length] ?? "C";
+
+      if (bar?.chords && localStep === 0) {
+        const notes = chordMidi[chord].map((midi) => Tone.Frequency(midi, "midi").toNote());
+        this.chordSynth?.triggerAttackRelease(notes, "1m", time, 0.48);
+      }
+
+      if (bar?.bass && localStep % 4 === 0) {
+        const rootMidi = chordMidi[chord][0] - 12;
+        this.bassSynth?.triggerAttackRelease(
+          Tone.Frequency(rootMidi, "midi").toNote(),
+          "8n",
+          time,
+          0.52,
+        );
+      }
+
+      if (bar?.melody && localStep % 2 === 0) {
+        const melodyStep = localStep / 2;
+        const midi = this.melody[melodyStep];
+
+        if (midi !== null && midi !== undefined) {
+          this.piano?.triggerAttackRelease(
+            Tone.Frequency(midi, "midi").toNote(),
+            "8n",
+            time,
+            0.56,
+          );
+        }
+      }
+
+      if (localStep === 0) {
+        Tone.getDraw().schedule(() => this.onStep?.(barIndex), time);
+      }
+
+      this.step = (this.step + 1) % totalSteps;
+    }, "16n");
+
+    transport.start();
+  }
+
   async playPianoNote(midi: number) {
     await Tone.start();
     this.ensureVoices();
@@ -177,6 +308,18 @@ class AudioEngine {
     this.ensureVoices();
     const notes = chordMidi[chord].map((midi) => Tone.Frequency(midi, "midi").toNote());
     this.chordSynth?.triggerAttackRelease(notes, "1n", undefined, 0.58);
+  }
+
+  async playSynthNote(midi = 60) {
+    await Tone.start();
+    this.ensureVoices();
+    this.applySynthSettings();
+    this.soundSynth?.triggerAttackRelease(
+      Tone.Frequency(midi, "midi").toNote(),
+      "1n",
+      undefined,
+      0.72,
+    );
   }
 
   stop() {
