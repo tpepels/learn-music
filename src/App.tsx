@@ -418,6 +418,11 @@ function App() {
   const exerciseIndex = Math.min(storedExerciseIndex, lesson.exercises.length - 1);
   const exercise = lesson.exercises[exerciseIndex];
   const nextLesson = getNextImplementedLesson(currentLessonId);
+  const lessonSummaryEnd = lesson.description.search(/[.!?](?:\s|$)/);
+  const lessonSummary =
+    lessonSummaryEnd >= 0
+      ? lesson.description.slice(0, lessonSummaryEnd + 1)
+      : lesson.description;
 
   const exerciseStateFingerprint = useMemo(
     () =>
@@ -916,7 +921,7 @@ function App() {
         <main className="music-panel">
           <section className="music-intro">
             <h1>{exercise.title}</h1>
-            <p>{lesson.description}</p>
+            <p>{lessonSummary}</p>
           </section>
 
           <Workspace exercise={exercise} />
