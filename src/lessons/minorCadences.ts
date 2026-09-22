@@ -28,11 +28,11 @@ const lesson = lessonContentSchema.parse({
   number: 26,
   title: "Minor-key progressions",
   eyebrow: "Harmony · A minor",
-  hero: "Write the notes that make minor cadences pull.",
+  hero: "Write the notes that make A minor leave home and come back."
   description:
     "Use i, iv and the major V7 inside a real four-bar accompaniment. You will place G♯ yourself, hear E7 resolve, and compare tonic versus deceptive endings.",
   overview:
-    "Minor-key function becomes clearest when natural-minor material and the raised leading tone coexist in the same phrase. The chord symbols guide you, but the piano roll is where the cadence is actually made.",
+    "A minor can use the white-key chords of natural minor and still borrow G♯ when E7 needs a stronger pull home. Put those notes into the accompaniment yourself and listen to what the raised leading tone changes.",
 });
 
 export const minorCadencesLesson: LessonDefinition = {
@@ -49,7 +49,7 @@ export const minorCadencesLesson: LessonDefinition = {
         instruction:
           "Set Am → Dm → Am → Am. Write all three notes of Am in bar 1 and all three notes of Dm in bar 2. Put the notes where you want them rhythmically and keep the loop playing.",
         recognition:
-          "Dm should feel like motion away from the A-minor home even though no chromatic note has appeared yet.",
+          "Loop Am→Dm. Which chord lets the phrase rest, and which one feels like the start of a journey away?",
         terms: [
           { term: "i", definition: "The minor tonic chord; A minor in the key of A minor." },
           { term: "iv", definition: "The minor predominant chord; D minor in A minor." },
@@ -75,7 +75,7 @@ export const minorCadencesLesson: LessonDefinition = {
         instruction:
           "Set Am → Dm → E7 → Am. Rewrite every bar. In bar 3, make sure E, G♯, B and D all appear somewhere. Leave a G♯ close to the final Am so you can hear the leading-tone pull.",
         recognition:
-          "E7 should sound more urgent than Em. The G♯ is the note responsible for much of that urgency.",
+          "Replace G♯ with G for one pass, then put G♯ back. Which version makes the return to Am pull harder?",
         terms: [
           { term: "V7", definition: "A dominant seventh chord built on scale degree 5; E7 in A minor." },
           { term: "Leading tone", definition: "A note one semitone below tonic that strongly tends to resolve upward; G♯ in A minor." },
@@ -102,7 +102,7 @@ export const minorCadencesLesson: LessonDefinition = {
         instruction:
           "Set Am → G → F → E7. Rewrite the notes so every bar fits, use at least eight active time positions, and put at least two harmony events on offbeat eighths. Listen to the descending roots while your own rhythm continues through them.",
         recognition:
-          "The harmony should feel as if it steps downward while the accompaniment remains one continuous part rather than four block demonstrations.",
+          "Follow the roots A–G–F–E while ignoring the chord labels. Does the accompaniment still feel like one line moving downward?",
         terms: [
           { term: "Andalusian cadence", definition: "A common descending minor-key progression, often i–VII–VI–V." },
           { term: "Descending bass", definition: "A bass or root line that moves downward across successive harmonies." },
@@ -129,7 +129,7 @@ export const minorCadencesLesson: LessonDefinition = {
         instruction:
           "Build Am → Dm → E7 → Am first and play it. Then change only bar 4 to F, rewrite bar 4 with F/A/C, and leave the final version as Am → Dm → E7 → F.",
         recognition:
-          "The first ending should settle on A. The second should retain motion and feel less final even though the first three bars are unchanged.",
+          "Play the Am ending and the F ending back to back. Which one closes the door, and which one leaves the phrase open?",
         terms: [
           { term: "Deceptive resolution", definition: "A dominant harmony resolving somewhere other than tonic, preserving motion instead of closing." },
           { term: "VI", definition: "The major chord on scale degree 6 in A minor; F major." },
