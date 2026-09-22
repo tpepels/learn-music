@@ -10,7 +10,7 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v2.1.0**.
+Current curriculum release: **v2.1.1**.
 
 ## Current interactive curriculum
 
@@ -50,6 +50,8 @@ Each guided exercise keeps the instrument central. The supporting panel is delib
 The curriculum is regression-tested for every implemented exercise. Completion is not based only on the final state. Where it matters, the app records exercise-local evidence that the learner **played the music, changed something, compared alternatives, or explored a control range**. A plausible final knob value therefore cannot stand in for the listening process that was meant to teach it.
 
 The v2.1 editorial and pedagogy pass applies one rule across the course: **listen, alter, compare, decide**. Theory and parameter values are used to focus attention, not as an answer key. Several exercises deliberately ask for a bad or exaggerated version first so the learner can hear the boundary before choosing a result.
+
+v2.1.1 also repairs persisted pre-v2 form data on startup. Older local projects that have section labels/roles but no sixteen-bar layer plan are migrated to safe defaults instead of crashing the app.
 
 ## Learn
 
