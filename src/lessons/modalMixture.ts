@@ -27,7 +27,7 @@ const lesson = lessonContentSchema.parse({
   number: 28,
   title: "Borrowed chords & modal mixture",
   eyebrow: "Harmony · Chromatic colour",
-  hero: "Change one note outside the key and hear how much colour it adds."
+  hero: "Change one note outside the key and hear how much colour it adds.",
   description:
     "Bring Fm and B♭ into C major by writing their chromatic notes yourself. Compare the diatonic version, hear what one altered pitch changes, then compose a four-bar borrowed-colour accompaniment.",
   overview:
