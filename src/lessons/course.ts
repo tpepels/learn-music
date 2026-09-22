@@ -1,7 +1,9 @@
+import { arrangementFormLesson } from "./arrangementForm";
 import { chordProgressionLesson } from "./chordProgressions";
 import { pianoCompositionLesson } from "./pianoComposition";
 import { pulseAndGrooveLesson } from "./pulseAndGroove";
 import { rhythmVariationLesson } from "./rhythmVariation";
+import { soundSynthesisLesson } from "./soundSynthesis";
 import type { LessonDefinition } from "./types";
 
 export const implementedLessons: LessonDefinition[] = [
@@ -9,16 +11,16 @@ export const implementedLessons: LessonDefinition[] = [
   rhythmVariationLesson,
   pianoCompositionLesson,
   chordProgressionLesson,
+  soundSynthesisLesson,
+  arrangementFormLesson,
 ];
 
-export const courseOutline = [
-  { id: pulseAndGrooveLesson.id, number: 1, title: pulseAndGrooveLesson.title, implemented: true },
-  { id: rhythmVariationLesson.id, number: 2, title: rhythmVariationLesson.title, implemented: true },
-  { id: pianoCompositionLesson.id, number: 3, title: pianoCompositionLesson.title, implemented: true },
-  { id: chordProgressionLesson.id, number: 4, title: chordProgressionLesson.title, implemented: true },
-  { id: "sound.synthesis", number: 5, title: "Sound & synthesis", implemented: false },
-  { id: "form.arrangement", number: 6, title: "Arrangement & form", implemented: false },
-] as const;
+export const courseOutline = implementedLessons.map((lesson) => ({
+  id: lesson.id,
+  number: lesson.number,
+  title: lesson.title,
+  implemented: true as const,
+}));
 
 export function getLesson(id: string): LessonDefinition {
   return implementedLessons.find((lesson) => lesson.id === id) ?? pulseAndGrooveLesson;
