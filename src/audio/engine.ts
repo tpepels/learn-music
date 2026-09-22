@@ -7,8 +7,10 @@ import {
   cloneAutomationSettings,
   cloneEqSettings,
   cloneGrooveFeelSettings,
+  cloneHarmonyDurations,
   cloneHarmonySequence,
   cloneMixerSettings,
+  cloneNoteDurationLane,
   clonePattern,
   cloneReferenceSnapshot,
   cloneSaturationSettings,
@@ -16,15 +18,18 @@ import {
   initialAccompanimentPattern,
   initialArrangement,
   initialAutomationSettings,
+  initialBassDurations,
   initialBassSequence,
   initialChordProgression,
   initialDynamicsSettings,
   initialEffectsSettings,
   initialEqSettings,
   initialGrooveFeelSettings,
+  initialHarmonyDurations,
   initialHarmonySequence,
   initialFormSettings,
   initialMelody,
+  initialMelodyDurations,
   initialMixerSettings,
   initialPattern,
   initialSaturationSettings,
@@ -47,8 +52,10 @@ import {
   type EqSettings,
   type FormSettings,
   type GrooveFeelSettings,
+  type HarmonyDurations,
   type HarmonySequence,
   type MelodySequence,
+  type NoteDurationLane,
   type MixerSettings,
   type MixerTrackId,
   type ReferenceSnapshot,
@@ -64,9 +71,12 @@ import {
 class AudioEngine {
   private pattern: StepPattern = clonePattern(initialPattern);
   private melody: MelodySequence = [...initialMelody];
+  private melodyDurations: NoteDurationLane = [...initialMelodyDurations];
   private chordProgression: ChordProgression = [...initialChordProgression];
   private harmonySequence: HarmonySequence =
     cloneHarmonySequence(initialHarmonySequence);
+  private harmonyDurations: HarmonyDurations =
+    cloneHarmonyDurations(initialHarmonyDurations);
   private accompanimentPattern: AccompanimentPattern = initialAccompanimentPattern;
   private arrangement: Arrangement = cloneArrangement(initialArrangement);
   private synthSettings: SynthSettings = { ...initialSynthSettings };
@@ -85,6 +95,7 @@ class AudioEngine {
     inversions: [...initialVoicingSettings.inversions],
   };
   private bassSequence: BassSequence = [...initialBassSequence];
+  private bassDurations: NoteDurationLane = [...initialBassDurations];
   private textureSettings: TextureSettings = { ...initialTextureSettings };
   private eqSettings: EqSettings = cloneEqSettings(initialEqSettings);
   private saturationSettings: SaturationSettings =
@@ -133,12 +144,23 @@ class AudioEngine {
     this.melody = [...melody];
   }
 
+  setMelodyDurations(durations: NoteDurationLane) {
+    this.melodyDurations = cloneNoteDurationLane(
+      durations,
+      this.melody.length,
+    );
+  }
+
   setChordProgression(chords: ChordProgression) {
     this.chordProgression = [...chords];
   }
 
   setHarmonySequence(sequence: HarmonySequence) {
     this.harmonySequence = cloneHarmonySequence(sequence);
+  }
+
+  setHarmonyDurations(durations: HarmonyDurations) {
+    this.harmonyDurations = cloneHarmonyDurations(durations);
   }
 
   setAccompanimentPattern(pattern: AccompanimentPattern) {
@@ -179,6 +201,13 @@ class AudioEngine {
 
   setBassSequence(sequence: BassSequence) {
     this.bassSequence = [...sequence];
+  }
+
+  setBassDurations(durations: NoteDurationLane) {
+    this.bassDurations = cloneNoteDurationLane(
+      durations,
+      this.bassSequence.length,
+    );
   }
 
   setGrooveFeelSettings(settings: GrooveFeelSettings) {
@@ -240,6 +269,10 @@ class AudioEngine {
 
   setBpm(bpm: number) {
     Tone.getTransport().bpm.rampTo(bpm, 0.05);
+  }
+
+  private noteDuration(eighthSteps: number): number {
+    return Tone.Time("8n").toSeconds() * Math.max(1, eighthSteps);
   }
 
   private ensureMixerGraph() {
@@ -625,12 +658,13 @@ class AudioEngine {
       if (midi !== null) {
         const texturedMidi = midi + this.textureSettings.melodyOctave * 12;
         const note = Tone.Frequency(texturedMidi, "midi").toNote();
-        this.piano?.triggerAttackRelease(note, "8n", time, 0.72);
+        const duration = this.noteDuration(this.melodyDurations[step] ?? 1);
+        this.piano?.triggerAttackRelease(note, duration, time, 0.72);
 
         if (this.textureSettings.melodyOctaveDouble) {
           this.piano?.triggerAttackRelease(
             Tone.Frequency(texturedMidi + 12, "midi").toNote(),
-            "8n",
+            duration,
             time,
             0.42,
           );
@@ -683,7 +717,7 @@ class AudioEngine {
           const texturedMidi = midi + this.textureSettings.melodyOctave * 12;
           this.piano?.triggerAttackRelease(
             Tone.Frequency(texturedMidi, "midi").toNote(),
-            "8n",
+            this.noteDuration(this.melodyDurations[melodyStep] ?? 1),
             time,
             0.68,
           );
@@ -750,7 +784,7 @@ class AudioEngine {
           const texturedMidi = midi + this.textureSettings.melodyOctave * 12;
           this.piano?.triggerAttackRelease(
             Tone.Frequency(texturedMidi, "midi").toNote(),
-            "8n",
+            this.noteDuration(this.melodyDurations[melodyStep] ?? 1),
             time,
             0.72,
           );
@@ -842,13 +876,16 @@ class AudioEngine {
     const notes = this.harmonySequence[harmonyStep] ?? [];
     if (notes.length === 0) return;
 
-    const rendered = notes.map((midi) =>
-      Tone.Frequency(
+    notes.forEach((midi) => {
+      const rendered = Tone.Frequency(
         midi + this.textureSettings.chordsOctave * 12,
         "midi",
-      ).toNote(),
-    );
-    this.chordSynth?.triggerAttackRelease(rendered, "8n", time, velocity);
+      ).toNote();
+      const duration = this.noteDuration(
+        this.harmonyDurations[harmonyStep]?.[midi] ?? 1,
+      );
+      this.chordSynth?.triggerAttackRelease(rendered, duration, time, velocity);
+    });
   }
 
   async playHarmonyContext(
@@ -899,7 +936,7 @@ class AudioEngine {
             const texturedMidi = midi + this.textureSettings.melodyOctave * 12;
             this.piano?.triggerAttackRelease(
               Tone.Frequency(texturedMidi, "midi").toNote(),
-              "8n",
+              this.noteDuration(this.melodyDurations[melodyStep] ?? 1),
               time,
               0.54,
             );
@@ -1040,7 +1077,7 @@ class AudioEngine {
               programmedBass + this.textureSettings.bassOctave * 12,
               "midi",
             ).toNote(),
-            "8n",
+            this.noteDuration(this.bassDurations[bassStep] ?? 1),
             time,
             0.52,
           );
@@ -1067,9 +1104,12 @@ class AudioEngine {
 
         if (midi !== null && midi !== undefined) {
           const texturedMidi = midi + this.textureSettings.melodyOctave * 12;
+          const duration = this.noteDuration(
+            this.melodyDurations[melodyStep] ?? 1,
+          );
           this.piano?.triggerAttackRelease(
             Tone.Frequency(texturedMidi, "midi").toNote(),
-            "8n",
+            duration,
             time,
             0.56,
           );
@@ -1077,7 +1117,7 @@ class AudioEngine {
           if (this.textureSettings.melodyOctaveDouble) {
             this.piano?.triggerAttackRelease(
               Tone.Frequency(texturedMidi + 12, "midi").toNote(),
-              "8n",
+              duration,
               time,
               0.33,
             );
@@ -1203,7 +1243,7 @@ class AudioEngine {
               midi + this.textureSettings.bassOctave * 12,
               "midi",
             ).toNote(),
-            "8n",
+            this.noteDuration(this.bassDurations[bassStep] ?? 1),
             time,
             0.62,
           );
