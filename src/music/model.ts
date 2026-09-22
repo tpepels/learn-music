@@ -111,7 +111,7 @@ export const initialChordProgression: ChordProgression = [null, null, null, null
 
 export const HARMONY_STEPS = 32;
 export type HarmonySequence = Array<number[]>;
-export type HarmonyDurations = Array<Record<number, number>>;
+export type HarmonyDurations = Array<Record<string, number>>;
 export const initialHarmonySequence: HarmonySequence = Array.from(
   { length: HARMONY_STEPS },
   () => [],
