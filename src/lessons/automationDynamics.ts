@@ -32,7 +32,7 @@ export const automationDynamicsLesson: LessonDefinition = {
         explanation:
           "Volume automation lets a channel become louder or quieter at specific moments while the underlying notes stay the same. Producers use it to bring a melody forward for an important phrase, tuck it back under a vocal, create fades, or shape energy more precisely than a static fader can.",
         instruction:
-          "Use the Melody volume automation lane. Start bar 1 at -10 dB or lower and bring the melody up to at least -2 dB by bar 8. Make at least an 8 dB difference across the curve, then play the full arrangement and listen to the melody emerge.",
+          "Draw a rising Melody volume curve across the eight bars. Use at least four different values and span at least 8 dB from the quietest to the loudest point. Play the whole section and shape the curve until the melody seems to emerge rather than simply switch on.",
         recognition:
           "The melody should feel as if it moves from background toward foreground across the eight bars, even though its MIDI notes do not change.",
         terms: [
@@ -47,16 +47,16 @@ export const automationDynamicsLesson: LessonDefinition = {
       }),
       evaluate: ({ automationSettings }) => [
         {
-          label: "Bar 1 begins at -10 dB or lower",
-          complete: automationSettings.melodyVolumeDb[0] <= -10,
-        },
-        {
-          label: "Bar 8 reaches at least -2 dB",
-          complete: automationSettings.melodyVolumeDb[7] >= -2,
+          label: "The melody finishes louder than it begins",
+          complete: automationSettings.melodyVolumeDb[7] > automationSettings.melodyVolumeDb[0],
         },
         {
           label: "The curve spans at least 8 dB",
           complete: range(automationSettings.melodyVolumeDb) >= 8,
+        },
+        {
+          label: "The movement is shaped with at least four distinct levels",
+          complete: new Set(automationSettings.melodyVolumeDb).size >= 4,
         },
       ],
     },
@@ -69,7 +69,7 @@ export const automationDynamicsLesson: LessonDefinition = {
         explanation:
           "A filter sweep automates cutoff frequency over time. Closing a low-pass filter removes upper harmonics and makes a sound feel darker or farther away; opening it restores brightness. This is a standard way to build anticipation before a chorus, drop, or climax.",
         instruction:
-          "Use the Chord filter lane. Put bar 1 at 1500 Hz or lower, bar 4 above bar 1, and bar 8 at 8000 Hz or higher. Play the arrangement and listen to the chords brighten continuously across the section.",
+          "Draw a chord-filter opening across the section. Make the final bar at least 6000 Hz brighter than the opening and use at least four different cutoff values. Try a non-smooth point once, hear the sudden jump, then reshape the curve into the motion you want.",
         recognition:
           "The chord part should begin muffled and gradually reveal more high-frequency detail. The notes remain identical; only their spectral brightness changes.",
         terms: [
@@ -83,16 +83,16 @@ export const automationDynamicsLesson: LessonDefinition = {
       }),
       evaluate: ({ automationSettings }) => [
         {
-          label: "Bar 1 starts dark",
-          complete: automationSettings.chordFilterHz[0] <= 1500,
+          label: "The filter finishes at least 6000 Hz more open than it starts",
+          complete: automationSettings.chordFilterHz[7] - automationSettings.chordFilterHz[0] >= 6000,
         },
         {
-          label: "The middle is more open than the start",
+          label: "The curve uses at least four distinct cutoff values",
+          complete: new Set(automationSettings.chordFilterHz).size >= 4,
+        },
+        {
+          label: "The middle participates in the opening motion",
           complete: automationSettings.chordFilterHz[3] > automationSettings.chordFilterHz[0],
-        },
-        {
-          label: "Bar 8 is bright and open",
-          complete: automationSettings.chordFilterHz[7] >= 8000,
         },
       ],
     },
@@ -105,7 +105,7 @@ export const automationDynamicsLesson: LessonDefinition = {
         explanation:
           "A compressor turns a signal down automatically when it crosses a threshold. Ratio determines how strongly level above that threshold is reduced. A fast attack catches the front of drum hits quickly, which can make the groove more controlled but can also soften some of its punch.",
         instruction:
-          "Set the drum compressor threshold between -20 and -12 dB, ratio between 3:1 and 5:1, attack at 12 ms or faster, and release between 80 and 300 ms. Play the arrangement and compare this controlled sound with ratio 1:1.",
+          "With the drums looping, set Ratio near 1:1 and listen to the uncompressed attack. Then push Ratio above 3:1, lower Threshold until the louder hits are controlled, and use a fast attack. Finish with a clearly compressed setting, but only after hearing the bypass-like version.",
         recognition:
           "With stronger, fast compression, the loudest drum attacks should feel less spiky and the groove more even. If it becomes dull or lifeless, the compressor may be grabbing too quickly or too strongly.",
         terms: [
@@ -119,22 +119,26 @@ export const automationDynamicsLesson: LessonDefinition = {
         checksLabel: "Control the peaks",
         successLabel: "The drum bus now has controlled peak compression",
       }),
-      evaluate: ({ dynamicsSettings }) => [
+      evaluate: ({ dynamicsSettings, experiments }) => [
         {
-          label: "Threshold engages the louder drum hits",
-          complete: dynamicsSettings.threshold >= -20 && dynamicsSettings.threshold <= -12,
+          label: "You compared a near-1:1 ratio with real compression",
+          complete: (experiments["dynamics.ratio"]?.min ?? Infinity) <= 1.2 && (experiments["dynamics.ratio"]?.max ?? 0) >= 3,
         },
         {
-          label: "Ratio is between 3:1 and 5:1",
-          complete: dynamicsSettings.ratio >= 3 && dynamicsSettings.ratio <= 5,
+          label: "Final ratio applies clear compression",
+          complete: dynamicsSettings.ratio >= 3 && dynamicsSettings.ratio <= 6,
         },
         {
-          label: "Attack is fast enough to catch the transient",
-          complete: dynamicsSettings.attack <= 0.012,
+          label: "Threshold is low enough to engage drum peaks",
+          complete: dynamicsSettings.threshold <= -10,
         },
         {
-          label: "Release is between 80 and 300 ms",
-          complete: dynamicsSettings.release >= 0.08 && dynamicsSettings.release <= 0.3,
+          label: "Attack is fast enough to noticeably soften the transient",
+          complete: dynamicsSettings.attack <= 0.015,
+        },
+        {
+          label: "Release returns within the groove",
+          complete: dynamicsSettings.release >= 0.06 && dynamicsSettings.release <= 0.35,
         },
       ],
     },
@@ -147,7 +151,7 @@ export const automationDynamicsLesson: LessonDefinition = {
         explanation:
           "The transient is the very beginning of a sound. On drums, a slightly slower compressor attack can let that initial hit through before compression acts on the body, preserving punch. Producers combine this kind of dynamics shaping with automation so the sound itself and the larger energy curve support the same musical moment.",
         instruction:
-          "Keep your volume rise and filter opening. Now slow the compressor attack to 25–70 ms, use a 3:1–5:1 ratio, threshold between -18 and -10 dB, and release between 80 and 250 ms. Play all eight bars and listen for the section becoming brighter and more present while the drums keep their attack.",
+          "Keep the volume rise and filter opening. On the compressor, compare a very fast attack (12 ms or less) with a slower attack (25 ms or more) while the same drums loop. Leave the slower version if it restores the punch you want, then play the full eight-bar build.",
         recognition:
           "Compared with the fast-attack setting, the kick and snare should regain a clearer initial hit. At the same time the automation should make the whole section feel as though it is moving toward an arrival rather than simply looping.",
         terms: [
@@ -161,7 +165,7 @@ export const automationDynamicsLesson: LessonDefinition = {
         checksLabel: "Combine movement and punch",
         successLabel: "Automation and dynamics now support the same energy arc",
       }),
-      evaluate: ({ automationSettings, dynamicsSettings }) => [
+      evaluate: ({ automationSettings, dynamicsSettings, experiments }) => [
         {
           label: "Melody still rises across the section",
           complete:
@@ -177,8 +181,12 @@ export const automationDynamicsLesson: LessonDefinition = {
             6000,
         },
         {
-          label: "Attack leaves room for the transient",
-          complete: dynamicsSettings.attack >= 0.025 && dynamicsSettings.attack <= 0.07,
+          label: "You compared fast and slower compressor attacks",
+          complete: (experiments["dynamics.attack"]?.min ?? Infinity) <= 0.012 && (experiments["dynamics.attack"]?.max ?? 0) >= 0.025,
+        },
+        {
+          label: "Final attack leaves room for the transient",
+          complete: dynamicsSettings.attack >= 0.025 && dynamicsSettings.attack <= 0.09,
         },
         {
           label: "Compression remains moderate",
