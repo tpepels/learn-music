@@ -1,6 +1,7 @@
 import * as Tone from "tone";
 import {
   BASS_STEPS,
+  applyChordTexture,
   chordMidi,
   cloneArrangement,
   cloneAutomationSettings,
@@ -18,6 +19,7 @@ import {
   initialMixerSettings,
   initialPattern,
   initialSynthSettings,
+  initialTextureSettings,
   initialVoicingSettings,
   mixerTrackIds,
   voicedChordMidi,
@@ -35,6 +37,7 @@ import {
   type MixerTrackId,
   type StepPattern,
   type SynthSettings,
+  type TextureSettings,
   type VoicingSettings,
 } from "../music/model";
 
@@ -54,12 +57,14 @@ class AudioEngine {
     inversions: [...initialVoicingSettings.inversions],
   };
   private bassSequence: BassSequence = [...initialBassSequence];
+  private textureSettings: TextureSettings = { ...initialTextureSettings };
 
   private kick: Tone.MembraneSynth | null = null;
   private snare: Tone.NoiseSynth | null = null;
   private hat: Tone.NoiseSynth | null = null;
   private hatFilter: Tone.Filter | null = null;
   private piano: Tone.Synth | null = null;
+  private pianoDouble: Tone.Synth | null = null;
   private melodyChorus: Tone.Chorus | null = null;
   private melodyChorusSend: Tone.Gain | null = null;
   private chordSynth: Tone.PolySynth | null = null;
@@ -133,6 +138,10 @@ class AudioEngine {
     const transport = Tone.getTransport();
     transport.swing = this.grooveFeelSettings.swing;
     transport.swingSubdivision = "8n";
+  }
+
+  setTextureSettings(settings: TextureSettings) {
+    this.textureSettings = { ...settings };
   }
 
   setBpm(bpm: number) {
@@ -260,6 +269,14 @@ class AudioEngine {
         envelope: { attack: 0.006, decay: 0.32, sustain: 0.18, release: 0.8 },
       }).connect(this.inputFor("melody"));
       this.piano.volume.value = -8;
+    }
+
+    if (!this.pianoDouble) {
+      this.pianoDouble = new Tone.Synth({
+        oscillator: { type: "triangle" },
+        envelope: { attack: 0.006, decay: 0.32, sustain: 0.18, release: 0.8 },
+      }).connect(this.inputFor("melody"));
+      this.pianoDouble.volume.value = -13;
     }
 
     if (!this.chordAutomationFilter) {
@@ -457,8 +474,18 @@ class AudioEngine {
       const midi = this.melody[step];
 
       if (midi !== null) {
-        const note = Tone.Frequency(midi, "midi").toNote();
+        const texturedMidi = midi + this.textureSettings.melodyOctave * 12;
+        const note = Tone.Frequency(texturedMidi, "midi").toNote();
         this.piano?.triggerAttackRelease(note, "8n", time, 0.72);
+
+        if (this.textureSettings.melodyOctaveDouble) {
+          this.pianoDouble?.triggerAttackRelease(
+            Tone.Frequency(texturedMidi + 12, "midi").toNote(),
+            "8n",
+            time,
+            0.42,
+          );
+        }
       }
 
       Tone.getDraw().schedule(() => this.onStep?.(step), time);
@@ -478,9 +505,10 @@ class AudioEngine {
 
       if (chord) {
         const inversion = this.voicingSettings.inversions[step] ?? 0;
-        const notes = voicedChordMidi(chord, inversion).map((midi) =>
-          Tone.Frequency(midi, "midi").toNote(),
-        );
+        const notes = applyChordTexture(
+          voicedChordMidi(chord, inversion),
+          this.textureSettings,
+        ).map((midi) => Tone.Frequency(midi, "midi").toNote());
         this.chordSynth?.triggerAttackRelease(notes, "1m", time, 0.6);
       }
 
@@ -564,9 +592,10 @@ class AudioEngine {
       if (bar?.chords && localStep === 0) {
         const chordSlot = barIndex % this.chordProgression.length;
         const inversion = this.voicingSettings.inversions[chordSlot] ?? 0;
-        const notes = voicedChordMidi(chord, inversion).map((midi) =>
-          Tone.Frequency(midi, "midi").toNote(),
-        );
+        const notes = applyChordTexture(
+          voicedChordMidi(chord, inversion),
+          this.textureSettings,
+        ).map((midi) => Tone.Frequency(midi, "midi").toNote());
         this.chordSynth?.triggerAttackRelease(notes, "1m", time, 0.48);
       }
 
@@ -577,7 +606,10 @@ class AudioEngine {
 
         if (programmedBass !== null && programmedBass !== undefined) {
           this.bassSynth?.triggerAttackRelease(
-            Tone.Frequency(programmedBass, "midi").toNote(),
+            Tone.Frequency(
+              programmedBass + this.textureSettings.bassOctave * 12,
+              "midi",
+            ).toNote(),
             "8n",
             time,
             0.52,
@@ -586,7 +618,10 @@ class AudioEngine {
           this.bassSequence.every((note) => note === null) &&
           localStep % 4 === 0
         ) {
-          const rootMidi = chordMidi[chord][0] - 12;
+          const rootMidi =
+            chordMidi[chord][0] -
+            12 +
+            this.textureSettings.bassOctave * 12;
           this.bassSynth?.triggerAttackRelease(
             Tone.Frequency(rootMidi, "midi").toNote(),
             "8n",
@@ -601,12 +636,22 @@ class AudioEngine {
         const midi = this.melody[melodyStep];
 
         if (midi !== null && midi !== undefined) {
+          const texturedMidi = midi + this.textureSettings.melodyOctave * 12;
           this.piano?.triggerAttackRelease(
-            Tone.Frequency(midi, "midi").toNote(),
+            Tone.Frequency(texturedMidi, "midi").toNote(),
             "8n",
             time,
             0.56,
           );
+
+          if (this.textureSettings.melodyOctaveDouble) {
+            this.pianoDouble?.triggerAttackRelease(
+              Tone.Frequency(texturedMidi + 12, "midi").toNote(),
+              "8n",
+              time,
+              0.33,
+            );
+          }
         }
       }
 
@@ -629,9 +674,10 @@ class AudioEngine {
   async playChord(chord: ChordName, inversion: ChordInversion = 0) {
     await Tone.start();
     this.ensureVoices();
-    const notes = voicedChordMidi(chord, inversion).map((midi) =>
-      Tone.Frequency(midi, "midi").toNote(),
-    );
+    const notes = applyChordTexture(
+      voicedChordMidi(chord, inversion),
+      this.textureSettings,
+    ).map((midi) => Tone.Frequency(midi, "midi").toNote());
     this.chordSynth?.triggerAttackRelease(notes, "1n", undefined, 0.58);
   }
 
@@ -645,7 +691,10 @@ class AudioEngine {
 
       if (midi !== null) {
         this.bassSynth?.triggerAttackRelease(
-          Tone.Frequency(midi, "midi").toNote(),
+          Tone.Frequency(
+            midi + this.textureSettings.bassOctave * 12,
+            "midi",
+          ).toNote(),
           "8n",
           time,
           0.6,
