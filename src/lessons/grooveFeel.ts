@@ -23,7 +23,7 @@ const lesson = lessonContentSchema.parse({
   eyebrow: "Rhythm · Feel",
   hero: "The notes can stay on the grid while the groove changes completely.",
   description:
-    "Shape how hard individual drum hits speak, add quiet ghost notes, and delay alternating subdivisions with swing. The rhythm stays recognisable while its feel changes substantially.",
+    "Return to the groove you built at the start of the course. Keep its note positions recognisable while velocity, ghost notes, and swing change how that same pattern feels.",
   overview:
     "A programmed groove is shaped by more than note positions. How hard each hit speaks and how evenly the subdivisions are spaced can change the feel without changing the pattern itself.",
 });
