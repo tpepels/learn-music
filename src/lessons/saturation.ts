@@ -9,7 +9,7 @@ const lesson = lessonContentSchema.parse({
   number: 20,
   title: "Saturation & distortion",
   eyebrow: "Production · Harmonics",
-  hero: "Add colour until you hear it, then decide how much to keep."
+  hero: "Add colour until you hear it, then decide how much to keep.",
   description:
     "Drive signals into nonlinear processing, hear the added harmonics, use wet/dry blending for parallel colour, and learn why saturation is often subtle while distortion can be an obvious effect.",
   overview:
