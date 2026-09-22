@@ -10,6 +10,7 @@ import {
   cloneArrangement,
   cloneEqSettings,
   cloneGrooveFeelSettings,
+  cloneHarmonySequence,
   clonePattern,
   cloneReferenceSnapshot,
   cloneSaturationSettings,
@@ -25,6 +26,7 @@ import {
   initialEqSettings,
   initialFormSettings,
   initialGrooveFeelSettings,
+  initialHarmonySequence,
   initialMixerSettings,
   initialPattern,
   initialProjectMilestones,
@@ -48,6 +50,7 @@ import {
   type FormSectionLabel,
   type FormSettings,
   type GrooveFeelSettings,
+  type HarmonySequence,
   type MelodySequence,
   type MixerSettings,
   type MixerTrackId,
@@ -97,6 +100,7 @@ type StudioState = {
   selectedPitchClasses: string[];
   melody: MelodySequence;
   chordProgression: ChordProgression;
+  harmonySequence: HarmonySequence;
   accompanimentPattern: AccompanimentPattern;
   synthSettings: SynthSettings;
   arrangement: Arrangement;
@@ -133,6 +137,8 @@ type StudioState = {
   clearMelody: () => void;
   setChordSlot: (slot: number, chord: ChordName | null) => void;
   clearChords: () => void;
+  toggleHarmonyNote: (step: number, midi: number) => void;
+  clearHarmonySequence: () => void;
   setAccompanimentPattern: (pattern: AccompanimentPattern) => void;
   resetAccompanimentPattern: () => void;
   setSynthSettings: (settings: Partial<SynthSettings>) => void;
@@ -206,6 +212,7 @@ export const useStudioStore = create<StudioState>()(
       selectedPitchClasses: [],
       melody: [...initialMelody],
       chordProgression: [...initialChordProgression],
+      harmonySequence: cloneHarmonySequence(initialHarmonySequence),
       accompanimentPattern: initialAccompanimentPattern,
       synthSettings: { ...initialSynthSettings },
       arrangement: cloneArrangement(initialArrangement),
@@ -338,6 +345,22 @@ export const useStudioStore = create<StudioState>()(
 
       clearChords: () =>
         set({ chordProgression: [...initialChordProgression], currentStep: 0 }),
+
+      toggleHarmonyNote: (step, midi) =>
+        set((state) => {
+          const harmonySequence = cloneHarmonySequence(state.harmonySequence);
+          const notes = harmonySequence[step] ?? [];
+          harmonySequence[step] = notes.includes(midi)
+            ? notes.filter((note) => note !== midi)
+            : [...notes, midi].sort((left, right) => left - right);
+          return { harmonySequence };
+        }),
+
+      clearHarmonySequence: () =>
+        set({
+          harmonySequence: cloneHarmonySequence(initialHarmonySequence),
+          currentStep: 0,
+        }),
 
       setAccompanimentPattern: (accompanimentPattern) =>
         set({ accompanimentPattern }),
@@ -658,6 +681,7 @@ export const useStudioStore = create<StudioState>()(
           },
           melody: [...project.melody],
           chordProgression: [...project.chordProgression],
+          harmonySequence: cloneHarmonySequence(project.harmonySequence),
           accompanimentPattern: project.accompanimentPattern,
           synthSettings: { ...project.synthSettings },
           arrangement: project.arrangement.map((bar) => ({ ...bar })),
@@ -707,6 +731,7 @@ export const useStudioStore = create<StudioState>()(
         selectedPitchClasses: state.selectedPitchClasses,
         melody: state.melody,
         chordProgression: state.chordProgression,
+        harmonySequence: state.harmonySequence,
         accompanimentPattern: state.accompanimentPattern,
         synthSettings: state.synthSettings,
         arrangement: state.arrangement,
@@ -734,6 +759,8 @@ export const useStudioStore = create<StudioState>()(
         return {
           ...currentState,
           ...persisted,
+          harmonySequence:
+            persisted.harmonySequence ?? currentState.harmonySequence,
           accompanimentPattern:
             persisted.accompanimentPattern ?? currentState.accompanimentPattern,
           ...(progress
