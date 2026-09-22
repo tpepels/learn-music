@@ -3,8 +3,13 @@ import {
   MELODY_STEPS,
   chromaticPitches,
   isCMajorMidi,
+  noteDurationLabel,
 } from "../music/model";
 import { useStudioStore } from "../state/studio";
+import {
+  findMonophonicNoteStart,
+  useNoteLengthDrag,
+} from "./noteLengthDrag";
 
 const keyboardPitches = [...chromaticPitches]
   .filter((pitch) => pitch.midi < 72)
@@ -65,14 +70,20 @@ export function PianoKeyWorkspace() {
 
 export function MelodyWorkspace({ title }: { title: string }) {
   const melody = useStudioStore((state) => state.melody);
+  const durations = useStudioStore((state) => state.melodyDurations);
   const setMelodyStep = useStudioStore((state) => state.setMelodyStep);
+  const setMelodyDuration = useStudioStore((state) => state.setMelodyDuration);
   const currentStep = useStudioStore((state) => state.currentStep);
   const isPlaying = useStudioStore((state) => state.isPlaying);
 
-  const choose = async (step: number, midi: number) => {
-    setMelodyStep(step, midi);
-    await audioEngine.playPianoNote(midi);
-  };
+  const { beginNoteDrag, moveNoteDrag } = useNoteLengthDrag({
+    maxSteps: MELODY_STEPS,
+    addNote: (step, midi) => setMelodyStep(step, midi),
+    removeNote: (step, midi) => setMelodyStep(step, midi),
+    setDuration: (step, _midi, duration) =>
+      setMelodyDuration(step, duration),
+    audition: (midi) => audioEngine.playPianoNote(midi),
+  });
 
   return (
     <div className="piano-card melody-card">
@@ -87,7 +98,7 @@ export function MelodyWorkspace({ title }: { title: string }) {
             <span>YOUR GROOVE</span>
           </div>
         </div>
-        <span className="workspace-hint">Play loops the melody against the groove you built earlier · one note per column</span>
+        <span className="workspace-hint">Play loops the melody against the groove you built earlier · click for 1/8, drag right for longer notes</span>
       </div>
 
       <div className="melody-step-head" aria-hidden="true">
@@ -102,7 +113,7 @@ export function MelodyWorkspace({ title }: { title: string }) {
         ))}
       </div>
 
-      <div className="melody-grid">
+      <div className="melody-grid" onPointerMove={moveNoteDrag}>
         {chromaticPitches.map((pitch) => (
           <div
             className={[
@@ -122,6 +133,19 @@ export function MelodyWorkspace({ title }: { title: string }) {
 
             {Array.from({ length: MELODY_STEPS }, (_, step) => {
               const active = melody[step] === pitch.midi;
+              const coveringStart = findMonophonicNoteStart(
+                melody,
+                durations,
+                pitch.midi,
+                step,
+              );
+              const sustained =
+                coveringStart !== null && coveringStart !== step;
+              const duration =
+                coveringStart === null ? 1 : durations[coveringStart] ?? 1;
+              const noteEnd =
+                coveringStart !== null &&
+                coveringStart + duration - 1 === step;
               const playhead = isPlaying && currentStep === step;
 
               return (
@@ -129,13 +153,40 @@ export function MelodyWorkspace({ title }: { title: string }) {
                   key={step}
                   className={[
                     "melody-cell",
-                    active ? "is-active" : "",
+                    active ? "is-active is-note-start" : "",
+                    sustained ? "is-sustain" : "",
+                    noteEnd && duration > 1 ? "is-note-end" : "",
                     playhead ? "is-playhead" : "",
                     step === 8 ? "is-phrase-start" : "",
                   ].filter(Boolean).join(" ")}
-                  onClick={() => choose(step, pitch.midi)}
-                  aria-label={"Set step " + (step + 1) + " to " + pitch.name}
-                  aria-pressed={active}
+                  data-note-step={step}
+                  data-note-midi={pitch.midi}
+                  onPointerDown={(event) =>
+                    beginNoteDrag(event, {
+                      step,
+                      midi: pitch.midi,
+                      isStart: active,
+                      coveringStart,
+                    })
+                  }
+                  aria-label={
+                    (active || sustained ? "Note " : "Set ") +
+                    pitch.name +
+                    " at step " +
+                    (step + 1) +
+                    (active || sustained
+                      ? " · length " + noteDurationLabel(duration)
+                      : "")
+                  }
+                  aria-pressed={active || sustained}
+                  title={
+                    active || sustained
+                      ? pitch.name +
+                        " · " +
+                        noteDurationLabel(duration) +
+                        " · drag horizontally to resize"
+                      : "Click or drag to draw " + pitch.name
+                  }
                 >
                   <span />
                 </button>
@@ -149,6 +200,7 @@ export function MelodyWorkspace({ title }: { title: string }) {
         <span><i className="legend-key key-note" /> C-major note</span>
         <span><i className="legend-key outside-note" /> note outside C major</span>
         <span>Columns 1–8 = phrase 1 · 9–16 = phrase 2</span>
+        <span>Note length: 1 cell = 1/8 · 2 = 1/4 · 4 = 1/2 · 8 = 1 bar</span>
       </div>
     </div>
   );
