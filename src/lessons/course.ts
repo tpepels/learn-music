@@ -1,6 +1,8 @@
 import { arrangementFormLesson } from "./arrangementForm";
 import { automationDynamicsLesson } from "./automationDynamics";
 import { chordProgressionLesson } from "./chordProgressions";
+import { effectsTransitionsLesson } from "./effectsTransitions";
+import { finalProjectLesson } from "./finalProject";
 import { mixingSpaceLesson } from "./mixingSpace";
 import { pianoCompositionLesson } from "./pianoComposition";
 import { pulseAndGrooveLesson } from "./pulseAndGroove";
@@ -17,6 +19,8 @@ export const implementedLessons: LessonDefinition[] = [
   arrangementFormLesson,
   mixingSpaceLesson,
   automationDynamicsLesson,
+  effectsTransitionsLesson,
+  finalProjectLesson,
 ];
 
 export const courseOutline = implementedLessons.map((lesson) => ({
