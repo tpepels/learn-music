@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ArrangementWorkspace } from "./ArrangementWorkspace";
 import { AutomationDynamicsWorkspace } from "./AutomationDynamicsWorkspace";
+import { BassWorkspace } from "./BassWorkspace";
 import { ChordWorkspace } from "./ChordWorkspace";
 import { DrumWorkspace } from "./DrumWorkspace";
 import { EffectsWorkspace } from "./EffectsWorkspace";
@@ -8,12 +9,15 @@ import { FinalProjectWorkspace } from "./FinalProjectWorkspace";
 import { MixerWorkspace } from "./MixerWorkspace";
 import { MelodyWorkspace } from "./PianoWorkspace";
 import { SynthWorkspace } from "./SynthWorkspace";
+import { VoicingWorkspace } from "./VoicingWorkspace";
 import { useStudioStore } from "../state/studio";
 
 const modules = [
   { id: "groove", name: "Groove", lesson: "rhythm.pulse-and-groove" },
   { id: "melody", name: "Piano roll", lesson: "pitch.melody" },
   { id: "harmony", name: "Chords", lesson: "harmony.chords" },
+  { id: "voicing", name: "Voicing", lesson: "harmony.voice-leading" },
+  { id: "bass", name: "Bass", lesson: "composition.bass-lines" },
   { id: "synth", name: "Synth", lesson: "sound.synthesis" },
   { id: "arrange", name: "Arrange", lesson: "form.arrangement" },
   { id: "mix", name: "Mixer", lesson: "mixing.balance-space" },
@@ -70,6 +74,8 @@ export function StudioMode() {
         {module === "groove" && <DrumWorkspace title="Groove" compare />}
         {module === "melody" && <MelodyWorkspace title="Piano roll" />}
         {module === "harmony" && <ChordWorkspace />}
+        {module === "voicing" && <VoicingWorkspace />}
+        {module === "bass" && <BassWorkspace />}
         {module === "synth" && <SynthWorkspace />}
         {module === "arrange" && <ArrangementWorkspace />}
         {module === "mix" && <MixerWorkspace />}
