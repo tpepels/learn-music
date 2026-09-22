@@ -1,7 +1,9 @@
 import { z } from "zod";
 import type {
   Arrangement,
+  AutomationSettings,
   ChordProgression,
+  DynamicsSettings,
   MelodySequence,
   MixerSettings,
   StepPattern,
@@ -31,6 +33,7 @@ export const exerciseContentSchema = z.object({
     "synth",
     "arrangement",
     "mixer",
+    "automation-dynamics",
   ]),
   checksLabel: z.string(),
   successLabel: z.string(),
@@ -57,6 +60,8 @@ export type LessonContext = {
   synthSettings: SynthSettings;
   arrangement: Arrangement;
   mixerSettings: MixerSettings;
+  automationSettings: AutomationSettings;
+  dynamicsSettings: DynamicsSettings;
 };
 
 export type ExerciseDefinition = z.infer<typeof exerciseContentSchema> & {
