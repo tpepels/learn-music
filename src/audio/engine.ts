@@ -2,18 +2,23 @@ import * as Tone from "tone";
 import {
   chordMidi,
   cloneArrangement,
+  cloneAutomationSettings,
   cloneMixerSettings,
   clonePattern,
   initialArrangement,
+  initialAutomationSettings,
   initialChordProgression,
+  initialDynamicsSettings,
   initialMelody,
   initialMixerSettings,
   initialPattern,
   initialSynthSettings,
   mixerTrackIds,
   type Arrangement,
+  type AutomationSettings,
   type ChordName,
   type ChordProgression,
+  type DynamicsSettings,
   type MelodySequence,
   type MixerSettings,
   type MixerTrackId,
@@ -28,6 +33,8 @@ class AudioEngine {
   private arrangement: Arrangement = cloneArrangement(initialArrangement);
   private synthSettings: SynthSettings = { ...initialSynthSettings };
   private mixerSettings: MixerSettings = cloneMixerSettings(initialMixerSettings);
+  private automationSettings: AutomationSettings = cloneAutomationSettings(initialAutomationSettings);
+  private dynamicsSettings: DynamicsSettings = { ...initialDynamicsSettings };
 
   private kick: Tone.MembraneSynth | null = null;
   private snare: Tone.NoiseSynth | null = null;
@@ -36,6 +43,8 @@ class AudioEngine {
   private piano: Tone.Synth | null = null;
   private chordSynth: Tone.PolySynth | null = null;
   private bassSynth: Tone.MonoSynth | null = null;
+  private drumCompressor: Tone.Compressor | null = null;
+  private chordAutomationFilter: Tone.Filter | null = null;
   private soundFilter: Tone.Filter | null = null;
   private soundSynth: Tone.Synth | null = null;
 
@@ -74,6 +83,15 @@ class AudioEngine {
   setMixerSettings(settings: MixerSettings) {
     this.mixerSettings = cloneMixerSettings(settings);
     this.applyMixerSettings();
+  }
+
+  setAutomationSettings(settings: AutomationSettings) {
+    this.automationSettings = cloneAutomationSettings(settings);
+  }
+
+  setDynamicsSettings(settings: DynamicsSettings) {
+    this.dynamicsSettings = { ...settings };
+    this.applyDynamicsSettings();
   }
 
   setBpm(bpm: number) {
@@ -130,6 +148,15 @@ class AudioEngine {
   private ensureVoices() {
     this.ensureMixerGraph();
 
+    if (!this.drumCompressor) {
+      this.drumCompressor = new Tone.Compressor({
+        threshold: this.dynamicsSettings.threshold,
+        ratio: this.dynamicsSettings.ratio,
+        attack: this.dynamicsSettings.attack,
+        release: this.dynamicsSettings.release,
+      }).connect(this.drumCompressor);
+    }
+
     if (!this.kick) {
       this.kick = new Tone.MembraneSynth({
         pitchDecay: 0.035,
@@ -140,10 +167,10 @@ class AudioEngine {
       this.snare = new Tone.NoiseSynth({
         noise: { type: "white" },
         envelope: { attack: 0.001, decay: 0.13, sustain: 0, release: 0.02 },
-      }).connect(this.inputFor("drums"));
+      }).connect(this.drumCompressor);
       this.snare.volume.value = -7;
 
-      this.hatFilter = new Tone.Filter(6800, "highpass").connect(this.inputFor("drums"));
+      this.hatFilter = new Tone.Filter(6800, "highpass").connect(this.drumCompressor);
       this.hat = new Tone.NoiseSynth({
         noise: { type: "white" },
         envelope: { attack: 0.001, decay: 0.025, sustain: 0, release: 0.01 },
@@ -159,11 +186,15 @@ class AudioEngine {
       this.piano.volume.value = -8;
     }
 
+    if (!this.chordAutomationFilter) {
+      this.chordAutomationFilter = new Tone.Filter(12000, "lowpass").connect(this.inputFor("chords"));
+    }
+
     if (!this.chordSynth) {
       this.chordSynth = new Tone.PolySynth(Tone.Synth, {
         oscillator: { type: "triangle" },
         envelope: { attack: 0.02, decay: 0.4, sustain: 0.28, release: 1.1 },
-      }).connect(this.inputFor("chords"));
+      }).connect(this.chordAutomationFilter);
       this.chordSynth.volume.value = -11;
     }
 
@@ -203,6 +234,7 @@ class AudioEngine {
 
     this.applySynthSettings();
     this.applyMixerSettings();
+    this.applyDynamicsSettings();
   }
 
   private applySynthSettings() {
@@ -215,6 +247,17 @@ class AudioEngine {
       this.soundSynth.envelope.attack = this.synthSettings.attack;
       this.soundSynth.envelope.release = this.synthSettings.release;
     }
+  }
+
+  private applyDynamicsSettings() {
+    if (!this.drumCompressor) return;
+
+    this.drumCompressor.set({
+      threshold: this.dynamicsSettings.threshold,
+      ratio: this.dynamicsSettings.ratio,
+      attack: this.dynamicsSettings.attack,
+      release: this.dynamicsSettings.release,
+    });
   }
 
   private applyMixerSettings() {
@@ -339,6 +382,38 @@ class AudioEngine {
       const localStep = globalStep % 16;
       const bar = this.arrangement[barIndex];
 
+      if (localStep === 0) {
+        const melodyChannel = this.mixerChannels.melody;
+        const baseMelodyVolume = this.mixerSettings.melody.volume;
+        const currentVolume = this.automationSettings.melodyVolumeDb[barIndex] ?? 0;
+        const nextVolume =
+          this.automationSettings.melodyVolumeDb[(barIndex + 1) % this.arrangement.length] ??
+          currentVolume;
+
+        if (melodyChannel) {
+          melodyChannel.volume.cancelScheduledValues(time);
+          melodyChannel.volume.setValueAtTime(baseMelodyVolume + currentVolume, time);
+          melodyChannel.volume.linearRampToValueAtTime(
+            baseMelodyVolume + nextVolume,
+            time + Tone.Time("1m").toSeconds(),
+          );
+        }
+
+        if (this.chordAutomationFilter) {
+          const currentCutoff = this.automationSettings.chordFilterHz[barIndex] ?? 12000;
+          const nextCutoff =
+            this.automationSettings.chordFilterHz[(barIndex + 1) % this.arrangement.length] ??
+            currentCutoff;
+
+          this.chordAutomationFilter.frequency.cancelScheduledValues(time);
+          this.chordAutomationFilter.frequency.setValueAtTime(currentCutoff, time);
+          this.chordAutomationFilter.frequency.linearRampToValueAtTime(
+            nextCutoff,
+            time + Tone.Time("1m").toSeconds(),
+          );
+        }
+      }
+
       if (bar?.drums) {
         if (this.pattern.kick[localStep]) {
           this.kick?.triggerAttackRelease("C1", "16n", time, 0.9);
@@ -423,6 +498,11 @@ class AudioEngine {
     transport.position = 0;
     this.clearEvent();
     this.step = 0;
+    this.applyMixerSettings();
+    if (this.chordAutomationFilter) {
+      this.chordAutomationFilter.frequency.cancelScheduledValues(Tone.now());
+      this.chordAutomationFilter.frequency.rampTo(12000, 0.03);
+    }
     this.onStep?.(0);
   }
 }
