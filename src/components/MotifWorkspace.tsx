@@ -1,9 +1,15 @@
 import { audioEngine } from "../audio/engine";
 import {
+  MELODY_STEPS,
   chromaticPitches,
+  noteDurationLabel,
   transposeMelodyNote,
 } from "../music/model";
 import { useStudioStore } from "../state/studio";
+import {
+  findMonophonicNoteStart,
+  useNoteLengthDrag,
+} from "./noteLengthDrag";
 
 const phraseBlocks = [
   { start: 0, end: 3, label: "MOTIF" },
@@ -18,19 +24,37 @@ function sourceMotif(melody: Array<number | null>) {
 
 export function MotifWorkspace() {
   const melody = useStudioStore((state) => state.melody);
+  const durations = useStudioStore((state) => state.melodyDurations);
   const setMelodyStep = useStudioStore((state) => state.setMelodyStep);
+  const setMelodyDuration = useStudioStore((state) => state.setMelodyDuration);
+
+  const { beginNoteDrag, moveNoteDrag } = useNoteLengthDrag({
+    maxSteps: MELODY_STEPS,
+    addNote: (step, midi) => setMelodyStep(step, midi),
+    removeNote: (step, midi) => setMelodyStep(step, midi),
+    setDuration: (step, _midi, duration) =>
+      setMelodyDuration(step, duration),
+    audition: (midi) => audioEngine.playPianoNote(midi),
+  });
 
   const applyBlock = (
     start: number,
     transform: (note: number | null, index: number) => number | null,
   ) => {
     sourceMotif(melody).forEach((note, index) => {
-      setMelodyStep(start + index, transform(note, index));
+      const target = transform(note, index);
+      setMelodyStep(start + index, target);
+      if (target !== null) {
+        setMelodyDuration(start + index, durations[index] ?? 1);
+      }
     });
   };
 
   const seedMotif = () => {
-    [60, 64, 67, 64].forEach((note, index) => setMelodyStep(index, note));
+    [60, 64, 67, 64].forEach((note, index) => {
+      setMelodyStep(index, note);
+      setMelodyDuration(index, 1);
+    });
   };
 
   return (
@@ -44,7 +68,7 @@ export function MotifWorkspace() {
           </div>
         </div>
         <span className="workspace-hint">
-          The first four steps are the source. Let later material keep something recognisable from that idea.
+          The first four steps are the source. Pitch and note length both belong to the motif; drag horizontally to reshape the rhythm.
         </span>
       </div>
 
@@ -83,7 +107,7 @@ export function MotifWorkspace() {
         ))}
       </div>
 
-      <div className="motif-roll">
+      <div className="motif-roll" onPointerMove={moveNoteDrag}>
         {chromaticPitches.map((pitch) => (
           <div className={pitch.black ? "motif-row is-black" : "motif-row"} key={pitch.midi}>
             <button
@@ -94,16 +118,49 @@ export function MotifWorkspace() {
             </button>
             {melody.map((note, step) => {
               const active = note === pitch.midi;
+              const coveringStart = findMonophonicNoteStart(
+                melody,
+                durations,
+                pitch.midi,
+                step,
+              );
+              const sustained =
+                coveringStart !== null && coveringStart !== step;
+              const duration =
+                coveringStart === null ? 1 : durations[coveringStart] ?? 1;
+              const noteEnd =
+                coveringStart !== null &&
+                coveringStart + duration - 1 === step;
+
               return (
                 <button
                   key={step}
                   className={[
                     "motif-cell",
-                    active ? "is-active" : "",
+                    active ? "is-active is-note-start" : "",
+                    sustained ? "is-sustain" : "",
+                    noteEnd && duration > 1 ? "is-note-end" : "",
                     step % 4 === 0 ? "is-block-start" : "",
                   ].filter(Boolean).join(" ")}
-                  onClick={() => setMelodyStep(step, active ? null : pitch.midi)}
-                  aria-pressed={active}
+                  data-note-step={step}
+                  data-note-midi={pitch.midi}
+                  onPointerDown={(event) =>
+                    beginNoteDrag(event, {
+                      step,
+                      midi: pitch.midi,
+                      isStart: active,
+                      coveringStart,
+                    })
+                  }
+                  aria-pressed={active || sustained}
+                  title={
+                    active || sustained
+                      ? pitch.name +
+                        " · " +
+                        noteDurationLabel(duration) +
+                        " · drag horizontally to resize"
+                      : "Click or drag to draw " + pitch.name
+                  }
                 >
                   <span />
                 </button>
