@@ -12,7 +12,7 @@ All three modes operate on the same persistent local project.
 
 ## Current interactive curriculum
 
-There are currently **10 lessons and 40 guided exercises**.
+There are currently **12 lessons and 48 guided exercises**.
 
 1. **Pulse & groove** — four-on-the-floor, backbeat, eighths, syncopation
 2. **Repetition & variation** — related variation, fill, anticipation, turnaround
@@ -24,6 +24,8 @@ There are currently **10 lessons and 40 guided exercises**.
 8. **Automation & dynamics** — volume rides, filter sweeps, compression, transients
 9. **Creative effects & transitions** — reverb depth, rhythmic delay, chorus, transition design
 10. **Finish the track** — composition audit, arrangement audit, production audit, project export
+11. **Voicing & voice leading** — root position, first inversion, second inversion, smooth voice motion
+12. **Bass lines** — roots, chord tones, approach notes, complete four-bar bass phrase
 
 Every exercise explains:
 
@@ -47,6 +49,8 @@ Current workspaces include:
 - MIDI keyboard
 - piano roll
 - chord track
+- voicing / inversion lab
+- four-bar bass piano roll
 - subtractive synthesizer
 - arrangement view
 - four-channel mixer
@@ -77,6 +81,8 @@ Current modules:
 - Groove
 - Piano roll
 - Chords
+- Voicing
+- Bass
 - Synth
 - Arrangement
 - Mixer
@@ -92,6 +98,8 @@ Tone.js / Web Audio drives real playback and processing.
 
 Current signal paths include:
 
+- core playback is initialized independently from optional FX, so an effect failure cannot disable Play;
+- Studio transport follows the currently open Studio module rather than being hard-wired to Arrangement;
 - drum voices → **drum-bus compressor** → mixer channel
 - melody → **chorus insert** → mixer channel
 - chords → **automated low-pass filter** → mixer channel
@@ -127,6 +135,8 @@ The project file contains:
 - automation
 - dynamics
 - effects
+- chord inversions / voicings
+- programmed bass line
 
 The project file is the editable session. It is intentionally distinguished from a future standalone WAV/audio render.
 
