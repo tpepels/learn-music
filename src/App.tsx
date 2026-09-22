@@ -388,8 +388,10 @@ function App() {
   const completedLessonIds = useStudioStore((state) => state.completedLessonIds);
   const selectedPitchClasses = useStudioStore((state) => state.selectedPitchClasses);
   const melody = useStudioStore((state) => state.melody);
+  const melodyDurations = useStudioStore((state) => state.melodyDurations);
   const chordProgression = useStudioStore((state) => state.chordProgression);
   const harmonySequence = useStudioStore((state) => state.harmonySequence);
+  const harmonyDurations = useStudioStore((state) => state.harmonyDurations);
   const accompanimentPattern = useStudioStore((state) => state.accompanimentPattern);
   const synthSettings = useStudioStore((state) => state.synthSettings);
   const arrangement = useStudioStore((state) => state.arrangement);
@@ -400,6 +402,7 @@ function App() {
   const projectMilestones = useStudioStore((state) => state.projectMilestones);
   const voicingSettings = useStudioStore((state) => state.voicingSettings);
   const bassSequence = useStudioStore((state) => state.bassSequence);
+  const bassDurations = useStudioStore((state) => state.bassDurations);
   const grooveFeelSettings = useStudioStore((state) => state.grooveFeelSettings);
   const formSettings = useStudioStore((state) => state.formSettings);
   const textureSettings = useStudioStore((state) => state.textureSettings);
@@ -465,8 +468,10 @@ function App() {
         patterns,
         selectedPitchClasses,
         melody,
+        melodyDurations,
         chordProgression,
         harmonySequence,
+        harmonyDurations,
         accompanimentPattern,
         synthSettings,
         arrangement,
@@ -477,6 +482,7 @@ function App() {
         projectMilestones,
         voicingSettings,
         bassSequence,
+        bassDurations,
         grooveFeelSettings,
         formSettings,
         textureSettings,
@@ -491,8 +497,10 @@ function App() {
       patterns,
       selectedPitchClasses,
       melody,
+      melodyDurations,
       chordProgression,
       harmonySequence,
+      harmonyDurations,
       accompanimentPattern,
       synthSettings,
       arrangement,
@@ -503,6 +511,7 @@ function App() {
       projectMilestones,
       voicingSettings,
       bassSequence,
+      bassDurations,
       grooveFeelSettings,
       formSettings,
       textureSettings,
@@ -539,12 +548,20 @@ function App() {
   }, [melody]);
 
   useEffect(() => {
+    audioEngine.setMelodyDurations(melodyDurations);
+  }, [melodyDurations]);
+
+  useEffect(() => {
     audioEngine.setChordProgression(chordProgression);
   }, [chordProgression]);
 
   useEffect(() => {
     audioEngine.setHarmonySequence(harmonySequence);
   }, [harmonySequence]);
+
+  useEffect(() => {
+    audioEngine.setHarmonyDurations(harmonyDurations);
+  }, [harmonyDurations]);
 
   useEffect(() => {
     audioEngine.setAccompanimentPattern(accompanimentPattern);
@@ -581,6 +598,10 @@ function App() {
   useEffect(() => {
     audioEngine.setBassSequence(bassSequence);
   }, [bassSequence]);
+
+  useEffect(() => {
+    audioEngine.setBassDurations(bassDurations);
+  }, [bassDurations]);
 
   useEffect(() => {
     audioEngine.setGrooveFeelSettings(grooveFeelSettings);
