@@ -150,11 +150,24 @@ function completedGroove(): StepPattern {
 describe("lesson 1: pulse and groove", () => {
   it("accepts a groove containing four-on-the-floor, backbeat, eighths, and syncopation", () => {
     const A = completedGroove();
-    const ctx = context({ A });
+    const ctx = context({
+      A,
+      experiments: {
+        "transport.play": experiment(1, null, null, ["drums"]),
+        "drums.A.kick.edit": experiment(4, null, null, ["1:true", "3:true", "3:false", "2:true"]),
+      },
+    });
 
     for (const exercise of pulseAndGrooveLesson.exercises) {
       expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
     }
+  });
+
+  it("does not let the syncopation exercise pass without listening and trying positions", () => {
+    const checks = pulseAndGrooveLesson.exercises[3].evaluate(
+      context({ A: completedGroove() }),
+    );
+    expect(checks.every((check) => check.complete)).toBe(false);
   });
 });
 
@@ -415,11 +428,32 @@ describe("lesson 6: arrangement and form", () => {
       { drums: true, bass: false, chords: false, melody: false },
     ];
 
-    const ctx = context({ arrangement });
+    const ctx = context({
+      arrangement,
+      experiments: {
+        "transport.play": experiment(1, null, null, ["arrangement"]),
+        "arrangement.edit": experiment(6, null, null, ["0:drums:true", "2:chords:true"]),
+      },
+    });
 
     for (const exercise of arrangementFormLesson.exercises) {
       expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
     }
+  });
+
+  it("does not accept a final arrangement merely because its layer counts happen to fit", () => {
+    const arrangement = [
+      { drums: true, bass: false, chords: false, melody: false },
+      { drums: true, bass: true, chords: false, melody: false },
+      { drums: true, bass: true, chords: true, melody: false },
+      { drums: true, bass: true, chords: true, melody: false },
+      { drums: true, bass: true, chords: false, melody: false },
+      { drums: true, bass: true, chords: true, melody: false },
+      { drums: true, bass: true, chords: true, melody: true },
+      { drums: true, bass: false, chords: false, melody: false },
+    ];
+    const checks = arrangementFormLesson.exercises[3].evaluate(context({ arrangement }));
+    expect(checks.every((check) => check.complete)).toBe(false);
   });
 });
 
@@ -522,6 +556,7 @@ describe("lesson 9: creative effects and transitions", () => {
         "effects.delayFeedback": experiment(5, 0.15, 0.42),
         "mixer.melody.delay": experiment(4, 0.05, 0.25),
         "effects.chorusWet": experiment(5, 0, 0.62),
+        "transport.play": experiment(1, null, null, ["effects"]),
       },
     });
 
@@ -580,6 +615,10 @@ describe("lesson 10: final project", () => {
         chorusWet: 0.28,
       },
       projectMilestones: { exported: true },
+      experiments: {
+        "transport.play": experiment(1, null, null, ["final-project"]),
+        "project.export": experiment(1, null, null, ["true"]),
+      },
     });
 
     for (const exercise of finalProjectLesson.exercises) {
@@ -679,7 +718,13 @@ describe("lesson 13: velocity, accents, and swing", () => {
     grooveFeelSettings.velocities.snare[12] = 0.8;
     grooveFeelSettings.velocities.snare[10] = 0.25;
 
-    const ctx = context({ A, grooveFeelSettings });
+    const ctx = context({
+      A,
+      grooveFeelSettings,
+      experiments: {
+        "groove.swing": experiment(4, 0, 0.22, ["0", "0.22"]),
+      },
+    });
 
     for (const exercise of grooveFeelLesson.exercises) {
       expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
@@ -930,6 +975,11 @@ describe("lesson 21: sidechain ducking", () => {
     const ctx = context({
       A,
       sidechainSettings: { enabled: true, amountDb: 4, release: 0.18 },
+      experiments: {
+        "transport.play": experiment(1, null, null, ["sidechain"]),
+        "sidechain.enabled": experiment(3, null, null, ["true", "false"]),
+        "sidechain.release": experiment(4, 0.08, 0.4),
+      },
     });
     expect(
       sidechainLesson.exercises[0]
@@ -941,6 +991,9 @@ describe("lesson 21: sidechain ducking", () => {
   it("recognises obvious pumping", () => {
     const ctx = context({
       sidechainSettings: { enabled: true, amountDb: 9, release: 0.45 },
+      experiments: {
+        "transport.play": experiment(1, null, null, ["sidechain"]),
+      },
     });
     expect(
       sidechainLesson.exercises[1]
@@ -952,6 +1005,9 @@ describe("lesson 21: sidechain ducking", () => {
   it("recognises transparent settings", () => {
     const ctx = context({
       sidechainSettings: { enabled: true, amountDb: 3.5, release: 0.16 },
+      experiments: {
+        "sidechain.enabled": experiment(3, null, null, ["true", "false"]),
+      },
     });
     expect(
       sidechainLesson.exercises[2]
@@ -966,6 +1022,10 @@ describe("lesson 21: sidechain ducking", () => {
     const ctx = context({
       arrangement,
       sidechainSettings: { enabled: true, amountDb: 3.5, release: 0.16 },
+      experiments: {
+        "transport.play": experiment(1, null, null, ["sidechain"]),
+        "drums.A.kick.edit": experiment(2, null, null, ["7:true", "7:false"]),
+      },
     });
     expect(
       sidechainLesson.exercises[3]
