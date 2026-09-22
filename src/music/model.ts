@@ -66,8 +66,32 @@ export function isAHarmonicMinorMidi(midi: number): boolean {
 }
 export const MELODY_STEPS = 16;
 export type MelodySequence = Array<number | null>;
+export type NoteDurationLane = number[];
 
 export const initialMelody: MelodySequence = Array(MELODY_STEPS).fill(null);
+export const initialMelodyDurations: NoteDurationLane =
+  Array(MELODY_STEPS).fill(1);
+
+export function cloneNoteDurationLane(
+  lane: NoteDurationLane,
+  length: number,
+): NoteDurationLane {
+  return Array.from({ length }, (_, step) => {
+    const value = lane[step];
+    return Number.isFinite(value)
+      ? Math.max(1, Math.min(length - step, Math.round(value)))
+      : 1;
+  });
+}
+
+export function noteDurationLabel(steps: number): string {
+  const safe = Math.max(1, Math.round(steps));
+  if (safe === 1) return "1/8";
+  if (safe === 2) return "1/4";
+  if (safe === 4) return "1/2";
+  if (safe === 8) return "1 bar";
+  return safe + "/8";
+}
 
 export const basicChordNames = ["C", "Dm", "Em", "F", "G", "Am", "Bdim", "D7"] as const;
 export const minorKeyChordNames = ["Am", "Bdim", "C", "Dm", "Em", "F", "G", "E7"] as const;
@@ -87,9 +111,14 @@ export const initialChordProgression: ChordProgression = [null, null, null, null
 
 export const HARMONY_STEPS = 32;
 export type HarmonySequence = Array<number[]>;
+export type HarmonyDurations = Array<Record<number, number>>;
 export const initialHarmonySequence: HarmonySequence = Array.from(
   { length: HARMONY_STEPS },
   () => [],
+);
+export const initialHarmonyDurations: HarmonyDurations = Array.from(
+  { length: HARMONY_STEPS },
+  () => ({}),
 );
 export const harmonyPitches = Array.from(
   { length: 25 },
@@ -100,6 +129,26 @@ export function cloneHarmonySequence(
   sequence: HarmonySequence,
 ): HarmonySequence {
   return sequence.map((notes) => [...notes]);
+}
+
+export function cloneHarmonyDurations(
+  durations: HarmonyDurations,
+): HarmonyDurations {
+  return Array.from({ length: HARMONY_STEPS }, (_, step) => {
+    const source = durations[step] ?? {};
+    return Object.fromEntries(
+      Object.entries(source).map(([midi, duration]) => [
+        midi,
+        Math.max(
+          1,
+          Math.min(
+            HARMONY_STEPS - step,
+            Number.isFinite(duration) ? Math.round(duration) : 1,
+          ),
+        ),
+      ]),
+    );
+  });
 }
 
 export const accompanimentPatterns = ["block", "pulse", "broken", "arpeggio"] as const;
@@ -466,8 +515,10 @@ export type ProjectData = {
   bpm: number;
   patterns: Record<PatternId, StepPattern>;
   melody: MelodySequence;
+  melodyDurations: NoteDurationLane;
   chordProgression: ChordProgression;
   harmonySequence: HarmonySequence;
+  harmonyDurations: HarmonyDurations;
   accompanimentPattern: AccompanimentPattern;
   synthSettings: SynthSettings;
   arrangement: Arrangement;
@@ -477,6 +528,7 @@ export type ProjectData = {
   effectsSettings: EffectsSettings;
   voicingSettings: VoicingSettings;
   bassSequence: BassSequence;
+  bassDurations: NoteDurationLane;
   grooveFeelSettings: GrooveFeelSettings;
   formSettings: FormSettings;
   textureSettings: TextureSettings;
@@ -561,6 +613,8 @@ export const BASS_STEPS = 32;
 export type BassSequence = Array<number | null>;
 
 export const initialBassSequence: BassSequence = Array(BASS_STEPS).fill(null);
+export const initialBassDurations: NoteDurationLane =
+  Array(BASS_STEPS).fill(1);
 
 export const bassPitches = Array.from({ length: 14 }, (_, index) => {
   const midi = 48 - index;
