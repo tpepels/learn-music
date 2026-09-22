@@ -1,6 +1,8 @@
-name: Validate branch manually
+name: Validate v1.5 release candidate
 
 on:
+  push:
+    branches: ["feature/minor-sevenths-modal-mixture"]
   workflow_dispatch:
 
 permissions:
