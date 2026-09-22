@@ -21,11 +21,11 @@ const lesson = lessonContentSchema.parse({
   number: 13,
   title: "Velocity, accents & swing",
   eyebrow: "Rhythm · Feel",
-  hero: "A grid can be precise without sounding flat.",
+  hero: "The notes can stay on the grid while the groove changes completely."
   description:
     "Shape how hard individual drum hits speak, add quiet ghost notes, and delay alternating subdivisions with swing. The rhythm stays recognisable while its feel changes substantially.",
   overview:
-    "Programmed rhythm is not only about where notes occur. Velocity changes emphasis and timbre, accents create hierarchy, ghost notes add low-level motion, and swing changes the spacing between subdivisions. These are standard MIDI and groove controls in DAWs, drum machines, and hardware sequencers.",
+    "A programmed groove is shaped by more than note positions. How hard each hit speaks and how evenly the subdivisions are spaced can change the feel without changing the pattern itself.",
 });
 
 export const grooveFeelLesson: LessonDefinition = {
@@ -42,7 +42,7 @@ export const grooveFeelLesson: LessonDefinition = {
         instruction:
           "Select KICK in the velocity editor. Keep kicks on steps 1, 5, 9, and 13 and raise those four to at least 105/127. Keep the average hi-hat velocity below the average kick velocity, then compare the groove.",
         recognition:
-          "The kick should feel like the floor of the pattern while the hats sit above it as lighter time-keeping. You should hear the same rhythm but a clearer sense of weight.",
+          "Turn the kick accents down briefly, then restore them. Which version makes the body find the pulse faster?",
         terms: [
           { term: "Velocity", definition: "A MIDI value, usually 1–127, representing how strongly a note is played." },
           { term: "Accent", definition: "A note intentionally played stronger than surrounding notes." },
@@ -84,7 +84,7 @@ export const grooveFeelLesson: LessonDefinition = {
         instruction:
           "Select HI-HAT. Keep eighth-note hats on steps 1, 3, 5, 7, 9, 11, 13, and 15. Make the hats on beats 1–4 (steps 1, 5, 9, 13) at least 75/127, while the hats between those beats stay at 60/127 or lower.",
         recognition:
-          "The hi-hat should still mark eighth notes, but every beat should have a small pulse inside the continuous pattern. Listen for a repeating strong–soft shape.",
+          "Listen only to the hats for one loop. Can you hear a repeating strong–soft contour instead of eight identical ticks?",
         terms: [
           { term: "Accent pattern", definition: "A repeating arrangement of stronger and weaker notes over an otherwise regular rhythm." },
           { term: "Dynamic contour", definition: "The rise and fall of note strength over time." },
@@ -125,7 +125,7 @@ export const grooveFeelLesson: LessonDefinition = {
         instruction:
           "Select SNARE. Keep the main backbeats on steps 5 and 13. Add at least one extra snare away from those steps and lower its velocity to 45/127 or less. Keep both main backbeats at 80/127 or more.",
         recognition:
-          "The extra snare should be felt more than announced. If it sounds like a third main snare, its velocity is too high.",
+          "Close your eyes and ask whether the extra snare reads as another backbeat. If it does, make it quieter until it becomes part of the motion.",
         terms: [
           { term: "Ghost note", definition: "A deliberately quiet note used for texture and rhythmic motion rather than as a main accent." },
           { term: "Backbeat", definition: "The strong snare or clap emphasis commonly placed on beats 2 and 4 in 4/4 music." },
@@ -167,7 +167,7 @@ export const grooveFeelLesson: LessonDefinition = {
         instruction:
           "Keep at least six hi-hat notes active and set SWING between 15% and 35%. Compare 0% with your swung value while the pattern loops. Return to a value where you clearly hear the long–short feel without it becoming exaggerated.",
         recognition:
-          "Straight eighths divide time evenly. With swing, every second subdivision arrives later, creating a lilt or forward bounce. The pattern should feel different even though the step lights have not moved.",
+          "Switch between straight and swung timing. Where does your head or foot start moving differently even though the step lights stay in the same places?",
         terms: [
           { term: "Swing", definition: "Unequal timing between alternating subdivisions, commonly creating a long–short rhythmic feel." },
           { term: "Straight", definition: "Evenly spaced subdivisions with no swing offset." },
@@ -178,7 +178,13 @@ export const grooveFeelLesson: LessonDefinition = {
         checksLabel: "Change the timing feel",
         successLabel: "The same grid now has an audible swung feel",
       }),
-      evaluate: ({ A, grooveFeelSettings }) => [
+      evaluate: ({ A, grooveFeelSettings, experiments }) => [
+        {
+          label: "You compared straight and swung timing",
+          complete:
+            (experiments["groove.swing"]?.min ?? Infinity) <= 0.02 &&
+            (experiments["groove.swing"]?.max ?? 0) >= 0.15,
+        },
         {
           label: "At least six hi-hat notes define the subdivision",
           complete: A.hat.filter(Boolean).length >= 6,
