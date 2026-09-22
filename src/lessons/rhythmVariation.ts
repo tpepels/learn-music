@@ -1,4 +1,4 @@
-import { countPatternDifferences, hasNewOffbeatEvent } from "../music/model";
+import { countPatternDifferences } from "../music/model";
 import { exerciseContentSchema, lessonContentSchema, type LessonDefinition } from "./types";
 
 const lesson = lessonContentSchema.parse({
@@ -112,7 +112,7 @@ export const rhythmVariationLesson: LessonDefinition = {
         explanation:
           "A turnaround is material near the end of a phrase that prepares the return to the beginning. In loop-based music, changing the final part of a bar is one of the simplest ways to make repetition feel intentional.",
         instruction:
-          "Keep the first half of B close to A, but make at least two changes in the second half. Listen to the loop until the return to beat 1 feels clearly prepared.",
+          "Now make a distinct turnaround rather than only adding more hits. Keep the first half close to A. In the second half, remove at least one event from A and add at least two new events. Listen for the ending to change shape before beat 1 returns.",
         recognition:
           "You should hear relative stability at the start of the bar and increased activity or difference near the end, followed by a satisfying return to beat 1.",
         terms: [
@@ -128,14 +128,37 @@ export const rhythmVariationLesson: LessonDefinition = {
           rangeDifferences(A.kick, B.kick, 0, 8) +
           rangeDifferences(A.snare, B.snare, 0, 8) +
           rangeDifferences(A.hat, B.hat, 0, 8);
-        const secondHalf =
-          rangeDifferences(A.kick, B.kick, 8, 16) +
-          rangeDifferences(A.snare, B.snare, 8, 16) +
-          rangeDifferences(A.hat, B.hat, 8, 16);
+
+        const additions = ["kick", "snare", "hat"].reduce((total, track) => {
+          const aTrack = A[track as keyof typeof A];
+          const bTrack = B[track as keyof typeof B];
+          return (
+            total +
+            bTrack.reduce(
+              (count, active, step) =>
+                count + (step >= 8 && active && !aTrack[step] ? 1 : 0),
+              0,
+            )
+          );
+        }, 0);
+
+        const removals = ["kick", "snare", "hat"].reduce((total, track) => {
+          const aTrack = A[track as keyof typeof A];
+          const bTrack = B[track as keyof typeof B];
+          return (
+            total +
+            aTrack.reduce(
+              (count, active, step) =>
+                count + (step >= 8 && active && !bTrack[step] ? 1 : 0),
+              0,
+            )
+          );
+        }, 0);
+
         return [
           { label: "First half stays close to A", complete: firstHalf <= 2 },
-          { label: "Second half contains at least two changes", complete: secondHalf >= 2 },
-          { label: "At least one change is off the main beats", complete: hasNewOffbeatEvent(A, B) },
+          { label: "At least two new ending events are added", complete: additions >= 2 },
+          { label: "At least one original ending event is removed", complete: removals >= 1 },
         ];
       },
     },
