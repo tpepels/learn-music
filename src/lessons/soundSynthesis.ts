@@ -28,7 +28,7 @@ export const soundSynthesisLesson: LessonDefinition = {
         explanation:
           "An oscillator produces a repeating waveform. Different waveforms contain different combinations of harmonics, so C4 can sound soft, hollow, bright, or buzzy without changing its pitch.",
         instruction:
-          "Audition C with sine, triangle, square, and sawtooth. Compare them using the same note. Finish on sawtooth so the next exercise starts with a harmonically rich sound.",
+          "Click sine, triangle, square, and sawtooth so the same C is actually auditioned with every waveform. Go back and forth if you cannot yet describe the difference. Finish on sawtooth.",
         recognition:
           "A sine is very pure, triangle is soft but slightly richer, square sounds hollow and bright, and sawtooth is dense and buzzy because it contains many harmonics.",
         terms: [
@@ -41,9 +41,13 @@ export const soundSynthesisLesson: LessonDefinition = {
         checksLabel: "Compare",
         successLabel: "You have a bright raw oscillator",
       }),
-      evaluate: ({ synthSettings }) => [
-        { label: "Sawtooth is selected for the next stage", complete: synthSettings.waveform === "sawtooth" },
-      ],
+      evaluate: ({ synthSettings, experiments }) => {
+        const heard = experiments["synth.waveform"]?.values ?? [];
+        return [
+          { label: "Sine, triangle, square, and sawtooth were all auditioned", complete: ["sine", "triangle", "square", "sawtooth"].every((waveform) => heard.includes(waveform)) },
+          { label: "Sawtooth is selected for the next stage", complete: synthSettings.waveform === "sawtooth" },
+        ];
+      },
     },
     {
       ...exerciseContentSchema.parse({
@@ -54,7 +58,7 @@ export const soundSynthesisLesson: LessonDefinition = {
         explanation:
           "A low-pass filter lets low frequencies through while reducing frequencies above its cutoff. Lowering the cutoff removes upper harmonics from a sawtooth wave, making the sound darker without changing the played note.",
         instruction:
-          "Play C repeatedly while moving Brightness from high to low. Finish with the cutoff between 800 and 2500 Hz so the difference from the raw sawtooth is obvious.",
+          "Move Brightness through a wide range while repeatedly auditioning the same note. Deliberately hear the almost-fully-open sound and a much darker one before settling somewhere between 800 and 2500 Hz.",
         recognition:
           "When the cutoff falls, the sound loses edge and sparkle. The pitch remains C, but the timbre becomes darker and more muffled.",
         terms: [
@@ -67,10 +71,15 @@ export const soundSynthesisLesson: LessonDefinition = {
         checksLabel: "Shape the spectrum",
         successLabel: "The sound is deliberately darker",
       }),
-      evaluate: ({ synthSettings }) => [
-        { label: "Sawtooth remains selected", complete: synthSettings.waveform === "sawtooth" },
-        { label: "Cutoff is between 800 and 2500 Hz", complete: synthSettings.cutoff >= 800 && synthSettings.cutoff <= 2500 },
-      ],
+      evaluate: ({ synthSettings, experiments }) => {
+        const sweep = experiments["synth.cutoff"];
+        return [
+          { label: "Sawtooth remains selected", complete: synthSettings.waveform === "sawtooth" },
+          { label: "You swept at least 5000 Hz of filter range", complete: sweep?.min !== null && sweep?.max !== null && (sweep!.max! - sweep!.min!) >= 5000 },
+          { label: "You auditioned notes while shaping the filter", complete: (experiments["synth.note-audition"]?.changes ?? 0) >= 2 },
+          { label: "Final cutoff is deliberately dark", complete: synthSettings.cutoff >= 800 && synthSettings.cutoff <= 2500 },
+        ];
+      },
     },
     {
       ...exerciseContentSchema.parse({
@@ -92,12 +101,13 @@ export const soundSynthesisLesson: LessonDefinition = {
         ],
         workspace: "synth",
         checksLabel: "Shape time",
-        successLabel: "The sound now has a slow envelope",
+        successLabel: "The same melody now behaves like a pluck",
       }),
-      evaluate: ({ synthSettings }) => [
+      evaluate: ({ synthSettings, experiments }) => [
         { label: "Triangle gives the phrase a softer harmonic starting point", complete: synthSettings.waveform === "triangle" },
         { label: "Attack is fast enough for a clear onset", complete: synthSettings.attack <= 0.08 },
         { label: "Release leaves rhythmic space", complete: synthSettings.release <= 0.4 },
+        { label: "You auditioned the actual melody with the pluck", complete: (experiments["synth.phrase-audition"]?.changes ?? 0) >= 1 },
       ],
     },
     {
@@ -121,11 +131,12 @@ export const soundSynthesisLesson: LessonDefinition = {
         checksLabel: "Design",
         successLabel: "You designed a pad from first principles",
       }),
-      evaluate: ({ synthSettings }) => [
+      evaluate: ({ synthSettings, experiments }) => [
         { label: "Waveform is triangle or sawtooth", complete: synthSettings.waveform === "triangle" || synthSettings.waveform === "sawtooth" },
         { label: "Cutoff is warm rather than fully open", complete: synthSettings.cutoff >= 900 && synthSettings.cutoff <= 4500 },
         { label: "Attack is slow", complete: synthSettings.attack >= 0.4 },
         { label: "Release is long", complete: synthSettings.release >= 1.1 },
+        { label: "You auditioned the same melody in its new pad role", complete: (experiments["synth.phrase-audition"]?.changes ?? 0) >= 1 },
       ],
     },
   ],
