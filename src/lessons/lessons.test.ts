@@ -77,7 +77,7 @@ function context(overrides: Partial<LessonContext> = {}): LessonContext {
     },
     textureSettings: { ...initialTextureSettings },
     ...overrides,
-  };
+  } as LessonContext;
 }
 
 function completedGroove(): StepPattern {
