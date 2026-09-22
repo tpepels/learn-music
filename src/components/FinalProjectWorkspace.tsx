@@ -153,7 +153,7 @@ export function FinalProjectWorkspace() {
           </div>
         </div>
         <span className="workspace-hint">
-          Play the whole track. Keep what helps the music, remove what does not, and save the version you would actually come back to.
+          Play the whole track. Keep what helps the music, remove what does not, and save the version you want to come back to.
         </span>
       </div>
 
