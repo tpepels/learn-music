@@ -10,7 +10,7 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v1.8.0**.
+Current curriculum release: **v1.9.0**.
 
 ## Current interactive curriculum
 
@@ -19,7 +19,7 @@ There are currently **28 lessons and 112 guided exercises**.
 1. **Pulse & groove** — four-on-the-floor, backbeat, eighths, syncopation
 2. **Repetition & variation** — related variation, fill, anticipation, turnaround
 3. **Keys & melody** — C major, in-key writing, scale degrees, motif and phrase
-4. **Chords & progressions** — I/IV/V function in a running phrase, V–I vs deceptive closure, accompaniment texture
+4. **Chords & progressions** — write chord tones directly into a four-bar piano roll, then turn I/IV/V into a rhythmic accompaniment
 5. **Sound & synthesis** — waveforms and filtering, then pluck-vs-pad envelope roles on the learner's melody
 6. **Arrangement & form** — density, A/B contrast, climax, release
 7. **Mixing & space** — faders, pan, low-cut EQ, send/return reverb and delay
@@ -67,7 +67,7 @@ Current workspaces include:
 - MIDI keyboard
 - piano roll
 - chord track
-- contextual harmony phrase with groove, root bass, melody, and block/pulse/broken/arpeggiated accompaniment
+- four-bar polyphonic harmony piano roll with chord-tone guidance, groove/melody context, and learner-written rhythm
 - voicing / inversion lab
 - four-bar bass piano roll
 - velocity lane + swing/groove editor
@@ -161,8 +161,9 @@ Current signal paths include:
 - drum hits read real per-step **MIDI velocity** values
 - Tone transport applies the project **swing** amount to eighth-note subdivision timing
 - keyboard and melody playback use a bundled sampled Salamander Grand Piano rather than a generic triangle synth
-- chord playback supports block, pulse, broken-chord, and arpeggiated performance while preserving the same harmonic identity
-- the early harmony lesson can loop the learner's existing groove and melody with root bass so I/IV/V and cadence choices are heard inside a phrase
+- the early harmony lesson loops the learner's existing groove and melody while the learner writes every harmony note in a 32-step polyphonic piano roll
+- chord-tone shading follows the selected chord in each bar, but outside notes remain clickable so mistakes and tension can be heard rather than silently prevented
+- learner-written harmony is also used by arrangement playback when present; older projects without it retain the existing chord fallback
 - chord playback supports full seventh chords such as D7 / V/V, E7 / V7 in A minor, Cmaj7, Dm7, G7, Am7, and Bm7♭5
 - chromatic chord playback includes correctly voiced borrowed Fm and B♭ major
 - texture settings transpose bass/chords/melody by octave during playback
@@ -205,7 +206,8 @@ The project file contains:
 - patterns
 - melody
 - chord progression, including minor-key, seventh-chord, and borrowed-chord symbols
-- chord accompaniment pattern (block, pulse, broken, or arpeggiated)
+- learner-written 32-step polyphonic harmony sequence
+- legacy chord accompaniment pattern for older/fallback project playback
 - synth settings
 - arrangement
 - mixer
