@@ -8,8 +8,10 @@ import {
   initialChordProgression,
   initialMelody,
   initialDynamicsSettings,
+  initialEffectsSettings,
   initialMixerSettings,
   initialPattern,
+  initialProjectMilestones,
   initialSynthSettings,
   type Arrangement,
   type ArrangementLayer,
@@ -17,10 +19,12 @@ import {
   type ChordName,
   type ChordProgression,
   type DynamicsSettings,
+  type EffectsSettings,
   type MelodySequence,
   type MixerSettings,
   type MixerTrackId,
   type PatternId,
+  type ProjectMilestones,
   type StepPattern,
   type SynthSettings,
   type TrackName,
@@ -46,6 +50,9 @@ type StudioState = {
   mixerSettings: MixerSettings;
   automationSettings: AutomationSettings;
   dynamicsSettings: DynamicsSettings;
+  effectsSettings: EffectsSettings;
+  projectMilestones: ProjectMilestones;
+  appMode: "learn" | "studio";
 
   setBpm: (bpm: number) => void;
   setPlaying: (playing: boolean) => void;
@@ -80,6 +87,10 @@ type StudioState = {
   resetAutomation: () => void;
   setDynamicsSettings: (settings: Partial<DynamicsSettings>) => void;
   resetDynamics: () => void;
+  setEffectsSettings: (settings: Partial<EffectsSettings>) => void;
+  resetEffects: () => void;
+  markProjectExported: () => void;
+  setAppMode: (mode: "learn" | "studio") => void;
 };
 
 export const useStudioStore = create<StudioState>()(
@@ -113,6 +124,9 @@ export const useStudioStore = create<StudioState>()(
         chordFilterHz: [...initialAutomationSettings.chordFilterHz],
       },
       dynamicsSettings: { ...initialDynamicsSettings },
+      effectsSettings: { ...initialEffectsSettings },
+      projectMilestones: { ...initialProjectMilestones },
+      appMode: "learn",
 
       setBpm: (bpm) => set({ bpm }),
       setPlaying: (isPlaying) => set({ isPlaying }),
@@ -288,6 +302,26 @@ export const useStudioStore = create<StudioState>()(
 
       resetDynamics: () =>
         set({ dynamicsSettings: { ...initialDynamicsSettings } }),
+
+      setEffectsSettings: (settings) =>
+        set((state) => ({
+          effectsSettings: {
+            ...state.effectsSettings,
+            ...settings,
+          },
+        })),
+
+      resetEffects: () =>
+        set({ effectsSettings: { ...initialEffectsSettings } }),
+
+      markProjectExported: () =>
+        set({
+          projectMilestones: {
+            exported: true,
+          },
+        }),
+
+      setAppMode: (appMode) => set({ appMode }),
     }),
     {
       name: "learn-music-studio-v2",
@@ -307,6 +341,9 @@ export const useStudioStore = create<StudioState>()(
         mixerSettings: state.mixerSettings,
         automationSettings: state.automationSettings,
         dynamicsSettings: state.dynamicsSettings,
+        effectsSettings: state.effectsSettings,
+        projectMilestones: state.projectMilestones,
+        appMode: state.appMode,
       }),
     },
   ),
