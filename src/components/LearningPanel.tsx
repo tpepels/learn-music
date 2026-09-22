@@ -19,11 +19,6 @@ export function LearningPanel({ exercise }: { exercise: ExerciseDefinition }) {
               <h3>The idea</h3>
               <p>{exercise.explanation}</p>
             </section>
-
-            <section>
-              <h3>Why use it</h3>
-              <p>{context.why}</p>
-            </section>
           </div>
 
           <div className="learning-reading-column">
