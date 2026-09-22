@@ -17,7 +17,12 @@ export type ConceptVisualKind =
   | "melody-harmony"
   | "harmonic-function"
   | "phrase-form"
-  | "texture";
+  | "texture"
+  | "eq"
+  | "saturation"
+  | "sidechain"
+  | "stereo"
+  | "reference";
 
 export type ProductionContext = {
   why: string;
@@ -548,6 +553,151 @@ export const productionContext: Record<string, ProductionContext> = {
     tools: ["Arrangement view", "Track mute", "Layer count", "Register planning"],
     visual: "texture",
     realWorld: "Dense DAW sections visibly contain more simultaneous clips and layers, while sparse sections expose fewer active tracks.",
+  },
+
+  "production.eq-spectral-balance.a": {
+    why: "High-pass filtering removes low-frequency energy a part does not need, leaving more headroom and less masking around kick and bass.",
+    when: "During cleanup and balance, after the arrangement exists and before more detailed tonal shaping.",
+    tools: ["Parametric EQ", "High-pass filter", "Spectrum display", "Channel strip"],
+    visual: "eq",
+    realWorld: "DAW EQ plugins show a rising low-cut slope on the left side of a frequency graph, usually with cutoff and slope controls.",
+  },
+  "production.eq-spectral-balance.b": {
+    why: "A temporary narrow boost makes one frequency region obvious enough to identify by ear before deciding whether it actually needs correction.",
+    when: "While diagnosing boxiness, harshness, resonance, or another tonal quality that is difficult to locate precisely.",
+    tools: ["Bell filter", "Frequency sweep", "Gain", "Q"],
+    visual: "eq",
+    realWorld: "Engineers often drag a narrow boosted EQ node left and right across a plugin graph while a short section loops.",
+  },
+  "production.eq-spectral-balance.c": {
+    why: "Turning the diagnostic boost into a smaller cut preserves the useful character of the source while reducing the part that distracts.",
+    when: "Immediately after a sweep has identified a troublesome region and before adding broader tonal boosts.",
+    tools: ["Parametric bell", "Cut", "Q", "Bypass A/B"],
+    visual: "eq",
+    realWorld: "The EQ node stays near the discovered frequency but moves below the 0 dB line and usually becomes less extreme.",
+  },
+  "production.eq-spectral-balance.d": {
+    why: "Complementary EQ lets two parts share a mix by reducing overlap instead of simply turning one of them louder.",
+    when: "When foreground and supporting parts compete in similar midrange or presence frequencies.",
+    tools: ["Two channel EQs", "Bell cut", "Presence boost", "A/B loop"],
+    visual: "eq",
+    realWorld: "A mixer may show a modest cut on the supporting chord channel and a modest boost in a nearby region on the lead channel.",
+  },
+
+  "production.saturation.a": {
+    why: "Bass saturation creates upper harmonics that can make low notes more audible on smaller speakers without changing the written bass line.",
+    when: "During sound shaping or mixing when the bass has weight on large systems but disappears on limited playback devices.",
+    tools: ["Saturator", "Drive", "Wet/dry", "Bass channel insert"],
+    visual: "saturation",
+    realWorld: "Saturation plugins usually place Drive/Input beside an output or Mix control and may show a waveform or harmonic meter.",
+  },
+  "production.saturation.b": {
+    why: "Parallel drum distortion adds density beneath the clean transient so the groove can feel heavier without losing all attack definition.",
+    when: "During drum-bus processing after the basic balance and compression are working.",
+    tools: ["Distortion insert", "Wet/dry mix", "Drum bus", "Parallel processing"],
+    visual: "saturation",
+    realWorld: "Many distortion plugins have a Mix knob; engineers drive the processor hard but blend only a portion of it into the drum bus.",
+  },
+  "production.saturation.c": {
+    why: "Small amounts of saturation can change timbre and perceived density without sounding like an obvious special effect.",
+    when: "On sustained synths, keys, buses, or channels that feel sterile but do not need audible fuzz.",
+    tools: ["Soft saturation", "Drive", "Mix", "Bypass"],
+    visual: "saturation",
+    realWorld: "Analogue-modelled channel strips and tape plugins often use subtle drive amounts where the waveform change is heard more as colour than distortion.",
+  },
+  "production.saturation.d": {
+    why: "Different saturation amounts preserve contrast between layers; processing every track identically can flatten the mix into one texture.",
+    when: "During detailed production after individual saturation choices have been learned in isolation.",
+    tools: ["Multiple channel inserts", "Drive", "Wet/dry", "Bypass comparison"],
+    visual: "saturation",
+    realWorld: "A real session may have strong drum-bus colour, moderate bass saturation, gentle chord colour, and a comparatively clean lead.",
+  },
+
+  "production.sidechain.a": {
+    why: "Kick-triggered bass ducking creates brief low-end space exactly when the kick arrives instead of permanently turning the bass down.",
+    when: "When kick and bass overlap strongly in time and frequency, especially in electronic, pop, and dance-oriented production.",
+    tools: ["Compressor sidechain", "Key input", "Gain reduction", "Release"],
+    visual: "sidechain",
+    realWorld: "A DAW compressor can expose an external Sidechain or Key input; the kick track feeds that detector while the compressor sits on the bass.",
+  },
+  "production.sidechain.b": {
+    why: "Exaggerated ducking makes the gain envelope easy to hear and turns a mixing technique into an intentional rhythmic pumping effect.",
+    when: "For obvious electronic pump, transition effects, or simply to learn what sidechain timing is doing before reducing it.",
+    tools: ["Sidechain compressor", "Deep gain reduction", "Long release", "Key input"],
+    visual: "sidechain",
+    realWorld: "The gain-reduction meter drops dramatically on every kick and recovers slowly enough that the bass audibly breathes.",
+  },
+  "production.sidechain.c": {
+    why: "Backing extreme settings down teaches the difference between hearing a processor and benefiting from one.",
+    when: "After a diagnostic or exaggerated setup, while returning the track to a more transparent mix balance.",
+    tools: ["A/B bypass", "Duck amount", "Release", "Gain-reduction meter"],
+    visual: "sidechain",
+    realWorld: "Engineers often exaggerate threshold or ratio first, set timing by ear, then reduce the amount until the effect becomes less obvious.",
+  },
+  "production.sidechain.d": {
+    why: "Sidechain only solves a real interaction when the trigger and target actually overlap, so arrangement context determines whether the processing matters.",
+    when: "During full-track playback after kick, bass, and section structure are already programmed.",
+    tools: ["Arrangement view", "Kick key input", "Bass compressor", "Loop region"],
+    visual: "sidechain",
+    realWorld: "In a DAW, sidechain behaviour is easiest to judge while watching kick and bass clips overlap in the arrangement timeline.",
+  },
+
+  "production.stereo-mono.a": {
+    why: "Panning supporting parts apart can improve separation while keeping foundational low-end material centred and stable.",
+    when: "After rough level balance, before extreme stereo widening or spatial effects are added.",
+    tools: ["Pan control", "Mixer", "Stereo monitors", "Headphones"],
+    visual: "stereo",
+    realWorld: "Every DAW mixer channel has a pan control; low-end channels are commonly near centre while supporting parts move left or right.",
+  },
+  "production.stereo-mono.b": {
+    why: "Mid/side width can make selected layers larger without moving their centre position, but widening everything removes contrast and can weaken translation.",
+    when: "During stereo refinement once panning and arrangement roles are already clear.",
+    tools: ["Stereo widener", "Mid/side processor", "Width control", "Correlation check"],
+    visual: "stereo",
+    realWorld: "Stereo-imaging plugins typically show Width or Mid/Side controls, often with bass left narrower than pads or effects.",
+  },
+  "production.stereo-mono.c": {
+    why: "Mono audition reveals whether the mix depends on stereo differences that disappear when left and right are combined.",
+    when: "Repeatedly during mixing, especially after widening, chorus, stereo effects, or strong panning decisions.",
+    tools: ["Mono button", "Monitor controller", "Utility plugin", "Correlation meter"],
+    visual: "stereo",
+    realWorld: "Many DAWs or monitor controllers provide a MONO switch so the engineer can collapse the mix without rewriting any panning.",
+  },
+  "production.stereo-mono.d": {
+    why: "A stereo hierarchy combines stable centre information with deliberate side information so spaciousness enhances the mix rather than becoming necessary for comprehension.",
+    when: "Near the end of a mix after pan, width, effects, and mono compatibility have all been checked individually.",
+    tools: ["Pan", "Stereo width", "Mono audition", "Mixer"],
+    visual: "stereo",
+    realWorld: "A finished session often shows centred kick/bass, moderately panned leads or support, and wider ambience or harmony around them.",
+  },
+
+  "production.reference-mixing.a": {
+    why: "A fixed snapshot gives the ears a stable comparison point because memory for detailed tonal and level relationships adapts quickly.",
+    when: "Before making a new round of mix changes or when deciding whether a recent edit really improved the project.",
+    tools: ["Mix snapshot", "Reference plugin", "A/B switch", "Version recall"],
+    visual: "reference",
+    realWorld: "DAWs, consoles, and reference plugins commonly let engineers recall previous mixes, alternate states, or imported reference tracks.",
+  },
+  "production.reference-mixing.b": {
+    why: "Repeated A/B switching exposes whether a change genuinely improves balance instead of only feeling exciting because it is new.",
+    when: "After making one meaningful mix change and before stacking many additional changes on top of it.",
+    tools: ["A/B switch", "Snapshot recall", "Loop playback", "Bypass"],
+    visual: "reference",
+    realWorld: "Reference plugins often provide large A/B buttons so the engineer can switch instantly without losing the current mixer state.",
+  },
+  "production.reference-mixing.c": {
+    why: "Level matching reduces the powerful louder-is-better bias and makes tonal balance, dynamics, and clarity easier to judge fairly.",
+    when: "Before comparing a processed signal, a previous mix, a master, or an external reference track.",
+    tools: ["Trim gain", "Loudness meter", "Reference plugin", "A/B switch"],
+    visual: "reference",
+    realWorld: "Dedicated reference plugins include gain-match controls because even a small loudness difference can skew subjective preference.",
+  },
+  "production.reference-mixing.d": {
+    why: "Quiet and mono checks remove two forms of excitement—high playback level and stereo spread—so the core hierarchy of the mix is easier to judge.",
+    when: "During final review and periodically throughout mixing whenever perspective has become stale.",
+    tools: ["Monitor level", "Mono switch", "A/B reference", "Small-speaker check"],
+    visual: "reference",
+    realWorld: "Mix engineers routinely turn monitors down, hit mono, or switch speakers before returning to normal playback with refreshed perspective.",
   },
 };
 
