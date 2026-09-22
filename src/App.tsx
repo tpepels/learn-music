@@ -3,6 +3,7 @@ import { audioEngine } from "./audio/engine";
 import { ArrangementWorkspace } from "./components/ArrangementWorkspace";
 import { AutomationDynamicsWorkspace } from "./components/AutomationDynamicsWorkspace";
 import { ChordWorkspace } from "./components/ChordWorkspace";
+import { CreateMode } from "./components/CreateMode";
 import { DrumWorkspace } from "./components/DrumWorkspace";
 import { EffectsWorkspace } from "./components/EffectsWorkspace";
 import { FinalProjectWorkspace } from "./components/FinalProjectWorkspace";
@@ -430,6 +431,12 @@ function App() {
               <strong>{exercise.title}</strong>
               <small>{workspaceNames[exercise.workspace]}</small>
             </>
+          ) : appMode === "create" ? (
+            <>
+              <span className="topbar-lesson-kicker">CREATE MODE</span>
+              <strong>Open-ended briefs</strong>
+              <small>Make decisions without a single correct answer</small>
+            </>
           ) : (
             <>
               <span className="topbar-lesson-kicker">STUDIO MODE</span>
@@ -448,18 +455,26 @@ function App() {
               Learn
             </button>
             <button
+              className={appMode === "create" ? "is-active" : ""}
+              onClick={() => setAppMode("create")}
+            >
+              Create
+            </button>
+            <button
               className={appMode === "studio" ? "is-active" : ""}
               onClick={() => setAppMode("studio")}
             >
               Studio
             </button>
           </div>
-          <Transport workspace={appMode === "studio" ? "arrangement" : exercise.workspace} />
+          <Transport workspace={appMode === "learn" ? exercise.workspace : "arrangement"} />
         </div>
       </header>
 
       {appMode === "studio" ? (
         <StudioMode />
+      ) : appMode === "create" ? (
+        <CreateMode />
       ) : (
       <div className="workspace">
         <aside className="course-panel">
