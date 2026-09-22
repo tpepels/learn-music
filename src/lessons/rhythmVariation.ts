@@ -6,7 +6,7 @@ const lesson = lessonContentSchema.parse({
   number: 2,
   title: "Repetition & variation",
   eyebrow: "Composition · Rhythm",
-  hero: "Change the groove without losing the groove."
+  hero: "Change the groove without losing the groove.",
   description:
     "Pattern A is your reference. Pattern B starts as a copy and becomes a variation. You will change small details, create a fill, use anticipation, and shape the end of the bar.",
   overview:
