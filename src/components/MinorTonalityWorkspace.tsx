@@ -9,6 +9,13 @@ import {
 } from "../music/model";
 import { useStudioStore } from "../state/studio";
 
+const minorRollPitches = [
+  ...chromaticPitches,
+  { midi: 59, name: "B3", pitchClass: "B", black: false },
+  { midi: 58, name: "B♭3", pitchClass: "B♭", black: true },
+  { midi: 57, name: "A3", pitchClass: "A", black: false },
+] as const;
+
 const chromaticKeys = [
   { pitchClass: "A", midi: 57, black: false },
   { pitchClass: "B♭", midi: 58, black: true },
@@ -25,7 +32,7 @@ const chromaticKeys = [
 ] as const;
 
 function displayPitch(midi: number, harmonic: boolean) {
-  const pitch = chromaticPitches.find((item) => item.midi === midi);
+  const pitch = minorRollPitches.find((item) => item.midi === midi);
   if (!pitch) return String(midi);
   if (harmonic && midi % 12 === 8) {
     return pitch.name.replace("A♭", "G♯");
@@ -122,7 +129,7 @@ export function MinorTonalityWorkspace({ harmonic }: { harmonic: boolean }) {
       </div>
 
       <div className="minor-roll">
-        {chromaticPitches.map((pitch) => (
+        {minorRollPitches.map((pitch) => (
           <div
             key={pitch.midi}
             className={[
