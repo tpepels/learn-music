@@ -7,9 +7,14 @@ import { DrumWorkspace } from "./DrumWorkspace";
 import { EffectsWorkspace } from "./EffectsWorkspace";
 import { FinalProjectWorkspace } from "./FinalProjectWorkspace";
 import { GrooveFeelWorkspace } from "./GrooveFeelWorkspace";
+import { HarmonicFunctionWorkspace } from "./HarmonicFunctionWorkspace";
+import { MelodyHarmonyWorkspace } from "./MelodyHarmonyWorkspace";
+import { MotifWorkspace } from "./MotifWorkspace";
 import { MixerWorkspace } from "./MixerWorkspace";
+import { PhraseFormWorkspace } from "./PhraseFormWorkspace";
 import { MelodyWorkspace } from "./PianoWorkspace";
 import { SynthWorkspace } from "./SynthWorkspace";
+import { TextureWorkspace } from "./TextureWorkspace";
 import { VoicingWorkspace } from "./VoicingWorkspace";
 import type { ExerciseDefinition } from "../lessons/types";
 import { useStudioStore } from "../state/studio";
@@ -18,11 +23,16 @@ const modules = [
   { id: "groove", name: "Groove", lesson: "rhythm.pulse-and-groove", workspace: "compare" },
   { id: "feel", name: "Feel", lesson: "rhythm.groove-feel", workspace: "groove-feel" },
   { id: "melody", name: "Piano roll", lesson: "pitch.melody", workspace: "melody" },
+  { id: "motif", name: "Motif", lesson: "composition.motif-development", workspace: "motif" },
+  { id: "melody-harmony", name: "Melody + chords", lesson: "composition.melody-over-harmony", workspace: "melody-harmony" },
   { id: "harmony", name: "Chords", lesson: "harmony.chords", workspace: "chords" },
+  { id: "function", name: "Function", lesson: "harmony.function", workspace: "harmonic-function" },
   { id: "voicing", name: "Voicing", lesson: "harmony.voice-leading", workspace: "voicing" },
   { id: "bass", name: "Bass", lesson: "composition.bass-lines", workspace: "bass" },
   { id: "synth", name: "Synth", lesson: "sound.synthesis", workspace: "synth" },
+  { id: "form", name: "Form", lesson: "composition.phrase-form", workspace: "phrase-form" },
   { id: "arrange", name: "Arrange", lesson: "form.arrangement", workspace: "arrangement" },
+  { id: "texture", name: "Texture", lesson: "composition.texture-orchestration", workspace: "texture" },
   { id: "mix", name: "Mixer", lesson: "mixing.balance-space", workspace: "mixer" },
   { id: "automation", name: "Automation", lesson: "production.automation-dynamics", workspace: "automation-dynamics" },
   { id: "effects", name: "FX", lesson: "production.effects-transitions", workspace: "effects" },
@@ -91,11 +101,16 @@ export function StudioMode({
         {module === "groove" && <DrumWorkspace title="Groove" compare />}
         {module === "feel" && <GrooveFeelWorkspace />}
         {module === "melody" && <MelodyWorkspace title="Piano roll" />}
+        {module === "motif" && <MotifWorkspace />}
+        {module === "melody-harmony" && <MelodyHarmonyWorkspace />}
         {module === "harmony" && <ChordWorkspace />}
+        {module === "function" && <HarmonicFunctionWorkspace />}
         {module === "voicing" && <VoicingWorkspace />}
         {module === "bass" && <BassWorkspace />}
         {module === "synth" && <SynthWorkspace />}
+        {module === "form" && <PhraseFormWorkspace />}
         {module === "arrange" && <ArrangementWorkspace />}
+        {module === "texture" && <TextureWorkspace />}
         {module === "mix" && <MixerWorkspace />}
         {module === "automation" && <AutomationDynamicsWorkspace />}
         {module === "effects" && <EffectsWorkspace />}
