@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { audioEngine } from "./audio/engine";
 import { ArrangementWorkspace } from "./components/ArrangementWorkspace";
 import { AutomationDynamicsWorkspace } from "./components/AutomationDynamicsWorkspace";
+import { BassWorkspace } from "./components/BassWorkspace";
 import { ChordWorkspace } from "./components/ChordWorkspace";
 import { CreateMode } from "./components/CreateMode";
 import { DrumWorkspace } from "./components/DrumWorkspace";
@@ -12,6 +13,7 @@ import { LearningPanel } from "./components/LearningPanel";
 import { MelodyWorkspace, PianoKeyWorkspace } from "./components/PianoWorkspace";
 import { StudioMode } from "./components/StudioMode";
 import { SynthWorkspace } from "./components/SynthWorkspace";
+import { VoicingWorkspace } from "./components/VoicingWorkspace";
 import {
   courseOutline,
   getLesson,
@@ -47,8 +49,10 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
     try {
       if (workspace === "melody") {
         await audioEngine.playMelody(bpm, setCurrentStep);
-      } else if (workspace === "chords") {
+      } else if (workspace === "chords" || workspace === "voicing") {
         await audioEngine.playChords(bpm, setCurrentStep);
+      } else if (workspace === "bass") {
+        await audioEngine.playBass(bpm, setCurrentStep);
       } else if (
         workspace === "arrangement" ||
         workspace === "mixer" ||
@@ -189,6 +193,10 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
       return <EffectsWorkspace />;
     case "final-project":
       return <FinalProjectWorkspace />;
+    case "voicing":
+      return <VoicingWorkspace />;
+    case "bass":
+      return <BassWorkspace />;
   }
 }
 
@@ -203,6 +211,8 @@ const lessonGlyphs: Record<string, string> = {
   "production.automation-dynamics": "⌁",
   "production.effects-transitions": "✦",
   "production.final-project": "✓",
+  "harmony.voice-leading": "⇄",
+  "composition.bass-lines": "♭",
 };
 
 const workspaceNames: Record<ExerciseDefinition["workspace"], string> = {
@@ -217,6 +227,8 @@ const workspaceNames: Record<ExerciseDefinition["workspace"], string> = {
   "automation-dynamics": "Automation + dynamics",
   effects: "Creative FX rack",
   "final-project": "Final project",
+  voicing: "Voicing lab",
+  bass: "Bass piano roll",
 };
 
 function App() {
@@ -236,6 +248,8 @@ function App() {
   const dynamicsSettings = useStudioStore((state) => state.dynamicsSettings);
   const effectsSettings = useStudioStore((state) => state.effectsSettings);
   const projectMilestones = useStudioStore((state) => state.projectMilestones);
+  const voicingSettings = useStudioStore((state) => state.voicingSettings);
+  const bassSequence = useStudioStore((state) => state.bassSequence);
   const appMode = useStudioStore((state) => state.appMode);
 
   const setCurrentLesson = useStudioStore((state) => state.setCurrentLesson);
@@ -253,6 +267,8 @@ function App() {
   const resetAutomation = useStudioStore((state) => state.resetAutomation);
   const resetDynamics = useStudioStore((state) => state.resetDynamics);
   const resetEffects = useStudioStore((state) => state.resetEffects);
+  const resetVoicings = useStudioStore((state) => state.resetVoicings);
+  const clearBass = useStudioStore((state) => state.clearBass);
   const setAppMode = useStudioStore((state) => state.setAppMode);
 
   const lesson = getLesson(currentLessonId);
@@ -297,6 +313,14 @@ function App() {
     audioEngine.setEffectsSettings(effectsSettings);
   }, [effectsSettings]);
 
+  useEffect(() => {
+    audioEngine.setVoicingSettings(voicingSettings);
+  }, [voicingSettings]);
+
+  useEffect(() => {
+    audioEngine.setBassSequence(bassSequence);
+  }, [bassSequence]);
+
   const checks = useMemo(
     () =>
       exercise.evaluate({
@@ -312,6 +336,8 @@ function App() {
         dynamicsSettings,
         effectsSettings,
         projectMilestones,
+        voicingSettings,
+        bassSequence,
       }),
     [
       exercise,
@@ -326,6 +352,8 @@ function App() {
       dynamicsSettings,
       effectsSettings,
       projectMilestones,
+      voicingSettings,
+      bassSequence,
     ],
   );
 
@@ -416,6 +444,12 @@ function App() {
         resetEffects();
         break;
       case "final-project":
+        break;
+      case "voicing":
+        resetVoicings();
+        break;
+      case "bass":
+        clearBass();
         break;
     }
   };
