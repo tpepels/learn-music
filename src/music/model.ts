@@ -239,6 +239,8 @@ export type ProjectData = {
   automationSettings: AutomationSettings;
   dynamicsSettings: DynamicsSettings;
   effectsSettings: EffectsSettings;
+  voicingSettings: VoicingSettings;
+  bassSequence: BassSequence;
 };
 
 
