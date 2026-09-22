@@ -11,7 +11,8 @@ export type ConceptVisualKind =
   | "effects"
   | "final"
   | "voice-leading"
-  | "bassline";
+  | "bassline"
+  | "groove-feel";
 
 export type ProductionContext = {
   why: string;
@@ -368,6 +369,35 @@ export const productionContext: Record<string, ProductionContext> = {
     tools: ["Bass instrument", "MIDI clip", "Drum groove", "Chord track"],
     visual: "bassline",
     realWorld: "Producers commonly loop drums, chords, and bass together while editing the bass line until it locks rhythmically without obscuring the harmony.",
+  },
+
+  "rhythm.groove-feel.a": {
+    why: "Velocity creates dynamic hierarchy. Strong structural hits can anchor the body while lighter parts keep time without competing for attention.",
+    when: "After note placement works, while programming drums, MIDI percussion, or any repeated part that sounds mechanically equal.",
+    tools: ["Velocity lane", "MIDI editor", "Drum machine", "Accent control"],
+    visual: "groove-feel",
+    realWorld: "DAWs usually show velocity as vertical bars underneath MIDI notes. Hardware sequencers often expose velocity or accent per step.",
+  },
+  "rhythm.groove-feel.b": {
+    why: "Alternating accents turn repeated subdivisions into phrasing. Real players rarely strike every repeated note with exactly the same force.",
+    when: "While refining hi-hats, shakers, ostinatos, and repeated keyboard or percussion patterns.",
+    tools: ["Velocity lane", "Accent pattern", "MIDI clip", "Groovebox"],
+    visual: "groove-feel",
+    realWorld: "A DAW velocity lane often shows a repeating tall-short pattern beneath evenly spaced MIDI notes.",
+  },
+  "rhythm.groove-feel.c": {
+    why: "Ghost notes add quiet motion between primary accents. They create texture without changing which beats feel structurally important.",
+    when: "After the main groove is clear, especially in snare, percussion, funk, hip-hop, and live-feeling programmed drums.",
+    tools: ["Low MIDI velocity", "Drum sequencer", "Snare articulation", "Velocity lane"],
+    visual: "groove-feel",
+    realWorld: "Ghost notes look like ordinary MIDI notes with much shorter velocity bars than the main backbeat notes.",
+  },
+  "rhythm.groove-feel.d": {
+    why: "Swing changes subdivision timing without changing the note pattern itself, creating bounce or lilt from the same visible grid.",
+    when: "When straight quantized timing feels too rigid, or when working in jazz-influenced, hip-hop, house, shuffle, or swung electronic grooves.",
+    tools: ["Swing amount", "Groove template", "Quantize settings", "Drum machine"],
+    visual: "groove-feel",
+    realWorld: "Most DAWs and grooveboxes provide a Swing/Groove control that delays alternating subdivisions while notes can remain visually quantized.",
   },
 };
 
