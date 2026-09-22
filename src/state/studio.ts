@@ -14,6 +14,7 @@ import {
   cloneReferenceSnapshot,
   cloneSaturationSettings,
   cloneStereoSettings,
+  initialAccompanimentPattern,
   initialArrangement,
   initialAutomationSettings,
   initialBassSequence,
@@ -34,6 +35,7 @@ import {
   initialSynthSettings,
   initialTextureSettings,
   initialVoicingSettings,
+  type AccompanimentPattern,
   type Arrangement,
   type ArrangementLayer,
   type AutomationSettings,
@@ -95,6 +97,7 @@ type StudioState = {
   selectedPitchClasses: string[];
   melody: MelodySequence;
   chordProgression: ChordProgression;
+  accompanimentPattern: AccompanimentPattern;
   synthSettings: SynthSettings;
   arrangement: Arrangement;
   mixerSettings: MixerSettings;
@@ -130,6 +133,8 @@ type StudioState = {
   clearMelody: () => void;
   setChordSlot: (slot: number, chord: ChordName | null) => void;
   clearChords: () => void;
+  setAccompanimentPattern: (pattern: AccompanimentPattern) => void;
+  resetAccompanimentPattern: () => void;
   setSynthSettings: (settings: Partial<SynthSettings>) => void;
   resetSynthSettings: () => void;
   toggleArrangementLayer: (bar: number, layer: ArrangementLayer) => void;
@@ -201,6 +206,7 @@ export const useStudioStore = create<StudioState>()(
       selectedPitchClasses: [],
       melody: [...initialMelody],
       chordProgression: [...initialChordProgression],
+      accompanimentPattern: initialAccompanimentPattern,
       synthSettings: { ...initialSynthSettings },
       arrangement: cloneArrangement(initialArrangement),
       mixerSettings: {
@@ -332,6 +338,12 @@ export const useStudioStore = create<StudioState>()(
 
       clearChords: () =>
         set({ chordProgression: [...initialChordProgression], currentStep: 0 }),
+
+      setAccompanimentPattern: (accompanimentPattern) =>
+        set({ accompanimentPattern }),
+
+      resetAccompanimentPattern: () =>
+        set({ accompanimentPattern: initialAccompanimentPattern }),
 
       setSynthSettings: (settings) =>
         set((state) => ({
@@ -646,6 +658,7 @@ export const useStudioStore = create<StudioState>()(
           },
           melody: [...project.melody],
           chordProgression: [...project.chordProgression],
+          accompanimentPattern: project.accompanimentPattern,
           synthSettings: { ...project.synthSettings },
           arrangement: project.arrangement.map((bar) => ({ ...bar })),
           mixerSettings: {
@@ -694,6 +707,7 @@ export const useStudioStore = create<StudioState>()(
         selectedPitchClasses: state.selectedPitchClasses,
         melody: state.melody,
         chordProgression: state.chordProgression,
+        accompanimentPattern: state.accompanimentPattern,
         synthSettings: state.synthSettings,
         arrangement: state.arrangement,
         mixerSettings: state.mixerSettings,
@@ -720,6 +734,8 @@ export const useStudioStore = create<StudioState>()(
         return {
           ...currentState,
           ...persisted,
+          accompanimentPattern:
+            persisted.accompanimentPattern ?? currentState.accompanimentPattern,
           ...(progress
             ? {
                 currentLessonId: progress.currentLessonId,
