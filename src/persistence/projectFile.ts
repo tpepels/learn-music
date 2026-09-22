@@ -122,6 +122,17 @@ export const projectFileSchema = z.object({
         roles: z
           .array(z.enum(["statement", "answer", "contrast", "return"]))
           .length(4),
+        layers: z
+          .array(
+            z.object({
+              drums: z.boolean(),
+              bass: z.boolean(),
+              chords: z.boolean(),
+              melody: z.boolean(),
+            }),
+          )
+          .length(4)
+          .optional(),
       })
       .optional(),
     textureSettings: z
@@ -229,10 +240,19 @@ export function parseProjectFile(input: unknown): ProjectData {
         hat: [...initialGrooveFeelSettings.velocities.hat],
       },
     },
-    formSettings: project.formSettings ?? {
-      sections: [...initialFormSettings.sections],
-      roles: [...initialFormSettings.roles],
-    },
+    formSettings: project.formSettings
+      ? {
+          sections: [...project.formSettings.sections],
+          roles: [...project.formSettings.roles],
+          layers:
+            project.formSettings.layers?.map((entry) => ({ ...entry })) ??
+            initialFormSettings.layers.map((entry) => ({ ...entry })),
+        }
+      : {
+          sections: [...initialFormSettings.sections],
+          roles: [...initialFormSettings.roles],
+          layers: initialFormSettings.layers.map((entry) => ({ ...entry })),
+        },
     textureSettings: project.textureSettings ?? {
       ...initialTextureSettings,
     },
