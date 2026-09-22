@@ -26,7 +26,7 @@ export function ChordWorkspace({ contextual = false }: { contextual?: boolean })
 
   const chooseChord = async (chord: ChordName) => {
     setChordSlot(selectedSlot, chord);
-    await audioEngine.playChord(chord);
+    await audioEngine.playChordPreview(chord);
   };
 
   return (
@@ -72,7 +72,7 @@ export function ChordWorkspace({ contextual = false }: { contextual?: boolean })
         {basicChordNames.map((chord) => (
           <button
             key={chord}
-            onClick={() => chooseChord(chord)}
+            onClick={() => void chooseChord(chord)}
             className="chord-choice"
           >
             <strong>{chord}</strong>
