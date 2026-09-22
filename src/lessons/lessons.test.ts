@@ -7,6 +7,7 @@ import {
   initialAutomationSettings,
   initialChordProgression,
   initialDynamicsSettings,
+  initialEffectsSettings,
   initialMelody,
   initialMixerSettings,
   initialPattern,
@@ -18,6 +19,8 @@ import {
 import { arrangementFormLesson } from "./arrangementForm";
 import { automationDynamicsLesson } from "./automationDynamics";
 import { chordProgressionLesson } from "./chordProgressions";
+import { effectsTransitionsLesson } from "./effectsTransitions";
+import { finalProjectLesson } from "./finalProject";
 import { mixingSpaceLesson } from "./mixingSpace";
 import { pianoCompositionLesson } from "./pianoComposition";
 import { pulseAndGrooveLesson } from "./pulseAndGroove";
@@ -42,6 +45,8 @@ function context(overrides: Partial<LessonContext> = {}): LessonContext {
     },
     automationSettings: cloneAutomationSettings(initialAutomationSettings),
     dynamicsSettings: { ...initialDynamicsSettings },
+    effectsSettings: { ...initialEffectsSettings },
+    projectMilestones: { exported: false },
     ...overrides,
   };
 }
@@ -279,5 +284,89 @@ describe("lesson 8: automation and dynamics", () => {
         .evaluate(ctx)
         .every((check) => check.complete),
     ).toBe(true);
+  });
+});
+
+
+describe("lesson 9: creative effects and transitions", () => {
+  it("accepts a spacious transition with delay, chorus, and filter movement", () => {
+    const ctx = context({
+      mixerSettings: {
+        drums: { ...initialMixerSettings.drums },
+        bass: { ...initialMixerSettings.bass },
+        chords: { ...initialMixerSettings.chords, reverb: 0.2 },
+        melody: { ...initialMixerSettings.melody, delay: 0.12 },
+      },
+      automationSettings: {
+        melodyVolumeDb: [-10, -9, -8, -7, -5, -4, -2, 0],
+        chordFilterHz: [1000, 1600, 2600, 3800, 5200, 7000, 9000, 11000],
+      },
+      effectsSettings: {
+        reverbDecay: 3.6,
+        reverbPreDelay: 0.03,
+        delayFeedback: 0.36,
+        chorusWet: 0.28,
+      },
+    });
+
+    for (const exercise of effectsTransitionsLesson.exercises) {
+      expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
+    }
+  });
+});
+
+describe("lesson 10: final project", () => {
+  it("accepts a complete project and exported snapshot", () => {
+    const A = completedGroove();
+    const arrangement = [
+      { drums: true, bass: false, chords: false, melody: false },
+      { drums: true, bass: true, chords: false, melody: false },
+      { drums: true, bass: true, chords: true, melody: false },
+      { drums: true, bass: true, chords: true, melody: true },
+      { drums: true, bass: true, chords: true, melody: false },
+      { drums: true, bass: true, chords: true, melody: true },
+      { drums: true, bass: true, chords: true, melody: true },
+      { drums: true, bass: false, chords: false, melody: false },
+    ];
+    const melody: MelodySequence = [
+      60, 64, 67, null,
+      62, 65, 69, null,
+      67, 64, 62, 60,
+      null, null, null, null,
+    ];
+
+    const ctx = context({
+      A,
+      melody,
+      chordProgression: ["C", "G", "Am", "F"],
+      arrangement,
+      mixerSettings: {
+        drums: { ...initialMixerSettings.drums, volume: -4 },
+        bass: { ...initialMixerSettings.bass, volume: -7 },
+        chords: { ...initialMixerSettings.chords, volume: -11, reverb: 0.2 },
+        melody: { ...initialMixerSettings.melody, volume: -7, reverb: 0.15, delay: 0.1 },
+      },
+      automationSettings: {
+        melodyVolumeDb: [-10, -9, -8, -6, -5, -3, -1, 0],
+        chordFilterHz: [1200, 1800, 2600, 3600, 5000, 6800, 8800, 10500],
+      },
+      dynamicsSettings: {
+        threshold: -14,
+        ratio: 4,
+        attack: 0.04,
+        release: 0.16,
+      },
+      effectsSettings: {
+        reverbDecay: 3.6,
+        reverbPreDelay: 0.03,
+        delayFeedback: 0.36,
+        chorusWet: 0.28,
+      },
+      projectMilestones: { exported: true },
+    });
+
+    for (const exercise of finalProjectLesson.exercises) {
+      expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
+    }
   });
 });
