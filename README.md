@@ -10,7 +10,7 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v1.5.0**.
+Current curriculum release: **v1.6.0**.
 
 ## Current interactive curriculum
 
@@ -54,7 +54,7 @@ Every exercise explains:
 - how to recognize the result by ear;
 - the terminology musicians and producers use.
 
-Coverage is regression-tested for every implemented exercise.
+Coverage is regression-tested for every implemented exercise. Newly opened incomplete exercises also require a fresh learner interaction before they can be completed, so inherited state from exercise C cannot silently pre-complete exercise D.
 
 ## Learn
 
@@ -159,6 +159,7 @@ Current signal paths include:
 - post-fader sends → shared **reverb** and **delay** returns
 - drum hits read real per-step **MIDI velocity** values
 - Tone transport applies the project **swing** amount to eighth-note subdivision timing
+- keyboard and melody playback use a bundled sampled Salamander Grand Piano rather than a generic triangle synth
 - chord playback supports full seventh chords such as D7 / V/V, E7 / V7 in A minor, Cmaj7, Dm7, G7, Am7, and Bm7♭5
 - chromatic chord playback includes correctly voiced borrowed Fm and B♭ major
 - texture settings transpose bass/chords/melody by octave during playback
@@ -240,7 +241,9 @@ The design follows a “friendly workstation” approach:
 - the instrument or production tool is the main surface;
 - the right rail has one purpose: task, checks, continue/reset;
 - WHY / WHEN / WHAT / terminology lives in a larger collapsible centre panel;
-- typography has a readability floor rather than 7–9 px instructional copy;
+- instructional text now uses a substantially larger readability floor;
+- the central explanation is a single collapsible two-column reading surface rather than a grid of small cards;
+- redundant status copy, repeated headings, chips, and decorative instructional slogans have been removed;
 - controls look and behave like pads, keys, clips, faders, mixer sends, automation lanes, and synth parameters;
 - real DAW labels such as GRID, MIDI CLIP, CHORD TRACK, OSC, FILTER, AMP ENV, RETURN, MASTER, and AUTOMATION appear where learners will later encounter them.
 
@@ -279,3 +282,8 @@ Production base:
 ```text
 /learn-music/
 ```
+
+
+## Audio sample attribution
+
+The keyboard/melody instrument includes a reduced set of **Salamander Grand Piano V2** samples recorded by Alexander Holm, licensed under **CC BY 3.0**. The bundled sample directory contains the attribution notice and source reference.
