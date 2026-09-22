@@ -6,7 +6,7 @@ The interface grows with the learner. Concepts are introduced by name, explained
 
 ## Current interactive curriculum
 
-There are currently **4 lessons and 16 guided exercises**.
+There are currently **6 lessons and 24 guided exercises**.
 
 ### 1. Pulse & groove
 
@@ -44,6 +44,30 @@ D. Build I-V-vi-IV
 
 Students work with four chord slots and a diatonic chord palette labelled with Roman numerals.
 
+### 5. Sound & synthesis
+
+A. Compare oscillator waveforms  
+B. Shape brightness with a low-pass filter  
+C. Shape attack and release  
+D. Design a warm pad
+
+The synthesizer workspace teaches oscillator, waveform, timbre, harmonics, spectrum, filtering, envelopes, ADSR, subtractive synthesis, transients, and pads.
+
+### 6. Arrangement & form
+
+A. Shape texture with layer density  
+B. Create A/B contrast  
+C. Build toward a climax  
+D. Release after the climax
+
+The arrangement workspace combines the student's existing drums, bass, harmony, and melody across eight bars. It plays the arrangement while showing its layer-density curve.
+
+## Progression
+
+Each lesson contains four exercises. The next exercise unlocks after the current one is completed. Completing exercise D now **completes the lesson and moves directly into exercise A of the next lesson in the same action**.
+
+Lesson-to-lesson progression is represented by a shared progression model and regression-tested across the complete implemented course.
+
 ## Teaching structure
 
 Every exercise contains:
@@ -54,18 +78,18 @@ Every exercise contains:
 - a description of how to recognise the concept by ear;
 - a hands-on task;
 - automatic completion checks;
-- a Continue action that unlocks the next exercise.
+- a Continue action that unlocks the next exercise or lesson.
 
-Progress, patterns, key selections, melodies, and chord progressions are persisted locally in the browser.
+Progress, patterns, key selections, melodies, chord progressions, synth settings, and arrangements are persisted locally in the browser.
 
 ## Architecture
 
 - React + TypeScript + Vite
-- Tone.js / Web Audio for playback and synthesis
+- Tone.js / Web Audio for sequencing, synthesis, and playback
 - Tonal for music-theory data and analysis
 - Zustand + local persistence
 - Zod lesson/content schemas
-- Vitest curriculum tests
+- Vitest curriculum and progression tests
 - GitHub Actions + GitHub Pages
 
 The music model remains separate from Tone.js. Lesson content and evaluators remain separate from UI rendering.
@@ -85,7 +109,7 @@ npm test
 npm run build
 ```
 
-Feature branches also run `.github/workflows/ci.yml` without publishing. Pushes to `main` run the Pages workflow and deploy the Vite build.
+Feature branches run `.github/workflows/ci.yml` without publishing. Pushes to `main` run the Pages workflow and deploy the Vite build.
 
 The production Vite base is:
 
