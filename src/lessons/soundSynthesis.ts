@@ -9,7 +9,7 @@ const lesson = lessonContentSchema.parse({
   number: 5,
   title: "Sound & synthesis",
   eyebrow: "Production · Sound design",
-  hero: "Keep the notes. Change what kind of instrument they become."
+  hero: "Keep the notes. Change what kind of instrument they become.",
   description:
     "Keep the pitch and phrase fixed while you change waveform, brightness and envelope. The point is to hear what the sound itself contributes to the part.",
   overview:
