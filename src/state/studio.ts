@@ -8,8 +8,12 @@ import {
 } from "../persistence/progressCookie";
 import {
   cloneArrangement,
+  cloneEqSettings,
   cloneGrooveFeelSettings,
   clonePattern,
+  cloneReferenceSnapshot,
+  cloneSaturationSettings,
+  cloneStereoSettings,
   initialArrangement,
   initialAutomationSettings,
   initialBassSequence,
@@ -17,11 +21,16 @@ import {
   initialMelody,
   initialDynamicsSettings,
   initialEffectsSettings,
+  initialEqSettings,
   initialFormSettings,
   initialGrooveFeelSettings,
   initialMixerSettings,
   initialPattern,
   initialProjectMilestones,
+  initialReferenceMixSettings,
+  initialSaturationSettings,
+  initialSidechainSettings,
+  initialStereoSettings,
   initialSynthSettings,
   initialTextureSettings,
   initialVoicingSettings,
@@ -33,6 +42,7 @@ import {
   type ChordProgression,
   type DynamicsSettings,
   type EffectsSettings,
+  type EqSettings,
   type FormSectionLabel,
   type FormSettings,
   type GrooveFeelSettings,
@@ -42,7 +52,11 @@ import {
   type PatternId,
   type ProjectData,
   type ProjectMilestones,
+  type ReferenceMixSettings,
+  type SaturationSettings,
+  type SidechainSettings,
   type StepPattern,
+  type StereoSettings,
   type SynthSettings,
   type TextureSettings,
   type TrackName,
@@ -93,6 +107,11 @@ type StudioState = {
   grooveFeelSettings: GrooveFeelSettings;
   formSettings: FormSettings;
   textureSettings: TextureSettings;
+  eqSettings: EqSettings;
+  saturationSettings: SaturationSettings;
+  sidechainSettings: SidechainSettings;
+  stereoSettings: StereoSettings;
+  referenceMixSettings: ReferenceMixSettings;
   appMode: "learn" | "create" | "studio";
 
   setBpm: (bpm: number) => void;
@@ -145,6 +164,23 @@ type StudioState = {
   resetFormSettings: () => void;
   setTextureSettings: (settings: Partial<TextureSettings>) => void;
   resetTextureSettings: () => void;
+  setEqTrack: (track: MixerTrackId, settings: Partial<EqSettings[MixerTrackId]>) => void;
+  resetEq: () => void;
+  setSaturationTrack: (
+    track: MixerTrackId,
+    settings: Partial<SaturationSettings[MixerTrackId]>,
+  ) => void;
+  resetSaturation: () => void;
+  setSidechainSettings: (settings: Partial<SidechainSettings>) => void;
+  resetSidechain: () => void;
+  setStereoWidth: (track: MixerTrackId, width: number) => void;
+  setMonoAudition: (enabled: boolean) => void;
+  resetStereo: () => void;
+  captureReferenceSnapshot: () => void;
+  setReferenceTrim: (trimDb: number) => void;
+  registerReferenceComparison: () => void;
+  setReferenceQuietChecked: (checked: boolean) => void;
+  resetReferenceMix: () => void;
 };
 
 export const useStudioStore = create<StudioState>()(
@@ -188,6 +224,14 @@ export const useStudioStore = create<StudioState>()(
         roles: [...initialFormSettings.roles],
       },
       textureSettings: { ...initialTextureSettings },
+      eqSettings: cloneEqSettings(initialEqSettings),
+      saturationSettings: cloneSaturationSettings(initialSaturationSettings),
+      sidechainSettings: { ...initialSidechainSettings },
+      stereoSettings: cloneStereoSettings(initialStereoSettings),
+      referenceMixSettings: {
+        ...initialReferenceMixSettings,
+        snapshot: null,
+      },
       appMode: "learn",
 
       setBpm: (bpm) => set({ bpm }),
@@ -478,6 +522,121 @@ export const useStudioStore = create<StudioState>()(
       resetTextureSettings: () =>
         set({ textureSettings: { ...initialTextureSettings } }),
 
+      setEqTrack: (track, settings) =>
+        set((state) => ({
+          eqSettings: {
+            ...state.eqSettings,
+            [track]: {
+              ...state.eqSettings[track],
+              ...settings,
+            },
+          },
+        })),
+
+      resetEq: () => set({ eqSettings: cloneEqSettings(initialEqSettings) }),
+
+      setSaturationTrack: (track, settings) =>
+        set((state) => ({
+          saturationSettings: {
+            ...state.saturationSettings,
+            [track]: {
+              ...state.saturationSettings[track],
+              ...settings,
+            },
+          },
+        })),
+
+      resetSaturation: () =>
+        set({
+          saturationSettings: cloneSaturationSettings(initialSaturationSettings),
+        }),
+
+      setSidechainSettings: (settings) =>
+        set((state) => ({
+          sidechainSettings: {
+            ...state.sidechainSettings,
+            ...settings,
+          },
+        })),
+
+      resetSidechain: () =>
+        set({ sidechainSettings: { ...initialSidechainSettings } }),
+
+      setStereoWidth: (track, width) =>
+        set((state) => ({
+          stereoSettings: {
+            ...state.stereoSettings,
+            widths: {
+              ...state.stereoSettings.widths,
+              [track]: Math.max(0, Math.min(1, width)),
+            },
+          },
+        })),
+
+      setMonoAudition: (enabled) =>
+        set((state) => ({
+          stereoSettings: {
+            ...state.stereoSettings,
+            monoAudition: enabled,
+            monoChecked: state.stereoSettings.monoChecked || enabled,
+          },
+        })),
+
+      resetStereo: () =>
+        set({ stereoSettings: cloneStereoSettings(initialStereoSettings) }),
+
+      captureReferenceSnapshot: () =>
+        set((state) => ({
+          referenceMixSettings: {
+            ...state.referenceMixSettings,
+            snapshot: {
+              mixerSettings: {
+                drums: { ...state.mixerSettings.drums },
+                bass: { ...state.mixerSettings.bass },
+                chords: { ...state.mixerSettings.chords },
+                melody: { ...state.mixerSettings.melody },
+              },
+              eqSettings: cloneEqSettings(state.eqSettings),
+              saturationSettings: cloneSaturationSettings(
+                state.saturationSettings,
+              ),
+              stereoWidths: { ...state.stereoSettings.widths },
+            },
+          },
+        })),
+
+      setReferenceTrim: (trimDb) =>
+        set((state) => ({
+          referenceMixSettings: {
+            ...state.referenceMixSettings,
+            trimDb: Math.max(-12, Math.min(12, trimDb)),
+          },
+        })),
+
+      registerReferenceComparison: () =>
+        set((state) => ({
+          referenceMixSettings: {
+            ...state.referenceMixSettings,
+            comparisons: state.referenceMixSettings.comparisons + 1,
+          },
+        })),
+
+      setReferenceQuietChecked: (quietChecked) =>
+        set((state) => ({
+          referenceMixSettings: {
+            ...state.referenceMixSettings,
+            quietChecked,
+          },
+        })),
+
+      resetReferenceMix: () =>
+        set({
+          referenceMixSettings: {
+            ...initialReferenceMixSettings,
+            snapshot: null,
+          },
+        }),
+
       loadProject: (project) =>
         set({
           bpm: project.bpm,
@@ -510,6 +669,14 @@ export const useStudioStore = create<StudioState>()(
             roles: [...project.formSettings.roles],
           },
           textureSettings: { ...project.textureSettings },
+          eqSettings: cloneEqSettings(project.eqSettings),
+          saturationSettings: cloneSaturationSettings(project.saturationSettings),
+          sidechainSettings: { ...project.sidechainSettings },
+          stereoSettings: cloneStereoSettings(project.stereoSettings),
+          referenceMixSettings: {
+            ...project.referenceMixSettings,
+            snapshot: cloneReferenceSnapshot(project.referenceMixSettings.snapshot),
+          },
           currentStep: 0,
           isPlaying: false,
         }),
@@ -539,6 +706,11 @@ export const useStudioStore = create<StudioState>()(
         grooveFeelSettings: state.grooveFeelSettings,
         formSettings: state.formSettings,
         textureSettings: state.textureSettings,
+        eqSettings: state.eqSettings,
+        saturationSettings: state.saturationSettings,
+        sidechainSettings: state.sidechainSettings,
+        stereoSettings: state.stereoSettings,
+        referenceMixSettings: state.referenceMixSettings,
         appMode: state.appMode,
       }),
       merge: (persistedState, currentState) => {
