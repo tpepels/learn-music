@@ -9,6 +9,7 @@ import { CreateMode } from "./components/CreateMode";
 import { DrumWorkspace } from "./components/DrumWorkspace";
 import { EffectsWorkspace } from "./components/EffectsWorkspace";
 import { FinalProjectWorkspace } from "./components/FinalProjectWorkspace";
+import { GrooveFeelWorkspace } from "./components/GrooveFeelWorkspace";
 import { MixerWorkspace } from "./components/MixerWorkspace";
 import { LearningPanel } from "./components/LearningPanel";
 import { MelodyWorkspace, PianoKeyWorkspace } from "./components/PianoWorkspace";
@@ -198,6 +199,8 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
       return <VoicingWorkspace />;
     case "bass":
       return <BassWorkspace />;
+    case "groove-feel":
+      return <GrooveFeelWorkspace />;
   }
 }
 
@@ -214,6 +217,7 @@ const lessonGlyphs: Record<string, string> = {
   "production.final-project": "✓",
   "harmony.voice-leading": "⇄",
   "composition.bass-lines": "♭",
+  "rhythm.groove-feel": "◌",
 };
 
 const workspaceNames: Record<ExerciseDefinition["workspace"], string> = {
@@ -230,6 +234,7 @@ const workspaceNames: Record<ExerciseDefinition["workspace"], string> = {
   "final-project": "Final project",
   voicing: "Voicing lab",
   bass: "Bass piano roll",
+  "groove-feel": "Velocity + swing",
 };
 
 function App() {
@@ -251,6 +256,7 @@ function App() {
   const projectMilestones = useStudioStore((state) => state.projectMilestones);
   const voicingSettings = useStudioStore((state) => state.voicingSettings);
   const bassSequence = useStudioStore((state) => state.bassSequence);
+  const grooveFeelSettings = useStudioStore((state) => state.grooveFeelSettings);
   const appMode = useStudioStore((state) => state.appMode);
   const [studioTransportWorkspace, setStudioTransportWorkspace] =
     useState<ExerciseDefinition["workspace"]>("compare");
@@ -273,6 +279,7 @@ function App() {
   const resetEffects = useStudioStore((state) => state.resetEffects);
   const resetVoicings = useStudioStore((state) => state.resetVoicings);
   const clearBass = useStudioStore((state) => state.clearBass);
+  const resetGrooveFeel = useStudioStore((state) => state.resetGrooveFeel);
   const resetLessonProgress = useStudioStore((state) => state.resetLessonProgress);
   const setAppMode = useStudioStore((state) => state.setAppMode);
 
@@ -326,6 +333,10 @@ function App() {
     audioEngine.setBassSequence(bassSequence);
   }, [bassSequence]);
 
+  useEffect(() => {
+    audioEngine.setGrooveFeelSettings(grooveFeelSettings);
+  }, [grooveFeelSettings]);
+
   const checks = useMemo(
     () =>
       exercise.evaluate({
@@ -343,6 +354,7 @@ function App() {
         projectMilestones,
         voicingSettings,
         bassSequence,
+        grooveFeelSettings,
       }),
     [
       exercise,
@@ -359,6 +371,7 @@ function App() {
       projectMilestones,
       voicingSettings,
       bassSequence,
+      grooveFeelSettings,
     ],
   );
 
@@ -456,6 +469,9 @@ function App() {
         break;
       case "bass":
         clearBass();
+        break;
+      case "groove-feel":
+        resetGrooveFeel();
         break;
     }
   };
