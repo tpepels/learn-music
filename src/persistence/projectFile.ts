@@ -6,6 +6,7 @@ import {
   STEPS,
   chordNames,
   initialBassSequence,
+  initialGrooveFeelSettings,
   initialVoicingSettings,
   patternIds,
   synthWaveforms,
@@ -89,6 +90,16 @@ export const projectFileSchema = z.object({
       .array(z.union([z.number().int().min(0).max(127), z.null()]))
       .length(BASS_STEPS)
       .optional(),
+    grooveFeelSettings: z
+      .object({
+        swing: z.number().min(0).max(0.6),
+        velocities: z.object({
+          kick: z.array(z.number().min(0.05).max(1)).length(STEPS),
+          snare: z.array(z.number().min(0.05).max(1)).length(STEPS),
+          hat: z.array(z.number().min(0.05).max(1)).length(STEPS),
+        }),
+      })
+      .optional(),
   }),
 });
 
@@ -103,5 +114,13 @@ export function parseProjectFile(input: unknown): ProjectData {
       inversions: [...initialVoicingSettings.inversions],
     },
     bassSequence: project.bassSequence ?? [...initialBassSequence],
+    grooveFeelSettings: project.grooveFeelSettings ?? {
+      swing: initialGrooveFeelSettings.swing,
+      velocities: {
+        kick: [...initialGrooveFeelSettings.velocities.kick],
+        snare: [...initialGrooveFeelSettings.velocities.snare],
+        hat: [...initialGrooveFeelSettings.velocities.hat],
+      },
+    },
   } as ProjectData;
 }
