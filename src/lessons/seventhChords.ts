@@ -29,7 +29,7 @@ const lesson = lessonContentSchema.parse({
   eyebrow: "Harmony · Colour",
   hero: "Add one note to the triad and hear the chord change colour.",
   description:
-    "Build seventh chords in the piano roll rather than collecting chord symbols. Compare triads with sevenths, then write ii7–V7–Imaj7 and a full turnaround.",
+    "Keep your groove as rhythmic context, but leave the previous A-minor melody out while the harmony returns to C major. Compare triads with sevenths, then write ii7–V7–Imaj7 and a full turnaround.",
   overview:
     "A seventh chord is a triad with one more note. Add that note, remove it, and follow where it wants to move into the next chord. The colour is easier to understand as a note than as a longer chord symbol.",
 });
