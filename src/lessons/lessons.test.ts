@@ -1,9 +1,12 @@
 import { describe, expect, it } from "vitest";
 import {
   cloneArrangement,
+  cloneAutomationSettings,
   clonePattern,
   initialArrangement,
+  initialAutomationSettings,
   initialChordProgression,
+  initialDynamicsSettings,
   initialMelody,
   initialMixerSettings,
   initialPattern,
@@ -13,6 +16,7 @@ import {
   type StepPattern,
 } from "../music/model";
 import { arrangementFormLesson } from "./arrangementForm";
+import { automationDynamicsLesson } from "./automationDynamics";
 import { chordProgressionLesson } from "./chordProgressions";
 import { mixingSpaceLesson } from "./mixingSpace";
 import { pianoCompositionLesson } from "./pianoComposition";
@@ -36,6 +40,8 @@ function context(overrides: Partial<LessonContext> = {}): LessonContext {
       chords: { ...initialMixerSettings.chords },
       melody: { ...initialMixerSettings.melody },
     },
+    automationSettings: cloneAutomationSettings(initialAutomationSettings),
+    dynamicsSettings: { ...initialDynamicsSettings },
     ...overrides,
   };
 }
@@ -221,5 +227,57 @@ describe("lesson 7: mixing and space", () => {
     for (const exercise of mixingSpaceLesson.exercises) {
       expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
     }
+  });
+});
+
+
+describe("lesson 8: automation and dynamics", () => {
+  it("accepts an energy-building automation pass with punch-preserving compression", () => {
+    const ctx = context({
+      automationSettings: {
+        melodyVolumeDb: [-12, -10, -9, -7, -5, -4, -2, 0],
+        chordFilterHz: [1000, 1400, 2200, 3200, 4600, 6200, 8500, 10500],
+      },
+      dynamicsSettings: {
+        threshold: -14,
+        ratio: 4,
+        attack: 0.04,
+        release: 0.16,
+      },
+    });
+
+    expect(
+      automationDynamicsLesson.exercises[0]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    expect(
+      automationDynamicsLesson.exercises[1]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    const fastCompression = context({
+      automationSettings: ctx.automationSettings,
+      dynamicsSettings: {
+        threshold: -16,
+        ratio: 4,
+        attack: 0.008,
+        release: 0.16,
+      },
+    });
+
+    expect(
+      automationDynamicsLesson.exercises[2]
+        .evaluate(fastCompression)
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    expect(
+      automationDynamicsLesson.exercises[3]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
   });
 });
