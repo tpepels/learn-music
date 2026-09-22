@@ -13,13 +13,14 @@ The interface is now built around a **friendly music workstation** rather than a
 - controls behave like pads, keys, clips, and instrument parameters rather than form inputs;
 - different musical roles have stable visual identities and illuminated playback states;
 - the studio coach sits beside the instrument instead of replacing it;
-- completed experiments give immediate positive feedback while remaining editable.
+- completed experiments give immediate positive feedback while remaining editable;
+- later lessons progressively expose real DAW routing concepts such as channels, faders, pan, EQ, sends, returns, buses, and the master output.
 
 The visual language uses bright studio colours, tactile button states, playhead lighting, track identity, and small inline diagrams. The diagrams deliberately resemble production concepts such as a step sequencer, piano roll, chord track, subtractive-synth signal flow, and DAW arrangement view.
 
 ## Every exercise answers four practical questions
 
-For all 24 current exercises the app now explicitly explains:
+For all 28 current exercises the app now explicitly explains:
 
 1. **WHY** — why music makers use the technique;
 2. **WHEN** — where it usually appears in the writing/production process;
@@ -30,7 +31,7 @@ A regression test requires that every implemented exercise has this production c
 
 ## Current interactive curriculum
 
-There are currently **6 lessons and 24 guided exercises**.
+There are currently **7 lessons and 28 guided exercises**.
 
 ### 1. Pulse & groove
 A. Four-on-the-floor  
@@ -79,6 +80,14 @@ C. Build toward a climax
 D. Release after the climax
 
 Workspace: eight-bar DAW-style arrangement view with drums, bass, chords, and melody.
+
+### 7. Mixing & space
+A. Balance with faders  
+B. Place sounds in stereo  
+C. Clear unnecessary low end  
+D. Create depth with sends
+
+Workspace: a real four-channel mixer. Drums, bass, chords, and melody are routed through channel faders, pan controls, low-cut filters, and shared reverb/delay send buses. The controls manipulate the actual Tone.js signal graph, so students hear the result of every mix decision.
 
 ## Progression
 
