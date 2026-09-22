@@ -27,11 +27,11 @@ const lesson = lessonContentSchema.parse({
   number: 28,
   title: "Borrowed chords & modal mixture",
   eyebrow: "Harmony · Chromatic colour",
-  hero: "Borrow the note, not just the chord name.",
+  hero: "Change one note outside the key and hear how much colour it adds."
   description:
     "Bring Fm and B♭ into C major by writing their chromatic notes yourself. Compare the diatonic version, hear what one altered pitch changes, then compose a four-bar borrowed-colour accompaniment.",
   overview:
-    "Modal mixture keeps the same tonal centre while borrowing harmony from the parallel mode. The expressive effect often comes from one or two chromatic notes, so the piano roll makes the idea much clearer than a chord label alone.",
+    "C can remain home while one chord borrows notes from C minor. The effect often comes from a single changed pitch—A to A♭, or B to B♭—so make that note change yourself and listen to the line it creates.",
 });
 
 export const modalMixtureLesson: LessonDefinition = {
@@ -48,7 +48,7 @@ export const modalMixtureLesson: LessonDefinition = {
         instruction:
           "Set C in bar 1. In bar 2, choose F first and write F/A/C. Play it. Then change bar 2 to Fm, replace A with A♭, and leave Fm selected. Keep C in bar 3 so you can hear the return.",
         recognition:
-          "The most important difference is not the label Fm: it is the semitone change A→A♭ and the way A♭ tends toward G when C returns.",
+          "Keep F and C fixed while moving A down to A♭. How much of the colour comes from that one semitone?",
         terms: [
           { term: "Modal mixture", definition: "Borrowing notes or chords from a parallel mode while retaining the same tonic." },
           { term: "Minor iv", definition: "The minor chord on scale degree 4 borrowed into a major key; Fm in C major." },
@@ -76,7 +76,7 @@ export const modalMixtureLesson: LessonDefinition = {
         instruction:
           "Set C → B♭ → F → C. Rewrite the harmony notes so bar 2 contains B♭/D/F and every written note fits the chord above it. Use at least two separate time positions in the B♭ bar.",
         recognition:
-          "B♭ should sound chromatic but still connected to C. The return through F makes the colour feel like part of the same tonal world.",
+          "Play the B♭ bar by itself, then inside the loop. Does it sound foreign alone but convincing once C frames the phrase?",
         terms: [
           { term: "♭VII", definition: "A major chord built on the lowered seventh scale degree; B♭ major in C." },
           { term: "Modal motion", definition: "Harmonic motion shaped more by scale colour and roots than by classical dominant-to-tonic pull." },
@@ -104,7 +104,7 @@ export const modalMixtureLesson: LessonDefinition = {
         instruction:
           "Set C → F → Fm → C. Write every chord. Make sure A appears in bar 2, A♭ appears in bar 3, and G appears in the final C chord. Keep those notes near enough in register that you can hear the semitone motion.",
         recognition:
-          "Listen for A→A♭→G inside the chord changes. If the chords only sound like blocks, isolate those three notes by removing other events temporarily and then restore the part.",
+          "Isolate A→A♭→G once, then restore the other chord tones. Can you still follow that inner line inside the full harmony?",
         terms: [
           { term: "Chromatic voice leading", definition: "A melodic line inside harmony that moves by semitone through notes outside the main scale." },
           { term: "Inner voice", definition: "A moving note line inside a chordal texture rather than the highest or lowest voice." },
@@ -132,7 +132,7 @@ export const modalMixtureLesson: LessonDefinition = {
         instruction:
           "Create C → B♭ → Fm → C. Write all three chord tones in every bar, use at least ten time positions overall, and place at least three harmony events on offbeat eighths. Shape the rhythm so the borrowed chords belong to one continuous part.",
         recognition:
-          "The chromatic notes should colour the phrase without making C disappear as home. The result should sound like a composition choice rather than an exercise list.",
+          "After B♭ and Fm, does C still sound like home? If not, change the rhythm or spacing until the borrowed colours feel like detours instead of a new key.",
         terms: [
           { term: "Borrowed colour", definition: "Chromatic harmony imported briefly for expression while the original tonic remains perceptually stable." },
           { term: "Tonal centre", definition: "The pitch or chord that continues to feel like home despite temporary chromatic notes." },
