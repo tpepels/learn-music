@@ -608,11 +608,16 @@ export const useStudioStore = create<StudioState>()(
         set({ effectsSettings: { ...initialEffectsSettings } }),
 
       markProjectExported: () =>
-        set({
+        set((state) => ({
           projectMilestones: {
             exported: true,
           },
-        }),
+          learningExperiments: recordExperimentValue(
+            state,
+            "project.export",
+            true,
+          ),
+        })),
 
       setAppMode: (appMode) => set({ appMode }),
 
