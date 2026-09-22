@@ -7982,3 +7982,94 @@ body {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+
+/* ==========================================================================
+   APPLIED-LEARNING CONTROLS · v2.0
+   ========================================================================== */
+
+.harmony-clear-actions {
+  margin-top: 9px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 7px;
+}
+
+.harmony-clear-actions button,
+.chord-clear-button {
+  min-height: 34px;
+  padding: 7px 11px;
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.035);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.harmony-clear-actions button:hover:not(:disabled),
+.chord-clear-button:hover:not(:disabled) {
+  border-color: rgba(255,114,173,0.42);
+  color: var(--text);
+  background: rgba(255,114,173,0.07);
+}
+
+.harmony-clear-actions button:disabled,
+.chord-clear-button:disabled {
+  opacity: 0.32;
+  cursor: default;
+}
+
+.chord-clear-button {
+  margin-top: 9px;
+}
+
+.form-section-block.is-playhead {
+  border-color: rgba(101,226,178,0.55);
+  box-shadow:
+    inset 0 0 0 1px rgba(101,226,178,0.18),
+    0 0 18px rgba(101,226,178,0.08);
+}
+
+.form-layer-buttons {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.form-layer-buttons button {
+  min-height: 34px;
+  padding: 6px 8px;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 7px;
+  background: rgba(10,9,15,0.28);
+  color: var(--dim);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.form-layer-buttons button.is-active {
+  border-color: rgba(95,225,239,0.34);
+  background: rgba(95,225,239,0.08);
+  color: var(--text);
+}
+
+.form-layer-light {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4d4856;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+}
+
+.form-layer-buttons button.is-active .form-layer-light {
+  background: var(--cyan);
+  box-shadow: 0 0 8px rgba(95,225,239,0.35);
+}
