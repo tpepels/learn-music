@@ -4,15 +4,19 @@ import {
   cloneArrangement,
   clonePattern,
   initialArrangement,
+  initialAutomationSettings,
   initialChordProgression,
   initialMelody,
+  initialDynamicsSettings,
   initialMixerSettings,
   initialPattern,
   initialSynthSettings,
   type Arrangement,
   type ArrangementLayer,
+  type AutomationSettings,
   type ChordName,
   type ChordProgression,
+  type DynamicsSettings,
   type MelodySequence,
   type MixerSettings,
   type MixerTrackId,
@@ -40,6 +44,8 @@ type StudioState = {
   synthSettings: SynthSettings;
   arrangement: Arrangement;
   mixerSettings: MixerSettings;
+  automationSettings: AutomationSettings;
+  dynamicsSettings: DynamicsSettings;
 
   setBpm: (bpm: number) => void;
   setPlaying: (playing: boolean) => void;
@@ -66,6 +72,14 @@ type StudioState = {
     settings: Partial<MixerSettings[MixerTrackId]>,
   ) => void;
   resetMixer: () => void;
+  setAutomationPoint: (
+    lane: keyof AutomationSettings,
+    index: number,
+    value: number,
+  ) => void;
+  resetAutomation: () => void;
+  setDynamicsSettings: (settings: Partial<DynamicsSettings>) => void;
+  resetDynamics: () => void;
 };
 
 export const useStudioStore = create<StudioState>()(
@@ -94,6 +108,11 @@ export const useStudioStore = create<StudioState>()(
         chords: { ...initialMixerSettings.chords },
         melody: { ...initialMixerSettings.melody },
       },
+      automationSettings: {
+        melodyVolumeDb: [...initialAutomationSettings.melodyVolumeDb],
+        chordFilterHz: [...initialAutomationSettings.chordFilterHz],
+      },
+      dynamicsSettings: { ...initialDynamicsSettings },
 
       setBpm: (bpm) => set({ bpm }),
       setPlaying: (isPlaying) => set({ isPlaying }),
@@ -238,6 +257,37 @@ export const useStudioStore = create<StudioState>()(
             melody: { ...initialMixerSettings.melody },
           },
         }),
+
+      setAutomationPoint: (lane, index, value) =>
+        set((state) => {
+          const next = [...state.automationSettings[lane]];
+          next[index] = value;
+          return {
+            automationSettings: {
+              ...state.automationSettings,
+              [lane]: next,
+            },
+          };
+        }),
+
+      resetAutomation: () =>
+        set({
+          automationSettings: {
+            melodyVolumeDb: [...initialAutomationSettings.melodyVolumeDb],
+            chordFilterHz: [...initialAutomationSettings.chordFilterHz],
+          },
+        }),
+
+      setDynamicsSettings: (settings) =>
+        set((state) => ({
+          dynamicsSettings: {
+            ...state.dynamicsSettings,
+            ...settings,
+          },
+        })),
+
+      resetDynamics: () =>
+        set({ dynamicsSettings: { ...initialDynamicsSettings } }),
     }),
     {
       name: "learn-music-studio-v2",
@@ -255,6 +305,8 @@ export const useStudioStore = create<StudioState>()(
         synthSettings: state.synthSettings,
         arrangement: state.arrangement,
         mixerSettings: state.mixerSettings,
+        automationSettings: state.automationSettings,
+        dynamicsSettings: state.dynamicsSettings,
       }),
     },
   ),
