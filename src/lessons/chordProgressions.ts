@@ -6,11 +6,11 @@ const lesson = lessonContentSchema.parse({
   number: 4,
   title: "Chords & progressions",
   eyebrow: "Piano · Harmony",
-  hero: "Turn single notes into harmonic motion.",
+  hero: "Hear what chords do inside a phrase.",
   description:
-    "Build major and minor triads, learn their Roman numerals in C major, hear tonic-subdominant-dominant movement, and assemble a common four-chord progression.",
+    "Meet I, IV, and V as harmonic functions, then use them under the groove and melody you already made, compare two kinds of ending, and turn the same chords into accompaniment.",
   overview:
-    "Harmony is what happens when pitches sound together and when one chord follows another. Chords gain meaning from the key they are in: I feels like home, IV opens the harmony outward, V creates strong tension toward I, and vi offers a softer minor alternative.",
+    "A chord is a harmonic identity, not a command to strike every note at once. In C major, I establishes home, IV moves away from it, and V creates expectation. Those functions remain recognizable when the notes are blocked, pulsed, broken, or arpeggiated.",
 });
 
 const cMajor = Chord.get("C");
@@ -24,113 +24,142 @@ export const chordProgressionLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "harmony.chords.a",
         letter: "A",
-        title: "Build the tonic triad",
-        learn: "Recognise a major triad as root, third, and fifth.",
+        title: "Meet I, IV, and V",
+        learn: "Recognise the three primary major-key functions before using them in a song.",
         explanation:
-          "A triad is a three-note chord built by stacking thirds. C major contains C-E-G. C is the root, E is the third, and G is the fifth. Because C is the tonic of C major, this chord is called the I chord.",
+          "C major contains C-E-G, F major contains F-A-C, and G major contains G-B-D. In the key of C, these are I, IV, and V. I is the strongest point of rest, IV moves away from home, and V creates the strongest expectation of returning to I.",
         instruction:
-          "Set the first chord slot to C major and audition it. Listen to how stable it sounds compared with the other available chords.",
+          "Put C, F, and G in bars 1-3 and audition them. Keep the accompaniment on Block for now. Listen for home, departure, and expectation rather than only reading the symbols.",
         recognition:
-          "A tonic major triad usually feels settled and complete. In C major, C-E-G is the strongest harmonic point of rest.",
+          "C should feel settled. F should feel like movement away from that centre. G should feel comparatively unfinished, especially after you have heard C as home.",
         terms: [
-          { term: "Chord", definition: "Two or more pitches heard together as a harmonic unit." },
+          { term: "Chord", definition: "A collection of pitches heard as one harmonic identity." },
           { term: "Triad", definition: "A three-note chord built from a root, third, and fifth." },
-          { term: "Root", definition: "The note that gives a chord its name and basic identity." },
-          { term: "I chord", definition: "The chord built on scale degree 1. In C major, I is C major." },
+          { term: "Harmonic function", definition: "The role a chord plays in creating stability, departure, tension, or resolution." },
+          { term: "Roman numeral", definition: "A chord name based on its scale degree and function inside a key." },
         ],
         workspace: "chords",
-        checksLabel: "Build",
-        successLabel: "The tonic triad is in place",
+        checksLabel: "Discover",
+        successLabel: "I, IV, and V are mapped",
       }),
       evaluate: ({ chordProgression }) => [
-        { label: "Slot 1 contains C major", complete: chordProgression[0] === "C" },
-        { label: "C major is the triad C-E-G", complete: cMajor.notes.join("-") === "C-E-G" },
+        { label: "I: C major is in bar 1", complete: chordProgression[0] === "C" },
+        { label: "IV: F major is in bar 2", complete: chordProgression[1] === "F" },
+        { label: "V: G major is in bar 3", complete: chordProgression[2] === "G" },
+        {
+          label: "The three triads are C-E-G, F-A-C, and G-B-D",
+          complete:
+            cMajor.notes.join("-") === "C-E-G" &&
+            fMajor.notes.join("-") === "F-A-C" &&
+            gMajor.notes.join("-") === "G-B-D",
+        },
       ],
     },
     {
       ...exerciseContentSchema.parse({
         id: "harmony.chords.b",
         letter: "B",
-        title: "Add IV and V",
-        learn: "Hear three primary harmonic functions in a major key.",
+        title: "Complete the phrase",
+        learn: "Use harmonic function underneath rhythm and melody rather than as isolated chord symbols.",
         explanation:
-          "In C major, the IV chord is F major (F-A-C) and the V chord is G major (G-B-D). I feels like home, IV moves away from home, and V creates the strongest pull back toward I.",
+          "The loop now combines the groove and melody from the earlier lessons with root bass and your chord lane. Harmonic function is easier to hear when the chords have a job inside a phrase: I establishes the centre, IV creates departure, V prepares the ending, and I answers it.",
         instruction:
-          "Keep C major in slot 1. Put F major in slot 2 and G major in slot 3. Audition the three chords in order.",
+          "Keep playback running. Complete the four bars as C-F-G-C. Before settling there, swap F and G once and listen to how the phrase direction changes. Then leave IV before V so the final V-I sounds prepared.",
         recognition:
-          "I sounds settled. IV often feels broader or more open. V sounds comparatively tense and unfinished, especially when you expect C major to follow.",
+          "With F before G, the middle of the phrase should feel as if it opens outward and then tightens toward the final C. The last C should sound like an answer to the G before it.",
         terms: [
-          { term: "Roman numeral", definition: "A way to name a chord by its scale degree rather than by an absolute note name." },
-          { term: "IV chord", definition: "The chord built on scale degree 4. In C major, IV is F major." },
-          { term: "V chord", definition: "The chord built on scale degree 5. In C major, V is G major." },
-          { term: "Harmonic function", definition: "The role a chord plays in creating stability, departure, or tension inside a key." },
+          { term: "Progression", definition: "An ordered sequence of harmonic identities across time." },
+          { term: "Predominant", definition: "Harmony such as IV that commonly moves away from tonic and prepares dominant." },
+          { term: "Dominant", definition: "Harmony such as V that creates strong expectation of tonic." },
+          { term: "Resolution", definition: "Movement from a less stable sound into a more stable one." },
         ],
-        workspace: "chords",
-        checksLabel: "Hear function",
-        successLabel: "I, IV, and V are mapped",
+        workspace: "harmony-song",
+        checksLabel: "Apply",
+        successLabel: "The harmony now shapes a complete musical phrase",
       }),
       evaluate: ({ chordProgression }) => [
-        { label: "I: C major in slot 1", complete: chordProgression[0] === "C" },
-        { label: "IV: F major in slot 2", complete: chordProgression[1] === "F" },
-        { label: "V: G major in slot 3", complete: chordProgression[2] === "G" },
-        { label: "F is F-A-C and G is G-B-D", complete: fMajor.notes.join("-") === "F-A-C" && gMajor.notes.join("-") === "G-B-D" },
+        {
+          label: "The phrase moves I → IV → V → I",
+          complete:
+            chordProgression[0] === "C" &&
+            chordProgression[1] === "F" &&
+            chordProgression[2] === "G" &&
+            chordProgression[3] === "C",
+        },
       ],
     },
     {
       ...exerciseContentSchema.parse({
         id: "harmony.chords.c",
         letter: "C",
-        title: "Make a V-I cadence",
-        learn: "Hear the strongest common harmonic resolution in tonal music.",
+        title: "Change the ending",
+        learn: "Hear closure as a musical consequence, not as a memorised V-I formula.",
         explanation:
-          "A cadence is a harmonic gesture that marks arrival or closure. The movement V-I is especially strong because notes inside the V chord pull naturally toward notes of the tonic chord.",
+          "After V, the ear strongly expects I. Replacing that expected tonic with vi keeps some shared notes but avoids full closure. This is a deceptive resolution: the dominant has moved somewhere plausible without delivering the arrival you were prepared to hear.",
         instruction:
-          "Create C-F-G-C across the four slots: I-IV-V-I. Play the full progression and focus on the final G-to-C movement.",
+          "Change only the final chord from C to Am, making C-F-G-Am. Compare that ending with the V-I ending you just heard. Notice that the same groove and melody now sit inside a phrase that stays more open.",
         recognition:
-          "The V chord should sound unresolved; the following I chord should sound like arrival. If you stop on G, the progression feels unfinished. If you continue to C, it settles.",
+          "G-to-C should feel more final. G-to-Am should redirect the expectation and keep the loop moving instead of giving the same sense of arrival.",
         terms: [
-          { term: "Cadence", definition: "A harmonic or melodic gesture that creates a sense of pause, arrival, or ending." },
-          { term: "V-I cadence", definition: "Movement from the dominant chord to the tonic; one of the strongest resolutions in tonal harmony." },
-          { term: "Resolution", definition: "The release of musical tension into a more stable sound." },
+          { term: "Cadence", definition: "A harmonic or melodic gesture that marks a pause, arrival, or ending." },
+          { term: "V-I cadence", definition: "Dominant moving to tonic, producing a strong tonal arrival." },
+          { term: "Deceptive resolution", definition: "Dominant moving somewhere other than the expected tonic, commonly V to vi." },
+          { term: "Closure", definition: "The degree to which a musical phrase sounds finished." },
         ],
-        workspace: "chords",
-        checksLabel: "Resolve",
-        successLabel: "You created a clear V-I arrival",
+        workspace: "harmony-song",
+        checksLabel: "Compare",
+        successLabel: "You changed the phrase from closed to deliberately open",
       }),
       evaluate: ({ chordProgression }) => [
-        { label: "Progression begins on I", complete: chordProgression[0] === "C" },
-        { label: "IV follows", complete: chordProgression[1] === "F" },
-        { label: "V prepares the ending", complete: chordProgression[2] === "G" },
-        { label: "Final I resolves the cadence", complete: chordProgression[3] === "C" },
+        {
+          label: "The dominant now resolves deceptively to vi",
+          complete:
+            chordProgression[0] === "C" &&
+            chordProgression[1] === "F" &&
+            chordProgression[2] === "G" &&
+            chordProgression[3] === "Am",
+        },
       ],
     },
     {
       ...exerciseContentSchema.parse({
         id: "harmony.chords.d",
         letter: "D",
-        title: "Build I-V-vi-IV",
-        learn: "Hear how the same key can support a different emotional trajectory.",
+        title: "Turn harmony into accompaniment",
+        learn: "Separate a chord's harmonic identity from the way its notes are performed.",
         explanation:
-          "A chord progression is an ordered sequence of chords. I-V-vi-IV is common in pop because it balances stability, dominant tension, a relative-minor colour, and a return toward the tonic area without fully closing.",
+          "C major remains C major whether C-E-G arrive together, repeat as pulses, alternate as broken chord tones, or cycle as an arpeggio. Harmony tells you which pitch collection and function is active; accompaniment pattern tells you how that harmony becomes rhythm and texture.",
         instruction:
-          "Change the four slots to C-G-Am-F. Play the progression repeatedly and compare its looping quality with the stronger ending of I-IV-V-I.",
+          "Bring the phrase back home on C. Keep C at both ends and use F and G somewhere in the middle. Then choose Pulse, Broken, or Arpeggio instead of Block. Leave the pattern that best fits the groove and melody.",
         recognition:
-          "Unlike V-I, this progression does not finish with a strong cadence. F at the end leads smoothly back to C, which makes the sequence feel naturally loopable.",
+          "The chord names and functions should remain clear even though the surface rhythm changes. A useful accompaniment supports the groove and melody rather than sounding like four isolated theory examples.",
         terms: [
-          { term: "Chord progression", definition: "An ordered sequence of chords that creates harmonic motion over time." },
-          { term: "vi chord", definition: "The chord built on scale degree 6. In C major, vi is A minor." },
-          { term: "Relative minor", definition: "The minor key that shares the same key signature as a major key. A minor is relative to C major." },
+          { term: "Accompaniment", definition: "Musical material that supports the main line or texture." },
+          { term: "Broken chord", definition: "Chord tones played separately instead of simultaneously." },
+          { term: "Arpeggio", definition: "A chord performed as an ordered sequence of its notes." },
+          { term: "Voicing", definition: "The register and ordering used to distribute the notes of a chord." },
         ],
-        workspace: "chords",
-        checksLabel: "Build the progression",
-        successLabel: "You created I-V-vi-IV",
+        workspace: "harmony-song",
+        checksLabel: "Create",
+        successLabel: "The progression now behaves like accompaniment inside a song",
       }),
-      evaluate: ({ chordProgression }) => [
-        { label: "I = C", complete: chordProgression[0] === "C" },
-        { label: "V = G", complete: chordProgression[1] === "G" },
-        { label: "vi = Am", complete: chordProgression[2] === "Am" },
-        { label: "IV = F", complete: chordProgression[3] === "F" },
-      ],
+      evaluate: ({ chordProgression, accompanimentPattern }) => {
+        const middle = chordProgression.slice(1, 3);
+        return [
+          {
+            label: "The phrase starts and ends on tonic C",
+            complete: chordProgression[0] === "C" && chordProgression[3] === "C",
+          },
+          {
+            label: "IV and V both appear in the middle of the phrase",
+            complete: middle.includes("F") && middle.includes("G"),
+          },
+          {
+            label: "Harmony is performed as more than four block chords",
+            complete: accompanimentPattern !== "block",
+          },
+        ];
+      },
     },
   ],
 };
