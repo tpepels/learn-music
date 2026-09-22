@@ -4,6 +4,7 @@ import {
   chordMidi,
   cloneArrangement,
   cloneAutomationSettings,
+  cloneGrooveFeelSettings,
   cloneMixerSettings,
   clonePattern,
   initialArrangement,
@@ -12,6 +13,7 @@ import {
   initialChordProgression,
   initialDynamicsSettings,
   initialEffectsSettings,
+  initialGrooveFeelSettings,
   initialMelody,
   initialMixerSettings,
   initialPattern,
@@ -27,6 +29,7 @@ import {
   type ChordProgression,
   type DynamicsSettings,
   type EffectsSettings,
+  type GrooveFeelSettings,
   type MelodySequence,
   type MixerSettings,
   type MixerTrackId,
@@ -45,6 +48,8 @@ class AudioEngine {
   private automationSettings: AutomationSettings = cloneAutomationSettings(initialAutomationSettings);
   private dynamicsSettings: DynamicsSettings = { ...initialDynamicsSettings };
   private effectsSettings: EffectsSettings = { ...initialEffectsSettings };
+  private grooveFeelSettings: GrooveFeelSettings =
+    cloneGrooveFeelSettings(initialGrooveFeelSettings);
   private voicingSettings: VoicingSettings = {
     inversions: [...initialVoicingSettings.inversions],
   };
@@ -121,6 +126,13 @@ class AudioEngine {
 
   setBassSequence(sequence: BassSequence) {
     this.bassSequence = [...sequence];
+  }
+
+  setGrooveFeelSettings(settings: GrooveFeelSettings) {
+    this.grooveFeelSettings = cloneGrooveFeelSettings(settings);
+    const transport = Tone.getTransport();
+    transport.swing = this.grooveFeelSettings.swing;
+    transport.swingSubdivision = "8n";
   }
 
   setBpm(bpm: number) {
@@ -393,6 +405,8 @@ class AudioEngine {
     this.clearEvent();
     transport.position = 0;
     transport.bpm.value = bpm;
+    transport.swing = this.grooveFeelSettings.swing;
+    transport.swingSubdivision = "8n";
     this.step = 0;
     this.onStep = onStep;
   }
@@ -405,13 +419,26 @@ class AudioEngine {
       const step = this.step;
 
       if (this.pattern.kick[step]) {
-        this.kick?.triggerAttackRelease("C1", "16n", time, 0.95);
+        this.kick?.triggerAttackRelease(
+          "C1",
+          "16n",
+          time,
+          this.grooveFeelSettings.velocities.kick[step] ?? 0.9,
+        );
       }
       if (this.pattern.snare[step]) {
-        this.snare?.triggerAttackRelease("16n", time, 0.5);
+        this.snare?.triggerAttackRelease(
+          "16n",
+          time,
+          this.grooveFeelSettings.velocities.snare[step] ?? 0.72,
+        );
       }
       if (this.pattern.hat[step]) {
-        this.hat?.triggerAttackRelease("32n", time, 0.22);
+        this.hat?.triggerAttackRelease(
+          "32n",
+          time,
+          this.grooveFeelSettings.velocities.hat[step] ?? 0.42,
+        );
       }
 
       Tone.getDraw().schedule(() => this.onStep?.(step), time);
@@ -509,13 +536,26 @@ class AudioEngine {
 
       if (bar?.drums) {
         if (this.pattern.kick[localStep]) {
-          this.kick?.triggerAttackRelease("C1", "16n", time, 0.9);
+          this.kick?.triggerAttackRelease(
+            "C1",
+            "16n",
+            time,
+            this.grooveFeelSettings.velocities.kick[localStep] ?? 0.9,
+          );
         }
         if (this.pattern.snare[localStep]) {
-          this.snare?.triggerAttackRelease("16n", time, 0.45);
+          this.snare?.triggerAttackRelease(
+            "16n",
+            time,
+            this.grooveFeelSettings.velocities.snare[localStep] ?? 0.72,
+          );
         }
         if (this.pattern.hat[localStep]) {
-          this.hat?.triggerAttackRelease("32n", time, 0.2);
+          this.hat?.triggerAttackRelease(
+            "32n",
+            time,
+            this.grooveFeelSettings.velocities.hat[localStep] ?? 0.42,
+          );
         }
       }
 
