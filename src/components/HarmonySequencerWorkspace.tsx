@@ -28,7 +28,7 @@ function harmonyNoteName(midi: number, mode: HarmonySequencerMode): string {
   const pitchClass = ((midi % 12) + 12) % 12;
   const octave = Math.floor(midi / 12) - 1;
   if (mode === "minor" && pitchClass === 8) return "G♯" + octave;
-  return harmonyNoteName(midi, mode);
+  return midiNoteName(midi);
 }
 
 const configs: Record<
