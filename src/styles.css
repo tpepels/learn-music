@@ -3195,3 +3195,502 @@ input:focus-visible {
     padding-right: 7px;
   }
 }
+
+
+/* ==========================================================================
+   READABILITY + INFORMATION ARCHITECTURE PASS
+   ========================================================================== */
+
+:root {
+  font-size: 16px;
+}
+
+body {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.workspace {
+  grid-template-columns: 220px minmax(700px, 1fr) 292px;
+}
+
+.music-panel {
+  padding-left: clamp(28px, 3.6vw, 58px);
+  padding-right: clamp(28px, 3.6vw, 58px);
+}
+
+.teacher-panel {
+  padding: 24px 18px 32px;
+  max-height: calc(100vh - 84px);
+}
+
+.section-label {
+  font-size: 10px !important;
+  letter-spacing: 0.1em;
+}
+
+.brand strong {
+  font-size: 14px;
+}
+
+.brand span,
+.lesson-title small {
+  font-size: 11px;
+}
+
+.lesson-title .topbar-lesson-kicker {
+  font-size: 10px;
+}
+
+.lesson-title strong {
+  font-size: 16px;
+}
+
+.transport-button {
+  font-size: 13px;
+}
+
+.tempo-control > span,
+.bpm-unit {
+  font-size: 10px;
+}
+
+.tempo-control strong {
+  font-size: 13px;
+}
+
+.panel-heading strong {
+  font-size: 16px;
+}
+
+.panel-heading p {
+  font-size: 11px;
+}
+
+.course-number {
+  font-size: 10px;
+}
+
+.course-item > span:nth-child(2) strong {
+  font-size: 12px;
+}
+
+.course-item > span:nth-child(2) small {
+  font-size: 9px;
+}
+
+.progress-meta,
+.lesson-mini-progress {
+  font-size: 10px;
+}
+
+.lesson-chip {
+  font-size: 9px;
+}
+
+.music-intro > p {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.play-loop {
+  font-size: 10px;
+}
+
+.exercise-tab strong {
+  font-size: 11px;
+  line-height: 1.25;
+}
+
+.exercise-tab small {
+  font-size: 9px;
+}
+
+.exercise-tab > span {
+  font-size: 11px;
+}
+
+.workspace-hint,
+.grid-key {
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.daw-strip span {
+  font-size: 9px;
+  padding: 5px 7px;
+}
+
+.daw-strip b {
+  font-size: 11px;
+}
+
+.sequencer-heading h2,
+.workspace-heading h2 {
+  font-size: 20px;
+}
+
+.track-label strong,
+.arrangement-label strong,
+.mixer-track-head strong {
+  font-size: 12px;
+}
+
+.track-label span,
+.arrangement-label span,
+.mixer-track-head small {
+  font-size: 10px;
+}
+
+.beat-row span,
+.melody-step-head span {
+  font-size: 9px;
+}
+
+.grid-legend,
+.keyboard-note,
+.chord-note,
+.mixer-legend {
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.note-audition {
+  font-size: 10px;
+}
+
+.chord-slot span,
+.chord-slot small,
+.chord-choice span {
+  font-size: 9px;
+}
+
+.chord-choice strong {
+  font-size: 13px;
+}
+
+.waveform-button strong {
+  font-size: 12px;
+}
+
+.synth-controls strong {
+  font-size: 12px;
+}
+
+.synth-controls small {
+  font-size: 10px;
+}
+
+.synth-controls output {
+  font-size: 10px;
+}
+
+.synth-audition > div:first-child strong {
+  font-size: 12px;
+}
+
+.mixer-control-title span,
+.mixer-send-row label > span,
+.channel-fader > span {
+  font-size: 9px;
+}
+
+.mixer-control-title output,
+.mixer-send-row output,
+.channel-fader output {
+  font-size: 10px;
+}
+
+.mixer-bus-strip span {
+  font-size: 9px;
+}
+
+.mixer-bus-strip strong {
+  font-size: 12px;
+}
+
+.mixer-bus-strip small {
+  font-size: 10px;
+}
+
+.mixer-track-head > span {
+  font-size: 9px;
+}
+
+.mixer-track-foot span,
+.mixer-track-foot strong {
+  font-size: 9px;
+}
+
+.coach-header h2 {
+  font-size: 20px;
+  line-height: 1.15;
+}
+
+.instruction-card-primary p {
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.checks {
+  padding: 14px;
+}
+
+.checks-heading strong {
+  font-size: 12px;
+}
+
+.check p {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.check > span {
+  font-size: 13px;
+}
+
+.ready-banner strong {
+  font-size: 12px;
+}
+
+.ready-banner small {
+  font-size: 10px;
+}
+
+.lesson-action {
+  min-height: 50px;
+  font-size: 12px;
+}
+
+.text-button {
+  font-size: 11px;
+}
+
+.coach-footer {
+  margin-top: 22px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.coach-footer p {
+  margin: 5px 0 0;
+  color: var(--dim);
+  font-size: 10px;
+}
+
+/* Centre learning drawer */
+
+.learning-panel {
+  margin-top: 22px;
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(36,33,51,0.96), rgba(25,23,37,0.97));
+  box-shadow:
+    0 16px 38px rgba(4,3,14,0.22),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+  overflow: hidden;
+}
+
+.learning-panel > summary {
+  list-style: none;
+  min-height: 76px;
+  padding: 15px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  cursor: pointer;
+  user-select: none;
+  background:
+    linear-gradient(90deg, rgba(159,140,255,0.10), rgba(95,225,239,0.035));
+}
+
+.learning-panel > summary::-webkit-details-marker {
+  display: none;
+}
+
+.learning-panel > summary > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.learning-panel-icon {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border-radius: 11px;
+  background: linear-gradient(145deg, var(--purple), var(--cyan));
+  color: #15101f;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.learning-panel > summary strong {
+  display: block;
+  color: var(--text);
+  font-size: 15px;
+}
+
+.learning-panel > summary small {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.learning-panel-toggle {
+  padding: 7px 10px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 999px;
+  color: var(--cyan);
+  background: rgba(95,225,239,0.055);
+  font-size: 10px;
+  white-space: nowrap;
+}
+
+.learning-panel:not([open]) .learning-panel-toggle::before {
+  content: "＋ ";
+}
+
+.learning-panel[open] .learning-panel-toggle::before {
+  content: "− ";
+}
+
+.learning-panel-body {
+  padding: 18px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.learning-panel .producer-context {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.learning-panel .producer-context-visual {
+  max-width: 520px;
+}
+
+.learning-panel .producer-context-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.learning-panel .context-card,
+.learning-panel .tool-context-card {
+  padding: 15px;
+}
+
+.learning-panel .context-kicker {
+  font-size: 9px;
+}
+
+.learning-panel .context-card strong,
+.learning-panel .tool-context-card strong {
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.learning-panel .context-card p,
+.learning-panel .tool-context-card p {
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.learning-panel .tool-chip {
+  font-size: 10px;
+  padding: 6px 9px;
+}
+
+.learning-explanation-grid {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 12px;
+}
+
+.learning-copy-card {
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  background: rgba(20,18,31,0.44);
+}
+
+.learning-copy-card p {
+  margin: 8px 0 0;
+  color: #c2bbd1;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.learning-hear-card {
+  border-color: rgba(101,226,178,0.15);
+  background: rgba(101,226,178,0.04);
+}
+
+.learning-terms {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.learning-section-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.learning-section-heading strong {
+  color: var(--dim);
+  font-size: 10px;
+}
+
+.learning-term-grid {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.learning-term-card {
+  padding: 13px 14px;
+  border: 1px solid rgba(255,255,255,0.065);
+  border-radius: 12px;
+  background: #211e30;
+}
+
+.learning-term-card strong {
+  color: var(--cyan);
+  font-size: 12px;
+}
+
+.learning-term-card p {
+  margin: 5px 0 0;
+  color: #aaa2ba;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+/* no longer use the right rail for explanatory blocks */
+.teacher-panel .producer-context,
+.teacher-panel .concept-card-learn,
+.teacher-panel .recognition-card,
+.teacher-panel .term-section {
+  display: none;
+}
+
+@media (max-width: 1320px) {
+  .workspace {
+    grid-template-columns: 205px minmax(650px, 1fr) 270px;
+  }
+
+  .learning-panel .producer-context-grid,
+  .learning-explanation-grid {
+    grid-template-columns: 1fr;
+  }
+}
