@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { audioEngine } from "./audio/engine";
 import { resolveTransportWorkspace } from "./app/transportRouting";
 import { ArrangementWorkspace } from "./components/ArrangementWorkspace";
+import { AdvancedHarmonyWorkspace } from "./components/AdvancedHarmonyWorkspace";
 import { AutomationDynamicsWorkspace } from "./components/AutomationDynamicsWorkspace";
 import { BassWorkspace } from "./components/BassWorkspace";
 import { ChordWorkspace } from "./components/ChordWorkspace";
@@ -15,6 +16,7 @@ import { HarmonicFunctionWorkspace } from "./components/HarmonicFunctionWorkspac
 import { MelodyHarmonyWorkspace } from "./components/MelodyHarmonyWorkspace";
 import { MotifWorkspace } from "./components/MotifWorkspace";
 import { MixerWorkspace } from "./components/MixerWorkspace";
+import { MinorTonalityWorkspace } from "./components/MinorTonalityWorkspace";
 import { LearningPanel } from "./components/LearningPanel";
 import { MelodyWorkspace, PianoKeyWorkspace } from "./components/PianoWorkspace";
 import { PhraseFormWorkspace } from "./components/PhraseFormWorkspace";
@@ -62,13 +64,18 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
       if (
         workspace === "melody" ||
         workspace === "motif" ||
-        workspace === "melody-harmony"
+        workspace === "melody-harmony" ||
+        workspace === "minor-key" ||
+        workspace === "harmonic-minor"
       ) {
         await audioEngine.playMelody(bpm, setCurrentStep);
       } else if (
         workspace === "chords" ||
         workspace === "voicing" ||
-        workspace === "harmonic-function"
+        workspace === "harmonic-function" ||
+        workspace === "minor-harmony" ||
+        workspace === "seventh-harmony" ||
+        workspace === "borrowed-harmony"
       ) {
         await audioEngine.playChords(bpm, setCurrentStep);
       } else if (workspace === "bass") {
@@ -246,6 +253,16 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
       return <StereoWorkspace />;
     case "reference":
       return <ReferenceWorkspace />;
+    case "minor-key":
+      return <MinorTonalityWorkspace harmonic={false} />;
+    case "harmonic-minor":
+      return <MinorTonalityWorkspace harmonic />;
+    case "minor-harmony":
+      return <AdvancedHarmonyWorkspace mode="minor" />;
+    case "seventh-harmony":
+      return <AdvancedHarmonyWorkspace mode="sevenths" />;
+    case "borrowed-harmony":
+      return <AdvancedHarmonyWorkspace mode="borrowed" />;
   }
 }
 
@@ -273,6 +290,11 @@ const lessonGlyphs: Record<string, string> = {
   "production.sidechain": "⇣",
   "production.stereo-mono": "↔",
   "production.reference-mixing": "A/B",
+  "harmony.relative-minor": "♭3",
+  "harmony.harmonic-minor": "♯7",
+  "harmony.minor-cadences": "V7",
+  "harmony.seventh-chords": "7",
+  "harmony.modal-mixture": "⇆",
 };
 
 const workspaceNames: Record<ExerciseDefinition["workspace"], string> = {
@@ -300,6 +322,11 @@ const workspaceNames: Record<ExerciseDefinition["workspace"], string> = {
   sidechain: "Sidechain ducking",
   stereo: "Stereo field",
   reference: "Reference A/B",
+  "minor-key": "A-minor piano roll",
+  "harmonic-minor": "Harmonic-minor piano roll",
+  "minor-harmony": "Minor-key chord track",
+  "seventh-harmony": "Seventh-chord track",
+  "borrowed-harmony": "Borrowed-chord track",
 };
 
 function App() {
@@ -615,6 +642,16 @@ function App() {
         break;
       case "reference":
         resetReferenceMix();
+        break;
+      case "minor-key":
+      case "harmonic-minor":
+        clearPitchClasses();
+        clearMelody();
+        break;
+      case "minor-harmony":
+      case "seventh-harmony":
+      case "borrowed-harmony":
+        clearChords();
         break;
     }
   };
