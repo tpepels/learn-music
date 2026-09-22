@@ -47,6 +47,7 @@ import {
   type DynamicsSettings,
   type EffectsSettings,
   type EqSettings,
+  type ExerciseExperiments,
   type FormSectionLabel,
   type FormSettings,
   type GrooveFeelSettings,
@@ -119,6 +120,8 @@ type StudioState = {
   sidechainSettings: SidechainSettings;
   stereoSettings: StereoSettings;
   referenceMixSettings: ReferenceMixSettings;
+  activeExerciseId: string;
+  learningExperiments: Record<string, ExerciseExperiments>;
   appMode: "learn" | "create" | "studio";
 
   setBpm: (bpm: number) => void;
@@ -172,6 +175,7 @@ type StudioState = {
   setSwing: (swing: number) => void;
   resetGrooveFeel: () => void;
   setFormSection: (index: number, label: FormSectionLabel) => void;
+  toggleFormLayer: (section: number, layer: ArrangementLayer) => void;
   resetFormSettings: () => void;
   setTextureSettings: (settings: Partial<TextureSettings>) => void;
   resetTextureSettings: () => void;
@@ -192,7 +196,69 @@ type StudioState = {
   registerReferenceComparison: () => void;
   setReferenceQuietChecked: (checked: boolean) => void;
   resetReferenceMix: () => void;
+  setActiveExerciseId: (exerciseId: string) => void;
+  recordLearningExperiment: (key: string, value?: string | number | boolean) => void;
 };
+
+function recordExperimentValue(
+  state: Pick<StudioState, "activeExerciseId" | "learningExperiments">,
+  key: string,
+  value: string | number | boolean = true,
+): Record<string, ExerciseExperiments> {
+  const exerciseId = state.activeExerciseId;
+  if (!exerciseId) return state.learningExperiments;
+
+  const exercise = state.learningExperiments[exerciseId] ?? {};
+  const previous = exercise[key] ?? {
+    changes: 0,
+    min: null,
+    max: null,
+    values: [],
+  };
+  const numeric = typeof value === "number" ? value : null;
+  const serialized = String(value);
+  const values = previous.values.includes(serialized)
+    ? previous.values
+    : [...previous.values, serialized].slice(-24);
+
+  return {
+    ...state.learningExperiments,
+    [exerciseId]: {
+      ...exercise,
+      [key]: {
+        changes: previous.changes + 1,
+        min:
+          numeric === null
+            ? previous.min
+            : previous.min === null
+              ? numeric
+              : Math.min(previous.min, numeric),
+        max:
+          numeric === null
+            ? previous.max
+            : previous.max === null
+              ? numeric
+              : Math.max(previous.max, numeric),
+        values,
+      },
+    },
+  };
+}
+
+function recordExperimentEntries(
+  state: Pick<StudioState, "activeExerciseId" | "learningExperiments">,
+  entries: Array<[string, string | number | boolean]>,
+): Record<string, ExerciseExperiments> {
+  let next = state.learningExperiments;
+  for (const [key, value] of entries) {
+    next = recordExperimentValue(
+      { activeExerciseId: state.activeExerciseId, learningExperiments: next },
+      key,
+      value,
+    );
+  }
+  return next;
+}
 
 export const useStudioStore = create<StudioState>()(
   persist(
@@ -235,6 +301,7 @@ export const useStudioStore = create<StudioState>()(
       formSettings: {
         sections: [...initialFormSettings.sections],
         roles: [...initialFormSettings.roles],
+        layers: initialFormSettings.layers.map((entry) => ({ ...entry })),
       },
       textureSettings: { ...initialTextureSettings },
       eqSettings: cloneEqSettings(initialEqSettings),
@@ -245,6 +312,8 @@ export const useStudioStore = create<StudioState>()(
         ...initialReferenceMixSettings,
         snapshot: null,
       },
+      activeExerciseId: "",
+      learningExperiments: {},
       appMode: "learn",
 
       setBpm: (bpm) => set({ bpm }),
@@ -340,7 +409,14 @@ export const useStudioStore = create<StudioState>()(
         set((state) => {
           const chordProgression = [...state.chordProgression];
           chordProgression[slot] = chord;
-          return { chordProgression };
+          return {
+            chordProgression,
+            learningExperiments: recordExperimentValue(
+              state,
+              "harmony.chord." + slot,
+              chord ?? "clear",
+            ),
+          };
         }),
 
       clearChords: () =>
@@ -353,7 +429,14 @@ export const useStudioStore = create<StudioState>()(
           harmonySequence[step] = notes.includes(midi)
             ? notes.filter((note) => note !== midi)
             : [...notes, midi].sort((left, right) => left - right);
-          return { harmonySequence };
+          return {
+            harmonySequence,
+            learningExperiments: recordExperimentValue(
+              state,
+              "harmony.note-edit",
+              step + ":" + midi,
+            ),
+          };
         }),
 
       clearHarmonySequence: () =>
@@ -374,6 +457,13 @@ export const useStudioStore = create<StudioState>()(
             ...state.synthSettings,
             ...settings,
           },
+          learningExperiments: recordExperimentEntries(
+            state,
+            Object.entries(settings).map(([key, value]) => [
+              "synth." + key,
+              value as string | number | boolean,
+            ]),
+          ),
         })),
 
       resetSynthSettings: () =>
@@ -401,6 +491,13 @@ export const useStudioStore = create<StudioState>()(
               ...settings,
             },
           },
+          learningExperiments: recordExperimentEntries(
+            state,
+            Object.entries(settings).map(([key, value]) => [
+              "mixer." + track + "." + key,
+              value as number,
+            ]),
+          ),
         })),
 
       resetMixer: () =>
@@ -422,6 +519,11 @@ export const useStudioStore = create<StudioState>()(
               ...state.automationSettings,
               [lane]: next,
             },
+            learningExperiments: recordExperimentValue(
+              state,
+              "automation." + String(lane),
+              value,
+            ),
           };
         }),
 
@@ -439,6 +541,13 @@ export const useStudioStore = create<StudioState>()(
             ...state.dynamicsSettings,
             ...settings,
           },
+          learningExperiments: recordExperimentEntries(
+            state,
+            Object.entries(settings).map(([key, value]) => [
+              "dynamics." + key,
+              value as number,
+            ]),
+          ),
         })),
 
       resetDynamics: () =>
@@ -450,6 +559,13 @@ export const useStudioStore = create<StudioState>()(
             ...state.effectsSettings,
             ...settings,
           },
+          learningExperiments: recordExperimentEntries(
+            state,
+            Object.entries(settings).map(([key, value]) => [
+              "effects." + key,
+              value as number,
+            ]),
+          ),
         })),
 
       resetEffects: () =>
@@ -535,6 +651,28 @@ export const useStudioStore = create<StudioState>()(
               ...state.formSettings,
               sections,
             },
+            learningExperiments: recordExperimentValue(
+              state,
+              "form.section." + index,
+              label,
+            ),
+          };
+        }),
+
+      toggleFormLayer: (section, layer) =>
+        set((state) => {
+          const layers = state.formSettings.layers.map((entry) => ({ ...entry }));
+          layers[section][layer] = !layers[section][layer];
+          return {
+            formSettings: {
+              ...state.formSettings,
+              layers,
+            },
+            learningExperiments: recordExperimentValue(
+              state,
+              "form.layer." + section + "." + layer,
+              layers[section][layer],
+            ),
           };
         }),
 
@@ -543,6 +681,7 @@ export const useStudioStore = create<StudioState>()(
           formSettings: {
             sections: [...initialFormSettings.sections],
             roles: [...initialFormSettings.roles],
+            layers: initialFormSettings.layers.map((entry) => ({ ...entry })),
           },
         }),
 
@@ -552,6 +691,13 @@ export const useStudioStore = create<StudioState>()(
             ...state.textureSettings,
             ...settings,
           },
+          learningExperiments: recordExperimentEntries(
+            state,
+            Object.entries(settings).map(([key, value]) => [
+              "texture." + key,
+              value as string | number | boolean,
+            ]),
+          ),
         })),
 
       resetTextureSettings: () =>
@@ -566,6 +712,13 @@ export const useStudioStore = create<StudioState>()(
               ...settings,
             },
           },
+          learningExperiments: recordExperimentEntries(
+            state,
+            Object.entries(settings).map(([key, value]) => [
+              "eq." + track + "." + key,
+              value as number,
+            ]),
+          ),
         })),
 
       resetEq: () => set({ eqSettings: cloneEqSettings(initialEqSettings) }),
@@ -579,6 +732,13 @@ export const useStudioStore = create<StudioState>()(
               ...settings,
             },
           },
+          learningExperiments: recordExperimentEntries(
+            state,
+            Object.entries(settings).map(([key, value]) => [
+              "saturation." + track + "." + key,
+              value as number,
+            ]),
+          ),
         })),
 
       resetSaturation: () =>
@@ -592,21 +752,36 @@ export const useStudioStore = create<StudioState>()(
             ...state.sidechainSettings,
             ...settings,
           },
+          learningExperiments: recordExperimentEntries(
+            state,
+            Object.entries(settings).map(([key, value]) => [
+              "sidechain." + key,
+              value as string | number | boolean,
+            ]),
+          ),
         })),
 
       resetSidechain: () =>
         set({ sidechainSettings: { ...initialSidechainSettings } }),
 
       setStereoWidth: (track, width) =>
-        set((state) => ({
-          stereoSettings: {
-            ...state.stereoSettings,
-            widths: {
-              ...state.stereoSettings.widths,
-              [track]: Math.max(0, Math.min(1, width)),
+        set((state) => {
+          const nextWidth = Math.max(0, Math.min(1, width));
+          return {
+            stereoSettings: {
+              ...state.stereoSettings,
+              widths: {
+                ...state.stereoSettings.widths,
+                [track]: nextWidth,
+              },
             },
-          },
-        })),
+            learningExperiments: recordExperimentValue(
+              state,
+              "stereo." + track + ".width",
+              nextWidth,
+            ),
+          };
+        }),
 
       setMonoAudition: (enabled) =>
         set((state) => ({
@@ -672,6 +847,14 @@ export const useStudioStore = create<StudioState>()(
           },
         }),
 
+      setActiveExerciseId: (activeExerciseId) =>
+        set({ activeExerciseId }),
+
+      recordLearningExperiment: (key, value = true) =>
+        set((state) => ({
+          learningExperiments: recordExperimentValue(state, key, value),
+        })),
+
       loadProject: (project) =>
         set({
           bpm: project.bpm,
@@ -704,6 +887,7 @@ export const useStudioStore = create<StudioState>()(
           formSettings: {
             sections: [...project.formSettings.sections],
             roles: [...project.formSettings.roles],
+            layers: project.formSettings.layers.map((entry) => ({ ...entry })),
           },
           textureSettings: { ...project.textureSettings },
           eqSettings: cloneEqSettings(project.eqSettings),
@@ -750,6 +934,7 @@ export const useStudioStore = create<StudioState>()(
         sidechainSettings: state.sidechainSettings,
         stereoSettings: state.stereoSettings,
         referenceMixSettings: state.referenceMixSettings,
+        learningExperiments: state.learningExperiments,
         appMode: state.appMode,
       }),
       merge: (persistedState, currentState) => {
@@ -761,6 +946,8 @@ export const useStudioStore = create<StudioState>()(
           ...persisted,
           harmonySequence:
             persisted.harmonySequence ?? currentState.harmonySequence,
+          learningExperiments:
+            persisted.learningExperiments ?? currentState.learningExperiments,
           accompanimentPattern:
             persisted.accompanimentPattern ?? currentState.accompanimentPattern,
           ...(progress
