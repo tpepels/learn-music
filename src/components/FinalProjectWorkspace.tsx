@@ -24,6 +24,7 @@ function downloadProject() {
       patterns: state.patterns,
       melody: state.melody,
       chordProgression: state.chordProgression,
+      accompanimentPattern: state.accompanimentPattern,
       synthSettings: state.synthSettings,
       arrangement: state.arrangement,
       mixerSettings: state.mixerSettings,
