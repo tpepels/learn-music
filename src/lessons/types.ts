@@ -1,8 +1,10 @@
 import { z } from "zod";
 import type {
+  Arrangement,
   ChordProgression,
   MelodySequence,
   StepPattern,
+  SynthSettings,
 } from "../music/model";
 
 const termSchema = z.object({
@@ -19,7 +21,15 @@ export const exerciseContentSchema = z.object({
   instruction: z.string(),
   recognition: z.string(),
   terms: z.array(termSchema),
-  workspace: z.enum(["drums", "compare", "piano-key", "melody", "chords"]),
+  workspace: z.enum([
+    "drums",
+    "compare",
+    "piano-key",
+    "melody",
+    "chords",
+    "synth",
+    "arrangement",
+  ]),
   checksLabel: z.string(),
   successLabel: z.string(),
 });
@@ -42,6 +52,8 @@ export type LessonContext = {
   selectedPitchClasses: string[];
   melody: MelodySequence;
   chordProgression: ChordProgression;
+  synthSettings: SynthSettings;
+  arrangement: Arrangement;
 };
 
 export type ExerciseDefinition = z.infer<typeof exerciseContentSchema> & {
