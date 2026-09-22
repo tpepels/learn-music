@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from "react";
 import { audioEngine } from "./audio/engine";
 import { ArrangementWorkspace } from "./components/ArrangementWorkspace";
+import { AutomationDynamicsWorkspace } from "./components/AutomationDynamicsWorkspace";
 import { ChordWorkspace } from "./components/ChordWorkspace";
 import { DrumWorkspace } from "./components/DrumWorkspace";
 import { MixerWorkspace } from "./components/MixerWorkspace";
@@ -39,7 +40,11 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
       await audioEngine.playMelody(bpm, setCurrentStep);
     } else if (workspace === "chords") {
       await audioEngine.playChords(bpm, setCurrentStep);
-    } else if (workspace === "arrangement" || workspace === "mixer") {
+    } else if (
+      workspace === "arrangement" ||
+      workspace === "mixer" ||
+      workspace === "automation-dynamics"
+    ) {
       await audioEngine.playArrangement(bpm, setCurrentStep);
     } else {
       await audioEngine.playDrums(bpm, setCurrentStep);
@@ -151,6 +156,8 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
       return <ArrangementWorkspace />;
     case "mixer":
       return <MixerWorkspace />;
+    case "automation-dynamics":
+      return <AutomationDynamicsWorkspace />;
   }
 }
 
@@ -162,6 +169,7 @@ const lessonGlyphs: Record<string, string> = {
   "sound.synthesis": "∿",
   "form.arrangement": "▦",
   "mixing.balance-space": "≋",
+  "production.automation-dynamics": "⌁",
 };
 
 const workspaceNames: Record<ExerciseDefinition["workspace"], string> = {
@@ -173,6 +181,7 @@ const workspaceNames: Record<ExerciseDefinition["workspace"], string> = {
   synth: "Synthesizer",
   arrangement: "Arrangement view",
   mixer: "Mixer",
+  "automation-dynamics": "Automation + dynamics",
 };
 
 function App() {
@@ -188,6 +197,8 @@ function App() {
   const synthSettings = useStudioStore((state) => state.synthSettings);
   const arrangement = useStudioStore((state) => state.arrangement);
   const mixerSettings = useStudioStore((state) => state.mixerSettings);
+  const automationSettings = useStudioStore((state) => state.automationSettings);
+  const dynamicsSettings = useStudioStore((state) => state.dynamicsSettings);
 
   const setCurrentLesson = useStudioStore((state) => state.setCurrentLesson);
   const setExerciseIndex = useStudioStore((state) => state.setExerciseIndex);
@@ -201,6 +212,8 @@ function App() {
   const resetSynthSettings = useStudioStore((state) => state.resetSynthSettings);
   const clearArrangement = useStudioStore((state) => state.clearArrangement);
   const resetMixer = useStudioStore((state) => state.resetMixer);
+  const resetAutomation = useStudioStore((state) => state.resetAutomation);
+  const resetDynamics = useStudioStore((state) => state.resetDynamics);
 
   const lesson = getLesson(currentLessonId);
   const storedExerciseIndex = exerciseIndexByLesson[lesson.id] ?? 0;
@@ -232,6 +245,14 @@ function App() {
     audioEngine.setMixerSettings(mixerSettings);
   }, [mixerSettings]);
 
+  useEffect(() => {
+    audioEngine.setAutomationSettings(automationSettings);
+  }, [automationSettings]);
+
+  useEffect(() => {
+    audioEngine.setDynamicsSettings(dynamicsSettings);
+  }, [dynamicsSettings]);
+
   const checks = useMemo(
     () =>
       exercise.evaluate({
@@ -243,6 +264,8 @@ function App() {
         synthSettings,
         arrangement,
         mixerSettings,
+        automationSettings,
+        dynamicsSettings,
       }),
     [
       exercise,
@@ -253,6 +276,8 @@ function App() {
       synthSettings,
       arrangement,
       mixerSettings,
+      automationSettings,
+      dynamicsSettings,
     ],
   );
 
@@ -334,6 +359,10 @@ function App() {
         break;
       case "mixer":
         resetMixer();
+        break;
+      case "automation-dynamics":
+        resetAutomation();
+        resetDynamics();
         break;
     }
   };
