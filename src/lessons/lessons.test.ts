@@ -1149,7 +1149,7 @@ describe("lesson 26: minor-key progressions", () => {
     ];
 
     progressions.forEach((progression, index) => {
-      const experiments = index === 3
+      const experiments: LessonContext["experiments"] = index === 3
         ? {
             "harmony.note-edit": experiment(4),
             "harmony.chord.3": experiment(2, null, null, ["Am", "F"]),
