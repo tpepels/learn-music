@@ -76,14 +76,14 @@ export const soundSynthesisLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "sound.synthesis.c",
         letter: "C",
-        title: "Shape the envelope",
-        learn: "Hear how onset and decay change a sound's perceived character.",
+        title: "Turn the phrase into a pluck",
+        learn: "Use envelope shape to change the role of the same musical material.",
         explanation:
           "An amplitude envelope describes how loudness changes over time. Attack controls how quickly a note reaches its level; release controls how long it fades after the note ends. These time shapes strongly affect whether a sound feels percussive, plucked, or pad-like.",
         instruction:
-          "Raise Attack above 0.35 seconds and Release above 0.9 seconds. Compare that slow shape with very short settings, then return to the slow version.",
+          "Switch to triangle, set Attack to 0.08 seconds or less and Release to 0.4 seconds or less, then use Play current melody. Compare the result with the darker sustained sawtooth from B: the notes should now speak separately and rhythmically.",
         recognition:
-          "A slow attack removes the immediate 'hit' at the front of a note. A long release leaves a tail after the key is released, making notes overlap and feel smoother.",
+          "A fast attack makes each note arrive clearly. A short release leaves space before the next note, so the phrase behaves more like a plucked part than a sustained layer.",
         terms: [
           { term: "Envelope", definition: "A time-varying shape that controls a parameter such as amplitude." },
           { term: "Attack", definition: "How long a sound takes to rise from silence after a note begins." },
@@ -95,22 +95,23 @@ export const soundSynthesisLesson: LessonDefinition = {
         successLabel: "The sound now has a slow envelope",
       }),
       evaluate: ({ synthSettings }) => [
-        { label: "Attack is at least 0.35 seconds", complete: synthSettings.attack >= 0.35 },
-        { label: "Release is at least 0.9 seconds", complete: synthSettings.release >= 0.9 },
+        { label: "Triangle gives the phrase a softer harmonic starting point", complete: synthSettings.waveform === "triangle" },
+        { label: "Attack is fast enough for a clear onset", complete: synthSettings.attack <= 0.08 },
+        { label: "Release leaves rhythmic space", complete: synthSettings.release <= 0.4 },
       ],
     },
     {
       ...exerciseContentSchema.parse({
         id: "sound.synthesis.d",
         letter: "D",
-        title: "Design a warm pad",
-        learn: "Combine oscillator, filter, and envelope decisions into one intentional sound.",
+        title: "Turn the same phrase into a pad",
+        learn: "Choose synthesis settings for a contrasting musical role, not just a target value.",
         explanation:
           "Subtractive synthesis works by starting with spectral material and then removing or shaping parts of it. A pad usually favours a soft onset, sustained body, and lingering release rather than a sharp transient.",
         instruction:
-          "Create a warm pad: use triangle or sawtooth, keep cutoff between 900 and 4500 Hz, Attack at least 0.4 seconds, and Release at least 1.1 seconds. Audition C-E-G as a small chord outline.",
+          "Without changing the notes, turn the plucked phrase into a warm sustained layer: use triangle or sawtooth, keep cutoff between 900 and 4500 Hz, set Attack to at least 0.4 seconds and Release to at least 1.1 seconds, then play the current melody again.",
         recognition:
-          "The sound should swell rather than click into existence, remain relatively smooth instead of harsh, and fade gradually after each note.",
+          "The musical line is unchanged, but its role should be different: attacks blur, notes overlap, and the same pitches feel more like a background layer than a rhythmic lead.",
         terms: [
           { term: "Subtractive synthesis", definition: "Sound design that begins with a waveform and shapes it by filtering or reducing parts of its spectrum." },
           { term: "Pad", definition: "A sustained, usually smooth sound used to support harmony or atmosphere." },
