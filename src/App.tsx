@@ -195,7 +195,6 @@ function ExerciseTabs({
           >
             <span>{item.letter}</span>
             <strong>{item.title}</strong>
-            <small>{completed ? "completed" : unlocked ? "open" : "locked"}</small>
           </button>
         );
       })}
@@ -691,7 +690,6 @@ function App() {
           <div className="brand-mark">♪</div>
           <div>
             <strong>PLAY / LAB</strong>
-            <span>learn music by making it</span>
           </div>
         </div>
 
@@ -700,19 +698,19 @@ function App() {
             <>
               <span className="topbar-lesson-kicker">LESSON {String(lesson.number).padStart(2, "0")} · {exercise.letter}</span>
               <strong>{exercise.title}</strong>
-              <small>{workspaceNames[exercise.workspace]}</small>
+
             </>
           ) : appMode === "create" ? (
             <>
               <span className="topbar-lesson-kicker">CREATE MODE</span>
               <strong>Open-ended briefs</strong>
-              <small>Make decisions without a single correct answer</small>
+
             </>
           ) : (
             <>
               <span className="topbar-lesson-kicker">STUDIO MODE</span>
               <strong>Your project</strong>
-              <small>All unlocked production tools</small>
+
             </>
           )}
         </div>
@@ -756,9 +754,7 @@ function App() {
       <div className="workspace">
         <aside className="course-panel">
           <div className="panel-heading">
-            <span className="section-label">Your set</span>
-            <strong>Music maker foundations</strong>
-            <p>Each lesson unlocks a new part of the studio.</p>
+            <strong>Lessons</strong>
           </div>
 
           <nav className="course-list" aria-label="Course lessons">
@@ -788,7 +784,6 @@ function App() {
                   </span>
                   <span>
                     <strong>{item.title}</strong>
-                    <small>{completed ? "done" : active ? "playing now" : unlocked ? "ready" : "locked"}</small>
                   </span>
                   <i>{completed ? "✓" : ""}</i>
                 </button>
@@ -819,21 +814,9 @@ function App() {
 
         <main className="music-panel">
           <section className="music-intro">
-            <div className="lesson-chip-row">
-              <span className="lesson-chip">{lesson.eyebrow}</span>
-              <span className="lesson-chip lesson-chip-tool">{workspaceNames[exercise.workspace]}</span>
-              <span className="lesson-chip lesson-chip-progress">{lessonCompletedExercises + 1}/{lessonExerciseCount}</span>
-            </div>
-            <h1>{lesson.hero}</h1>
+            <span className="lesson-context">{lesson.title} · {exercise.letter}</span>
+            <h1>{exercise.title}</h1>
             <p>{exercise.learn}</p>
-
-            <div className="play-loop">
-              <span>1</span><i />
-              <span>Listen</span><i />
-              <span>Tweak</span><i />
-              <span>Compare</span><i />
-              <span>Keep what works</span>
-            </div>
           </section>
 
           <ExerciseTabs
@@ -850,16 +833,8 @@ function App() {
         </main>
 
         <aside className="teacher-panel">
-          <div className="coach-header">
-            <div className="teacher-badge">{lesson.number}{exercise.letter}</div>
-            <div>
-              <span className="section-label">Studio coach</span>
-              <h2>{exercise.title}</h2>
-            </div>
-          </div>
-
-          <div className="instruction-card instruction-card-primary">
-            <span className="section-label">Play with this</span>
+          <div className="task-panel">
+            <span className="section-label">Your task</span>
             <p>{exercise.instruction}</p>
           </div>
 
@@ -923,13 +898,7 @@ function App() {
             )}
           </div>
 
-          <div className="coach-footer">
-            <span className="section-label">Studio progress</span>
-            <p>
-              {implementedLessons.length} lessons ·{" "}
-              {implementedLessons.reduce((total, item) => total + item.exercises.length, 0)} experiments
-            </p>
-          </div>
+
         </aside>
       </div>
       )}
