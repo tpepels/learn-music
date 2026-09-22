@@ -90,6 +90,7 @@ export type LessonContext = {
   selectedPitchClasses: string[];
   melody: MelodySequence;
   chordProgression: ChordProgression;
+  harmonySequence: HarmonySequence;
   accompanimentPattern: AccompanimentPattern;
   synthSettings: SynthSettings;
   arrangement: Arrangement;
