@@ -17,11 +17,11 @@ const lesson = lessonContentSchema.parse({
   number: 25,
   title: "Harmonic minor & leading tone",
   eyebrow: "Piano · Tonality",
-  hero: "Raise one note and the whole cadence changes.",
+  hero: "Raise G to G♯ and hear the phrase lean harder toward A."
   description:
     "Change A natural minor's G into G♯. Hear the leading tone, the unusual augmented-second colour, and the much stronger pull from dominant harmony back to tonic.",
   overview:
-    "Harmonic minor raises scale degree 7 of natural minor. In A minor, G becomes G♯. That single chromatic alteration places the seventh degree only one semitone below A, creating a leading tone and enabling a major or dominant-seventh V chord: E or E7.",
+    "A harmonic minor changes only one note from natural minor: G becomes G♯. That puts a note one semitone below A and gives melodies and E7 a much stronger route back to the tonic.",
 });
 
 export const harmonicMinorLesson: LessonDefinition = {
@@ -38,7 +38,7 @@ export const harmonicMinorLesson: LessonDefinition = {
         instruction:
           "Select A, B, C, D, E, F, and G♯. Deselect G and every other chromatic pitch.",
         recognition:
-          "Compare G→A with G♯→A. G is a whole tone below A; G♯ is only a semitone below and sounds much more urgent.",
+          "Play G→A, then G♯→A. Which first note makes A feel more inevitable?",
         terms: [
           { term: "Harmonic minor", definition: "A minor scale with a raised seventh degree: 1, 2, ♭3, 4, 5, ♭6, 7." },
           { term: "Raised seventh", definition: "Scale degree 7 moved up one semitone from natural minor." },
@@ -77,7 +77,7 @@ export const harmonicMinorLesson: LessonDefinition = {
         instruction:
           "Place G♯ immediately followed by A somewhere in the melody. Keep every sounding note inside A harmonic minor.",
         recognition:
-          "The G♯ should feel unstable by itself. The A immediately after it should sound like release and arrival.",
+          "Pause on G♯ for a moment before A. How long can you leave it hanging before you want the resolution?",
         terms: [
           { term: "Semitone resolution", definition: "Movement by the smallest chromatic interval into a more stable pitch." },
           { term: "Tendency tone", definition: "A note with a strong contextual pull toward another note." },
@@ -113,7 +113,7 @@ export const harmonicMinorLesson: LessonDefinition = {
         instruction:
           "Place F immediately followed by G♯ somewhere in the melody, then continue to A.",
         recognition:
-          "F→G♯ sounds noticeably wider than an ordinary whole step; G♯→A then contracts into a tight semitone resolution.",
+          "Compare F→G and F→G♯. How much larger does the second jump feel, and what happens when G♯ then moves to A?",
         terms: [
           { term: "Augmented second", definition: "An interval spanning three semitones but spelled as two adjacent scale degrees, such as F to G♯." },
           { term: "Interval", definition: "The measured distance between two pitches." },
@@ -157,7 +157,7 @@ export const harmonicMinorLesson: LessonDefinition = {
         instruction:
           "Write at least eight notes in A harmonic minor. Include at least one G♯ and make a G♯→A resolution somewhere in the second half. End the phrase on A.",
         recognition:
-          "The phrase should mostly sound like A minor, with the G♯ creating a moment of extra forward pull before tonic.",
+          "Does G♯ feel like a colour that belongs to the phrase, or like a scale exercise pasted into it? Move it if the latter is true.",
         terms: [
           { term: "Cadential", definition: "Relating to a cadence or phrase-ending gesture." },
           { term: "Voice leading", definition: "The way individual notes move from one harmony or melodic position to the next." },
