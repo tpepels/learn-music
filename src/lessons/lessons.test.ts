@@ -568,6 +568,7 @@ describe("lesson 10: final project", () => {
       A,
       melody,
       chordProgression: ["C", "G", "Am", "F"],
+      harmonySequence: harmonyFor(["C", "G", "Am", "F"]),
       arrangement,
       mixerSettings: {
         drums: { ...initialMixerSettings.drums, volume: -4 },
