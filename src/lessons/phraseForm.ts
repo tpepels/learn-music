@@ -28,9 +28,9 @@ const lesson = lessonContentSchema.parse({
   eyebrow: "Composition · Structure",
   hero: "Make repetition and contrast happen in the music.",
   description:
-    "Build four audible four-bar sections. The A/B/A′ labels describe relationships, but the learner must create those relationships by changing and restoring real musical layers.",
+    "Build four audible four-bar sections. A, A′ and B are only labels; make those relationships real by changing, keeping and bringing back musical layers.",
   overview:
-    "Form is heard through memory. Repeating A only matters if something recognisable returns; calling a section B only matters if the music actually changes. In this lesson the labels and the layer plan must agree.",
+    "Form depends on memory. A return only feels like a return if the ear recognises something from before; a B section only earns its name if the music really changes.",
 });
 
 export const phraseFormLesson: LessonDefinition = {
@@ -47,7 +47,7 @@ export const phraseFormLesson: LessonDefinition = {
         instruction:
           "Set section 1 to A and section 2 to A′. Give both at least two active layers. Keep at least two layers shared between them, but change at least one layer in A′. Play through bar 8 and hear what stayed versus what changed.",
         recognition:
-          "The second four bars should feel related to the first, but not identical. You should be able to name the layer that changed without looking.",
+          "Listen through bar 5 without looking. Can you name what changed in A′ and what stayed from A?",
         terms: [
           { term: "Statement", definition: "An initial presentation of musical material that establishes an identity." },
           { term: "Answer", definition: "A related continuation or response that develops or completes the statement." },
@@ -79,7 +79,7 @@ export const phraseFormLesson: LessonDefinition = {
         instruction:
           "Set the sections to A → A → B → B. Make sections 1 and 2 use the same layer combination, sections 3 and 4 use another matching combination, and make A and B differ by at least two layers. Play all sixteen bars.",
         recognition:
-          "Bars 1–8 should establish one texture. At bar 9 a new texture should arrive and remain stable long enough to feel like a second section.",
+          "At bar 9, does the change register immediately? After four bars of B, does it still feel connected to the same track?",
         terms: [
           { term: "Binary form", definition: "A two-part form organised as one region followed by a contrasting second region." },
           { term: "Section identity", definition: "The recurring musical features that make a section recognisable when it returns." },
@@ -109,7 +109,7 @@ export const phraseFormLesson: LessonDefinition = {
         instruction:
           "Set A → B → A → A′. Make section 3 restore section 1 exactly. Make B differ from A by at least two layers. Give A′ at least two shared layers with A but one audible change.",
         recognition:
-          "Section 3 should create a clear recognition moment: the texture from the opening returns after B. Section 4 can then vary it without losing that identity.",
+          "When section 3 arrives, do you recognise the opening before you check the label? What detail gives the return away?",
         terms: [
           { term: "Ternary form", definition: "A form organised around departure and return, commonly A–B–A." },
           { term: "Return", definition: "The reappearance of familiar material after contrasting material." },
@@ -139,7 +139,7 @@ export const phraseFormLesson: LessonDefinition = {
         instruction:
           "Set A → A → B → A. Give A at least two layers and use the exact same layer plan in sections 1, 2, and 4. Make B differ from A by at least two layers. Play all sixteen bars without watching the labels and listen for the departure and return.",
         recognition:
-          "You should hear eight familiar bars, four contrasting bars, then the opening identity return. If B is too similar, the form disappears; if B is unrelated, the track can feel disconnected.",
+          "Play all sixteen bars without watching the letters. Can you hear the eight-bar familiarity, the four-bar departure and the final return?",
         terms: [
           { term: "AABA", definition: "A four-section form with repeated A material, a contrasting B section, and a final return to A." },
           { term: "Formal contrast", definition: "A difference large enough to mark a structural boundary while remaining part of the same piece." },
