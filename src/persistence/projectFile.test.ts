@@ -12,6 +12,7 @@ import {
   initialDynamicsSettings,
   initialEffectsSettings,
   initialGrooveFeelSettings,
+  initialHarmonySequence,
   initialEqSettings,
   initialFormSettings,
   initialMelody,
@@ -37,6 +38,7 @@ function sampleProject(): ProjectData {
     },
     melody: [...initialMelody],
     chordProgression: [...initialChordProgression],
+    harmonySequence: initialHarmonySequence.map((notes) => [...notes]),
     accompanimentPattern: initialAccompanimentPattern,
     synthSettings: { ...initialSynthSettings },
     arrangement: cloneArrangement(initialArrangement),
@@ -118,6 +120,37 @@ describe("PLAY / LAB project files", () => {
       "Fm",
       "B♭",
     ]);
+  });
+
+  it("round-trips learner-written harmony notes", () => {
+    const project = sampleProject();
+    project.chordProgression = ["C", "F", "G", "C"];
+    project.harmonySequence[0] = [48, 52, 55];
+    project.harmonySequence[11] = [57];
+    project.harmonySequence[20] = [59, 62];
+
+    const parsed = parseProjectFile({
+      format: "play-lab-project",
+      version: 1,
+      exportedAt: "2026-09-22T12:00:00.000Z",
+      project,
+    });
+
+    expect(parsed.harmonySequence).toEqual(project.harmonySequence);
+  });
+
+  it("defaults the harmony piano roll to empty for older projects", () => {
+    const project = sampleProject();
+    const { harmonySequence: _harmonySequence, ...legacyProject } = project;
+
+    const parsed = parseProjectFile({
+      format: "play-lab-project",
+      version: 1,
+      exportedAt: "2026-09-22T12:00:00.000Z",
+      project: legacyProject,
+    });
+
+    expect(parsed.harmonySequence).toEqual(initialHarmonySequence);
   });
 
   it("defaults accompaniment to block when opening an older project", () => {
