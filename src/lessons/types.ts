@@ -7,10 +7,12 @@ import type {
   DynamicsSettings,
   EffectsSettings,
   GrooveFeelSettings,
+  FormSettings,
   MelodySequence,
   MixerSettings,
   StepPattern,
   SynthSettings,
+  TextureSettings,
   VoicingSettings,
 } from "../music/model";
 
@@ -43,6 +45,11 @@ export const exerciseContentSchema = z.object({
     "voicing",
     "bass",
     "groove-feel",
+    "motif",
+    "melody-harmony",
+    "harmonic-function",
+    "phrase-form",
+    "texture",
   ]),
   checksLabel: z.string(),
   successLabel: z.string(),
@@ -76,6 +83,8 @@ export type LessonContext = {
   voicingSettings: VoicingSettings;
   bassSequence: BassSequence;
   grooveFeelSettings: GrooveFeelSettings;
+  formSettings: FormSettings;
+  textureSettings: TextureSettings;
 };
 
 export type ExerciseDefinition = z.infer<typeof exerciseContentSchema> & {
