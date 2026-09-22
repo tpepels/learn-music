@@ -5,6 +5,7 @@ import {
   clonePattern,
   initialArrangement,
   initialAutomationSettings,
+  initialBassSequence,
   initialChordProgression,
   initialDynamicsSettings,
   initialEffectsSettings,
@@ -12,12 +13,15 @@ import {
   initialMixerSettings,
   initialPattern,
   initialSynthSettings,
+  initialVoicingSettings,
+  bassRootMidi,
   type ChordProgression,
   type MelodySequence,
   type StepPattern,
 } from "../music/model";
 import { arrangementFormLesson } from "./arrangementForm";
 import { automationDynamicsLesson } from "./automationDynamics";
+import { bassLinesLesson } from "./bassLines";
 import { chordProgressionLesson } from "./chordProgressions";
 import { effectsTransitionsLesson } from "./effectsTransitions";
 import { finalProjectLesson } from "./finalProject";
@@ -26,6 +30,7 @@ import { pianoCompositionLesson } from "./pianoComposition";
 import { pulseAndGrooveLesson } from "./pulseAndGroove";
 import { rhythmVariationLesson } from "./rhythmVariation";
 import { soundSynthesisLesson } from "./soundSynthesis";
+import { voiceLeadingLesson } from "./voiceLeading";
 import type { LessonContext } from "./types";
 
 function context(overrides: Partial<LessonContext> = {}): LessonContext {
@@ -47,6 +52,8 @@ function context(overrides: Partial<LessonContext> = {}): LessonContext {
     dynamicsSettings: { ...initialDynamicsSettings },
     effectsSettings: { ...initialEffectsSettings },
     projectMilestones: { exported: false },
+    voicingSettings: { inversions: [...initialVoicingSettings.inversions] },
+    bassSequence: [...initialBassSequence],
     ...overrides,
   };
 }
@@ -366,6 +373,81 @@ describe("lesson 10: final project", () => {
     });
 
     for (const exercise of finalProjectLesson.exercises) {
+      expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
+    }
+  });
+});
+
+
+describe("lesson 11: voicing and voice leading", () => {
+  it("accepts a progression with root, first, second inversion, and reduced motion", () => {
+    const progression: ChordProgression = ["C", "G", "Am", "F"];
+
+    const rootContext = context({
+      chordProgression: progression,
+      voicingSettings: { inversions: [0, 0, 0, 0] },
+    });
+    expect(
+      voiceLeadingLesson.exercises[0]
+        .evaluate(rootContext)
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    const firstContext = context({
+      chordProgression: progression,
+      voicingSettings: { inversions: [0, 1, 0, 0] },
+    });
+    expect(
+      voiceLeadingLesson.exercises[1]
+        .evaluate(firstContext)
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    const mixedContext = context({
+      chordProgression: progression,
+      voicingSettings: { inversions: [0, 1, 1, 2] },
+    });
+    expect(
+      voiceLeadingLesson.exercises[2]
+        .evaluate(mixedContext)
+        .every((check) => check.complete),
+    ).toBe(true);
+    expect(
+      voiceLeadingLesson.exercises[3]
+        .evaluate(mixedContext)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+});
+
+describe("lesson 12: bass lines", () => {
+  it("accepts roots, chord tones, approaches, and a complete bass phrase", () => {
+    const progression: ChordProgression = ["C", "G", "Am", "F"];
+    const bass = [...initialBassSequence];
+
+    [0, 8, 16, 24].forEach((step, bar) => {
+      bass[step] = bassRootMidi(progression[bar]!);
+    });
+
+    bass[4] = 40;
+    bass[12] = 38;
+    bass[20] = 40;
+    bass[28] = 41;
+
+    bass[7] = 42;
+    bass[15] = 44;
+    bass[23] = 40;
+    bass[31] = 37;
+
+    bass[2] = 43;
+    bass[10] = 47;
+
+    const ctx = context({
+      chordProgression: progression,
+      bassSequence: bass,
+    });
+
+    for (const exercise of bassLinesLesson.exercises) {
       expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
     }
   });
