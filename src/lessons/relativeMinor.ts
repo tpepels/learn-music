@@ -24,7 +24,7 @@ const lesson = lessonContentSchema.parse({
   number: 24,
   title: "Relative minor",
   eyebrow: "Piano · Tonality",
-  hero: "Keep the seven notes. Move the feeling of home."
+  hero: "Keep the seven notes. Move the feeling of home.",
   description:
     "Move from C major to A natural minor without changing the pitch collection. Hear how tonic, scale degrees, phrase endings, and melodic emphasis create a new tonal centre.",
   overview:
