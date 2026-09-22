@@ -50,16 +50,39 @@ export const chromaticPitches = [
   { midi: 62, name: "D4", pitchClass: "D", black: false },
   { midi: 61, name: "D♭4", pitchClass: "D♭", black: true },
   { midi: 60, name: "C4", pitchClass: "C", black: false },
+  { midi: 59, name: "B3", pitchClass: "B", black: false },
+  { midi: 58, name: "B♭3", pitchClass: "B♭", black: true },
+  { midi: 57, name: "A3", pitchClass: "A", black: false },
 ] as const;
 
 export const cMajorMidi = [60, 62, 64, 65, 67, 69, 71, 72] as const;
 export const cMajorPitchClasses = ["C", "D", "E", "F", "G", "A", "B"] as const;
+export const aNaturalMinorPitchClasses = ["A", "B", "C", "D", "E", "F", "G"] as const;
+export const aHarmonicMinorPitchClasses = ["A", "B", "C", "D", "E", "F", "G♯"] as const;
+
+export function isANaturalMinorMidi(midi: number): boolean {
+  return [9, 11, 0, 2, 4, 5, 7].includes(((midi % 12) + 12) % 12);
+}
+
+export function isAHarmonicMinorMidi(midi: number): boolean {
+  return [9, 11, 0, 2, 4, 5, 8].includes(((midi % 12) + 12) % 12);
+}
 export const MELODY_STEPS = 16;
 export type MelodySequence = Array<number | null>;
 
 export const initialMelody: MelodySequence = Array(MELODY_STEPS).fill(null);
 
-export const chordNames = ["C", "Dm", "Em", "F", "G", "Am", "Bdim", "D7"] as const;
+export const basicChordNames = ["C", "Dm", "Em", "F", "G", "Am", "Bdim", "D7"] as const;
+export const minorKeyChordNames = ["Am", "Bdim", "C", "Dm", "Em", "F", "G", "E7"] as const;
+export const seventhChordNames = ["Cmaj7", "Dm7", "Em7", "Fmaj7", "G7", "Am7", "Bm7b5"] as const;
+export const borrowedChordNames = ["C", "Am", "F", "G", "Fm", "B♭"] as const;
+export const chordNames = [
+  ...basicChordNames,
+  "E7",
+  ...seventhChordNames,
+  "Fm",
+  "B♭",
+] as const;
 export type ChordName = (typeof chordNames)[number];
 export type ChordProgression = Array<ChordName | null>;
 
@@ -74,6 +97,16 @@ export const chordMidi: Record<ChordName, number[]> = {
   Am: [57, 60, 64],
   Bdim: [59, 62, 65],
   D7: [50, 54, 57, 60],
+  E7: [52, 56, 59, 62],
+  Cmaj7: [48, 52, 55, 59],
+  Dm7: [50, 53, 57, 60],
+  Em7: [52, 55, 59, 62],
+  Fmaj7: [53, 57, 60, 64],
+  G7: [55, 59, 62, 65],
+  Am7: [57, 60, 64, 67],
+  Bm7b5: [59, 62, 65, 69],
+  Fm: [53, 56, 60],
+  "B♭": [58, 62, 65],
 };
 
 export const romanNumerals: Record<ChordName, string> = {
@@ -85,6 +118,46 @@ export const romanNumerals: Record<ChordName, string> = {
   Am: "vi",
   Bdim: "vii°",
   D7: "V/V",
+  E7: "V/vi",
+  Cmaj7: "Imaj7",
+  Dm7: "ii7",
+  Em7: "iii7",
+  Fmaj7: "IVmaj7",
+  G7: "V7",
+  Am7: "vi7",
+  Bm7b5: "viiø7",
+  Fm: "iv",
+  "B♭": "♭VII",
+};
+
+export const aMinorRomanNumerals: Partial<Record<ChordName, string>> = {
+  Am: "i",
+  Bdim: "ii°",
+  C: "III",
+  Dm: "iv",
+  Em: "v",
+  F: "VI",
+  G: "VII",
+  E7: "V7",
+};
+
+export const seventhRomanNumerals: Partial<Record<ChordName, string>> = {
+  Cmaj7: "Imaj7",
+  Dm7: "ii7",
+  Em7: "iii7",
+  Fmaj7: "IVmaj7",
+  G7: "V7",
+  Am7: "vi7",
+  Bm7b5: "viiø7",
+};
+
+export const borrowedRomanNumerals: Partial<Record<ChordName, string>> = {
+  C: "I",
+  Am: "vi",
+  F: "IV",
+  G: "V",
+  Fm: "iv (borrowed)",
+  "B♭": "♭VII (borrowed)",
 };
 
 export function isCMajorMidi(midi: number): boolean {
@@ -520,7 +593,7 @@ export function cloneGrooveFeelSettings(
 }
 
 
-export const chordFunctions = ["tonic", "predominant", "dominant", "secondary-dominant"] as const;
+export const chordFunctions = ["tonic", "predominant", "dominant", "secondary-dominant", "borrowed"] as const;
 export type ChordFunction = (typeof chordFunctions)[number];
 
 export const chordFunction: Record<ChordName, ChordFunction> = {
@@ -532,6 +605,16 @@ export const chordFunction: Record<ChordName, ChordFunction> = {
   Am: "tonic",
   Bdim: "dominant",
   D7: "secondary-dominant",
+  E7: "secondary-dominant",
+  Cmaj7: "tonic",
+  Dm7: "predominant",
+  Em7: "tonic",
+  Fmaj7: "predominant",
+  G7: "dominant",
+  Am7: "tonic",
+  Bm7b5: "dominant",
+  Fm: "borrowed",
+  "B♭": "borrowed",
 };
 
 export function chordPitchClasses(chord: ChordName): number[] {
