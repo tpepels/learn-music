@@ -9,6 +9,7 @@ import {
   initialChordProgression,
   initialDynamicsSettings,
   initialEffectsSettings,
+  initialGrooveFeelSettings,
   initialMelody,
   initialMixerSettings,
   initialPattern,
@@ -25,6 +26,7 @@ import { bassLinesLesson } from "./bassLines";
 import { chordProgressionLesson } from "./chordProgressions";
 import { effectsTransitionsLesson } from "./effectsTransitions";
 import { finalProjectLesson } from "./finalProject";
+import { grooveFeelLesson } from "./grooveFeel";
 import { mixingSpaceLesson } from "./mixingSpace";
 import { pianoCompositionLesson } from "./pianoComposition";
 import { pulseAndGrooveLesson } from "./pulseAndGroove";
@@ -54,6 +56,14 @@ function context(overrides: Partial<LessonContext> = {}): LessonContext {
     projectMilestones: { exported: false },
     voicingSettings: { inversions: [...initialVoicingSettings.inversions] },
     bassSequence: [...initialBassSequence],
+    grooveFeelSettings: {
+      swing: initialGrooveFeelSettings.swing,
+      velocities: {
+        kick: [...initialGrooveFeelSettings.velocities.kick],
+        snare: [...initialGrooveFeelSettings.velocities.snare],
+        hat: [...initialGrooveFeelSettings.velocities.hat],
+      },
+    },
     ...overrides,
   };
 }
@@ -448,6 +458,40 @@ describe("lesson 12: bass lines", () => {
     });
 
     for (const exercise of bassLinesLesson.exercises) {
+      expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
+    }
+  });
+});
+
+
+describe("lesson 13: velocity, accents, and swing", () => {
+  it("accepts accented drums, dynamic hats, a ghost snare, and moderate swing", () => {
+    const A = completedGroove();
+    A.snare[10] = true;
+
+    const grooveFeelSettings = {
+      swing: 0.22,
+      velocities: {
+        kick: Array(16).fill(0.7),
+        snare: Array(16).fill(0.72),
+        hat: Array(16).fill(0.35),
+      },
+    };
+
+    [0, 4, 8, 12].forEach((step) => {
+      grooveFeelSettings.velocities.kick[step] = 0.9;
+      grooveFeelSettings.velocities.hat[step] = 0.72;
+    });
+    [2, 6, 10, 14].forEach((step) => {
+      grooveFeelSettings.velocities.hat[step] = 0.4;
+    });
+    grooveFeelSettings.velocities.snare[4] = 0.8;
+    grooveFeelSettings.velocities.snare[12] = 0.8;
+    grooveFeelSettings.velocities.snare[10] = 0.25;
+
+    const ctx = context({ A, grooveFeelSettings });
+
+    for (const exercise of grooveFeelLesson.exercises) {
       expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
     }
   });
