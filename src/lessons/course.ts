@@ -7,16 +7,21 @@ import { eqSpectralBalanceLesson } from "./eqSpectralBalance";
 import { finalProjectLesson } from "./finalProject";
 import { grooveFeelLesson } from "./grooveFeel";
 import { mixingSpaceLesson } from "./mixingSpace";
+import { modalMixtureLesson } from "./modalMixture";
+import { minorCadencesLesson } from "./minorCadences";
 import { motifDevelopmentLesson } from "./motifDevelopment";
 import { melodyOverHarmonyLesson } from "./melodyOverHarmony";
 import { harmonicFunctionLesson } from "./harmonicFunction";
+import { harmonicMinorLesson } from "./harmonicMinor";
 import { phraseFormLesson } from "./phraseForm";
 import { textureOrchestrationLesson } from "./textureOrchestration";
 import { pianoCompositionLesson } from "./pianoComposition";
 import { pulseAndGrooveLesson } from "./pulseAndGroove";
 import { referenceMixingLesson } from "./referenceMixing";
+import { relativeMinorLesson } from "./relativeMinor";
 import { rhythmVariationLesson } from "./rhythmVariation";
 import { saturationLesson } from "./saturation";
+import { seventhChordsLesson } from "./seventhChords";
 import { sidechainLesson } from "./sidechain";
 import { soundSynthesisLesson } from "./soundSynthesis";
 import { stereoMonoLesson } from "./stereoMono";
@@ -47,6 +52,11 @@ export const implementedLessons: LessonDefinition[] = [
   sidechainLesson,
   stereoMonoLesson,
   referenceMixingLesson,
+  relativeMinorLesson,
+  harmonicMinorLesson,
+  minorCadencesLesson,
+  seventhChordsLesson,
+  modalMixtureLesson,
 ];
 
 export const courseOutline = implementedLessons.map((lesson) => ({
