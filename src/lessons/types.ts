@@ -4,6 +4,7 @@ import type {
   AutomationSettings,
   ChordProgression,
   DynamicsSettings,
+  EffectsSettings,
   MelodySequence,
   MixerSettings,
   StepPattern,
@@ -34,6 +35,8 @@ export const exerciseContentSchema = z.object({
     "arrangement",
     "mixer",
     "automation-dynamics",
+    "effects",
+    "final-project",
   ]),
   checksLabel: z.string(),
   successLabel: z.string(),
@@ -62,6 +65,8 @@ export type LessonContext = {
   mixerSettings: MixerSettings;
   automationSettings: AutomationSettings;
   dynamicsSettings: DynamicsSettings;
+  effectsSettings: EffectsSettings;
+  projectMilestones: { exported: boolean };
 };
 
 export type ExerciseDefinition = z.infer<typeof exerciseContentSchema> & {
