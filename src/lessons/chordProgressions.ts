@@ -74,7 +74,7 @@ const lesson = lessonContentSchema.parse({
   number: 4,
   title: "Chords & progressions",
   eyebrow: "Piano · Harmony",
-  hero: "Write the chord part, note by note."
+  hero: "Write the chord part, note by note.",
   description:
     "Choose the chord for each bar, then write the actual notes and rhythm in a four-bar piano roll while your groove and melody keep playing.",
   overview:
