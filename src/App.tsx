@@ -48,22 +48,32 @@ async function startWorkspacePlayback(
   if (
     workspace === "melody" ||
     workspace === "motif" ||
-    workspace === "melody-harmony" ||
     workspace === "minor-key" ||
     workspace === "harmonic-minor"
   ) {
-    await audioEngine.playMelody(bpm, onStep);
+    await audioEngine.playMelodyWithGroove(bpm, onStep);
+    return;
+  }
+
+  if (workspace === "melody-harmony") {
+    await audioEngine.playMelodyHarmonyContext(bpm, onStep);
     return;
   }
 
   if (
     workspace === "harmony-song" ||
     workspace === "harmonic-function" ||
-    workspace === "minor-harmony" ||
+    workspace === "minor-harmony"
+  ) {
+    await audioEngine.playHarmonyContext(bpm, onStep, true);
+    return;
+  }
+
+  if (
     workspace === "seventh-harmony" ||
     workspace === "borrowed-harmony"
   ) {
-    await audioEngine.playHarmonyContext(bpm, onStep);
+    await audioEngine.playHarmonyContext(bpm, onStep, false);
     return;
   }
 
