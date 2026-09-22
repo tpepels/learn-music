@@ -56,7 +56,7 @@ const configs: Record<
     keyLabel: "FUNCTION IN C",
     palette: basicChordNames,
     numeral: romanNumerals,
-    hint: "The chord label describes the role; the piano roll is the music you actually write.",
+    hint: "The chord label names the role; the piano roll is the part you write.",
   },
   minor: {
     eyebrow: "A-minor harmony · four bars",
