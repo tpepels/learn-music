@@ -97,6 +97,27 @@ describe("PLAY / LAB project files", () => {
 
 
 
+
+  it("round-trips advanced minor, seventh, and borrowed chord symbols", () => {
+    const project = sampleProject();
+    project.chordProgression = ["E7", "Cmaj7", "Fm", "B♭"];
+
+    const file = {
+      format: "play-lab-project",
+      version: 1,
+      exportedAt: "2026-09-22T15:00:00.000Z",
+      project,
+    };
+
+    expect(projectFileSchema.safeParse(file).success).toBe(true);
+    expect(parseProjectFile(file).chordProgression).toEqual([
+      "E7",
+      "Cmaj7",
+      "Fm",
+      "B♭",
+    ]);
+  });
+
   it("fills advanced-production defaults when opening a pre-1.4 project", () => {
     const project = sampleProject();
     const {
