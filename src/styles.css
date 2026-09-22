@@ -641,3 +641,106 @@ button {
     grid-template-columns: 1fr 1fr;
   }
 }
+
+
+/* Lesson progression and A/B comparison */
+.course-item:not(:disabled) { cursor: pointer; }
+.course-item.course-available { opacity: 0.88; }
+.course-item.course-available:hover,
+.course-item.course-complete:hover { background: rgba(255, 255, 255, 0.035); }
+.course-item.course-complete { opacity: 0.78; }
+.course-item.course-complete i {
+  width: auto;
+  height: auto;
+  background: transparent;
+  color: var(--green);
+  font-style: normal;
+  font-size: 10px;
+}
+
+.pattern-tabs {
+  display: flex;
+  gap: 8px;
+  margin: -18px 0 14px;
+}
+.pattern-tab {
+  min-width: 132px;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-areas: "label value" "hint hint";
+  column-gap: 10px;
+  align-items: baseline;
+  border: 1px solid var(--line);
+  background: rgba(29, 34, 33, 0.52);
+  border-radius: 10px;
+  padding: 10px 13px 9px;
+  color: var(--muted);
+  text-align: left;
+  cursor: pointer;
+}
+.pattern-tab:hover { border-color: var(--line-strong); }
+.pattern-tab.is-active {
+  border-color: rgba(240, 184, 106, 0.55);
+  background: var(--accent-soft);
+  color: var(--text);
+}
+.pattern-tab span {
+  grid-area: label;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.pattern-tab strong {
+  grid-area: value;
+  justify-self: end;
+  color: var(--accent);
+  font-size: 14px;
+}
+.pattern-tab small {
+  grid-area: hint;
+  margin-top: 3px;
+  color: var(--dim);
+  font-size: 9px;
+}
+.reference-label { color: var(--accent) !important; }
+
+.step:disabled {
+  cursor: default;
+  opacity: 0.72;
+}
+.step:disabled:hover {
+  transform: none;
+  background: #242a28;
+}
+.step.is-active:disabled:hover { background: var(--accent-soft); }
+
+.lesson-action {
+  width: 100%;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #1c1913;
+  border-radius: 9px;
+  min-height: 40px;
+  margin-top: 14px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.lesson-action:disabled {
+  border-color: var(--line);
+  background: var(--panel-soft);
+  color: var(--dim);
+  cursor: not-allowed;
+}
+
+.implemented-note {
+  margin-top: 30px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.implemented-note p {
+  margin: 7px 0 0;
+  color: var(--dim);
+  font-size: 10px;
+  line-height: 1.5;
+}
