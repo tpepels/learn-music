@@ -19,11 +19,11 @@ const lesson = lessonContentSchema.parse({
   number: 23,
   title: "Reference mixing",
   eyebrow: "Production · Critical listening",
-  hero: "Compare versions without letting louder automatically sound better.",
+  hero: "Stop trusting the version you heard last."
   description:
-    "Capture a reference snapshot, change the current mix, level-match the comparison, switch repeatedly, and perform quiet and mono translation checks.",
+    "Freeze one version, change the mix, match their loudness and switch between them often. Use quiet and mono playback to reset your ears when the new version starts sounding better simply because it is new.",
   overview:
-    "Reference work is not copying another mix. It is a controlled comparison that resets perspective. Loudness must be matched closely because louder audio is often perceived as more impressive even when the balance is worse.",
+    "Your ears adapt fast. A fixed snapshot gives you something stable to return to, and level matching keeps a louder version from winning by default. The point is not to prove that the new mix is better; it is to hear what actually changed.",
 });
 
 export const referenceMixingLesson: LessonDefinition = {
@@ -40,7 +40,7 @@ export const referenceMixingLesson: LessonDefinition = {
         instruction:
           "Press CAPTURE REFERENCE. The snapshot stores faders, EQ, saturation, and stereo widths from the current project.",
         recognition:
-          "Nothing needs to sound different yet—the important thing is that one version is now fixed while the live project remains editable.",
+          "Before changing anything, listen once and remember one thing about the balance you may want to improve. That gives the comparison a purpose.",
         terms: [
           { term: "Reference", definition: "A fixed comparison source used to recalibrate listening decisions." },
           { term: "Snapshot", definition: "A stored state of multiple mix parameters captured at one moment." },
@@ -66,9 +66,9 @@ export const referenceMixingLesson: LessonDefinition = {
         explanation:
           "A/B comparison is useful only when A and B genuinely differ. After changing the live mix, repeated switching helps reveal whether the change actually improves hierarchy or merely sounds novel.",
         instruction:
-          "After capturing the reference, change at least one channel fader by 2 dB or more. Use the A / PROJECT and B / REFERENCE buttons at least once.",
+          "After capturing the reference, change at least one channel fader by 2 dB or more. Switch A/B at least twice. On one pass listen only to the foreground; on the next, listen only to the low end.",
         recognition:
-          "The difference should be immediate enough to compare, but your judgement should come from repeated switching rather than from assuming the new version is better.",
+          "Can you name the difference before deciding which version you prefer? If you cannot, make the change larger for a moment and compare again.",
         terms: [
           { term: "A/B", definition: "Rapidly switching between two states to compare one production decision against another." },
           { term: "Recency bias", definition: "The tendency to overvalue the most recent version simply because it is new." },
@@ -94,8 +94,8 @@ export const referenceMixingLesson: LessonDefinition = {
             complete: changed,
           },
           {
-            label: "At least one A/B comparison has been made",
-            complete: referenceMixSettings.comparisons >= 1,
+            label: "At least two A/B comparisons have been made",
+            complete: referenceMixSettings.comparisons >= 2,
           },
         ];
       },
@@ -111,7 +111,7 @@ export const referenceMixingLesson: LessonDefinition = {
         instruction:
           "Use LEVEL-MATCH GUIDE and press MATCH. Then switch A/B until you have made at least three comparisons.",
         recognition:
-          "Neither version should win simply by being globally louder; differences in balance and processing should become easier to focus on.",
+          "After level matching, does your preference change? If it does, the louder version may have been winning the first comparison for the wrong reason.",
         terms: [
           { term: "Level matching", definition: "Adjusting comparison sources to approximately equal perceived loudness before judging them." },
           { term: "Loudness bias", definition: "The tendency for a louder version to seem fuller or better even when the underlying change is not an improvement." },
@@ -158,9 +158,9 @@ export const referenceMixingLesson: LessonDefinition = {
         explanation:
           "Quiet listening reduces the emotional effect of loud playback and makes foreground/background balance obvious. Mono removes stereo separation. If the mix still communicates under both constraints, its hierarchy is more likely to translate.",
         instruction:
-          "Perform the QUIET PLAYBACK CHECK, make sure you have also used CHECK IN MONO in the stereo lesson, and reach at least four A/B comparisons.",
+          "Turn the playback down and listen for the part that remains most obvious. Then check mono and listen again. Return to A/B and make at least four comparisons in total, each time focusing on one thing: low end, foreground, width, or effects.",
         recognition:
-          "At low level you should still identify the important parts. In mono, the mix should narrow but remain intelligible.",
+          "At low level, what survives? In mono, what moves forward or backward? Those changes tell you where the mix depends on loudness or stereo spread.",
         terms: [
           { term: "Translation check", definition: "Testing a mix under different playback conditions to reveal balances that depend on one listening setup." },
           { term: "Quiet check", definition: "Auditioning at low playback level to assess musical hierarchy without loudness excitement." },
