@@ -32,7 +32,7 @@ const lesson = lessonContentSchema.parse({
   description:
     "Use i, iv and the major V7 inside a real four-bar accompaniment. You will place G♯ yourself, hear E7 resolve, and compare tonic versus deceptive endings.",
   overview:
-    "A minor can use the white-key chords of natural minor and still borrow G♯ when E7 needs a stronger pull home. Put those notes into the accompaniment yourself and listen to what the raised leading tone changes.",
+    "Your groove and minor melody remain in the loop while you add the harmony beneath them. A minor can use the white-key chords of natural minor and still bring in G♯ when E7 needs a stronger pull home.",
 });
 
 export const minorCadencesLesson: LessonDefinition = {
