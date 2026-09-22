@@ -9,7 +9,9 @@ export type ConceptVisualKind =
   | "mixer"
   | "automation"
   | "effects"
-  | "final";
+  | "final"
+  | "voice-leading"
+  | "bassline";
 
 export type ProductionContext = {
   why: string;
@@ -308,6 +310,64 @@ export const productionContext: Record<string, ProductionContext> = {
     tools: ["Project file", "Save As", "Version number", "Bounce/export"],
     visual: "final",
     realWorld: "DAWs save editable project/session files and separately render WAV/AIFF/MP3 audio. Versioned filenames let producers return to earlier decisions.",
+  },
+
+  "harmony.voice-leading.a": {
+    why: "Root position makes chord identity obvious and gives you a reference before changing the internal note order.",
+    when: "During harmony writing, keyboard arranging, and before refining how adjacent chords connect.",
+    tools: ["Piano", "Chord track", "MIDI editor", "Voicing controls"],
+    visual: "voice-leading",
+    realWorld: "In a piano roll, root-position triads appear as three stacked notes with the chord root at the bottom.",
+  },
+  "harmony.voice-leading.b": {
+    why: "First inversion changes the bass note while keeping the same chord, often reducing jumps between adjacent harmonies.",
+    when: "When a progression sounds blocky, the bass leaps too far, or an accompaniment needs smoother movement.",
+    tools: ["Piano", "Chord inversion", "Piano roll", "Chord voicing"],
+    visual: "voice-leading",
+    realWorld: "On a keyboard, first inversion is the same three chord tones rearranged so the third becomes the lowest note.",
+  },
+  "harmony.voice-leading.c": {
+    why: "Second inversion gives another route through the same harmony and can create passing, pedal, or cadential motion.",
+    when: "While shaping accompaniment, bass motion, or transitions between close-position chords.",
+    tools: ["Piano", "Second inversion", "MIDI editor", "Chord track"],
+    visual: "voice-leading",
+    realWorld: "DAWs do not label inversions automatically in most workflows; producers see them as the same chord notes moved into a different vertical order.",
+  },
+  "harmony.voice-leading.d": {
+    why: "Smooth voice leading makes harmony feel connected because individual notes move by small intervals or remain common tones.",
+    when: "After the chord progression works functionally but before finalizing piano, pad, string, or vocal-harmony parts.",
+    tools: ["Piano roll", "Chord voicing", "Common-tone analysis", "Keyboard"],
+    visual: "voice-leading",
+    realWorld: "In a MIDI editor, smooth voice leading looks like short horizontal or diagonal movements instead of every note jumping to a distant register.",
+  },
+
+  "composition.bass-lines.a": {
+    why: "Chord roots in the bass make harmonic changes immediately legible and give the groove a stable foundation.",
+    when: "At the start of bass writing, once the chord progression exists.",
+    tools: ["Bass instrument", "Piano roll", "Chord track", "Grid"],
+    visual: "bassline",
+    realWorld: "Bass MIDI often begins with root notes aligned to chord changes before rhythmic detail is added.",
+  },
+  "composition.bass-lines.b": {
+    why: "Thirds and fifths let the bass describe the chord melodically rather than only repeating roots.",
+    when: "After root anchors are clear, while adding contour and movement inside each bar.",
+    tools: ["Bass piano roll", "Chord tones", "Keyboard", "Loop playback"],
+    visual: "bassline",
+    realWorld: "A bass clip often shows root notes on strong beats with other chord tones filling the spaces between changes.",
+  },
+  "composition.bass-lines.c": {
+    why: "Approach notes create a short pull toward the next chord root and make transitions feel intentional.",
+    when: "Near bar lines and chord changes, especially when a static bass line needs more forward motion.",
+    tools: ["Chromatic note", "Eighth-note grid", "Piano roll", "Nudge"],
+    visual: "bassline",
+    realWorld: "An approach note often appears one grid position before the next chord change, a semitone or whole tone from the destination.",
+  },
+  "composition.bass-lines.d": {
+    why: "A complete bass phrase must support harmony and rhythm while still having its own contour and use of silence.",
+    when: "Once roots, chord tones, and transitions are understood, before detailed sound design and mixing.",
+    tools: ["Bass instrument", "MIDI clip", "Drum groove", "Chord track"],
+    visual: "bassline",
+    realWorld: "Producers commonly loop drums, chords, and bass together while editing the bass line until it locks rhythmically without obscuring the harmony.",
   },
 };
 
