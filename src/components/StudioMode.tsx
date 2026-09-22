@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ArrangementWorkspace } from "./ArrangementWorkspace";
+import { AdvancedHarmonyWorkspace } from "./AdvancedHarmonyWorkspace";
 import { AutomationDynamicsWorkspace } from "./AutomationDynamicsWorkspace";
 import { BassWorkspace } from "./BassWorkspace";
 import { ChordWorkspace } from "./ChordWorkspace";
@@ -11,6 +12,7 @@ import { GrooveFeelWorkspace } from "./GrooveFeelWorkspace";
 import { HarmonicFunctionWorkspace } from "./HarmonicFunctionWorkspace";
 import { MelodyHarmonyWorkspace } from "./MelodyHarmonyWorkspace";
 import { MotifWorkspace } from "./MotifWorkspace";
+import { MinorTonalityWorkspace } from "./MinorTonalityWorkspace";
 import { MixerWorkspace } from "./MixerWorkspace";
 import { PhraseFormWorkspace } from "./PhraseFormWorkspace";
 import { ReferenceWorkspace } from "./ReferenceWorkspace";
@@ -32,6 +34,11 @@ const modules = [
   { id: "melody-harmony", name: "Melody + chords", lesson: "composition.melody-over-harmony", workspace: "melody-harmony" },
   { id: "harmony", name: "Chords", lesson: "harmony.chords", workspace: "chords" },
   { id: "function", name: "Function", lesson: "harmony.function", workspace: "harmonic-function" },
+  { id: "minor-key", name: "A minor", lesson: "harmony.relative-minor", workspace: "minor-key" },
+  { id: "harmonic-minor", name: "Harmonic minor", lesson: "harmony.harmonic-minor", workspace: "harmonic-minor" },
+  { id: "minor-harmony", name: "Minor harmony", lesson: "harmony.minor-cadences", workspace: "minor-harmony" },
+  { id: "sevenths", name: "7th chords", lesson: "harmony.seventh-chords", workspace: "seventh-harmony" },
+  { id: "mixture", name: "Borrowed", lesson: "harmony.modal-mixture", workspace: "borrowed-harmony" },
   { id: "voicing", name: "Voicing", lesson: "harmony.voice-leading", workspace: "voicing" },
   { id: "bass", name: "Bass", lesson: "composition.bass-lines", workspace: "bass" },
   { id: "synth", name: "Synth", lesson: "sound.synthesis", workspace: "synth" },
@@ -115,6 +122,11 @@ export function StudioMode({
         {module === "melody-harmony" && <MelodyHarmonyWorkspace />}
         {module === "harmony" && <ChordWorkspace />}
         {module === "function" && <HarmonicFunctionWorkspace />}
+        {module === "minor-key" && <MinorTonalityWorkspace harmonic={false} />}
+        {module === "harmonic-minor" && <MinorTonalityWorkspace harmonic />}
+        {module === "minor-harmony" && <AdvancedHarmonyWorkspace mode="minor" />}
+        {module === "sevenths" && <AdvancedHarmonyWorkspace mode="sevenths" />}
+        {module === "mixture" && <AdvancedHarmonyWorkspace mode="borrowed" />}
         {module === "voicing" && <VoicingWorkspace />}
         {module === "bass" && <BassWorkspace />}
         {module === "synth" && <SynthWorkspace />}
