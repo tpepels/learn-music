@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { audioEngine } from "./audio/engine";
 import { ArrangementWorkspace } from "./components/ArrangementWorkspace";
 import { AutomationDynamicsWorkspace } from "./components/AutomationDynamicsWorkspace";
@@ -28,6 +28,7 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
   const setBpm = useStudioStore((state) => state.setBpm);
   const setPlaying = useStudioStore((state) => state.setPlaying);
   const setCurrentStep = useStudioStore((state) => state.setCurrentStep);
+  const [playbackError, setPlaybackError] = useState<string | null>(null);
 
   const canPlay = workspace !== "piano-key" && workspace !== "synth";
 
@@ -35,28 +36,42 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
     if (isPlaying) {
       audioEngine.stop();
       setPlaying(false);
+      setPlaybackError(null);
       return;
     }
 
     if (!canPlay) return;
 
-    if (workspace === "melody") {
-      await audioEngine.playMelody(bpm, setCurrentStep);
-    } else if (workspace === "chords") {
-      await audioEngine.playChords(bpm, setCurrentStep);
-    } else if (
-      workspace === "arrangement" ||
-      workspace === "mixer" ||
-      workspace === "automation-dynamics" ||
-      workspace === "effects" ||
-      workspace === "final-project"
-    ) {
-      await audioEngine.playArrangement(bpm, setCurrentStep);
-    } else {
-      await audioEngine.playDrums(bpm, setCurrentStep);
-    }
+    setPlaybackError(null);
 
-    setPlaying(true);
+    try {
+      if (workspace === "melody") {
+        await audioEngine.playMelody(bpm, setCurrentStep);
+      } else if (workspace === "chords") {
+        await audioEngine.playChords(bpm, setCurrentStep);
+      } else if (
+        workspace === "arrangement" ||
+        workspace === "mixer" ||
+        workspace === "automation-dynamics" ||
+        workspace === "effects" ||
+        workspace === "final-project"
+      ) {
+        await audioEngine.playArrangement(bpm, setCurrentStep);
+      } else {
+        await audioEngine.playDrums(bpm, setCurrentStep);
+      }
+
+      setPlaying(true);
+    } catch (error) {
+      console.error("PLAY / LAB playback failed", error);
+      audioEngine.stop();
+      setPlaying(false);
+      setPlaybackError(
+        error instanceof Error
+          ? error.message
+          : "Audio could not start. Try Play again.",
+      );
+    }
   };
 
   if (!canPlay) {
@@ -78,6 +93,12 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
         <span className="transport-icon">{isPlaying ? "■" : "▶"}</span>
         {isPlaying ? "Stop" : "Play"}
       </button>
+
+      {playbackError && (
+        <span className="transport-error" role="status">
+          Audio error · {playbackError}
+        </span>
+      )}
 
       <label className="tempo-control">
         <span>Tempo</span>
