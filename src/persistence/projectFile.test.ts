@@ -7,15 +7,18 @@ import {
   initialAccompanimentPattern,
   initialArrangement,
   initialAutomationSettings,
+  initialBassDurations,
   initialBassSequence,
   initialChordProgression,
   initialDynamicsSettings,
   initialEffectsSettings,
   initialGrooveFeelSettings,
+  initialHarmonyDurations,
   initialHarmonySequence,
   initialEqSettings,
   initialFormSettings,
   initialMelody,
+  initialMelodyDurations,
   initialMixerSettings,
   initialPattern,
   initialReferenceMixSettings,
@@ -37,8 +40,10 @@ function sampleProject(): ProjectData {
       B: clonePattern(initialPattern),
     },
     melody: [...initialMelody],
+    melodyDurations: [...initialMelodyDurations],
     chordProgression: [...initialChordProgression],
     harmonySequence: initialHarmonySequence.map((notes) => [...notes]),
+    harmonyDurations: initialHarmonyDurations.map((entry) => ({ ...entry })),
     accompanimentPattern: initialAccompanimentPattern,
     synthSettings: { ...initialSynthSettings },
     arrangement: cloneArrangement(initialArrangement),
@@ -48,6 +53,7 @@ function sampleProject(): ProjectData {
     effectsSettings: { ...initialEffectsSettings },
     voicingSettings: { inversions: [...initialVoicingSettings.inversions] },
     bassSequence: [...initialBassSequence],
+    bassDurations: [...initialBassDurations],
     grooveFeelSettings: {
       swing: initialGrooveFeelSettings.swing,
       velocities: {
@@ -102,6 +108,53 @@ describe("PLAY / LAB project files", () => {
 
 
 
+
+
+  it("round-trips drawn MIDI note durations", () => {
+    const project = sampleProject();
+    project.melody[0] = 60;
+    project.melodyDurations[0] = 4;
+    project.harmonySequence[0] = [60, 64, 67];
+    project.harmonyDurations[0] = { "60": 2, "64": 4, "67": 8 };
+    project.bassSequence[0] = 36;
+    project.bassDurations[0] = 2;
+
+    const parsed = parseProjectFile({
+      format: "play-lab-project",
+      version: 1,
+      exportedAt: "2026-09-22T20:00:00.000Z",
+      project,
+    });
+
+    expect(parsed.melodyDurations[0]).toBe(4);
+    expect(parsed.harmonyDurations[0]).toEqual({
+      "60": 2,
+      "64": 4,
+      "67": 8,
+    });
+    expect(parsed.bassDurations[0]).toBe(2);
+  });
+
+  it("defaults note durations for projects saved before duration editing", () => {
+    const project = sampleProject();
+    const {
+      melodyDurations: _melodyDurations,
+      harmonyDurations: _harmonyDurations,
+      bassDurations: _bassDurations,
+      ...legacyProject
+    } = project;
+
+    const parsed = parseProjectFile({
+      format: "play-lab-project",
+      version: 1,
+      exportedAt: "2026-09-22T20:00:00.000Z",
+      project: legacyProject,
+    });
+
+    expect(parsed.melodyDurations).toEqual(initialMelodyDurations);
+    expect(parsed.harmonyDurations).toEqual(initialHarmonyDurations);
+    expect(parsed.bassDurations).toEqual(initialBassDurations);
+  });
 
   it("round-trips advanced minor, seventh, and borrowed chord symbols", () => {
     const project = sampleProject();
