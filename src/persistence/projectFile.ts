@@ -8,11 +8,14 @@ import {
   accompanimentPatterns,
   chordNames,
   initialAccompanimentPattern,
+  initialBassDurations,
   initialBassSequence,
   initialGrooveFeelSettings,
+  initialHarmonyDurations,
   initialHarmonySequence,
   initialEqSettings,
   initialFormSettings,
+  initialMelodyDurations,
   initialReferenceMixSettings,
   initialSaturationSettings,
   initialSidechainSettings,
@@ -51,11 +54,19 @@ export const projectFileSchema = z.object({
     melody: z
       .array(z.union([z.number().int().min(0).max(127), z.null()]))
       .length(MELODY_STEPS),
+    melodyDurations: z
+      .array(z.number().int().min(1).max(MELODY_STEPS))
+      .length(MELODY_STEPS)
+      .optional(),
     chordProgression: z
       .array(z.union([z.enum(chordNames), z.null()]))
       .length(4),
     harmonySequence: z
       .array(z.array(z.number().int().min(0).max(127)))
+      .length(HARMONY_STEPS)
+      .optional(),
+    harmonyDurations: z
+      .array(z.record(z.string(), z.number().int().min(1).max(HARMONY_STEPS)))
       .length(HARMONY_STEPS)
       .optional(),
     accompanimentPattern: z.enum(accompanimentPatterns).optional(),
@@ -104,6 +115,10 @@ export const projectFileSchema = z.object({
       .optional(),
     bassSequence: z
       .array(z.union([z.number().int().min(0).max(127), z.null()]))
+      .length(BASS_STEPS)
+      .optional(),
+    bassDurations: z
+      .array(z.number().int().min(1).max(BASS_STEPS))
       .length(BASS_STEPS)
       .optional(),
     grooveFeelSettings: z
@@ -224,14 +239,20 @@ export function parseProjectFile(input: unknown): ProjectData {
 
   return {
     ...project,
+    melodyDurations:
+      project.melodyDurations ?? [...initialMelodyDurations],
     harmonySequence:
       project.harmonySequence ?? initialHarmonySequence.map((notes) => [...notes]),
+    harmonyDurations:
+      project.harmonyDurations ??
+      initialHarmonyDurations.map((entry) => ({ ...entry })),
     accompanimentPattern:
       project.accompanimentPattern ?? initialAccompanimentPattern,
     voicingSettings: project.voicingSettings ?? {
       inversions: [...initialVoicingSettings.inversions],
     },
     bassSequence: project.bassSequence ?? [...initialBassSequence],
+    bassDurations: project.bassDurations ?? [...initialBassDurations],
     grooveFeelSettings: project.grooveFeelSettings ?? {
       swing: initialGrooveFeelSettings.swing,
       velocities: {
