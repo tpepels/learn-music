@@ -1,7 +1,9 @@
-name: Validate branch manually
+name: Validate v1.8 release candidate
 
 on:
   workflow_dispatch:
+  push:
+    branches: ["feature/pedagogy-harmony-context-v18"]
 
 permissions:
   contents: read
