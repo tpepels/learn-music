@@ -833,7 +833,7 @@ function App() {
       !exerciseCompleted &&
       !exerciseChangedSinceEntry
     ) {
-      return "Try one change here to continue";
+      return "Make one change here before continuing";
     }
     if (!exerciseReady && !exerciseCompleted) return "Complete the exercise to continue";
     if (!isLastExercise) return "Continue to " + lesson.exercises[exerciseIndex + 1].letter;
@@ -996,7 +996,7 @@ function App() {
           />
 
           <div className="task-panel">
-            <span className="section-label">Your task</span>
+            <span className="section-label">Try this</span>
             <p>{exercise.instruction}</p>
           </div>
 
@@ -1017,8 +1017,8 @@ function App() {
             <div className="ready-banner">
               <span>✓</span>
               <div>
-                <strong>{exerciseCompleted ? "Saved!" : "Nice — you found it."}</strong>
-                <small>{exerciseCompleted ? "You can keep experimenting or move on." : exercise.successLabel}</small>
+                <strong>{exerciseCompleted ? "Completed" : "That works"}</strong>
+                <small>{exerciseCompleted ? "Keep experimenting or move on." : exercise.successLabel}</small>
               </div>
             </div>
           )}
@@ -1033,7 +1033,7 @@ function App() {
           </button>
 
           <button className="text-button" onClick={resetWorkspace}>
-            ↺ Reset this instrument
+            ↺ Reset workspace
           </button>
 
           <div className="lesson-reset-block">
