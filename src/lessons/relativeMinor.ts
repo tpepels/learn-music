@@ -68,7 +68,7 @@ export const relativeMinorLesson: LessonDefinition = {
           complete:
             selectedPitchClasses.length === 7 &&
             selectedPitchClasses.every((pitch) =>
-              aNaturalMinorPitchClasses.includes(pitch as never),
+              (aNaturalMinorPitchClasses as readonly string[]).includes(pitch),
             ),
         },
         {
@@ -135,20 +135,24 @@ export const relativeMinorLesson: LessonDefinition = {
         checksLabel: "Shift the tonal centre",
         successLabel: "The same note collection now points to two different homes",
       }),
-      evaluate: ({ melody }) => [
-        {
-          label: "All sounding notes stay in the shared C-major/A-minor collection",
-          complete: notes(melody).every(isANaturalMinorMidi),
-        },
-        {
-          label: "The first phrase ends on C",
-          complete: lastInRange(melody, 0, 8)?.valueOf() % 12 === 0,
-        },
-        {
-          label: "The second phrase ends on A",
-          complete: lastInRange(melody, 8, 16)?.valueOf() % 12 === 9,
-        },
-      ],
+      evaluate: ({ melody }) => {
+        const firstEnding = lastInRange(melody, 0, 8);
+        const secondEnding = lastInRange(melody, 8, 16);
+        return [
+          {
+            label: "All sounding notes stay in the shared C-major/A-minor collection",
+            complete: notes(melody).every(isANaturalMinorMidi),
+          },
+          {
+            label: "The first phrase ends on C",
+            complete: firstEnding !== null && firstEnding % 12 === 0,
+          },
+          {
+            label: "The second phrase ends on A",
+            complete: secondEnding !== null && secondEnding % 12 === 9,
+          },
+        ];
+      },
     },
     {
       ...exerciseContentSchema.parse({
