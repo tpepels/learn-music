@@ -2,31 +2,41 @@
 
 Learn Music is a browser-based teaching environment for learning **music composition and music production together**.
 
-The interface is intended to grow with the learner: early lessons expose only a few musically meaningful controls, while later lessons can develop into a compact DAW-like workspace.
+The interface grows with the learner: early lessons expose only a few musically meaningful controls, while later lessons can develop into a compact DAW-like workspace.
 
 ## Current prototype
 
-The first implemented lesson is **Pulse & groove**:
+Two interactive lessons are implemented.
+
+### 1. Pulse & groove
 
 - 16-step mouse-driven drum sequencer;
 - browser audio using Tone.js/Web Audio;
 - play/stop transport and tempo control;
 - kick, snare and hi-hat roles;
 - live playhead;
-- automatic lesson checks;
-- course/lesson/teacher workspace layout.
+- automatic lesson checks.
 
-The exercise starts with kick and hi-hat material. The learner adds a backbeat and immediately hears how pulse, subdivision and production choices interact.
+### 2. Rhythm & variation
 
-## Stack
+- A/B pattern comparison;
+- original pattern preserved as a listen-only reference;
+- editable B variation;
+- constraints that teach recognisable variation rather than arbitrary change;
+- live switching between A and B during playback.
+
+Course state now persists locally. Completed lessons, both patterns, the current lesson, active pattern and tempo survive reloads through Zustand's persistence layer.
+
+## Architecture
 
 - React + TypeScript + Vite
 - Tone.js / Web Audio
-- Zustand
-- Zod
+- Zustand + persistence
+- Zod lesson schemas
+- Vitest lesson-logic tests
 - GitHub Actions + GitHub Pages
 
-The music model and teaching layer are kept separate from the audio implementation so the editor can grow without making Tone.js the application data model.
+Lesson content and evaluators live outside the main UI. The music model remains independent of Tone.js, and the audio engine receives the currently active pattern rather than owning project data.
 
 ## Development
 
@@ -35,23 +45,20 @@ npm install
 npm run dev
 ```
 
-Then open the local Vite URL.
-
 ## Validation
 
 ```bash
 npm run typecheck
+npm test
 npm run build
 ```
 
 ## Deployment
 
-Pushes to `main` run `.github/workflows/pages.yml`, build the Vite application, and deploy `dist/` to GitHub Pages.
+Pushes to `main` run `.github/workflows/pages.yml`, validate the lesson logic, build the Vite application, and deploy `dist/` to GitHub Pages.
 
 The production Vite base is configured for:
 
 ```text
 /learn-music/
 ```
-
-Initial prototype status: active development.
