@@ -6,6 +6,7 @@ import {
   initialArrangement,
   initialChordProgression,
   initialMelody,
+  initialMixerSettings,
   initialPattern,
   initialSynthSettings,
   type Arrangement,
@@ -13,6 +14,8 @@ import {
   type ChordName,
   type ChordProgression,
   type MelodySequence,
+  type MixerSettings,
+  type MixerTrackId,
   type PatternId,
   type StepPattern,
   type SynthSettings,
@@ -36,6 +39,7 @@ type StudioState = {
   chordProgression: ChordProgression;
   synthSettings: SynthSettings;
   arrangement: Arrangement;
+  mixerSettings: MixerSettings;
 
   setBpm: (bpm: number) => void;
   setPlaying: (playing: boolean) => void;
@@ -57,6 +61,11 @@ type StudioState = {
   resetSynthSettings: () => void;
   toggleArrangementLayer: (bar: number, layer: ArrangementLayer) => void;
   clearArrangement: () => void;
+  setMixerTrack: (
+    track: MixerTrackId,
+    settings: Partial<MixerSettings[MixerTrackId]>,
+  ) => void;
+  resetMixer: () => void;
 };
 
 export const useStudioStore = create<StudioState>()(
@@ -79,6 +88,12 @@ export const useStudioStore = create<StudioState>()(
       chordProgression: [...initialChordProgression],
       synthSettings: { ...initialSynthSettings },
       arrangement: cloneArrangement(initialArrangement),
+      mixerSettings: {
+        drums: { ...initialMixerSettings.drums },
+        bass: { ...initialMixerSettings.bass },
+        chords: { ...initialMixerSettings.chords },
+        melody: { ...initialMixerSettings.melody },
+      },
 
       setBpm: (bpm) => set({ bpm }),
       setPlaying: (isPlaying) => set({ isPlaying }),
@@ -202,6 +217,27 @@ export const useStudioStore = create<StudioState>()(
           arrangement: cloneArrangement(initialArrangement),
           currentStep: 0,
         }),
+
+      setMixerTrack: (track, settings) =>
+        set((state) => ({
+          mixerSettings: {
+            ...state.mixerSettings,
+            [track]: {
+              ...state.mixerSettings[track],
+              ...settings,
+            },
+          },
+        })),
+
+      resetMixer: () =>
+        set({
+          mixerSettings: {
+            drums: { ...initialMixerSettings.drums },
+            bass: { ...initialMixerSettings.bass },
+            chords: { ...initialMixerSettings.chords },
+            melody: { ...initialMixerSettings.melody },
+          },
+        }),
     }),
     {
       name: "learn-music-studio-v2",
@@ -218,6 +254,7 @@ export const useStudioStore = create<StudioState>()(
         chordProgression: state.chordProgression,
         synthSettings: state.synthSettings,
         arrangement: state.arrangement,
+        mixerSettings: state.mixerSettings,
       }),
     },
   ),
