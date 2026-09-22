@@ -50,9 +50,6 @@ export const chromaticPitches = [
   { midi: 62, name: "D4", pitchClass: "D", black: false },
   { midi: 61, name: "D♭4", pitchClass: "D♭", black: true },
   { midi: 60, name: "C4", pitchClass: "C", black: false },
-  { midi: 59, name: "B3", pitchClass: "B", black: false },
-  { midi: 58, name: "B♭3", pitchClass: "B♭", black: true },
-  { midi: 57, name: "A3", pitchClass: "A", black: false },
 ] as const;
 
 export const cMajorMidi = [60, 62, 64, 65, 67, 69, 71, 72] as const;
