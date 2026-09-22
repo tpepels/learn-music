@@ -251,6 +251,8 @@ function App() {
   const voicingSettings = useStudioStore((state) => state.voicingSettings);
   const bassSequence = useStudioStore((state) => state.bassSequence);
   const appMode = useStudioStore((state) => state.appMode);
+  const [studioTransportWorkspace, setStudioTransportWorkspace] =
+    useState<ExerciseDefinition["workspace"]>("compare");
 
   const setCurrentLesson = useStudioStore((state) => state.setCurrentLesson);
   const setExerciseIndex = useStudioStore((state) => state.setExerciseIndex);
@@ -522,12 +524,20 @@ function App() {
               Studio
             </button>
           </div>
-          <Transport workspace={appMode === "learn" ? exercise.workspace : "arrangement"} />
+          <Transport
+            workspace={
+              appMode === "learn"
+                ? exercise.workspace
+                : appMode === "studio"
+                  ? studioTransportWorkspace
+                  : "arrangement"
+            }
+          />
         </div>
       </header>
 
       {appMode === "studio" ? (
-        <StudioMode />
+        <StudioMode onTransportWorkspaceChange={setStudioTransportWorkspace} />
       ) : appMode === "create" ? (
         <CreateMode />
       ) : (
