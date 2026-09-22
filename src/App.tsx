@@ -1,6 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
 import { audioEngine } from "./audio/engine";
-import { resolveTransportWorkspace } from "./app/transportRouting";
+import {
+  canWorkspaceUseTransport,
+  resolveTransportWorkspace,
+} from "./app/transportRouting";
 import { ArrangementWorkspace } from "./components/ArrangementWorkspace";
 import { AdvancedHarmonyWorkspace } from "./components/AdvancedHarmonyWorkspace";
 import { AutomationDynamicsWorkspace } from "./components/AutomationDynamicsWorkspace";
@@ -38,6 +41,60 @@ import { isExerciseReady } from "./lessons/exerciseReadiness";
 import type { ExerciseDefinition } from "./lessons/types";
 import { useStudioStore } from "./state/studio";
 
+async function startWorkspacePlayback(
+  workspace: ExerciseDefinition["workspace"],
+  bpm: number,
+  onStep: (step: number) => void,
+) {
+  if (
+    workspace === "melody" ||
+    workspace === "motif" ||
+    workspace === "melody-harmony" ||
+    workspace === "minor-key" ||
+    workspace === "harmonic-minor"
+  ) {
+    await audioEngine.playMelody(bpm, onStep);
+    return;
+  }
+
+  if (
+    workspace === "chords" ||
+    workspace === "voicing" ||
+    workspace === "harmonic-function" ||
+    workspace === "minor-harmony" ||
+    workspace === "seventh-harmony" ||
+    workspace === "borrowed-harmony"
+  ) {
+    await audioEngine.playChords(bpm, onStep);
+    return;
+  }
+
+  if (workspace === "bass") {
+    await audioEngine.playBass(bpm, onStep);
+    return;
+  }
+
+  if (
+    workspace === "arrangement" ||
+    workspace === "mixer" ||
+    workspace === "automation-dynamics" ||
+    workspace === "effects" ||
+    workspace === "final-project" ||
+    workspace === "phrase-form" ||
+    workspace === "texture" ||
+    workspace === "eq" ||
+    workspace === "saturation" ||
+    workspace === "sidechain" ||
+    workspace === "stereo" ||
+    workspace === "reference"
+  ) {
+    await audioEngine.playArrangement(bpm, onStep);
+    return;
+  }
+
+  await audioEngine.playDrums(bpm, onStep);
+}
+
 function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }) {
   const bpm = useStudioStore((state) => state.bpm);
   const isPlaying = useStudioStore((state) => state.isPlaying);
@@ -46,7 +103,7 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
   const setCurrentStep = useStudioStore((state) => state.setCurrentStep);
   const [playbackError, setPlaybackError] = useState<string | null>(null);
 
-  const canPlay = workspace !== "piano-key" && workspace !== "synth";
+  const canPlay = canWorkspaceUseTransport(workspace);
 
   const togglePlayback = async () => {
     if (isPlaying) {
@@ -61,44 +118,7 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
     setPlaybackError(null);
 
     try {
-      if (
-        workspace === "melody" ||
-        workspace === "motif" ||
-        workspace === "melody-harmony" ||
-        workspace === "minor-key" ||
-        workspace === "harmonic-minor"
-      ) {
-        await audioEngine.playMelody(bpm, setCurrentStep);
-      } else if (
-        workspace === "chords" ||
-        workspace === "voicing" ||
-        workspace === "harmonic-function" ||
-        workspace === "minor-harmony" ||
-        workspace === "seventh-harmony" ||
-        workspace === "borrowed-harmony"
-      ) {
-        await audioEngine.playChords(bpm, setCurrentStep);
-      } else if (workspace === "bass") {
-        await audioEngine.playBass(bpm, setCurrentStep);
-      } else if (
-        workspace === "arrangement" ||
-        workspace === "mixer" ||
-        workspace === "automation-dynamics" ||
-        workspace === "effects" ||
-        workspace === "final-project" ||
-        workspace === "phrase-form" ||
-        workspace === "texture" ||
-        workspace === "eq" ||
-        workspace === "saturation" ||
-        workspace === "sidechain" ||
-        workspace === "stereo" ||
-        workspace === "reference"
-      ) {
-        await audioEngine.playArrangement(bpm, setCurrentStep);
-      } else {
-        await audioEngine.playDrums(bpm, setCurrentStep);
-      }
-
+      await startWorkspacePlayback(workspace, bpm, setCurrentStep);
       setPlaying(true);
     } catch (error) {
       console.error("PLAY / LAB playback failed", error);
@@ -111,6 +131,36 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
       );
     }
   };
+
+  useEffect(() => {
+    if (!isPlaying) return;
+
+    if (!canPlay) {
+      audioEngine.stop();
+      setPlaying(false);
+      return;
+    }
+
+    let cancelled = false;
+
+    void startWorkspacePlayback(workspace, bpm, setCurrentStep).catch((error) => {
+      if (cancelled) return;
+      console.error("PLAY / LAB playback failed while changing workspace", error);
+      audioEngine.stop();
+      setPlaying(false);
+      setPlaybackError(
+        error instanceof Error
+          ? error.message
+          : "Audio could not continue in this lesson.",
+      );
+    });
+
+    return () => {
+      cancelled = true;
+    };
+    // Deliberately restart only when the playback workspace changes.
+    // BPM changes are handled live by audioEngine.setBpm().
+  }, [workspace]);
 
   if (!canPlay) {
     return (
@@ -158,7 +208,7 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
   );
 }
 
-function ExerciseTabs({
+function ExerciseLights({
   lessonId,
   exercises,
   currentIndex,
@@ -172,7 +222,7 @@ function ExerciseTabs({
   onOpen: (index: number) => void;
 }) {
   return (
-    <nav className="exercise-tabs" aria-label="Lesson exercises">
+    <nav className="exercise-lights" aria-label="Lesson exercise progress">
       {exercises.map((item, index) => {
         const previous = exercises[index - 1];
         const unlocked =
@@ -185,16 +235,23 @@ function ExerciseTabs({
           <button
             key={item.id}
             className={[
-              "exercise-tab",
+              "exercise-light",
               active ? "is-active" : "",
               completed ? "is-complete" : "",
             ].filter(Boolean).join(" ")}
             disabled={!unlocked}
             onClick={() => onOpen(index)}
-            title={lessonId + " · exercise " + item.letter}
+            title={item.letter + " · " + item.title}
+            aria-label={
+              lessonId +
+              " exercise " +
+              item.letter +
+              ": " +
+              item.title +
+              (completed ? " (completed)" : "")
+            }
           >
-            <span>{item.letter}</span>
-            <strong>{item.title}</strong>
+            {item.letter}
           </button>
         );
       })}
@@ -569,14 +626,12 @@ function App() {
 
   const openLesson = (lessonId: string) => {
     if (lessonId === currentLessonId) return;
-    stopTransport();
     setConfirmLessonReset(false);
     setCurrentLesson(lessonId);
   };
 
   const openExercise = (index: number) => {
     if (index === exerciseIndex) return;
-    stopTransport();
     setConfirmLessonReset(false);
     setExerciseIndex(lesson.id, index);
   };
@@ -594,8 +649,6 @@ function App() {
       exerciseIndex,
       nextLesson,
     );
-
-    stopTransport();
 
     if (destination.type === "exercise") {
       setExerciseIndex(lesson.id, destination.exerciseIndex);
@@ -863,16 +916,8 @@ function App() {
         <main className="music-panel">
           <section className="music-intro">
             <h1>{exercise.title}</h1>
-            <p>{exercise.learn}</p>
+            <p>{lesson.description}</p>
           </section>
-
-          <ExerciseTabs
-            lessonId={lesson.id}
-            exercises={lesson.exercises}
-            currentIndex={exerciseIndex}
-            completedExerciseIds={completedExerciseIds}
-            onOpen={openExercise}
-          />
 
           <Workspace exercise={exercise} />
 
@@ -880,6 +925,14 @@ function App() {
         </main>
 
         <aside className="teacher-panel">
+          <ExerciseLights
+            lessonId={lesson.id}
+            exercises={lesson.exercises}
+            currentIndex={exerciseIndex}
+            completedExerciseIds={completedExerciseIds}
+            onOpen={openExercise}
+          />
+
           <div className="task-panel">
             <span className="section-label">Your task</span>
             <p>{exercise.instruction}</p>
