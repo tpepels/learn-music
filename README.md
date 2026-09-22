@@ -10,6 +10,8 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
+Current curriculum release: **v1.4.0**.
+
 ## Current interactive curriculum
 
 There are currently **23 lessons and 92 guided exercises**.
