@@ -53,3 +53,5 @@ The production Vite base is configured for:
 ```text
 /learn-music/
 ```
+
+Initial prototype status: active development.
