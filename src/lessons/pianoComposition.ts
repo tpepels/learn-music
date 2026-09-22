@@ -59,7 +59,9 @@ export const pianoCompositionLesson: LessonDefinition = {
         },
         {
           label: "No notes outside C major are selected",
-          complete: selectedPitchClasses.every((note) => cMajorNotes.includes(note)),
+          complete:
+            selectedPitchClasses.length > 0 &&
+            selectedPitchClasses.every((note) => cMajorNotes.includes(note)),
         },
       ],
     },
