@@ -85,8 +85,7 @@ class AudioEngine {
   private snare: Tone.NoiseSynth | null = null;
   private hat: Tone.NoiseSynth | null = null;
   private hatFilter: Tone.Filter | null = null;
-  private piano: Tone.Synth | null = null;
-  private pianoDouble: Tone.Synth | null = null;
+  private piano: Tone.Sampler | null = null;
   private melodyChorus: Tone.Chorus | null = null;
   private melodyChorusSend: Tone.Gain | null = null;
   private chordSynth: Tone.PolySynth | null = null;
@@ -338,19 +337,19 @@ class AudioEngine {
     }
 
     if (!this.piano) {
-      this.piano = new Tone.Synth({
-        oscillator: { type: "triangle" },
-        envelope: { attack: 0.006, decay: 0.32, sustain: 0.18, release: 0.8 },
+      this.piano = new Tone.Sampler({
+        urls: {
+          A3: "A3.mp3",
+          C4: "C4.mp3",
+          "D#4": "Ds4.mp3",
+          "F#4": "Fs4.mp3",
+          A4: "A4.mp3",
+          C5: "C5.mp3",
+        },
+        release: 1.15,
+        baseUrl: `${import.meta.env.BASE_URL}samples/piano/`,
       }).connect(this.inputFor("melody"));
-      this.piano.volume.value = -8;
-    }
-
-    if (!this.pianoDouble) {
-      this.pianoDouble = new Tone.Synth({
-        oscillator: { type: "triangle" },
-        envelope: { attack: 0.006, decay: 0.32, sustain: 0.18, release: 0.8 },
-      }).connect(this.inputFor("melody"));
-      this.pianoDouble.volume.value = -13;
+      this.piano.volume.value = -6;
     }
 
     if (!this.chordAutomationFilter) {
@@ -525,6 +524,7 @@ class AudioEngine {
 
     // Core playback must never depend on optional creative effects.
     this.ensureVoices();
+    await Tone.loaded();
 
     try {
       this.ensureEffectsGraph();
@@ -594,7 +594,7 @@ class AudioEngine {
         this.piano?.triggerAttackRelease(note, "8n", time, 0.72);
 
         if (this.textureSettings.melodyOctaveDouble) {
-          this.pianoDouble?.triggerAttackRelease(
+          this.piano?.triggerAttackRelease(
             Tone.Frequency(texturedMidi + 12, "midi").toNote(),
             "8n",
             time,
@@ -788,7 +788,7 @@ class AudioEngine {
           );
 
           if (this.textureSettings.melodyOctaveDouble) {
-            this.pianoDouble?.triggerAttackRelease(
+            this.piano?.triggerAttackRelease(
               Tone.Frequency(texturedMidi + 12, "midi").toNote(),
               "8n",
               time,
@@ -811,7 +811,13 @@ class AudioEngine {
   async playPianoNote(midi: number) {
     await Tone.start();
     this.ensureVoices();
-    this.piano?.triggerAttackRelease(Tone.Frequency(midi, "midi").toNote(), "8n", undefined, 0.7);
+    await Tone.loaded();
+    this.piano?.triggerAttackRelease(
+      Tone.Frequency(midi, "midi").toNote(),
+      "8n",
+      undefined,
+      0.72,
+    );
   }
 
   async playChord(chord: ChordName, inversion: ChordInversion = 0) {
