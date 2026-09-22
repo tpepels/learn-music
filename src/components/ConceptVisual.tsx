@@ -153,6 +153,55 @@ export function ConceptVisual({ kind }: { kind: ConceptVisualKind }) {
         </svg>
       );
 
+    case "effects":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="Effects send and return routing diagram">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          <g transform="translate(22 34)">
+            <rect x="0" y="0" width="62" height="34" rx="9" className="diagram-module" />
+            <text x="31" y="21" textAnchor="middle" className="diagram-label">TRACK</text>
+            <path d="M 64 17 H 96" className="diagram-arrow" />
+            <rect x="99" y="0" width="70" height="34" rx="9" className="diagram-module" />
+            <text x="134" y="21" textAnchor="middle" className="diagram-label">MIXER</text>
+            <path d="M 171 17 H 207" className="diagram-arrow" />
+            <rect x="210" y="0" width="70" height="34" rx="9" className="diagram-module" />
+            <text x="245" y="21" textAnchor="middle" className="diagram-label">MASTER</text>
+            <path d="M 133 38 C 133 64, 73 64, 73 86" className="diagram-envelope" />
+            <path d="M 150 38 C 150 64, 226 64, 226 86" className="diagram-envelope" />
+            <rect x="30" y="88" width="86" height="28" rx="8" className="diagram-chord is-tension" />
+            <rect x="184" y="88" width="86" height="28" rx="8" className="diagram-chord" />
+            <text x="73" y="106" textAnchor="middle" className="diagram-small">REVERB RETURN</text>
+            <text x="227" y="106" textAnchor="middle" className="diagram-small">DELAY RETURN</text>
+          </g>
+          <text x="22" y="132" className="diagram-caption">SEND / RETURN ROUTING + INSERT EFFECTS</text>
+        </svg>
+      );
+
+    case "final":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="Final production workflow diagram">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          {[
+            ["WRITE", 24, 35],
+            ["ARRANGE", 86, 35],
+            ["MIX", 166, 35],
+            ["MOVE", 222, 35],
+            ["FX", 62, 87],
+            ["CHECK", 122, 87],
+            ["SAVE", 202, 87],
+          ].map(([label,x,y],i)=>(
+            <g key={String(label)}>
+              <rect x={Number(x)} y={Number(y)} width={i===1||i===5?66:50} height="28" rx="8" className={label==="SAVE" ? "diagram-chord is-tension" : "diagram-module"} />
+              <text x={Number(x)+(i===1||i===5?33:25)} y={Number(y)+18} textAnchor="middle" className="diagram-small">{label}</text>
+            </g>
+          ))}
+          <path d="M 74 49 H 84 M 152 49 H 164 M 216 49 H 220" className="diagram-arrow" />
+          <path d="M 247 65 C 247 77, 227 77, 227 85" className="diagram-arrow" />
+          <path d="M 201 101 H 190 M 122 101 H 116" className="diagram-arrow" />
+          <text x="22" y="130" className="diagram-caption">ITERATE → REVIEW → SAVE A VERSION</text>
+        </svg>
+      );
+
     case "mixer":
       return (
         <svg viewBox="0 0 320 150" role="img" aria-label="DAW mixer channel diagram">
