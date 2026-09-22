@@ -7,6 +7,7 @@ import {
   cloneAutomationSettings,
   cloneEqSettings,
   cloneGrooveFeelSettings,
+  cloneHarmonySequence,
   cloneMixerSettings,
   clonePattern,
   cloneReferenceSnapshot,
@@ -21,6 +22,7 @@ import {
   initialEffectsSettings,
   initialEqSettings,
   initialGrooveFeelSettings,
+  initialHarmonySequence,
   initialMelody,
   initialMixerSettings,
   initialPattern,
@@ -43,6 +45,7 @@ import {
   type EffectsSettings,
   type EqSettings,
   type GrooveFeelSettings,
+  type HarmonySequence,
   type MelodySequence,
   type MixerSettings,
   type MixerTrackId,
@@ -60,6 +63,8 @@ class AudioEngine {
   private pattern: StepPattern = clonePattern(initialPattern);
   private melody: MelodySequence = [...initialMelody];
   private chordProgression: ChordProgression = [...initialChordProgression];
+  private harmonySequence: HarmonySequence =
+    cloneHarmonySequence(initialHarmonySequence);
   private accompanimentPattern: AccompanimentPattern = initialAccompanimentPattern;
   private arrangement: Arrangement = cloneArrangement(initialArrangement);
   private synthSettings: SynthSettings = { ...initialSynthSettings };
@@ -122,6 +127,10 @@ class AudioEngine {
 
   setChordProgression(chords: ChordProgression) {
     this.chordProgression = [...chords];
+  }
+
+  setHarmonySequence(sequence: HarmonySequence) {
+    this.harmonySequence = cloneHarmonySequence(sequence);
   }
 
   setAccompanimentPattern(pattern: AccompanimentPattern) {
@@ -686,16 +695,32 @@ class AudioEngine {
     transport.start();
   }
 
-  async playHarmonyContext(bpm: number, onStep: (bar: number) => void) {
+  private triggerWrittenHarmonyStep(
+    harmonyStep: number,
+    time: number,
+    velocity = 0.52,
+  ) {
+    const notes = this.harmonySequence[harmonyStep] ?? [];
+    if (notes.length === 0) return;
+
+    const rendered = notes.map((midi) =>
+      Tone.Frequency(
+        midi + this.textureSettings.chordsOctave * 12,
+        "midi",
+      ).toNote(),
+    );
+    this.chordSynth?.triggerAttackRelease(rendered, "8n", time, velocity);
+  }
+
+  async playHarmonyContext(bpm: number, onStep: (step: number) => void) {
     await this.prepare(bpm, onStep);
     const transport = Tone.getTransport();
-    const totalSteps = this.chordProgression.length * 16;
+    const totalTransportSteps = this.chordProgression.length * 16;
 
     this.eventId = transport.scheduleRepeat((time) => {
       const globalStep = this.step;
       const barIndex = Math.floor(globalStep / 16);
       const localStep = globalStep % 16;
-      const chord = this.chordProgression[barIndex] ?? "C";
 
       if (this.pattern.kick[localStep]) {
         this.kick?.triggerAttackRelease(
@@ -720,21 +745,12 @@ class AudioEngine {
         );
       }
 
-      const inversion = this.voicingSettings.inversions[barIndex] ?? 0;
-      this.triggerChordPattern(chord, inversion, localStep, time, 0.45);
+      if (localStep % 2 === 0) {
+        const harmonyStep = barIndex * 8 + localStep / 2;
+        this.triggerWrittenHarmonyStep(harmonyStep, time);
 
-      if (localStep % 4 === 0) {
-        const rootMidi =
-          chordMidi[chord][0] - 12 + this.textureSettings.bassOctave * 12;
-        this.bassSynth?.triggerAttackRelease(
-          Tone.Frequency(rootMidi, "midi").toNote(),
-          "8n",
-          time,
-          0.42,
-        );
-
-        const melodyStep = barIndex * 4 + localStep / 4;
-        const midi = this.melody[melodyStep % this.melody.length];
+        const melodyStep = harmonyStep % this.melody.length;
+        const midi = this.melody[melodyStep];
         if (midi !== null && midi !== undefined) {
           const texturedMidi = midi + this.textureSettings.melodyOctave * 12;
           this.piano?.triggerAttackRelease(
@@ -744,12 +760,11 @@ class AudioEngine {
             0.54,
           );
         }
+
+        Tone.getDraw().schedule(() => this.onStep?.(harmonyStep), time);
       }
 
-      if (localStep === 0) {
-        Tone.getDraw().schedule(() => this.onStep?.(barIndex), time);
-      }
-      this.step = (this.step + 1) % totalSteps;
+      this.step = (this.step + 1) % totalTransportSteps;
     }, "16n");
 
     transport.start();
@@ -854,9 +869,18 @@ class AudioEngine {
       const chord = this.chordProgression[barIndex % this.chordProgression.length] ?? "C";
 
       if (bar?.chords) {
-        const chordSlot = barIndex % this.chordProgression.length;
-        const inversion = this.voicingSettings.inversions[chordSlot] ?? 0;
-        this.triggerChordPattern(chord, inversion, localStep, time, 0.48);
+        const hasWrittenHarmony = this.harmonySequence.some(
+          (notes) => notes.length > 0,
+        );
+        if (hasWrittenHarmony && localStep % 2 === 0) {
+          const harmonyBar = barIndex % this.chordProgression.length;
+          const harmonyStep = harmonyBar * 8 + localStep / 2;
+          this.triggerWrittenHarmonyStep(harmonyStep, time, 0.48);
+        } else if (!hasWrittenHarmony) {
+          const chordSlot = barIndex % this.chordProgression.length;
+          const inversion = this.voicingSettings.inversions[chordSlot] ?? 0;
+          this.triggerChordPattern(chord, inversion, localStep, time, 0.48);
+        }
       }
 
       if (bar?.bass && localStep % 2 === 0) {
