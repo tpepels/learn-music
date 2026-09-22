@@ -57,6 +57,11 @@ async function startWorkspacePlayback(
     return;
   }
 
+  if (workspace === "harmony-song") {
+    await audioEngine.playHarmonyContext(bpm, onStep);
+    return;
+  }
+
   if (
     workspace === "chords" ||
     workspace === "voicing" ||
@@ -271,6 +276,8 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
       return <MelodyWorkspace title={exercise.title} />;
     case "chords":
       return <ChordWorkspace />;
+    case "harmony-song":
+      return <ChordWorkspace contextual />;
     case "synth":
       return <SynthWorkspace />;
     case "arrangement":
@@ -363,6 +370,7 @@ function App() {
   const selectedPitchClasses = useStudioStore((state) => state.selectedPitchClasses);
   const melody = useStudioStore((state) => state.melody);
   const chordProgression = useStudioStore((state) => state.chordProgression);
+  const accompanimentPattern = useStudioStore((state) => state.accompanimentPattern);
   const synthSettings = useStudioStore((state) => state.synthSettings);
   const arrangement = useStudioStore((state) => state.arrangement);
   const mixerSettings = useStudioStore((state) => state.mixerSettings);
@@ -394,6 +402,9 @@ function App() {
   const clearPitchClasses = useStudioStore((state) => state.clearPitchClasses);
   const clearMelody = useStudioStore((state) => state.clearMelody);
   const clearChords = useStudioStore((state) => state.clearChords);
+  const resetAccompanimentPattern = useStudioStore(
+    (state) => state.resetAccompanimentPattern,
+  );
   const resetSynthSettings = useStudioStore((state) => state.resetSynthSettings);
   const clearArrangement = useStudioStore((state) => state.clearArrangement);
   const resetMixer = useStudioStore((state) => state.resetMixer);
@@ -431,6 +442,7 @@ function App() {
         selectedPitchClasses,
         melody,
         chordProgression,
+        accompanimentPattern,
         synthSettings,
         arrangement,
         mixerSettings,
@@ -454,6 +466,7 @@ function App() {
       selectedPitchClasses,
       melody,
       chordProgression,
+      accompanimentPattern,
       synthSettings,
       arrangement,
       mixerSettings,
@@ -499,6 +512,10 @@ function App() {
   useEffect(() => {
     audioEngine.setChordProgression(chordProgression);
   }, [chordProgression]);
+
+  useEffect(() => {
+    audioEngine.setAccompanimentPattern(accompanimentPattern);
+  }, [accompanimentPattern]);
 
   useEffect(() => {
     audioEngine.setSynthSettings(synthSettings);
@@ -564,6 +581,7 @@ function App() {
         selectedPitchClasses,
         melody,
         chordProgression,
+        accompanimentPattern,
         synthSettings,
         arrangement,
         mixerSettings,
@@ -588,6 +606,7 @@ function App() {
       selectedPitchClasses,
       melody,
       chordProgression,
+      accompanimentPattern,
       synthSettings,
       arrangement,
       mixerSettings,
@@ -686,7 +705,9 @@ function App() {
         clearMelody();
         break;
       case "chords":
+      case "harmony-song":
         clearChords();
+        resetAccompanimentPattern();
         break;
       case "synth":
         resetSynthSettings();
