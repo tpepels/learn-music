@@ -22,7 +22,12 @@ export type ConceptVisualKind =
   | "saturation"
   | "sidechain"
   | "stereo"
-  | "reference";
+  | "reference"
+  | "relative-minor"
+  | "harmonic-minor"
+  | "minor-cadence"
+  | "seventh-chords"
+  | "modal-mixture";
 
 export type ProductionContext = {
   why: string;
@@ -698,6 +703,151 @@ export const productionContext: Record<string, ProductionContext> = {
     tools: ["Monitor level", "Mono switch", "A/B reference", "Small-speaker check"],
     visual: "reference",
     realWorld: "Mix engineers routinely turn monitors down, hit mono, or switch speakers before returning to normal playback with refreshed perspective.",
+  },
+
+  "harmony.relative-minor.a": {
+    why: "Relative major and minor keys share the same notes, so changing the tonic can transform the emotional and structural meaning of a familiar pitch collection without introducing new pitches.",
+    when: "When moving beyond a first major key and learning how tonal centre, phrase placement, and hierarchy determine whether the same notes sound major or minor.",
+    tools: ["Piano keyboard", "Piano roll", "Key display", "Scale-degree labels"],
+    visual: "relative-minor",
+    realWorld: "DAWs and notation tools often show the same seven note names for C major and A minor; the real difference appears in which note or chord is treated as tonic.",
+  },
+  "harmony.relative-minor.b": {
+    why: "Beginning and ending on tonic gives the ear a stable frame. This is one of the simplest ways to make A feel like home while using exactly the same pitch collection as C major.",
+    when: "During melody writing, especially while learning a new key or checking whether a phrase clearly communicates its tonal centre.",
+    tools: ["Piano roll", "MIDI keyboard", "Loop playback", "Tonic reference"],
+    visual: "relative-minor",
+    realWorld: "Composers often loop a short MIDI phrase and change only its start or ending notes to hear how tonal gravity shifts.",
+  },
+  "harmony.relative-minor.c": {
+    why: "Relative keys can be connected with no chromatic notes because every pitch belongs to both. Phrase endings and emphasis can therefore create a tonal pivot almost invisibly.",
+    when: "When composing sections that move between relative major and minor or when a melody needs contrast without changing its note collection.",
+    tools: ["Piano roll", "Phrase markers", "Loop region", "Tonic pedal/reference"],
+    visual: "relative-minor",
+    realWorld: "A producer may keep one MIDI clip almost unchanged while changing the bass note or phrase ending so the same material reads as C major in one section and A minor in another.",
+  },
+  "harmony.relative-minor.d": {
+    why: "The lowered third, sixth, and seventh define the interval pattern of natural minor relative to the tonic. Using them deliberately makes the mode audible as structure rather than merely as a list of allowed notes.",
+    when: "While shaping a melody after the tonic is established and the composer wants the line to carry unmistakable minor-key colour.",
+    tools: ["Scale-degree display", "MIDI editor", "Keyboard", "Ear comparison"],
+    visual: "relative-minor",
+    realWorld: "Theory-aware MIDI tools label degrees such as ♭3, ♭6, and ♭7; pianists hear the same information as the characteristic distances above tonic.",
+  },
+
+  "harmony.harmonic-minor.a": {
+    why: "Raising scale degree 7 creates a note one semitone below tonic, giving minor-key harmony a much stronger route back home.",
+    when: "When natural minor's whole-step ♭7→1 motion feels too weak for the cadence or dominant function you want.",
+    tools: ["Piano roll", "Scale editor", "Accidental", "Key-aware MIDI display"],
+    visual: "harmonic-minor",
+    realWorld: "In notation the G becomes G♯; in a piano roll it appears as the black key immediately below A.",
+  },
+  "harmony.harmonic-minor.b": {
+    why: "The raised seventh matters because of how it resolves. G♯ feels unstable and strongly points to A, making the concept audible rather than theoretical.",
+    when: "Near phrase endings, dominant chords, melodic cadences, or anywhere a minor-key line needs extra forward pull.",
+    tools: ["Piano roll", "MIDI keyboard", "Loop playback", "Step input"],
+    visual: "harmonic-minor",
+    realWorld: "A composer can zoom into two MIDI notes—G♯ followed by A—and hear the same leading-tone behaviour later embedded inside an E7→Am cadence.",
+  },
+  "harmony.harmonic-minor.c": {
+    why: "The F→G♯ augmented second is one of harmonic minor's most distinctive melodic intervals and helps explain why the scale sounds different from natural minor.",
+    when: "While learning the scale's sound, writing deliberately dramatic lines, or deciding whether a smoother melodic-minor treatment would suit a phrase better.",
+    tools: ["Piano roll", "Interval display", "Keyboard", "Scale overlay"],
+    visual: "harmonic-minor",
+    realWorld: "On a piano roll the jump spans three semitones even though F and G♯ are adjacent written scale degrees.",
+  },
+  "harmony.harmonic-minor.d": {
+    why: "A chromatic alteration becomes compositionally meaningful when it shapes an actual phrase instead of appearing as a scale demonstration.",
+    when: "Once the raised seventh is understood in isolation and you want to place it only where the phrase benefits from stronger cadential direction.",
+    tools: ["Piano roll", "Loop playback", "Phrase markers", "MIDI editing"],
+    visual: "harmonic-minor",
+    realWorld: "In real writing, G♯ may appear only once near the end of a phrase rather than throughout the entire melody.",
+  },
+
+  "harmony.minor-cadences.a": {
+    why: "Minor tonic and minor subdominant establish the key's basic home-and-departure relationship before dominant tension is introduced.",
+    when: "Early in writing a minor-key progression, especially when sketching harmonic function with simple triads.",
+    tools: ["Chord track", "MIDI chord pads", "Piano", "Roman-numeral analysis"],
+    visual: "minor-cadence",
+    realWorld: "A DAW chord lane may show Am and Dm while the MIDI notes reveal the shared A-minor collection underneath.",
+  },
+  "harmony.minor-cadences.b": {
+    why: "E7 contains the raised seventh G♯, converting a weak natural-minor v chord into a strong dominant V7 that resolves decisively to Am.",
+    when: "At phrase endings, section boundaries, or any moment where minor-key harmony needs a clear authentic cadence.",
+    tools: ["Chord track", "Dominant seventh chord", "Piano", "Voice-leading view"],
+    visual: "minor-cadence",
+    realWorld: "In a DAW the E7 clip visibly contains G♯ even though the surrounding A-minor material mostly uses white keys.",
+  },
+  "harmony.minor-cadences.c": {
+    why: "The Andalusian cadence creates a memorable descending root line while leaving V at the end to propel the loop back to i.",
+    when: "When a composition benefits from a strong descending harmonic pattern, especially in repeating minor-key sections.",
+    tools: ["Chord track", "Bass line", "Roman numerals", "Loop playback"],
+    visual: "minor-cadence",
+    realWorld: "The arrangement or chord lane shows Am–G–F–E7 while the bass traces the obvious A–G–F–E descent.",
+  },
+  "harmony.minor-cadences.d": {
+    why: "A deceptive resolution preserves dominant expectation but redirects the emotional outcome, letting the phrase continue instead of fully closing on tonic.",
+    when: "When V7→i feels too final and the next section or phrase needs to remain open.",
+    tools: ["Chord track", "A/B progression comparison", "Piano", "Roman-numeral analysis"],
+    visual: "minor-cadence",
+    realWorld: "Producers often duplicate a progression and change only the final chord to compare a closed cadence against a deceptive one.",
+  },
+
+  "harmony.seventh-chords.a": {
+    why: "Adding the seventh introduces colour and internal tension while preserving the basic tonic identity of the chord.",
+    when: "After triads are comfortable and the harmony needs more nuance without becoming fully chromatic.",
+    tools: ["Chord track", "Piano voicing", "MIDI chord editor", "Chord analyser"],
+    visual: "seventh-chords",
+    realWorld: "A Cmaj7 MIDI clip looks like a C-major triad plus one additional B stacked above or distributed through the voicing.",
+  },
+  "harmony.seventh-chords.b": {
+    why: "The dominant seventh contains two guide tones that move by semitone into tonic, making the cadence stronger than a plain major V chord.",
+    when: "At cadences, turnarounds, and functional progressions where dominant tension should be unmistakable.",
+    tools: ["Chord track", "Guide-tone view", "Piano", "Voice-leading display"],
+    visual: "seventh-chords",
+    realWorld: "A G7→C progression can be reduced to B→C and F→E; many arrangers and jazz musicians listen for those inner motions first.",
+  },
+  "harmony.seventh-chords.c": {
+    why: "ii7–V7–Imaj7 combines functional direction with smooth four-note voice leading and is foundational across jazz, pop, soul, film music, and many tonal styles.",
+    when: "When the composer wants a clear cadential progression with richer harmony than simple triads.",
+    tools: ["Chord track", "Piano", "Lead sheet", "Voice-leading editor"],
+    visual: "seventh-chords",
+    realWorld: "Chord symbols Dm7–G7–Cmaj7 are a standard sight on lead sheets and in DAW chord tracks.",
+  },
+  "harmony.seventh-chords.d": {
+    why: "A turnaround points the end of a phrase back toward its beginning, making a loop sound harmonically intentional rather than mechanically repeated.",
+    when: "Near the end of verses, jazz forms, intros, outros, or any repeated four-bar harmonic cycle.",
+    tools: ["Chord track", "Loop region", "Lead sheet", "Piano"],
+    visual: "seventh-chords",
+    realWorld: "The final G7 is often placed at the end of a loop specifically so the next Cmaj7 lands as the missing resolution.",
+  },
+
+  "harmony.modal-mixture.a": {
+    why: "Borrowed minor iv introduces A♭ into C major, creating a chromatic colour that is expressive without requiring a full modulation.",
+    when: "When a major-key progression needs a darker or bittersweet turn while keeping the same tonic.",
+    tools: ["Chord track", "Piano", "Roman numerals", "Chromatic voice-leading view"],
+    visual: "modal-mixture",
+    realWorld: "A chord lane may show Fm inside an otherwise C-major section; the single changed note A→A♭ is often the most important voice-leading detail.",
+  },
+  "harmony.modal-mixture.b": {
+    why: "Borrowed ♭VII removes the major-key leading tone and produces a broader, more modal kind of motion than dominant harmony.",
+    when: "In rock, film music, pop, folk-derived harmony, or any major-key section that benefits from less strongly functional movement.",
+    tools: ["Chord track", "Modal scale reference", "Piano", "Bass line"],
+    visual: "modal-mixture",
+    realWorld: "B♭ major appears as a full chromatic chord in C major, yet a repeated C tonic or bass can keep the key centre clear.",
+  },
+  "harmony.modal-mixture.c": {
+    why: "IV→iv→I creates a smooth chromatic inner line A→A♭→G, making the borrowed chord sound connected rather than arbitrary.",
+    when: "At emotional phrase endings, pre-chorus resolutions, bridges, or anywhere a major-key cadence needs extra colour.",
+    tools: ["Chord track", "Voice-leading view", "Piano", "MIDI notes"],
+    visual: "modal-mixture",
+    realWorld: "In a piano roll, three successive chords reveal one note stepping down chromatically while the other chord tones move very little.",
+  },
+  "harmony.modal-mixture.d": {
+    why: "Combining borrowed chords teaches selective chromaticism: the scale can be left temporarily while tonic identity remains intact.",
+    when: "After individual borrowed chords are familiar and the composer wants richer chromatic harmony without fully modulating.",
+    tools: ["Chord track", "Roman-numeral analysis", "Piano", "Loop comparison"],
+    visual: "modal-mixture",
+    realWorld: "A production can keep C in the bass at structural points while B♭ and Fm colour the middle of the progression.",
   },
 };
 
