@@ -5489,3 +5489,12 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+
+.progress-cookie-note {
+  display: block;
+  margin-top: 8px;
+  color: var(--dim);
+  font-size: 9px;
+  line-height: 1.35;
+}
