@@ -5,7 +5,8 @@ export type ConceptVisualKind =
   | "piano-roll"
   | "harmony"
   | "synth"
-  | "arrangement";
+  | "arrangement"
+  | "mixer";
 
 export type ProductionContext = {
   why: string;
@@ -188,6 +189,35 @@ export const productionContext: Record<string, ProductionContext> = {
     tools: ["Track mute", "Clip removal", "Automation", "Mixer", "Arrangement view"],
     visual: "arrangement",
     realWorld: "A common arrangement move is to remove drums, bass, or melody right after a peak so the next section breathes.",
+  },
+
+  "mixing.balance-space.a": {
+    why: "Level is the first and most powerful mixing decision. Producers balance faders before reaching for complicated processing because many 'mix problems' are simply parts competing at the wrong relative loudness.",
+    when: "After the composition and rough arrangement exist, at the start of a mix. Engineers also revisit level constantly throughout the rest of the process.",
+    tools: ["Mixer channel", "Volume fader", "Level meter", "DAW mixer view"],
+    visual: "mixer",
+    realWorld: "In a DAW mixer, every track has a vertical channel strip with a fader and meter. Hardware mixers use the same visual convention.",
+  },
+  "mixing.balance-space.b": {
+    why: "Panning separates sounds horizontally so they do not all fight for the same perceived position. Keeping foundational low-end material centred while moving supporting parts can create width without adding new notes.",
+    when: "During rough mixing after basic level balance, then refined again once the arrangement and effects are established.",
+    tools: ["Pan knob", "Stereo field", "Mixer channel", "Headphones or stereo monitors"],
+    visual: "mixer",
+    realWorld: "Pan is normally a knob near the top of every DAW or hardware mixer channel, marked L–C–R or with a left/right scale.",
+  },
+  "mixing.balance-space.c": {
+    why: "Removing low frequencies that a sound does not need reduces masking and leaves more room for kick and bass. It is a cleanup move, not a rule that every track must be made thin.",
+    when: "During corrective EQ and cleanup, usually after rough level/pan balance and before detailed tonal shaping.",
+    tools: ["EQ plugin", "High-pass filter", "Low-cut control", "Spectrum analyzer"],
+    visual: "mixer",
+    realWorld: "Most DAW channel EQs show a frequency graph. A low-cut appears as a rising slope on the left side, removing the lowest frequencies.",
+  },
+  "mixing.balance-space.d": {
+    why: "Shared reverb and delay create depth and cohesion without duplicating the same effect on every track. Sends let each channel feed the shared effect by a different amount.",
+    when: "After the dry balance is working. Producers add spatial effects during mixing and often automate them later for transitions or emphasis.",
+    tools: ["Send knob", "Return channel", "Reverb bus", "Delay bus", "Aux track"],
+    visual: "mixer",
+    realWorld: "DAWs commonly show send knobs on each channel and separate return/aux channels labelled A/B or Reverb/Delay. Hardware mixers use AUX SEND and RETURN controls for the same routing idea.",
   },
 };
 
