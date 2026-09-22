@@ -7198,3 +7198,409 @@ body {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }
+
+
+/* ==========================================================================
+   READABILITY PASS · v1.6
+   ========================================================================== */
+
+body {
+  font-size: 16px;
+}
+
+.topbar {
+  height: 82px;
+}
+
+.brand strong {
+  font-size: 17px;
+}
+
+.lesson-title strong {
+  font-size: 17px;
+}
+
+.lesson-title span,
+.topbar-lesson-kicker {
+  font-size: 12px;
+}
+
+.section-label {
+  font-size: 12px;
+  letter-spacing: 0.09em;
+}
+
+.workspace {
+  min-height: calc(100vh - 82px);
+  grid-template-columns: 230px minmax(680px, 1fr) 310px;
+}
+
+.course-panel,
+.teacher-panel {
+  padding: 26px 18px;
+}
+
+.panel-heading {
+  padding-bottom: 16px;
+}
+
+.panel-heading strong {
+  font-size: 18px;
+}
+
+.course-list {
+  gap: 3px;
+}
+
+.course-item {
+  min-height: 52px;
+  grid-template-columns: 38px 1fr 14px;
+  padding: 0 9px;
+  font-size: 14px;
+}
+
+.course-item strong {
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+.course-number {
+  font-size: 12px;
+}
+
+.course-number b {
+  font-size: 13px;
+}
+
+.progress-meta,
+.lesson-mini-progress,
+.progress-cookie-note {
+  font-size: 12px;
+}
+
+.music-panel {
+  padding: 40px clamp(30px, 4vw, 58px) 50px;
+}
+
+.music-intro {
+  max-width: 780px;
+  margin-bottom: 24px;
+}
+
+.lesson-context {
+  color: var(--cyan);
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: 0.03em;
+}
+
+.music-intro h1 {
+  margin: 7px 0 8px;
+  font-size: clamp(32px, 3vw, 46px);
+  line-height: 1.05;
+}
+
+.music-intro > p {
+  max-width: 720px;
+  color: #d0cadb;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.exercise-tabs {
+  margin-bottom: 20px;
+}
+
+.exercise-tab {
+  min-height: 68px;
+}
+
+.exercise-tab > span {
+  font-size: 14px;
+}
+
+.exercise-tab strong {
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+/* Treat workstation labels as labels, not micro-print. */
+.workspace-hint {
+  max-width: 270px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.daw-strip span {
+  padding: 5px 7px;
+  font-size: 10px;
+}
+
+.grid-key,
+.grid-key span {
+  font-size: 12px;
+}
+
+.beat-row > span,
+.melody-step-head span {
+  font-size: 11px;
+}
+
+.track-label strong {
+  font-size: 14px;
+}
+
+.track-label span {
+  font-size: 11px;
+}
+
+.piano-key strong {
+  font-size: 14px;
+}
+
+.piano-key span {
+  font-size: 11px;
+}
+
+.keyboard-note,
+.chord-note,
+.keyboard-note strong,
+.chord-note strong {
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.app-shell small {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* The right rail has one job: tell the learner what to do and whether it worked. */
+.task-panel {
+  padding: 0 2px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.task-panel p {
+  margin: 8px 0 0;
+  color: #e0dbe7;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.checks {
+  margin-top: 20px;
+}
+
+.checks-heading strong {
+  font-size: 14px;
+}
+
+.check {
+  grid-template-columns: 22px 1fr;
+  padding: 12px 0;
+}
+
+.check > span {
+  font-size: 15px;
+}
+
+.check p {
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.ready-banner strong {
+  font-size: 14px;
+}
+
+.ready-banner small {
+  font-size: 12px;
+}
+
+.lesson-action {
+  min-height: 52px;
+  font-size: 14px;
+}
+
+.text-button,
+.lesson-reset-cancel {
+  font-size: 12px;
+}
+
+.lesson-reset-block small {
+  font-size: 12px;
+}
+
+/* One reading surface instead of a collection of explanation bubbles. */
+.learning-panel {
+  margin-top: 26px;
+  border-radius: 14px;
+  background: rgba(26,24,38,0.96);
+}
+
+.learning-panel > summary {
+  min-height: 62px;
+  padding: 14px 18px;
+  background: transparent;
+}
+
+.learning-panel > summary strong {
+  font-size: 18px;
+}
+
+.learning-panel-toggle {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--cyan);
+  font-size: 13px;
+}
+
+.learning-panel-body {
+  padding: 24px 22px 26px;
+}
+
+.learning-reading-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 38px;
+}
+
+.learning-reading-column {
+  min-width: 0;
+}
+
+.learning-reading-column section + section {
+  margin-top: 26px;
+}
+
+.learning-reading-column h3,
+.learning-glossary h3 {
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.25;
+}
+
+.learning-reading-column p {
+  margin: 0;
+  color: #c9c2d3;
+  font-size: 16px;
+  line-height: 1.68;
+}
+
+.learning-concept-visual {
+  margin-bottom: 24px;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #1d1a2b;
+}
+
+.learning-concept-visual svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.learning-tool-line {
+  margin-top: 12px !important;
+  color: #aaa2b8 !important;
+}
+
+.learning-tool-line strong {
+  color: var(--accent);
+}
+
+.learning-glossary {
+  margin-top: 30px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.learning-glossary dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 34px;
+}
+
+.learning-glossary dl > div {
+  display: grid;
+  grid-template-columns: minmax(110px, 0.42fr) 1fr;
+  gap: 14px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(255,255,255,0.055);
+}
+
+.learning-glossary dt {
+  color: var(--cyan);
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.learning-glossary dd {
+  margin: 0;
+  color: #bdb6c8;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* Hide old card-based explanation layout if any stale component renders it. */
+.learning-panel .producer-context,
+.learning-explanation-grid,
+.learning-terms {
+  display: none;
+}
+
+/* Several newer workstation surfaces had slipped back to 8–11px labels. */
+.processor-track-tabs button,
+.processor-controls label > span,
+.reference-match-row label > span,
+.reference-suggestion > span,
+.stereo-channel-list section > strong,
+.stereo-channel-list label > span,
+.advanced-chord-slot > span,
+.advanced-chord-slot > small,
+.advanced-chord-palette button > span,
+.advanced-chord-palette button small,
+.minor-scale-summary small,
+.minor-key small,
+.minor-roll-legend,
+.sidechain-source > span,
+.sidechain-compressor > span,
+.sidechain-target > span,
+.sidechain-source small,
+.sidechain-target small,
+.reference-console section > small,
+.reference-current-strip span {
+  font-size: 12px;
+}
+
+.processor-controls label > strong,
+.reference-match-row label > strong {
+  font-size: 21px;
+}
+
+.advanced-harmony-note strong {
+  font-size: 14px;
+}
+
+.advanced-harmony-note span {
+  font-size: 13px;
+}
+
+@media (max-width: 1320px) {
+  .workspace {
+    grid-template-columns: 220px minmax(650px, 1fr) 290px;
+  }
+
+  .learning-reading-grid {
+    gap: 26px;
+  }
+
+  .learning-glossary dl {
+    grid-template-columns: 1fr;
+  }
+}
