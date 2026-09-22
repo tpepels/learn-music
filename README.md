@@ -12,7 +12,9 @@ The interface is now built around a **friendly music workstation** rather than a
 - transport, grid, pattern, MIDI, chord-track, synth, and arrangement terminology appears where students will later see it in real DAWs and hardware;
 - controls behave like pads, keys, clips, and instrument parameters rather than form inputs;
 - different musical roles have stable visual identities and illuminated playback states;
-- the studio coach sits beside the instrument instead of replacing it;
+- the studio coach is now intentionally narrow and single-purpose: task, checks, continue/reset;
+- explanatory material lives in a larger collapsible centre panel directly under the instrument;
+- typography has been raised substantially across navigation, tools, explanations, and status text;
 - completed experiments give immediate positive feedback while remaining editable;
 - later lessons progressively expose real DAW routing concepts such as channels, faders, pan, EQ, sends, returns, buses, and the master output.
 
@@ -20,7 +22,7 @@ The visual language uses bright studio colours, tactile button states, playhead 
 
 ## Every exercise answers four practical questions
 
-For all 28 current exercises the app now explicitly explains:
+For all 32 current exercises the app now explicitly explains:
 
 1. **WHY** — why music makers use the technique;
 2. **WHEN** — where it usually appears in the writing/production process;
@@ -31,7 +33,7 @@ A regression test requires that every implemented exercise has this production c
 
 ## Current interactive curriculum
 
-There are currently **7 lessons and 28 guided exercises**.
+There are currently **8 lessons and 32 guided exercises**.
 
 ### 1. Pulse & groove
 A. Four-on-the-floor  
@@ -88,6 +90,14 @@ C. Clear unnecessary low end
 D. Create depth with sends
 
 Workspace: a real four-channel mixer. Drums, bass, chords, and melody are routed through channel faders, pan controls, low-cut filters, and shared reverb/delay send buses. The controls manipulate the actual Tone.js signal graph, so students hear the result of every mix decision.
+
+### 8. Automation & dynamics
+A. Draw a volume ride  
+B. Create a filter sweep  
+C. Catch drum peaks  
+D. Preserve punch and shape the section
+
+Workspace: two editable automation lanes plus a real drum-bus compressor. Melody level and chord-filter cutoff ramp smoothly between bar breakpoints during arrangement playback. Compressor threshold, ratio, attack, and release reshape the actual drum signal, so students can compare controlled peaks with transient-preserving punch.
 
 ## Progression
 
