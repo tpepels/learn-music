@@ -1,21 +1,85 @@
-import { Chord } from "tonal";
-import { exerciseContentSchema, lessonContentSchema, type LessonDefinition } from "./types";
+import {
+  chordPitchClasses,
+  type ChordProgression,
+  type HarmonySequence,
+} from "../music/model";
+import {
+  exerciseContentSchema,
+  lessonContentSchema,
+  type LessonDefinition,
+} from "./types";
+
+function barSteps(sequence: HarmonySequence, bar: number): number[][] {
+  return sequence.slice(bar * 8, bar * 8 + 8);
+}
+
+function activeStepCount(sequence: HarmonySequence, bar?: number): number {
+  const steps = bar === undefined ? sequence : barSteps(sequence, bar);
+  return steps.filter((notes) => notes.length > 0).length;
+}
+
+function noteEventCount(sequence: HarmonySequence): number {
+  return sequence.reduce((total, notes) => total + notes.length, 0);
+}
+
+function pitchClasses(notes: number[]): Set<number> {
+  return new Set(notes.map((midi) => ((midi % 12) + 12) % 12));
+}
+
+function barUsesAllChordTones(
+  sequence: HarmonySequence,
+  progression: ChordProgression,
+  bar: number,
+): boolean {
+  const chord = progression[bar];
+  if (!chord) return false;
+  const written = pitchClasses(barSteps(sequence, bar).flat());
+  return chordPitchClasses(chord).every((pitchClass) => written.has(pitchClass));
+}
+
+function writtenNotesFitChords(
+  sequence: HarmonySequence,
+  progression: ChordProgression,
+): boolean {
+  let found = false;
+
+  for (let step = 0; step < sequence.length; step += 1) {
+    const notes = sequence[step] ?? [];
+    if (notes.length === 0) continue;
+    found = true;
+
+    const chord = progression[Math.floor(step / 8)];
+    if (!chord) return false;
+    const allowed = chordPitchClasses(chord);
+    if (
+      notes.some(
+        (midi) => !allowed.includes(((midi % 12) + 12) % 12),
+      )
+    ) {
+      return false;
+    }
+  }
+
+  return found;
+}
+
+function rhythmSignature(sequence: HarmonySequence, bar: number): string {
+  return barSteps(sequence, bar)
+    .map((notes) => (notes.length > 0 ? "1" : "0"))
+    .join("");
+}
 
 const lesson = lessonContentSchema.parse({
   id: "harmony.chords",
   number: 4,
   title: "Chords & progressions",
   eyebrow: "Piano · Harmony",
-  hero: "Hear what chords do inside a phrase.",
+  hero: "Build the harmony with your own hands.",
   description:
-    "Meet I, IV, and V as harmonic functions, then use them under the groove and melody you already made, compare two kinds of ending, and turn the same chords into accompaniment.",
+    "Choose the chord for each bar, then write the actual notes and rhythm in a four-bar piano roll while your groove and melody keep playing.",
   overview:
-    "A chord is a harmonic identity, not a command to strike every note at once. In C major, I establishes home, IV moves away from it, and V creates expectation. Those functions remain recognizable when the notes are blocked, pulsed, broken, or arpeggiated.",
+    "A chord symbol only tells you which harmony is available. The musical part begins when you decide which chord tones sound, when they sound, whether they arrive together or separately, and how that rhythm interacts with the rest of the track.",
 });
-
-const cMajor = Chord.get("C");
-const fMajor = Chord.get("F");
-const gMajor = Chord.get("G");
 
 export const chordProgressionLesson: LessonDefinition = {
   ...lesson,
@@ -24,67 +88,78 @@ export const chordProgressionLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "harmony.chords.a",
         letter: "A",
-        title: "Meet I, IV, and V",
-        learn: "Recognise the three primary major-key functions before using them in a song.",
+        title: "Build C major yourself",
+        learn: "Turn the symbol C into actual notes you place in time.",
         explanation:
-          "C major contains C-E-G, F major contains F-A-C, and G major contains G-B-D. In the key of C, these are I, IV, and V. I is the strongest point of rest, IV moves away from home, and V creates the strongest expectation of returning to I.",
+          "C major contains C, E, and G. Those notes can appear in different octaves and do not have to arrive together. The chord symbol is a harmonic guide; the piano roll is where you make the part.",
         instruction:
-          "Put C, F, and G in bars 1-3 and audition them. Keep the accompaniment on Block for now. Listen for home, departure, and expectation rather than only reading the symbols.",
+          "Choose C for bar 1. On the first eighth-note position, stack a C, E, and G yourself in the piano roll. Press Play and hear your own notes enter with the groove and melody.",
         recognition:
-          "C should feel settled. F should feel like movement away from that centre. G should feel comparatively unfinished, especially after you have heard C as home.",
+          "The three notes should fuse into one stable harmony, but you should also be able to see and identify the individual notes you placed.",
         terms: [
-          { term: "Chord", definition: "A collection of pitches heard as one harmonic identity." },
-          { term: "Triad", definition: "A three-note chord built from a root, third, and fifth." },
-          { term: "Harmonic function", definition: "The role a chord plays in creating stability, departure, tension, or resolution." },
-          { term: "Roman numeral", definition: "A chord name based on its scale degree and function inside a key." },
+          { term: "Chord", definition: "A harmonic identity made from two or more pitches heard in relation to one another." },
+          { term: "Triad", definition: "A three-note chord containing root, third, and fifth." },
+          { term: "Root", definition: "The note that gives the chord its name and basic identity." },
+          { term: "Piano roll", definition: "A sequencer view with pitch vertically and time horizontally." },
         ],
-        workspace: "chords",
-        checksLabel: "Discover",
-        successLabel: "I, IV, and V are mapped",
+        workspace: "harmony-song",
+        checksLabel: "Build it",
+        successLabel: "You wrote C major into the sequence",
       }),
-      evaluate: ({ chordProgression }) => [
-        { label: "I: C major is in bar 1", complete: chordProgression[0] === "C" },
-        { label: "IV: F major is in bar 2", complete: chordProgression[1] === "F" },
-        { label: "V: G major is in bar 3", complete: chordProgression[2] === "G" },
-        {
-          label: "The three triads are C-E-G, F-A-C, and G-B-D",
-          complete:
-            cMajor.notes.join("-") === "C-E-G" &&
-            fMajor.notes.join("-") === "F-A-C" &&
-            gMajor.notes.join("-") === "G-B-D",
-        },
-      ],
+      evaluate: ({ chordProgression, harmonySequence }) => {
+        const first = pitchClasses(harmonySequence[0] ?? []);
+        return [
+          {
+            label: "Bar 1 is C major",
+            complete: chordProgression[0] === "C",
+          },
+          {
+            label: "The first step contains C, E, and G",
+            complete: [0, 4, 7].every((pitchClass) => first.has(pitchClass)),
+          },
+        ];
+      },
     },
     {
       ...exerciseContentSchema.parse({
         id: "harmony.chords.b",
         letter: "B",
-        title: "Complete the phrase",
-        learn: "Use harmonic function underneath rhythm and melody rather than as isolated chord symbols.",
+        title: "Write I–IV–V–I",
+        learn: "Make harmonic function audible by writing every chord into the phrase.",
         explanation:
-          "The loop now combines the groove and melody from the earlier lessons with root bass and your chord lane. Harmonic function is easier to hear when the chords have a job inside a phrase: I establishes the centre, IV creates departure, V prepares the ending, and I answers it.",
+          "In C major, I is C major, IV is F major, and V is G major. I feels like home, IV moves away, V creates expectation, and the last I answers that tension. You will now build those sounds rather than letting the app perform them for you.",
         instruction:
-          "Keep playback running. Complete the four bars as C-F-G-C. Before settling there, swap F and G once and listen to how the phrase direction changes. Then leave IV before V so the final V-I sounds prepared.",
+          "Set the four bars to C–F–G–C. In each bar, place all three notes of that chord somewhere in its eight-step region. They may be stacked or spread out. Keep Play running while you work.",
         recognition:
-          "With F before G, the middle of the phrase should feel as if it opens outward and then tightens toward the final C. The last C should sound like an answer to the G before it.",
+          "The chord tones should change with each bar while the existing groove and melody keep their identity. G should make the final C feel like an arrival.",
         terms: [
-          { term: "Progression", definition: "An ordered sequence of harmonic identities across time." },
-          { term: "Predominant", definition: "Harmony such as IV that commonly moves away from tonic and prepares dominant." },
-          { term: "Dominant", definition: "Harmony such as V that creates strong expectation of tonic." },
-          { term: "Resolution", definition: "Movement from a less stable sound into a more stable one." },
+          { term: "I chord", definition: "The tonic chord built on scale degree 1; C major in the key of C." },
+          { term: "IV chord", definition: "A predominant chord built on scale degree 4; F major in C." },
+          { term: "V chord", definition: "The dominant chord built on scale degree 5; G major in C." },
+          { term: "Harmonic function", definition: "The role harmony plays in stability, departure, tension, and resolution." },
         ],
         workspace: "harmony-song",
-        checksLabel: "Apply",
-        successLabel: "The harmony now shapes a complete musical phrase",
+        checksLabel: "Write the phrase",
+        successLabel: "Every bar now contains harmony you entered yourself",
       }),
-      evaluate: ({ chordProgression }) => [
+      evaluate: ({ chordProgression, harmonySequence }) => [
         {
-          label: "The phrase moves I → IV → V → I",
+          label: "The progression is C → F → G → C",
           complete:
             chordProgression[0] === "C" &&
             chordProgression[1] === "F" &&
             chordProgression[2] === "G" &&
             chordProgression[3] === "C",
+        },
+        {
+          label: "Every bar uses all three notes of its chord",
+          complete: [0, 1, 2, 3].every((bar) =>
+            barUsesAllChordTones(harmonySequence, chordProgression, bar),
+          ),
+        },
+        {
+          label: "Every written note belongs to the chord above that bar",
+          complete: writtenNotesFitChords(harmonySequence, chordProgression),
         },
       ],
     },
@@ -92,71 +167,116 @@ export const chordProgressionLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "harmony.chords.c",
         letter: "C",
-        title: "Change the ending",
-        learn: "Hear closure as a musical consequence, not as a memorised V-I formula.",
+        title: "Turn chords into a rhythm",
+        learn: "Stop treating chords as four blocks and make an accompaniment pattern.",
         explanation:
-          "After V, the ear strongly expects I. Replacing that expected tonic with vi keeps some shared notes but avoids full closure. This is a deceptive resolution: the dominant has moved somewhere plausible without delivering the arrival you were prepared to hear.",
+          "A progression says which harmony is active; accompaniment says how you perform it. You can repeat a chord, split its notes, leave gaps, answer the drums, or place notes between the strong beats. That rhythmic decision is part of composition.",
         instruction:
-          "Change only the final chord from C to Am, making C-F-G-Am. Compare that ending with the V-I ending you just heard. Notice that the same groove and melody now sit inside a phrase that stays more open.",
+          "Keep C–F–G–C, but spread the chord tones through time. Use at least eight different time positions across the phrase, including at least two offbeat eighths. Make at least one bar use three or more separate positions.",
         recognition:
-          "G-to-C should feel more final. G-to-Am should redirect the expectation and keep the loop moving instead of giving the same sense of arrival.",
+          "The harmony should now behave like a part in the track rather than four labels. Listen for notes locking with or pushing against the groove.",
         terms: [
-          { term: "Cadence", definition: "A harmonic or melodic gesture that marks a pause, arrival, or ending." },
-          { term: "V-I cadence", definition: "Dominant moving to tonic, producing a strong tonal arrival." },
-          { term: "Deceptive resolution", definition: "Dominant moving somewhere other than the expected tonic, commonly V to vi." },
-          { term: "Closure", definition: "The degree to which a musical phrase sounds finished." },
+          { term: "Accompaniment", definition: "A musical part that supports another part while having its own rhythm and shape." },
+          { term: "Broken chord", definition: "Chord tones played separately instead of all at once." },
+          { term: "Offbeat", definition: "A weaker subdivision between the main beats." },
+          { term: "Rhythmic placement", definition: "The decision of exactly where musical events happen in time." },
         ],
         workspace: "harmony-song",
-        checksLabel: "Compare",
-        successLabel: "You changed the phrase from closed to deliberately open",
+        checksLabel: "Make it move",
+        successLabel: "The chords now have a rhythm you composed",
       }),
-      evaluate: ({ chordProgression }) => [
-        {
-          label: "The dominant now resolves deceptively to vi",
-          complete:
-            chordProgression[0] === "C" &&
-            chordProgression[1] === "F" &&
-            chordProgression[2] === "G" &&
-            chordProgression[3] === "Am",
-        },
-      ],
+      evaluate: ({ chordProgression, harmonySequence }) => {
+        const offbeats = harmonySequence.filter(
+          (notes, step) => notes.length > 0 && step % 2 === 1,
+        ).length;
+        const busiestBar = Math.max(
+          ...[0, 1, 2, 3].map((bar) => activeStepCount(harmonySequence, bar)),
+        );
+
+        return [
+          {
+            label: "At least eight time positions contain harmony",
+            complete: activeStepCount(harmonySequence) >= 8,
+          },
+          {
+            label: "At least two harmony events land on offbeats",
+            complete: offbeats >= 2,
+          },
+          {
+            label: "At least one bar uses three or more separate positions",
+            complete: busiestBar >= 3,
+          },
+          {
+            label: "The notes still fit the chords",
+            complete: writtenNotesFitChords(harmonySequence, chordProgression),
+          },
+        ];
+      },
     },
     {
       ...exerciseContentSchema.parse({
         id: "harmony.chords.d",
         letter: "D",
-        title: "Turn harmony into accompaniment",
-        learn: "Separate a chord's harmonic identity from the way its notes are performed.",
+        title: "Write your accompaniment",
+        learn: "Compose a four-bar chord part that has its own shape while still supporting the song.",
         explanation:
-          "C major remains C major whether C-E-G arrive together, repeat as pulses, alternate as broken chord tones, or cycle as an arpeggio. Harmony tells you which pitch collection and function is active; accompaniment pattern tells you how that harmony becomes rhythm and texture.",
+          "Now the harmonic rule becomes a constraint rather than an answer. Keep tonic as the frame and dominant before the final return, but decide the middle harmony and write a rhythm that develops across the four bars.",
         instruction:
-          "Bring the phrase back home on C. Keep C at both ends and use F and G somewhere in the middle. Then choose Pulse, Broken, or Arpeggio instead of Block. Leave the pattern that best fits the groove and melody.",
+          "Keep C in bars 1 and 4 and G in bar 3. Choose a different diatonic chord for bar 2. Rewrite the piano roll into a four-bar accompaniment: use at least two notes in every bar, at least twelve active time positions overall, at least three offbeats, and make the rhythm of at least one bar differ from another.",
         recognition:
-          "The chord names and functions should remain clear even though the surface rhythm changes. A useful accompaniment supports the groove and melody rather than sounding like four isolated theory examples.",
+          "You should hear one continuous musical part with a beginning, movement, dominant tension, and return—not a demonstration of four chord names.",
         terms: [
-          { term: "Accompaniment", definition: "Musical material that supports the main line or texture." },
-          { term: "Broken chord", definition: "Chord tones played separately instead of simultaneously." },
-          { term: "Arpeggio", definition: "A chord performed as an ordered sequence of its notes." },
-          { term: "Voicing", definition: "The register and ordering used to distribute the notes of a chord." },
+          { term: "Tonic", definition: "The harmonic home of the key." },
+          { term: "Dominant", definition: "Harmony that strongly points toward tonic." },
+          { term: "Voice", definition: "One pitch line within a chordal texture." },
+          { term: "Pattern", definition: "A recurring arrangement of events in time that can be repeated or varied." },
         ],
         workspace: "harmony-song",
-        checksLabel: "Create",
-        successLabel: "The progression now behaves like accompaniment inside a song",
+        checksLabel: "Compose",
+        successLabel: "You wrote a real four-bar harmony part",
       }),
-      evaluate: ({ chordProgression, accompanimentPattern }) => {
-        const middle = chordProgression.slice(1, 3);
+      evaluate: ({ chordProgression, harmonySequence }) => {
+        const signatures = [0, 1, 2, 3].map((bar) =>
+          rhythmSignature(harmonySequence, bar),
+        );
+        const offbeats = harmonySequence.filter(
+          (notes, step) => notes.length > 0 && step % 2 === 1,
+        ).length;
+
         return [
           {
-            label: "The phrase starts and ends on tonic C",
-            complete: chordProgression[0] === "C" && chordProgression[3] === "C",
+            label: "C frames the phrase and G prepares the final return",
+            complete:
+              chordProgression[0] === "C" &&
+              chordProgression[2] === "G" &&
+              chordProgression[3] === "C",
           },
           {
-            label: "IV and V both appear in the middle of the phrase",
-            complete: middle.includes("F") && middle.includes("G"),
+            label: "Bar 2 uses a different chord from tonic C",
+            complete:
+              chordProgression[1] !== null &&
+              chordProgression[1] !== "C",
           },
           {
-            label: "Harmony is performed as more than four block chords",
-            complete: accompanimentPattern !== "block",
+            label: "Every bar contains at least two written time positions",
+            complete: [0, 1, 2, 3].every(
+              (bar) => activeStepCount(harmonySequence, bar) >= 2,
+            ),
+          },
+          {
+            label: "The part uses at least twelve time positions and three offbeats",
+            complete:
+              activeStepCount(harmonySequence) >= 12 &&
+              offbeats >= 3 &&
+              noteEventCount(harmonySequence) >= 12,
+          },
+          {
+            label: "At least two bars have different rhythms",
+            complete: new Set(signatures).size >= 2,
+          },
+          {
+            label: "Every written note belongs to its current chord",
+            complete: writtenNotesFitChords(harmonySequence, chordProgression),
           },
         ];
       },
