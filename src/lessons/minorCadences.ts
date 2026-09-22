@@ -28,7 +28,7 @@ const lesson = lessonContentSchema.parse({
   number: 26,
   title: "Minor-key progressions",
   eyebrow: "Harmony · A minor",
-  hero: "Write the notes that make A minor leave home and come back."
+  hero: "Write the notes that make A minor leave home and come back.",
   description:
     "Use i, iv and the major V7 inside a real four-bar accompaniment. You will place G♯ yourself, hear E7 resolve, and compare tonic versus deceptive endings.",
   overview:
