@@ -5,19 +5,27 @@ import {
   chordMidi,
   cloneArrangement,
   cloneAutomationSettings,
+  cloneEqSettings,
   cloneGrooveFeelSettings,
   cloneMixerSettings,
   clonePattern,
+  cloneReferenceSnapshot,
+  cloneSaturationSettings,
+  cloneStereoSettings,
   initialArrangement,
   initialAutomationSettings,
   initialBassSequence,
   initialChordProgression,
   initialDynamicsSettings,
   initialEffectsSettings,
+  initialEqSettings,
   initialGrooveFeelSettings,
   initialMelody,
   initialMixerSettings,
   initialPattern,
+  initialSaturationSettings,
+  initialSidechainSettings,
+  initialStereoSettings,
   initialSynthSettings,
   initialTextureSettings,
   initialVoicingSettings,
@@ -31,11 +39,16 @@ import {
   type ChordProgression,
   type DynamicsSettings,
   type EffectsSettings,
+  type EqSettings,
   type GrooveFeelSettings,
   type MelodySequence,
   type MixerSettings,
   type MixerTrackId,
+  type ReferenceSnapshot,
+  type SaturationSettings,
+  type SidechainSettings,
   type StepPattern,
+  type StereoSettings,
   type SynthSettings,
   type TextureSettings,
   type VoicingSettings,
@@ -58,6 +71,15 @@ class AudioEngine {
   };
   private bassSequence: BassSequence = [...initialBassSequence];
   private textureSettings: TextureSettings = { ...initialTextureSettings };
+  private eqSettings: EqSettings = cloneEqSettings(initialEqSettings);
+  private saturationSettings: SaturationSettings =
+    cloneSaturationSettings(initialSaturationSettings);
+  private sidechainSettings: SidechainSettings = { ...initialSidechainSettings };
+  private stereoSettings: StereoSettings =
+    cloneStereoSettings(initialStereoSettings);
+  private referenceSnapshot: ReferenceSnapshot | null = null;
+  private referenceTrimDb = 0;
+  private quietAuditionDb = 0;
 
   private kick: Tone.MembraneSynth | null = null;
   private snare: Tone.NoiseSynth | null = null;
@@ -75,6 +97,9 @@ class AudioEngine {
   private soundSynth: Tone.Synth | null = null;
 
   private mixerFilters: Partial<Record<MixerTrackId, Tone.Filter>> = {};
+  private mixerEqFilters: Partial<Record<MixerTrackId, Tone.Filter>> = {};
+  private mixerDistortions: Partial<Record<MixerTrackId, Tone.Distortion>> = {};
+  private mixerWideners: Partial<Record<MixerTrackId, Tone.StereoWidener>> = {};
   private mixerChannels: Partial<Record<MixerTrackId, Tone.Channel>> = {};
   private reverbSends: Partial<Record<MixerTrackId, Tone.Gain>> = {};
   private delaySends: Partial<Record<MixerTrackId, Tone.Gain>> = {};
@@ -144,6 +169,42 @@ class AudioEngine {
     this.textureSettings = { ...settings };
   }
 
+  setEqSettings(settings: EqSettings) {
+    this.eqSettings = cloneEqSettings(settings);
+    this.applyAdvancedChannelSettings();
+  }
+
+  setSaturationSettings(settings: SaturationSettings) {
+    this.saturationSettings = cloneSaturationSettings(settings);
+    this.applyAdvancedChannelSettings();
+  }
+
+  setSidechainSettings(settings: SidechainSettings) {
+    this.sidechainSettings = { ...settings };
+  }
+
+  setStereoSettings(settings: StereoSettings) {
+    this.stereoSettings = cloneStereoSettings(settings);
+    this.applyMixerSettings();
+    this.applyAdvancedChannelSettings();
+  }
+
+  setReferenceAudition(
+    snapshot: ReferenceSnapshot | null,
+    trimDb = 0,
+    enabled = false,
+  ) {
+    this.referenceSnapshot = enabled ? cloneReferenceSnapshot(snapshot) : null;
+    this.referenceTrimDb = trimDb;
+    this.applyMixerSettings();
+    this.applyAdvancedChannelSettings();
+  }
+
+  setQuietAudition(enabled: boolean) {
+    this.quietAuditionDb = enabled ? -18 : 0;
+    this.applyMixerSettings();
+  }
+
   setBpm(bpm: number) {
     Tone.getTransport().bpm.rampTo(bpm, 0.05);
   }
@@ -153,18 +214,31 @@ class AudioEngine {
       if (this.mixerFilters[track]) return;
 
       const filter = new Tone.Filter(20, "highpass");
+      const eq = new Tone.Filter(1000, "peaking");
+      const distortion = new Tone.Distortion({
+        distortion: 0,
+        wet: 0,
+      });
+      const widener = new Tone.StereoWidener({
+        width: 0.5,
+        wet: 1,
+      });
       const channel = new Tone.Channel({
         volume: 0,
         pan: 0,
       }).toDestination();
 
-      filter.connect(channel);
+      filter.chain(eq, distortion, widener, channel);
 
       this.mixerFilters[track] = filter;
+      this.mixerEqFilters[track] = eq;
+      this.mixerDistortions[track] = distortion;
+      this.mixerWideners[track] = widener;
       this.mixerChannels[track] = channel;
     });
 
     this.applyMixerSettings();
+    this.applyAdvancedChannelSettings();
   }
 
   private ensureEffectsGraph() {
@@ -327,6 +401,7 @@ class AudioEngine {
 
     this.applySynthSettings();
     this.applyMixerSettings();
+    this.applyAdvancedChannelSettings();
     this.applyDynamicsSettings();
   }
 
@@ -372,16 +447,24 @@ class AudioEngine {
   }
 
   private applyMixerSettings() {
+    const sourceMixer =
+      this.referenceSnapshot?.mixerSettings ?? this.mixerSettings;
+    const mono = this.stereoSettings.monoAudition;
+    const trim = this.referenceSnapshot ? this.referenceTrimDb : 0;
+
     mixerTrackIds.forEach((track) => {
-      const settings = this.mixerSettings[track];
+      const settings = sourceMixer[track];
       const channel = this.mixerChannels[track];
       const filter = this.mixerFilters[track];
       const reverbSend = this.reverbSends[track];
       const delaySend = this.delaySends[track];
 
       if (channel) {
-        channel.volume.rampTo(settings.volume, 0.03);
-        channel.pan.rampTo(settings.pan, 0.03);
+        channel.volume.rampTo(
+          settings.volume + trim + this.quietAuditionDb,
+          0.03,
+        );
+        channel.pan.rampTo(mono ? 0 : settings.pan, 0.03);
       }
 
       if (filter) {
@@ -389,11 +472,43 @@ class AudioEngine {
       }
 
       if (reverbSend) {
-        reverbSend.gain.rampTo(settings.reverb, 0.03);
+        reverbSend.gain.rampTo(mono ? 0 : settings.reverb, 0.03);
       }
 
       if (delaySend) {
-        delaySend.gain.rampTo(settings.delay, 0.03);
+        delaySend.gain.rampTo(mono ? 0 : settings.delay, 0.03);
+      }
+    });
+  }
+
+  private applyAdvancedChannelSettings() {
+    const eqSettings =
+      this.referenceSnapshot?.eqSettings ?? this.eqSettings;
+    const saturationSettings =
+      this.referenceSnapshot?.saturationSettings ?? this.saturationSettings;
+    const widths =
+      this.referenceSnapshot?.stereoWidths ?? this.stereoSettings.widths;
+    const mono = this.stereoSettings.monoAudition;
+
+    mixerTrackIds.forEach((track) => {
+      const eq = this.mixerEqFilters[track];
+      const distortion = this.mixerDistortions[track];
+      const widener = this.mixerWideners[track];
+
+      if (eq) {
+        eq.frequency.rampTo(eqSettings[track].frequency, 0.03);
+        eq.gain.rampTo(eqSettings[track].gain, 0.03);
+        eq.Q.rampTo(eqSettings[track].q, 0.03);
+      }
+
+      if (distortion) {
+        distortion.distortion = saturationSettings[track].drive;
+        distortion.wet.rampTo(saturationSettings[track].wet, 0.03);
+      }
+
+      if (widener) {
+        widener.width.rampTo(mono ? 0 : widths[track], 0.03);
+        widener.wet.rampTo(1, 0.03);
       }
     });
   }
@@ -570,6 +685,30 @@ class AudioEngine {
             time,
             this.grooveFeelSettings.velocities.kick[localStep] ?? 0.9,
           );
+
+          if (
+            bar?.bass &&
+            this.sidechainSettings.enabled &&
+            this.sidechainSettings.amountDb > 0
+          ) {
+            const bassChannel = this.mixerChannels.bass;
+            if (bassChannel) {
+              const base =
+                (this.referenceSnapshot?.mixerSettings.bass.volume ??
+                  this.mixerSettings.bass.volume) +
+                (this.referenceSnapshot ? this.referenceTrimDb : 0) +
+                this.quietAuditionDb;
+              bassChannel.volume.cancelScheduledValues(time);
+              bassChannel.volume.setValueAtTime(
+                base - this.sidechainSettings.amountDb,
+                time,
+              );
+              bassChannel.volume.linearRampToValueAtTime(
+                base,
+                time + this.sidechainSettings.release,
+              );
+            }
+          }
         }
         if (this.pattern.snare[localStep]) {
           this.snare?.triggerAttackRelease(
@@ -726,7 +865,11 @@ class AudioEngine {
     transport.position = 0;
     this.clearEvent();
     this.step = 0;
+    this.referenceSnapshot = null;
+    this.referenceTrimDb = 0;
+    this.quietAuditionDb = 0;
     this.applyMixerSettings();
+    this.applyAdvancedChannelSettings();
     if (this.chordAutomationFilter) {
       this.chordAutomationFilter.frequency.cancelScheduledValues(Tone.now());
       this.chordAutomationFilter.frequency.rampTo(12000, 0.03);
