@@ -2671,3 +2671,81 @@ input:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* Familiar DAW / hardware labels */
+.daw-strip {
+  margin-top: 7px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+}
+
+.daw-strip span {
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: #181621;
+  color: #8d85a2;
+  font-size: 7px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.08em;
+}
+
+.daw-strip b {
+  color: var(--dim);
+  font-size: 9px;
+}
+
+.signal-strip span:nth-of-type(1) {
+  color: var(--pink);
+}
+
+.signal-strip span:nth-of-type(2) {
+  color: var(--cyan);
+}
+
+.signal-strip span:nth-of-type(3) {
+  color: var(--green);
+}
+
+.track-row {
+  position: relative;
+}
+
+.track-row::before {
+  content: "";
+  width: 3px;
+  height: 22px;
+  border-radius: 3px;
+  align-self: center;
+}
+
+.track-row.track-kick::before { background: var(--pink); }
+.track-row.track-snare::before { background: var(--cyan); }
+.track-row.track-hat::before { background: var(--accent); }
+
+.track-row.track-kick .track-label strong { color: #ffc3dc; }
+.track-row.track-snare .track-label strong { color: #b8f5fa; }
+.track-row.track-hat .track-label strong { color: #ffe1a1; }
+
+/* compensate for channel color rail */
+.track-row {
+  grid-template-columns: 4px 68px repeat(16, minmax(18px, 1fr));
+}
+
+.beat-row {
+  grid-template-columns: 4px 68px repeat(16, minmax(18px, 1fr));
+}
+
+.beat-row > span:first-child {
+  grid-column: 1 / span 2;
+}
+
+@media (max-width: 1320px) {
+  .track-row,
+  .beat-row {
+    grid-template-columns: 4px 62px repeat(16, minmax(17px, 1fr));
+  }
+}
