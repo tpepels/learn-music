@@ -36,16 +36,21 @@ import { eqSpectralBalanceLesson } from "./eqSpectralBalance";
 import { finalProjectLesson } from "./finalProject";
 import { grooveFeelLesson } from "./grooveFeel";
 import { mixingSpaceLesson } from "./mixingSpace";
+import { modalMixtureLesson } from "./modalMixture";
+import { minorCadencesLesson } from "./minorCadences";
 import { motifDevelopmentLesson } from "./motifDevelopment";
 import { melodyOverHarmonyLesson } from "./melodyOverHarmony";
 import { harmonicFunctionLesson } from "./harmonicFunction";
+import { harmonicMinorLesson } from "./harmonicMinor";
 import { phraseFormLesson } from "./phraseForm";
 import { textureOrchestrationLesson } from "./textureOrchestration";
 import { pianoCompositionLesson } from "./pianoComposition";
 import { pulseAndGrooveLesson } from "./pulseAndGroove";
+import { relativeMinorLesson } from "./relativeMinor";
 import { referenceMixingLesson } from "./referenceMixing";
 import { rhythmVariationLesson } from "./rhythmVariation";
 import { saturationLesson } from "./saturation";
+import { seventhChordsLesson } from "./seventhChords";
 import { sidechainLesson } from "./sidechain";
 import { soundSynthesisLesson } from "./soundSynthesis";
 import { stereoMonoLesson } from "./stereoMono";
@@ -910,5 +915,177 @@ describe("lesson 23: reference mixing", () => {
     for (const exercise of referenceMixingLesson.exercises) {
       expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
     }
+  });
+});
+
+
+describe("lesson 24: relative minor", () => {
+  it("maps A natural minor and establishes A as tonic", () => {
+    const melody: MelodySequence = [
+      69, 67, 65, 64, 62, 60, 59, 60,
+      60, 62, 64, 65, 67, 65, 60, 57,
+    ];
+    const ctx = context({
+      selectedPitchClasses: ["A", "B", "C", "D", "E", "F", "G"],
+      melody,
+    });
+
+    expect(
+      relativeMinorLesson.exercises[0]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+    expect(
+      relativeMinorLesson.exercises[1]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+
+  it("recognises a C-ending first phrase and A-ending second phrase", () => {
+    const melody: MelodySequence = [
+      57, 60, 62, 64, null, 67, 64, 60,
+      57, 59, 60, 62, 65, 67, 60, 57,
+    ];
+    const checks = relativeMinorLesson.exercises[2].evaluate(context({ melody }));
+    expect(checks.every((check) => check.complete)).toBe(true);
+  });
+
+  it("recognises the characteristic natural-minor degrees", () => {
+    const melody: MelodySequence = [
+      57, 60, 62, 65, 67, 64, 60, 57,
+      59, 60, 65, 67, 64, 62, 60, 57,
+    ];
+    const checks = relativeMinorLesson.exercises[3].evaluate(context({ melody }));
+    expect(checks.every((check) => check.complete)).toBe(true);
+  });
+});
+
+describe("lesson 25: harmonic minor and leading tone", () => {
+  it("recognises the A harmonic minor pitch collection", () => {
+    const ctx = context({
+      selectedPitchClasses: ["A", "B", "C", "D", "E", "F", "G♯"],
+    });
+    expect(
+      harmonicMinorLesson.exercises[0]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+
+  it("recognises leading-tone and augmented-second resolutions", () => {
+    const melody: MelodySequence = [
+      57, 60, 62, 64, 65, 68, 69, null,
+      64, 65, 68, 69, 60, 64, 68, 69,
+    ];
+    const ctx = context({ melody });
+
+    for (const exercise of harmonicMinorLesson.exercises.slice(1)) {
+      expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
+    }
+  });
+});
+
+describe("lesson 26: minor-key progressions", () => {
+  it("recognises i to iv", () => {
+    const ctx = context({ chordProgression: ["Am", "Dm", "Am", "Am"] });
+    expect(
+      minorCadencesLesson.exercises[0]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+
+  it("recognises i-iv-V7-i", () => {
+    const ctx = context({ chordProgression: ["Am", "Dm", "E7", "Am"] });
+    expect(
+      minorCadencesLesson.exercises[1]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+
+  it("recognises the Andalusian cadence", () => {
+    const ctx = context({ chordProgression: ["Am", "G", "F", "E7"] });
+    expect(
+      minorCadencesLesson.exercises[2]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+
+  it("recognises a deceptive minor resolution", () => {
+    const ctx = context({ chordProgression: ["Am", "Dm", "E7", "F"] });
+    expect(
+      minorCadencesLesson.exercises[3]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+});
+
+describe("lesson 27: seventh chords", () => {
+  it("recognises tonic maj7, V7-Imaj7, ii7-V7-Imaj7, and turnaround states", () => {
+    expect(
+      seventhChordsLesson.exercises[0]
+        .evaluate(context({ chordProgression: ["Cmaj7", null, null, "Cmaj7"] }))
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    expect(
+      seventhChordsLesson.exercises[1]
+        .evaluate(context({ chordProgression: ["Cmaj7", "G7", "Cmaj7", "Cmaj7"] }))
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    expect(
+      seventhChordsLesson.exercises[2]
+        .evaluate(context({ chordProgression: ["Dm7", "G7", "Cmaj7", "Cmaj7"] }))
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    expect(
+      seventhChordsLesson.exercises[3]
+        .evaluate(context({ chordProgression: ["Cmaj7", "Am7", "Dm7", "G7"] }))
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+});
+
+describe("lesson 28: borrowed chords and modal mixture", () => {
+  it("recognises borrowed iv", () => {
+    const ctx = context({ chordProgression: ["C", "Fm", "C", "C"] });
+    expect(
+      modalMixtureLesson.exercises[0]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+
+  it("recognises borrowed flat-VII", () => {
+    const ctx = context({ chordProgression: ["C", "B♭", "F", "C"] });
+    expect(
+      modalMixtureLesson.exercises[1]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+
+  it("recognises IV-iv-I", () => {
+    const ctx = context({ chordProgression: ["C", "F", "Fm", "C"] });
+    expect(
+      modalMixtureLesson.exercises[2]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+
+  it("recognises combined modal mixture", () => {
+    const ctx = context({ chordProgression: ["C", "B♭", "Fm", "C"] });
+    expect(
+      modalMixtureLesson.exercises[3]
+        .evaluate(ctx)
+        .every((check) => check.complete),
+    ).toBe(true);
   });
 });
