@@ -1,26 +1,25 @@
 import { useEffect, useMemo } from "react";
 import { audioEngine } from "./audio/engine";
+import { ChordWorkspace } from "./components/ChordWorkspace";
+import { DrumWorkspace } from "./components/DrumWorkspace";
+import { MelodyWorkspace, PianoKeyWorkspace } from "./components/PianoWorkspace";
 import {
   courseOutline,
   getLesson,
   getNextImplementedLesson,
   implementedLessons,
 } from "./lessons/course";
-import { STEPS, trackNames, type PatternId, type TrackName } from "./music/model";
+import type { ExerciseDefinition } from "./lessons/types";
 import { useStudioStore } from "./state/studio";
 
-const trackLabels: Record<TrackName, string> = {
-  kick: "Kick",
-  snare: "Snare",
-  hat: "Hi-hat",
-};
-
-function Transport() {
+function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }) {
   const bpm = useStudioStore((state) => state.bpm);
   const isPlaying = useStudioStore((state) => state.isPlaying);
   const setBpm = useStudioStore((state) => state.setBpm);
   const setPlaying = useStudioStore((state) => state.setPlaying);
   const setCurrentStep = useStudioStore((state) => state.setCurrentStep);
+
+  const canPlay = workspace !== "piano-key";
 
   const togglePlayback = async () => {
     if (isPlaying) {
@@ -29,9 +28,27 @@ function Transport() {
       return;
     }
 
-    await audioEngine.play(bpm, setCurrentStep);
+    if (!canPlay) return;
+
+    if (workspace === "melody") {
+      await audioEngine.playMelody(bpm, setCurrentStep);
+    } else if (workspace === "chords") {
+      await audioEngine.playChords(bpm, setCurrentStep);
+    } else {
+      await audioEngine.playDrums(bpm, setCurrentStep);
+    }
+
     setPlaying(true);
   };
+
+  if (!canPlay) {
+    return (
+      <div className="transport transport-note">
+        <span className="section-label">Keyboard exercise</span>
+        <strong>Click notes to audition</strong>
+      </div>
+    );
+  }
 
   return (
     <div className="transport">
@@ -64,112 +81,121 @@ function Transport() {
   );
 }
 
-function PatternSelector() {
-  const activePattern = useStudioStore((state) => state.activePattern);
-  const setActivePattern = useStudioStore((state) => state.setActivePattern);
-
+function ExerciseTabs({
+  lessonId,
+  exercises,
+  currentIndex,
+  completedExerciseIds,
+  onOpen,
+}: {
+  lessonId: string;
+  exercises: ExerciseDefinition[];
+  currentIndex: number;
+  completedExerciseIds: string[];
+  onOpen: (index: number) => void;
+}) {
   return (
-    <div className="pattern-tabs" aria-label="Pattern comparison">
-      {(["A", "B"] as PatternId[]).map((patternId) => (
-        <button
-          className={activePattern === patternId ? "pattern-tab is-active" : "pattern-tab"}
-          key={patternId}
-          onClick={() => setActivePattern(patternId)}
-        >
-          <span>Pattern</span>
-          <strong>{patternId}</strong>
-          <small>{patternId === "A" ? "reference" : "variation"}</small>
-        </button>
-      ))}
-    </div>
+    <nav className="exercise-tabs" aria-label="Lesson exercises">
+      {exercises.map((item, index) => {
+        const previous = exercises[index - 1];
+        const unlocked =
+          index === 0 ||
+          Boolean(previous && completedExerciseIds.includes(previous.id));
+        const completed = completedExerciseIds.includes(item.id);
+        const active = index === currentIndex;
+
+        return (
+          <button
+            key={item.id}
+            className={[
+              "exercise-tab",
+              active ? "is-active" : "",
+              completed ? "is-complete" : "",
+            ].filter(Boolean).join(" ")}
+            disabled={!unlocked}
+            onClick={() => onOpen(index)}
+            title={lessonId + " · exercise " + item.letter}
+          >
+            <span>{item.letter}</span>
+            <strong>{item.title}</strong>
+            <small>{completed ? "completed" : unlocked ? "open" : "locked"}</small>
+          </button>
+        );
+      })}
+    </nav>
   );
 }
 
-function Sequencer({ title, readOnly }: { title: string; readOnly: boolean }) {
-  const pattern = useStudioStore((state) => state.patterns[state.activePattern]);
-  const activePattern = useStudioStore((state) => state.activePattern);
-  const currentStep = useStudioStore((state) => state.currentStep);
-  const isPlaying = useStudioStore((state) => state.isPlaying);
-  const toggleStep = useStudioStore((state) => state.toggleStep);
-
-  return (
-    <div className="sequencer" aria-label="16-step drum sequencer">
-      <div className="sequencer-heading">
-        <div>
-          <span className="section-label">One bar · 4/4 · Pattern {activePattern}</span>
-          <h2>{title}</h2>
-        </div>
-        <div className="grid-key">
-          {readOnly && <span className="reference-label">Reference · listen only</span>}
-          <span><i className="key-dot active-dot" /> sound</span>
-          <span><i className="key-dot play-dot" /> playhead</span>
-        </div>
-      </div>
-
-      <div className="beat-row" aria-hidden="true">
-        <span />
-        {Array.from({ length: STEPS }, (_, step) => (
-          <span className={step % 4 === 0 ? "beat-number" : ""} key={step}>
-            {step % 4 === 0 ? step / 4 + 1 : ""}
-          </span>
-        ))}
-      </div>
-
-      {trackNames.map((track) => (
-        <div className="track-row" key={track}>
-          <div className="track-label">
-            <strong>{trackLabels[track]}</strong>
-            <span>{track === "kick" ? "low" : track === "snare" ? "mid" : "high"}</span>
-          </div>
-
-          {pattern[track].map((active, step) => {
-            const playhead = isPlaying && currentStep === step;
-            const classes = [
-              "step",
-              active ? "is-active" : "",
-              playhead ? "is-playhead" : "",
-              step % 4 === 0 ? "is-beat-start" : "",
-            ].filter(Boolean).join(" ");
-
-            return (
-              <button
-                className={classes}
-                key={step}
-                aria-label={trackLabels[track] + " step " + (step + 1)}
-                aria-pressed={active}
-                disabled={readOnly}
-                onClick={() => toggleStep(track, step)}
-              >
-                <span />
-              </button>
-            );
-          })}
-        </div>
-      ))}
-    </div>
-  );
+function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
+  switch (exercise.workspace) {
+    case "drums":
+      return <DrumWorkspace title={exercise.title} compare={false} />;
+    case "compare":
+      return <DrumWorkspace title={exercise.title} compare />;
+    case "piano-key":
+      return <PianoKeyWorkspace />;
+    case "melody":
+      return <MelodyWorkspace title={exercise.title} />;
+    case "chords":
+      return <ChordWorkspace />;
+  }
 }
 
 function App() {
   const currentLessonId = useStudioStore((state) => state.currentLessonId);
+  const exerciseIndexByLesson = useStudioStore((state) => state.exerciseIndexByLesson);
+  const completedExerciseIds = useStudioStore((state) => state.completedExerciseIds);
   const activePattern = useStudioStore((state) => state.activePattern);
   const patterns = useStudioStore((state) => state.patterns);
   const completedLessonIds = useStudioStore((state) => state.completedLessonIds);
+  const selectedPitchClasses = useStudioStore((state) => state.selectedPitchClasses);
+  const melody = useStudioStore((state) => state.melody);
+  const chordProgression = useStudioStore((state) => state.chordProgression);
+
   const setCurrentLesson = useStudioStore((state) => state.setCurrentLesson);
+  const setExerciseIndex = useStudioStore((state) => state.setExerciseIndex);
+  const completeExercise = useStudioStore((state) => state.completeExercise);
+  const completeLesson = useStudioStore((state) => state.completeLesson);
   const setPlaying = useStudioStore((state) => state.setPlaying);
   const resetPattern = useStudioStore((state) => state.resetPattern);
-  const completeLesson = useStudioStore((state) => state.completeLesson);
+  const clearPitchClasses = useStudioStore((state) => state.clearPitchClasses);
+  const clearMelody = useStudioStore((state) => state.clearMelody);
+  const clearChords = useStudioStore((state) => state.clearChords);
 
   const lesson = getLesson(currentLessonId);
+  const storedExerciseIndex = exerciseIndexByLesson[lesson.id] ?? 0;
+  const exerciseIndex = Math.min(storedExerciseIndex, lesson.exercises.length - 1);
+  const exercise = lesson.exercises[exerciseIndex];
   const nextLesson = getNextImplementedLesson(currentLessonId);
 
   useEffect(() => {
     audioEngine.setPattern(patterns[activePattern]);
   }, [patterns, activePattern]);
 
-  const checks = useMemo(() => lesson.evaluate(patterns), [lesson, patterns]);
-  const readyToComplete = checks.every((check) => check.complete);
-  const isCompleted = completedLessonIds.includes(lesson.id);
+  useEffect(() => {
+    audioEngine.setMelody(melody);
+  }, [melody]);
+
+  useEffect(() => {
+    audioEngine.setChordProgression(chordProgression);
+  }, [chordProgression]);
+
+  const checks = useMemo(
+    () =>
+      exercise.evaluate({
+        A: patterns.A,
+        B: patterns.B,
+        selectedPitchClasses,
+        melody,
+        chordProgression,
+      }),
+    [exercise, patterns, selectedPitchClasses, melody, chordProgression],
+  );
+
+  const exerciseReady = checks.every((check) => check.complete);
+  const exerciseCompleted = completedExerciseIds.includes(exercise.id);
+  const lessonCompleted = completedLessonIds.includes(lesson.id);
+  const isLastExercise = exerciseIndex === lesson.exercises.length - 1;
 
   const stopTransport = () => {
     audioEngine.stop();
@@ -182,21 +208,71 @@ function App() {
     setCurrentLesson(lessonId);
   };
 
-  const continueToNextLesson = () => {
-    if (!nextLesson) return;
+  const openExercise = (index: number) => {
+    if (index === exerciseIndex) return;
     stopTransport();
-    setCurrentLesson(nextLesson.id);
+    setExerciseIndex(lesson.id, index);
   };
 
-  const resetExercise = () => {
-    if (lesson.patternMode === "compare") {
-      resetPattern("B", patterns.A);
-    } else {
-      resetPattern("A");
+  const advance = () => {
+    if (!exerciseReady && !exerciseCompleted) return;
+
+    if (!exerciseCompleted) {
+      completeExercise(exercise.id);
+    }
+
+    if (!isLastExercise) {
+      stopTransport();
+      setExerciseIndex(lesson.id, exerciseIndex + 1);
+      return;
+    }
+
+    if (!lessonCompleted) {
+      completeLesson(lesson.id);
+      stopTransport();
+      return;
+    }
+
+    if (nextLesson) {
+      openLesson(nextLesson.id);
     }
   };
 
+  const resetWorkspace = () => {
+    stopTransport();
+
+    switch (exercise.workspace) {
+      case "drums":
+        resetPattern("A");
+        break;
+      case "compare":
+        resetPattern("B", patterns.A);
+        break;
+      case "piano-key":
+        clearPitchClasses();
+        break;
+      case "melody":
+        clearMelody();
+        break;
+      case "chords":
+        clearChords();
+        break;
+    }
+  };
+
+  const actionLabel = (() => {
+    if (!exerciseReady && !exerciseCompleted) return "Complete the exercise to continue";
+    if (!isLastExercise) return "Continue to " + lesson.exercises[exerciseIndex + 1].letter;
+    if (!lessonCompleted) return "Complete lesson";
+    if (nextLesson) return "Continue to lesson " + nextLesson.number;
+    return "Course section complete";
+  })();
+
   const completedCount = completedLessonIds.length;
+  const lessonExerciseCount = lesson.exercises.length;
+  const lessonCompletedExercises = lesson.exercises.filter((item) =>
+    completedExerciseIds.includes(item.id),
+  ).length;
 
   return (
     <div className="app-shell">
@@ -210,11 +286,11 @@ function App() {
         </div>
 
         <div className="lesson-title">
-          <span>Lesson {lesson.number}</span>
+          <span>Lesson {lesson.number} · Exercise {exercise.letter}</span>
           <strong>{lesson.title}</strong>
         </div>
 
-        <Transport />
+        <Transport workspace={exercise.workspace} />
       </header>
 
       <div className="workspace">
@@ -263,6 +339,11 @@ function App() {
                 style={{ width: Math.min(100, (completedCount / courseOutline.length) * 100) + "%" }}
               />
             </div>
+
+            <div className="lesson-mini-progress">
+              <span>{lesson.title}</span>
+              <strong>{lessonCompletedExercises}/{lessonExerciseCount} exercises</strong>
+            </div>
           </div>
         </aside>
 
@@ -271,63 +352,64 @@ function App() {
             <span className="section-label">{lesson.eyebrow}</span>
             <h1>{lesson.hero}</h1>
             <p>{lesson.description}</p>
+
+            <div className="lesson-overview">
+              <span className="section-label">What this lesson teaches</span>
+              <p>{lesson.overview}</p>
+            </div>
           </section>
 
-          {lesson.patternMode === "compare" && <PatternSelector />}
-
-          <Sequencer
-            title={lesson.sequencerTitle}
-            readOnly={lesson.patternMode === "compare" && activePattern === "A"}
+          <ExerciseTabs
+            lessonId={lesson.id}
+            exercises={lesson.exercises}
+            currentIndex={exerciseIndex}
+            completedExerciseIds={completedExerciseIds}
+            onOpen={openExercise}
           />
 
-          <section className="sound-strip">
-            <div>
-              <span className="section-label">
-                {lesson.patternMode === "compare" ? "Composition idea" : "What you are hearing"}
-              </span>
-              <strong>
-                {lesson.patternMode === "compare"
-                  ? "Repetition creates identity; variation creates motion"
-                  : "Three sounds, three rhythmic jobs"}
-              </strong>
-            </div>
-            <div className="sound-role">
-              <i className="role-icon kick-role" />
-              <span>
-                <strong>{lesson.patternMode === "compare" ? "A" : "Kick"}</strong>
-                {lesson.patternMode === "compare" ? "preserves the original idea" : "anchors the pulse"}
-              </span>
-            </div>
-            <div className="sound-role">
-              <i className="role-icon snare-role" />
-              <span>
-                <strong>{lesson.patternMode === "compare" ? "B" : "Snare"}</strong>
-                {lesson.patternMode === "compare" ? "changes selected events" : "defines the backbeat"}
-              </span>
-            </div>
-            <div className="sound-role">
-              <i className="role-icon hat-role" />
-              <span>
-                <strong>{lesson.patternMode === "compare" ? "Constraint" : "Hi-hat"}</strong>
-                {lesson.patternMode === "compare" ? "keeps both patterns related" : "reveals subdivision"}
-              </span>
-            </div>
-          </section>
+          <Workspace exercise={exercise} />
         </main>
 
         <aside className="teacher-panel">
-          <div className="teacher-badge">{String(lesson.number).padStart(2, "0")}</div>
-          <span className="section-label">What to do</span>
-          <h2>{lesson.title}</h2>
-          <p className="instruction">{lesson.instruction}</p>
+          <div className="teacher-badge">
+            {lesson.number}{exercise.letter}
+          </div>
+
+          <span className="section-label">What you are learning</span>
+          <h2>{exercise.title}</h2>
+          <p className="learning-goal">{exercise.learn}</p>
 
           <div className="concept-card">
-            <span className="section-label">Why</span>
-            <p>{lesson.concept}</p>
+            <span className="section-label">Explanation</span>
+            <p>{exercise.explanation}</p>
+          </div>
+
+          {exercise.terms.length > 0 && (
+            <div className="term-section">
+              <span className="section-label">Terms introduced here</span>
+              <div className="term-list">
+                {exercise.terms.map((item) => (
+                  <div className="term-card" key={item.term}>
+                    <strong>{item.term}</strong>
+                    <p>{item.definition}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="recognition-card">
+            <span className="section-label">How to recognise it</span>
+            <p>{exercise.recognition}</p>
+          </div>
+
+          <div className="instruction-card">
+            <span className="section-label">Try it</span>
+            <p>{exercise.instruction}</p>
           </div>
 
           <div className="checks">
-            <span className="section-label">{lesson.checksLabel}</span>
+            <span className="section-label">{exercise.checksLabel}</span>
             {checks.map((check) => (
               <div className={check.complete ? "check is-complete" : "check"} key={check.label}>
                 <span>{check.complete ? "✓" : "○"}</span>
@@ -336,38 +418,35 @@ function App() {
             ))}
           </div>
 
-          <div className={readyToComplete || isCompleted ? "completion is-complete" : "completion"}>
+          <div className={exerciseReady || exerciseCompleted ? "completion is-complete" : "completion"}>
             <span>
-              {isCompleted
-                ? "Lesson completed"
-                : readyToComplete
-                  ? lesson.successLabel
-                  : "Keep working on the exercise"}
+              {exerciseCompleted
+                ? "Exercise completed"
+                : exerciseReady
+                  ? exercise.successLabel
+                  : "Explore until the checks are complete"}
             </span>
             <strong>{checks.filter((check) => check.complete).length} / {checks.length}</strong>
           </div>
 
-          {!isCompleted && (
-            <button
-              className="lesson-action"
-              disabled={!readyToComplete}
-              onClick={() => completeLesson(lesson.id)}
-            >
-              Complete lesson
-            </button>
-          )}
+          <button
+            className="lesson-action"
+            disabled={(!exerciseReady && !exerciseCompleted) || (lessonCompleted && !nextLesson && isLastExercise)}
+            onClick={advance}
+          >
+            {actionLabel}
+          </button>
 
-          {isCompleted && nextLesson && (
-            <button className="lesson-action" onClick={continueToNextLesson}>
-              Continue to lesson {nextLesson.number}
-            </button>
-          )}
-
-          <button className="text-button" onClick={resetExercise}>Reset exercise</button>
+          <button className="text-button" onClick={resetWorkspace}>
+            Reset this workspace
+          </button>
 
           <div className="implemented-note">
-            <span className="section-label">Prototype</span>
-            <p>{implementedLessons.length} lessons are currently interactive.</p>
+            <span className="section-label">Current course build</span>
+            <p>
+              {implementedLessons.length} interactive lessons ·{" "}
+              {implementedLessons.reduce((total, item) => total + item.exercises.length, 0)} exercises.
+            </p>
           </div>
         </aside>
       </div>
