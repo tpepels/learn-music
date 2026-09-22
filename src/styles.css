@@ -5173,3 +5173,36 @@ body {
     grid-template-columns: 58px repeat(4, minmax(0, 1fr));
   }
 }
+
+
+/* ==========================================================================
+   LESSON PROGRESS RESET
+   ========================================================================== */
+
+.lesson-reset-block {
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: grid;
+  gap: 5px;
+}
+
+.lesson-reset-block small {
+  color: var(--dim);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.lesson-reset-confirm {
+  color: #ff9fbe !important;
+}
+
+.lesson-reset-cancel {
+  justify-self: start;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 10px;
+  text-decoration: underline;
+  cursor: pointer;
+}
