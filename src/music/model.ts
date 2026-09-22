@@ -85,6 +85,22 @@ export type ChordProgression = Array<ChordName | null>;
 
 export const initialChordProgression: ChordProgression = [null, null, null, null];
 
+export const HARMONY_STEPS = 32;
+export type HarmonySequence = Array<number[]>;
+export const initialHarmonySequence: HarmonySequence = Array.from(
+  { length: HARMONY_STEPS },
+  () => [],
+);
+export const harmonyPitches = [
+  72, 71, 69, 67, 65, 64, 62, 60, 59, 57, 55, 53, 52, 50, 48,
+] as const;
+
+export function cloneHarmonySequence(
+  sequence: HarmonySequence,
+): HarmonySequence {
+  return sequence.map((notes) => [...notes]);
+}
+
 export const accompanimentPatterns = ["block", "pulse", "broken", "arpeggio"] as const;
 export type AccompanimentPattern = (typeof accompanimentPatterns)[number];
 export const initialAccompanimentPattern: AccompanimentPattern = "block";
@@ -441,6 +457,7 @@ export type ProjectData = {
   patterns: Record<PatternId, StepPattern>;
   melody: MelodySequence;
   chordProgression: ChordProgression;
+  harmonySequence: HarmonySequence;
   accompanimentPattern: AccompanimentPattern;
   synthSettings: SynthSettings;
   arrangement: Arrangement;
