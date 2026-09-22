@@ -27,7 +27,7 @@ const lesson = lessonContentSchema.parse({
   number: 27,
   title: "Seventh chords",
   eyebrow: "Harmony · Colour",
-  hero: "Add one note to the triad and hear the chord change colour."
+  hero: "Add one note to the triad and hear the chord change colour.",
   description:
     "Build seventh chords in the piano roll rather than collecting chord symbols. Compare triads with sevenths, then write ii7–V7–Imaj7 and a full turnaround.",
   overview:
