@@ -1,7 +1,9 @@
-name: Validate branch manually
+name: Validate v2.1.1 persisted-state hotfix
 
 on:
   workflow_dispatch:
+  push:
+    branches: ["hotfix/persisted-form-migration-v211"]
 
 permissions:
   contents: read
