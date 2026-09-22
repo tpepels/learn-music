@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { audioEngine } from "./audio/engine";
+import { resolveTransportWorkspace } from "./app/transportRouting";
 import { ArrangementWorkspace } from "./components/ArrangementWorkspace";
 import { AutomationDynamicsWorkspace } from "./components/AutomationDynamicsWorkspace";
 import { BassWorkspace } from "./components/BassWorkspace";
@@ -525,13 +526,11 @@ function App() {
             </button>
           </div>
           <Transport
-            workspace={
-              appMode === "learn"
-                ? exercise.workspace
-                : appMode === "studio"
-                  ? studioTransportWorkspace
-                  : "arrangement"
-            }
+            workspace={resolveTransportWorkspace(
+              appMode,
+              exercise.workspace,
+              studioTransportWorkspace,
+            )}
           />
         </div>
       </header>
