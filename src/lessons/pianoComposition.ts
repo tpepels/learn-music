@@ -22,7 +22,7 @@ const lesson = lessonContentSchema.parse({
   eyebrow: "Piano · Composition",
   hero: "Write a melody, then hear why some notes feel settled.",
   description:
-    "First map the notes of C major on the keyboard. Then use that key to write melodies, work with scale degrees, and build a short phrase from a repeated motif.",
+    "First map the notes of C major. Then write a melody over the groove you built in the rhythm lessons, so pitch and phrase start becoming part of the same piece.",
   overview:
     "A key gives the notes a centre of gravity. In C major, C is the strongest point of rest; the other notes can feel more or less settled depending on where the line is going. Use that pull while you write instead of treating the scale as a list of allowed keys.",
 });
@@ -74,7 +74,7 @@ export const pianoCompositionLesson: LessonDefinition = {
         explanation:
           "A melody is a succession of pitches heard as a line. Staying inside one key removes one variable so you can concentrate on contour, rhythm, repetition, and where the melody feels settled.",
         instruction:
-          "Use the piano roll to place at least five notes. Keep every note inside C major and begin on C. Leave some empty steps if you want rests.",
+          "Press Play: the groove underneath is the one you built earlier. Place at least five melody notes, keep them inside C major, and begin on C. Leave empty steps where the groove needs space.",
         recognition:
           "Loop the line. Does C feel like a starting point only, or does the rest of the melody keep referring back to it?",
         terms: [
