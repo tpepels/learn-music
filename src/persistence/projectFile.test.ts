@@ -59,6 +59,7 @@ function sampleProject(): ProjectData {
     formSettings: {
       sections: [...initialFormSettings.sections],
       roles: [...initialFormSettings.roles],
+      layers: initialFormSettings.layers.map((entry) => ({ ...entry })),
     },
     textureSettings: { ...initialTextureSettings },
     eqSettings: {
@@ -165,6 +166,26 @@ describe("PLAY / LAB project files", () => {
     });
 
     expect(parsed.accompanimentPattern).toBe("block");
+  });
+
+  it("defaults macro-form layers when opening an older project", () => {
+    const project = sampleProject();
+    const legacyProject = {
+      ...project,
+      formSettings: {
+        sections: [...project.formSettings.sections],
+        roles: [...project.formSettings.roles],
+      },
+    };
+
+    const parsed = parseProjectFile({
+      format: "play-lab-project",
+      version: 1,
+      exportedAt: "2026-09-22T12:00:00.000Z",
+      project: legacyProject,
+    });
+
+    expect(parsed.formSettings.layers).toEqual(initialFormSettings.layers);
   });
 
   it("fills advanced-production defaults when opening a pre-1.4 project", () => {
