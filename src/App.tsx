@@ -4,9 +4,12 @@ import { ArrangementWorkspace } from "./components/ArrangementWorkspace";
 import { AutomationDynamicsWorkspace } from "./components/AutomationDynamicsWorkspace";
 import { ChordWorkspace } from "./components/ChordWorkspace";
 import { DrumWorkspace } from "./components/DrumWorkspace";
+import { EffectsWorkspace } from "./components/EffectsWorkspace";
+import { FinalProjectWorkspace } from "./components/FinalProjectWorkspace";
 import { MixerWorkspace } from "./components/MixerWorkspace";
 import { LearningPanel } from "./components/LearningPanel";
 import { MelodyWorkspace, PianoKeyWorkspace } from "./components/PianoWorkspace";
+import { StudioMode } from "./components/StudioMode";
 import { SynthWorkspace } from "./components/SynthWorkspace";
 import {
   courseOutline,
@@ -43,7 +46,9 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
     } else if (
       workspace === "arrangement" ||
       workspace === "mixer" ||
-      workspace === "automation-dynamics"
+      workspace === "automation-dynamics" ||
+      workspace === "effects" ||
+      workspace === "final-project"
     ) {
       await audioEngine.playArrangement(bpm, setCurrentStep);
     } else {
@@ -158,6 +163,10 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
       return <MixerWorkspace />;
     case "automation-dynamics":
       return <AutomationDynamicsWorkspace />;
+    case "effects":
+      return <EffectsWorkspace />;
+    case "final-project":
+      return <FinalProjectWorkspace />;
   }
 }
 
@@ -170,6 +179,8 @@ const lessonGlyphs: Record<string, string> = {
   "form.arrangement": "▦",
   "mixing.balance-space": "≋",
   "production.automation-dynamics": "⌁",
+  "production.effects-transitions": "✦",
+  "production.final-project": "✓",
 };
 
 const workspaceNames: Record<ExerciseDefinition["workspace"], string> = {
@@ -182,6 +193,8 @@ const workspaceNames: Record<ExerciseDefinition["workspace"], string> = {
   arrangement: "Arrangement view",
   mixer: "Mixer",
   "automation-dynamics": "Automation + dynamics",
+  effects: "Creative FX rack",
+  "final-project": "Final project",
 };
 
 function App() {
@@ -199,6 +212,9 @@ function App() {
   const mixerSettings = useStudioStore((state) => state.mixerSettings);
   const automationSettings = useStudioStore((state) => state.automationSettings);
   const dynamicsSettings = useStudioStore((state) => state.dynamicsSettings);
+  const effectsSettings = useStudioStore((state) => state.effectsSettings);
+  const projectMilestones = useStudioStore((state) => state.projectMilestones);
+  const appMode = useStudioStore((state) => state.appMode);
 
   const setCurrentLesson = useStudioStore((state) => state.setCurrentLesson);
   const setExerciseIndex = useStudioStore((state) => state.setExerciseIndex);
@@ -214,6 +230,8 @@ function App() {
   const resetMixer = useStudioStore((state) => state.resetMixer);
   const resetAutomation = useStudioStore((state) => state.resetAutomation);
   const resetDynamics = useStudioStore((state) => state.resetDynamics);
+  const resetEffects = useStudioStore((state) => state.resetEffects);
+  const setAppMode = useStudioStore((state) => state.setAppMode);
 
   const lesson = getLesson(currentLessonId);
   const storedExerciseIndex = exerciseIndexByLesson[lesson.id] ?? 0;
@@ -253,6 +271,10 @@ function App() {
     audioEngine.setDynamicsSettings(dynamicsSettings);
   }, [dynamicsSettings]);
 
+  useEffect(() => {
+    audioEngine.setEffectsSettings(effectsSettings);
+  }, [effectsSettings]);
+
   const checks = useMemo(
     () =>
       exercise.evaluate({
@@ -266,6 +288,8 @@ function App() {
         mixerSettings,
         automationSettings,
         dynamicsSettings,
+        effectsSettings,
+        projectMilestones,
       }),
     [
       exercise,
@@ -278,6 +302,8 @@ function App() {
       mixerSettings,
       automationSettings,
       dynamicsSettings,
+      effectsSettings,
+      projectMilestones,
     ],
   );
 
@@ -364,6 +390,11 @@ function App() {
         resetAutomation();
         resetDynamics();
         break;
+      case "effects":
+        resetEffects();
+        break;
+      case "final-project":
+        break;
     }
   };
 
@@ -393,14 +424,43 @@ function App() {
         </div>
 
         <div className="lesson-title">
-          <span className="topbar-lesson-kicker">LESSON {String(lesson.number).padStart(2, "0")} · {exercise.letter}</span>
-          <strong>{exercise.title}</strong>
-          <small>{workspaceNames[exercise.workspace]}</small>
+          {appMode === "learn" ? (
+            <>
+              <span className="topbar-lesson-kicker">LESSON {String(lesson.number).padStart(2, "0")} · {exercise.letter}</span>
+              <strong>{exercise.title}</strong>
+              <small>{workspaceNames[exercise.workspace]}</small>
+            </>
+          ) : (
+            <>
+              <span className="topbar-lesson-kicker">STUDIO MODE</span>
+              <strong>Your project</strong>
+              <small>All unlocked production tools</small>
+            </>
+          )}
         </div>
 
-        <Transport workspace={exercise.workspace} />
+        <div className="topbar-actions">
+          <div className="mode-switch" role="group" aria-label="Application mode">
+            <button
+              className={appMode === "learn" ? "is-active" : ""}
+              onClick={() => setAppMode("learn")}
+            >
+              Learn
+            </button>
+            <button
+              className={appMode === "studio" ? "is-active" : ""}
+              onClick={() => setAppMode("studio")}
+            >
+              Studio
+            </button>
+          </div>
+          <Transport workspace={appMode === "studio" ? "arrangement" : exercise.workspace} />
+        </div>
       </header>
 
+      {appMode === "studio" ? (
+        <StudioMode />
+      ) : (
       <div className="workspace">
         <aside className="course-panel">
           <div className="panel-heading">
@@ -553,6 +613,7 @@ function App() {
           </div>
         </aside>
       </div>
+      )}
     </div>
   );
 }
