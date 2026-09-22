@@ -1,17 +1,22 @@
 import { describe, expect, it } from "vitest";
 import {
+  cloneArrangement,
   clonePattern,
+  initialArrangement,
   initialChordProgression,
   initialMelody,
   initialPattern,
+  initialSynthSettings,
   type ChordProgression,
   type MelodySequence,
   type StepPattern,
 } from "../music/model";
+import { arrangementFormLesson } from "./arrangementForm";
 import { chordProgressionLesson } from "./chordProgressions";
 import { pianoCompositionLesson } from "./pianoComposition";
 import { pulseAndGrooveLesson } from "./pulseAndGroove";
 import { rhythmVariationLesson } from "./rhythmVariation";
+import { soundSynthesisLesson } from "./soundSynthesis";
 import type { LessonContext } from "./types";
 
 function context(overrides: Partial<LessonContext> = {}): LessonContext {
@@ -21,6 +26,8 @@ function context(overrides: Partial<LessonContext> = {}): LessonContext {
     selectedPitchClasses: [],
     melody: [...initialMelody],
     chordProgression: [...initialChordProgression],
+    synthSettings: { ...initialSynthSettings },
+    arrangement: cloneArrangement(initialArrangement),
     ...overrides,
   };
 }
@@ -125,5 +132,44 @@ describe("lesson 4: chords and progressions", () => {
         .evaluate(context({ chordProgression: progression }))
         .every((check) => check.complete),
     ).toBe(true);
+  });
+});
+
+
+describe("lesson 5: sound and synthesis", () => {
+  it("accepts a deliberately shaped warm pad", () => {
+    const ctx = context({
+      synthSettings: {
+        waveform: "sawtooth",
+        cutoff: 1500,
+        attack: 0.5,
+        release: 1.2,
+      },
+    });
+
+    for (const exercise of soundSynthesisLesson.exercises) {
+      expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
+    }
+  });
+});
+
+describe("lesson 6: arrangement and form", () => {
+  it("accepts an eight-bar density arc with A/B contrast, climax, and release", () => {
+    const arrangement = [
+      { drums: true, bass: false, chords: false, melody: false },
+      { drums: true, bass: true, chords: false, melody: false },
+      { drums: true, bass: true, chords: true, melody: false },
+      { drums: true, bass: true, chords: true, melody: false },
+      { drums: true, bass: true, chords: false, melody: false },
+      { drums: true, bass: true, chords: true, melody: false },
+      { drums: true, bass: true, chords: true, melody: true },
+      { drums: true, bass: false, chords: false, melody: false },
+    ];
+
+    const ctx = context({ arrangement });
+
+    for (const exercise of arrangementFormLesson.exercises) {
+      expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
+    }
   });
 });
