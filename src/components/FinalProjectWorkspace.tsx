@@ -1,7 +1,9 @@
+import { useRef, useState } from "react";
 import {
   activeLayerCount,
   trackNames,
 } from "../music/model";
+import { parseProjectFile } from "../persistence/projectFile";
 import { useStudioStore } from "../state/studio";
 
 function countActivePattern(pattern: Record<(typeof trackNames)[number], boolean[]>) {
@@ -46,6 +48,8 @@ function downloadProject() {
 }
 
 export function FinalProjectWorkspace() {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [importMessage, setImportMessage] = useState<string | null>(null);
   const patterns = useStudioStore((state) => state.patterns);
   const melody = useStudioStore((state) => state.melody);
   const chords = useStudioStore((state) => state.chordProgression);
@@ -55,6 +59,7 @@ export function FinalProjectWorkspace() {
   const dynamics = useStudioStore((state) => state.dynamicsSettings);
   const effects = useStudioStore((state) => state.effectsSettings);
   const milestones = useStudioStore((state) => state.projectMilestones);
+  const loadProject = useStudioStore((state) => state.loadProject);
 
   const compositionReady =
     countActivePattern(patterns.A) >= 8 &&
@@ -81,6 +86,21 @@ export function FinalProjectWorkspace() {
     effects.chorusWet >= 0.12 ||
     effects.delayFeedback >= 0.3 ||
     effects.reverbDecay >= 3.2;
+
+  const importProject = async (file: File) => {
+    try {
+      const raw = JSON.parse(await file.text());
+      const project = parseProjectFile(raw);
+      loadProject(project);
+      setImportMessage("Project loaded successfully.");
+    } catch {
+      setImportMessage("That file is not a valid PLAY / LAB project.");
+    } finally {
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
 
   const checks = [
     ["Composition", compositionReady, "Groove, melody, and four-chord progression"],
@@ -127,17 +147,38 @@ export function FinalProjectWorkspace() {
       <div className="export-project-panel">
         <div>
           <span className="section-label">Project file</span>
-          <strong>Save what you made</strong>
+          <strong>Save or reopen what you made</strong>
           <p>
             Export a versioned JSON project containing the composition, arrangement,
-            mixer, automation, dynamics, and effects settings. This is the project
-            document, not a bounced audio file.
+            mixer, automation, dynamics, and effects settings. Import validates that
+            format before replacing the current project.
           </p>
+          {importMessage && <small className="project-import-message">{importMessage}</small>}
         </div>
-        <button onClick={downloadProject}>
-          <span>⇩</span>
-          Export project
-        </button>
+
+        <div className="project-file-actions">
+          <button onClick={downloadProject}>
+            <span>⇩</span>
+            Export project
+          </button>
+          <button
+            className="secondary"
+            onClick={() => fileInputRef.current?.click()}
+          >
+            <span>⇧</span>
+            Import project
+          </button>
+          <input
+            ref={fileInputRef}
+            className="project-file-input"
+            type="file"
+            accept=".json,application/json"
+            onChange={(event) => {
+              const file = event.target.files?.[0];
+              if (file) void importProject(file);
+            }}
+          />
+        </div>
       </div>
     </div>
   );
