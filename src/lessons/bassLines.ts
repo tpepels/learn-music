@@ -19,7 +19,7 @@ const lesson = lessonContentSchema.parse({
   eyebrow: "Composition · Bass",
   hero: "Turn chord roots into a line that also belongs to the groove.",
   description:
-    "Write bass across four bars on an eighth-note grid. Start by anchoring harmony with roots, add chord tones, then use rhythmic and approach-note movement to connect one chord to the next.",
+    "Add a bass line underneath the groove and harmony already in your project. Start with roots, then use chord tones, rhythm, and approach notes to turn those anchors into a line.",
   overview:
     "The bass tells the ear where the harmony is while also living inside the groove. Start with the roots, then let the line move through chord tones, offbeats and approach notes without losing the progression underneath.",
 });
@@ -36,7 +36,7 @@ export const bassLinesLesson: LessonDefinition = {
         explanation:
           "The root is the strongest harmonic anchor for a bass line. Placing the current chord root on the downbeat makes the progression easy to hear even if the upper chord instrument disappears.",
         instruction:
-          "Put the root of each chord on the first eighth-note position of its bar: steps 1, 9, 17, and 25. Leave the rest mostly empty and play the four bars.",
+          "Press Play so your groove and harmony are audible. Put each chord root on the first eighth-note of its bar: steps 1, 9, 17, and 25. Leave the rest mostly empty at first and hear what the roots add to the piece.",
         recognition:
           "Mute the chord part mentally and follow only the bass. Can you still tell where each harmony changes?",
         terms: [
