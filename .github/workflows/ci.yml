@@ -1,7 +1,9 @@
-name: Validate branch manually
+name: Validate v2.1.3 MIDI note durations
 
 on:
   workflow_dispatch:
+  push:
+    branches: ["feature/midi-note-durations-v213"]
 
 permissions:
   contents: read
