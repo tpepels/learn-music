@@ -74,11 +74,11 @@ const lesson = lessonContentSchema.parse({
   number: 4,
   title: "Chords & progressions",
   eyebrow: "Piano · Harmony",
-  hero: "Build the harmony with your own hands.",
+  hero: "Write the chord part, note by note."
   description:
     "Choose the chord for each bar, then write the actual notes and rhythm in a four-bar piano roll while your groove and melody keep playing.",
   overview:
-    "A chord symbol only tells you which harmony is available. The musical part begins when you decide which chord tones sound, when they sound, whether they arrive together or separately, and how that rhythm interacts with the rest of the track.",
+    "The chord name is only a map. The part is the notes you enter: which tones you use, when they arrive, whether they hit together, and how they sit against the groove.",
 });
 
 export const chordProgressionLesson: LessonDefinition = {
@@ -91,11 +91,11 @@ export const chordProgressionLesson: LessonDefinition = {
         title: "Build C major yourself",
         learn: "Turn the symbol C into actual notes you place in time.",
         explanation:
-          "C major contains C, E, and G. Those notes can appear in different octaves and do not have to arrive together. The chord symbol is a harmonic guide; the piano roll is where you make the part.",
+          "C major is built from C, E and G. You can stack them, spread them across octaves, or place them at different moments. The symbol tells you the harmony; your MIDI decides how it sounds in time.",
         instruction:
           "Choose C for bar 1. On the first eighth-note position, stack a C, E, and G yourself in the piano roll. Press Play and hear your own notes enter with the groove and melody.",
         recognition:
-          "The three notes should fuse into one stable harmony, but you should also be able to see and identify the individual notes you placed.",
+          "Play the three notes together, then remove one and add it back. What changes when the third or fifth disappears?",
         terms: [
           { term: "Chord", definition: "A harmonic identity made from two or more pitches heard in relation to one another." },
           { term: "Triad", definition: "A three-note chord containing root, third, and fifth." },
@@ -127,11 +127,11 @@ export const chordProgressionLesson: LessonDefinition = {
         title: "Write I–IV–V–I",
         learn: "Make harmonic function audible by writing every chord into the phrase.",
         explanation:
-          "In C major, I is C major, IV is F major, and V is G major. I feels like home, IV moves away, V creates expectation, and the last I answers that tension. You will now build those sounds rather than letting the app perform them for you.",
+          "In C major, I is C, IV is F and V is G. The return to C matters because G leaves the phrase hanging forward. Write the notes yourself so the function comes from the part you made.",
         instruction:
           "Set the four bars to C–F–G–C. In each bar, place all three notes of that chord somewhere in its eight-step region. They may be stacked or spread out. Keep Play running while you work.",
         recognition:
-          "The chord tones should change with each bar while the existing groove and melody keep their identity. G should make the final C feel like an arrival.",
+          "Listen across bars 3–4. If you stop after G, does the loop feel unfinished? What changes when C arrives?",
         terms: [
           { term: "I chord", definition: "The tonic chord built on scale degree 1; C major in the key of C." },
           { term: "IV chord", definition: "A predominant chord built on scale degree 4; F major in C." },
@@ -170,11 +170,11 @@ export const chordProgressionLesson: LessonDefinition = {
         title: "Turn chords into a rhythm",
         learn: "Stop treating chords as four blocks and make an accompaniment pattern.",
         explanation:
-          "A progression says which harmony is active; accompaniment says how you perform it. You can repeat a chord, split its notes, leave gaps, answer the drums, or place notes between the strong beats. That rhythmic decision is part of composition.",
+          "The progression tells you the chords. The accompaniment is the performance: repeated stabs, broken notes, gaps, answers to the snare, or notes that land between the beats.",
         instruction:
           "Keep C–F–G–C, but spread the chord tones through time. Use at least eight different time positions across the phrase, including at least two offbeat eighths. Make at least one bar use three or more separate positions.",
         recognition:
-          "The harmony should now behave like a part in the track rather than four labels. Listen for notes locking with or pushing against the groove.",
+          "Which notes lock with the drums, and which ones push against them? Does the chord part have a rhythm you could tap by itself?",
         terms: [
           { term: "Accompaniment", definition: "A musical part that supports another part while having its own rhythm and shape." },
           { term: "Broken chord", definition: "Chord tones played separately instead of all at once." },
@@ -220,11 +220,11 @@ export const chordProgressionLesson: LessonDefinition = {
         title: "Write your accompaniment",
         learn: "Compose a four-bar chord part that has its own shape while still supporting the song.",
         explanation:
-          "Now the harmonic rule becomes a constraint rather than an answer. Keep tonic as the frame and dominant before the final return, but decide the middle harmony and write a rhythm that develops across the four bars.",
+          "Keep C as the frame and G before the final return, but make the middle and the rhythm yours. The theory narrows the field; it does not write the accompaniment for you.",
         instruction:
           "Keep C in bars 1 and 4 and G in bar 3. Choose a different diatonic chord for bar 2. Rewrite the piano roll into a four-bar accompaniment: use at least two notes in every bar, at least twelve active time positions overall, at least three offbeats, and make the rhythm of at least one bar differ from another.",
         recognition:
-          "You should hear one continuous musical part with a beginning, movement, dominant tension, and return—not a demonstration of four chord names.",
+          "Mute the chord labels mentally. Does the accompaniment still sound like one four-bar gesture with a clear return?",
         terms: [
           { term: "Tonic", definition: "The harmonic home of the key." },
           { term: "Dominant", definition: "Harmony that strongly points toward tonic." },
