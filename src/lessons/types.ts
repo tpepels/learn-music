@@ -8,6 +8,7 @@ import type {
   DynamicsSettings,
   EffectsSettings,
   EqSettings,
+  ExerciseExperiments,
   GrooveFeelSettings,
   FormSettings,
   HarmonySequence,
@@ -110,6 +111,7 @@ export type LessonContext = {
   sidechainSettings: SidechainSettings;
   stereoSettings: StereoSettings;
   referenceMixSettings: ReferenceMixSettings;
+  experiments: ExerciseExperiments;
 };
 
 export type ExerciseDefinition = z.infer<typeof exerciseContentSchema> & {
