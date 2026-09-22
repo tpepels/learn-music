@@ -21,7 +21,7 @@ const lesson = lessonContentSchema.parse({
   number: 16,
   title: "Harmonic function",
   eyebrow: "Harmony · Composition",
-  hero: "Hear where the chords want to go."
+  hero: "Hear where the chords want to go.",
   description:
     "Change the chords under the same groove and melody, then rewrite the notes that make those chords. Listen for home, departure, pull and return as movement through the phrase.",
   overview:
