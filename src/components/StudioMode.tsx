@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { ArrangementWorkspace } from "./ArrangementWorkspace";
-import { AdvancedHarmonyWorkspace } from "./AdvancedHarmonyWorkspace";
 import { AutomationDynamicsWorkspace } from "./AutomationDynamicsWorkspace";
 import { BassWorkspace } from "./BassWorkspace";
 import { ChordWorkspace } from "./ChordWorkspace";
@@ -10,7 +9,6 @@ import { EffectsWorkspace } from "./EffectsWorkspace";
 import { EqWorkspace } from "./EqWorkspace";
 import { FinalProjectWorkspace } from "./FinalProjectWorkspace";
 import { GrooveFeelWorkspace } from "./GrooveFeelWorkspace";
-import { HarmonicFunctionWorkspace } from "./HarmonicFunctionWorkspace";
 import { MelodyHarmonyWorkspace } from "./MelodyHarmonyWorkspace";
 import { MotifWorkspace } from "./MotifWorkspace";
 import { MinorTonalityWorkspace } from "./MinorTonalityWorkspace";
@@ -122,12 +120,12 @@ export function StudioMode({
         {module === "motif" && <MotifWorkspace />}
         {module === "melody-harmony" && <MelodyHarmonyWorkspace />}
         {module === "harmony" && <HarmonySequencerWorkspace />}
-        {module === "function" && <HarmonicFunctionWorkspace />}
+        {module === "function" && <HarmonySequencerWorkspace mode="function" />}
         {module === "minor-key" && <MinorTonalityWorkspace harmonic={false} />}
         {module === "harmonic-minor" && <MinorTonalityWorkspace harmonic />}
-        {module === "minor-harmony" && <AdvancedHarmonyWorkspace mode="minor" />}
-        {module === "sevenths" && <AdvancedHarmonyWorkspace mode="sevenths" />}
-        {module === "mixture" && <AdvancedHarmonyWorkspace mode="borrowed" />}
+        {module === "minor-harmony" && <HarmonySequencerWorkspace mode="minor" />}
+        {module === "sevenths" && <HarmonySequencerWorkspace mode="sevenths" />}
+        {module === "mixture" && <HarmonySequencerWorkspace mode="borrowed" />}
         {module === "voicing" && <VoicingWorkspace />}
         {module === "bass" && <BassWorkspace />}
         {module === "synth" && <SynthWorkspace />}
