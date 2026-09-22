@@ -1,6 +1,8 @@
-name: Validate branch manually
+name: Validate v1.6 release candidate
 
 on:
+  push:
+    branches: ["feature/readability-piano-exercise-audit"]
   workflow_dispatch:
 
 permissions:
