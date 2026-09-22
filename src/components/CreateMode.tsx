@@ -35,7 +35,7 @@ const briefs = [
     eyebrow: "Tonality study",
     title: "Make the same notes change emotional centre",
     prompt:
-      "Use the shared C-major/A-minor pitch collection. Make one phrase resolve clearly to C and a second phrase resolve clearly to A. Change emphasis and endings rather than adding chromatic notes.",
+      "Use the shared C-major/A-minor pitch collection. Make one phrase resolve clearly to C and a second resolve clearly to A. Change the emphasis and endings; keep the note collection the same.",
     focus: ["Relative keys", "Tonic", "Phrase ending", "Melodic emphasis"],
   },
   {
@@ -77,11 +77,9 @@ export function CreateMode() {
       <section className="create-mode-hero">
         <div>
           <span className="section-label">Create</span>
-          <h1>Use the tools without being told the answer.</h1>
+          <h1>Make music without an answer key.</h1>
           <p>
-            These briefs are deliberately open-ended. There is no automatic “correct”
-            composition here; choose a constraint, make decisions in Studio, then return
-            and listen again.
+            These briefs are open-ended. Choose a constraint, make decisions in Studio, then come back and listen again.
           </p>
         </div>
 
@@ -133,12 +131,12 @@ export function CreateMode() {
             <article>
               <b>2</b>
               <strong>Compare</strong>
-              <p>Change one thing at a time and listen to what actually changed.</p>
+              <p>Change one thing at a time and listen to what changed.</p>
             </article>
             <article>
               <b>3</b>
               <strong>Keep</strong>
-              <p>Keep choices that support the idea, not choices that merely add complexity.</p>
+              <p>Keep choices that support the idea. Remove complexity that does not earn its place.</p>
             </article>
           </div>
 
