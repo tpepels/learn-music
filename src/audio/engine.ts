@@ -154,7 +154,7 @@ class AudioEngine {
         ratio: this.dynamicsSettings.ratio,
         attack: this.dynamicsSettings.attack,
         release: this.dynamicsSettings.release,
-      }).connect(this.drumCompressor);
+      }).connect(this.drumCompressor!);
     }
 
     if (!this.kick) {
@@ -167,10 +167,10 @@ class AudioEngine {
       this.snare = new Tone.NoiseSynth({
         noise: { type: "white" },
         envelope: { attack: 0.001, decay: 0.13, sustain: 0, release: 0.02 },
-      }).connect(this.drumCompressor);
+      }).connect(this.drumCompressor!);
       this.snare.volume.value = -7;
 
-      this.hatFilter = new Tone.Filter(6800, "highpass").connect(this.drumCompressor);
+      this.hatFilter = new Tone.Filter(6800, "highpass").connect(this.drumCompressor!);
       this.hat = new Tone.NoiseSynth({
         noise: { type: "white" },
         envelope: { attack: 0.001, decay: 0.025, sustain: 0, release: 0.01 },
