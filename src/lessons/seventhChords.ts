@@ -27,11 +27,11 @@ const lesson = lessonContentSchema.parse({
   number: 27,
   title: "Seventh chords",
   eyebrow: "Harmony · Colour",
-  hero: "Add the seventh as a note you can hear and move.",
+  hero: "Add one note to the triad and hear the chord change colour."
   description:
     "Build seventh chords in the piano roll rather than collecting chord symbols. Compare triads with sevenths, then write ii7–V7–Imaj7 and a full turnaround.",
   overview:
-    "A seventh chord adds another chord tone above the triad. That extra note can soften, colour or intensify the harmony, and it creates additional voice-leading possibilities between chords.",
+    "A seventh chord is a triad with one more note. Add that note, remove it, and follow where it wants to move into the next chord. The colour is easier to understand as a note than as a longer chord symbol.",
 });
 
 export const seventhChordsLesson: LessonDefinition = {
@@ -48,7 +48,7 @@ export const seventhChordsLesson: LessonDefinition = {
         instruction:
           "In bar 1, choose plain C and play it once. Then change the bar to Cmaj7 and add B to the MIDI so C, E, G and B all appear. Leave Cmaj7 selected.",
         recognition:
-          "The added B should be audible as a new colour inside the same tonic harmony. Remove it and add it again if the difference is not obvious.",
+          "Mute B, then add it back. Does Cmaj7 feel like the same home chord with more tension inside it, or like a completely different chord?",
         terms: [
           { term: "Major seventh", definition: "An interval eleven semitones above the root; B above C." },
           { term: "Cmaj7", definition: "C major plus its major seventh: C–E–G–B." },
@@ -75,7 +75,7 @@ export const seventhChordsLesson: LessonDefinition = {
         instruction:
           "Put G7 in bar 2 and Cmaj7 in bar 3. Write all four notes of both chords. Then make sure F appears in the G7 bar and E appears in the following Cmaj7 bar so you can hear the guide-tone motion.",
         recognition:
-          "The resolution should feel more directed than a plain G-major triad moving to C.",
+          "Compare G→C with G7→Cmaj7. Which inner notes make the second move feel more directed?",
         terms: [
           { term: "Dominant seventh", definition: "A major triad with a minor seventh added; G–B–D–F in C major." },
           { term: "Guide tone", definition: "A chord tone whose small motion strongly communicates harmonic direction." },
@@ -102,14 +102,14 @@ export const seventhChordsLesson: LessonDefinition = {
         instruction:
           "Set bars 1–3 to Dm7 → G7 → Cmaj7 and keep Cmaj7 in bar 4. Rewrite the piano roll so bars 1–3 each contain all four chord tones. Spread some notes across time instead of using only one vertical block.",
         recognition:
-          "The progression should feel directed while the individual chord colours remain audible. The seventh tones should sound integrated, not like unrelated extra notes.",
+          "Listen only for the seventh in each chord. Does it sound like part of the harmony, and can you hear where it moves next?",
         terms: [
           { term: "ii7–V7–Imaj7", definition: "A common functional progression using seventh chords on predominant, dominant and tonic." },
           { term: "Voice leading", definition: "The way individual chord tones move from one harmony to the next." },
         ],
         workspace: "seventh-harmony",
         checksLabel: "Write the progression",
-        successLabel: "The ii7–V7–Imaj7 progression is now real MIDI",
+        successLabel: "You wrote ii7–V7–Imaj7 as a four-note chord part",
       }),
       evaluate: ({ chordProgression, harmonySequence, experiments }) => [
         { label: "Progression begins Dm7 → G7 → Cmaj7", complete: chordProgression[0] === "Dm7" && chordProgression[1] === "G7" && chordProgression[2] === "Cmaj7" },
@@ -129,7 +129,7 @@ export const seventhChordsLesson: LessonDefinition = {
         instruction:
           "Set Cmaj7 → Am7 → Dm7 → G7. Write all four chord tones in every bar, use at least ten time positions overall, and put at least two events on offbeat eighths. Loop it and shape a rhythm that makes the return to bar 1 feel intentional.",
         recognition:
-          "The G7 at the end should feel unfinished until the loop returns to Cmaj7. Your accompaniment rhythm should continue through that boundary rather than sounding like four examples.",
+          "Let the loop stop mentally on G7. Does it feel finished? Then hear the next Cmaj7 and notice what the loop was waiting for.",
         terms: [
           { term: "Turnaround", definition: "Harmony near the end of a phrase that leads back toward its beginning." },
           { term: "Loop resolution", definition: "A resolution completed by the beginning of the next loop rather than before the current one ends." },
