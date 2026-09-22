@@ -111,6 +111,9 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
   const setBpm = useStudioStore((state) => state.setBpm);
   const setPlaying = useStudioStore((state) => state.setPlaying);
   const setCurrentStep = useStudioStore((state) => state.setCurrentStep);
+  const recordLearningExperiment = useStudioStore(
+    (state) => state.recordLearningExperiment,
+  );
   const [playbackError, setPlaybackError] = useState<string | null>(null);
 
   const canPlay = canWorkspaceUseTransport(workspace);
@@ -129,6 +132,7 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
 
     try {
       await startWorkspacePlayback(workspace, bpm, setCurrentStep);
+      recordLearningExperiment("transport.play", workspace);
       setPlaying(true);
     } catch (error) {
       console.error("PLAY / LAB playback failed", error);
