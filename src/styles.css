@@ -7825,7 +7825,8 @@ body {
 }
 
 .harmony-chord-palette button strong,
-.harmony-chord-palette button span {
+.harmony-chord-palette button span,
+.harmony-chord-palette button small {
   display: block;
 }
 
@@ -7837,6 +7838,40 @@ body {
 .harmony-chord-palette button span {
   margin-top: 2px;
   font-size: 11px;
+}
+
+.harmony-chord-palette button small {
+  margin-top: 3px;
+  color: var(--dim);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.harmony-target-note {
+  margin-top: 9px;
+  padding: 9px 11px;
+  border: 1px solid rgba(95,225,239,0.13);
+  border-radius: 8px;
+  background: rgba(95,225,239,0.035);
+}
+
+.harmony-target-note strong,
+.harmony-target-note span {
+  display: block;
+}
+
+.harmony-target-note strong {
+  color: var(--text);
+  font-size: 11px;
+}
+
+.harmony-target-note span {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.45;
 }
 
 .harmony-chord-palette button.is-selected,
