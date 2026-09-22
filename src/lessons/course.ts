@@ -1,5 +1,6 @@
 import { arrangementFormLesson } from "./arrangementForm";
 import { automationDynamicsLesson } from "./automationDynamics";
+import { bassLinesLesson } from "./bassLines";
 import { chordProgressionLesson } from "./chordProgressions";
 import { effectsTransitionsLesson } from "./effectsTransitions";
 import { finalProjectLesson } from "./finalProject";
@@ -8,6 +9,7 @@ import { pianoCompositionLesson } from "./pianoComposition";
 import { pulseAndGrooveLesson } from "./pulseAndGroove";
 import { rhythmVariationLesson } from "./rhythmVariation";
 import { soundSynthesisLesson } from "./soundSynthesis";
+import { voiceLeadingLesson } from "./voiceLeading";
 import type { LessonDefinition } from "./types";
 
 export const implementedLessons: LessonDefinition[] = [
@@ -21,6 +23,8 @@ export const implementedLessons: LessonDefinition[] = [
   automationDynamicsLesson,
   effectsTransitionsLesson,
   finalProjectLesson,
+  voiceLeadingLesson,
+  bassLinesLesson,
 ];
 
 export const courseOutline = implementedLessons.map((lesson) => ({
