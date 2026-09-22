@@ -6,6 +6,7 @@ import {
   clonePattern,
   initialArrangement,
   initialAutomationSettings,
+  initialBassSequence,
   initialChordProgression,
   initialDynamicsSettings,
   initialEffectsSettings,
@@ -13,6 +14,7 @@ import {
   initialMixerSettings,
   initialPattern,
   initialSynthSettings,
+  initialVoicingSettings,
   type ProjectData,
 } from "../music/model";
 import { parseProjectFile, projectFileSchema } from "./projectFile";
@@ -32,6 +34,8 @@ function sampleProject(): ProjectData {
     automationSettings: cloneAutomationSettings(initialAutomationSettings),
     dynamicsSettings: { ...initialDynamicsSettings },
     effectsSettings: { ...initialEffectsSettings },
+    voicingSettings: { inversions: [...initialVoicingSettings.inversions] },
+    bassSequence: [...initialBassSequence],
   };
 }
 
