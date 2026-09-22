@@ -5,7 +5,6 @@ import {
   resolveTransportWorkspace,
 } from "./app/transportRouting";
 import { ArrangementWorkspace } from "./components/ArrangementWorkspace";
-import { AdvancedHarmonyWorkspace } from "./components/AdvancedHarmonyWorkspace";
 import { AutomationDynamicsWorkspace } from "./components/AutomationDynamicsWorkspace";
 import { BassWorkspace } from "./components/BassWorkspace";
 import { ChordWorkspace } from "./components/ChordWorkspace";
@@ -15,7 +14,6 @@ import { EffectsWorkspace } from "./components/EffectsWorkspace";
 import { EqWorkspace } from "./components/EqWorkspace";
 import { FinalProjectWorkspace } from "./components/FinalProjectWorkspace";
 import { GrooveFeelWorkspace } from "./components/GrooveFeelWorkspace";
-import { HarmonicFunctionWorkspace } from "./components/HarmonicFunctionWorkspace";
 import { HarmonySequencerWorkspace } from "./components/HarmonySequencerWorkspace";
 import { MelodyHarmonyWorkspace } from "./components/MelodyHarmonyWorkspace";
 import { MotifWorkspace } from "./components/MotifWorkspace";
@@ -58,18 +56,20 @@ async function startWorkspacePlayback(
     return;
   }
 
-  if (workspace === "harmony-song") {
+  if (
+    workspace === "harmony-song" ||
+    workspace === "harmonic-function" ||
+    workspace === "minor-harmony" ||
+    workspace === "seventh-harmony" ||
+    workspace === "borrowed-harmony"
+  ) {
     await audioEngine.playHarmonyContext(bpm, onStep);
     return;
   }
 
   if (
     workspace === "chords" ||
-    workspace === "voicing" ||
-    workspace === "harmonic-function" ||
-    workspace === "minor-harmony" ||
-    workspace === "seventh-harmony" ||
-    workspace === "borrowed-harmony"
+    workspace === "voicing"
   ) {
     await audioEngine.playChords(bpm, onStep);
     return;
@@ -80,13 +80,17 @@ async function startWorkspacePlayback(
     return;
   }
 
+  if (workspace === "phrase-form") {
+    await audioEngine.playForm(bpm, onStep);
+    return;
+  }
+
   if (
     workspace === "arrangement" ||
     workspace === "mixer" ||
     workspace === "automation-dynamics" ||
     workspace === "effects" ||
     workspace === "final-project" ||
-    workspace === "phrase-form" ||
     workspace === "texture" ||
     workspace === "eq" ||
     workspace === "saturation" ||
@@ -302,7 +306,7 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
     case "melody-harmony":
       return <MelodyHarmonyWorkspace />;
     case "harmonic-function":
-      return <HarmonicFunctionWorkspace />;
+      return <HarmonySequencerWorkspace mode="function" />;
     case "phrase-form":
       return <PhraseFormWorkspace />;
     case "texture":
@@ -322,11 +326,11 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
     case "harmonic-minor":
       return <MinorTonalityWorkspace harmonic />;
     case "minor-harmony":
-      return <AdvancedHarmonyWorkspace mode="minor" />;
+      return <HarmonySequencerWorkspace mode="minor" />;
     case "seventh-harmony":
-      return <AdvancedHarmonyWorkspace mode="sevenths" />;
+      return <HarmonySequencerWorkspace mode="sevenths" />;
     case "borrowed-harmony":
-      return <AdvancedHarmonyWorkspace mode="borrowed" />;
+      return <HarmonySequencerWorkspace mode="borrowed" />;
   }
 }
 
@@ -390,6 +394,7 @@ function App() {
   const sidechainSettings = useStudioStore((state) => state.sidechainSettings);
   const stereoSettings = useStudioStore((state) => state.stereoSettings);
   const referenceMixSettings = useStudioStore((state) => state.referenceMixSettings);
+  const learningExperiments = useStudioStore((state) => state.learningExperiments);
   const appMode = useStudioStore((state) => state.appMode);
   const [studioTransportWorkspace, setStudioTransportWorkspace] =
     useState<ExerciseDefinition["workspace"]>("compare");
@@ -426,12 +431,14 @@ function App() {
   const resetReferenceMix = useStudioStore((state) => state.resetReferenceMix);
   const resetLessonProgress = useStudioStore((state) => state.resetLessonProgress);
   const setAppMode = useStudioStore((state) => state.setAppMode);
+  const setActiveExerciseId = useStudioStore((state) => state.setActiveExerciseId);
 
   const lesson = getLesson(currentLessonId);
   const storedExerciseIndex = exerciseIndexByLesson[lesson.id] ?? 0;
   const exerciseIndex = Math.min(storedExerciseIndex, lesson.exercises.length - 1);
   const exercise = lesson.exercises[exerciseIndex];
   const nextLesson = getNextImplementedLesson(currentLessonId);
+  const experiments = learningExperiments[exercise.id] ?? {};
   const lessonSummaryEnd = lesson.description.search(/[.!?](?:\s|$)/);
   const lessonSummary =
     lessonSummaryEnd >= 0
@@ -464,6 +471,7 @@ function App() {
         sidechainSettings,
         stereoSettings,
         referenceMixSettings,
+        experiments,
       }),
     [
       patterns,
@@ -489,6 +497,7 @@ function App() {
       sidechainSettings,
       stereoSettings,
       referenceMixSettings,
+      experiments,
     ],
   );
   const [exerciseEntry, setExerciseEntry] = useState({
@@ -497,6 +506,7 @@ function App() {
   });
 
   useEffect(() => {
+    setActiveExerciseId(exercise.id);
     setExerciseEntry({
       id: exercise.id,
       fingerprint: exerciseStateFingerprint,
@@ -504,7 +514,7 @@ function App() {
     // Snapshot only when a different exercise opens; later project edits must not
     // move the baseline or inherited state would count as fresh work.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [exercise.id]);
+  }, [exercise.id, setActiveExerciseId]);
 
   useEffect(() => {
     audioEngine.setPattern(patterns[activePattern]);
@@ -563,6 +573,10 @@ function App() {
   }, [grooveFeelSettings]);
 
   useEffect(() => {
+    audioEngine.setFormSettings(formSettings);
+  }, [formSettings]);
+
+  useEffect(() => {
     audioEngine.setTextureSettings(textureSettings);
   }, [textureSettings]);
 
@@ -609,6 +623,7 @@ function App() {
         sidechainSettings,
         stereoSettings,
         referenceMixSettings,
+        experiments,
       }),
     [
       exercise,
@@ -635,6 +650,7 @@ function App() {
       sidechainSettings,
       stereoSettings,
       referenceMixSettings,
+      experiments,
     ],
   );
 
@@ -756,6 +772,7 @@ function App() {
         break;
       case "harmonic-function":
         clearChords();
+        clearHarmonySequence();
         break;
       case "phrase-form":
         resetFormSettings();
@@ -787,6 +804,7 @@ function App() {
       case "seventh-harmony":
       case "borrowed-harmony":
         clearChords();
+        clearHarmonySequence();
         break;
     }
   };
