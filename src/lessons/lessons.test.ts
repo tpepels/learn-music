@@ -5,6 +5,7 @@ import {
   initialArrangement,
   initialChordProgression,
   initialMelody,
+  initialMixerSettings,
   initialPattern,
   initialSynthSettings,
   type ChordProgression,
@@ -13,6 +14,7 @@ import {
 } from "../music/model";
 import { arrangementFormLesson } from "./arrangementForm";
 import { chordProgressionLesson } from "./chordProgressions";
+import { mixingSpaceLesson } from "./mixingSpace";
 import { pianoCompositionLesson } from "./pianoComposition";
 import { pulseAndGrooveLesson } from "./pulseAndGroove";
 import { rhythmVariationLesson } from "./rhythmVariation";
@@ -28,6 +30,12 @@ function context(overrides: Partial<LessonContext> = {}): LessonContext {
     chordProgression: [...initialChordProgression],
     synthSettings: { ...initialSynthSettings },
     arrangement: cloneArrangement(initialArrangement),
+    mixerSettings: {
+      drums: { ...initialMixerSettings.drums },
+      bass: { ...initialMixerSettings.bass },
+      chords: { ...initialMixerSettings.chords },
+      melody: { ...initialMixerSettings.melody },
+    },
     ...overrides,
   };
 }
@@ -169,6 +177,48 @@ describe("lesson 6: arrangement and form", () => {
     const ctx = context({ arrangement });
 
     for (const exercise of arrangementFormLesson.exercises) {
+      expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
+    }
+  });
+});
+
+
+describe("lesson 7: mixing and space", () => {
+  it("accepts a clear starter mix with level, pan, low-cut, and send choices", () => {
+    const ctx = context({
+      mixerSettings: {
+        drums: {
+          volume: -4,
+          pan: 0,
+          highpass: 30,
+          reverb: 0.04,
+          delay: 0.02,
+        },
+        bass: {
+          volume: -7,
+          pan: 0,
+          highpass: 30,
+          reverb: 0.03,
+          delay: 0,
+        },
+        chords: {
+          volume: -11,
+          pan: -0.35,
+          highpass: 120,
+          reverb: 0.18,
+          delay: 0.03,
+        },
+        melody: {
+          volume: -7,
+          pan: 0.35,
+          highpass: 160,
+          reverb: 0.16,
+          delay: 0.1,
+        },
+      },
+    });
+
+    for (const exercise of mixingSpaceLesson.exercises) {
       expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
     }
   });
