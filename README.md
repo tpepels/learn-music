@@ -10,7 +10,7 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v2.0.0**.
+Current curriculum release: **v2.1.0**.
 
 ## Current interactive curriculum
 
@@ -21,11 +21,11 @@ There are currently **28 lessons and 112 guided exercises**.
 3. **Keys & melody** — C major, in-key writing, scale degrees, motif and phrase
 4. **Chords & progressions** — write chord tones directly into a four-bar piano roll, then turn I/IV/V into a rhythmic accompaniment
 5. **Sound & synthesis** — waveforms and filtering, then pluck-vs-pad envelope roles on the learner's melody
-6. **Arrangement & form** — density, A/B contrast, climax, release
+6. **Arrangement & form** — hear density and section contrast, then shape an eight-bar rise and release with the peak wherever the music needs it
 7. **Mixing & space** — faders, pan, low-cut EQ, send/return reverb and delay
 8. **Automation & dynamics** — volume rides, filter sweeps, compression, transients
-9. **Creative effects & transitions** — reverb depth, rhythmic delay, chorus, transition design
-10. **Finish the track** — composition audit, arrangement audit, production audit, project export
+9. **Creative effects & transitions** — learn reverb, delay, and chorus by exaggerating them, then choose only the effects a transition needs
+10. **Finish the track** — listen to the composition, arrangement, and mix as a whole; remove unjustified processing; save a version worth keeping
 11. **Voicing & voice leading** — root position, first inversion, second inversion, smooth voice motion
 12. **Bass lines** — roots, chord tones, approach notes, complete four-bar bass phrase
 13. **Velocity, accents & swing** — MIDI velocity, accent patterns, ghost notes, swung timing
@@ -36,7 +36,7 @@ There are currently **28 lessons and 112 guided exercises**.
 18. **Texture & orchestration** — register, open voicing, octave doubling, density contrast
 19. **EQ & spectral balance** — low-cut cleanup, search sweeps, corrective cuts, complementary EQ
 20. **Saturation & distortion** — harmonic weight, parallel drum crunch, subtle colour, selective processing
-21. **Sidechain ducking** — kick-to-bass ducking, pumping, transparent release timing, arrangement context
+21. **Sidechain ducking** — hear kick/bass overlap, exaggerate the pump, back it off, then reshape the kick pattern and hear the bass envelope follow
 22. **Stereo width & mono** — pan, mid/side width, centred low end, mono translation
 23. **Reference mixing** — snapshots, A/B comparison, level matching, quiet and mono checks
 24. **Relative minor** — A natural minor, shared C-major pitch collection, tonic gravity, relative-key pivot
@@ -45,18 +45,11 @@ There are currently **28 lessons and 112 guided exercises**.
 27. **Seventh chords** — add and remove the seventh as actual MIDI, then write ii7–V7–Imaj7 and I–vi–ii–V accompaniments
 28. **Borrowed chords & modal mixture** — alter A→A♭ and write B♭/Fm directly into four-bar accompaniments
 
-Every exercise explains:
+Each guided exercise keeps the instrument central. The supporting panel is deliberately small: **the idea**, **what to listen for**, how the same thing appears in a DAW or instrument, and the terms needed to name it.
 
-- **WHY** music makers use the technique;
-- **WHEN** it appears in the writing/production process;
-- **WHAT** real tools are used;
-- **WHAT IT LOOKS LIKE** in DAWs or hardware;
-- how to recognize the result by ear;
-- the terminology musicians and producers use.
+The curriculum is regression-tested for every implemented exercise. Completion is not based only on the final state. Where it matters, the app records exercise-local evidence that the learner **played the music, changed something, compared alternatives, or explored a control range**. A plausible final knob value therefore cannot stand in for the listening process that was meant to teach it.
 
-Coverage is regression-tested for every implemented exercise. Newly opened incomplete exercises also require a fresh learner interaction before they can be completed, so inherited state from exercise C cannot silently pre-complete exercise D.
-
-The v2.0 curriculum audit also distinguishes **final state** from **learning process** where that matters. A production exercise can record local per-exercise evidence such as the parameter range the learner actually explored, while harmony lessons can require real MIDI edits rather than chord labels alone. This lets exercises require actions such as hearing an exaggerated/bad setting and backing away from it instead of accepting a memorized target value.
+The v2.1 editorial and pedagogy pass applies one rule across the course: **listen, alter, compare, decide**. Theory and parameter values are used to focus attention, not as an answer key. Several exercises deliberately ask for a bad or exaggerated version first so the learner can hear the boundary before choosing a result.
 
 ## Learn
 
@@ -93,7 +86,7 @@ Current workspaces include:
 - automation lanes
 - drum-bus compressor
 - creative FX rack
-- final project audit/export
+- final project listening/finish/export
 
 Completing exercise D moves directly into exercise A of the next lesson.
 
@@ -108,7 +101,7 @@ Create provides open-ended prompts such as:
 - make the same note collection resolve first to C and then to A;
 - reharmonize a C-major idea with a seventh chord and a borrowed chord.
 
-These prompts intentionally do not use automatic “correct composition” scoring. They hand the learner into the same Studio project.
+These prompts do not use automatic “correct composition” scoring. They open the same project in Studio and leave the musical decisions to the user.
 
 ## Studio
 
@@ -246,7 +239,7 @@ The GitHub Pages build is now a small PWA:
 - same-origin runtime asset caching
 - cached navigation fallback when offline
 
-All current instruments are synthesized in the browser, so the current course does not require remote sample downloads.
+Audio runs entirely in the browser. Most voices are synthesized; the piano/melody instrument uses bundled Salamander Grand Piano samples, so the course does not depend on remote sample downloads.
 
 ## Interface
 
@@ -254,9 +247,9 @@ The design follows a “friendly workstation” approach:
 
 - the instrument or production tool is the main surface;
 - the right rail has one purpose: task, checks, continue/reset;
-- WHY / WHEN / WHAT / terminology lives in a larger collapsible centre panel;
-- instructional text now uses a substantially larger readability floor;
-- the central explanation is a single collapsible two-column reading surface rather than a grid of small cards;
+- theory sits in a compact collapsible panel with the idea, a listening cue, DAW/instrument context, and terms;
+- instructional text uses a larger readability floor;
+- listening prompts favour concrete A/B questions over telling the learner what they are supposed to hear;
 - exercise A–D navigation is now a compact set of progress lights in the right rail, keeping the centre for instruments, theory, and explanation;
 - the top lesson intro shows one short summary sentence before the instrument;
 - redundant status copy, repeated headings, chips, and decorative instructional slogans have been removed;
