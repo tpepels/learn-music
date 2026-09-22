@@ -1,50 +1,67 @@
-import { ProducerContext } from "./ProducerContext";
+import { ConceptVisual } from "./ConceptVisual";
+import { getProductionContext } from "../learning/productionContext";
 import type { ExerciseDefinition } from "../lessons/types";
 
 export function LearningPanel({ exercise }: { exercise: ExerciseDefinition }) {
+  const context = getProductionContext(exercise.id);
+
   return (
     <details className="learning-panel" open>
       <summary>
-        <div>
-          <span className="learning-panel-icon">?</span>
-          <span>
-            <strong>Understand what you are doing</strong>
-            <small>WHY · WHEN · WHAT · terminology · how to hear it</small>
-          </span>
-        </div>
-        <span className="learning-panel-toggle">Show / hide</span>
+        <strong>Why this works</strong>
+        <span className="learning-panel-toggle">Explanation</span>
       </summary>
 
       <div className="learning-panel-body">
-        <ProducerContext exerciseId={exercise.id} />
+        <div className="learning-reading-grid">
+          <div className="learning-reading-column">
+            <section>
+              <h3>What you are learning</h3>
+              <p>{exercise.explanation}</p>
+            </section>
 
-        <div className="learning-explanation-grid">
-          <article className="learning-copy-card">
-            <span className="section-label">What is happening?</span>
-            <p>{exercise.explanation}</p>
-          </article>
+            <section>
+              <h3>Why it matters</h3>
+              <p>{context.why}</p>
+            </section>
 
-          <article className="learning-copy-card learning-hear-card">
-            <span className="section-label">How to hear it</span>
-            <p>{exercise.recognition}</p>
-          </article>
+            <section>
+              <h3>When you would use it</h3>
+              <p>{context.when}</p>
+            </section>
+          </div>
+
+          <div className="learning-reading-column">
+            <div className="learning-concept-visual">
+              <ConceptVisual kind={context.visual} />
+            </div>
+
+            <section>
+              <h3>What to listen for</h3>
+              <p>{exercise.recognition}</p>
+            </section>
+
+            <section>
+              <h3>In real tools</h3>
+              <p>{context.realWorld}</p>
+              <p className="learning-tool-line">
+                <strong>Tools:</strong> {context.tools.join(" · ")}
+              </p>
+            </section>
+          </div>
         </div>
 
         {exercise.terms.length > 0 && (
-          <section className="learning-terms">
-            <div className="learning-section-heading">
-              <span className="section-label">Words musicians use</span>
-              <strong>{exercise.terms.length} terms</strong>
-            </div>
-
-            <div className="learning-term-grid">
+          <section className="learning-glossary">
+            <h3>New terms</h3>
+            <dl>
               {exercise.terms.map((item) => (
-                <article className="learning-term-card" key={item.term}>
-                  <strong>{item.term}</strong>
-                  <p>{item.definition}</p>
-                </article>
+                <div key={item.term}>
+                  <dt>{item.term}</dt>
+                  <dd>{item.definition}</dd>
+                </div>
               ))}
-            </div>
+            </dl>
           </section>
         )}
       </div>
