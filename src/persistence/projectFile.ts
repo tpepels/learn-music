@@ -7,6 +7,8 @@ import {
   chordNames,
   initialBassSequence,
   initialGrooveFeelSettings,
+  initialFormSettings,
+  initialTextureSettings,
   initialVoicingSettings,
   patternIds,
   synthWaveforms,
@@ -100,6 +102,23 @@ export const projectFileSchema = z.object({
         }),
       })
       .optional(),
+    formSettings: z
+      .object({
+        sections: z.array(z.enum(["A", "A′", "B", "C"])).length(4),
+        roles: z
+          .array(z.enum(["statement", "answer", "contrast", "return"]))
+          .length(4),
+      })
+      .optional(),
+    textureSettings: z
+      .object({
+        bassOctave: z.union([z.literal(-1), z.literal(0), z.literal(1)]),
+        chordsOctave: z.union([z.literal(-1), z.literal(0), z.literal(1)]),
+        melodyOctave: z.union([z.literal(-1), z.literal(0), z.literal(1)]),
+        openChords: z.boolean(),
+        melodyOctaveDouble: z.boolean(),
+      })
+      .optional(),
   }),
 });
 
@@ -121,6 +140,13 @@ export function parseProjectFile(input: unknown): ProjectData {
         snare: [...initialGrooveFeelSettings.velocities.snare],
         hat: [...initialGrooveFeelSettings.velocities.hat],
       },
+    },
+    formSettings: project.formSettings ?? {
+      sections: [...initialFormSettings.sections],
+      roles: [...initialFormSettings.roles],
+    },
+    textureSettings: project.textureSettings ?? {
+      ...initialTextureSettings,
     },
   } as ProjectData;
 }
