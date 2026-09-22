@@ -299,6 +299,143 @@ export function ConceptVisual({ kind }: { kind: ConceptVisualKind }) {
         </svg>
       );
 
+
+    case "motif":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="Motif development transformation diagram">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          {[
+            ["MOTIF", 24, 58, 0],
+            ["REPEAT", 94, 58, 0],
+            ["TRANSPOSE", 164, 43, -12],
+            ["FRAGMENT", 244, 58, 0],
+          ].map(([label, x, y, shift], i) => (
+            <g key={String(label)}>
+              {[0,1,2,3].map((n) => (
+                <rect
+                  key={n}
+                  x={Number(x) + n * 11}
+                  y={Number(y) + [16,4,0,9][n] + Number(shift)}
+                  width="9"
+                  height="8"
+                  rx="3"
+                  className={i === 2 ? "diagram-step is-alt" : "diagram-note"}
+                  opacity={i === 3 && n > 1 ? 0.18 : 1}
+                />
+              ))}
+              <text x={Number(x)} y="112" className="diagram-small">{label}</text>
+            </g>
+          ))}
+          <path d="M 70 70 H 90 M 140 70 H 160 M 223 70 H 240" className="diagram-arrow" />
+          <text x="24" y="130" className="diagram-caption">SAME IDENTITY · DIFFERENT DEVELOPMENT</text>
+        </svg>
+      );
+
+    case "melody-harmony":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="Melody notes against changing chords">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          {["C","G","Am","F"].map((chord, i) => (
+            <g key={chord}>
+              <rect x={28+i*68} y="87" width="58" height="24" rx="7" className="diagram-module" />
+              <text x={57+i*68} y="103" textAnchor="middle" className="diagram-small">{chord}</text>
+            </g>
+          ))}
+          {[
+            [34,54,"tone"],[54,45,"scale"],[76,58,"tone"],
+            [102,48,"tone"],[124,35,"scale"],[145,52,"tone"],
+            [171,61,"tone"],[192,42,"alt"],[213,55,"tone"],
+            [239,45,"tone"],[261,32,"scale"],[281,48,"tone"],
+          ].map(([x,y,type],i)=>(
+            <circle
+              key={i}
+              cx={Number(x)}
+              cy={Number(y)}
+              r="6"
+              className={
+                type === "tone"
+                  ? "diagram-automation-point"
+                  : type === "scale"
+                    ? "diagram-knob"
+                    : "diagram-step is-alt"
+              }
+            />
+          ))}
+          <path d="M 34 54 L 54 45 L 76 58 L 102 48 L 124 35 L 145 52 L 171 61 L 192 42 L 213 55 L 239 45 L 261 32 L 281 48" className="diagram-envelope" />
+          <text x="28" y="127" className="diagram-caption">CHORD TONES · PASSING TONES · TENSION → RESOLUTION</text>
+        </svg>
+      );
+
+    case "harmonic-function":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="Tonic predominant dominant functional harmony diagram">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          {[
+            ["TONIC","home",24,48],
+            ["PRE-DOM","departure",101,48],
+            ["DOMINANT","tension",194,48],
+            ["TONIC","return",256,48],
+          ].map(([name,sub,x,y],i)=>(
+            <g key={String(name)+i}>
+              <rect x={Number(x)} y={Number(y)} width={i===1?76:58} height="40" rx="10" className={i===2?"diagram-chord is-tension":"diagram-module"} />
+              <text x={Number(x)+(i===1?38:29)} y={Number(y)+17} textAnchor="middle" className="diagram-small">{name}</text>
+              <text x={Number(x)+(i===1?38:29)} y={Number(y)+31} textAnchor="middle" className="diagram-caption">{sub}</text>
+            </g>
+          ))}
+          <path d="M 84 68 H 98 M 179 68 H 191 M 254 68 H 255" className="diagram-arrow" />
+          <path d="M 130 99 C 165 123, 216 123, 245 99" className="diagram-envelope" />
+          <text x="24" y="128" className="diagram-caption">FUNCTION DESCRIBES ROLE, NOT JUST CHORD NAME</text>
+        </svg>
+      );
+
+    case "phrase-form":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="Four-section AABA form map">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          {["A","A","B","A"].map((label,i)=>(
+            <g key={i}>
+              <rect
+                x={26+i*69}
+                y="44"
+                width="58"
+                height="52"
+                rx="10"
+                className={label==="B" ? "diagram-chord is-tension" : "diagram-module"}
+              />
+              <text x={55+i*69} y="72" textAnchor="middle" className="diagram-label">{label}</text>
+              <text x={55+i*69} y="87" textAnchor="middle" className="diagram-small">
+                {i*4+1}–{i*4+4}
+              </text>
+            </g>
+          ))}
+          <text x="26" y="118" className="diagram-caption">4 BARS</text>
+          <text x="95" y="118" className="diagram-caption">4 BARS</text>
+          <text x="164" y="118" className="diagram-caption">BRIDGE</text>
+          <text x="233" y="118" className="diagram-caption">RETURN</text>
+        </svg>
+      );
+
+    case "texture":
+      return (
+        <svg viewBox="0 0 320 150" role="img" aria-label="Register and orchestration spacing diagram">
+          <rect x="10" y="16" width="300" height="118" rx="18" className="diagram-shell" />
+          <text x="24" y="39" className="diagram-small">HIGH</text>
+          <text x="24" y="78" className="diagram-small">MID</text>
+          <text x="24" y="116" className="diagram-small">LOW</text>
+          <line x1="60" y1="34" x2="294" y2="34" className="diagram-grid" />
+          <line x1="60" y1="73" x2="294" y2="73" className="diagram-grid" />
+          <line x1="60" y1="112" x2="294" y2="112" className="diagram-grid" />
+          <rect x="195" y="29" width="72" height="14" rx="5" className="diagram-note" />
+          <rect x="198" y="47" width="72" height="10" rx="4" className="diagram-note" opacity="0.55" />
+          <rect x="104" y="65" width="98" height="11" rx="4" className="diagram-chord" />
+          <rect x="104" y="82" width="98" height="11" rx="4" className="diagram-chord" />
+          <rect x="67" y="104" width="92" height="12" rx="4" className="diagram-step is-alt" />
+          <text x="211" y="26" className="diagram-caption">MELODY + OCTAVE</text>
+          <text x="109" y="62" className="diagram-caption">OPEN CHORDS</text>
+          <text x="70" y="128" className="diagram-caption">BASS</text>
+        </svg>
+      );
+
     case "mixer":
       return (
         <svg viewBox="0 0 320 150" role="img" aria-label="DAW mixer channel diagram">
