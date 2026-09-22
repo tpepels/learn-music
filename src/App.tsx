@@ -1,8 +1,10 @@
 import { useEffect, useMemo } from "react";
 import { audioEngine } from "./audio/engine";
+import { ArrangementWorkspace } from "./components/ArrangementWorkspace";
 import { ChordWorkspace } from "./components/ChordWorkspace";
 import { DrumWorkspace } from "./components/DrumWorkspace";
 import { MelodyWorkspace, PianoKeyWorkspace } from "./components/PianoWorkspace";
+import { SynthWorkspace } from "./components/SynthWorkspace";
 import {
   courseOutline,
   getLesson,
@@ -20,7 +22,7 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
   const setPlaying = useStudioStore((state) => state.setPlaying);
   const setCurrentStep = useStudioStore((state) => state.setCurrentStep);
 
-  const canPlay = workspace !== "piano-key";
+  const canPlay = workspace !== "piano-key" && workspace !== "synth";
 
   const togglePlayback = async () => {
     if (isPlaying) {
@@ -35,6 +37,8 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
       await audioEngine.playMelody(bpm, setCurrentStep);
     } else if (workspace === "chords") {
       await audioEngine.playChords(bpm, setCurrentStep);
+    } else if (workspace === "arrangement") {
+      await audioEngine.playArrangement(bpm, setCurrentStep);
     } else {
       await audioEngine.playDrums(bpm, setCurrentStep);
     }
@@ -45,8 +49,8 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
   if (!canPlay) {
     return (
       <div className="transport transport-note">
-        <span className="section-label">Keyboard exercise</span>
-        <strong>Click notes to audition</strong>
+        <span className="section-label">{workspace === "synth" ? "Sound-design exercise" : "Keyboard exercise"}</span>
+        <strong>{workspace === "synth" ? "Use the audition buttons" : "Click notes to audition"}</strong>
       </div>
     );
   }
@@ -139,6 +143,10 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
       return <MelodyWorkspace title={exercise.title} />;
     case "chords":
       return <ChordWorkspace />;
+    case "synth":
+      return <SynthWorkspace />;
+    case "arrangement":
+      return <ArrangementWorkspace />;
   }
 }
 
@@ -152,6 +160,8 @@ function App() {
   const selectedPitchClasses = useStudioStore((state) => state.selectedPitchClasses);
   const melody = useStudioStore((state) => state.melody);
   const chordProgression = useStudioStore((state) => state.chordProgression);
+  const synthSettings = useStudioStore((state) => state.synthSettings);
+  const arrangement = useStudioStore((state) => state.arrangement);
 
   const setCurrentLesson = useStudioStore((state) => state.setCurrentLesson);
   const setExerciseIndex = useStudioStore((state) => state.setExerciseIndex);
@@ -162,6 +172,8 @@ function App() {
   const clearPitchClasses = useStudioStore((state) => state.clearPitchClasses);
   const clearMelody = useStudioStore((state) => state.clearMelody);
   const clearChords = useStudioStore((state) => state.clearChords);
+  const resetSynthSettings = useStudioStore((state) => state.resetSynthSettings);
+  const clearArrangement = useStudioStore((state) => state.clearArrangement);
 
   const lesson = getLesson(currentLessonId);
   const storedExerciseIndex = exerciseIndexByLesson[lesson.id] ?? 0;
@@ -181,6 +193,14 @@ function App() {
     audioEngine.setChordProgression(chordProgression);
   }, [chordProgression]);
 
+  useEffect(() => {
+    audioEngine.setSynthSettings(synthSettings);
+  }, [synthSettings]);
+
+  useEffect(() => {
+    audioEngine.setArrangement(arrangement);
+  }, [arrangement]);
+
   const checks = useMemo(
     () =>
       exercise.evaluate({
@@ -189,8 +209,18 @@ function App() {
         selectedPitchClasses,
         melody,
         chordProgression,
+        synthSettings,
+        arrangement,
       }),
-    [exercise, patterns, selectedPitchClasses, melody, chordProgression],
+    [
+      exercise,
+      patterns,
+      selectedPitchClasses,
+      melody,
+      chordProgression,
+      synthSettings,
+      arrangement,
+    ],
   );
 
   const exerciseReady = checks.every((check) => check.complete);
@@ -262,6 +292,12 @@ function App() {
         break;
       case "chords":
         clearChords();
+        break;
+      case "synth":
+        resetSynthSettings();
+        break;
+      case "arrangement":
+        clearArrangement();
         break;
     }
   };
