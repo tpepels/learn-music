@@ -1,5 +1,6 @@
 import * as Tone from "tone";
 import {
+  BASS_STEPS,
   chordMidi,
   cloneArrangement,
   cloneAutomationSettings,
@@ -7,6 +8,7 @@ import {
   clonePattern,
   initialArrangement,
   initialAutomationSettings,
+  initialBassSequence,
   initialChordProgression,
   initialDynamicsSettings,
   initialEffectsSettings,
@@ -14,9 +16,13 @@ import {
   initialMixerSettings,
   initialPattern,
   initialSynthSettings,
+  initialVoicingSettings,
   mixerTrackIds,
+  voicedChordMidi,
   type Arrangement,
   type AutomationSettings,
+  type BassSequence,
+  type ChordInversion,
   type ChordName,
   type ChordProgression,
   type DynamicsSettings,
@@ -26,6 +32,7 @@ import {
   type MixerTrackId,
   type StepPattern,
   type SynthSettings,
+  type VoicingSettings,
 } from "../music/model";
 
 class AudioEngine {
@@ -38,6 +45,10 @@ class AudioEngine {
   private automationSettings: AutomationSettings = cloneAutomationSettings(initialAutomationSettings);
   private dynamicsSettings: DynamicsSettings = { ...initialDynamicsSettings };
   private effectsSettings: EffectsSettings = { ...initialEffectsSettings };
+  private voicingSettings: VoicingSettings = {
+    inversions: [...initialVoicingSettings.inversions],
+  };
+  private bassSequence: BassSequence = [...initialBassSequence];
 
   private kick: Tone.MembraneSynth | null = null;
   private snare: Tone.NoiseSynth | null = null;
@@ -102,6 +113,14 @@ class AudioEngine {
   setEffectsSettings(settings: EffectsSettings) {
     this.effectsSettings = { ...settings };
     this.applyEffectsSettings();
+  }
+
+  setVoicingSettings(settings: VoicingSettings) {
+    this.voicingSettings = { inversions: [...settings.inversions] };
+  }
+
+  setBassSequence(sequence: BassSequence) {
+    this.bassSequence = [...sequence];
   }
 
   setBpm(bpm: number) {
@@ -431,7 +450,10 @@ class AudioEngine {
       const chord = this.chordProgression[step];
 
       if (chord) {
-        const notes = chordMidi[chord].map((midi) => Tone.Frequency(midi, "midi").toNote());
+        const inversion = this.voicingSettings.inversions[step] ?? 0;
+        const notes = voicedChordMidi(chord, inversion).map((midi) =>
+          Tone.Frequency(midi, "midi").toNote(),
+        );
         this.chordSynth?.triggerAttackRelease(notes, "1m", time, 0.6);
       }
 
@@ -500,18 +522,38 @@ class AudioEngine {
       const chord = this.chordProgression[barIndex % this.chordProgression.length] ?? "C";
 
       if (bar?.chords && localStep === 0) {
-        const notes = chordMidi[chord].map((midi) => Tone.Frequency(midi, "midi").toNote());
+        const chordSlot = barIndex % this.chordProgression.length;
+        const inversion = this.voicingSettings.inversions[chordSlot] ?? 0;
+        const notes = voicedChordMidi(chord, inversion).map((midi) =>
+          Tone.Frequency(midi, "midi").toNote(),
+        );
         this.chordSynth?.triggerAttackRelease(notes, "1m", time, 0.48);
       }
 
-      if (bar?.bass && localStep % 4 === 0) {
-        const rootMidi = chordMidi[chord][0] - 12;
-        this.bassSynth?.triggerAttackRelease(
-          Tone.Frequency(rootMidi, "midi").toNote(),
-          "8n",
-          time,
-          0.52,
-        );
+      if (bar?.bass && localStep % 2 === 0) {
+        const chordSlot = barIndex % this.chordProgression.length;
+        const bassStep = chordSlot * 8 + localStep / 2;
+        const programmedBass = this.bassSequence[bassStep];
+
+        if (programmedBass !== null && programmedBass !== undefined) {
+          this.bassSynth?.triggerAttackRelease(
+            Tone.Frequency(programmedBass, "midi").toNote(),
+            "8n",
+            time,
+            0.52,
+          );
+        } else if (
+          this.bassSequence.every((note) => note === null) &&
+          localStep % 4 === 0
+        ) {
+          const rootMidi = chordMidi[chord][0] - 12;
+          this.bassSynth?.triggerAttackRelease(
+            Tone.Frequency(rootMidi, "midi").toNote(),
+            "8n",
+            time,
+            0.52,
+          );
+        }
       }
 
       if (bar?.melody && localStep % 2 === 0) {
@@ -544,11 +586,37 @@ class AudioEngine {
     this.piano?.triggerAttackRelease(Tone.Frequency(midi, "midi").toNote(), "8n", undefined, 0.7);
   }
 
-  async playChord(chord: ChordName) {
+  async playChord(chord: ChordName, inversion: ChordInversion = 0) {
     await Tone.start();
     this.ensureVoices();
-    const notes = chordMidi[chord].map((midi) => Tone.Frequency(midi, "midi").toNote());
+    const notes = voicedChordMidi(chord, inversion).map((midi) =>
+      Tone.Frequency(midi, "midi").toNote(),
+    );
     this.chordSynth?.triggerAttackRelease(notes, "1n", undefined, 0.58);
+  }
+
+  async playBass(bpm: number, onStep: (step: number) => void) {
+    await this.prepare(bpm, onStep);
+    const transport = Tone.getTransport();
+
+    this.eventId = transport.scheduleRepeat((time) => {
+      const step = this.step;
+      const midi = this.bassSequence[step];
+
+      if (midi !== null) {
+        this.bassSynth?.triggerAttackRelease(
+          Tone.Frequency(midi, "midi").toNote(),
+          "8n",
+          time,
+          0.6,
+        );
+      }
+
+      Tone.getDraw().schedule(() => this.onStep?.(step), time);
+      this.step = (this.step + 1) % BASS_STEPS;
+    }, "8n");
+
+    transport.start();
   }
 
   async playSynthNote(midi = 60) {
