@@ -9,7 +9,7 @@ const lesson = lessonContentSchema.parse({
   number: 22,
   title: "Stereo width & mono",
   eyebrow: "Production · Stereo field",
-  hero: "Use the sides, but make the song survive without them."
+  hero: "Use the sides, but make the song survive without them.",
   description:
     "Use pan and mid/side width deliberately, keep foundational low end stable, and perform a real mono compatibility check.",
   overview:
