@@ -620,8 +620,8 @@ export const useStudioStore = create<StudioState>()(
         set({ bassSequence: [...initialBassSequence], currentStep: 0 }),
 
       resetLessonProgress: (lessonId, exerciseIds) =>
-        set((state) =>
-          resetLessonProgressState(
+        set((state) => {
+          const progress = resetLessonProgressState(
             {
               currentLessonId: state.currentLessonId,
               exerciseIndexByLesson: state.exerciseIndexByLesson,
@@ -631,8 +631,13 @@ export const useStudioStore = create<StudioState>()(
             },
             lessonId,
             exerciseIds,
-          ),
-        ),
+          );
+          const learningExperiments = { ...state.learningExperiments };
+          exerciseIds.forEach((exerciseId) => {
+            delete learningExperiments[exerciseId];
+          });
+          return { ...progress, learningExperiments };
+        }),
 
       setGrooveVelocity: (track, step, velocity) =>
         set((state) => {
