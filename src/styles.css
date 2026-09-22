@@ -4047,3 +4047,54 @@ body {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+
+/* Final readability floor: compact labels may be small, readable text may not. */
+.course-item > span:nth-child(2) small,
+.exercise-tab small,
+.lesson-chip,
+.daw-strip span,
+.beat-row span,
+.melody-step-head span,
+.automation-sliders span,
+.automation-sliders output,
+.compressor-controls label > span,
+.transient-diagram small,
+.mixer-bus-strip span,
+.mixer-track-head > span,
+.mixer-track-foot span,
+.mixer-track-foot strong {
+  font-size: 10px !important;
+}
+
+.grid-legend,
+.keyboard-note,
+.chord-note,
+.workspace-hint,
+.panel-heading p,
+.brand span,
+.lesson-title small,
+.synth-controls small,
+.compressor-controls small,
+.tool-chip,
+.learning-panel > summary small,
+.learning-term-card p {
+  font-size: 11px !important;
+}
+
+.instruction-card-primary p,
+.check p,
+.learning-panel .context-card p,
+.learning-panel .tool-context-card p,
+.learning-copy-card p {
+  font-size: 13px !important;
+}
+
+.teacher-panel {
+  min-width: 0;
+}
+
+.teacher-panel .text-button,
+.coach-footer p {
+  font-size: 11px;
+}
