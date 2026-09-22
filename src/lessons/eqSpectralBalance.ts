@@ -20,9 +20,9 @@ const lesson = lessonContentSchema.parse({
   eyebrow: "Production · EQ",
   hero: "Find frequency choices by hearing what goes wrong.",
   description:
-    "Sweep filters far enough to hear damage and resonance, then back off into a useful correction. The learner searches, compares, and decides instead of entering recommended frequencies.",
+    "Sweep far enough to make the problem obvious, then back off. Search with your ears before settling on a useful cut or boost.",
   overview:
-    "Equalization changes selected frequency regions. Frequency chooses where, gain chooses how much, and Q chooses how wide. Exaggeration is useful while learning because it makes a region obvious; the final move is usually smaller than the search move.",
+    "EQ changes one part of the frequency range without turning the whole channel up or down. Use a large temporary move to find what you are hearing; the mix move that follows is usually smaller.",
 });
 
 export const eqSpectralBalanceLesson: LessonDefinition = {
@@ -39,7 +39,7 @@ export const eqSpectralBalanceLesson: LessonDefinition = {
         instruction:
           "Select CHORDS and loop the arrangement. Sweep HIGH-PASS from near the bottom to at least 280 Hz so the chord body clearly disappears. Then bring it back until the low end is cleaner without the chords sounding thin.",
         recognition:
-          "At the extreme setting the chords should lose obvious weight. The final setting should restore enough body while leaving more room for kick and bass.",
+          "Sweep upward until the chords clearly lose body, then come back. Where does the weight return without the kick and bass feeling crowded again?",
         terms: [
           { term: "High-pass filter", definition: "A filter that passes frequencies above its cutoff while attenuating lower frequencies." },
           { term: "Cutoff", definition: "The frequency around which a filter begins to attenuate the signal." },
@@ -78,7 +78,7 @@ export const eqSpectralBalanceLesson: LessonDefinition = {
         instruction:
           "On CHORDS, use Q 3 or higher and a boost of at least +6 dB. Sweep the bell across at least 2 kHz of the midrange while the loop plays. Stop only after several regions have sounded distinctly different.",
         recognition:
-          "Boxiness, nasal tone, bite and presence should appear at different points in the sweep. The moving character is more important than memorising a frequency number.",
+          "As you sweep, name the changes in your own words: hollow, papery, nasal, hard, bright. The name matters less than recognising the region when you hear it again.",
         terms: [
           { term: "Bell filter", definition: "A parametric EQ shape that boosts or cuts around a centre frequency." },
           { term: "Q", definition: "The bandwidth control of a parametric filter; higher Q means a narrower band." },
@@ -120,7 +120,7 @@ export const eqSpectralBalanceLesson: LessonDefinition = {
         instruction:
           "Keep roughly the region you found. Move GAIN from positive through 0 dB into negative territory, then settle on a cut between roughly −1.5 and −7 dB with Q 2 or higher.",
         recognition:
-          "The final version should reduce the annoying character without making the absence of that frequency more obvious than the original problem.",
+          "A/B the cut. Does the annoying character recede while the chords still sound complete? If the cut itself becomes obvious, back it off.",
         terms: [
           { term: "Corrective EQ", definition: "EQ used to reduce unwanted resonances, masking, or tonal imbalance." },
           { term: "Resonance", definition: "A frequency region that stands out strongly relative to surrounding frequencies." },
@@ -159,7 +159,7 @@ export const eqSpectralBalanceLesson: LessonDefinition = {
         instruction:
           "Keep a useful midrange cut on CHORDS. On MELODY, sweep the bell while the full mix plays and choose a small boost that makes the melody easier to locate. Do not simply copy the chord frequency; make the two moves serve different spectral roles.",
         recognition:
-          "The melody should read more clearly without merely becoming louder, while the chords still feel complete behind it.",
+          "Switch the melody boost on and off mentally. Does the melody become easier to locate without the whole mix simply sounding brighter?",
         terms: [
           { term: "Complementary EQ", definition: "Coordinated EQ choices on different parts so overlapping frequency space is shared more clearly." },
           { term: "Presence", definition: "A frequency region that helps a sound feel forward, clear, or immediately audible." },
