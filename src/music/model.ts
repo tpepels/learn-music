@@ -240,3 +240,96 @@ export type ProjectData = {
   dynamicsSettings: DynamicsSettings;
   effectsSettings: EffectsSettings;
 };
+
+
+export type ChordInversion = 0 | 1 | 2;
+
+export type VoicingSettings = {
+  inversions: ChordInversion[];
+};
+
+export const initialVoicingSettings: VoicingSettings = {
+  inversions: [0, 0, 0, 0],
+};
+
+export function voicedChordMidi(
+  chord: ChordName,
+  inversion: ChordInversion,
+): number[] {
+  const [root, third, fifth] = chordMidi[chord];
+
+  if (inversion === 1) {
+    return [third - 12, fifth - 12, root];
+  }
+
+  if (inversion === 2) {
+    return [fifth - 12, root, third];
+  }
+
+  return [root, third, fifth];
+}
+
+export function voiceLeadingDistance(
+  progression: ChordProgression,
+  inversions: ChordInversion[],
+): number {
+  let distance = 0;
+  let previous: number[] | null = null;
+
+  progression.forEach((chord, index) => {
+    if (!chord) return;
+
+    const current = voicedChordMidi(chord, inversions[index] ?? 0);
+
+    if (previous) {
+      distance += current.reduce(
+        (sum, midi, voice) => sum + Math.abs(midi - previous![voice]),
+        0,
+      );
+    }
+
+    previous = current;
+  });
+
+  return distance;
+}
+
+const NOTE_NAMES = ["C", "C♯", "D", "E♭", "E", "F", "F♯", "G", "A♭", "A", "B♭", "B"] as const;
+
+export function midiNoteName(midi: number): string {
+  const pitchClass = NOTE_NAMES[((midi % 12) + 12) % 12];
+  const octave = Math.floor(midi / 12) - 1;
+  return pitchClass + octave;
+}
+
+export const BASS_STEPS = 32;
+export type BassSequence = Array<number | null>;
+
+export const initialBassSequence: BassSequence = Array(BASS_STEPS).fill(null);
+
+export const bassPitches = Array.from({ length: 14 }, (_, index) => {
+  const midi = 48 - index;
+  return {
+    midi,
+    name: midiNoteName(midi),
+    pitchClass: NOTE_NAMES[((midi % 12) + 12) % 12],
+    inCMajor: [0, 2, 4, 5, 7, 9, 11].includes(((midi % 12) + 12) % 12),
+  };
+});
+
+export function bassRootMidi(chord: ChordName): number {
+  const root = chordMidi[chord][0];
+  let bass = root - 12;
+  while (bass > 48) bass -= 12;
+  while (bass < 35) bass += 12;
+  return bass;
+}
+
+export function bassChordToneMidis(chord: ChordName): number[] {
+  return chordMidi[chord].map((note) => {
+    let bass = note - 12;
+    while (bass > 48) bass -= 12;
+    while (bass < 35) bass += 12;
+    return bass;
+  });
+}
