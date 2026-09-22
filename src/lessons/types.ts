@@ -1,5 +1,6 @@
 import { z } from "zod";
 import type {
+  AccompanimentPattern,
   Arrangement,
   AutomationSettings,
   BassSequence,
@@ -41,6 +42,7 @@ export const exerciseContentSchema = z.object({
     "piano-key",
     "melody",
     "chords",
+    "harmony-song",
     "synth",
     "arrangement",
     "mixer",
@@ -88,6 +90,7 @@ export type LessonContext = {
   selectedPitchClasses: string[];
   melody: MelodySequence;
   chordProgression: ChordProgression;
+  accompanimentPattern: AccompanimentPattern;
   synthSettings: SynthSettings;
   arrangement: Arrangement;
   mixerSettings: MixerSettings;
