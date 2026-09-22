@@ -21,7 +21,7 @@ const lesson = lessonContentSchema.parse({
   description:
     "Write bass across four bars on an eighth-note grid. Start by anchoring harmony with roots, add chord tones, then use rhythmic and approach-note movement to connect one chord to the next.",
   overview:
-    "Bass sits between harmony and rhythm. It can state chord roots very clearly, outline other chord tones, anticipate changes, and create its own contour while still supporting the groove.",
+    "The bass tells the ear where the harmony is while also living inside the groove. Start with the roots, then let the line move through chord tones, offbeats and approach notes without losing the progression underneath.",
 });
 
 export const bassLinesLesson: LessonDefinition = {
@@ -38,7 +38,7 @@ export const bassLinesLesson: LessonDefinition = {
         instruction:
           "Put the root of each chord on the first eighth-note position of its bar: steps 1, 9, 17, and 25. Leave the rest mostly empty and play the four bars.",
         recognition:
-          "Each bar should announce its harmony immediately. The bass line may sound simple, but the chord changes should be unmistakable.",
+          "Mute the chord part mentally and follow only the bass. Can you still tell where each harmony changes?",
         terms: [
           { term: "Bass line", definition: "The low melodic/rhythmic line that often connects harmony to the groove." },
           { term: "Root note", definition: "The note that gives a chord its name and strongest harmonic identity." },
@@ -68,7 +68,7 @@ export const bassLinesLesson: LessonDefinition = {
         instruction:
           "Keep the four root downbeats. Add a chord tone on beat 3 of every bar: steps 5, 13, 21, and 29. Try thirds and fifths rather than simply repeating the root.",
         recognition:
-          "The bass should now have a small melodic shape inside each bar while still making the current chord clear.",
+          "Do the extra notes make the line sing a little more without making the chord change harder to hear?",
         terms: [
           { term: "Chord tone", definition: "A note that belongs directly to the current chord, such as its root, third, or fifth." },
           { term: "Arpeggiation", definition: "Playing chord tones one after another instead of simultaneously." },
@@ -101,7 +101,7 @@ export const bassLinesLesson: LessonDefinition = {
         instruction:
           "Add approach notes on at least two of the final eighth-notes before a bar change: steps 8, 16, 24, or 32. Choose a pitch one or two semitones from the root that follows.",
         recognition:
-          "The end of a bar should feel as though it points into the next downbeat. The approach note is brief tension; the next root is the arrival.",
+          "Compare the bar ending with and without the approach note. Does the next root feel more inevitable when the approach is present?",
         terms: [
           { term: "Approach note", definition: "A note close to a target pitch that is used immediately before the target to create direction." },
           { term: "Chromatic approach", definition: "Approaching a target from a note outside the key, usually a semitone above or below." },
@@ -146,7 +146,7 @@ export const bassLinesLesson: LessonDefinition = {
         instruction:
           "Keep all four root downbeats. Build a line with at least 10 notes total, at least 3 offbeat notes, and more than one pitch. Use chord tones for stability and approach notes selectively before changes.",
         recognition:
-          "The line should still imply the chord progression if you mentally remove the chord instrument, but it should also have a groove and contour you could hum on its own.",
+          "Can the bass stand alone for a loop? You should still hear the chord changes, but the line should also have a contour you could hum back.",
         terms: [
           { term: "Contour", definition: "The overall up-and-down shape of a melodic line." },
           { term: "Rhythmic lock", definition: "The way a bass part aligns or deliberately interacts with the drum groove." },
