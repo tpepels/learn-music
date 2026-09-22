@@ -2,6 +2,7 @@ import { z } from "zod";
 import type {
   Arrangement,
   AutomationSettings,
+  BassSequence,
   ChordProgression,
   DynamicsSettings,
   EffectsSettings,
@@ -9,6 +10,7 @@ import type {
   MixerSettings,
   StepPattern,
   SynthSettings,
+  VoicingSettings,
 } from "../music/model";
 
 const termSchema = z.object({
@@ -37,6 +39,8 @@ export const exerciseContentSchema = z.object({
     "automation-dynamics",
     "effects",
     "final-project",
+    "voicing",
+    "bass",
   ]),
   checksLabel: z.string(),
   successLabel: z.string(),
@@ -67,6 +71,8 @@ export type LessonContext = {
   dynamicsSettings: DynamicsSettings;
   effectsSettings: EffectsSettings;
   projectMilestones: { exported: boolean };
+  voicingSettings: VoicingSettings;
+  bassSequence: BassSequence;
 };
 
 export type ExerciseDefinition = z.infer<typeof exerciseContentSchema> & {
