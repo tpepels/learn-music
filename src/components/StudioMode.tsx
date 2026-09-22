@@ -4,6 +4,7 @@ import { AdvancedHarmonyWorkspace } from "./AdvancedHarmonyWorkspace";
 import { AutomationDynamicsWorkspace } from "./AutomationDynamicsWorkspace";
 import { BassWorkspace } from "./BassWorkspace";
 import { ChordWorkspace } from "./ChordWorkspace";
+import { HarmonySequencerWorkspace } from "./HarmonySequencerWorkspace";
 import { DrumWorkspace } from "./DrumWorkspace";
 import { EffectsWorkspace } from "./EffectsWorkspace";
 import { EqWorkspace } from "./EqWorkspace";
@@ -32,7 +33,7 @@ const modules = [
   { id: "melody", name: "Piano roll", lesson: "pitch.melody", workspace: "melody" },
   { id: "motif", name: "Motif", lesson: "composition.motif-development", workspace: "motif" },
   { id: "melody-harmony", name: "Melody + chords", lesson: "composition.melody-over-harmony", workspace: "melody-harmony" },
-  { id: "harmony", name: "Chords", lesson: "harmony.chords", workspace: "chords" },
+  { id: "harmony", name: "Chords", lesson: "harmony.chords", workspace: "harmony-song" },
   { id: "function", name: "Function", lesson: "harmony.function", workspace: "harmonic-function" },
   { id: "minor-key", name: "A minor", lesson: "harmony.relative-minor", workspace: "minor-key" },
   { id: "harmonic-minor", name: "Harmonic minor", lesson: "harmony.harmonic-minor", workspace: "harmonic-minor" },
@@ -120,7 +121,7 @@ export function StudioMode({
         {module === "melody" && <MelodyWorkspace title="Piano roll" />}
         {module === "motif" && <MotifWorkspace />}
         {module === "melody-harmony" && <MelodyHarmonyWorkspace />}
-        {module === "harmony" && <ChordWorkspace />}
+        {module === "harmony" && <HarmonySequencerWorkspace />}
         {module === "function" && <HarmonicFunctionWorkspace />}
         {module === "minor-key" && <MinorTonalityWorkspace harmonic={false} />}
         {module === "harmonic-minor" && <MinorTonalityWorkspace harmonic />}
