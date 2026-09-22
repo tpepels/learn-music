@@ -9,6 +9,7 @@ import {
   initialAutomationSettings,
   initialChordProgression,
   initialDynamicsSettings,
+  initialEffectsSettings,
   initialMelody,
   initialMixerSettings,
   initialPattern,
@@ -19,6 +20,7 @@ import {
   type ChordName,
   type ChordProgression,
   type DynamicsSettings,
+  type EffectsSettings,
   type MelodySequence,
   type MixerSettings,
   type MixerTrackId,
@@ -35,12 +37,14 @@ class AudioEngine {
   private mixerSettings: MixerSettings = cloneMixerSettings(initialMixerSettings);
   private automationSettings: AutomationSettings = cloneAutomationSettings(initialAutomationSettings);
   private dynamicsSettings: DynamicsSettings = { ...initialDynamicsSettings };
+  private effectsSettings: EffectsSettings = { ...initialEffectsSettings };
 
   private kick: Tone.MembraneSynth | null = null;
   private snare: Tone.NoiseSynth | null = null;
   private hat: Tone.NoiseSynth | null = null;
   private hatFilter: Tone.Filter | null = null;
   private piano: Tone.Synth | null = null;
+  private melodyChorus: Tone.Chorus | null = null;
   private chordSynth: Tone.PolySynth | null = null;
   private bassSynth: Tone.MonoSynth | null = null;
   private drumCompressor: Tone.Compressor | null = null;
@@ -94,6 +98,11 @@ class AudioEngine {
     this.applyDynamicsSettings();
   }
 
+  setEffectsSettings(settings: EffectsSettings) {
+    this.effectsSettings = { ...settings };
+    this.applyEffectsSettings();
+  }
+
   setBpm(bpm: number) {
     Tone.getTransport().bpm.rampTo(bpm, 0.05);
   }
@@ -101,14 +110,14 @@ class AudioEngine {
   private ensureMixerGraph() {
     if (!this.mixReverb) {
       this.mixReverb = new Tone.Reverb({
-        decay: 2.7,
-        preDelay: 0.015,
+        decay: this.effectsSettings.reverbDecay,
+        preDelay: this.effectsSettings.reverbPreDelay,
         wet: 1,
       }).toDestination();
      }
 
     if (!this.mixDelay) {
-      this.mixDelay = new Tone.FeedbackDelay("8n", 0.28).toDestination();
+      this.mixDelay = new Tone.FeedbackDelay("8n", this.effectsSettings.delayFeedback).toDestination();
       this.mixDelay.wet.value = 1;
      }
 
@@ -154,7 +163,7 @@ class AudioEngine {
         ratio: this.dynamicsSettings.ratio,
         attack: this.dynamicsSettings.attack,
         release: this.dynamicsSettings.release,
-      }).connect(this.drumCompressor!);
+      }).connect(this.inputFor("drums"));
     }
 
     if (!this.kick) {
@@ -162,7 +171,7 @@ class AudioEngine {
         pitchDecay: 0.035,
         octaves: 6,
         envelope: { attack: 0.001, decay: 0.24, sustain: 0, release: 0.08 },
-      }).connect(this.inputFor("drums"));
+      }).connect(this.drumCompressor!);
 
       this.snare = new Tone.NoiseSynth({
         noise: { type: "white" },
@@ -178,11 +187,22 @@ class AudioEngine {
       this.hat.volume.value = -15;
     }
 
+    if (!this.melodyChorus) {
+      this.melodyChorus = new Tone.Chorus({
+        frequency: 1.5,
+        delayTime: 3.5,
+        depth: 0.7,
+        spread: 180,
+        wet: this.effectsSettings.chorusWet,
+      }).connect(this.inputFor("melody"));
+      this.melodyChorus.start();
+    }
+
     if (!this.piano) {
       this.piano = new Tone.Synth({
         oscillator: { type: "triangle" },
         envelope: { attack: 0.006, decay: 0.32, sustain: 0.18, release: 0.8 },
-      }).connect(this.inputFor("melody"));
+      }).connect(this.melodyChorus);
       this.piano.volume.value = -8;
     }
 
@@ -235,6 +255,7 @@ class AudioEngine {
     this.applySynthSettings();
     this.applyMixerSettings();
     this.applyDynamicsSettings();
+    this.applyEffectsSettings();
   }
 
   private applySynthSettings() {
@@ -258,6 +279,21 @@ class AudioEngine {
       attack: this.dynamicsSettings.attack,
       release: this.dynamicsSettings.release,
     });
+  }
+
+  private applyEffectsSettings() {
+    if (this.mixReverb) {
+      this.mixReverb.decay = this.effectsSettings.reverbDecay;
+      this.mixReverb.preDelay = this.effectsSettings.reverbPreDelay;
+    }
+
+    if (this.mixDelay) {
+      this.mixDelay.feedback.rampTo(this.effectsSettings.delayFeedback, 0.05);
+    }
+
+    if (this.melodyChorus) {
+      this.melodyChorus.wet.rampTo(this.effectsSettings.chorusWet, 0.05);
+    }
   }
 
   private applyMixerSettings() {
