@@ -24,7 +24,7 @@ const lesson = lessonContentSchema.parse({
   number: 14,
   title: "Motif development",
   eyebrow: "Composition · Development",
-  hero: "Keep one small idea alive across the phrase."
+  hero: "Keep one small idea alive across the phrase.",
   description:
     "Take one short idea and develop it through repetition, transposition, fragmentation, and response. The goal is coherence: later material should feel related without becoming a copy-and-paste loop.",
   overview:
