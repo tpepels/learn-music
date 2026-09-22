@@ -357,6 +357,11 @@ export const useStudioStore = create<StudioState>()(
               ...state.patterns,
               [state.activePattern]: nextPattern,
             },
+            learningExperiments: recordExperimentValue(
+              state,
+              "drums." + state.activePattern + "." + track + ".edit",
+              step + ":" + nextPattern[track][step],
+            ),
           };
         }),
 
@@ -401,7 +406,14 @@ export const useStudioStore = create<StudioState>()(
         set((state) => {
           const melody = [...state.melody];
           melody[step] = melody[step] === midi ? null : midi;
-          return { melody };
+          return {
+            melody,
+            learningExperiments: recordExperimentValue(
+              state,
+              "melody.edit",
+              step + ":" + String(melody[step]),
+            ),
+          };
         }),
 
       clearMelody: () => set({ melody: [...initialMelody], currentStep: 0 }),
@@ -490,7 +502,14 @@ export const useStudioStore = create<StudioState>()(
         set((state) => {
           const arrangement = cloneArrangement(state.arrangement);
           arrangement[bar][layer] = !arrangement[bar][layer];
-          return { arrangement };
+          return {
+            arrangement,
+            learningExperiments: recordExperimentValue(
+              state,
+              "arrangement.edit",
+              bar + ":" + layer + ":" + arrangement[bar][layer],
+            ),
+          };
         }),
 
       clearArrangement: () =>
@@ -655,16 +674,31 @@ export const useStudioStore = create<StudioState>()(
             0.05,
             Math.min(1, velocity),
           );
-          return { grooveFeelSettings };
+          return {
+            grooveFeelSettings,
+            learningExperiments: recordExperimentValue(
+              state,
+              "groove." + track + ".velocity",
+              grooveFeelSettings.velocities[track][step],
+            ),
+          };
         }),
 
       setSwing: (swing) =>
-        set((state) => ({
-          grooveFeelSettings: {
-            ...state.grooveFeelSettings,
-            swing: Math.max(0, Math.min(0.6, swing)),
-          },
-        })),
+        set((state) => {
+          const nextSwing = Math.max(0, Math.min(0.6, swing));
+          return {
+            grooveFeelSettings: {
+              ...state.grooveFeelSettings,
+              swing: nextSwing,
+            },
+            learningExperiments: recordExperimentValue(
+              state,
+              "groove.swing",
+              nextSwing,
+            ),
+          };
+        }),
 
       resetGrooveFeel: () =>
         set({
