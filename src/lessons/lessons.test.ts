@@ -3,6 +3,7 @@ import {
   cloneArrangement,
   cloneAutomationSettings,
   clonePattern,
+  chordMidi,
   initialArrangement,
   initialAutomationSettings,
   initialBassSequence,
@@ -1087,5 +1088,16 @@ describe("lesson 28: borrowed chords and modal mixture", () => {
         .evaluate(ctx)
         .every((check) => check.complete),
     ).toBe(true);
+  });
+});
+
+
+describe("expanded harmony model", () => {
+  it("spells and stores the chromatic/seventh chord tones used by lessons 26-28", () => {
+    expect(chordMidi.E7).toEqual([52, 56, 59, 62]);
+    expect(chordMidi.Cmaj7).toEqual([48, 52, 55, 59]);
+    expect(chordMidi.G7).toEqual([55, 59, 62, 65]);
+    expect(chordMidi.Fm).toEqual([53, 56, 60]);
+    expect(chordMidi["B♭"]).toEqual([58, 62, 65]);
   });
 });
