@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { resetLessonProgressState } from "../learning/progress";
 import {
   readLearningProgressCookie,
   writeLearningProgressCookie,
@@ -391,21 +392,19 @@ export const useStudioStore = create<StudioState>()(
         set({ bassSequence: [...initialBassSequence], currentStep: 0 }),
 
       resetLessonProgress: (lessonId, exerciseIds) =>
-        set((state) => {
-          const exerciseIndexByLesson = { ...state.exerciseIndexByLesson };
-          exerciseIndexByLesson[lessonId] = 0;
-
-          return {
-            exerciseIndexByLesson,
-            completedExerciseIds: state.completedExerciseIds.filter(
-              (id) => !exerciseIds.includes(id),
-            ),
-            completedLessonIds: state.completedLessonIds.filter(
-              (id) => id !== lessonId,
-            ),
-            currentStep: state.currentLessonId === lessonId ? 0 : state.currentStep,
-          };
-        }),
+        set((state) =>
+          resetLessonProgressState(
+            {
+              currentLessonId: state.currentLessonId,
+              exerciseIndexByLesson: state.exerciseIndexByLesson,
+              completedExerciseIds: state.completedExerciseIds,
+              completedLessonIds: state.completedLessonIds,
+              currentStep: state.currentStep,
+            },
+            lessonId,
+            exerciseIds,
+          ),
+        ),
 
       setGrooveVelocity: (track, step, velocity) =>
         set((state) => {
