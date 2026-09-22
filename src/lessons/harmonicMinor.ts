@@ -61,7 +61,7 @@ export const harmonicMinorLesson: LessonDefinition = {
           complete:
             selectedPitchClasses.length === 7 &&
             selectedPitchClasses.every((pitch) =>
-              aHarmonicMinorPitchClasses.includes(pitch as never),
+              (aHarmonicMinorPitchClasses as readonly string[]).includes(pitch),
             ),
         },
       ],
