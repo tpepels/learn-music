@@ -12,7 +12,7 @@ All three modes operate on the same persistent local project.
 
 ## Current interactive curriculum
 
-There are currently **18 lessons and 72 guided exercises**.
+There are currently **23 lessons and 92 guided exercises**.
 
 1. **Pulse & groove** — four-on-the-floor, backbeat, eighths, syncopation
 2. **Repetition & variation** — related variation, fill, anticipation, turnaround
@@ -32,6 +32,11 @@ There are currently **18 lessons and 72 guided exercises**.
 16. **Harmonic function** — tonic/predominant/dominant, ii–V–I, deceptive resolution, V/V
 17. **Phrase & form** — antecedent/consequent, binary, ternary, AABA
 18. **Texture & orchestration** — register, open voicing, octave doubling, density contrast
+19. **EQ & spectral balance** — low-cut cleanup, search sweeps, corrective cuts, complementary EQ
+20. **Saturation & distortion** — harmonic weight, parallel drum crunch, subtle colour, selective processing
+21. **Sidechain ducking** — kick-to-bass ducking, pumping, transparent release timing, arrangement context
+22. **Stereo width & mono** — pan, mid/side width, centred low end, mono translation
+23. **Reference mixing** — snapshots, A/B comparison, level matching, quiet and mono checks
 
 Every exercise explains:
 
@@ -63,6 +68,11 @@ Current workspaces include:
 - harmonic-function chord lane
 - sixteen-bar macro-form map
 - texture/orchestration register controls
+- parametric EQ display and controls
+- saturation / parallel-distortion processor
+- kick-to-bass sidechain ducking
+- stereo field with pan, width, and mono audition
+- level-matched reference A/B workspace
 - subtractive synthesizer
 - arrangement view
 - four-channel mixer
@@ -104,6 +114,11 @@ Current modules:
 - Arrangement
 - Texture
 - Mixer
+- EQ
+- Saturation
+- Sidechain
+- Stereo
+- Reference
 - Automation
 - FX
 - Finish
@@ -121,6 +136,7 @@ Current signal paths include:
 - drum voices → **drum-bus compressor** → mixer channel
 - melody → **chorus insert** → mixer channel
 - chords → **automated low-pass filter** → mixer channel
+- mixer channels run through **high-pass → parametric bell EQ → saturation → stereo width → fader/pan**
 - mixer channels → master
 - post-fader sends → shared **reverb** and **delay** returns
 - drum hits read real per-step **MIDI velocity** values
@@ -128,6 +144,10 @@ Current signal paths include:
 - chord playback supports full seventh chords such as D7 / V/V
 - texture settings transpose bass/chords/melody by octave during playback
 - open chord spacing and melody octave doubling alter the actual rendered voices
+- kick events can create real bass-channel **sidechain ducking** with adjustable amount and release
+- mono audition centres pan, collapses width, and removes time-based sends during the compatibility check
+- reference A/B audition recalls stored fader/EQ/saturation/width settings with adjustable level-match trim
+- quiet-check audition reduces the full mix by 18 dB without changing stored fader values
 
 Automation is real playback automation:
 
@@ -173,6 +193,11 @@ The project file contains:
 - groove velocity values and swing amount
 - sixteen-bar macro-form map
 - register / open-voicing / octave-doubling texture settings
+- parametric EQ settings
+- per-channel saturation settings
+- sidechain amount/release
+- stereo widths and mono-check history
+- reference-mix snapshot and comparison state
 
 The project file is the editable session. It is intentionally distinguished from a future standalone WAV/audio render.
 
@@ -228,7 +253,7 @@ npm test
 npm run build
 ```
 
-Feature branches validate without publishing. `main` deploys to GitHub Pages only after the production workflow passes.
+Feature branches are intentionally quiet by default so intermediate development commits do not trigger notification-heavy CI runs. Validate locally with the commands above, or run the manual **Validate branch manually** workflow when an explicit GitHub-hosted branch check is useful. `main` still runs the full typecheck, curriculum tests, production build, and GitHub Pages deployment automatically.
 
 Production base:
 
