@@ -5,6 +5,7 @@ import { BassWorkspace } from "./BassWorkspace";
 import { ChordWorkspace } from "./ChordWorkspace";
 import { DrumWorkspace } from "./DrumWorkspace";
 import { EffectsWorkspace } from "./EffectsWorkspace";
+import { EqWorkspace } from "./EqWorkspace";
 import { FinalProjectWorkspace } from "./FinalProjectWorkspace";
 import { GrooveFeelWorkspace } from "./GrooveFeelWorkspace";
 import { HarmonicFunctionWorkspace } from "./HarmonicFunctionWorkspace";
@@ -12,6 +13,10 @@ import { MelodyHarmonyWorkspace } from "./MelodyHarmonyWorkspace";
 import { MotifWorkspace } from "./MotifWorkspace";
 import { MixerWorkspace } from "./MixerWorkspace";
 import { PhraseFormWorkspace } from "./PhraseFormWorkspace";
+import { ReferenceWorkspace } from "./ReferenceWorkspace";
+import { SaturationWorkspace } from "./SaturationWorkspace";
+import { SidechainWorkspace } from "./SidechainWorkspace";
+import { StereoWorkspace } from "./StereoWorkspace";
 import { MelodyWorkspace } from "./PianoWorkspace";
 import { SynthWorkspace } from "./SynthWorkspace";
 import { TextureWorkspace } from "./TextureWorkspace";
@@ -34,6 +39,11 @@ const modules = [
   { id: "arrange", name: "Arrange", lesson: "form.arrangement", workspace: "arrangement" },
   { id: "texture", name: "Texture", lesson: "composition.texture-orchestration", workspace: "texture" },
   { id: "mix", name: "Mixer", lesson: "mixing.balance-space", workspace: "mixer" },
+  { id: "eq", name: "EQ", lesson: "production.eq-spectral-balance", workspace: "eq" },
+  { id: "saturation", name: "Saturation", lesson: "production.saturation", workspace: "saturation" },
+  { id: "sidechain", name: "Sidechain", lesson: "production.sidechain", workspace: "sidechain" },
+  { id: "stereo", name: "Stereo", lesson: "production.stereo-mono", workspace: "stereo" },
+  { id: "reference", name: "Reference", lesson: "production.reference-mixing", workspace: "reference" },
   { id: "automation", name: "Automation", lesson: "production.automation-dynamics", workspace: "automation-dynamics" },
   { id: "effects", name: "FX", lesson: "production.effects-transitions", workspace: "effects" },
   { id: "finish", name: "Finish", lesson: "production.final-project", workspace: "final-project" },
@@ -112,6 +122,11 @@ export function StudioMode({
         {module === "arrange" && <ArrangementWorkspace />}
         {module === "texture" && <TextureWorkspace />}
         {module === "mix" && <MixerWorkspace />}
+        {module === "eq" && <EqWorkspace />}
+        {module === "saturation" && <SaturationWorkspace />}
+        {module === "sidechain" && <SidechainWorkspace />}
+        {module === "stereo" && <StereoWorkspace />}
+        {module === "reference" && <ReferenceWorkspace />}
         {module === "automation" && <AutomationDynamicsWorkspace />}
         {module === "effects" && <EffectsWorkspace />}
         {module === "finish" && <FinalProjectWorkspace />}
