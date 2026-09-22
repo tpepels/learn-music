@@ -11,10 +11,15 @@ import {
   initialDynamicsSettings,
   initialEffectsSettings,
   initialGrooveFeelSettings,
+  initialEqSettings,
   initialFormSettings,
   initialMelody,
   initialMixerSettings,
   initialPattern,
+  initialReferenceMixSettings,
+  initialSaturationSettings,
+  initialSidechainSettings,
+  initialStereoSettings,
   initialSynthSettings,
   initialTextureSettings,
   initialVoicingSettings,
@@ -52,6 +57,28 @@ function sampleProject(): ProjectData {
       roles: [...initialFormSettings.roles],
     },
     textureSettings: { ...initialTextureSettings },
+    eqSettings: {
+      drums: { ...initialEqSettings.drums },
+      bass: { ...initialEqSettings.bass },
+      chords: { ...initialEqSettings.chords },
+      melody: { ...initialEqSettings.melody },
+    },
+    saturationSettings: {
+      drums: { ...initialSaturationSettings.drums },
+      bass: { ...initialSaturationSettings.bass },
+      chords: { ...initialSaturationSettings.chords },
+      melody: { ...initialSaturationSettings.melody },
+    },
+    sidechainSettings: { ...initialSidechainSettings },
+    stereoSettings: {
+      widths: { ...initialStereoSettings.widths },
+      monoAudition: initialStereoSettings.monoAudition,
+      monoChecked: initialStereoSettings.monoChecked,
+    },
+    referenceMixSettings: {
+      ...initialReferenceMixSettings,
+      snapshot: null,
+    },
   };
 }
 
