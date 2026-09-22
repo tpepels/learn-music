@@ -9,6 +9,7 @@ import {
   getNextImplementedLesson,
   implementedLessons,
 } from "./lessons/course";
+import { getAdvanceDestination } from "./lessons/progression";
 import type { ExerciseDefinition } from "./lessons/types";
 import { useStudioStore } from "./state/studio";
 
@@ -221,20 +222,25 @@ function App() {
       completeExercise(exercise.id);
     }
 
-    if (!isLastExercise) {
-      stopTransport();
-      setExerciseIndex(lesson.id, exerciseIndex + 1);
+    const destination = getAdvanceDestination(
+      lesson,
+      exerciseIndex,
+      nextLesson,
+    );
+
+    stopTransport();
+
+    if (destination.type === "exercise") {
+      setExerciseIndex(lesson.id, destination.exerciseIndex);
       return;
     }
 
     if (!lessonCompleted) {
       completeLesson(lesson.id);
-      stopTransport();
-      return;
     }
 
-    if (nextLesson) {
-      openLesson(nextLesson.id);
+    if (destination.type === "lesson") {
+      setCurrentLesson(destination.lessonId);
     }
   };
 
@@ -263,8 +269,8 @@ function App() {
   const actionLabel = (() => {
     if (!exerciseReady && !exerciseCompleted) return "Complete the exercise to continue";
     if (!isLastExercise) return "Continue to " + lesson.exercises[exerciseIndex + 1].letter;
+    if (nextLesson) return "Complete lesson & continue to lesson " + nextLesson.number;
     if (!lessonCompleted) return "Complete lesson";
-    if (nextLesson) return "Continue to lesson " + nextLesson.number;
     return "Course section complete";
   })();
 
