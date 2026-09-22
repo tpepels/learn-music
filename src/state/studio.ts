@@ -2,7 +2,12 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import {
   clonePattern,
+  initialChordProgression,
+  initialMelody,
   initialPattern,
+  type ChordName,
+  type ChordProgression,
+  type MelodySequence,
   type PatternId,
   type StepPattern,
   type TrackName,
@@ -15,17 +20,31 @@ type StudioState = {
   isPlaying: boolean;
   currentStep: number;
   currentLessonId: string;
+  exerciseIndexByLesson: Record<string, number>;
+  completedExerciseIds: string[];
   activePattern: PatternId;
   patterns: Record<PatternId, StepPattern>;
   completedLessonIds: string[];
+  selectedPitchClasses: string[];
+  melody: MelodySequence;
+  chordProgression: ChordProgression;
+
   setBpm: (bpm: number) => void;
   setPlaying: (playing: boolean) => void;
   setCurrentStep: (step: number) => void;
   setCurrentLesson: (lessonId: string) => void;
+  setExerciseIndex: (lessonId: string, index: number) => void;
+  completeExercise: (exerciseId: string) => void;
   setActivePattern: (patternId: PatternId) => void;
   toggleStep: (track: TrackName, step: number) => void;
   resetPattern: (patternId: PatternId, source?: StepPattern) => void;
   completeLesson: (lessonId: string) => void;
+  togglePitchClass: (pitchClass: string) => void;
+  clearPitchClasses: () => void;
+  setMelodyStep: (step: number, midi: number | null) => void;
+  clearMelody: () => void;
+  setChordSlot: (slot: number, chord: ChordName | null) => void;
+  clearChords: () => void;
 };
 
 export const useStudioStore = create<StudioState>()(
@@ -35,12 +54,17 @@ export const useStudioStore = create<StudioState>()(
       isPlaying: false,
       currentStep: 0,
       currentLessonId: FIRST_LESSON_ID,
+      exerciseIndexByLesson: {},
+      completedExerciseIds: [],
       activePattern: "A",
       patterns: {
         A: clonePattern(initialPattern),
         B: clonePattern(initialPattern),
       },
       completedLessonIds: [],
+      selectedPitchClasses: [],
+      melody: [...initialMelody],
+      chordProgression: [...initialChordProgression],
 
       setBpm: (bpm) => set({ bpm }),
       setPlaying: (isPlaying) => set({ isPlaying }),
@@ -49,9 +73,25 @@ export const useStudioStore = create<StudioState>()(
       setCurrentLesson: (currentLessonId) =>
         set({
           currentLessonId,
-          activePattern: currentLessonId === FIRST_LESSON_ID ? "A" : "B",
+          activePattern: currentLessonId === "rhythm.variation" ? "B" : "A",
           currentStep: 0,
         }),
+
+      setExerciseIndex: (lessonId, index) =>
+        set((state) => ({
+          exerciseIndexByLesson: {
+            ...state.exerciseIndexByLesson,
+            [lessonId]: index,
+          },
+          currentStep: 0,
+        })),
+
+      completeExercise: (exerciseId) =>
+        set((state) => ({
+          completedExerciseIds: state.completedExerciseIds.includes(exerciseId)
+            ? state.completedExerciseIds
+            : [...state.completedExerciseIds, exerciseId],
+        })),
 
       setActivePattern: (activePattern) =>
         set({ activePattern, currentStep: 0 }),
@@ -96,15 +136,48 @@ export const useStudioStore = create<StudioState>()(
 
           return { completedLessonIds };
         }),
+
+      togglePitchClass: (pitchClass) =>
+        set((state) => ({
+          selectedPitchClasses: state.selectedPitchClasses.includes(pitchClass)
+            ? state.selectedPitchClasses.filter((note) => note !== pitchClass)
+            : [...state.selectedPitchClasses, pitchClass],
+        })),
+
+      clearPitchClasses: () => set({ selectedPitchClasses: [] }),
+
+      setMelodyStep: (step, midi) =>
+        set((state) => {
+          const melody = [...state.melody];
+          melody[step] = melody[step] === midi ? null : midi;
+          return { melody };
+        }),
+
+      clearMelody: () => set({ melody: [...initialMelody], currentStep: 0 }),
+
+      setChordSlot: (slot, chord) =>
+        set((state) => {
+          const chordProgression = [...state.chordProgression];
+          chordProgression[slot] = chord;
+          return { chordProgression };
+        }),
+
+      clearChords: () =>
+        set({ chordProgression: [...initialChordProgression], currentStep: 0 }),
     }),
     {
-      name: "learn-music-studio-v1",
+      name: "learn-music-studio-v2",
       partialize: (state) => ({
         bpm: state.bpm,
         currentLessonId: state.currentLessonId,
+        exerciseIndexByLesson: state.exerciseIndexByLesson,
+        completedExerciseIds: state.completedExerciseIds,
         activePattern: state.activePattern,
         patterns: state.patterns,
         completedLessonIds: state.completedLessonIds,
+        selectedPitchClasses: state.selectedPitchClasses,
+        melody: state.melody,
+        chordProgression: state.chordProgression,
       }),
     },
   ),
