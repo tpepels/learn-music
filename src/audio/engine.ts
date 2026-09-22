@@ -986,6 +986,30 @@ class AudioEngine {
     );
   }
 
+  async playSynthPhrase() {
+    await Tone.start();
+    this.ensureVoices();
+    this.applySynthSettings();
+
+    const projectNotes = this.melody.filter(
+      (midi): midi is number => midi !== null,
+    );
+    const sequence =
+      projectNotes.length >= 4
+        ? projectNotes.slice(0, 8)
+        : [60, 64, 67, 64, 62, 65, 67, 60];
+    const now = Tone.now() + 0.05;
+
+    sequence.forEach((midi, index) => {
+      this.soundSynth?.triggerAttackRelease(
+        Tone.Frequency(midi, "midi").toNote(),
+        "8n",
+        now + index * 0.34,
+        0.62,
+      );
+    });
+  }
+
   stop() {
     const transport = Tone.getTransport();
     transport.stop();
