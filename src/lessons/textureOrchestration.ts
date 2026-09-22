@@ -12,7 +12,7 @@ const lesson = lessonContentSchema.parse({
   number: 18,
   title: "Texture & orchestration",
   eyebrow: "Composition · Orchestration",
-  hero: "Move the parts before you EQ them."
+  hero: "Move the parts before you EQ them.",
   description:
     "Place bass, chords, and melody in different registers, open chord voicings, use octave doubling deliberately, and shape density across the arrangement.",
   overview:
@@ -27,7 +27,7 @@ export const textureOrchestrationLesson: LessonDefinition = {
         id: "composition.texture-orchestration.a",
         letter: "A",
         title: "Separate the registers",
-        learn: "Give bass, harmony and melody enough register space to be heard separately."
+        learn: "Give bass, harmony and melody enough register space to be heard separately.",
         explanation:
           "Register is where a part sits from low to high. Two well-written parts can still obscure one another if they occupy the same register. Moving one an octave is often a compositional solution, not a mixing trick.",
         instruction:
