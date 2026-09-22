@@ -95,6 +95,7 @@ function context(overrides: Partial<LessonContext> = {}): LessonContext {
     formSettings: {
       sections: [...initialFormSettings.sections],
       roles: [...initialFormSettings.roles],
+      layers: initialFormSettings.layers.map((entry) => ({ ...entry })),
     },
     textureSettings: { ...initialTextureSettings },
     eqSettings: {
@@ -119,8 +120,18 @@ function context(overrides: Partial<LessonContext> = {}): LessonContext {
       ...initialReferenceMixSettings,
       snapshot: null,
     },
+    experiments: {},
     ...overrides,
   } as LessonContext;
+}
+
+function experiment(
+  changes: number,
+  min: number | null = null,
+  max: number | null = null,
+  values: string[] = [],
+) {
+  return { changes, min, max, values };
 }
 
 function completedGroove(): StepPattern {
@@ -233,20 +244,9 @@ function harmonyFor(
   ],
 ): HarmonySequence {
   const sequence = initialHarmonySequence.map((notes) => [...notes]);
-  const chordMidis: Record<string, number[]> = {
-    C: [48, 52, 55],
-    Dm: [50, 53, 57],
-    Em: [52, 55, 59],
-    F: [53, 57, 60],
-    G: [55, 59, 62],
-    Am: [57, 60, 64],
-    Bdim: [59, 62, 65],
-  };
-
   progression.forEach((chord, bar) => {
     if (!chord) return;
-    const notes = chordMidis[chord];
-    if (!notes) return;
+    const notes = chordMidi[chord];
     const positions = rhythms[bar] ?? [0];
     positions.forEach((localStep, index) => {
       const step = bar * 8 + localStep;
