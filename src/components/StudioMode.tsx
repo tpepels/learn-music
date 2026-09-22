@@ -6,6 +6,7 @@ import { ChordWorkspace } from "./ChordWorkspace";
 import { DrumWorkspace } from "./DrumWorkspace";
 import { EffectsWorkspace } from "./EffectsWorkspace";
 import { FinalProjectWorkspace } from "./FinalProjectWorkspace";
+import { GrooveFeelWorkspace } from "./GrooveFeelWorkspace";
 import { MixerWorkspace } from "./MixerWorkspace";
 import { MelodyWorkspace } from "./PianoWorkspace";
 import { SynthWorkspace } from "./SynthWorkspace";
@@ -15,6 +16,7 @@ import { useStudioStore } from "../state/studio";
 
 const modules = [
   { id: "groove", name: "Groove", lesson: "rhythm.pulse-and-groove", workspace: "compare" },
+  { id: "feel", name: "Feel", lesson: "rhythm.groove-feel", workspace: "groove-feel" },
   { id: "melody", name: "Piano roll", lesson: "pitch.melody", workspace: "melody" },
   { id: "harmony", name: "Chords", lesson: "harmony.chords", workspace: "chords" },
   { id: "voicing", name: "Voicing", lesson: "harmony.voice-leading", workspace: "voicing" },
@@ -87,6 +89,7 @@ export function StudioMode({
 
       <section className="studio-module-surface">
         {module === "groove" && <DrumWorkspace title="Groove" compare />}
+        {module === "feel" && <GrooveFeelWorkspace />}
         {module === "melody" && <MelodyWorkspace title="Piano roll" />}
         {module === "harmony" && <ChordWorkspace />}
         {module === "voicing" && <VoicingWorkspace />}
