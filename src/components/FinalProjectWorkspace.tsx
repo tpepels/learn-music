@@ -30,6 +30,8 @@ function downloadProject() {
       automationSettings: state.automationSettings,
       dynamicsSettings: state.dynamicsSettings,
       effectsSettings: state.effectsSettings,
+      voicingSettings: state.voicingSettings,
+      bassSequence: state.bassSequence,
     },
   };
 
