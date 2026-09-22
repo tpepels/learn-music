@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { audioEngine } from "../audio/engine";
 import {
-  chordNames,
+  basicChordNames,
   romanNumerals,
   type ChordName,
 } from "../music/model";
@@ -53,7 +53,7 @@ export function ChordWorkspace() {
       </div>
 
       <div className="chord-palette">
-        {chordNames.map((chord) => (
+        {basicChordNames.map((chord) => (
           <button
             key={chord}
             onClick={() => chooseChord(chord)}
