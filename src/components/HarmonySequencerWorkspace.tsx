@@ -101,7 +101,15 @@ export function HarmonySequencerWorkspace({
 
   const chooseChord = async (chord: ChordName) => {
     setChordSlot(selectedSlot, chord);
-    await audioEngine.playChord(chord);
+    await audioEngine.playChordPreview(chord);
+  };
+
+  const selectSlot = async (index: number) => {
+    setSelectedSlot(index);
+    const chord = progression[index];
+    if (chord) {
+      await audioEngine.playChordPreview(chord);
+    }
   };
 
   const toggleNote = async (step: number, midi: number) => {
@@ -136,7 +144,7 @@ export function HarmonySequencerWorkspace({
               "harmony-chord-slot",
               selectedSlot === index ? "is-selected" : "",
             ].filter(Boolean).join(" ")}
-            onClick={() => setSelectedSlot(index)}
+            onClick={() => void selectSlot(index)}
           >
             <span>Bar {index + 1}</span>
             <strong>{chord ?? "—"}</strong>
@@ -153,13 +161,28 @@ export function HarmonySequencerWorkspace({
         {config.palette.map((chord) => (
           <button
             key={chord}
-            onClick={() => chooseChord(chord)}
+            onClick={() => void chooseChord(chord)}
             className={progression[selectedSlot] === chord ? "is-selected" : ""}
+            aria-label={
+              "Set bar " +
+              (selectedSlot + 1) +
+              " to " +
+              chord +
+              " and preview the chord"
+            }
           >
             <strong>{chord}</strong>
             <span>{config.numeral[chord] ?? romanNumerals[chord] ?? "—"}</span>
+            <small>set + hear</small>
           </button>
         ))}
+      </div>
+
+      <div className="harmony-target-note">
+        <strong>Chord buttons set the target for bar {selectedSlot + 1} and play it once.</strong>
+        <span>
+          They change the label and highlighted chord tones. They never write or replace your MIDI notes.
+        </span>
       </div>
 
       <div className="harmony-clear-actions">
