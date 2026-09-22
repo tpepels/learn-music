@@ -85,6 +85,10 @@ export type ChordProgression = Array<ChordName | null>;
 
 export const initialChordProgression: ChordProgression = [null, null, null, null];
 
+export const accompanimentPatterns = ["block", "pulse", "broken", "arpeggio"] as const;
+export type AccompanimentPattern = (typeof accompanimentPatterns)[number];
+export const initialAccompanimentPattern: AccompanimentPattern = "block";
+
 export const chordMidi: Record<ChordName, number[]> = {
   C: [48, 52, 55],
   Dm: [50, 53, 57],
@@ -437,6 +441,7 @@ export type ProjectData = {
   patterns: Record<PatternId, StepPattern>;
   melody: MelodySequence;
   chordProgression: ChordProgression;
+  accompanimentPattern: AccompanimentPattern;
   synthSettings: SynthSettings;
   arrangement: Arrangement;
   mixerSettings: MixerSettings;
