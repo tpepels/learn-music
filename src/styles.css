@@ -4819,3 +4819,357 @@ body {
     grid-template-columns: repeat(4, 1fr);
   }
 }
+
+
+/* ==========================================================================
+   VOICING + VOICE LEADING
+   ========================================================================== */
+
+.voicing-card,
+.bass-card {
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 20px;
+  background:
+    linear-gradient(180deg, rgba(41,37,58,0.98), rgba(25,23,37,0.99));
+  box-shadow:
+    0 24px 60px var(--shadow),
+    inset 0 1px 0 rgba(255,255,255,0.075);
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.voicing-card::before,
+.bass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: linear-gradient(90deg, var(--purple), var(--cyan), var(--green));
+}
+
+.voice-leading-meter {
+  margin-top: 17px;
+  padding: 13px 15px;
+  border: 1px solid rgba(95,225,239,0.12);
+  border-radius: 13px;
+  background: rgba(95,225,239,0.04);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3px 16px;
+  align-items: center;
+}
+
+.voice-leading-meter strong {
+  color: var(--cyan);
+  font-size: 17px;
+  text-align: right;
+}
+
+.voice-leading-meter small {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.voicing-slots {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.voicing-slot {
+  min-width: 0;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  background: #211e30;
+  overflow: hidden;
+}
+
+.voicing-slot.is-playhead {
+  border-color: rgba(255,191,75,0.42);
+  box-shadow: 0 0 0 1px rgba(255,191,75,0.10), 0 0 28px rgba(255,191,75,0.08);
+}
+
+.voicing-slot > header {
+  min-height: 70px;
+  padding: 11px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.voicing-slot header > span,
+.voicing-slot header > small {
+  color: var(--dim);
+  font-size: 10px;
+}
+
+.voicing-slot header > strong {
+  margin: 2px 0;
+  font-size: 18px;
+}
+
+.voicing-note-stack {
+  min-height: 148px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  background:
+    linear-gradient(90deg, rgba(159,140,255,0.04), transparent),
+    #181522;
+}
+
+.voicing-note-stack button {
+  min-height: 30px;
+  border: 1px solid rgba(95,225,239,0.18);
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(95,225,239,0.12), rgba(159,140,255,0.07));
+  color: #e9f9fb;
+  font-size: 11px;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.voicing-empty {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.inversion-buttons {
+  padding: 9px;
+  display: grid;
+  gap: 6px;
+}
+
+.inversion-buttons button {
+  min-height: 44px;
+  padding: 7px 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 9px;
+  background: #2a263a;
+  color: var(--muted);
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  align-items: center;
+  gap: 7px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.inversion-buttons button strong {
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  background: #15121f;
+  color: var(--cyan);
+  font-size: 10px;
+}
+
+.inversion-buttons button span {
+  font-size: 10px;
+}
+
+.inversion-buttons button.is-active {
+  border-color: rgba(159,140,255,0.34);
+  background: rgba(159,140,255,0.10);
+}
+
+.inversion-buttons button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.voicing-note {
+  margin-top: 11px;
+  padding: 12px 14px;
+  border-radius: 11px;
+  background: rgba(17,15,27,0.44);
+  display: flex;
+  gap: 9px;
+  align-items: baseline;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.voicing-note strong {
+  color: var(--text);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   BASS PIANO ROLL
+   ========================================================================== */
+
+.bass-chord-header {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: 68px repeat(4, minmax(0, 1fr));
+  gap: 3px;
+}
+
+.bass-chord-header > span {
+  min-height: 50px;
+}
+
+.bass-chord-header > div {
+  min-height: 50px;
+  padding: 7px 10px;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 9px;
+  background: #211e30;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px 8px;
+  align-items: center;
+}
+
+.bass-chord-header small,
+.bass-chord-header span {
+  color: var(--dim);
+  font-size: 9px;
+}
+
+.bass-chord-header strong {
+  color: var(--cyan);
+  font-size: 13px;
+}
+
+.bass-chord-header div > span {
+  grid-column: 1 / -1;
+}
+
+.bass-grid {
+  margin-top: 5px;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #15121f;
+}
+
+.bass-row {
+  min-height: 28px;
+  display: grid;
+  grid-template-columns: 68px repeat(32, minmax(0, 1fr));
+}
+
+.bass-row + .bass-row {
+  border-top: 1px solid rgba(255,255,255,0.035);
+}
+
+.bass-row.is-key-row {
+  background: rgba(95,225,239,0.025);
+}
+
+.bass-note-label {
+  border: 0;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  background: #211e30;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2px 6px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.bass-note-label strong {
+  font-size: 10px;
+}
+
+.bass-note-label span {
+  color: var(--dim);
+  font-size: 8px;
+}
+
+.bass-cell {
+  min-width: 0;
+  min-height: 28px;
+  padding: 0;
+  border: 0;
+  border-right: 1px solid rgba(255,255,255,0.025);
+  background: rgba(255,255,255,0.015);
+  position: relative;
+  cursor: pointer;
+}
+
+.bass-cell.is-beat {
+  background: rgba(255,255,255,0.035);
+}
+
+.bass-cell.is-offbeat {
+  background: rgba(0,0,0,0.05);
+}
+
+.bass-cell.is-bar-start {
+  box-shadow: inset 2px 0 0 rgba(255,191,75,0.28);
+}
+
+.bass-cell span {
+  position: absolute;
+  inset: 5px 3px;
+  border-radius: 4px;
+  background: transparent;
+}
+
+.bass-cell.is-active span {
+  background: linear-gradient(135deg, var(--cyan), var(--purple));
+  box-shadow: 0 0 12px rgba(95,225,239,0.28);
+}
+
+.bass-cell.is-playhead {
+  background: rgba(255,191,75,0.12);
+}
+
+.bass-grid-legend {
+  margin-top: 9px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px 16px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.transport-error {
+  max-width: 210px;
+  padding: 6px 8px;
+  border: 1px solid rgba(255,114,173,0.24);
+  border-radius: 8px;
+  background: rgba(255,114,173,0.07);
+  color: #ffc1d8;
+  font-size: 10px;
+  line-height: 1.3;
+}
+
+.diagram-note.is-bass {
+  fill: #ffbf4b;
+}
+
+@media (max-width: 1320px) {
+  .voicing-card,
+  .bass-card {
+    padding: 18px;
+  }
+
+  .voicing-slots {
+    gap: 6px;
+  }
+
+  .bass-row {
+    grid-template-columns: 58px repeat(32, minmax(0, 1fr));
+  }
+
+  .bass-chord-header {
+    grid-template-columns: 58px repeat(4, minmax(0, 1fr));
+  }
+}
