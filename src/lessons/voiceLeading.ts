@@ -13,11 +13,11 @@ const lesson = lessonContentSchema.parse({
   number: 11,
   title: "Voicing & voice leading",
   eyebrow: "Composition · Harmony",
-  hero: "Make chord changes move like connected voices, not blocks.",
+  hero: "Make one chord grow into the next instead of jumping there."
   description:
     "Keep the same chord progression but rearrange the notes inside each triad. Learn root position, first and second inversion, then use those inversions to reduce unnecessary movement between chords.",
   overview:
-    "A chord name tells you which pitch classes belong to the harmony, but not how those notes are arranged. Voicing and inversion determine register, bass note, and how smoothly individual voices travel from one chord to the next.",
+    "The chord symbol does not tell you where its notes have to sit. Reorder the same notes and the bass line changes, common tones can stay in place, and the progression can move with much less effort.",
 });
 
 export const voiceLeadingLesson: LessonDefinition = {
@@ -93,7 +93,7 @@ export const voiceLeadingLesson: LessonDefinition = {
         instruction:
           "Keep at least one 1st inversion and make a different chord 2nd inversion. Play the loop and compare how the three bass possibilities change the path through the progression.",
         recognition:
-          "You should now hear three versions of the same harmonic idea: root in the bass, third in the bass, and fifth in the bass.",
+          "Compare the three bass-note choices on the same chord. Which one makes the smallest move from the chord before it?",
         terms: [
           { term: "Second inversion", definition: "A triad with its fifth as the lowest note." },
           { term: "Passing inversion", definition: "An inversion used to connect surrounding harmonies with smoother stepwise motion." },
@@ -124,7 +124,7 @@ export const voiceLeadingLesson: LessonDefinition = {
         instruction:
           "Use the Total voice movement meter as feedback. Try at least four inversion changes across the four chords, including at least two non-root positions, and keep adjusting until the movement is substantially below the all-root baseline.",
         recognition:
-          "Individual notes should feel as though they slide or step into the next chord instead of all three jumping together. The harmony sounds more connected and less block-like.",
+          "Follow one note through the progression. How many voices can stay put or move by a step instead of making a large jump?",
         terms: [
           { term: "Voice leading", definition: "The way individual notes move from one chord to the next." },
           { term: "Common tone", definition: "A pitch shared by adjacent chords that can remain in the same voice." },
