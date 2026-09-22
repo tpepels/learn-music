@@ -87,14 +87,12 @@ class AudioEngine {
         preDelay: 0.015,
         wet: 1,
       }).toDestination();
-      this.mixReverb.volume.value = -6;
-    }
+     }
 
     if (!this.mixDelay) {
       this.mixDelay = new Tone.FeedbackDelay("8n", 0.28).toDestination();
       this.mixDelay.wet.value = 1;
-      this.mixDelay.volume.value = -9;
-    }
+     }
 
     mixerTrackIds.forEach((track) => {
       if (this.mixerFilters[track]) return;
