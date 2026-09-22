@@ -84,9 +84,10 @@ export function MelodyWorkspace({ title }: { title: string }) {
             <span>KEY C MAJOR</span>
             <span>GRID 1/8</span>
             <span>2 BARS</span>
+            <span>YOUR GROOVE</span>
           </div>
         </div>
-        <span className="workspace-hint">One note per column · click an active note again to remove it</span>
+        <span className="workspace-hint">Play loops the melody against the groove you built earlier · one note per column</span>
       </div>
 
       <div className="melody-step-head" aria-hidden="true">
