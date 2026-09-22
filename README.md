@@ -10,11 +10,11 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v1.4.0**.
+Current curriculum release: **v1.5.0**.
 
 ## Current interactive curriculum
 
-There are currently **23 lessons and 92 guided exercises**.
+There are currently **28 lessons and 112 guided exercises**.
 
 1. **Pulse & groove** — four-on-the-floor, backbeat, eighths, syncopation
 2. **Repetition & variation** — related variation, fill, anticipation, turnaround
@@ -39,6 +39,11 @@ There are currently **23 lessons and 92 guided exercises**.
 21. **Sidechain ducking** — kick-to-bass ducking, pumping, transparent release timing, arrangement context
 22. **Stereo width & mono** — pan, mid/side width, centred low end, mono translation
 23. **Reference mixing** — snapshots, A/B comparison, level matching, quiet and mono checks
+24. **Relative minor** — A natural minor, shared C-major pitch collection, tonic gravity, relative-key pivot
+25. **Harmonic minor & leading tone** — raised 7th, G♯→A resolution, augmented second, cadential melody
+26. **Minor-key progressions** — i/iv, V7–i, Andalusian cadence, deceptive minor resolution
+27. **Seventh chords** — maj7/min7/dominant7 colour, ii7–V7–Imaj7, I–vi–ii–V turnaround
+28. **Borrowed chords & modal mixture** — minor iv, ♭VII, IV–iv–I, combined borrowed colour
 
 Every exercise explains:
 
@@ -68,6 +73,10 @@ Current workspaces include:
 - motif-development piano roll
 - melody-over-harmony overlay
 - harmonic-function chord lane
+- A-natural-minor / A-harmonic-minor piano roll with scale-degree map
+- minor-key chord palette with real E7 dominant
+- seventh-chord palette with maj7, min7, dominant7, and half-diminished colour
+- modal-mixture palette with borrowed Fm (iv) and B♭ (♭VII)
 - sixteen-bar macro-form map
 - texture/orchestration register controls
 - parametric EQ display and controls
@@ -92,7 +101,9 @@ Create provides open-ended prompts such as:
 - make one groove feel like two sections;
 - write an eight-bar miniature;
 - create one unmistakable energy peak;
-- improve a production without rewriting the notes.
+- improve a production without rewriting the notes;
+- make the same note collection resolve first to C and then to A;
+- reharmonize a C-major idea with a seventh chord and a borrowed chord.
 
 These prompts intentionally do not use automatic “correct composition” scoring. They hand the learner into the same Studio project.
 
@@ -109,6 +120,11 @@ Current modules:
 - Melody + chords
 - Chords
 - Function
+- A minor
+- Harmonic minor
+- Minor harmony
+- 7th chords
+- Borrowed
 - Voicing
 - Bass
 - Synth
@@ -143,7 +159,8 @@ Current signal paths include:
 - post-fader sends → shared **reverb** and **delay** returns
 - drum hits read real per-step **MIDI velocity** values
 - Tone transport applies the project **swing** amount to eighth-note subdivision timing
-- chord playback supports full seventh chords such as D7 / V/V
+- chord playback supports full seventh chords such as D7 / V/V, E7 / V7 in A minor, Cmaj7, Dm7, G7, Am7, and Bm7♭5
+- chromatic chord playback includes correctly voiced borrowed Fm and B♭ major
 - texture settings transpose bass/chords/melody by octave during playback
 - open chord spacing and melody octave doubling alter the actual rendered voices
 - kick events can create real bass-channel **sidechain ducking** with adjustable amount and release
@@ -183,7 +200,7 @@ The project file contains:
 - tempo
 - patterns
 - melody
-- chord progression
+- chord progression, including minor-key, seventh-chord, and borrowed-chord symbols
 - synth settings
 - arrangement
 - mixer
