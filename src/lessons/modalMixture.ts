@@ -29,7 +29,7 @@ const lesson = lessonContentSchema.parse({
   eyebrow: "Harmony · Chromatic colour",
   hero: "Change one note outside the key and hear how much colour it adds.",
   description:
-    "Bring Fm and B♭ into C major by writing their chromatic notes yourself. Compare the diatonic version, hear what one altered pitch changes, then compose a four-bar borrowed-colour accompaniment.",
+    "Stay with the groove while focusing on C-major harmony again. Bring Fm and B♭ into that harmony by writing the chromatic notes yourself, without the earlier A-minor melody masking the colour.",
   overview:
     "C can remain home while one chord borrows notes from C minor. The effect often comes from a single changed pitch—A to A♭, or B to B♭—so make that note change yourself and listen to the line it creates.",
 });
