@@ -10,12 +10,17 @@ import {
   harmonyPitches,
   midiNoteName,
   minorKeyChordNames,
+  noteDurationLabel,
   romanNumerals,
   seventhChordNames,
   seventhRomanNumerals,
   type ChordName,
 } from "../music/model";
 import { useStudioStore } from "../state/studio";
+import {
+  findHarmonyNoteStart,
+  useNoteLengthDrag,
+} from "./noteLengthDrag";
 
 export type HarmonySequencerMode =
   | "basic"
@@ -97,8 +102,10 @@ export function HarmonySequencerWorkspace({
 }) {
   const progression = useStudioStore((state) => state.chordProgression);
   const harmonySequence = useStudioStore((state) => state.harmonySequence);
+  const harmonyDurations = useStudioStore((state) => state.harmonyDurations);
   const setChordSlot = useStudioStore((state) => state.setChordSlot);
   const toggleHarmonyNote = useStudioStore((state) => state.toggleHarmonyNote);
+  const setHarmonyDuration = useStudioStore((state) => state.setHarmonyDuration);
   const clearHarmonyBar = useStudioStore((state) => state.clearHarmonyBar);
   const currentStep = useStudioStore((state) => state.currentStep);
   const isPlaying = useStudioStore((state) => state.isPlaying);
@@ -118,13 +125,14 @@ export function HarmonySequencerWorkspace({
     }
   };
 
-  const toggleNote = async (step: number, midi: number) => {
-    const active = harmonySequence[step]?.includes(midi) ?? false;
-    toggleHarmonyNote(step, midi);
-    if (!active) {
-      await audioEngine.playPianoNote(midi);
-    }
-  };
+  const { beginNoteDrag, moveNoteDrag } = useNoteLengthDrag({
+    maxSteps: HARMONY_STEPS,
+    addNote: (step, midi) => toggleHarmonyNote(step, midi),
+    removeNote: (step, midi) => toggleHarmonyNote(step, midi),
+    setDuration: (step, midi, duration) =>
+      setHarmonyDuration(step, midi, duration),
+    audition: (midi) => audioEngine.playPianoNote(midi),
+  });
 
   return (
     <div className="harmony-sequencer-card">
@@ -225,7 +233,11 @@ export function HarmonySequencerWorkspace({
           ))}
         </div>
 
-        <div className="harmony-roll" aria-label="Four-bar chord-note sequencer">
+        <div
+          className="harmony-roll"
+          aria-label="Four-bar chord-note sequencer"
+          onPointerMove={moveNoteDrag}
+        >
           {harmonyPitches.map((midi) => (
             <div className="harmony-roll-row" key={midi}>
               <button
@@ -243,6 +255,21 @@ export function HarmonySequencerWorkspace({
                   chord && chordPitchClasses(chord).includes(pitchClass),
                 );
                 const active = harmonySequence[step]?.includes(midi) ?? false;
+                const coveringStart = findHarmonyNoteStart(
+                  harmonySequence,
+                  harmonyDurations,
+                  midi,
+                  step,
+                );
+                const sustained =
+                  coveringStart !== null && coveringStart !== step;
+                const duration =
+                  coveringStart === null
+                    ? 1
+                    : harmonyDurations[coveringStart]?.[midi] ?? 1;
+                const noteEnd =
+                  coveringStart !== null &&
+                  coveringStart + duration - 1 === step;
                 const playhead = isPlaying && currentStep === step;
 
                 return (
@@ -251,22 +278,43 @@ export function HarmonySequencerWorkspace({
                     className={[
                       "harmony-roll-cell",
                       chordTone ? "is-chord-tone" : "is-outside-tone",
-                      active ? "is-active" : "",
+                      active ? "is-active is-note-start" : "",
+                      sustained ? "is-sustain" : "",
+                      noteEnd && duration > 1 ? "is-note-end" : "",
                       playhead ? "is-playhead" : "",
                       step % 8 === 0 ? "is-bar-start" : "",
                       step % 2 === 0 ? "is-beat" : "",
                     ].filter(Boolean).join(" ")}
-                    onClick={() => toggleNote(step, midi)}
+                    data-note-step={step}
+                    data-note-midi={midi}
+                    onPointerDown={(event) =>
+                      beginNoteDrag(event, {
+                        step,
+                        midi,
+                        isStart: active,
+                        coveringStart,
+                      })
+                    }
                     aria-label={
-                      "Toggle " +
                       harmonyNoteName(midi, mode) +
                       " at bar " +
                       (Math.floor(step / 8) + 1) +
                       ", eighth " +
                       ((step % 8) + 1) +
+                      (active || sustained
+                        ? " · length " + noteDurationLabel(duration)
+                        : "") +
                       (chordTone ? " (chord tone)" : " (outside chord)")
                     }
-                    aria-pressed={active}
+                    aria-pressed={active || sustained}
+                    title={
+                      active || sustained
+                        ? harmonyNoteName(midi, mode) +
+                          " · " +
+                          noteDurationLabel(duration) +
+                          " · drag horizontally to resize"
+                        : "Click or drag to draw " + harmonyNoteName(midi, mode)
+                    }
                   >
                     <span />
                   </button>
@@ -280,6 +328,7 @@ export function HarmonySequencerWorkspace({
       <div className="harmony-roll-legend">
         <span><i className="is-chord-tone" /> note belongs to this bar&apos;s chord</span>
         <span><i className="is-active" /> note you wrote</span>
+        <span>Drag horizontally to set length: 1 cell = 1/8 · 2 = 1/4 · 4 = 1/2 · 8 = 1 bar</span>
         <span>Wrong notes are not blocked. Put one in, hear the clash, and remove it if you do not want it.</span>
       </div>
     </div>
