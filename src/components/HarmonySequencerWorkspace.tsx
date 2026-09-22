@@ -85,6 +85,7 @@ export function HarmonySequencerWorkspace() {
         ))}
       </div>
 
+      <div className="harmony-roll-scroll">
       <div className="harmony-roll-header">
         <span />
         {Array.from({ length: HARMONY_STEPS }, (_, step) => (
@@ -149,6 +150,7 @@ export function HarmonySequencerWorkspace() {
             })}
           </div>
         ))}
+      </div>
       </div>
 
       <div className="harmony-roll-legend">
