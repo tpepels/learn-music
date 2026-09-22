@@ -122,7 +122,7 @@ export const voiceLeadingLesson: LessonDefinition = {
         explanation:
           "Voice leading treats the notes inside chords as horizontal lines. Smooth voice leading often keeps common tones still and moves the other voices by small intervals. This can make a progression sound connected even when the chord symbols are unchanged.",
         instruction:
-          "Use at least two inversions and lower the Total voice movement below the all-root baseline. Aim for roughly half the original movement if your progression allows it.",
+          "Use the Total voice movement meter as feedback. Try at least four inversion changes across the four chords, including at least two non-root positions, and keep adjusting until the movement is substantially below the all-root baseline.",
         recognition:
           "Individual notes should feel as though they slide or step into the next chord instead of all three jumping together. The harmony sounds more connected and less block-like.",
         terms: [
@@ -134,11 +134,19 @@ export const voiceLeadingLesson: LessonDefinition = {
         checksLabel: "Connect the voices",
         successLabel: "The same harmony now moves with less unnecessary distance",
       }),
-      evaluate: ({ chordProgression, voicingSettings }) => {
+      evaluate: ({ chordProgression, voicingSettings, experiments }) => {
         const inversions = voicingSettings.inversions as ChordInversion[];
         const current = voiceLeadingDistance(chordProgression, inversions);
         const baseline = voiceLeadingDistance(chordProgression, [0, 0, 0, 0]);
+        const explored = [0, 1, 2, 3].reduce(
+          (total, slot) => total + (experiments["voicing.slot." + slot]?.changes ?? 0),
+          0,
+        );
         return [
+          {
+            label: "You tried at least four inversion changes while searching",
+            complete: explored >= 4,
+          },
           {
             label: "At least two chords use inversions",
             complete: inversions.filter((value) => value !== 0).length >= 2,
