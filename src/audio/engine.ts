@@ -178,7 +178,9 @@ class AudioEngine {
   private pianoSoft: Tone.Sampler | null = null;
   private pianoMedium: Tone.Sampler | null = null;
   private pianoStrong: Tone.Sampler | null = null;
-  private chordPiano: Tone.Sampler | null = null;
+  private chordPianoSoft: Tone.Sampler | null = null;
+  private chordPianoMedium: Tone.Sampler | null = null;
+  private chordPianoStrong: Tone.Sampler | null = null;
   private chordElectric: Tone.PolySynth | null = null;
   private chordPad: Tone.PolySynth | null = null;
   private chordPluck: Tone.PolySynth | null = null;
@@ -389,9 +391,25 @@ class AudioEngine {
     velocity: number,
   ) {
     switch (this.instrumentSettings.chordVoice) {
-      case "piano":
-        this.chordPiano?.triggerAttackRelease(notes, duration, time, velocity);
+      case "piano": {
+        const effectiveVelocity = Math.max(
+          0.12,
+          Math.min(1, velocity * this.pianoTouchMultiplier()),
+        );
+        const sampler =
+          effectiveVelocity < 0.48
+            ? this.chordPianoSoft
+            : effectiveVelocity < 0.8
+              ? this.chordPianoMedium
+              : this.chordPianoStrong;
+        sampler?.triggerAttackRelease(
+          notes,
+          duration,
+          time,
+          effectiveVelocity,
+        );
         return;
+      }
       case "electric":
         this.chordElectric?.triggerAttackRelease(notes, duration, time, velocity);
         return;
@@ -600,20 +618,28 @@ class AudioEngine {
       ).connect(this.inputFor("chords"));
     }
 
-    if (!this.chordPiano) {
-      this.chordPiano = new Tone.Sampler({
-        urls: {
-          A3: "A3.mp3",
-          C4: "C4.mp3",
-          "D#4": "Ds4.mp3",
-          "F#4": "Fs4.mp3",
-          A4: "A4.mp3",
-          C5: "C5.mp3",
-        },
+    if (!this.chordPianoSoft) {
+      this.chordPianoSoft = new Tone.Sampler({
+        urls: softPianoUrls,
         release: 1.2,
-        baseUrl: `${import.meta.env.BASE_URL}samples/piano/`,
       }).connect(this.chordAutomationFilter);
-      this.chordPiano.volume.value = -10;
+      this.chordPianoSoft.volume.value = -9;
+    }
+
+    if (!this.chordPianoMedium) {
+      this.chordPianoMedium = new Tone.Sampler({
+        urls: mediumPianoUrls,
+        release: 1.2,
+      }).connect(this.chordAutomationFilter);
+      this.chordPianoMedium.volume.value = -10;
+    }
+
+    if (!this.chordPianoStrong) {
+      this.chordPianoStrong = new Tone.Sampler({
+        urls: strongPianoUrls,
+        release: 1.1,
+      }).connect(this.chordAutomationFilter);
+      this.chordPianoStrong.volume.value = -11;
     }
 
     if (!this.chordElectric) {
