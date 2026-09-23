@@ -1,3 +1,4 @@
+import { changedRange } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -84,10 +85,11 @@ export const effectsTransitionsLesson: LessonDefinition = {
       evaluate: ({ effectsSettings, mixerSettings, experiments }) => [
         {
           label: "You explored at least 15% of feedback range",
-          complete:
-            experiments["effects.delayFeedback"]?.min !== null &&
-            experiments["effects.delayFeedback"]?.max !== null &&
-            (experiments["effects.delayFeedback"]!.max! - experiments["effects.delayFeedback"]!.min!) >= 0.15,
+          complete: changedRange(
+            experiments,
+            "effects.delayFeedback",
+            0.15,
+          ),
         },
         {
           label: "You pushed melody delay high enough to hear clutter",
