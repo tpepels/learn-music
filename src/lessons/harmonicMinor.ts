@@ -2,6 +2,7 @@ import {
   aHarmonicMinorPitchClasses,
   isAHarmonicMinorMidi,
 } from "../music/model";
+import { changedControl, heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -49,7 +50,9 @@ export const harmonicMinorLesson: LessonDefinition = {
         checksLabel: "Build harmonic minor",
         successLabel: "G♯ has replaced G as the seventh degree",
       }),
-      evaluate: ({ selectedPitchClasses }) => [
+      evaluate: ({ selectedPitchClasses, experiments }) => [
+        { label: "You replaced the natural seventh with the raised seventh", complete: changedControl(experiments, "pitch-class.select", 2) },
+        { label: "You listened to the altered scale colour", complete: heardPlayback(experiments) },
         {
           label: "All seven A-harmonic-minor pitch classes are selected",
           complete: aHarmonicMinorPitchClasses.every((pitch) =>
@@ -87,7 +90,7 @@ export const harmonicMinorLesson: LessonDefinition = {
         checksLabel: "Make G♯ lead to A",
         successLabel: "The raised seventh now resolves like a true leading tone",
       }),
-      evaluate: ({ melody }) => {
+      evaluate: ({ melody, experiments }) => {
         const sounding = notes(melody);
         const resolves = melody.some(
           (note, index) =>
@@ -97,6 +100,8 @@ export const harmonicMinorLesson: LessonDefinition = {
             melody[index + 1]! % 12 === 9,
         );
         return [
+          { label: "You wrote the leading-tone resolution here", complete: changedControl(experiments, "melody.edit", 2) },
+          { label: "You listened to G♯ resolve into A", complete: heardPlayback(experiments) },
           { label: "Every note belongs to A harmonic minor", complete: sounding.every(isAHarmonicMinorMidi) },
           { label: "G♯ resolves directly upward to A", complete: resolves },
         ];
@@ -123,7 +128,9 @@ export const harmonicMinorLesson: LessonDefinition = {
         checksLabel: "Hear the characteristic gap",
         successLabel: "The F–G♯–A colour of harmonic minor is now audible",
       }),
-      evaluate: ({ melody }) => [
+      evaluate: ({ melody, experiments }) => [
+        { label: "You wrote the F–G♯–A gesture in this exercise", complete: changedControl(experiments, "melody.edit", 3) },
+        { label: "You listened to the augmented-second colour", complete: heardPlayback(experiments) },
         {
           label: "F moves directly to G♯",
           complete: melody.some(
@@ -167,7 +174,7 @@ export const harmonicMinorLesson: LessonDefinition = {
         checksLabel: "Use the alteration musically",
         successLabel: "The raised seventh now strengthens a complete A-minor phrase",
       }),
-      evaluate: ({ melody }) => {
+      evaluate: ({ melody, experiments }) => {
         const sounding = notes(melody);
         const secondHalfResolution = melody.slice(8).some(
           (note, index) =>
@@ -177,6 +184,8 @@ export const harmonicMinorLesson: LessonDefinition = {
             melody[index + 9]! % 12 === 9,
         );
         return [
+          { label: "You developed the cadential phrase in this exercise", complete: changedControl(experiments, "melody.edit", 4) },
+          { label: "You listened to the leading tone inside the phrase", complete: heardPlayback(experiments) },
           { label: "At least eight notes are present", complete: sounding.length >= 8 },
           { label: "Every note belongs to A harmonic minor", complete: sounding.every(isAHarmonicMinorMidi) },
           { label: "A G♯→A resolution occurs in the second half", complete: secondHalfResolution },
