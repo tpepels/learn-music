@@ -117,7 +117,7 @@ export function useNoteLengthDrag({
     drag.current = {
       startStep,
       midi,
-      removeOnTap: isStart,
+      removeOnTap: isStart || coveringStart !== null,
       moved: false,
       lastDuration: Math.max(1, step - startStep + 1),
     };
