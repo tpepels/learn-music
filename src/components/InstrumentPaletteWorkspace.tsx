@@ -73,9 +73,12 @@ export function InstrumentPaletteWorkspace() {
       <div className="instrument-groups">
         <section className="instrument-group">
           <header>
-            <span className="section-label">Melody piano</span>
-            <strong>Touch changes the recording, not only the volume</strong>
-            <p>These are three real velocity layers from the same Salamander grand piano.</p>
+            <span className="section-label">Acoustic piano</span>
+            <strong>One touch setting follows every acoustic-piano part</strong>
+            <p>
+              The selected Salamander velocity layer shapes melody and, when CHORD VOICE is PIANO,
+              harmony too.
+            </p>
           </header>
           <div className="instrument-choice-grid">
             {pianoTouches.map((choice) => (
