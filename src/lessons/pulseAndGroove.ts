@@ -67,6 +67,7 @@ export const pulseAndGrooveLesson: LessonDefinition = {
       }),
       evaluate: ({ A, experiments }) => [
         { label: "You listened to the backbeat in context", complete: (experiments["transport.play"]?.changes ?? 0) >= 1 },
+        { label: "You added, removed, and restored the backbeat while listening", complete: (experiments["drums.A.snare.edit"]?.changes ?? 0) >= 4 },
         { label: "Four-on-the-floor remains intact", complete: [0, 4, 8, 12].every((step) => A.kick[step]) },
         { label: "Snare on beat 2", complete: A.snare[4] },
         { label: "Snare on beat 4", complete: A.snare[12] },
@@ -94,6 +95,7 @@ export const pulseAndGrooveLesson: LessonDefinition = {
       }),
       evaluate: ({ A, experiments }) => [
         { label: "You listened to the subdivision", complete: (experiments["transport.play"]?.changes ?? 0) >= 1 },
+        { label: "You built the eighth-note hat line in this exercise", complete: (experiments["drums.A.hat.edit"]?.changes ?? 0) >= 8 },
         { label: "Backbeat remains on 2 and 4", complete: A.snare[4] && A.snare[12] },
         { label: "Eight evenly spaced hi-hats", complete: [0, 2, 4, 6, 8, 10, 12, 14].every((step) => A.hat[step]) },
       ],
