@@ -7,6 +7,7 @@ import {
   initialAccompanimentPattern,
   initialArrangement,
   initialAutomationSettings,
+  initialBassDurations,
   initialBassSequence,
   initialChordProgression,
   initialDynamicsSettings,
@@ -14,8 +15,10 @@ import {
   initialEqSettings,
   initialFormSettings,
   initialGrooveFeelSettings,
+  initialHarmonyDurations,
   initialHarmonySequence,
   initialMelody,
+  initialMelodyDurations,
   initialMixerSettings,
   initialPattern,
   initialReferenceMixSettings,
@@ -63,12 +66,15 @@ import type { LessonContext } from "./types";
 
 function context(overrides: Partial<LessonContext> = {}): LessonContext {
   return {
+    bpm: 104,
     A: clonePattern(initialPattern),
     B: clonePattern(initialPattern),
     selectedPitchClasses: [],
     melody: [...initialMelody],
+    melodyDurations: [...initialMelodyDurations],
     chordProgression: [...initialChordProgression],
     harmonySequence: initialHarmonySequence.map((notes) => [...notes]),
+    harmonyDurations: initialHarmonyDurations.map((entry) => ({ ...entry })),
     accompanimentPattern: initialAccompanimentPattern,
     synthSettings: { ...initialSynthSettings },
     arrangement: cloneArrangement(initialArrangement),
@@ -84,6 +90,7 @@ function context(overrides: Partial<LessonContext> = {}): LessonContext {
     projectMilestones: { exported: false },
     voicingSettings: { inversions: [...initialVoicingSettings.inversions] },
     bassSequence: [...initialBassSequence],
+    bassDurations: [...initialBassDurations],
     grooveFeelSettings: {
       swing: initialGrooveFeelSettings.swing,
       velocities: {
