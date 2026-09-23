@@ -11,8 +11,10 @@ import type {
   ExerciseExperiments,
   GrooveFeelSettings,
   FormSettings,
+  HarmonyDurations,
   HarmonySequence,
   MelodySequence,
+  NoteDurationLane,
   MixerSettings,
   ReferenceMixSettings,
   SaturationSettings,
@@ -87,12 +89,15 @@ export const lessonContentSchema = z.object({
 export type LessonCheck = { label: string; complete: boolean };
 
 export type LessonContext = {
+  bpm: number;
   A: StepPattern;
   B: StepPattern;
   selectedPitchClasses: string[];
   melody: MelodySequence;
+  melodyDurations: NoteDurationLane;
   chordProgression: ChordProgression;
   harmonySequence: HarmonySequence;
+  harmonyDurations: HarmonyDurations;
   accompanimentPattern: AccompanimentPattern;
   synthSettings: SynthSettings;
   arrangement: Arrangement;
@@ -103,6 +108,7 @@ export type LessonContext = {
   projectMilestones: { exported: boolean };
   voicingSettings: VoicingSettings;
   bassSequence: BassSequence;
+  bassDurations: NoteDurationLane;
   grooveFeelSettings: GrooveFeelSettings;
   formSettings: FormSettings;
   textureSettings: TextureSettings;
