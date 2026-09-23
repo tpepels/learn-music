@@ -198,7 +198,7 @@ class AudioEngine {
   private drumCompressor: Tone.Compressor | null = null;
   private chordAutomationFilter: Tone.Filter | null = null;
   private soundFilter: Tone.Filter | null = null;
-  private soundSynth: Tone.Synth | null = null;
+  private soundSynth: Tone.PolySynth | null = null;
 
   private mixerFilters: Partial<Record<MixerTrackId, Tone.Filter>> = {};
   private mixerEqFilters: Partial<Record<MixerTrackId, Tone.Filter>> = {};
@@ -781,7 +781,7 @@ class AudioEngine {
     }
 
     if (!this.soundSynth) {
-      this.soundSynth = new Tone.Synth({
+      this.soundSynth = new Tone.PolySynth(Tone.Synth, {
         oscillator: { type: this.synthSettings.waveform },
         envelope: {
           attack: this.synthSettings.attack,
@@ -820,9 +820,15 @@ class AudioEngine {
     }
 
     if (this.soundSynth) {
-      this.soundSynth.oscillator.type = this.synthSettings.waveform;
-      this.soundSynth.envelope.attack = this.synthSettings.attack;
-      this.soundSynth.envelope.release = this.synthSettings.release;
+      this.soundSynth.set({
+        oscillator: { type: this.synthSettings.waveform },
+        envelope: {
+          attack: this.synthSettings.attack,
+          decay: 0.2,
+          sustain: 0.6,
+          release: this.synthSettings.release,
+        },
+      });
     }
   }
 
@@ -1569,20 +1575,18 @@ class AudioEngine {
     this.ensureVoices(["synth"]);
     this.applySynthSettings();
 
-    const projectEvents = this.melody
-      .map((midi, step) => ({ midi, step }))
-      .filter(
-        (event): event is { midi: number; step: number } =>
-          event.midi !== null,
-      );
+    const projectEvents = getSynthPhraseEvents(
+      this.melody,
+      this.melodyDurations,
+    );
     const now = Tone.now() + 0.05;
 
     if (projectEvents.length >= 4) {
       const eighth = Tone.Time("8n").toSeconds();
-      projectEvents.slice(0, 8).forEach(({ midi, step }) => {
+      projectEvents.forEach(({ midi, step, durationSteps }) => {
         this.soundSynth?.triggerAttackRelease(
           Tone.Frequency(midi, "midi").toNote(),
-          this.noteDuration(this.melodyDurations[step] ?? 1),
+          this.noteDuration(durationSteps),
           now + step * eighth,
           0.62,
         );
