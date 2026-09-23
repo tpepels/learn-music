@@ -1034,9 +1034,9 @@ describe("lesson 20: saturation and distortion", () => {
     const ctx = context({
       saturationSettings,
       experiments: {
-        "saturation.bass.wet": experiment(5, 0, 0.45),
+        "saturation.bass.wet": experiment(5, 0, 0.65),
         "saturation.drums.wet": experiment(5, 0.1, 0.75),
-        "saturation.chords.wet": experiment(5, 0, 0.35),
+        "saturation.chords.wet": experiment(5, 0, 0.5),
       },
     });
     for (const exercise of saturationLesson.exercises) {
@@ -1135,6 +1135,7 @@ describe("lesson 22: stereo width and mono", () => {
       experiments: {
         "mixer.chords.pan": experiment(6, -0.55, 0.55),
         "stereo.bass.width": experiment(4, 0.4, 0.9),
+        "stereo.mono": experiment(2, null, null, ["true", "false"]),
       },
     });
 
@@ -1199,6 +1200,12 @@ describe("lesson 23: reference mixing", () => {
         monoAudition: false,
         monoChecked: true,
       },
+      experiments: {
+        "reference.capture": experiment(1, null, null, ["true"]),
+        "reference.compare": experiment(4, null, null, ["1", "2", "3", "4"]),
+        "reference.quiet": experiment(1, null, null, ["true"]),
+        "stereo.mono": experiment(2, null, null, ["true", "false"]),
+      },
     });
 
     for (const exercise of referenceMixingLesson.exercises) {
@@ -1217,6 +1224,7 @@ describe("lesson 24: relative minor", () => {
     const ctx = context({
       selectedPitchClasses: ["A", "B", "C", "D", "E", "F", "G"],
       melody,
+      experiments: { "melody.edit": experiment(4) },
     });
 
     expect(
@@ -1236,7 +1244,9 @@ describe("lesson 24: relative minor", () => {
       57, 60, 62, 64, null, 67, 64, 60,
       57, 59, 60, 62, 65, 67, 60, 57,
     ];
-    const checks = relativeMinorLesson.exercises[2].evaluate(context({ melody }));
+    const checks = relativeMinorLesson.exercises[2].evaluate(
+      context({ melody, experiments: { "melody.edit": experiment(2) } }),
+    );
     expect(checks.every((check) => check.complete)).toBe(true);
   });
 
@@ -1245,7 +1255,9 @@ describe("lesson 24: relative minor", () => {
       57, 60, 62, 65, 67, 64, 60, 57,
       59, 60, 65, 67, 64, 62, 60, 57,
     ];
-    const checks = relativeMinorLesson.exercises[3].evaluate(context({ melody }));
+    const checks = relativeMinorLesson.exercises[3].evaluate(
+      context({ melody, experiments: { "melody.edit": experiment(3) } }),
+    );
     expect(checks.every((check) => check.complete)).toBe(true);
   });
 });
@@ -1254,6 +1266,7 @@ describe("lesson 25: harmonic minor and leading tone", () => {
   it("recognises the A harmonic minor pitch collection", () => {
     const ctx = context({
       selectedPitchClasses: ["A", "B", "C", "D", "E", "F", "G♯"],
+      experiments: { "pitch-class.select": experiment(2) },
     });
     expect(
       harmonicMinorLesson.exercises[0]
@@ -1267,7 +1280,10 @@ describe("lesson 25: harmonic minor and leading tone", () => {
       57, 60, 62, 64, 65, 68, 69, null,
       64, 65, 68, 69, 60, 64, 68, 69,
     ];
-    const ctx = context({ melody });
+    const ctx = context({
+      melody,
+      experiments: { "melody.edit": experiment(6) },
+    });
 
     for (const exercise of harmonicMinorLesson.exercises.slice(1)) {
       expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
