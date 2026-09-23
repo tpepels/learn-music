@@ -625,7 +625,7 @@ describe("lesson 9: creative effects and transitions", () => {
   });
 });
 
-describe("lesson 10: final project", () => {
+describe("lesson 10: first track checkpoint", () => {
   it("accepts a complete project and exported snapshot", () => {
     const A = completedGroove();
     const arrangement = [
@@ -788,9 +788,6 @@ describe("lesson 13: velocity, accents, and swing", () => {
         "groove.kick.velocity": experiment(4),
         "groove.hat.velocity": experiment(8),
         "groove.snare.velocity": experiment(2),
-        "groove.kick.velocity": experiment(4),
-        "groove.hat.velocity": experiment(8),
-        "groove.snare.velocity": experiment(1),
         "groove.swing": experiment(4, 0, 0.22, ["0", "0.22"]),
       },
     });
