@@ -632,6 +632,8 @@ class AudioEngine {
           G1: "G1.mp3",
           "C#2": "Cs2.mp3",
           G2: "G2.mp3",
+          "C#3": "Cs3.mp3",
+          G3: "G3.mp3",
         },
         baseUrl: `${import.meta.env.BASE_URL}samples/bass/`,
         release: 0.5,
