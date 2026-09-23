@@ -1,9 +1,7 @@
-name: Validate v2.1.4 note-duration overlap rules
+name: Validate branch manually
 
 on:
   workflow_dispatch:
-  push:
-    branches: ["feature/note-duration-overlap-rules-v214"]
 
 permissions:
   contents: read
