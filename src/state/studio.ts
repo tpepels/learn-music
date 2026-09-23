@@ -374,7 +374,15 @@ export const useStudioStore = create<StudioState>()(
         })),
 
       setActivePattern: (activePattern) =>
-        set({ activePattern, currentStep: 0 }),
+        set((state) => ({
+          activePattern,
+          currentStep: 0,
+          learningExperiments: recordExperimentValue(
+            state,
+            "pattern.select",
+            activePattern,
+          ),
+        })),
 
       toggleStep: (track, step) =>
         set((state) => {
@@ -423,11 +431,19 @@ export const useStudioStore = create<StudioState>()(
         }),
 
       togglePitchClass: (pitchClass) =>
-        set((state) => ({
-          selectedPitchClasses: state.selectedPitchClasses.includes(pitchClass)
+        set((state) => {
+          const selectedPitchClasses = state.selectedPitchClasses.includes(pitchClass)
             ? state.selectedPitchClasses.filter((note) => note !== pitchClass)
-            : [...state.selectedPitchClasses, pitchClass],
-        })),
+            : [...state.selectedPitchClasses, pitchClass];
+          return {
+            selectedPitchClasses,
+            learningExperiments: recordExperimentValue(
+              state,
+              "pitch-class.select",
+              pitchClass + ":" + selectedPitchClasses.includes(pitchClass),
+            ),
+          };
+        }),
 
       clearPitchClasses: () => set({ selectedPitchClasses: [] }),
 
@@ -779,7 +795,15 @@ export const useStudioStore = create<StudioState>()(
             );
           }
 
-          return { bassSequence, bassDurations };
+          return {
+            bassSequence,
+            bassDurations,
+            learningExperiments: recordExperimentValue(
+              state,
+              "bass.edit",
+              step + ":" + String(bassSequence[step]),
+            ),
+          };
         }),
 
       setBassDuration: (step, duration) =>
@@ -792,7 +816,14 @@ export const useStudioStore = create<StudioState>()(
               Math.round(duration),
             ),
           );
-          return { bassDurations };
+          return {
+            bassDurations,
+            learningExperiments: recordExperimentValue(
+              state,
+              "bass.duration",
+              step + ":" + bassDurations[step],
+            ),
+          };
         }),
 
       clearBass: () =>
@@ -1028,6 +1059,11 @@ export const useStudioStore = create<StudioState>()(
             monoAudition: enabled,
             monoChecked: state.stereoSettings.monoChecked || enabled,
           },
+          learningExperiments: recordExperimentValue(
+            state,
+            "stereo.mono",
+            enabled,
+          ),
         })),
 
       resetStereo: () =>
@@ -1051,15 +1087,28 @@ export const useStudioStore = create<StudioState>()(
               stereoWidths: { ...state.stereoSettings.widths },
             },
           },
+          learningExperiments: recordExperimentValue(
+            state,
+            "reference.capture",
+            true,
+          ),
         })),
 
       setReferenceTrim: (trimDb) =>
-        set((state) => ({
-          referenceMixSettings: {
-            ...state.referenceMixSettings,
-            trimDb: Math.max(-12, Math.min(12, trimDb)),
-          },
-        })),
+        set((state) => {
+          const nextTrimDb = Math.max(-12, Math.min(12, trimDb));
+          return {
+            referenceMixSettings: {
+              ...state.referenceMixSettings,
+              trimDb: nextTrimDb,
+            },
+            learningExperiments: recordExperimentValue(
+              state,
+              "reference.trim",
+              nextTrimDb,
+            ),
+          };
+        }),
 
       registerReferenceComparison: () =>
         set((state) => ({
@@ -1067,6 +1116,11 @@ export const useStudioStore = create<StudioState>()(
             ...state.referenceMixSettings,
             comparisons: state.referenceMixSettings.comparisons + 1,
           },
+          learningExperiments: recordExperimentValue(
+            state,
+            "reference.compare",
+            state.referenceMixSettings.comparisons + 1,
+          ),
         })),
 
       setReferenceQuietChecked: (quietChecked) =>
@@ -1075,6 +1129,11 @@ export const useStudioStore = create<StudioState>()(
             ...state.referenceMixSettings,
             quietChecked,
           },
+          learningExperiments: recordExperimentValue(
+            state,
+            "reference.quiet",
+            quietChecked,
+          ),
         })),
 
       resetReferenceMix: () =>
@@ -1086,7 +1145,20 @@ export const useStudioStore = create<StudioState>()(
         }),
 
       setActiveExerciseId: (activeExerciseId) =>
-        set({ activeExerciseId }),
+        set((state) => ({
+          activeExerciseId,
+          learningExperiments:
+            state.isPlaying && activeExerciseId !== state.activeExerciseId
+              ? recordExperimentValue(
+                  {
+                    activeExerciseId,
+                    learningExperiments: state.learningExperiments,
+                  },
+                  "transport.play",
+                  "continued",
+                )
+              : state.learningExperiments,
+        })),
 
       recordLearningExperiment: (key, value = true) =>
         set((state) => ({
