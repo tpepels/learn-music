@@ -10,7 +10,9 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v2.4.2**.
+Current curriculum release: **v2.4.3**.
+
+v2.4.3 adds **non-destructive lesson audio focus**. In Learn mode, writing/listening lessons temporarily prioritise the musical layer currently being learned: drum-focused lessons foreground drums, melody lessons foreground melody, harmony lessons foreground chords, and bass lessons foreground bass. A focused track is brought to a useful monitoring floor while context tracks are capped lower, so mixer choices carried forward from older exercises cannot mask the new material. The learner's actual mixer values are not changed or exported, and arrangement/mixer/EQ/effects/reference/Studio/Create playback stays neutral so production decisions are heard at their real balance.
 
 v2.4.2 repaces the **actual lesson screen** after the concept-depth work. The instrument remains the dominant surface; immediately below it the learner now sees only a short exercise-specific learning headline, one concept explanation, and one listening cue. The underlying model, why/when guidance, PLAY/LAB-to-DAW mapping, vocabulary, tools, conceptual pitfall, visual, and glossary remain available under a single **Go deeper** disclosure instead of all competing for attention at once. The three DAW transfer checkpoints are also compact disclosures: they remain visible as milestones without automatically expanding a grid of reference material into the exercise flow. On narrower screens the optional deep-reading layout becomes one column rather than compressing dense prose into two narrow columns.
 
