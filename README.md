@@ -10,7 +10,9 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v2.4.5**.
+Current curriculum release: **v2.4.6**.
+
+v2.4.6 retires the custom PLAY / LAB service worker. The previous worker kept a permanent `play-lab-v1` cache across releases, which could mix a newly deployed HTML shell with stale or unavailable hashed JavaScript assets and leave only the styled background after refresh. Production startup now unregisters PLAY / LAB service workers and removes `play-lab-*` caches, while the legacy `sw.js` self-retires and clears its caches for existing installations. GitHub Pages/Vite's normal fingerprinted asset caching remains in use.
 
 v2.4.5 fixes lesson 5 synth auditioning. The sound-design instrument is now polyphonic, so long release tails can overlap following melody notes instead of being cut off by a single stolen voice. **Play current melody** now schedules the entire written melody rather than truncating after eight note events, preserves each note's written duration, and uses the learner's melody whenever any project notes exist; the fallback demo phrase is used only for an empty melody.
 
