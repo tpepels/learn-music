@@ -14,6 +14,7 @@ import { EffectsWorkspace } from "./components/EffectsWorkspace";
 import { EqWorkspace } from "./components/EqWorkspace";
 import { FinalProjectWorkspace } from "./components/FinalProjectWorkspace";
 import { GrooveFeelWorkspace } from "./components/GrooveFeelWorkspace";
+import { InstrumentPaletteWorkspace } from "./components/InstrumentPaletteWorkspace";
 import { HarmonySequencerWorkspace } from "./components/HarmonySequencerWorkspace";
 import { MelodyHarmonyWorkspace } from "./components/MelodyHarmonyWorkspace";
 import { MotifWorkspace } from "./components/MotifWorkspace";
@@ -106,7 +107,8 @@ async function startWorkspacePlayback(
     workspace === "saturation" ||
     workspace === "sidechain" ||
     workspace === "stereo" ||
-    workspace === "reference"
+    workspace === "reference" ||
+    workspace === "instrument-palette"
   ) {
     await audioEngine.playArrangement(bpm, onStep);
     return;
@@ -345,6 +347,8 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
       return <HarmonySequencerWorkspace mode="sevenths" />;
     case "borrowed-harmony":
       return <HarmonySequencerWorkspace mode="borrowed" />;
+    case "instrument-palette":
+      return <InstrumentPaletteWorkspace />;
   }
 }
 
@@ -377,6 +381,11 @@ const lessonGlyphs: Record<string, string> = {
   "harmony.minor-cadences": "V7",
   "harmony.seventh-chords": "7",
   "harmony.modal-mixture": "⇆",
+  "style.house": "H",
+  "style.funk": "F",
+  "style.hip-hop": "HH",
+  "style.ambient": "∞",
+  "style.pop": "★",
 };
 
 function App() {
@@ -406,6 +415,7 @@ function App() {
   const grooveFeelSettings = useStudioStore((state) => state.grooveFeelSettings);
   const formSettings = useStudioStore((state) => state.formSettings);
   const textureSettings = useStudioStore((state) => state.textureSettings);
+  const instrumentSettings = useStudioStore((state) => state.instrumentSettings);
   const eqSettings = useStudioStore((state) => state.eqSettings);
   const saturationSettings = useStudioStore((state) => state.saturationSettings);
   const sidechainSettings = useStudioStore((state) => state.sidechainSettings);
@@ -441,6 +451,7 @@ function App() {
   const resetGrooveFeel = useStudioStore((state) => state.resetGrooveFeel);
   const resetFormSettings = useStudioStore((state) => state.resetFormSettings);
   const resetTextureSettings = useStudioStore((state) => state.resetTextureSettings);
+  const resetInstrumentSettings = useStudioStore((state) => state.resetInstrumentSettings);
   const resetEq = useStudioStore((state) => state.resetEq);
   const resetSaturation = useStudioStore((state) => state.resetSaturation);
   const resetSidechain = useStudioStore((state) => state.resetSidechain);
@@ -486,6 +497,7 @@ function App() {
         grooveFeelSettings,
         formSettings,
         textureSettings,
+        instrumentSettings,
         eqSettings,
         saturationSettings,
         sidechainSettings,
@@ -515,6 +527,7 @@ function App() {
       grooveFeelSettings,
       formSettings,
       textureSettings,
+      instrumentSettings,
       eqSettings,
       saturationSettings,
       sidechainSettings,
@@ -616,6 +629,10 @@ function App() {
   }, [textureSettings]);
 
   useEffect(() => {
+    audioEngine.setInstrumentSettings(instrumentSettings);
+  }, [instrumentSettings]);
+
+  useEffect(() => {
     audioEngine.setEqSettings(eqSettings);
   }, [eqSettings]);
 
@@ -638,8 +655,10 @@ function App() {
         B: patterns.B,
         selectedPitchClasses,
         melody,
+        melodyDurations,
         chordProgression,
         harmonySequence,
+        harmonyDurations,
         accompanimentPattern,
         synthSettings,
         arrangement,
@@ -650,9 +669,11 @@ function App() {
         projectMilestones,
         voicingSettings,
         bassSequence,
+        bassDurations,
         grooveFeelSettings,
         formSettings,
         textureSettings,
+        instrumentSettings,
         eqSettings,
         saturationSettings,
         sidechainSettings,
@@ -665,8 +686,10 @@ function App() {
       patterns,
       selectedPitchClasses,
       melody,
+      melodyDurations,
       chordProgression,
       harmonySequence,
+      harmonyDurations,
       accompanimentPattern,
       synthSettings,
       arrangement,
@@ -677,9 +700,11 @@ function App() {
       projectMilestones,
       voicingSettings,
       bassSequence,
+      bassDurations,
       grooveFeelSettings,
       formSettings,
       textureSettings,
+      instrumentSettings,
       eqSettings,
       saturationSettings,
       sidechainSettings,
@@ -840,6 +865,9 @@ function App() {
       case "borrowed-harmony":
         clearChords();
         clearHarmonySequence();
+        break;
+      case "instrument-palette":
+        resetInstrumentSettings();
         break;
     }
   };
