@@ -1,9 +1,6 @@
 name: Validate branch manually
 
 on:
-  push:
-    branches:
-      - audit/pedagogy-pass-v230
   workflow_dispatch:
 
 permissions:
