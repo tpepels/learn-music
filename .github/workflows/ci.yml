@@ -1,9 +1,7 @@
-name: Validate v2.2.1 shared piano touch
+name: Validate branch manually
 
 on:
   workflow_dispatch:
-  push:
-    branches: ["hotfix/shared-piano-touch-v2201"]
 
 permissions:
   contents: read
