@@ -77,7 +77,7 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
         title: "Use passing tones",
         learn: "Connect stable notes with stepwise non-chord tones rather than jumping between chord tones only.",
         explanation:
-          "A passing tone fills the space between two more stable notes by step. It creates motion because it is heard as part of a line rather than as a destination.",
+          "A passing tone connects two more stable notes by step, so its meaning comes from the notes immediately before and after it. Over a chord it may briefly be a non-chord tone, but the ear accepts that tension because the melodic line makes its direction clear. This is an important distinction: a note can be harmonically unstable at one instant while still being completely convincing as part of a phrase.",
         instruction:
           "Create at least two in-key passing tones inside chord regions. A passing tone should be a non-chord note between two nearby notes, moving in the same direction.",
         recognition:
@@ -193,7 +193,7 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
         title: "Create and resolve tension",
         learn: "Use non-chord notes deliberately because of where they go next.",
         explanation:
-          "Tension is useful when it has direction. A non-chord note can sound expressive rather than wrong when the listener hears it resolve into a nearby chord tone.",
+          "Tension is the temporary instability created when a melodic note does not fully agree with the harmony underneath it. Resolution gives that instability direction by moving to a more stable chord tone, often by step. The same pitch can therefore feel expressive, harsh, suspended, or accidental depending on what precedes it, how long it lasts, and where it resolves.",
         instruction:
           "Create at least two places where a non-chord note resolves on the very next step to a chord tone. End the phrase on a chord tone of the final active chord.",
         recognition:
