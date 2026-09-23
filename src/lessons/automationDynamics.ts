@@ -1,3 +1,4 @@
+import { changedControl, heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -45,7 +46,9 @@ export const automationDynamicsLesson: LessonDefinition = {
         checksLabel: "Draw movement",
         successLabel: "The melody now moves from background to foreground",
       }),
-      evaluate: ({ automationSettings }) => [
+      evaluate: ({ automationSettings, experiments }) => [
+        { label: "You shaped several volume breakpoints in this exercise", complete: changedControl(experiments, "automation.melodyVolumeDb", 4) },
+        { label: "You listened through the volume ride", complete: heardPlayback(experiments) },
         {
           label: "The melody finishes louder than it begins",
           complete: automationSettings.melodyVolumeDb[7] > automationSettings.melodyVolumeDb[0],
@@ -81,7 +84,9 @@ export const automationDynamicsLesson: LessonDefinition = {
         checksLabel: "Open the filter",
         successLabel: "The chords now brighten across the arrangement",
       }),
-      evaluate: ({ automationSettings }) => [
+      evaluate: ({ automationSettings, experiments }) => [
+        { label: "You shaped several filter breakpoints in this exercise", complete: changedControl(experiments, "automation.chordFilterHz", 4) },
+        { label: "You listened through the filter opening", complete: heardPlayback(experiments) },
         {
           label: "The filter finishes at least 6000 Hz more open than it starts",
           complete: automationSettings.chordFilterHz[7] - automationSettings.chordFilterHz[0] >= 6000,
@@ -120,6 +125,7 @@ export const automationDynamicsLesson: LessonDefinition = {
         successLabel: "The drum bus now has controlled peak compression",
       }),
       evaluate: ({ dynamicsSettings, experiments }) => [
+        { label: "You listened to the compressor comparison", complete: heardPlayback(experiments) },
         {
           label: "You compared a near-1:1 ratio with real compression",
           complete: (experiments["dynamics.ratio"]?.min ?? Infinity) <= 1.2 && (experiments["dynamics.ratio"]?.max ?? 0) >= 3,
@@ -166,6 +172,7 @@ export const automationDynamicsLesson: LessonDefinition = {
         successLabel: "Automation and dynamics now support the same energy arc",
       }),
       evaluate: ({ automationSettings, dynamicsSettings, experiments }) => [
+        { label: "You listened through the final build with the slower attack", complete: heardPlayback(experiments) },
         {
           label: "Melody still rises across the section",
           complete:
