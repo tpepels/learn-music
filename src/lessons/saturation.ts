@@ -1,3 +1,4 @@
+import { heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -40,7 +41,14 @@ export const saturationLesson: LessonDefinition = {
         checksLabel: "Add useful harmonics",
         successLabel: "The bass now has controlled harmonic density",
       }),
-      evaluate: ({ saturationSettings }) => [
+      evaluate: ({ saturationSettings, experiments }) => [
+        {
+          label: "You compared nearly dry with clearly saturated bass",
+          complete:
+            (experiments["saturation.bass.wet"]?.min ?? Infinity) <= 0.05 &&
+            (experiments["saturation.bass.wet"]?.max ?? 0) >= 0.6,
+        },
+        { label: "You listened while choosing the final blend", complete: heardPlayback(experiments) },
         {
           label: "Bass drive is moderate",
           complete:
@@ -76,7 +84,12 @@ export const saturationLesson: LessonDefinition = {
         checksLabel: "Keep clean attack plus dirty body",
         successLabel: "The drum bus now uses parallel distortion rather than all-or-nothing fuzz",
       }),
-      evaluate: ({ saturationSettings }) => [
+      evaluate: ({ saturationSettings, experiments }) => [
+        {
+          label: "You pushed the drum distortion past the final blend first",
+          complete: (experiments["saturation.drums.wet"]?.max ?? 0) >= 0.6,
+        },
+        { label: "You listened for clean attack returning", complete: heardPlayback(experiments) },
         {
           label: "Drum drive is clearly strong",
           complete:
@@ -111,7 +124,14 @@ export const saturationLesson: LessonDefinition = {
         checksLabel: "Keep the effect understated",
         successLabel: "The chord colour is present without becoming obvious distortion",
       }),
-      evaluate: ({ saturationSettings }) => [
+      evaluate: ({ saturationSettings, experiments }) => [
+        {
+          label: "You compared near-dry and clearly coloured harmony",
+          complete:
+            (experiments["saturation.chords.wet"]?.min ?? Infinity) <= 0.05 &&
+            (experiments["saturation.chords.wet"]?.max ?? 0) >= 0.45,
+        },
+        { label: "You listened before backing the colour off", complete: heardPlayback(experiments) },
         {
           label: "Chord drive stays moderate",
           complete:
@@ -146,11 +166,19 @@ export const saturationLesson: LessonDefinition = {
         checksLabel: "Use distortion selectively",
         successLabel: "Different layers now have deliberately different harmonic colour",
       }),
-      evaluate: ({ saturationSettings }) => {
+      evaluate: ({ saturationSettings, experiments }) => {
         const active = Object.values(saturationSettings).filter(
           (settings) => settings.wet >= 0.08 && settings.drive >= 0.08,
         ).length;
+        const touchedTracks = new Set(
+          Object.keys(experiments)
+            .filter((key) => key.startsWith("saturation."))
+            .map((key) => key.split(".")[1]),
+        );
+
         return [
+          { label: "You compared saturation roles across at least two channels", complete: touchedTracks.size >= 2 },
+          { label: "You listened to the full arrangement while deciding", complete: heardPlayback(experiments) },
           {
             label: "At least two channels use saturation",
             complete: active >= 2,
