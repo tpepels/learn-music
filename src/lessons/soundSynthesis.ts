@@ -1,3 +1,4 @@
+import { changedRange } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -72,10 +73,9 @@ export const soundSynthesisLesson: LessonDefinition = {
         successLabel: "The sound is deliberately darker",
       }),
       evaluate: ({ synthSettings, experiments }) => {
-        const sweep = experiments["synth.cutoff"];
         return [
           { label: "Sawtooth remains selected", complete: synthSettings.waveform === "sawtooth" },
-          { label: "You swept at least 5000 Hz of filter range", complete: sweep?.min !== null && sweep?.max !== null && (sweep!.max! - sweep!.min!) >= 5000 },
+          { label: "You swept at least 5000 Hz of filter range", complete: changedRange(experiments, "synth.cutoff", 5000) },
           { label: "You auditioned notes while shaping the filter", complete: (experiments["synth.note-audition"]?.changes ?? 0) >= 2 },
           { label: "Final cutoff is deliberately dark", complete: synthSettings.cutoff >= 800 && synthSettings.cutoff <= 2500 },
         ];
