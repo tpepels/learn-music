@@ -31,7 +31,7 @@ export const automationDynamicsLesson: LessonDefinition = {
         title: "Draw a volume ride",
         learn: "Write fader movement into the arrangement instead of setting one fixed level.",
         explanation:
-          "Volume automation lets a channel become louder or quieter at specific moments while the underlying notes stay the same. Producers use it to bring a melody forward for an important phrase, tuck it back under a vocal, create fades, or shape energy more precisely than a static fader can.",
+          "Volume automation changes a part's level over time while the notes stay the same. A rise can pull a melody toward the foreground, a dip can make room for another part, and a fade can change the energy without rewriting the phrase.",
         instruction:
           "Draw a rising Melody volume curve across the eight bars. Use at least four different values and span at least 8 dB from the quietest to the loudest point. Play the whole section and shape the curve until the melody seems to emerge rather than simply switch on.",
         recognition:
@@ -70,7 +70,7 @@ export const automationDynamicsLesson: LessonDefinition = {
         title: "Create a filter sweep",
         learn: "Automate timbre so a section gradually opens rather than changing all at once.",
         explanation:
-          "A filter sweep automates cutoff frequency over time. Closing a low-pass filter removes upper harmonics and makes a sound feel darker or farther away; opening it restores brightness. This is a standard way to build anticipation before a chorus, drop, or climax.",
+          "A filter sweep moves cutoff frequency over time. Closing a low-pass filter removes upper harmonics and makes a sound darker or farther away; opening it restores brightness, so the same chord part can gain energy as a section approaches its arrival.",
         instruction:
           "Draw a chord-filter opening across the section. Make the final bar at least 6000 Hz brighter than the opening and use at least four different cutoff values. Try a non-smooth point once, hear the sudden jump, then reshape the curve into the motion you want.",
         recognition:
@@ -155,7 +155,7 @@ export const automationDynamicsLesson: LessonDefinition = {
         title: "Preserve punch and shape the section",
         learn: "Use compressor timing and automation together as arrangement tools.",
         explanation:
-          "The transient is the very beginning of a sound. On drums, a slightly slower compressor attack can let that initial hit through before compression acts on the body, preserving punch. Producers combine this kind of dynamics shaping with automation so the sound itself and the larger energy curve support the same musical moment.",
+          "The transient is the very beginning of a sound. On drums, a slightly slower compressor attack can let that initial hit through before compression acts on the body, preserving punch. Combine that local change in attack with the larger automation curve so both point toward the same musical arrival.",
         instruction:
           "Keep the volume rise and filter opening. On the compressor, compare a very fast attack (12 ms or less) with a slower attack (25 ms or more) while the same drums loop. Leave the slower version if it restores the punch you want, then play the full eight-bar build.",
         recognition:
