@@ -1,3 +1,4 @@
+import { heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -51,6 +52,7 @@ export const eqSpectralBalanceLesson: LessonDefinition = {
         successLabel: "You found the low-cut by crossing the useful boundary",
       }),
       evaluate: ({ mixerSettings, experiments }) => [
+        { label: "You listened while finding the low-cut boundary", complete: heardPlayback(experiments) },
         {
           label: "You swept at least 180 Hz of high-pass range",
           complete: exploredRange(experiments, "mixer.chords.highpass") >= 180,
@@ -89,6 +91,7 @@ export const eqSpectralBalanceLesson: LessonDefinition = {
         successLabel: "You searched the midrange rather than guessing a frequency",
       }),
       evaluate: ({ eqSettings, experiments }) => [
+        { label: "You listened while sweeping the boosted bell", complete: heardPlayback(experiments) },
         {
           label: "The temporary search boost is at least +6 dB",
           complete: eqSettings.chords.gain >= 6,
@@ -130,6 +133,7 @@ export const eqSpectralBalanceLesson: LessonDefinition = {
         successLabel: "You converted a listening tool into a practical correction",
       }),
       evaluate: ({ eqSettings, experiments }) => [
+        { label: "You listened while crossing from boost into cut", complete: heardPlayback(experiments) },
         {
           label: "You heard both boost and cut at this region",
           complete:
@@ -169,6 +173,7 @@ export const eqSpectralBalanceLesson: LessonDefinition = {
         successLabel: "The EQ choices now respond to each other",
       }),
       evaluate: ({ eqSettings, experiments }) => [
+        { label: "You listened to the complementary EQ in the full mix", complete: heardPlayback(experiments) },
         {
           label: "Chords retain a useful midrange cut",
           complete:
