@@ -1,4 +1,5 @@
 import { countPatternDifferences } from "../music/model";
+import { changedControl, comparedValues, heardPlayback } from "./learningEvidence";
 import { exerciseContentSchema, lessonContentSchema, type LessonDefinition } from "./types";
 
 const lesson = lessonContentSchema.parse({
@@ -44,9 +45,16 @@ export const rhythmVariationLesson: LessonDefinition = {
         checksLabel: "Compare",
         successLabel: "A and B are clearly related",
       }),
-      evaluate: ({ A, B }) => {
+      evaluate: ({ A, B, experiments }) => {
         const differences = countPatternDifferences(A, B);
+        const edits =
+          (experiments["drums.B.kick.edit"]?.changes ?? 0) +
+          (experiments["drums.B.snare.edit"]?.changes ?? 0) +
+          (experiments["drums.B.hat.edit"]?.changes ?? 0);
         return [
+          { label: "You changed Pattern B during this exercise", complete: edits >= 2 },
+          { label: "You switched between A and B while comparing", complete: comparedValues(experiments, "pattern.select") },
+          { label: "You listened to the comparison", complete: heardPlayback(experiments) },
           { label: "B differs in at least two steps", complete: differences >= 2 },
           { label: "B changes no more than four steps", complete: differences >= 2 && differences <= 4 },
           { label: "Snare still lands on beats 2 and 4", complete: B.snare[4] && B.snare[12] },
