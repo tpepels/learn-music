@@ -10,7 +10,9 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v2.4.3**.
+Current curriculum release: **v2.4.4**.
+
+v2.4.4 makes the learning flow more forgiving. Focused Learn-mode playback now has a **Mute earlier parts** toggle that temporarily solos the current musical layer without changing saved mixer values. Exercise completion no longer has a hidden “make one fresh change after opening this exercise” gate: when the exercise's own checks are already satisfied, Continue is available immediately. If a remaining check feels over-specific, a learner can also choose **Move on anyway**; the checks remain useful prompts, but they no longer behave like permission slips.
 
 v2.4.3 adds **non-destructive lesson audio focus**. In Learn mode, writing/listening lessons temporarily prioritise the musical layer currently being learned: drum-focused lessons foreground drums, melody lessons foreground melody, harmony lessons foreground chords, and bass lessons foreground bass. A focused track is brought to a useful monitoring floor while context tracks are capped lower, so mixer choices carried forward from older exercises cannot mask the new material. The learner's actual mixer values are not changed or exported, and arrangement/mixer/EQ/effects/reference/Studio/Create playback stays neutral so production decisions are heard at their real balance.
 
