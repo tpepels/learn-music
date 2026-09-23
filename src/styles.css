@@ -810,6 +810,53 @@ body {
   font-weight: 600;
 }
 
+.catch-up-card {
+  margin: 14px 8px 4px;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.catch-up-card > strong {
+  display: block;
+  margin-top: 5px;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.catch-up-card p {
+  margin: 6px 0 10px;
+  color: var(--dim);
+  font-size: 9px;
+  line-height: 1.55;
+}
+
+.catch-up-button {
+  width: 100%;
+  min-height: 30px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--panel-raised);
+  color: var(--text);
+  font-size: 10px;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.catch-up-button:hover {
+  border-color: var(--accent);
+}
+
+.catch-up-button.is-confirming {
+  border-color: rgba(255, 159, 190, 0.55);
+  color: #ffb4cb;
+}
+
+.catch-up-card .lesson-reset-cancel {
+  margin-top: 7px;
+}
+
 .lesson-overview {
   margin-top: 20px;
   padding: 15px 17px;
