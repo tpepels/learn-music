@@ -3,6 +3,21 @@ import { getNextImplementedLesson, implementedLessons } from "./course";
 import { getAdvanceDestination } from "./progression";
 
 describe("lesson progression", () => {
+
+  it("keeps the full v2.2 curriculum intact", () => {
+    expect(implementedLessons).toHaveLength(33);
+    expect(
+      implementedLessons.flatMap((lesson) => lesson.exercises),
+    ).toHaveLength(132);
+    expect(implementedLessons.slice(-5).map((lesson) => lesson.id)).toEqual([
+      "style.house",
+      "style.funk",
+      "style.hip-hop",
+      "style.ambient",
+      "style.pop",
+    ]);
+  });
+
   it("advances from one exercise to the next inside a lesson", () => {
     const lesson = implementedLessons[0];
     expect(getAdvanceDestination(lesson, 0, implementedLessons[1])).toEqual({
