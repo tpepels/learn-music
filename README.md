@@ -10,7 +10,9 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v2.2.1**.
+Current curriculum release: **v2.2.2**.
+
+v2.2.2 aligns the instrument-palette wording with the shared piano implementation: **PIANO TOUCH** now explicitly describes the acoustic-piano layer used by melody and by harmony whenever the harmony voice is PIANO.
 
 v2.1.5 replaces the basic synthesized kick, snare, and hi-hat with **bundled sampled drum one-shots** while preserving the same sequencer, velocity, compressor, mixer, sidechain, EQ, saturation, stereo, and effects signal path.
 
