@@ -28,7 +28,7 @@ export const saturationLesson: LessonDefinition = {
         explanation:
           "Very low fundamentals can disappear on small speakers. Saturation creates harmonics above the fundamental, helping the ear infer the bass pitch even when the deepest frequency is reproduced weakly.",
         instruction:
-          "Select BASS. Start with Wet near 0%, then raise it until the added harmonics are obvious. Move back and forth between almost dry and clearly saturated before choosing a blend that gives the bass more audible weight without replacing its clean tone.",
+          "Start on BASS with Wet near 0%. Raise it until the added harmonics are obvious, move back and forth between almost dry and clearly saturated, then choose a blend that adds audible weight without replacing the clean tone.",
         recognition:
           "On a quiet playback, does the bass remain easier to follow with some saturation? At what point does useful weight turn into fuzz?",
         terms: [
@@ -64,7 +64,7 @@ export const saturationLesson: LessonDefinition = {
         explanation:
           "Parallel distortion lets the clean path keep transient definition while the distorted path contributes density and aggression. The wet control is therefore as important as Drive.",
         instruction:
-          "Select DRUMS and use strong Drive. Push Wet high enough that the transients become obviously crushed, then back it down until the clean attack returns over a gritty parallel layer.",
+          "Overdrive the DRUMS on purpose. Use strong Drive and push Wet until the transients are obviously crushed; then retreat until the clean attack returns over a gritty parallel layer.",
         recognition:
           "Listen to the front edge of the kick and snare. Can you keep that attack while adding grit underneath it?",
         terms: [
@@ -100,7 +100,7 @@ export const saturationLesson: LessonDefinition = {
         explanation:
           "On sustained material, a small amount of nonlinear colour can make harmonics richer without announcing 'distortion'. This is common on synths, keys, buses, and analogue-style channel strips.",
         instruction:
-          "Select CHORDS. Compare almost dry with a clearly coloured setting, then back off until the saturation is easier to miss than on the drums or bass. The goal is to learn subtle colour after hearing the obvious version.",
+          "Colour the CHORDS more quietly than the rhythm section. Compare almost dry with a clearly saturated version, then back off until the effect is easier to miss than on drums or bass.",
         recognition:
           "Toggle between dry and the final setting. Is the difference easier to feel than to identify as distortion?",
         terms: [
@@ -135,7 +135,7 @@ export const saturationLesson: LessonDefinition = {
         explanation:
           "Processing every track identically reduces contrast. Producers often saturate the low end or drums more strongly while leaving foreground detail cleaner.",
         instruction:
-          "Use saturation as orchestration: keep it active on at least two channels, but give them different amounts. Let drums carry more obvious colour than melody and decide whether bass or chords need any saturation at all while the full arrangement plays.",
+          "Orchestrate the distortion across the full mix. Keep saturation active on at least two channels at different amounts, let drums carry more obvious colour than melody, and decide by ear whether bass or chords need any at all.",
         recognition:
           "Listen to drums, bass, chords and melody as separate textures. Do they still have different amounts of roughness and clarity?",
         terms: [
