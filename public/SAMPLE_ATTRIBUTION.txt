@@ -16,7 +16,7 @@ The melody piano uses selected notes from three recorded velocity layers
 Salamander sample set bundled with PLAY / LAB.
 
 ELECTRIC BASS
-Four selected MP3 anchors are bundled locally from nbrosowsky/tonejs-instruments.
+Six selected MP3 anchors are bundled locally from nbrosowsky/tonejs-instruments.
 Original bass sample source: Karoryfer.
 License for samples: Creative Commons Attribution 3.0
 Upstream library:
