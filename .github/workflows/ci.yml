@@ -2,8 +2,6 @@ name: Validate v2.2 instrument palette and Style Lab
 
 on:
   workflow_dispatch:
-  push:
-    branches: ["feature/instrument-palette-genre-lab-v220"]
 
 permissions:
   contents: read
