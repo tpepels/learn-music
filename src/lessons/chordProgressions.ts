@@ -3,6 +3,7 @@ import {
   type ChordProgression,
   type HarmonySequence,
 } from "../music/model";
+import { changedControl, heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -106,9 +107,11 @@ export const chordProgressionLesson: LessonDefinition = {
         checksLabel: "Build it",
         successLabel: "You wrote C major into the sequence",
       }),
-      evaluate: ({ chordProgression, harmonySequence }) => {
+      evaluate: ({ chordProgression, harmonySequence, experiments }) => {
         const first = pitchClasses(harmonySequence[0] ?? []);
         return [
+          { label: "You built, disturbed, and restored the chord notes", complete: changedControl(experiments, "harmony.note-edit", 5) },
+          { label: "You listened to C major under your existing music", complete: heardPlayback(experiments) },
           {
             label: "Bar 1 is C major",
             complete: chordProgression[0] === "C",
@@ -142,7 +145,9 @@ export const chordProgressionLesson: LessonDefinition = {
         checksLabel: "Write the phrase",
         successLabel: "Every bar now contains harmony you entered yourself",
       }),
-      evaluate: ({ chordProgression, harmonySequence }) => [
+      evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+        { label: "You wrote the progression into the piano roll", complete: changedControl(experiments, "harmony.note-edit", 6) },
+        { label: "You listened across the four chord changes", complete: heardPlayback(experiments) },
         {
           label: "The progression is C → F → G → C",
           complete:
@@ -185,7 +190,7 @@ export const chordProgressionLesson: LessonDefinition = {
         checksLabel: "Make it move",
         successLabel: "The chords now have a rhythm you composed",
       }),
-      evaluate: ({ chordProgression, harmonySequence }) => {
+      evaluate: ({ chordProgression, harmonySequence, experiments }) => {
         const offbeats = harmonySequence.filter(
           (notes, step) => notes.length > 0 && step % 2 === 1,
         ).length;
@@ -194,6 +199,8 @@ export const chordProgressionLesson: LessonDefinition = {
         );
 
         return [
+          { label: "You redistributed the harmony rhythm in this exercise", complete: changedControl(experiments, "harmony.note-edit", 4) },
+          { label: "You listened to the accompaniment against the drums", complete: heardPlayback(experiments) },
           {
             label: "At least eight time positions contain harmony",
             complete: activeStepCount(harmonySequence) >= 8,
@@ -235,7 +242,7 @@ export const chordProgressionLesson: LessonDefinition = {
         checksLabel: "Compose",
         successLabel: "You wrote a real four-bar harmony part",
       }),
-      evaluate: ({ chordProgression, harmonySequence }) => {
+      evaluate: ({ chordProgression, harmonySequence, experiments }) => {
         const signatures = [0, 1, 2, 3].map((bar) =>
           rhythmSignature(harmonySequence, bar),
         );
@@ -244,6 +251,8 @@ export const chordProgressionLesson: LessonDefinition = {
         ).length;
 
         return [
+          { label: "You rewrote the accompaniment in this exercise", complete: changedControl(experiments, "harmony.note-edit", 4) },
+          { label: "You listened to the complete four-bar gesture", complete: heardPlayback(experiments) },
           {
             label: "C frames the phrase and G prepares the final return",
             complete:
