@@ -79,6 +79,8 @@ export function LearningPanel({
               <div className="learning-tool-line">
                 <strong>Vocabulary:</strong>
                 <span>{transfer.vocabulary.join(" · ")}</span>
+                <strong>Tools you may see:</strong>
+                <span>{context.tools.join(" · ")}</span>
               </div>
             </section>
 
