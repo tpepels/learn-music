@@ -179,6 +179,11 @@ type StudioState = {
   resetAccompanimentPattern: () => void;
   setSynthSettings: (settings: Partial<SynthSettings>) => void;
   resetSynthSettings: () => void;
+  setArrangementLayer: (
+    bar: number,
+    layer: ArrangementLayer,
+    enabled: boolean,
+  ) => void;
   toggleArrangementLayer: (bar: number, layer: ArrangementLayer) => void;
   clearArrangement: () => void;
   setMixerTrack: (
@@ -685,16 +690,37 @@ export const useStudioStore = create<StudioState>()(
       resetSynthSettings: () =>
         set({ synthSettings: { ...initialSynthSettings } }),
 
-      toggleArrangementLayer: (bar, layer) =>
+      setArrangementLayer: (bar, layer, enabled) =>
         set((state) => {
+          if (state.arrangement[bar]?.[layer] === enabled) return state;
+
           const arrangement = cloneArrangement(state.arrangement);
-          arrangement[bar][layer] = !arrangement[bar][layer];
+          if (!arrangement[bar]) return state;
+
+          arrangement[bar][layer] = enabled;
           return {
             arrangement,
             learningExperiments: recordExperimentValue(
               state,
               "arrangement.edit",
-              bar + ":" + layer + ":" + arrangement[bar][layer],
+              bar + ":" + layer + ":" + enabled,
+            ),
+          };
+        }),
+
+      toggleArrangementLayer: (bar, layer) =>
+        set((state) => {
+          const current = state.arrangement[bar]?.[layer];
+          if (current === undefined) return state;
+
+          const arrangement = cloneArrangement(state.arrangement);
+          arrangement[bar][layer] = !current;
+          return {
+            arrangement,
+            learningExperiments: recordExperimentValue(
+              state,
+              "arrangement.edit",
+              bar + ":" + layer + ":" + !current,
             ),
           };
         }),
