@@ -6,7 +6,24 @@ Recorded by Alexander Holm
 Yamaha C5 grand piano
 License: Creative Commons Attribution 3.0
 Source: https://archive.org/details/SalamanderGrandPianoV3
-Distribution reference: https://github.com/Tonejs/audio/tree/master/salamander
+Velocity-layer distribution:
+https://www.npmjs.com/package/@audio-samples/piano-mp3-velocity3
+https://www.npmjs.com/package/@audio-samples/piano-mp3-velocity10
+https://www.npmjs.com/package/@audio-samples/piano-mp3-velocity16
+
+The melody piano uses selected notes from three recorded velocity layers
+(soft / medium / strong). The chord-piano voice also uses the earlier reduced
+Salamander sample set bundled with PLAY / LAB.
+
+ELECTRIC BASS
+Samples distributed through tonejs-instrument-bass-electric-mp3, derived from
+nbrosowsky/tonejs-instruments.
+Original bass sample source: Karoryfer.
+License for samples: Creative Commons Attribution 3.0
+Distribution:
+https://www.npmjs.com/package/tonejs-instrument-bass-electric-mp3
+Upstream sample source information:
+https://github.com/nbrosowsky/tonejs-instruments/blob/master/sample-source-info.txt
 
 DRUMS
 Drum one-shots are bundled via @teropa/drumkit:
