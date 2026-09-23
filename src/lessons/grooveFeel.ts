@@ -40,7 +40,7 @@ export const grooveFeelLesson: LessonDefinition = {
         explanation:
           "MIDI velocity represents how forcefully a note is played. On drums it usually changes loudness and often timbre as well. Equal velocity makes every event compete for attention; accents create a hierarchy the body can follow.",
         instruction:
-          "Select KICK in the velocity editor. Keep kicks on steps 1, 5, 9, and 13 and raise those four to at least 105/127. Keep the average hi-hat velocity below the average kick velocity, then compare the groove.",
+          "Begin with KICK in the velocity editor. Keep kicks on steps 1, 5, 9, and 13 and raise those four to at least 105/127. Lower the hi-hat average beneath the kick average, then compare the hierarchy with the unaccented feel.",
         recognition:
           "Turn the kick accents down briefly, then restore them. Which version makes the body find the pulse faster?",
         terms: [
@@ -82,7 +82,7 @@ export const grooveFeelLesson: LessonDefinition = {
         explanation:
           "A steady subdivision does not need equal emphasis. Drummers naturally phrase repeated hi-hats through accents. In MIDI, velocity is how producers imitate that dynamic contour instead of leaving a robotic row of identical notes.",
         instruction:
-          "Select HI-HAT. Keep eighth-note hats on steps 1, 3, 5, 7, 9, 11, 13, and 15. Make the hats on beats 1–4 (steps 1, 5, 9, 13) at least 75/127, while the hats between those beats stay at 60/127 or lower.",
+          "Move to HI-HAT and phrase the same eight eighth notes instead of adding new ones. Make hats on beats 1–4 (steps 1, 5, 9, 13) at least 75/127 and the between-beat hats 60/127 or lower.",
         recognition:
           "Listen only to the hats for one loop. Can you hear a repeating strong–soft contour instead of eight identical ticks?",
         terms: [
@@ -123,7 +123,7 @@ export const grooveFeelLesson: LessonDefinition = {
         explanation:
           "A ghost note is deliberately much quieter than the main notes around it. Drummers use ghost strokes between accents to create texture and forward motion. In programmed drums, the distinction comes from both placement and low velocity.",
         instruction:
-          "Select SNARE. Keep the main backbeats on steps 5 and 13. Add at least one extra snare away from those steps and lower its velocity to 45/127 or less. Keep both main backbeats at 80/127 or more.",
+          "Hide motion underneath the SNARE backbeat. Keep steps 5 and 13 at 80/127 or more, add an extra snare elsewhere, and reduce that extra hit to 45/127 or less so it reads as texture rather than a third backbeat.",
         recognition:
           "Close your eyes and ask whether the extra snare reads as another backbeat. If it does, make it quieter until it becomes part of the motion.",
         terms: [
@@ -165,7 +165,7 @@ export const grooveFeelLesson: LessonDefinition = {
         explanation:
           "Swing delays alternating subdivisions so equal eighth notes are heard as a long–short pair. Many DAWs and drum machines provide a global swing or groove amount. Small changes can alter feel dramatically even though the note positions still look quantized.",
         instruction:
-          "Keep at least six hi-hat notes active and set SWING between 15% and 35%. Compare 0% with your swung value while the pattern loops. Return to a value where you clearly hear the long–short feel without it becoming exaggerated.",
+          "Leave the note positions alone and alter only timing. Keep at least six hi-hats active, compare 0% swing with a value between 15% and 35%, then settle where the long–short feel is audible without becoming exaggerated.",
         recognition:
           "Switch between straight and swung timing. Where does your head or foot start moving differently even though the step lights stay in the same places?",
         terms: [
