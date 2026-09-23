@@ -1,0 +1,25 @@
+PLAY / LAB audio sample attribution
+
+PIANO
+Salamander Grand Piano V2
+Recorded by Alexander Holm
+Yamaha C5 grand piano
+License: Creative Commons Attribution 3.0
+Source: https://archive.org/details/SalamanderGrandPianoV3
+Distribution reference: https://github.com/Tonejs/audio/tree/master/salamander
+
+DRUMS
+Drum one-shots are bundled via @teropa/drumkit:
+https://github.com/teropa/drumkit
+
+Kick and snare:
+DWSD / DWDS Deep House Drum Kit
+Source: https://freesound.org/people/DWSD/packs/11575/
+License: Creative Commons Attribution
+
+Closed hi-hat:
+Stomachache, Analog Cymbal
+Source: https://freesound.org/people/stomachache/sounds/140153/
+License: Creative Commons Zero (CC0)
+
+@teropa/drumkit code is MIT licensed. See its repository for the original sample provenance.
