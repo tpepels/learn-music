@@ -4,6 +4,7 @@ import {
   getDawCheckpoint,
   getDawStageFamiliarity,
   getDawTransfer,
+  getPlayLabRepresentation,
 } from "./dawTransfer";
 import type { ExerciseDefinition } from "../lessons/types";
 
@@ -52,6 +53,7 @@ describe("DAW transfer teaching", () => {
       expect(profile.whyItMatters.length).toBeGreaterThan(35);
       expect(profile.pitfall.length).toBeGreaterThan(35);
       expect(profile.vocabulary.length).toBeGreaterThanOrEqual(4);
+      expect(getPlayLabRepresentation(workspace).length).toBeGreaterThan(45);
       expect(dawStages.some((stage) => stage.id === profile.stage)).toBe(true);
     }
   });
