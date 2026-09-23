@@ -11,6 +11,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@audio-samples/piano-mp3-velocity3": "^1.0.5",
+    "@audio-samples/piano-mp3-velocity10": "^1.0.5",
+    "@audio-samples/piano-mp3-velocity16": "^1.0.5",
     "@teropa/drumkit": "^1.1.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
