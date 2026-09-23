@@ -2,9 +2,6 @@ name: Validate branch manually
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - fix/arrangement-live-edit-v250
 
 permissions:
   contents: read
