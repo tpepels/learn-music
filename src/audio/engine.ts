@@ -4,6 +4,10 @@ import {
   shouldMuteLearningContext,
 } from "./learningFocus";
 import { getSynthPhraseEvents } from "./synthPhrase";
+import {
+  resolveArrangementFrame,
+  resolveArrangementMelodyStep,
+} from "./arrangementPlayback";
 import pianoSoftA2 from "@audio-samples/piano-mp3-velocity3/audio/A2v3.mp3";
 import pianoSoftC3 from "@audio-samples/piano-mp3-velocity3/audio/C3v3.mp3";
 import pianoSoftA3 from "@audio-samples/piano-mp3-velocity3/audio/A3v3.mp3";
@@ -1272,17 +1276,25 @@ class AudioEngine {
     transport.start();
   }
 
-  async playArrangement(bpm: number, onStep: (bar: number) => void) {
+  private async startArrangementPlayback(
+    bpm: number,
+    onStep: (bar: number) => void,
+    getArrangement: () => Arrangement,
+  ) {
     await this.prepare(bpm, onStep, ["drums", "piano", "chords", "bass"]);
     const transport = Tone.getTransport();
-    const arrangement = cloneArrangement(this.arrangement);
-    const totalSteps = arrangement.length * 16;
+    const initialArrangement = getArrangement();
+    const totalSteps = Math.max(1, initialArrangement.length) * 16;
 
     this.eventId = transport.scheduleRepeat((time) => {
       const globalStep = this.step;
-      const barIndex = Math.floor(globalStep / 16);
-      const localStep = globalStep % 16;
-      const bar = arrangement[barIndex];
+      const arrangement = getArrangement();
+      const {
+        barIndex,
+        localStep,
+        bar,
+      } = resolveArrangementFrame(arrangement, globalStep);
+      const arrangementLength = Math.max(1, arrangement.length);
 
       if (localStep === 0) {
         const melodyChannel = this.mixerChannels.melody;
@@ -1291,14 +1303,19 @@ class AudioEngine {
             this.mixerSettings.melody.volume) +
           (this.referenceSnapshot ? this.referenceTrimDb : 0) +
           this.quietAuditionDb;
-        const currentVolume = this.automationSettings.melodyVolumeDb[barIndex] ?? 0;
+        const currentVolume =
+          this.automationSettings.melodyVolumeDb[barIndex] ?? 0;
         const nextVolume =
-          this.automationSettings.melodyVolumeDb[(barIndex + 1) % arrangement.length] ??
-          currentVolume;
+          this.automationSettings.melodyVolumeDb[
+            (barIndex + 1) % arrangementLength
+          ] ?? currentVolume;
 
         if (melodyChannel) {
           melodyChannel.volume.cancelScheduledValues(time);
-          melodyChannel.volume.setValueAtTime(baseMelodyVolume + currentVolume, time);
+          melodyChannel.volume.setValueAtTime(
+            baseMelodyVolume + currentVolume,
+            time,
+          );
           melodyChannel.volume.linearRampToValueAtTime(
             baseMelodyVolume + nextVolume,
             time + Tone.Time("1m").toSeconds(),
@@ -1306,13 +1323,18 @@ class AudioEngine {
         }
 
         if (this.chordAutomationFilter) {
-          const currentCutoff = this.automationSettings.chordFilterHz[barIndex] ?? 12000;
+          const currentCutoff =
+            this.automationSettings.chordFilterHz[barIndex] ?? 12000;
           const nextCutoff =
-            this.automationSettings.chordFilterHz[(barIndex + 1) % arrangement.length] ??
-            currentCutoff;
+            this.automationSettings.chordFilterHz[
+              (barIndex + 1) % arrangementLength
+            ] ?? currentCutoff;
 
           this.chordAutomationFilter.frequency.cancelScheduledValues(time);
-          this.chordAutomationFilter.frequency.setValueAtTime(currentCutoff, time);
+          this.chordAutomationFilter.frequency.setValueAtTime(
+            currentCutoff,
+            time,
+          );
           this.chordAutomationFilter.frequency.linearRampToValueAtTime(
             nextCutoff,
             time + Tone.Time("1m").toSeconds(),
@@ -1322,10 +1344,13 @@ class AudioEngine {
 
       if (bar?.drums) {
         if (this.pattern.kick[localStep]) {
-          this.triggerKick(time, this.grooveFeelSettings.velocities.kick[localStep] ?? 0.9);
+          this.triggerKick(
+            time,
+            this.grooveFeelSettings.velocities.kick[localStep] ?? 0.9,
+          );
 
           if (
-            bar?.bass &&
+            bar.bass &&
             this.sidechainSettings.enabled &&
             this.sidechainSettings.amountDb > 0
           ) {
@@ -1348,33 +1373,48 @@ class AudioEngine {
             }
           }
         }
+
         if (this.pattern.snare[localStep]) {
-          this.triggerSnare(time, this.grooveFeelSettings.velocities.snare[localStep] ?? 0.72);
+          this.triggerSnare(
+            time,
+            this.grooveFeelSettings.velocities.snare[localStep] ?? 0.72,
+          );
         }
         if (this.pattern.hat[localStep]) {
-          this.triggerHat(time, this.grooveFeelSettings.velocities.hat[localStep] ?? 0.42);
+          this.triggerHat(
+            time,
+            this.grooveFeelSettings.velocities.hat[localStep] ?? 0.42,
+          );
         }
       }
 
-      const chord = this.chordProgression[barIndex % this.chordProgression.length] ?? "C";
+      const chordSlot =
+        this.chordProgression.length > 0
+          ? barIndex % this.chordProgression.length
+          : 0;
+      const chord = this.chordProgression[chordSlot] ?? "C";
 
       if (bar?.chords) {
         const hasWrittenHarmony = this.harmonySequence.some(
           (notes) => notes.length > 0,
         );
+
         if (hasWrittenHarmony && localStep % 2 === 0) {
-          const harmonyBar = barIndex % this.chordProgression.length;
-          const harmonyStep = harmonyBar * 8 + localStep / 2;
+          const harmonyStep = chordSlot * 8 + localStep / 2;
           this.triggerWrittenHarmonyStep(harmonyStep, time, 0.48);
         } else if (!hasWrittenHarmony) {
-          const chordSlot = barIndex % this.chordProgression.length;
           const inversion = this.voicingSettings.inversions[chordSlot] ?? 0;
-          this.triggerChordPattern(chord, inversion, localStep, time, 0.48);
+          this.triggerChordPattern(
+            chord,
+            inversion,
+            localStep,
+            time,
+            0.48,
+          );
         }
       }
 
       if (bar?.bass && localStep % 2 === 0) {
-        const chordSlot = barIndex % this.chordProgression.length;
         const bassStep = chordSlot * 8 + localStep / 2;
         const programmedBass = this.bassSequence[bassStep];
 
@@ -1405,15 +1445,21 @@ class AudioEngine {
         }
       }
 
-      if (bar?.melody && localStep % 2 === 0) {
-        const melodyStep = localStep / 2;
+      const melodyStep = resolveArrangementMelodyStep(
+        globalStep,
+        this.melody.length,
+      );
+
+      if (bar?.melody && melodyStep !== null) {
         const midi = this.melody[melodyStep];
 
         if (midi !== null && midi !== undefined) {
-          const texturedMidi = midi + this.textureSettings.melodyOctave * 12;
+          const texturedMidi =
+            midi + this.textureSettings.melodyOctave * 12;
           const duration = this.noteDuration(
             this.melodyDurations[melodyStep] ?? 1,
           );
+
           this.triggerPiano(
             Tone.Frequency(texturedMidi, "midi").toNote(),
             duration,
@@ -1433,7 +1479,10 @@ class AudioEngine {
       }
 
       if (localStep === 0) {
-        Tone.getDraw().schedule(() => this.onStep?.(barIndex), time);
+        Tone.getDraw().schedule(
+          () => this.onStep?.(barIndex),
+          time,
+        );
       }
 
       this.step = (this.step + 1) % totalSteps;
@@ -1442,17 +1491,30 @@ class AudioEngine {
     transport.start();
   }
 
-  async playForm(bpm: number, onStep: (bar: number) => void) {
-    const originalArrangement = this.arrangement;
-    this.arrangement = Array.from({ length: 16 }, (_, bar) => ({
-      ...this.formSettings.layers[Math.floor(bar / 4)],
-    }));
+  async playArrangement(
+    bpm: number,
+    onStep: (bar: number) => void,
+  ) {
+    await this.startArrangementPlayback(
+      bpm,
+      onStep,
+      () => this.arrangement,
+    );
+  }
 
-    try {
-      await this.playArrangement(bpm, onStep);
-    } finally {
-      this.arrangement = originalArrangement;
-    }
+  async playForm(bpm: number, onStep: (bar: number) => void) {
+    const formArrangement: Arrangement = Array.from(
+      { length: 16 },
+      (_, bar) => ({
+        ...this.formSettings.layers[Math.floor(bar / 4)],
+      }),
+    );
+
+    await this.startArrangementPlayback(
+      bpm,
+      onStep,
+      () => formArrangement,
+    );
   }
 
   async playPianoNote(midi: number) {
