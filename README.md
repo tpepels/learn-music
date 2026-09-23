@@ -10,7 +10,9 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v2.4.4**.
+Current curriculum release: **v2.4.5**.
+
+v2.4.5 fixes lesson 5 synth auditioning. The sound-design instrument is now polyphonic, so long release tails can overlap following melody notes instead of being cut off by a single stolen voice. **Play current melody** now schedules the entire written melody rather than truncating after eight note events, preserves each note's written duration, and uses the learner's melody whenever any project notes exist; the fallback demo phrase is used only for an empty melody.
 
 v2.4.4 makes the learning flow more forgiving. Focused Learn-mode playback now has a **Mute earlier parts** toggle that temporarily solos the current musical layer without changing saved mixer values. Exercise completion no longer has a hidden “make one fresh change after opening this exercise” gate: when the exercise's own checks are already satisfied, Continue is available immediately. If a remaining check feels over-specific, a learner can also choose **Move on anyway**; the checks remain useful prompts, but they no longer behave like permission slips.
 
