@@ -84,6 +84,31 @@ export function cloneNoteDurationLane(
   });
 }
 
+export function maxMonophonicDuration(
+  sequence: Array<number | null>,
+  step: number,
+): number {
+  const nextOnset = sequence.findIndex(
+    (note, index) => index > step && note !== null,
+  );
+  return Math.max(
+    1,
+    (nextOnset === -1 ? sequence.length : nextOnset) - step,
+  );
+}
+
+export function normalizeMonophonicDurations(
+  sequence: Array<number | null>,
+  durations: NoteDurationLane,
+): NoteDurationLane {
+  const lane = cloneNoteDurationLane(durations, sequence.length);
+  return lane.map((duration, step) =>
+    sequence[step] === null
+      ? 1
+      : Math.min(duration, maxMonophonicDuration(sequence, step)),
+  );
+}
+
 export function noteDurationLabel(steps: number): string {
   const safe = Math.max(1, Math.round(steps));
   if (safe === 1) return "1/8";
@@ -149,6 +174,42 @@ export function cloneHarmonyDurations(
       ]),
     );
   });
+}
+
+export function maxHarmonyDuration(
+  sequence: HarmonySequence,
+  step: number,
+  midi: number,
+): number {
+  const nextOnset = sequence.findIndex(
+    (notes, index) => index > step && notes.includes(midi),
+  );
+  return Math.max(
+    1,
+    (nextOnset === -1 ? sequence.length : nextOnset) - step,
+  );
+}
+
+export function normalizeHarmonyDurations(
+  sequence: HarmonySequence,
+  durations: HarmonyDurations,
+): HarmonyDurations {
+  const cloned = cloneHarmonyDurations(durations);
+  return cloned.map((entry, step) =>
+    Object.fromEntries(
+      Object.entries(entry)
+        .filter(([midi]) =>
+          (sequence[step] ?? []).includes(Number(midi)),
+        )
+        .map(([midi, duration]) => [
+          midi,
+          Math.min(
+            duration,
+            maxHarmonyDuration(sequence, step, Number(midi)),
+          ),
+        ]),
+    ),
+  );
 }
 
 export const accompanimentPatterns = ["block", "pulse", "broken", "arpeggio"] as const;
