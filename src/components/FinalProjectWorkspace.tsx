@@ -41,6 +41,7 @@ function downloadProject() {
       grooveFeelSettings: state.grooveFeelSettings,
       formSettings: state.formSettings,
       textureSettings: state.textureSettings,
+      instrumentSettings: state.instrumentSettings,
       eqSettings: state.eqSettings,
       saturationSettings: state.saturationSettings,
       sidechainSettings: state.sidechainSettings,
