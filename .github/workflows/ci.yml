@@ -2,9 +2,6 @@ name: Validate branch manually
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - feature/lesson-screen-pacing-v242
 
 permissions:
   contents: read
