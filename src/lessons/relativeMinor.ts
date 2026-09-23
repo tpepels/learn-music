@@ -2,6 +2,7 @@ import {
   aNaturalMinorPitchClasses,
   isANaturalMinorMidi,
 } from "../music/model";
+import { changedControl, heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -56,7 +57,9 @@ export const relativeMinorLesson: LessonDefinition = {
         checksLabel: "Reframe the pitch collection",
         successLabel: "The C-major notes now point toward A as tonic",
       }),
-      evaluate: ({ selectedPitchClasses, melody }) => [
+      evaluate: ({ selectedPitchClasses, melody, experiments }) => [
+        { label: "You reframed the melody around A in this exercise", complete: changedControl(experiments, "melody.edit") },
+        { label: "You listened to A as the new tonal centre", complete: heardPlayback(experiments) },
         {
           label: "The seven A-natural-minor pitch classes are selected",
           complete: aNaturalMinorPitchClasses.every((pitch) =>
@@ -98,9 +101,11 @@ export const relativeMinorLesson: LessonDefinition = {
         checksLabel: "Establish tonic A",
         successLabel: "Your melody now begins and resolves on A",
       }),
-      evaluate: ({ melody }) => {
+      evaluate: ({ melody, experiments }) => {
         const sounding = notes(melody);
         return [
+          { label: "You revised the phrase ending in this exercise", complete: changedControl(experiments, "melody.edit", 2) },
+          { label: "You listened to the tonic ending", complete: heardPlayback(experiments) },
           { label: "At least six notes are present", complete: sounding.length >= 6 },
           {
             label: "Every note belongs to A natural minor",
@@ -135,10 +140,12 @@ export const relativeMinorLesson: LessonDefinition = {
         checksLabel: "Shift the tonal centre",
         successLabel: "The same note collection now points to two different homes",
       }),
-      evaluate: ({ melody }) => {
+      evaluate: ({ melody, experiments }) => {
         const firstEnding = lastInRange(melody, 0, 8);
         const secondEnding = lastInRange(melody, 8, 16);
         return [
+          { label: "You changed both phrase endings in this exercise", complete: changedControl(experiments, "melody.edit", 2) },
+          { label: "You listened to the two tonal centres", complete: heardPlayback(experiments) },
           {
             label: "All sounding notes stay in the shared C-major/A-minor collection",
             complete: notes(melody).every(isANaturalMinorMidi),
@@ -175,10 +182,12 @@ export const relativeMinorLesson: LessonDefinition = {
         checksLabel: "Use the characteristic degrees",
         successLabel: "The melody now clearly speaks in natural minor",
       }),
-      evaluate: ({ melody }) => {
+      evaluate: ({ melody, experiments }) => {
         const sounding = notes(melody);
         const pcs = sounding.map((note) => note % 12);
         return [
+          { label: "You shaped the minor-colour notes in this exercise", complete: changedControl(experiments, "melody.edit", 3) },
+          { label: "You listened to the characteristic degrees against A", complete: heardPlayback(experiments) },
           { label: "At least eight notes are present", complete: sounding.length >= 8 },
           { label: "C (♭3) appears", complete: pcs.includes(0) },
           { label: "F (♭6) appears", complete: pcs.includes(5) },
