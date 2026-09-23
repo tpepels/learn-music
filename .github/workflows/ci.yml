@@ -1,7 +1,9 @@
-name: Validate branch manually
+name: Validate v2.1.5 sampled drums
 
 on:
   workflow_dispatch:
+  push:
+    branches: ["feature/sampled-drum-kit-v215"]
 
 permissions:
   contents: read
