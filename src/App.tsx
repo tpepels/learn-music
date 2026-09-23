@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { audioEngine } from "./audio/engine";
 import {
   canWorkspaceUseTransport,
+  resolveLearningFocusTrack,
   resolveTransportWorkspace,
 } from "./app/transportRouting";
 import { ArrangementWorkspace } from "./components/ArrangementWorkspace";
@@ -39,6 +40,7 @@ import {
 import { getAdvanceDestination } from "./lessons/progression";
 import { isExerciseReady } from "./lessons/exerciseReadiness";
 import type { ExerciseDefinition } from "./lessons/types";
+import type { MixerTrackId } from "./music/model";
 import { useStudioStore } from "./state/studio";
 
 async function startWorkspacePlayback(
@@ -117,7 +119,13 @@ async function startWorkspacePlayback(
   await audioEngine.playDrums(bpm, onStep);
 }
 
-function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }) {
+function Transport({
+  workspace,
+  learningFocusTrack,
+}: {
+  workspace: ExerciseDefinition["workspace"];
+  learningFocusTrack: MixerTrackId | null;
+}) {
   const bpm = useStudioStore((state) => state.bpm);
   const isPlaying = useStudioStore((state) => state.isPlaying);
   const setBpm = useStudioStore((state) => state.setBpm);
@@ -143,6 +151,7 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
     setPlaybackError(null);
 
     try {
+      audioEngine.setLearningFocusTrack(learningFocusTrack);
       await startWorkspacePlayback(workspace, bpm, setCurrentStep);
       recordLearningExperiment("transport.play", workspace);
       setPlaying(true);
@@ -157,6 +166,10 @@ function Transport({ workspace }: { workspace: ExerciseDefinition["workspace"] }
       );
     }
   };
+
+  useEffect(() => {
+    audioEngine.setLearningFocusTrack(learningFocusTrack);
+  }, [learningFocusTrack]);
 
   useEffect(() => {
     if (!isPlaying) return;
@@ -965,6 +978,10 @@ function App() {
               appMode,
               exercise.workspace,
               studioTransportWorkspace,
+            )}
+            learningFocusTrack={resolveLearningFocusTrack(
+              appMode,
+              exercise.workspace,
             )}
           />
         </div>
