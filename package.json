@@ -15,6 +15,7 @@
     "@audio-samples/piano-mp3-velocity10": "^1.0.5",
     "@audio-samples/piano-mp3-velocity16": "^1.0.5",
     "@teropa/drumkit": "^1.1.0",
+    "tonejs-instrument-bass-electric-mp3": "^1.1.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "tone": "^15.1.22",
