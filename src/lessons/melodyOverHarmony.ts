@@ -3,6 +3,7 @@ import {
   isCMajorMidi,
   type ChordProgression,
 } from "../music/model";
+import { changedControl, heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -52,7 +53,9 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
         checksLabel: "Anchor the changes",
         successLabel: "The melody now lands inside each harmony",
       }),
-      evaluate: ({ melody, chordProgression }) => [
+      evaluate: ({ melody, chordProgression, experiments }) => [
+        { label: "You placed or revised the four harmonic landings", complete: changedControl(experiments, "melody.edit", 4) },
+        { label: "You listened to the melody against the chords", complete: heardPlayback(experiments) },
         {
           label: "All four chord slots are filled",
           complete: chordProgression.every(Boolean),
@@ -87,7 +90,7 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
         checksLabel: "Connect the anchors",
         successLabel: "Passing notes now create smooth motion through the chords",
       }),
-      evaluate: ({ melody, chordProgression }) => {
+      evaluate: ({ melody, chordProgression, experiments }) => {
         let passing = 0;
 
         for (let step = 1; step < melody.length - 1; step += 1) {
@@ -123,6 +126,8 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
         }
 
         return [
+          { label: "You revised the line to create passing motion", complete: changedControl(experiments, "melody.edit", 2) },
+          { label: "You listened to the passing tones in context", complete: heardPlayback(experiments) },
           {
             label: "At least two in-key passing tones connect nearby notes",
             complete: passing >= 2,
@@ -150,7 +155,7 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
         checksLabel: "Decorate one stable pitch",
         successLabel: "The melody now uses a clear neighbour-note gesture",
       }),
-      evaluate: ({ melody, chordProgression }) => {
+      evaluate: ({ melody, chordProgression, experiments }) => {
         let found = false;
 
         for (let step = 0; step < melody.length - 2; step += 1) {
@@ -174,7 +179,11 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
           }
         }
 
-        return [{ label: "A stable–neighbour–stable figure exists", complete: found }];
+        return [
+          { label: "You revised the melody to make the neighbour gesture", complete: changedControl(experiments, "melody.edit", 2) },
+          { label: "You listened to the detour and return", complete: heardPlayback(experiments) },
+          { label: "A stable–neighbour–stable figure exists", complete: found },
+        ];
       },
     },
     {
@@ -198,7 +207,7 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
         checksLabel: "Aim the tension",
         successLabel: "Non-chord notes now have clear destinations",
       }),
-      evaluate: ({ melody, chordProgression }) => {
+      evaluate: ({ melody, chordProgression, experiments }) => {
         let resolutions = 0;
         for (let step = 0; step < melody.length - 1; step += 1) {
           const note = melody[step];
@@ -227,6 +236,8 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
           : null;
 
         return [
+          { label: "You revised the line to create directed tension", complete: changedControl(experiments, "melody.edit", 2) },
+          { label: "You listened to tension resolve into the chord", complete: heardPlayback(experiments) },
           {
             label: "At least two tensions resolve by step",
             complete: resolutions >= 2,
