@@ -3,6 +3,7 @@ import {
   arrangementLayers,
   type ArrangementBar,
 } from "../music/model";
+import { heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -19,6 +20,16 @@ function differenceCount(left: ArrangementBar, right: ArrangementBar): number {
 
 function sharedCount(left: ArrangementBar, right: ArrangementBar): number {
   return arrangementLayers.filter((layer) => left[layer] && right[layer]).length;
+}
+
+function formLayerEdits(
+  experiments: Parameters<LessonDefinition["exercises"][number]["evaluate"]>[0]["experiments"],
+): number {
+  return Object.entries(experiments).reduce(
+    (total, [key, value]) =>
+      total + (key.startsWith("form.layer.") ? value.changes : 0),
+    0,
+  );
 }
 
 const lesson = lessonContentSchema.parse({
@@ -57,10 +68,12 @@ export const phraseFormLesson: LessonDefinition = {
         checksLabel: "Make it audible",
         successLabel: "A and A′ now sound related but different",
       }),
-      evaluate: ({ formSettings }) => {
+      evaluate: ({ formSettings, experiments }) => {
         const first = formSettings.layers[0];
         const second = formSettings.layers[1];
         return [
+          { label: "You changed the section layers in this exercise", complete: formLayerEdits(experiments) >= 1 },
+          { label: "You listened through the form", complete: heardPlayback(experiments) },
           { label: "Sections 1–2 are labelled A → A′", complete: formSettings.sections[0] === "A" && formSettings.sections[1] === "A′" },
           { label: "Both sections contain at least two sounding layers", complete: activeLayerCount(first) >= 2 && activeLayerCount(second) >= 2 },
           { label: "A′ keeps at least two layers from A", complete: sharedCount(first, second) >= 2 },
@@ -88,9 +101,11 @@ export const phraseFormLesson: LessonDefinition = {
         checksLabel: "Build A/B",
         successLabel: "The labels now correspond to two audible sections",
       }),
-      evaluate: ({ formSettings }) => {
+      evaluate: ({ formSettings, experiments }) => {
         const [a1, a2, b1, b2] = formSettings.layers;
         return [
+          { label: "You changed the section layers in this exercise", complete: formLayerEdits(experiments) >= 2 },
+          { label: "You listened through the form", complete: heardPlayback(experiments) },
           { label: "Labels read A → A → B → B", complete: formSettings.sections.join("|") === "A|A|B|B" },
           { label: "The two A sections sound the same", complete: signature(a1) === signature(a2) && activeLayerCount(a1) >= 2 },
           { label: "The two B sections sound the same", complete: signature(b1) === signature(b2) && activeLayerCount(b1) >= 2 },
@@ -118,9 +133,11 @@ export const phraseFormLesson: LessonDefinition = {
         checksLabel: "Make the return",
         successLabel: "The A return is now something the ear can recognise",
       }),
-      evaluate: ({ formSettings }) => {
+      evaluate: ({ formSettings, experiments }) => {
         const [a1, b, aReturn, aPrime] = formSettings.layers;
         return [
+          { label: "You changed the section layers in this exercise", complete: formLayerEdits(experiments) >= 2 },
+          { label: "You listened through the form", complete: heardPlayback(experiments) },
           { label: "Labels begin A → B → A → A′", complete: formSettings.sections.join("|") === "A|B|A|A′" },
           { label: "The returning A restores the opening layer plan", complete: activeLayerCount(a1) >= 2 && signature(a1) === signature(aReturn) },
           { label: "B contrasts with A by at least two layers", complete: differenceCount(a1, b) >= 2 && activeLayerCount(b) >= 1 },
@@ -148,9 +165,11 @@ export const phraseFormLesson: LessonDefinition = {
         checksLabel: "Complete the form",
         successLabel: "Your sixteen-bar AABA form is audible, not merely labelled",
       }),
-      evaluate: ({ formSettings }) => {
+      evaluate: ({ formSettings, experiments }) => {
         const [a1, a2, b, a3] = formSettings.layers;
         return [
+          { label: "You changed the section layers in this exercise", complete: formLayerEdits(experiments) >= 2 },
+          { label: "You listened through the form", complete: heardPlayback(experiments) },
           { label: "Labels read A → A → B → A", complete: formSettings.sections.join("|") === "A|A|B|A" },
           { label: "All three A sections use the same musical layers", complete: activeLayerCount(a1) >= 2 && signature(a1) === signature(a2) && signature(a1) === signature(a3) },
           { label: "B contains audible material", complete: activeLayerCount(b) >= 1 },
