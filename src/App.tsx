@@ -1042,7 +1042,7 @@ function App() {
 
           <Workspace exercise={exercise} />
 
-          <LearningPanel exercise={exercise} />
+          <LearningPanel exercise={exercise} lessonNumber={lesson.number} />
         </main>
 
         <aside className="teacher-panel">
