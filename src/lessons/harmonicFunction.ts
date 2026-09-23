@@ -87,7 +87,7 @@ export const harmonicFunctionLesson: LessonDefinition = {
         title: "Rewrite it as ii–V–I",
         learn: "Hear a different predominant while preserving dominant-to-tonic direction.",
         explanation:
-          "Dm is ii in C major. Moving Dm→G→C creates predominant→dominant→tonic with different voice content from F→G→C.",
+          "Dm is ii in C major and usually behaves as a predominant: it moves the harmony away from tonic and prepares the dominant rather than sounding like a destination itself. Dm→G→C therefore traces the same broad function as F→G→C—predominant, dominant, tonic—but with different chord tones and different possible voice-leading between them.",
         instruction:
           "Change the first three bars to Dm → G → C and keep C in bar 4. Rewrite the notes in the changed bars until every written note belongs to its chord and bars 1–3 each contain all chord tones.",
         recognition:
