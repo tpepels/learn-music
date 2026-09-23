@@ -30,7 +30,7 @@ export function SynthWorkspace() {
     <div className="synth-card">
       <div className="workspace-heading">
         <div>
-          <span className="section-label">Subtractive synthesizer · one voice</span>
+          <span className="section-label">Subtractive synthesizer · polyphonic</span>
           <h2>Shape the sound</h2>
           <div className="daw-strip signal-strip">
             <span>OSC</span>
@@ -40,7 +40,7 @@ export function SynthWorkspace() {
             <span>AMP ENV</span>
           </div>
         </div>
-        <span className="workspace-hint">Change one parameter, then audition the same note again</span>
+        <span className="workspace-hint">Change one parameter, then audition the same note or melody again</span>
       </div>
 
       <div className="waveform-section">
