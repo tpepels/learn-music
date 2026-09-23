@@ -72,7 +72,7 @@ export const textureOrchestrationLesson: LessonDefinition = {
         title: "Open the chord spacing",
         learn: "Increase vertical space inside a chord without changing its harmonic identity.",
         explanation:
-          "Open voicing spreads chord tones over a wider range. Raising one voice by an octave can make harmony feel larger and reduce congestion in the middle register.",
+          "Open voicing spreads chord tones over a wider register instead of packing them close together. Raising one voice by an octave changes neither the chord name nor its basic pitch classes, but it changes the spectrum and the amount of overlap between parts. This is why orchestration and voicing can solve congestion before any EQ is added: the musical material itself occupies different vertical space.",
         instruction:
           "Turn OPEN CHORD VOICING on, off, and on again while the progression plays. Listen to whether the wider spacing helps this arrangement or simply makes it thinner; leave it on for this exercise.",
         recognition:
@@ -140,7 +140,7 @@ export const textureOrchestrationLesson: LessonDefinition = {
         title: "Shape density across the arrangement",
         learn: "Use orchestration and silence to make some bars sparse and others dense.",
         explanation:
-          "Texture changes when the number of simultaneous layers changes. A dense climax is more effective when nearby material is sparse enough to create contrast.",
+          "Texture describes how many layers are sounding, how active they are, and how their registers and roles overlap. Adding layers increases density, but density only reads as a climax when the surrounding material gives it something to contrast with. A useful arrangement therefore treats silence, sparse sections, and exposed parts as structural resources rather than as unfinished space.",
         instruction:
           "Keep the register separation. In Arrangement, make sure at least one bar uses 0–2 layers and at least one bar uses 3–4 layers. Return here and listen to how register and density work together.",
         recognition:
