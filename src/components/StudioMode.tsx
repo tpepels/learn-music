@@ -4,6 +4,7 @@ import { AutomationDynamicsWorkspace } from "./AutomationDynamicsWorkspace";
 import { BassWorkspace } from "./BassWorkspace";
 import { ChordWorkspace } from "./ChordWorkspace";
 import { HarmonySequencerWorkspace } from "./HarmonySequencerWorkspace";
+import { InstrumentPaletteWorkspace } from "./InstrumentPaletteWorkspace";
 import { DrumWorkspace } from "./DrumWorkspace";
 import { EffectsWorkspace } from "./EffectsWorkspace";
 import { EqWorkspace } from "./EqWorkspace";
@@ -44,6 +45,7 @@ const modules = [
   { id: "form", name: "Form", lesson: "composition.phrase-form", workspace: "phrase-form" },
   { id: "arrange", name: "Arrange", lesson: "form.arrangement", workspace: "arrangement" },
   { id: "texture", name: "Texture", lesson: "composition.texture-orchestration", workspace: "texture" },
+  { id: "palette", name: "Palette", lesson: "composition.texture-orchestration", workspace: "instrument-palette" },
   { id: "mix", name: "Mixer", lesson: "mixing.balance-space", workspace: "mixer" },
   { id: "eq", name: "EQ", lesson: "production.eq-spectral-balance", workspace: "eq" },
   { id: "saturation", name: "Saturation", lesson: "production.saturation", workspace: "saturation" },
@@ -132,6 +134,7 @@ export function StudioMode({
         {module === "form" && <PhraseFormWorkspace />}
         {module === "arrange" && <ArrangementWorkspace />}
         {module === "texture" && <TextureWorkspace />}
+        {module === "palette" && <InstrumentPaletteWorkspace />}
         {module === "mix" && <MixerWorkspace />}
         {module === "eq" && <EqWorkspace />}
         {module === "saturation" && <SaturationWorkspace />}
