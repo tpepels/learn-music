@@ -2,6 +2,9 @@ name: Validate branch manually
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - feature/daw-transfer-v240
 
 permissions:
   contents: read
