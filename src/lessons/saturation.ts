@@ -153,7 +153,7 @@ export const saturationLesson: LessonDefinition = {
         title: "Create different amounts of colour",
         learn: "Use saturation selectively so every channel does not acquire the same texture.",
         explanation:
-          "Processing every track identically reduces contrast. Producers often saturate the low end or drums more strongly while leaving foreground detail cleaner.",
+          "Saturation changes the harmonic content and density of a sound, so applying the same amount everywhere can flatten the differences between layers. A mix often benefits when some elements remain comparatively clean while others carry more nonlinear colour. The useful decision is therefore not “how much saturation does this track need?” in isolation, but which parts should sound denser, rougher, or more forward relative to the rest of the arrangement.",
         instruction:
           "Use saturation as orchestration: keep it active on at least two channels, but give them different amounts. Let drums carry more obvious colour than melody and decide whether bass or chords need any saturation at all while the full arrangement plays.",
         recognition:
