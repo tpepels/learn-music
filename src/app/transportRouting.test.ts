@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   canWorkspaceUseTransport,
+  resolveLearningFocusTrack,
   resolveTransportWorkspace,
 } from "./transportRouting";
 
@@ -30,5 +31,20 @@ describe("transport routing", () => {
   it("treats direct-audition keyboard and synth exercises as non-transport views", () => {
     expect(canWorkspaceUseTransport("piano-key")).toBe(false);
     expect(canWorkspaceUseTransport("synth")).toBe(false);
+  });
+
+  it("focuses the musical layer currently being learned", () => {
+    expect(resolveLearningFocusTrack("learn", "groove-feel")).toBe("drums");
+    expect(resolveLearningFocusTrack("learn", "melody-harmony")).toBe("melody");
+    expect(resolveLearningFocusTrack("learn", "harmonic-function")).toBe("chords");
+    expect(resolveLearningFocusTrack("learn", "bass")).toBe("bass");
+  });
+
+  it("keeps production-balancing lessons and non-Learn modes neutral", () => {
+    expect(resolveLearningFocusTrack("learn", "mixer")).toBeNull();
+    expect(resolveLearningFocusTrack("learn", "eq")).toBeNull();
+    expect(resolveLearningFocusTrack("learn", "reference")).toBeNull();
+    expect(resolveLearningFocusTrack("studio", "bass")).toBeNull();
+    expect(resolveLearningFocusTrack("create", "melody")).toBeNull();
   });
 });
