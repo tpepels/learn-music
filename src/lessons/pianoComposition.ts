@@ -1,5 +1,6 @@
 import { Scale } from "tonal";
 import { isCMajorMidi } from "../music/model";
+import { changedControl, heardPlayback } from "./learningEvidence";
 import { exerciseContentSchema, lessonContentSchema, type LessonDefinition } from "./types";
 
 const cMajorNotes = Scale.get("C major").notes;
@@ -52,7 +53,11 @@ export const pianoCompositionLesson: LessonDefinition = {
         checksLabel: "Find the key",
         successLabel: "You mapped C major",
       }),
-      evaluate: ({ selectedPitchClasses }) => [
+      evaluate: ({ selectedPitchClasses, experiments }) => [
+        {
+          label: "You auditioned the scale notes while mapping the key",
+          complete: changedControl(experiments, "pitch-class.select", 7),
+        },
         {
           label: "All seven C-major notes are selected",
           complete: cMajorNotes.every((note) => selectedPitchClasses.includes(note)),
@@ -86,9 +91,11 @@ export const pianoCompositionLesson: LessonDefinition = {
         checksLabel: "Compose",
         successLabel: "Your first in-key melody is playable",
       }),
-      evaluate: ({ melody }) => {
+      evaluate: ({ melody, experiments }) => {
         const notes = soundingNotes(melody);
         return [
+          { label: "You wrote the melody during this exercise", complete: changedControl(experiments, "melody.edit", 5) },
+          { label: "You listened to it against the groove", complete: heardPlayback(experiments) },
           { label: "At least five notes are present", complete: notes.length >= 5 },
           { label: "Every note belongs to C major", complete: notes.length > 0 && notes.every(isCMajorMidi) },
           { label: "The first sounding note is C", complete: notes.length > 0 && notes[0] % 12 === 0 },
@@ -116,11 +123,13 @@ export const pianoCompositionLesson: LessonDefinition = {
         checksLabel: "Hear function",
         successLabel: "Your melody now outlines the tonic",
       }),
-      evaluate: ({ melody }) => {
+      evaluate: ({ melody, experiments }) => {
         const notes = soundingNotes(melody);
         const pcs = notes.map((note) => note % 12);
         const last = lastSoundingNote(melody);
         return [
+          { label: "You reshaped the melody for scale-degree function", complete: changedControl(experiments, "melody.edit", 2) },
+          { label: "You listened for the sense of arrival", complete: heardPlayback(experiments) },
           { label: "Degree 1 (C) appears", complete: pcs.includes(0) },
           { label: "Degree 3 (E) appears", complete: pcs.includes(4) },
           { label: "Degree 5 (G) appears", complete: pcs.includes(7) },
@@ -149,7 +158,7 @@ export const pianoCompositionLesson: LessonDefinition = {
         checksLabel: "Shape the phrase",
         successLabel: "You built a repeated motif and answer",
       }),
-      evaluate: ({ melody }) => {
+      evaluate: ({ melody, experiments }) => {
         const motif = melody.slice(0, 4);
         const repeat = melody.slice(4, 8);
         const answer = melody.slice(8, 16);
@@ -158,6 +167,8 @@ export const pianoCompositionLesson: LessonDefinition = {
         const answerDiffers = answer.some((note, index) => note !== melody[index]);
         const last = lastSoundingNote(melody);
         return [
+          { label: "You wrote or revised the phrase in this exercise", complete: changedControl(experiments, "melody.edit", 4) },
+          { label: "You listened to the motif and answer as a loop", complete: heardPlayback(experiments) },
           { label: "The opening motif contains at least two notes", complete: motifNotes >= 2 },
           { label: "Steps 5-8 repeat the motif exactly", complete: motifNotes >= 2 && repeated },
           { label: "The answering half differs from the opening", complete: answerDiffers },
