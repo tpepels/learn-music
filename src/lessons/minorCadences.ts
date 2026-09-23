@@ -5,6 +5,7 @@ import {
   harmonyOffbeats,
   writtenHarmonyFitsChords,
 } from "./harmonyApplication";
+import { changedControl, heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -59,6 +60,10 @@ export const minorCadencesLesson: LessonDefinition = {
         successLabel: "The minor departure is in the MIDI you wrote",
       }),
       evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+        { label: "You listened to both endings before settling", complete: heardPlayback(experiments) },
+        { label: "You listened to the descending accompaniment", complete: heardPlayback(experiments) },
+        { label: "You listened to the altered dominant resolve", complete: heardPlayback(experiments) },
+        { label: "You listened to the minor progression in context", complete: heardPlayback(experiments) },
         { label: "Bars 1–2 are Am → Dm", complete: chordProgression[0] === "Am" && chordProgression[1] === "Dm" },
         { label: "Am and Dm contain all their written chord tones", complete: barUsesAllChordTones(harmonySequence, chordProgression, 0) && barUsesAllChordTones(harmonySequence, chordProgression, 1) },
         { label: "You edited the harmony notes", complete: edits(experiments) >= 3 },
