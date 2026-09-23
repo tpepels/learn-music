@@ -8189,3 +8189,92 @@ body {
   background: rgba(255,255,255,0.72);
   pointer-events: none;
 }
+
+
+/* ==========================================================================
+   INSTRUMENT PALETTE · v2.2
+   ========================================================================== */
+
+.instrument-palette-card {
+  min-width: 0;
+}
+
+.instrument-groups {
+  display: grid;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.instrument-group {
+  padding: 15px;
+  border: 1px solid rgba(255,255,255,0.075);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.018);
+}
+
+.instrument-group header {
+  display: grid;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.instrument-group header strong {
+  font-size: 15px;
+}
+
+.instrument-group header p,
+.instrument-palette-note span {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.instrument-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+  gap: 8px;
+}
+
+.instrument-choice {
+  min-height: 82px;
+  padding: 11px 12px;
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  text-align: left;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.025);
+}
+
+.instrument-choice strong {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.instrument-choice small {
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.instrument-choice.is-active {
+  border-color: var(--cyan);
+  background: rgba(95,225,239,0.09);
+  box-shadow: inset 0 0 0 1px rgba(95,225,239,0.08);
+}
+
+.instrument-palette-note {
+  margin-top: 14px;
+  padding: 12px 14px;
+  display: grid;
+  gap: 4px;
+  border-left: 2px solid var(--purple);
+  background: rgba(159,140,255,0.05);
+}
+
+@media (max-width: 780px) {
+  .instrument-choice-grid {
+    grid-template-columns: 1fr;
+  }
+}
