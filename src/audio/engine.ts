@@ -175,6 +175,7 @@ class AudioEngine {
   private referenceTrimDb = 0;
   private quietAuditionDb = 0;
   private learningFocusTrack: MixerTrackId | null = null;
+  private learningSolo = false;
 
   private drumSampler: Tone.Sampler | null = null;
   private pianoSoft: Tone.Sampler | null = null;
@@ -347,6 +348,12 @@ class AudioEngine {
 
   setLearningFocusTrack(track: MixerTrackId | null) {
     this.learningFocusTrack = track;
+    if (track === null) this.learningSolo = false;
+    this.applyMixerSettings();
+  }
+
+  setLearningSolo(enabled: boolean) {
+    this.learningSolo = enabled && this.learningFocusTrack !== null;
     this.applyMixerSettings();
   }
 
@@ -864,6 +871,10 @@ class AudioEngine {
           track,
           this.learningFocusTrack,
         );
+        channel.mute =
+          this.learningSolo &&
+          this.learningFocusTrack !== null &&
+          track !== this.learningFocusTrack;
         channel.volume.rampTo(
           focusedVolume + this.quietAuditionDb,
           0.03,
