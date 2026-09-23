@@ -68,7 +68,7 @@ export const bassLinesLesson: LessonDefinition = {
         title: "Outline chord tones",
         learn: "Use thirds and fifths so the bass describes harmony without repeating only roots.",
         explanation:
-          "A bass line can outline a chord by moving among its root, third, and fifth. This adds melodic contour while remaining strongly connected to the harmony above.",
+          "A bass line can outline a chord by moving among its root, third, and fifth instead of repeating only the root. Because those notes already belong to the harmony, the line can become more melodic without losing the listener’s sense of the chord underneath it. The choice of chord tone also changes the bass contour and can make the transition into the next harmony smoother or more active.",
         instruction:
           "Keep the four root downbeats. Add a chord tone on beat 3 of every bar: steps 5, 13, 21, and 29. Try thirds and fifths rather than simply repeating the root.",
         recognition:
