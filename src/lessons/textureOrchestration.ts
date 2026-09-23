@@ -1,6 +1,7 @@
 import {
   activeLayerCount,
 } from "../music/model";
+import { changedControl, heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -153,7 +154,9 @@ export const textureOrchestrationLesson: LessonDefinition = {
         checksLabel: "Create textural contrast",
         successLabel: "Register and density now shape the arrangement",
       }),
-      evaluate: ({ textureSettings, arrangement }) => [
+      evaluate: ({ textureSettings, arrangement, experiments }) => [
+        { label: "You changed the arrangement density in this exercise", complete: changedControl(experiments, "arrangement.edit", 2) },
+        { label: "You listened to register and density together", complete: heardPlayback(experiments) },
         {
           label: "Bass/chords/melody remain vertically separated",
           complete:
