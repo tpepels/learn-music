@@ -309,6 +309,40 @@ const transferProfiles: Record<Workspace, DawTransferProfile> = {
   },
 };
 
+const playLabRepresentations: Record<Workspace, string> = {
+  drums: "PLAY/LAB shows the pattern as rows of lit steps. Each step is an event on the timeline, not recorded audio.",
+  compare: "PLAY/LAB keeps two pattern states available so you can switch between versions without relying on memory.",
+  "piano-key": "PLAY/LAB uses a keyboard to isolate pitch before adding a horizontal time axis.",
+  melody: "PLAY/LAB shows notes as blocks on a small piano roll: height is pitch, position is time, and width is duration.",
+  chords: "PLAY/LAB shows chord tones as simultaneous note blocks so the chord symbol and the notes that create it stay connected.",
+  "harmony-song": "PLAY/LAB uses a four-bar polyphonic piano roll where you write the accompaniment notes under the existing groove and melody.",
+  synth: "PLAY/LAB exposes oscillator, filter, and envelope controls as one compact instrument so you can follow how MIDI becomes audio.",
+  arrangement: "PLAY/LAB reduces the arrangement to a short horizontal song map where each layer can enter, leave, or return by section.",
+  mixer: "PLAY/LAB uses repeated channel strips with faders, pan, and sends so each part can be read as one signal path.",
+  "automation-dynamics": "PLAY/LAB separates a drawn automation lane from a compressor, making written parameter changes distinct from signal-reactive processing.",
+  effects: "PLAY/LAB groups reverb, delay, and chorus as processors after the sound source and exposes their send or wet controls directly.",
+  "final-project": "PLAY/LAB brings the familiar writing, arrangement, mixer, automation, and effects controls together around the same saved project.",
+  voicing: "PLAY/LAB lets you rearrange the same chord tones vertically so inversions are visible as note placement rather than new chord names.",
+  bass: "PLAY/LAB uses the same time-and-pitch grid as melody, but in a low register and against the existing groove and harmony.",
+  "groove-feel": "PLAY/LAB places per-note velocity beside the drum pattern and keeps swing as a timing control for the shared subdivision grid.",
+  motif: "PLAY/LAB gives you a compact piano roll where a phrase can be duplicated, transposed, shortened, or answered.",
+  "melody-harmony": "PLAY/LAB overlays melodic editing with the harmony underneath so local chord relationships can be heard while notes are moved.",
+  "harmonic-function": "PLAY/LAB keeps harmonic-function labels beside editable harmony MIDI, separating the theory description from the note data that produces it.",
+  "phrase-form": "PLAY/LAB represents form as a sixteen-bar layer plan so repeated and contrasting regions are visible before the full DAW timeline appears.",
+  texture: "PLAY/LAB uses register, doubling, voicing, and layer-density controls to change how simultaneous parts occupy musical space.",
+  eq: "PLAY/LAB uses a frequency-versus-gain graph with movable bands, matching the basic geometry of a parametric EQ plugin.",
+  saturation: "PLAY/LAB exposes drive and blend on individual channels so you can hear nonlinear colour without navigating a full plugin browser.",
+  sidechain: "PLAY/LAB shows the kick as the control source and the bass as the target, then lets amount and recovery time change the ducking relationship.",
+  stereo: "PLAY/LAB puts pan, width, and mono audition beside the mix so left/right placement and mono compatibility can be compared directly.",
+  reference: "PLAY/LAB stores a mix snapshot and gives you fast, level-conscious A/B switching rather than importing a separate reference file.",
+  "minor-key": "PLAY/LAB reuses the piano roll and changes the tonal map around the same notes, making tonal centre a musical interpretation rather than a new editor.",
+  "harmonic-minor": "PLAY/LAB keeps the same note grid but introduces the raised seventh explicitly so one chromatic change can be followed in melody and cadence.",
+  "minor-harmony": "PLAY/LAB uses the existing harmony piano roll for minor progressions, including the altered dominant, instead of introducing another notation system.",
+  "seventh-harmony": "PLAY/LAB extends the familiar chord stacks by one editable note, so seventh chords remain ordinary MIDI voicings.",
+  "borrowed-harmony": "PLAY/LAB leaves chromatic notes editable in the same harmony grid so out-of-key colour is treated as deliberate note data, not an exception mode.",
+  "instrument-palette": "PLAY/LAB keeps the MIDI material fixed while voice selectors change the instrument that performs it, making content and timbre separate layers.",
+};
+
 const checkpoints: Record<number, DawCheckpoint> = {
   5: {
     title: "DAW checkpoint · Read a piano roll",
@@ -387,6 +421,10 @@ export function getDawStageFamiliarity(
 
 export function getDawTransfer(workspace: Workspace): DawTransferProfile {
   return transferProfiles[workspace];
+}
+
+export function getPlayLabRepresentation(workspace: Workspace): string {
+  return playLabRepresentations[workspace];
 }
 
 export function getDawCheckpoint(lessonNumber: number): DawCheckpoint | undefined {
