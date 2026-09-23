@@ -2,11 +2,22 @@ import {
   voiceLeadingDistance,
   type ChordInversion,
 } from "../music/model";
+import { heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
   type LessonDefinition,
 } from "./types";
+
+function comparedInversions(
+  experiments: Parameters<LessonDefinition["exercises"][number]["evaluate"]>[0]["experiments"],
+  values: string[],
+): boolean {
+  return [0, 1, 2, 3].some((slot) => {
+    const tried = experiments["voicing.slot." + slot]?.values ?? [];
+    return values.every((value) => tried.includes(value));
+  });
+}
 
 const lesson = lessonContentSchema.parse({
   id: "harmony.voice-leading",
@@ -44,7 +55,8 @@ export const voiceLeadingLesson: LessonDefinition = {
         checksLabel: "Set the reference voicing",
         successLabel: "You now have a root-position baseline to compare against",
       }),
-      evaluate: ({ chordProgression, voicingSettings }) => [
+      evaluate: ({ chordProgression, voicingSettings, experiments }) => [
+        { label: "You listened to the root-position baseline", complete: heardPlayback(experiments) },
         {
           label: "All four chord slots contain harmony",
           complete: chordProgression.filter(Boolean).length === 4,
@@ -75,7 +87,9 @@ export const voiceLeadingLesson: LessonDefinition = {
         checksLabel: "Invert one chord",
         successLabel: "You changed the bass note without changing the chord itself",
       }),
-      evaluate: ({ voicingSettings }) => [
+      evaluate: ({ voicingSettings, experiments }) => [
+        { label: "You compared Root and 1st inversion on the same chord", complete: comparedInversions(experiments, ["0", "1"]) },
+        { label: "You listened to the changed bass note", complete: heardPlayback(experiments) },
         {
           label: "At least one chord uses first inversion",
           complete: voicingSettings.inversions.includes(1),
@@ -91,7 +105,7 @@ export const voiceLeadingLesson: LessonDefinition = {
         explanation:
           "Second inversion places the fifth at the bottom. It can be useful for smooth bass lines, passing motion, pedal textures, or specific cadential effects. Its musical function depends on context rather than the inversion label alone.",
         instruction:
-          "Keep at least one 1st inversion and make a different chord 2nd inversion. Play the loop and compare how the three bass possibilities change the path through the progression.",
+          "On one middle chord, audition Root, 1st, and 2nd inversion back-to-back while the loop plays. Then settle the progression with at least one 1st inversion and a different chord in 2nd inversion.",
         recognition:
           "Compare the three bass-note choices on the same chord. Which one makes the smallest move from the chord before it?",
         terms: [
@@ -102,7 +116,9 @@ export const voiceLeadingLesson: LessonDefinition = {
         checksLabel: "Use both inversion types",
         successLabel: "The progression now contains root, first, and second-inversion shapes",
       }),
-      evaluate: ({ voicingSettings }) => [
+      evaluate: ({ voicingSettings, experiments }) => [
+        { label: "You auditioned all three inversion positions on one chord", complete: comparedInversions(experiments, ["0", "1", "2"]) },
+        { label: "You listened before choosing the final voicings", complete: heardPlayback(experiments) },
         {
           label: "A first inversion remains in the progression",
           complete: voicingSettings.inversions.includes(1),
@@ -143,6 +159,7 @@ export const voiceLeadingLesson: LessonDefinition = {
           0,
         );
         return [
+          { label: "You listened while reducing voice movement", complete: heardPlayback(experiments) },
           {
             label: "You tried at least four inversion changes while searching",
             complete: explored >= 4,
