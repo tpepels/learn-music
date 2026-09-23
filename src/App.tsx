@@ -38,6 +38,7 @@ import {
   getNextImplementedLesson,
 } from "./lessons/course";
 import { getAdvanceDestination } from "./lessons/progression";
+import { RECOVERED_LESSON_IDS } from "./learning/catchUp";
 import { isExerciseReady } from "./lessons/exerciseReadiness";
 import type { ExerciseDefinition } from "./lessons/types";
 import type { MixerTrackId } from "./music/model";
@@ -460,11 +461,15 @@ function App() {
   const [studioTransportWorkspace, setStudioTransportWorkspace] =
     useState<ExerciseDefinition["workspace"]>("compare");
   const [confirmLessonReset, setConfirmLessonReset] = useState(false);
+  const [confirmCatchUp, setConfirmCatchUp] = useState(false);
 
   const setCurrentLesson = useStudioStore((state) => state.setCurrentLesson);
   const setExerciseIndex = useStudioStore((state) => state.setExerciseIndex);
   const completeExercise = useStudioStore((state) => state.completeExercise);
   const completeLesson = useStudioStore((state) => state.completeLesson);
+  const recoverToLessonFive = useStudioStore(
+    (state) => state.recoverToLessonFive,
+  );
   const setPlaying = useStudioStore((state) => state.setPlaying);
   const resetPattern = useStudioStore((state) => state.resetPattern);
   const clearPitchClasses = useStudioStore((state) => state.clearPitchClasses);
@@ -846,6 +851,23 @@ function App() {
     return "Course section complete";
   })();
 
+  const canRecoverToLessonFive = !RECOVERED_LESSON_IDS.every((id) =>
+    completedLessonIds.includes(id),
+  );
+
+  const recoverBasics = () => {
+    if (!confirmCatchUp) {
+      setConfirmCatchUp(true);
+      return;
+    }
+
+    audioEngine.stop();
+    setPlaying(false);
+    recoverToLessonFive();
+    setConfirmCatchUp(false);
+    setConfirmLessonReset(false);
+  };
+
   const completedCount = completedLessonIds.length;
   const lessonExerciseCount = lesson.exercises.length;
   const lessonCompletedExercises = lesson.exercises.filter((item) =>
@@ -981,6 +1003,35 @@ function App() {
             </div>
 
           </div>
+
+          {canRecoverToLessonFive && (
+            <div className="catch-up-card">
+              <span className="section-label">Recovery</span>
+              <strong>Already covered lessons 1–4?</strong>
+              <p>
+                Rebuild a starter groove, melody and harmony, mark the first four
+                lessons complete, and continue at Sound & synthesis.
+              </p>
+              <button
+                className={confirmCatchUp ? "catch-up-button is-confirming" : "catch-up-button"}
+                type="button"
+                onClick={recoverBasics}
+              >
+                {confirmCatchUp
+                  ? "Confirm · replace the current project"
+                  : "Recover to lesson 5"}
+              </button>
+              {confirmCatchUp && (
+                <button
+                  className="lesson-reset-cancel"
+                  type="button"
+                  onClick={() => setConfirmCatchUp(false)}
+                >
+                  Cancel
+                </button>
+              )}
+            </div>
+          )}
         </aside>
 
         <main className="music-panel">
