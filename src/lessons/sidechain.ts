@@ -1,3 +1,4 @@
+import { changedRange } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -51,10 +52,11 @@ export const sidechainLesson: LessonDefinition = {
         },
         {
           label: "You explored release timing before settling",
-          complete:
-            experiments["sidechain.release"]?.min !== null &&
-            experiments["sidechain.release"]?.max !== null &&
-            (experiments["sidechain.release"]!.max! - experiments["sidechain.release"]!.min!) >= 0.15,
+          complete: changedRange(
+            experiments,
+            "sidechain.release",
+            0.15,
+          ),
         },
         { label: "Sidechain is enabled", complete: sidechainSettings.enabled },
         { label: "Final duck is moderate", complete: sidechainSettings.amountDb >= 2 && sidechainSettings.amountDb <= 6 },
