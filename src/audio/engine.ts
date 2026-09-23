@@ -184,7 +184,6 @@ class AudioEngine {
   private chordPluck: Tone.PolySynth | null = null;
   private melodyChorus: Tone.Chorus | null = null;
   private melodyChorusSend: Tone.Gain | null = null;
-  private chordPreviewSynth: Tone.PolySynth | null = null;
   private bassElectric: Tone.PluckSynth | null = null;
   private bassSub: Tone.MonoSynth | null = null;
   private bassSynth: Tone.MonoSynth | null = null;
@@ -419,7 +418,7 @@ class AudioEngine {
         this.bassSub?.triggerAttackRelease(note, duration, time, velocity);
         return;
       case "synth":
-        this.triggerBassNote(note, duration, time, velocity);
+        this.bassSynth?.triggerAttackRelease(note, duration, time, velocity);
         return;
     }
   }
@@ -1318,23 +1317,30 @@ class AudioEngine {
 
   async playChordPreview(chord: ChordName, inversion: ChordInversion = 0) {
     await Tone.start();
+    this.ensureVoices();
+    await Tone.loaded();
 
-    if (!this.chordPreviewSynth) {
-      this.chordPreviewSynth = new Tone.PolySynth(Tone.Synth, {
-        oscillator: { type: "triangle" },
-        envelope: { attack: 0.015, decay: 0.28, sustain: 0.22, release: 0.55 },
-      }).toDestination();
-      this.chordPreviewSynth.volume.value = -10;
-    }
-
-    const notes = voicedChordMidi(chord, inversion).map((midi) =>
-      Tone.Frequency(midi, "midi").toNote(),
-    );
-    this.chordPreviewSynth.triggerAttackRelease(notes, "2n", undefined, 0.7);
+    const notes = applyChordTexture(
+      voicedChordMidi(chord, inversion),
+      this.textureSettings,
+    ).map((midi) => Tone.Frequency(midi, "midi").toNote());
+    this.triggerChordNotes(notes, "2n", undefined, 0.7);
   }
 
   async playChord(chord: ChordName, inversion: ChordInversion = 0) {
     await this.playChordPreview(chord, inversion);
+  }
+
+  async playBassNote(midi = 36) {
+    await Tone.start();
+    this.ensureVoices();
+    await Tone.loaded();
+    this.triggerBassNote(
+      Tone.Frequency(midi, "midi").toNote(),
+      "2n",
+      undefined,
+      0.72,
+    );
   }
 
   async playBass(bpm: number, onStep: (step: number) => void) {
