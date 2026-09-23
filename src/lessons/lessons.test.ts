@@ -1304,3 +1304,287 @@ describe("expanded harmony model", () => {
     expect(chordMidi["B♭"]).toEqual([58, 62, 65]);
   });
 });
+
+
+describe("lesson 29: house genre lens", () => {
+  it("checks pulse, interlocking bass, subtractive arrangement, and sidechain A/B", () => {
+    const A = clonePattern(initialPattern);
+    [0, 4, 8, 12].forEach((step) => { A.kick[step] = true; });
+    A.snare[4] = true;
+    A.snare[12] = true;
+    [2, 6, 10, 14].forEach((step) => { A.hat[step] = true; });
+
+    expect(
+      genreHouseLesson.exercises[0]
+        .evaluate(context({ bpm: 120, A }))
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    const bassSequence = [...initialBassSequence];
+    [[0, 36], [3, 43], [7, 36], [9, 43], [15, 36], [17, 43], [23, 36], [29, 43]]
+      .forEach(([step, midi]) => { bassSequence[step] = midi; });
+    expect(
+      genreHouseLesson.exercises[1]
+        .evaluate(context({ bassSequence }))
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    const arrangement = cloneArrangement(initialArrangement);
+    arrangement[1] = { drums: false, bass: false, chords: true, melody: true };
+    arrangement[2] = { drums: true, bass: true, chords: false, melody: false };
+    arrangement[4] = { drums: true, bass: true, chords: true, melody: true };
+    expect(
+      genreHouseLesson.exercises[2]
+        .evaluate(context({ arrangement }))
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    expect(
+      genreHouseLesson.exercises[3]
+        .evaluate(context({
+          sidechainSettings: { enabled: true, amountDb: 4, release: 0.18 },
+          experiments: {
+            "sidechain.enabled": experiment(2, null, null, ["false", "true"]),
+          },
+        }))
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+});
+
+describe("lesson 30: hip-hop genre lens", () => {
+  it("checks pocket, dynamics, sparse bass, and layer economy", () => {
+    const A = clonePattern(initialPattern);
+    [0, 7, 10, 14].forEach((step) => { A.kick[step] = true; });
+    A.snare[4] = true;
+    A.snare[12] = true;
+    A.snare[10] = true;
+    [0, 2, 4, 6, 8, 10, 12, 14].forEach((step) => { A.hat[step] = true; });
+
+    expect(
+      genreHipHopLesson.exercises[0]
+        .evaluate(context({ bpm: 92, A }))
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    const grooveFeelSettings = {
+      swing: 0.12,
+      velocities: {
+        kick: [...initialGrooveFeelSettings.velocities.kick],
+        snare: [...initialGrooveFeelSettings.velocities.snare],
+        hat: [...initialGrooveFeelSettings.velocities.hat],
+      },
+    };
+    grooveFeelSettings.velocities.snare[4] = 0.9;
+    grooveFeelSettings.velocities.snare[12] = 0.9;
+    grooveFeelSettings.velocities.snare[10] = 0.25;
+    [0, 4, 8, 12].forEach((step) => { grooveFeelSettings.velocities.hat[step] = 0.75; });
+    [2, 6, 10, 14].forEach((step) => { grooveFeelSettings.velocities.hat[step] = 0.35; });
+
+    expect(
+      genreHipHopLesson.exercises[1]
+        .evaluate(context({
+          A,
+          grooveFeelSettings,
+          experiments: {
+            "groove.swing": experiment(3, 0, 0.12, ["0", "0.12"]),
+          },
+        }))
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    const bassSequence = [...initialBassSequence];
+    [[0, 36], [5, 43], [11, 36], [16, 43], [23, 36], [30, 43]]
+      .forEach(([step, midi]) => { bassSequence[step] = midi; });
+    expect(
+      genreHipHopLesson.exercises[2]
+        .evaluate(context({ bassSequence }))
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    const arrangement = cloneArrangement(initialArrangement);
+    arrangement[0] = { drums: true, bass: true, chords: false, melody: false };
+    arrangement[1] = { drums: true, bass: true, chords: true, melody: true };
+    arrangement[2] = { drums: true, bass: false, chords: true, melody: false };
+    expect(
+      genreHipHopLesson.exercises[3]
+        .evaluate(context({ arrangement }))
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+});
+
+describe("lesson 31: funk genre lens", () => {
+  it("checks sixteenth-note feel, independent bass, chord stabs, and interlock", () => {
+    const A = clonePattern(initialPattern);
+    [0, 4, 8, 12].forEach((step) => { A.kick[step] = true; });
+    A.snare[4] = true;
+    A.snare[12] = true;
+    A.snare[10] = true;
+    Array.from({ length: 12 }, (_, step) => step).forEach((step) => { A.hat[step] = true; });
+
+    const grooveFeelSettings = {
+      swing: 0.06,
+      velocities: {
+        kick: [...initialGrooveFeelSettings.velocities.kick],
+        snare: [...initialGrooveFeelSettings.velocities.snare],
+        hat: [...initialGrooveFeelSettings.velocities.hat],
+      },
+    };
+    grooveFeelSettings.velocities.snare[4] = 0.9;
+    grooveFeelSettings.velocities.snare[12] = 0.9;
+    grooveFeelSettings.velocities.snare[10] = 0.25;
+    for (let step = 0; step < 12; step += 1) {
+      grooveFeelSettings.velocities.hat[step] = step % 3 === 0 ? 0.8 : 0.45;
+    }
+
+    expect(
+      genreFunkLesson.exercises[0]
+        .evaluate(context({ bpm: 104, A, grooveFeelSettings }))
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    const bassSequence = [...initialBassSequence];
+    [
+      [0, 36], [1, 40], [3, 43],
+      [8, 36], [9, 43], [13, 40],
+      [16, 36], [17, 40], [21, 43],
+      [24, 36], [25, 43], [29, 40],
+    ].forEach(([step, midi]) => { bassSequence[step] = midi; });
+    expect(
+      genreFunkLesson.exercises[1]
+        .evaluate(context({ bassSequence }))
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    const chordProgression: ChordProgression = ["C", "F", "G", "C"];
+    const harmonySequence = harmonyFor(chordProgression, [
+      [0, 1, 3],
+      [0, 1, 5],
+      [0, 3, 5],
+      [0, 1, 7],
+    ]);
+    expect(
+      genreFunkLesson.exercises[2]
+        .evaluate(context({ chordProgression, harmonySequence }))
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    const arrangement = cloneArrangement(initialArrangement);
+    arrangement[0] = { drums: true, bass: true, chords: false, melody: false };
+    arrangement[1] = { drums: true, bass: false, chords: true, melody: false };
+    arrangement[2] = { drums: true, bass: true, chords: true, melody: false };
+    expect(
+      genreFunkLesson.exercises[3]
+        .evaluate(context({ arrangement }))
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+});
+
+describe("lesson 32: ambient genre lens", () => {
+  it("checks slow envelope, long notes, sparse texture, and spatial exaggeration/refinement", () => {
+    expect(
+      genreAmbientLesson.exercises[0]
+        .evaluate(context({
+          bpm: 76,
+          synthSettings: {
+            waveform: "triangle",
+            cutoff: 1800,
+            attack: 0.7,
+            release: 1.8,
+          },
+          experiments: {
+            "synth.phrase-audition": experiment(1),
+          },
+        }))
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    const melody: MelodySequence = [
+      60, null, null, null,
+      64, null, null, null,
+      67, null, null, null,
+      69, null, null, null,
+    ];
+    const melodyDurations = [
+      4, 1, 1, 1,
+      4, 1, 1, 1,
+      4, 1, 1, 1,
+      4, 1, 1, 1,
+    ];
+    expect(
+      genreAmbientLesson.exercises[1]
+        .evaluate(context({ melody, melodyDurations }))
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    const arrangement = cloneArrangement(initialArrangement);
+    arrangement[0] = { drums: false, bass: false, chords: true, melody: false };
+    arrangement[1] = { drums: false, bass: false, chords: true, melody: true };
+    arrangement[2] = { drums: true, bass: false, chords: true, melody: true };
+    arrangement[3] = { drums: false, bass: true, chords: true, melody: false };
+    expect(
+      genreAmbientLesson.exercises[2]
+        .evaluate(context({ arrangement }))
+        .every((check) => check.complete),
+    ).toBe(true);
+
+    const mixerSettings = {
+      drums: { ...initialMixerSettings.drums },
+      bass: { ...initialMixerSettings.bass },
+      chords: { ...initialMixerSettings.chords, reverb: 0.3 },
+      melody: { ...initialMixerSettings.melody, reverb: 0.2 },
+    };
+    expect(
+      genreAmbientLesson.exercises[3]
+        .evaluate(context({
+          effectsSettings: {
+            ...initialEffectsSettings,
+            reverbDecay: 5.2,
+            reverbPreDelay: 0.035,
+          },
+          mixerSettings,
+          experiments: {
+            "effects.reverbDecay": experiment(3, 5.2, 8, ["8", "5.2"]),
+          },
+        }))
+        .every((check) => check.complete),
+    ).toBe(true);
+  });
+});
+
+describe("genre curriculum safeguards", () => {
+  it("does not accept untouched default state as genre completion", () => {
+    for (const lesson of [
+      genreHouseLesson,
+      genreHipHopLesson,
+      genreFunkLesson,
+      genreAmbientLesson,
+    ]) {
+      expect(
+        lesson.exercises[0]
+          .evaluate(context())
+          .every((check) => check.complete),
+      ).toBe(false);
+    }
+  });
+
+  it("uses different learning actions inside each genre lesson", () => {
+    for (const lesson of [
+      genreHouseLesson,
+      genreHipHopLesson,
+      genreFunkLesson,
+      genreAmbientLesson,
+    ]) {
+      const workspaces = new Set(lesson.exercises.map((exercise) => exercise.workspace));
+      expect(workspaces.size).toBeGreaterThanOrEqual(3);
+      expect(
+        lesson.exercises.every(
+          (exercise) =>
+            !/make (?:at least )?one change/i.test(exercise.instruction),
+        ),
+      ).toBe(true);
+    }
+  });
+});
