@@ -524,7 +524,7 @@ class AudioEngine {
     return input;
   }
 
-  private ensureVoices() {
+  private ensureDrumVoices() {
     this.ensureMixerGraph();
 
     if (!this.drumCompressor) {
@@ -544,36 +544,60 @@ class AudioEngine {
           "F#1": sampledHat,
         },
         release: 0.04,
-      }).connect(this.drumCompressor!);
+      }).connect(this.drumCompressor);
       this.drumSampler.volume.value = -4;
     }
 
+    this.applyDynamicsSettings();
+  }
+
+  private ensurePianoVoices() {
+    this.ensureMixerGraph();
+
+    const connectPiano = (sampler: Tone.Sampler) => {
+      if (this.melodyChorusSend) sampler.connect(this.melodyChorusSend);
+      return sampler;
+    };
+
     if (!this.pianoSoft) {
-      this.pianoSoft = new Tone.Sampler({
-        urls: softPianoUrls,
-        release: 1.15,
-      }).connect(this.inputFor("melody"));
+      this.pianoSoft = connectPiano(
+        new Tone.Sampler({
+          urls: softPianoUrls,
+          release: 1.15,
+        }).connect(this.inputFor("melody")),
+      );
       this.pianoSoft.volume.value = -5;
     }
 
     if (!this.pianoMedium) {
-      this.pianoMedium = new Tone.Sampler({
-        urls: mediumPianoUrls,
-        release: 1.15,
-      }).connect(this.inputFor("melody"));
+      this.pianoMedium = connectPiano(
+        new Tone.Sampler({
+          urls: mediumPianoUrls,
+          release: 1.15,
+        }).connect(this.inputFor("melody")),
+      );
       this.pianoMedium.volume.value = -6;
     }
 
     if (!this.pianoStrong) {
-      this.pianoStrong = new Tone.Sampler({
-        urls: strongPianoUrls,
-        release: 1.05,
-      }).connect(this.inputFor("melody"));
+      this.pianoStrong = connectPiano(
+        new Tone.Sampler({
+          urls: strongPianoUrls,
+          release: 1.05,
+        }).connect(this.inputFor("melody")),
+      );
       this.pianoStrong.volume.value = -7;
     }
+  }
+
+  private ensureChordVoices() {
+    this.ensureMixerGraph();
 
     if (!this.chordAutomationFilter) {
-      this.chordAutomationFilter = new Tone.Filter(12000, "lowpass").connect(this.inputFor("chords"));
+      this.chordAutomationFilter = new Tone.Filter(
+        12000,
+        "lowpass",
+      ).connect(this.inputFor("chords"));
     }
 
     if (!this.chordPiano) {
@@ -598,7 +622,12 @@ class AudioEngine {
         modulationIndex: 3.2,
         oscillator: { type: "sine" },
         modulation: { type: "sine" },
-        envelope: { attack: 0.008, decay: 0.65, sustain: 0.24, release: 1.4 },
+        envelope: {
+          attack: 0.008,
+          decay: 0.65,
+          sustain: 0.24,
+          release: 1.4,
+        },
         modulationEnvelope: {
           attack: 0.005,
           decay: 0.35,
@@ -612,7 +641,12 @@ class AudioEngine {
     if (!this.chordPad) {
       this.chordPad = new Tone.PolySynth(Tone.Synth, {
         oscillator: { type: "triangle" },
-        envelope: { attack: 0.38, decay: 0.7, sustain: 0.62, release: 2.2 },
+        envelope: {
+          attack: 0.38,
+          decay: 0.7,
+          sustain: 0.62,
+          release: 2.2,
+        },
       }).connect(this.chordAutomationFilter);
       this.chordPad.volume.value = -13;
     }
@@ -620,10 +654,19 @@ class AudioEngine {
     if (!this.chordPluck) {
       this.chordPluck = new Tone.PolySynth(Tone.Synth, {
         oscillator: { type: "sawtooth" },
-        envelope: { attack: 0.002, decay: 0.14, sustain: 0.04, release: 0.22 },
+        envelope: {
+          attack: 0.002,
+          decay: 0.14,
+          sustain: 0.04,
+          release: 0.22,
+        },
       }).connect(this.chordAutomationFilter);
       this.chordPluck.volume.value = -16;
     }
+  }
+
+  private ensureBassVoices() {
+    this.ensureMixerGraph();
 
     if (!this.bassElectric) {
       this.bassElectric = new Tone.Sampler({
@@ -653,7 +696,12 @@ class AudioEngine {
           baseFrequency: 70,
           octaves: 1.2,
         },
-        envelope: { attack: 0.008, decay: 0.18, sustain: 0.72, release: 0.35 },
+        envelope: {
+          attack: 0.008,
+          decay: 0.18,
+          sustain: 0.72,
+          release: 0.35,
+        },
       }).connect(this.inputFor("bass"));
       this.bassSub.volume.value = -11;
     }
@@ -670,13 +718,23 @@ class AudioEngine {
           baseFrequency: 90,
           octaves: 2.2,
         },
-        envelope: { attack: 0.01, decay: 0.2, sustain: 0.5, release: 0.35 },
+        envelope: {
+          attack: 0.01,
+          decay: 0.2,
+          sustain: 0.5,
+          release: 0.35,
+        },
       }).connect(this.inputFor("bass"));
       this.bassSynth.volume.value = -13;
     }
+  }
 
+  private ensureSoundDesignVoice() {
     if (!this.soundFilter) {
-      this.soundFilter = new Tone.Filter(this.synthSettings.cutoff, "lowpass").toDestination();
+      this.soundFilter = new Tone.Filter(
+        this.synthSettings.cutoff,
+        "lowpass",
+      ).toDestination();
     }
 
     if (!this.soundSynth) {
@@ -693,6 +751,21 @@ class AudioEngine {
     }
 
     this.applySynthSettings();
+  }
+
+  private ensureVoices(
+    requirements: ReadonlyArray<
+      "drums" | "piano" | "chords" | "bass" | "synth"
+    > = ["drums", "piano", "chords", "bass", "synth"],
+  ) {
+    this.ensureMixerGraph();
+
+    if (requirements.includes("drums")) this.ensureDrumVoices();
+    if (requirements.includes("piano")) this.ensurePianoVoices();
+    if (requirements.includes("chords")) this.ensureChordVoices();
+    if (requirements.includes("bass")) this.ensureBassVoices();
+    if (requirements.includes("synth")) this.ensureSoundDesignVoice();
+
     this.applyMixerSettings();
     this.applyAdvancedChannelSettings();
     this.applyDynamicsSettings();
@@ -813,11 +886,17 @@ class AudioEngine {
     }
   }
 
-  private async prepare(bpm: number, onStep: (step: number) => void) {
+  private async prepare(
+    bpm: number,
+    onStep: (step: number) => void,
+    requirements: ReadonlyArray<
+      "drums" | "piano" | "chords" | "bass" | "synth"
+    >,
+  ) {
     await Tone.start();
 
-    // Core playback must never depend on optional creative effects.
-    this.ensureVoices();
+    // Only create/load the voices this transport path actually uses.
+    this.ensureVoices(requirements);
     await Tone.loaded();
 
     try {
@@ -838,7 +917,7 @@ class AudioEngine {
   }
 
   async playDrums(bpm: number, onStep: (step: number) => void) {
-    await this.prepare(bpm, onStep);
+    await this.prepare(bpm, onStep, ["drums"]);
     const transport = Tone.getTransport();
 
     this.eventId = transport.scheduleRepeat((time) => {
@@ -862,7 +941,7 @@ class AudioEngine {
   }
 
   async playMelody(bpm: number, onStep: (step: number) => void) {
-    await this.prepare(bpm, onStep);
+    await this.prepare(bpm, onStep, ["piano"]);
     const transport = Tone.getTransport();
 
     this.eventId = transport.scheduleRepeat((time) => {
@@ -893,7 +972,7 @@ class AudioEngine {
   }
 
   async playMelodyWithGroove(bpm: number, onStep: (step: number) => void) {
-    await this.prepare(bpm, onStep);
+    await this.prepare(bpm, onStep, ["drums", "piano"]);
     const transport = Tone.getTransport();
     const totalTransportSteps = this.melody.length * 2;
 
@@ -936,7 +1015,7 @@ class AudioEngine {
     bpm: number,
     onStep: (step: number) => void,
   ) {
-    await this.prepare(bpm, onStep);
+    await this.prepare(bpm, onStep, ["drums", "piano", "chords"]);
     const transport = Tone.getTransport();
     const totalTransportSteps = this.melody.length * 2;
 
@@ -1032,7 +1111,7 @@ class AudioEngine {
   }
 
   async playChords(bpm: number, onStep: (step: number) => void) {
-    await this.prepare(bpm, onStep);
+    await this.prepare(bpm, onStep, ["chords"]);
     const transport = Tone.getTransport();
     const totalSteps = this.chordProgression.length * 16;
 
@@ -1081,7 +1160,13 @@ class AudioEngine {
     onStep: (step: number) => void,
     includeMelody = true,
   ) {
-    await this.prepare(bpm, onStep);
+    await this.prepare(
+      bpm,
+      onStep,
+      includeMelody
+        ? ["drums", "piano", "chords"]
+        : ["drums", "chords"],
+    );
     const transport = Tone.getTransport();
     const totalTransportSteps = this.chordProgression.length * 16;
 
@@ -1128,7 +1213,7 @@ class AudioEngine {
   }
 
   async playArrangement(bpm: number, onStep: (bar: number) => void) {
-    await this.prepare(bpm, onStep);
+    await this.prepare(bpm, onStep, ["drums", "piano", "chords", "bass"]);
     const transport = Tone.getTransport();
     const arrangement = cloneArrangement(this.arrangement);
     const totalSteps = arrangement.length * 16;
@@ -1312,7 +1397,7 @@ class AudioEngine {
 
   async playPianoNote(midi: number) {
     await Tone.start();
-    this.ensureVoices();
+    this.ensureVoices(["piano"]);
     await Tone.loaded();
     this.triggerPiano(
       Tone.Frequency(midi, "midi").toNote(),
@@ -1324,7 +1409,7 @@ class AudioEngine {
 
   async playChordPreview(chord: ChordName, inversion: ChordInversion = 0) {
     await Tone.start();
-    this.ensureVoices();
+    this.ensureVoices(["chords"]);
     await Tone.loaded();
 
     const notes = applyChordTexture(
@@ -1340,7 +1425,7 @@ class AudioEngine {
 
   async playBassNote(midi = 36) {
     await Tone.start();
-    this.ensureVoices();
+    this.ensureVoices(["bass"]);
     await Tone.loaded();
     this.triggerBassNote(
       Tone.Frequency(midi, "midi").toNote(),
@@ -1351,7 +1436,7 @@ class AudioEngine {
   }
 
   async playBass(bpm: number, onStep: (step: number) => void) {
-    await this.prepare(bpm, onStep);
+    await this.prepare(bpm, onStep, ["drums", "chords", "bass"]);
     const transport = Tone.getTransport();
     const totalTransportSteps = BASS_STEPS * 2;
     const hasWrittenHarmony = this.harmonySequence.some(
@@ -1416,7 +1501,7 @@ class AudioEngine {
 
   async playSynthNote(midi = 60) {
     await Tone.start();
-    this.ensureVoices();
+    this.ensureVoices(["synth"]);
     this.applySynthSettings();
     this.soundSynth?.triggerAttackRelease(
       Tone.Frequency(midi, "midi").toNote(),
@@ -1428,7 +1513,7 @@ class AudioEngine {
 
   async playSynthPhrase() {
     await Tone.start();
-    this.ensureVoices();
+    this.ensureVoices(["synth"]);
     this.applySynthSettings();
 
     const projectEvents = this.melody
