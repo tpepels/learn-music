@@ -46,7 +46,7 @@ export const modalMixtureLesson: LessonDefinition = {
         explanation:
           "F major is F–A–C. F minor is F–A♭–C. In C major, that single A→A♭ change creates the borrowed minor iv colour while C can remain the tonal home.",
         instruction:
-          "Set C in bar 1. In bar 2, choose F first and write F/A/C. Play it. Then change bar 2 to Fm, replace A with A♭, and leave Fm selected. Keep C in bar 3 so you can hear the return.",
+          "Hear one semitone create the borrowed colour. Put C in bar 1, write F/A/C in bar 2 and play it, then turn F into Fm by replacing A with A♭. Leave Fm selected and keep C in bar 3 for the return.",
         recognition:
           "Keep F and C fixed while moving A down to A♭. How much of the colour comes from that one semitone?",
         terms: [
@@ -74,7 +74,7 @@ export const modalMixtureLesson: LessonDefinition = {
         explanation:
           "B♭ major is borrowed into C major as ♭VII. It removes the leading-tone B natural from the harmony and creates a broader, more modal sound than G→C dominant motion.",
         instruction:
-          "Set C → B♭ → F → C. Rewrite the harmony notes so bar 2 contains B♭/D/F and every written note fits the chord above it. Use at least two separate time positions in the B♭ bar.",
+          "Borrow ♭VII for a broader kind of motion: write C → B♭ → F → C. Give bar 2 B♭/D/F over at least two time positions and make every sounding note fit its chord.",
         recognition:
           "Play the B♭ bar by itself, then inside the loop. Does it sound foreign alone but convincing once C frames the phrase?",
         terms: [
@@ -102,7 +102,7 @@ export const modalMixtureLesson: LessonDefinition = {
         explanation:
           "C→F→Fm→C contains a small chromatic line inside the chords: A in F major falls to A♭ in F minor, which can then fall to G in C. That one line explains much of the progression's expressive quality.",
         instruction:
-          "Set C → F → Fm → C. Write every chord. Make sure A appears in bar 2, A♭ appears in bar 3, and G appears in the final C chord. Keep those notes near enough in register that you can hear the semitone motion.",
+          "Follow the inner voice through C → F → Fm → C. Write every chord and keep A in bar 2, A♭ in bar 3, and G in the final C close enough in register to hear A → A♭ → G as one chromatic line.",
         recognition:
           "Isolate A→A♭→G once, then restore the other chord tones. Can you still follow that inner line inside the full harmony?",
         terms: [
@@ -130,7 +130,7 @@ export const modalMixtureLesson: LessonDefinition = {
         explanation:
           "Borrowed harmony is useful when it becomes part of a phrase rather than a vocabulary test. B♭ broadens the major key; Fm darkens the approach home; C keeps the tonal centre clear.",
         instruction:
-          "Create C → B♭ → Fm → C. Write all three chord tones in every bar, use at least ten time positions overall, and place at least three harmony events on offbeat eighths. Shape the rhythm so the borrowed chords belong to one continuous part.",
+          "Combine both borrowed colours in C → B♭ → Fm → C. Write all three chord tones in every bar, occupy at least ten time positions with at least three offbeat events, and make the rhythm connect the borrowed chords into one accompaniment.",
         recognition:
           "After B♭ and Fm, does C still sound like home? If not, change the rhythm or spacing until the borrowed colours feel like detours instead of a new key.",
         terms: [
