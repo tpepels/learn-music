@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { dawStages, getDawCheckpoint, getDawTransfer } from "./dawTransfer";
+import {
+  dawStages,
+  getDawCheckpoint,
+  getDawStageFamiliarity,
+  getDawTransfer,
+} from "./dawTransfer";
 import type { ExerciseDefinition } from "../lessons/types";
 
 const workspaces: ExerciseDefinition["workspace"][] = [
@@ -52,9 +57,19 @@ describe("DAW transfer teaching", () => {
   });
 
   it("places explicit DAW-reading checkpoints through the course", () => {
-    expect(getDawCheckpoint(4)?.title).toContain("piano roll");
+    expect(getDawCheckpoint(5)?.title).toContain("piano roll");
     expect(getDawCheckpoint(10)?.title).toContain("project screen");
-    expect(getDawCheckpoint(28)?.title).toContain("sound");
+    expect(getDawCheckpoint(29)?.title).toContain("real DAW");
+    expect(getDawCheckpoint(4)).toBeUndefined();
     expect(getDawCheckpoint(11)).toBeUndefined();
+  });
+
+  it("reveals the DAW architecture progressively", () => {
+    expect(getDawStageFamiliarity("notes", "notes", 3)).toBe("current");
+    expect(getDawStageFamiliarity("timeline", "notes", 3)).toBe("familiar");
+    expect(getDawStageFamiliarity("instrument", "notes", 3)).toBe("upcoming");
+    expect(getDawStageFamiliarity("effects", "instrument", 5)).toBe("upcoming");
+    expect(getDawStageFamiliarity("mixer", "effects", 7)).toBe("familiar");
+    expect(getDawStageFamiliarity("master", "timeline", 10)).toBe("familiar");
   });
 });
