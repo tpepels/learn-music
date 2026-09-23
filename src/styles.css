@@ -8659,3 +8659,57 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+
+.fatal-error-shell {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 32px;
+}
+
+.fatal-error-card {
+  width: min(720px, 100%);
+  padding: 28px;
+  border: 1px solid var(--line-strong);
+  border-radius: 18px;
+  background: var(--panel-raised);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+}
+
+.fatal-error-card h1 {
+  margin: 10px 0 12px;
+  font-size: clamp(24px, 4vw, 36px);
+}
+
+.fatal-error-card p {
+  max-width: 62ch;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.fatal-error-card .transport-button {
+  margin-top: 8px;
+}
+
+.fatal-error-card details {
+  margin-top: 22px;
+  color: var(--muted);
+}
+
+.fatal-error-card summary {
+  cursor: pointer;
+}
+
+.fatal-error-card pre {
+  margin: 12px 0 0;
+  padding: 14px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.18);
+  color: var(--text);
+  font-size: 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
