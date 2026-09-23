@@ -10,7 +10,9 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v2.4.6**.
+Current curriculum release: **v2.4.7**.
+
+v2.4.7 fixes the refresh-only blank-screen failure at its persisted-state source. Older saved groove settings could contain `swing` without the velocity lanes introduced later; the shallow Zustand merge accepted that legacy shape, then the audio-engine synchronization effect threw while reading `velocities.kick`, causing React to clear the root and leave only the page background. Rehydration now migrates groove state forward, preserving valid old values while filling missing velocity lanes from current defaults. A root error boundary also ensures a future project-state incompatibility produces a visible diagnostic instead of an empty interface.
 
 v2.4.6 retires the custom PLAY / LAB service worker. The previous worker kept a permanent `play-lab-v1` cache across releases, which could mix a newly deployed HTML shell with stale or unavailable hashed JavaScript assets and leave only the styled background after refresh. Production startup now unregisters PLAY / LAB service workers and removes `play-lab-*` caches, while the legacy `sw.js` self-retires and clears its caches for existing installations. GitHub Pages/Vite's normal fingerprinted asset caching remains in use.
 
