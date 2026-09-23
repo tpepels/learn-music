@@ -47,7 +47,7 @@ export const minorCadencesLesson: LessonDefinition = {
         explanation:
           "Am is i and Dm is iv. The move changes the chord tones while staying completely inside A natural minor.",
         instruction:
-          "Set Am → Dm → Am → Am. Write all three notes of Am in bar 1 and all three notes of Dm in bar 2. Put the notes where you want them rhythmically and keep the loop playing.",
+          "Begin with the gentler minor motion Am → Dm → Am → Am. Write all three notes of Am in bar 1 and Dm in bar 2, choose your own rhythm, and keep the loop playing while you hear tonic move to predominant without a strong dominant.",
         recognition:
           "Loop Am→Dm. Which chord lets the phrase rest, and which one feels like the start of a journey away?",
         terms: [
@@ -73,7 +73,7 @@ export const minorCadencesLesson: LessonDefinition = {
         explanation:
           "E7 is not diatonic to A natural minor because it contains G♯. That altered note is the leading tone: it creates a much stronger pull back to A.",
         instruction:
-          "Set Am → Dm → E7 → Am. Rewrite every bar. In bar 3, make sure E, G♯, B and D all appear somewhere. Leave a G♯ close to the final Am so you can hear the leading-tone pull.",
+          "Strengthen the return by replacing bar 3 with E7: Am → Dm → E7 → Am. Rewrite every bar, include E, G♯, B and D in bar 3, and keep a G♯ close enough to the final Am that its upward pull is easy to hear.",
         recognition:
           "Replace G♯ with G for one pass, then put G♯ back. Which version makes the return to Am pull harder?",
         terms: [
@@ -100,7 +100,7 @@ export const minorCadencesLesson: LessonDefinition = {
         explanation:
           "The Andalusian cadence traces a descending harmonic path in minor. The final E7 contains G♯ and points back toward Am when the loop restarts.",
         instruction:
-          "Set Am → G → F → E7. Rewrite the notes so every bar fits, use at least eight active time positions, and put at least two harmony events on offbeat eighths. Listen to the descending roots while your own rhythm continues through them.",
+          "Trace a descending root line with Am → G → F → E7. Revoice the notes so every bar fits, occupy at least eight time positions, and place at least two harmony events on offbeat eighths while the A–G–F–E descent remains audible.",
         recognition:
           "Follow the roots A–G–F–E while ignoring the chord labels. Does the accompaniment still feel like one line moving downward?",
         terms: [
@@ -127,7 +127,7 @@ export const minorCadencesLesson: LessonDefinition = {
         explanation:
           "E7→Am closes strongly. E7→F keeps the phrase open by redirecting the dominant into VI. Comparing the two endings on the same material makes the difference much clearer.",
         instruction:
-          "Build Am → Dm → E7 → Am first and play it. Then change only bar 4 to F, rewrite bar 4 with F/A/C, and leave the final version as Am → Dm → E7 → F.",
+          "Compare closure with deflection. Build and hear Am → Dm → E7 → Am first; then change only bar 4 to F, rewrite that bar with F/A/C, and leave the deceptive Am → Dm → E7 → F version in place.",
         recognition:
           "Play the Am ending and the F ending back to back. Which one closes the door, and which one leaves the phrase open?",
         terms: [
