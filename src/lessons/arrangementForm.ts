@@ -53,6 +53,7 @@ export const arrangementFormLesson: LessonDefinition = {
       }),
       evaluate: ({ arrangement, experiments }) => [
         { label: "You listened to the density change", complete: (experiments["transport.play"]?.changes ?? 0) >= 1 },
+        { label: "You changed the layer plan and tested an entry", complete: (experiments["arrangement.edit"]?.changes ?? 0) >= 2 },
         { label: "Bars 1-2 stay sparse", complete: activeLayerCount(arrangement[0]) <= 2 && activeLayerCount(arrangement[1]) <= 2 && activeLayerCount(arrangement[0]) > 0 },
         { label: "Bars 3-4 are denser", complete: activeLayerCount(arrangement[2]) >= 3 && activeLayerCount(arrangement[3]) >= 3 },
       ],
@@ -89,6 +90,7 @@ export const arrangementFormLesson: LessonDefinition = {
         );
         return [
           { label: "You listened across the section boundary", complete: (experiments["transport.play"]?.changes ?? 0) >= 1 },
+          { label: "You edited the A/B contrast in this exercise", complete: (experiments["arrangement.edit"]?.changes ?? 0) >= 2 },
           { label: "At least two A/B bar pairs differ", complete: changedPairs >= 2 },
           { label: "At least one layer connects both sections", complete: sharedLayer },
         ];
@@ -121,6 +123,7 @@ export const arrangementFormLesson: LessonDefinition = {
         const d7 = activeLayerCount(arrangement[6]);
         return [
           { label: "You listened through the build", complete: (experiments["transport.play"]?.changes ?? 0) >= 1 },
+          { label: "You shaped the build with fresh layer edits", complete: (experiments["arrangement.edit"]?.changes ?? 0) >= 2 },
           { label: "Bars 5-7 do not lose density", complete: d5 <= d6 && d6 <= d7 },
           { label: "Bar 7 contains all four layers", complete: d7 === 4 },
           { label: "Bar 5 is lighter than the climax", complete: d5 < d7 },
