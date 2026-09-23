@@ -1,3 +1,4 @@
+import { changedControl, heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -52,12 +53,14 @@ export const grooveFeelLesson: LessonDefinition = {
         checksLabel: "Weight the pulse",
         successLabel: "The groove now has a clear dynamic foreground and background",
       }),
-      evaluate: ({ A, grooveFeelSettings }) => {
+      evaluate: ({ A, grooveFeelSettings, experiments }) => {
         const kick = grooveFeelSettings.velocities.kick;
         const hats = activeVelocities(A.hat, grooveFeelSettings.velocities.hat);
         const kicks = activeVelocities(A.kick, kick);
 
         return [
+          { label: "You shaped the kick dynamics in this exercise", complete: changedControl(experiments, "groove.kick.velocity", 4) },
+          { label: "You listened to the weighted pulse", complete: heardPlayback(experiments) },
           {
             label: "Four structural kick beats are active",
             complete: [0, 4, 8, 12].every((step) => A.kick[step]),
@@ -93,12 +96,14 @@ export const grooveFeelLesson: LessonDefinition = {
         checksLabel: "Phrase the hi-hats",
         successLabel: "The hats now have a repeating strong–soft contour",
       }),
-      evaluate: ({ A, grooveFeelSettings }) => {
+      evaluate: ({ A, grooveFeelSettings, experiments }) => {
         const hat = grooveFeelSettings.velocities.hat;
         const strong = [0, 4, 8, 12];
         const weak = [2, 6, 10, 14];
 
         return [
+          { label: "You shaped the hi-hat contour in this exercise", complete: changedControl(experiments, "groove.hat.velocity", 8) },
+          { label: "You listened to the strong–soft pattern", complete: heardPlayback(experiments) },
           {
             label: "All eight eighth-note hats are present",
             complete: [...strong, ...weak].every((step) => A.hat[step]),
@@ -134,13 +139,15 @@ export const grooveFeelLesson: LessonDefinition = {
         checksLabel: "Hide motion under the backbeat",
         successLabel: "A quiet ghost stroke now adds movement without stealing the backbeat",
       }),
-      evaluate: ({ A, grooveFeelSettings }) => {
+      evaluate: ({ A, grooveFeelSettings, experiments }) => {
         const snare = grooveFeelSettings.velocities.snare;
         const ghostSteps = A.snare
           .map((active, step) => ({ active, step }))
           .filter(({ active, step }) => active && step !== 4 && step !== 12);
 
         return [
+          { label: "You shaped the ghost-note level in this exercise", complete: changedControl(experiments, "groove.snare.velocity") },
+          { label: "You listened for the ghost note under the backbeat", complete: heardPlayback(experiments) },
           {
             label: "Main backbeats remain on steps 5 and 13",
             complete: A.snare[4] && A.snare[12],
@@ -179,6 +186,7 @@ export const grooveFeelLesson: LessonDefinition = {
         successLabel: "The same grid now has an audible swung feel",
       }),
       evaluate: ({ A, grooveFeelSettings, experiments }) => [
+        { label: "You listened to the timing comparison", complete: heardPlayback(experiments) },
         {
           label: "You compared straight and swung timing",
           complete:
