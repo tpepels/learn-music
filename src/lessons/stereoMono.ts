@@ -125,10 +125,13 @@ export const stereoMonoLesson: LessonDefinition = {
         checksLabel: "Perform the compatibility check",
         successLabel: "You have auditioned the project without stereo separation",
       }),
-      evaluate: ({ stereoSettings }) => [
+      evaluate: ({ stereoSettings, experiments }) => [
         {
-          label: "A mono audition has been performed",
-          complete: stereoSettings.monoChecked,
+          label: "You switched into mono and back to stereo here",
+          complete:
+            stereoSettings.monoChecked &&
+            experiments["stereo.mono"]?.values.includes("true") === true &&
+            experiments["stereo.mono"]?.values.includes("false") === true,
         },
       ],
     },
@@ -152,7 +155,13 @@ export const stereoMonoLesson: LessonDefinition = {
         checksLabel: "Make width survive translation",
         successLabel: "The stereo field now has a deliberate centre, sides, and compatibility check",
       }),
-      evaluate: ({ mixerSettings, stereoSettings }) => [
+      evaluate: ({ mixerSettings, stereoSettings, experiments }) => [
+        {
+          label: "You compared this hierarchy in stereo and mono",
+          complete:
+            experiments["stereo.mono"]?.values.includes("true") === true &&
+            experiments["stereo.mono"]?.values.includes("false") === true,
+        },
         {
           label: "Bass is centred and not widened beyond neutral",
           complete:
