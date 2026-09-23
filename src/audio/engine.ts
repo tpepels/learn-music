@@ -1,5 +1,10 @@
 import * as Tone from "tone";
 import {
+  hatClosed as sampledHat,
+  kick as sampledKick,
+  snare as sampledSnare,
+} from "@teropa/drumkit";
+import {
   BASS_STEPS,
   applyChordTexture,
   chordMidi,
@@ -107,10 +112,7 @@ class AudioEngine {
   private referenceTrimDb = 0;
   private quietAuditionDb = 0;
 
-  private kick: Tone.MembraneSynth | null = null;
-  private snare: Tone.NoiseSynth | null = null;
-  private hat: Tone.NoiseSynth | null = null;
-  private hatFilter: Tone.Filter | null = null;
+  private drumSampler: Tone.Sampler | null = null;
   private piano: Tone.Sampler | null = null;
   private melodyChorus: Tone.Chorus | null = null;
   private melodyChorusSend: Tone.Gain | null = null;
@@ -271,6 +273,18 @@ class AudioEngine {
     Tone.getTransport().bpm.rampTo(bpm, 0.05);
   }
 
+  private triggerKick(time: number, velocity: number) {
+    this.drumSampler?.triggerAttack("C1", time, velocity);
+  }
+
+  private triggerSnare(time: number, velocity: number) {
+    this.drumSampler?.triggerAttack("D1", time, velocity);
+  }
+
+  private triggerHat(time: number, velocity: number) {
+    this.drumSampler?.triggerAttack("F#1", time, velocity);
+  }
+
   private noteDuration(eighthSteps: number): number {
     return Tone.Time("8n").toSeconds() * Math.max(1, eighthSteps);
   }
@@ -382,25 +396,16 @@ class AudioEngine {
       }).connect(this.inputFor("drums"));
     }
 
-    if (!this.kick) {
-      this.kick = new Tone.MembraneSynth({
-        pitchDecay: 0.035,
-        octaves: 6,
-        envelope: { attack: 0.001, decay: 0.24, sustain: 0, release: 0.08 },
+    if (!this.drumSampler) {
+      this.drumSampler = new Tone.Sampler({
+        urls: {
+          C1: sampledKick,
+          D1: sampledSnare,
+          "F#1": sampledHat,
+        },
+        release: 0.04,
       }).connect(this.drumCompressor!);
-
-      this.snare = new Tone.NoiseSynth({
-        noise: { type: "white" },
-        envelope: { attack: 0.001, decay: 0.13, sustain: 0, release: 0.02 },
-      }).connect(this.drumCompressor!);
-      this.snare.volume.value = -7;
-
-      this.hatFilter = new Tone.Filter(6800, "highpass").connect(this.drumCompressor!);
-      this.hat = new Tone.NoiseSynth({
-        noise: { type: "white" },
-        envelope: { attack: 0.001, decay: 0.025, sustain: 0, release: 0.01 },
-      }).connect(this.hatFilter);
-      this.hat.volume.value = -15;
+      this.drumSampler.volume.value = -4;
     }
 
     if (!this.piano) {
@@ -618,26 +623,13 @@ class AudioEngine {
       const step = this.step;
 
       if (this.pattern.kick[step]) {
-        this.kick?.triggerAttackRelease(
-          "C1",
-          "16n",
-          time,
-          this.grooveFeelSettings.velocities.kick[step] ?? 0.9,
-        );
+        this.triggerKick(time, this.grooveFeelSettings.velocities.kick[step] ?? 0.9);
       }
       if (this.pattern.snare[step]) {
-        this.snare?.triggerAttackRelease(
-          "16n",
-          time,
-          this.grooveFeelSettings.velocities.snare[step] ?? 0.72,
-        );
+        this.triggerSnare(time, this.grooveFeelSettings.velocities.snare[step] ?? 0.72);
       }
       if (this.pattern.hat[step]) {
-        this.hat?.triggerAttackRelease(
-          "32n",
-          time,
-          this.grooveFeelSettings.velocities.hat[step] ?? 0.42,
-        );
+        this.triggerHat(time, this.grooveFeelSettings.velocities.hat[step] ?? 0.42);
       }
 
       Tone.getDraw().schedule(() => this.onStep?.(step), time);
@@ -688,26 +680,13 @@ class AudioEngine {
       const drumStep = globalStep % 16;
 
       if (this.pattern.kick[drumStep]) {
-        this.kick?.triggerAttackRelease(
-          "C1",
-          "16n",
-          time,
-          this.grooveFeelSettings.velocities.kick[drumStep] ?? 0.9,
-        );
+        this.triggerKick(time, this.grooveFeelSettings.velocities.kick[drumStep] ?? 0.9);
       }
       if (this.pattern.snare[drumStep]) {
-        this.snare?.triggerAttackRelease(
-          "16n",
-          time,
-          this.grooveFeelSettings.velocities.snare[drumStep] ?? 0.72,
-        );
+        this.triggerSnare(time, this.grooveFeelSettings.velocities.snare[drumStep] ?? 0.72);
       }
       if (this.pattern.hat[drumStep]) {
-        this.hat?.triggerAttackRelease(
-          "32n",
-          time,
-          this.grooveFeelSettings.velocities.hat[drumStep] ?? 0.42,
-        );
+        this.triggerHat(time, this.grooveFeelSettings.velocities.hat[drumStep] ?? 0.42);
       }
 
       if (globalStep % 2 === 0) {
@@ -744,26 +723,13 @@ class AudioEngine {
       const drumStep = globalStep % 16;
 
       if (this.pattern.kick[drumStep]) {
-        this.kick?.triggerAttackRelease(
-          "C1",
-          "16n",
-          time,
-          this.grooveFeelSettings.velocities.kick[drumStep] ?? 0.8,
-        );
+        this.triggerKick(time, this.grooveFeelSettings.velocities.kick[drumStep] ?? 0.8);
       }
       if (this.pattern.snare[drumStep]) {
-        this.snare?.triggerAttackRelease(
-          "16n",
-          time,
-          this.grooveFeelSettings.velocities.snare[drumStep] ?? 0.64,
-        );
+        this.triggerSnare(time, this.grooveFeelSettings.velocities.snare[drumStep] ?? 0.64);
       }
       if (this.pattern.hat[drumStep]) {
-        this.hat?.triggerAttackRelease(
-          "32n",
-          time,
-          (this.grooveFeelSettings.velocities.hat[drumStep] ?? 0.42) * 0.8,
-        );
+        this.triggerHat(time, (this.grooveFeelSettings.velocities.hat[drumStep] ?? 0.42) * 0.8);
       }
 
       if (globalStep % 2 === 0) {
@@ -903,26 +869,13 @@ class AudioEngine {
       const localStep = globalStep % 16;
 
       if (this.pattern.kick[localStep]) {
-        this.kick?.triggerAttackRelease(
-          "C1",
-          "16n",
-          time,
-          this.grooveFeelSettings.velocities.kick[localStep] ?? 0.9,
-        );
+        this.triggerKick(time, this.grooveFeelSettings.velocities.kick[localStep] ?? 0.9);
       }
       if (this.pattern.snare[localStep]) {
-        this.snare?.triggerAttackRelease(
-          "16n",
-          time,
-          this.grooveFeelSettings.velocities.snare[localStep] ?? 0.72,
-        );
+        this.triggerSnare(time, this.grooveFeelSettings.velocities.snare[localStep] ?? 0.72);
       }
       if (this.pattern.hat[localStep]) {
-        this.hat?.triggerAttackRelease(
-          "32n",
-          time,
-          this.grooveFeelSettings.velocities.hat[localStep] ?? 0.42,
-        );
+        this.triggerHat(time, this.grooveFeelSettings.velocities.hat[localStep] ?? 0.42);
       }
 
       if (localStep % 2 === 0) {
@@ -1002,12 +955,7 @@ class AudioEngine {
 
       if (bar?.drums) {
         if (this.pattern.kick[localStep]) {
-          this.kick?.triggerAttackRelease(
-            "C1",
-            "16n",
-            time,
-            this.grooveFeelSettings.velocities.kick[localStep] ?? 0.9,
-          );
+          this.triggerKick(time, this.grooveFeelSettings.velocities.kick[localStep] ?? 0.9);
 
           if (
             bar?.bass &&
@@ -1034,18 +982,10 @@ class AudioEngine {
           }
         }
         if (this.pattern.snare[localStep]) {
-          this.snare?.triggerAttackRelease(
-            "16n",
-            time,
-            this.grooveFeelSettings.velocities.snare[localStep] ?? 0.72,
-          );
+          this.triggerSnare(time, this.grooveFeelSettings.velocities.snare[localStep] ?? 0.72);
         }
         if (this.pattern.hat[localStep]) {
-          this.hat?.triggerAttackRelease(
-            "32n",
-            time,
-            this.grooveFeelSettings.velocities.hat[localStep] ?? 0.42,
-          );
+          this.triggerHat(time, this.grooveFeelSettings.velocities.hat[localStep] ?? 0.42);
         }
       }
 
@@ -1195,26 +1135,13 @@ class AudioEngine {
       const localStep = globalStep % 16;
 
       if (this.pattern.kick[localStep]) {
-        this.kick?.triggerAttackRelease(
-          "C1",
-          "16n",
-          time,
-          this.grooveFeelSettings.velocities.kick[localStep] ?? 0.9,
-        );
+        this.triggerKick(time, this.grooveFeelSettings.velocities.kick[localStep] ?? 0.9);
       }
       if (this.pattern.snare[localStep]) {
-        this.snare?.triggerAttackRelease(
-          "16n",
-          time,
-          this.grooveFeelSettings.velocities.snare[localStep] ?? 0.72,
-        );
+        this.triggerSnare(time, this.grooveFeelSettings.velocities.snare[localStep] ?? 0.72);
       }
       if (this.pattern.hat[localStep]) {
-        this.hat?.triggerAttackRelease(
-          "32n",
-          time,
-          this.grooveFeelSettings.velocities.hat[localStep] ?? 0.42,
-        );
+        this.triggerHat(time, this.grooveFeelSettings.velocities.hat[localStep] ?? 0.42);
       }
 
       if (!hasWrittenHarmony) {
