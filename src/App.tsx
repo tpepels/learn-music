@@ -135,6 +135,7 @@ function Transport({
     (state) => state.recordLearningExperiment,
   );
   const [playbackError, setPlaybackError] = useState<string | null>(null);
+  const [soloCurrent, setSoloCurrent] = useState(false);
 
   const canPlay = canWorkspaceUseTransport(workspace);
 
@@ -152,6 +153,7 @@ function Transport({
 
     try {
       audioEngine.setLearningFocusTrack(learningFocusTrack);
+      audioEngine.setLearningSolo(soloCurrent);
       await startWorkspacePlayback(workspace, bpm, setCurrentStep);
       recordLearningExperiment("transport.play", workspace);
       setPlaying(true);
@@ -169,7 +171,14 @@ function Transport({
 
   useEffect(() => {
     audioEngine.setLearningFocusTrack(learningFocusTrack);
+    if (learningFocusTrack === null) {
+      setSoloCurrent(false);
+    }
   }, [learningFocusTrack]);
+
+  useEffect(() => {
+    audioEngine.setLearningSolo(soloCurrent);
+  }, [soloCurrent]);
 
   useEffect(() => {
     if (!isPlaying) return;
@@ -225,6 +234,18 @@ function Transport({
         <span className="transport-error" role="status">
           Audio error · {playbackError}
         </span>
+      )}
+
+      {learningFocusTrack && (
+        <button
+          className={soloCurrent ? "transport-focus-toggle is-active" : "transport-focus-toggle"}
+          type="button"
+          aria-pressed={soloCurrent}
+          title={soloCurrent ? "Hear the full context again" : "Temporarily mute earlier parts"}
+          onClick={() => setSoloCurrent((current) => !current)}
+        >
+          {soloCurrent ? "Solo current · on" : "Solo current"}
+        </button>
       )}
 
       <label className="tempo-control">
@@ -486,83 +507,8 @@ function App() {
       ? lesson.description.slice(0, lessonSummaryEnd + 1)
       : lesson.description;
 
-  const exerciseStateFingerprint = useMemo(
-    () =>
-      JSON.stringify({
-        patterns,
-        selectedPitchClasses,
-        melody,
-        melodyDurations,
-        chordProgression,
-        harmonySequence,
-        harmonyDurations,
-        accompanimentPattern,
-        synthSettings,
-        arrangement,
-        mixerSettings,
-        automationSettings,
-        dynamicsSettings,
-        effectsSettings,
-        projectMilestones,
-        voicingSettings,
-        bassSequence,
-        bassDurations,
-        grooveFeelSettings,
-        formSettings,
-        textureSettings,
-        instrumentSettings,
-        eqSettings,
-        saturationSettings,
-        sidechainSettings,
-        stereoSettings,
-        referenceMixSettings,
-        experiments,
-      }),
-    [
-      patterns,
-      selectedPitchClasses,
-      melody,
-      melodyDurations,
-      chordProgression,
-      harmonySequence,
-      harmonyDurations,
-      accompanimentPattern,
-      synthSettings,
-      arrangement,
-      mixerSettings,
-      automationSettings,
-      dynamicsSettings,
-      effectsSettings,
-      projectMilestones,
-      voicingSettings,
-      bassSequence,
-      bassDurations,
-      grooveFeelSettings,
-      formSettings,
-      textureSettings,
-      instrumentSettings,
-      eqSettings,
-      saturationSettings,
-      sidechainSettings,
-      stereoSettings,
-      referenceMixSettings,
-      experiments,
-    ],
-  );
-  const [exerciseEntry, setExerciseEntry] = useState({
-    id: exercise.id,
-    fingerprint: exerciseStateFingerprint,
-  });
-
   useEffect(() => {
     setActiveExerciseId(exercise.id);
-    setExerciseEntry({
-      id: exercise.id,
-      fingerprint: exerciseStateFingerprint,
-    });
-    // Snapshot only when a different exercise opens; later project edits must not
-    // move the baseline or inherited state would count as fresh work.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [exercise.id, setActiveExerciseId]);
 
   useEffect(() => {
@@ -729,16 +675,9 @@ function App() {
 
   const checksReady = checks.every((check) => check.complete);
   const exerciseCompleted = completedExerciseIds.includes(exercise.id);
-  const exerciseChangedSinceEntry =
-    exerciseEntry.id === exercise.id &&
-    exerciseEntry.fingerprint !== exerciseStateFingerprint;
   const exerciseReady = isExerciseReady({
     checksReady,
     completed: exerciseCompleted,
-    entryExerciseId: exerciseEntry.id,
-    currentExerciseId: exercise.id,
-    entryFingerprint: exerciseEntry.fingerprint,
-    currentFingerprint: exerciseStateFingerprint,
   });
   const lessonCompleted = completedLessonIds.includes(lesson.id);
   const isLastExercise = exerciseIndex === lesson.exercises.length - 1;
@@ -900,13 +839,6 @@ function App() {
   };
 
   const actionLabel = (() => {
-    if (
-      checksReady &&
-      !exerciseCompleted &&
-      !exerciseChangedSinceEntry
-    ) {
-      return "Make one change here before continuing";
-    }
     if (!exerciseReady && !exerciseCompleted) return "Complete the exercise to continue";
     if (!isLastExercise) return "Continue to " + lesson.exercises[exerciseIndex + 1].letter;
     if (nextLesson) return "Complete lesson & continue to lesson " + nextLesson.number;
