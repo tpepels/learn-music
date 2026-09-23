@@ -23,6 +23,10 @@ import pianoStrongA4 from "@audio-samples/piano-mp3-velocity16/audio/A4v16.mp3";
 import pianoStrongC5 from "@audio-samples/piano-mp3-velocity16/audio/C5v16.mp3";
 import pianoStrongA5 from "@audio-samples/piano-mp3-velocity16/audio/A5v16.mp3";
 import pianoStrongC6 from "@audio-samples/piano-mp3-velocity16/audio/C6v16.mp3";
+import bassElectricCs1 from "tonejs-instrument-bass-electric-mp3/Cs1.mp3";
+import bassElectricG1 from "tonejs-instrument-bass-electric-mp3/G1.mp3";
+import bassElectricCs2 from "tonejs-instrument-bass-electric-mp3/Cs2.mp3";
+import bassElectricG2 from "tonejs-instrument-bass-electric-mp3/G2.mp3";
 import {
   hatClosed as sampledHat,
   kick as sampledKick,
@@ -184,7 +188,7 @@ class AudioEngine {
   private chordPluck: Tone.PolySynth | null = null;
   private melodyChorus: Tone.Chorus | null = null;
   private melodyChorusSend: Tone.Gain | null = null;
-  private bassElectric: Tone.PluckSynth | null = null;
+  private bassElectric: Tone.Sampler | null = null;
   private bassSub: Tone.MonoSynth | null = null;
   private bassSynth: Tone.MonoSynth | null = null;
   private drumCompressor: Tone.Compressor | null = null;
@@ -626,12 +630,16 @@ class AudioEngine {
     }
 
     if (!this.bassElectric) {
-      this.bassElectric = new Tone.PluckSynth({
-        attackNoise: 0.55,
-        dampening: 2600,
-        resonance: 0.86,
+      this.bassElectric = new Tone.Sampler({
+        urls: {
+          "C#1": bassElectricCs1,
+          G1: bassElectricG1,
+          "C#2": bassElectricCs2,
+          G2: bassElectricG2,
+        },
+        release: 0.5,
       }).connect(this.inputFor("bass"));
-      this.bassElectric.volume.value = -10;
+      this.bassElectric.volume.value = -8;
     }
 
     if (!this.bassSub) {
