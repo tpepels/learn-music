@@ -45,7 +45,7 @@ export const phraseFormLesson: LessonDefinition = {
         explanation:
           "A′ means a varied return of an idea, not a new letter pasted onto the timeline. The second section should preserve enough of A to be recognised while changing at least one musical layer.",
         instruction:
-          "Set section 1 to A and section 2 to A′. Give both at least two active layers. Keep at least two layers shared between them, but change at least one layer in A′. Play through bar 8 and hear what stayed versus what changed.",
+          "Start with an A statement and answer it with A′. Give both sections at least two layers, preserve at least two layers between them, and change one layer in A′. Play through bar 8 and identify what memory survives the variation.",
         recognition:
           "Listen through bar 5 without looking. Can you name what changed in A′ and what stayed from A?",
         terms: [
@@ -77,7 +77,7 @@ export const phraseFormLesson: LessonDefinition = {
         explanation:
           "Binary form needs more than two names. The repeated A should have a stable identity, the repeated B should have its own identity, and the listener should hear a boundary between them.",
         instruction:
-          "Set the sections to A → A → B → B. Make sections 1 and 2 use the same layer combination, sections 3 and 4 use another matching combination, and make A and B differ by at least two layers. Play all sixteen bars.",
+          "Build two unmistakable blocks: A → A → B → B. Match the layer plan inside each pair, but make the B pair differ from A by at least two layers. Then play all sixteen bars and listen for the single large boundary.",
         recognition:
           "At bar 9, does the change register immediately? After four bars of B, does it still feel connected to the same track?",
         terms: [
@@ -107,7 +107,7 @@ export const phraseFormLesson: LessonDefinition = {
         explanation:
           "Ternary thinking depends on memory: the return has meaning because something familiar comes back after contrast. The musical fingerprint of A therefore has to reappear, not merely its letter.",
         instruction:
-          "Set A → B → A → A′. Make section 3 restore section 1 exactly. Make B differ from A by at least two layers. Give A′ at least two shared layers with A but one audible change.",
+          "Return to earlier material: arrange A → B → A → A′. Restore section 1 exactly in section 3, make B differ from A by at least two layers, and let A′ preserve at least two A layers while changing one.",
         recognition:
           "When section 3 arrives, do you recognise the opening before you check the label? What detail gives the return away?",
         terms: [
@@ -137,7 +137,7 @@ export const phraseFormLesson: LessonDefinition = {
         explanation:
           "AABA works because the first two A sections create memory, B interrupts that pattern, and the final A restores it. The form should remain understandable with the labels hidden.",
         instruction:
-          "Set A → A → B → A. Give A at least two layers and use the exact same layer plan in sections 1, 2, and 4. Make B differ from A by at least two layers. Play all sixteen bars without watching the labels and listen for the departure and return.",
+          "Test an AABA form by ear. Use the same two-or-more-layer A plan in sections 1, 2, and 4, make B differ by at least two layers, then play all sixteen bars without watching the labels and listen for departure and return.",
         recognition:
           "Play all sixteen bars without watching the letters. Can you hear the eight-bar familiarity, the four-bar departure and the final return?",
         terms: [
