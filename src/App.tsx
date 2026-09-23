@@ -377,6 +377,10 @@ const lessonGlyphs: Record<string, string> = {
   "harmony.minor-cadences": "V7",
   "harmony.seventh-chords": "7",
   "harmony.modal-mixture": "⇆",
+  "genre.house": "4×4",
+  "genre.hip-hop": "SP",
+  "genre.funk": "16",
+  "genre.ambient": "∞",
 };
 
 function App() {
