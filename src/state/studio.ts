@@ -2,6 +2,12 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { resetLessonProgressState } from "../learning/progress";
 import {
+  LESSON_FIVE_ID,
+  RECOVERED_EXERCISE_IDS,
+  RECOVERED_LESSON_IDS,
+  lessonFiveRecoveryProject,
+} from "../learning/catchUp";
+import {
   migrateFormSettings,
   migrateGrooveFeelSettings,
 } from "./migrations";
@@ -157,6 +163,7 @@ type StudioState = {
   toggleStep: (track: TrackName, step: number) => void;
   resetPattern: (patternId: PatternId, source?: StepPattern) => void;
   completeLesson: (lessonId: string) => void;
+  recoverToLessonFive: () => void;
   togglePitchClass: (pitchClass: string) => void;
   clearPitchClasses: () => void;
   setMelodyStep: (step: number, midi: number | null) => void;
@@ -432,6 +439,52 @@ export const useStudioStore = create<StudioState>()(
 
           return { completedLessonIds };
         }),
+
+      recoverToLessonFive: () =>
+        set((state) => ({
+          bpm: lessonFiveRecoveryProject.bpm,
+          isPlaying: false,
+          currentStep: 0,
+          currentLessonId: LESSON_FIVE_ID,
+          exerciseIndexByLesson: {
+            ...state.exerciseIndexByLesson,
+            [LESSON_FIVE_ID]: 0,
+          },
+          completedExerciseIds: Array.from(
+            new Set([
+              ...state.completedExerciseIds,
+              ...RECOVERED_EXERCISE_IDS,
+            ]),
+          ),
+          completedLessonIds: Array.from(
+            new Set([
+              ...state.completedLessonIds,
+              ...RECOVERED_LESSON_IDS,
+            ]),
+          ),
+          activePattern: "A",
+          patterns: {
+            A: clonePattern(lessonFiveRecoveryProject.patterns.A),
+            B: clonePattern(lessonFiveRecoveryProject.patterns.B),
+          },
+          selectedPitchClasses: [
+            ...lessonFiveRecoveryProject.selectedPitchClasses,
+          ],
+          melody: [...lessonFiveRecoveryProject.melody],
+          melodyDurations: [...lessonFiveRecoveryProject.melodyDurations],
+          chordProgression: [
+            ...lessonFiveRecoveryProject.chordProgression,
+          ],
+          harmonySequence: cloneHarmonySequence(
+            lessonFiveRecoveryProject.harmonySequence,
+          ),
+          harmonyDurations: cloneHarmonyDurations(
+            lessonFiveRecoveryProject.harmonyDurations,
+          ),
+          accompanimentPattern: initialAccompanimentPattern,
+          synthSettings: { ...initialSynthSettings },
+          activeExerciseId: "",
+        })),
 
       togglePitchClass: (pitchClass) =>
         set((state) => {
