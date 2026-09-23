@@ -5,6 +5,7 @@ import {
   getDawCheckpoint,
   getDawStageFamiliarity,
   getDawTransfer,
+  getPlayLabRepresentation,
 } from "../learning/dawTransfer";
 import type { ExerciseDefinition } from "../lessons/types";
 
@@ -17,6 +18,7 @@ export function LearningPanel({
 }) {
   const context = getProductionContext(exercise.id);
   const transfer = getDawTransfer(exercise.workspace);
+  const playLabRepresentation = getPlayLabRepresentation(exercise.workspace);
   const checkpoint =
     exercise.letter === "A" ? getDawCheckpoint(lessonNumber) : undefined;
 
@@ -59,6 +61,11 @@ export function LearningPanel({
             <div className="learning-concept-visual">
               <ConceptVisual kind={context.visual} />
             </div>
+
+            <section className="learning-playlab-card">
+              <h3>Here in PLAY/LAB</h3>
+              <p>{playLabRepresentation}</p>
+            </section>
 
             <section className="learning-daw-card">
               <h3>In a DAW</h3>
