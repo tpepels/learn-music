@@ -13,6 +13,7 @@ import {
   initialGrooveFeelSettings,
   initialHarmonyDurations,
   initialHarmonySequence,
+  initialInstrumentSettings,
   initialEqSettings,
   initialFormSettings,
   initialMelodyDurations,
@@ -159,6 +160,13 @@ export const projectFileSchema = z.object({
         melodyOctaveDouble: z.boolean(),
       })
       .optional(),
+    instrumentSettings: z
+      .object({
+        bassVoice: z.enum(["electric", "sub", "synth"]),
+        chordVoice: z.enum(["piano", "electric", "pad", "pluck"]),
+        pianoTouch: z.enum(["soft", "medium", "strong"]),
+      })
+      .optional(),
     eqSettings: z
       .object({
         drums: z.object({ frequency: z.number(), gain: z.number(), q: z.number().positive() }),
@@ -276,6 +284,9 @@ export function parseProjectFile(input: unknown): ProjectData {
         },
     textureSettings: project.textureSettings ?? {
       ...initialTextureSettings,
+    },
+    instrumentSettings: project.instrumentSettings ?? {
+      ...initialInstrumentSettings,
     },
     eqSettings: project.eqSettings ?? {
       drums: { ...initialEqSettings.drums },
