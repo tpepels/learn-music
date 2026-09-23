@@ -1,4 +1,28 @@
 import * as Tone from "tone";
+import pianoSoftA2 from "@audio-samples/piano-mp3-velocity3/audio/A2v3.mp3";
+import pianoSoftC3 from "@audio-samples/piano-mp3-velocity3/audio/C3v3.mp3";
+import pianoSoftA3 from "@audio-samples/piano-mp3-velocity3/audio/A3v3.mp3";
+import pianoSoftC4 from "@audio-samples/piano-mp3-velocity3/audio/C4v3.mp3";
+import pianoSoftA4 from "@audio-samples/piano-mp3-velocity3/audio/A4v3.mp3";
+import pianoSoftC5 from "@audio-samples/piano-mp3-velocity3/audio/C5v3.mp3";
+import pianoSoftA5 from "@audio-samples/piano-mp3-velocity3/audio/A5v3.mp3";
+import pianoSoftC6 from "@audio-samples/piano-mp3-velocity3/audio/C6v3.mp3";
+import pianoMediumA2 from "@audio-samples/piano-mp3-velocity10/audio/A2v10.mp3";
+import pianoMediumC3 from "@audio-samples/piano-mp3-velocity10/audio/C3v10.mp3";
+import pianoMediumA3 from "@audio-samples/piano-mp3-velocity10/audio/A3v10.mp3";
+import pianoMediumC4 from "@audio-samples/piano-mp3-velocity10/audio/C4v10.mp3";
+import pianoMediumA4 from "@audio-samples/piano-mp3-velocity10/audio/A4v10.mp3";
+import pianoMediumC5 from "@audio-samples/piano-mp3-velocity10/audio/C5v10.mp3";
+import pianoMediumA5 from "@audio-samples/piano-mp3-velocity10/audio/A5v10.mp3";
+import pianoMediumC6 from "@audio-samples/piano-mp3-velocity10/audio/C6v10.mp3";
+import pianoStrongA2 from "@audio-samples/piano-mp3-velocity16/audio/A2v16.mp3";
+import pianoStrongC3 from "@audio-samples/piano-mp3-velocity16/audio/C3v16.mp3";
+import pianoStrongA3 from "@audio-samples/piano-mp3-velocity16/audio/A3v16.mp3";
+import pianoStrongC4 from "@audio-samples/piano-mp3-velocity16/audio/C4v16.mp3";
+import pianoStrongA4 from "@audio-samples/piano-mp3-velocity16/audio/A4v16.mp3";
+import pianoStrongC5 from "@audio-samples/piano-mp3-velocity16/audio/C5v16.mp3";
+import pianoStrongA5 from "@audio-samples/piano-mp3-velocity16/audio/A5v16.mp3";
+import pianoStrongC6 from "@audio-samples/piano-mp3-velocity16/audio/C6v16.mp3";
 import {
   hatClosed as sampledHat,
   kick as sampledKick,
@@ -33,6 +57,7 @@ import {
   initialHarmonyDurations,
   initialHarmonySequence,
   initialFormSettings,
+  initialInstrumentSettings,
   initialMelody,
   initialMelodyDurations,
   initialMixerSettings,
@@ -59,6 +84,7 @@ import {
   type GrooveFeelSettings,
   type HarmonyDurations,
   type HarmonySequence,
+  type InstrumentSettings,
   type MelodySequence,
   type NoteDurationLane,
   type MixerSettings,
@@ -102,6 +128,9 @@ class AudioEngine {
   private bassSequence: BassSequence = [...initialBassSequence];
   private bassDurations: NoteDurationLane = [...initialBassDurations];
   private textureSettings: TextureSettings = { ...initialTextureSettings };
+  private instrumentSettings: InstrumentSettings = {
+    ...initialInstrumentSettings,
+  };
   private eqSettings: EqSettings = cloneEqSettings(initialEqSettings);
   private saturationSettings: SaturationSettings =
     cloneSaturationSettings(initialSaturationSettings);
@@ -113,11 +142,18 @@ class AudioEngine {
   private quietAuditionDb = 0;
 
   private drumSampler: Tone.Sampler | null = null;
-  private piano: Tone.Sampler | null = null;
+  private pianoSoft: Tone.Sampler | null = null;
+  private pianoMedium: Tone.Sampler | null = null;
+  private pianoStrong: Tone.Sampler | null = null;
+  private chordPiano: Tone.Sampler | null = null;
+  private chordElectric: Tone.PolySynth<Tone.FMSynth> | null = null;
+  private chordPad: Tone.PolySynth<Tone.Synth> | null = null;
+  private chordPluck: Tone.PolySynth<Tone.Synth> | null = null;
   private melodyChorus: Tone.Chorus | null = null;
   private melodyChorusSend: Tone.Gain | null = null;
-  private chordSynth: Tone.PolySynth | null = null;
   private chordPreviewSynth: Tone.PolySynth | null = null;
+  private bassElectric: Tone.PluckSynth | null = null;
+  private bassSub: Tone.MonoSynth | null = null;
   private bassSynth: Tone.MonoSynth | null = null;
   private drumCompressor: Tone.Compressor | null = null;
   private chordAutomationFilter: Tone.Filter | null = null;
@@ -231,6 +267,10 @@ class AudioEngine {
 
   setTextureSettings(settings: TextureSettings) {
     this.textureSettings = { ...settings };
+  }
+
+  setInstrumentSettings(settings: InstrumentSettings) {
+    this.instrumentSettings = { ...settings };
   }
 
   setEqSettings(settings: EqSettings) {
