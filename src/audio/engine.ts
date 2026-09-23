@@ -1,5 +1,8 @@
 import * as Tone from "tone";
-import { applyLearningFocusVolume } from "./learningFocus";
+import {
+  applyLearningFocusVolume,
+  shouldMuteLearningContext,
+} from "./learningFocus";
 import pianoSoftA2 from "@audio-samples/piano-mp3-velocity3/audio/A2v3.mp3";
 import pianoSoftC3 from "@audio-samples/piano-mp3-velocity3/audio/C3v3.mp3";
 import pianoSoftA3 from "@audio-samples/piano-mp3-velocity3/audio/A3v3.mp3";
@@ -871,10 +874,11 @@ class AudioEngine {
           track,
           this.learningFocusTrack,
         );
-        channel.mute =
-          this.learningSolo &&
-          this.learningFocusTrack !== null &&
-          track !== this.learningFocusTrack;
+        channel.mute = shouldMuteLearningContext(
+          track,
+          this.learningFocusTrack,
+          this.learningSolo,
+        );
         channel.volume.rampTo(
           focusedVolume + this.quietAuditionDb,
           0.03,
