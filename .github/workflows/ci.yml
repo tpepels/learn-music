@@ -2,9 +2,6 @@ name: Validate branch manually
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - fix/learning-audio-focus-v243
 
 permissions:
   contents: read
