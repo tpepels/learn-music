@@ -14,6 +14,10 @@ import {
   cloneHarmonyDurations,
   cloneHarmonySequence,
   cloneNoteDurationLane,
+  maxHarmonyDuration,
+  maxMonophonicDuration,
+  normalizeHarmonyDurations,
+  normalizeMonophonicDurations,
   clonePattern,
   cloneReferenceSnapshot,
   cloneSaturationSettings,
@@ -423,8 +427,29 @@ export const useStudioStore = create<StudioState>()(
         set((state) => {
           const melody = [...state.melody];
           const melodyDurations = [...state.melodyDurations];
-          melody[step] = melody[step] === midi ? null : midi;
-          if (melody[step] === null) melodyDurations[step] = 1;
+          const removing = melody[step] === midi;
+
+          if (!removing) {
+            for (let previous = 0; previous < step; previous += 1) {
+              if (
+                melody[previous] !== null &&
+                previous + (melodyDurations[previous] ?? 1) > step
+              ) {
+                melodyDurations[previous] = Math.max(1, step - previous);
+              }
+            }
+          }
+
+          melody[step] = removing ? null : midi;
+          if (melody[step] === null) {
+            melodyDurations[step] = 1;
+          } else {
+            melodyDurations[step] = Math.min(
+              melodyDurations[step] ?? 1,
+              maxMonophonicDuration(melody, step),
+            );
+          }
+
           return {
             melody,
             melodyDurations,
@@ -441,7 +466,10 @@ export const useStudioStore = create<StudioState>()(
           const melodyDurations = [...state.melodyDurations];
           melodyDurations[step] = Math.max(
             1,
-            Math.min(state.melody.length - step, Math.round(duration)),
+            Math.min(
+              maxMonophonicDuration(state.melody, step),
+              Math.round(duration),
+            ),
           );
           return {
             melodyDurations,
@@ -489,6 +517,17 @@ export const useStudioStore = create<StudioState>()(
           if (removing) {
             delete harmonyDurations[step][midi];
           } else {
+            for (let previous = 0; previous < step; previous += 1) {
+              if (
+                (harmonySequence[previous] ?? []).includes(midi) &&
+                previous + (harmonyDurations[previous]?.[midi] ?? 1) > step
+              ) {
+                harmonyDurations[previous][midi] = Math.max(
+                  1,
+                  step - previous,
+                );
+              }
+            }
             harmonyDurations[step][midi] = 1;
           }
           return {
@@ -507,7 +546,10 @@ export const useStudioStore = create<StudioState>()(
           const harmonyDurations = cloneHarmonyDurations(state.harmonyDurations);
           harmonyDurations[step][midi] = Math.max(
             1,
-            Math.min(state.harmonySequence.length - step, Math.round(duration)),
+            Math.min(
+              maxHarmonyDuration(state.harmonySequence, step, midi),
+              Math.round(duration),
+            ),
           );
           return {
             harmonyDurations,
@@ -717,8 +759,29 @@ export const useStudioStore = create<StudioState>()(
         set((state) => {
           const bassSequence = [...state.bassSequence];
           const bassDurations = [...state.bassDurations];
-          bassSequence[step] = bassSequence[step] === midi ? null : midi;
-          if (bassSequence[step] === null) bassDurations[step] = 1;
+          const removing = bassSequence[step] === midi;
+
+          if (!removing) {
+            for (let previous = 0; previous < step; previous += 1) {
+              if (
+                bassSequence[previous] !== null &&
+                previous + (bassDurations[previous] ?? 1) > step
+              ) {
+                bassDurations[previous] = Math.max(1, step - previous);
+              }
+            }
+          }
+
+          bassSequence[step] = removing ? null : midi;
+          if (bassSequence[step] === null) {
+            bassDurations[step] = 1;
+          } else {
+            bassDurations[step] = Math.min(
+              bassDurations[step] ?? 1,
+              maxMonophonicDuration(bassSequence, step),
+            );
+          }
+
           return { bassSequence, bassDurations };
         }),
 
@@ -727,7 +790,10 @@ export const useStudioStore = create<StudioState>()(
           const bassDurations = [...state.bassDurations];
           bassDurations[step] = Math.max(
             1,
-            Math.min(state.bassSequence.length - step, Math.round(duration)),
+            Math.min(
+              maxMonophonicDuration(state.bassSequence, step),
+              Math.round(duration),
+            ),
           );
           return { bassDurations };
         }),
@@ -1020,13 +1086,16 @@ export const useStudioStore = create<StudioState>()(
             B: clonePattern(project.patterns.B),
           },
           melody: [...project.melody],
-          melodyDurations: cloneNoteDurationLane(
+          melodyDurations: normalizeMonophonicDurations(
+            project.melody,
             project.melodyDurations,
-            project.melody.length,
           ),
           chordProgression: [...project.chordProgression],
           harmonySequence: cloneHarmonySequence(project.harmonySequence),
-          harmonyDurations: cloneHarmonyDurations(project.harmonyDurations),
+          harmonyDurations: normalizeHarmonyDurations(
+            project.harmonySequence,
+            project.harmonyDurations,
+          ),
           accompanimentPattern: project.accompanimentPattern,
           synthSettings: { ...project.synthSettings },
           arrangement: project.arrangement.map((bar) => ({ ...bar })),
@@ -1045,9 +1114,9 @@ export const useStudioStore = create<StudioState>()(
           projectMilestones: { exported: false },
           voicingSettings: { inversions: [...project.voicingSettings.inversions] },
           bassSequence: [...project.bassSequence],
-          bassDurations: cloneNoteDurationLane(
+          bassDurations: normalizeMonophonicDurations(
+            project.bassSequence,
             project.bassDurations,
-            project.bassSequence.length,
           ),
           grooveFeelSettings: cloneGrooveFeelSettings(project.grooveFeelSettings),
           formSettings: {
@@ -1113,18 +1182,19 @@ export const useStudioStore = create<StudioState>()(
         return {
           ...currentState,
           ...persisted,
-          melodyDurations: cloneNoteDurationLane(
+          melodyDurations: normalizeMonophonicDurations(
+            persisted.melody ?? currentState.melody,
             persisted.melodyDurations ?? currentState.melodyDurations,
-            currentState.melody.length,
           ),
           harmonySequence:
             persisted.harmonySequence ?? currentState.harmonySequence,
-          harmonyDurations: cloneHarmonyDurations(
+          harmonyDurations: normalizeHarmonyDurations(
+            persisted.harmonySequence ?? currentState.harmonySequence,
             persisted.harmonyDurations ?? currentState.harmonyDurations,
           ),
-          bassDurations: cloneNoteDurationLane(
+          bassDurations: normalizeMonophonicDurations(
+            persisted.bassSequence ?? currentState.bassSequence,
             persisted.bassDurations ?? currentState.bassDurations,
-            currentState.bassSequence.length,
           ),
           learningExperiments:
             persisted.learningExperiments ?? currentState.learningExperiments,
