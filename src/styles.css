@@ -7432,29 +7432,131 @@ body {
   font-size: 12px;
 }
 
-/* One reading surface instead of a collection of explanation bubbles. */
+/* Layer lesson explanation so musical action stays visually dominant. */
 .learning-panel {
-  margin-top: 26px;
-  border-radius: 14px;
-  background: rgba(26,24,38,0.96);
+  margin-top: 28px;
 }
 
-.learning-panel > summary {
-  min-height: 62px;
-  padding: 14px 18px;
-  background: transparent;
+.learning-essentials {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.65fr);
+  gap: 18px;
+  padding: 22px;
+  border: 1px solid rgba(255,255,255,0.075);
+  border-radius: 16px;
+  background: rgba(26,24,38,0.94);
 }
 
-.learning-panel > summary strong {
-  font-size: 18px;
+.learning-essential-copy {
+  min-width: 0;
 }
 
-.learning-panel-toggle {
-  border: 0;
-  padding: 0;
-  background: transparent;
+.learning-essential-copy .section-label,
+.learning-listen-cue .section-label {
   color: var(--cyan);
-  font-size: 13px;
+}
+
+.learning-essential-copy h2 {
+  max-width: 760px;
+  margin: 7px 0 9px;
+  color: var(--text);
+  font-size: clamp(20px, 2vw, 27px);
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+}
+
+.learning-essential-copy > p {
+  max-width: 790px;
+  margin: 0;
+  color: #c9c2d3;
+  font-size: 16px;
+  line-height: 1.62;
+}
+
+.learning-listen-cue {
+  align-self: stretch;
+  padding: 16px 17px;
+  border: 1px solid rgba(95,225,239,0.18);
+  border-radius: 13px;
+  background: rgba(95,225,239,0.045);
+}
+
+.learning-listen-cue p {
+  margin: 7px 0 0;
+  color: #e2ddea;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.learning-deep-dive,
+.daw-checkpoint {
+  margin-top: 12px;
+  border: 1px solid rgba(255,255,255,0.075);
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(20,18,31,0.62);
+}
+
+.learning-deep-dive > summary,
+.daw-checkpoint > summary {
+  min-height: 64px;
+  padding: 13px 17px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+.learning-deep-dive > summary::-webkit-details-marker,
+.daw-checkpoint > summary::-webkit-details-marker {
+  display: none;
+}
+
+.learning-deep-dive > summary > div,
+.daw-checkpoint > summary > div {
+  min-width: 0;
+}
+
+.learning-deep-dive > summary strong {
+  display: block;
+  color: var(--text);
+  font-size: 16px;
+}
+
+.learning-deep-dive > summary span {
+  display: block;
+  margin-top: 3px;
+  color: #aaa2b8;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.learning-deep-dive > summary > b,
+.daw-checkpoint > summary > b {
+  flex: 0 0 auto;
+  color: var(--cyan);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.learning-deep-dive > summary > b::after,
+.daw-checkpoint > summary > b::after {
+  content: " ↓";
+}
+
+.learning-deep-dive[open] > summary,
+.daw-checkpoint[open] > summary {
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.learning-deep-dive[open] > summary > b::after,
+.daw-checkpoint[open] > summary > b::after {
+  content: " ↑";
 }
 
 .learning-panel-body {
@@ -7472,35 +7574,35 @@ body {
 }
 
 .learning-reading-column section + section {
-  margin-top: 26px;
+  margin-top: 22px;
 }
 
 .learning-reading-column h3,
 .learning-glossary h3 {
   margin: 0 0 8px;
   color: var(--text);
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.25;
 }
 
 .learning-reading-column p {
   margin: 0;
   color: #c9c2d3;
-  font-size: 16px;
-  line-height: 1.68;
+  font-size: 15px;
+  line-height: 1.62;
 }
 
 .learning-reading-column h4 {
-  margin: 16px 0 6px;
+  margin: 15px 0 6px;
   color: #aaa2b8;
-  font-size: 11px;
+  font-size: 10px;
   line-height: 1.3;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.09em;
 }
 
 .learning-concept-visual {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
   border: 1px solid rgba(255,255,255,0.07);
   border-radius: 12px;
   overflow: hidden;
@@ -7523,8 +7625,8 @@ body {
 }
 
 .learning-glossary {
-  margin-top: 30px;
-  padding-top: 24px;
+  margin-top: 28px;
+  padding-top: 22px;
   border-top: 1px solid rgba(255,255,255,0.08);
 }
 
@@ -7539,30 +7641,29 @@ body {
   display: grid;
   grid-template-columns: minmax(110px, 0.42fr) 1fr;
   gap: 14px;
-  padding: 12px 0;
+  padding: 11px 0;
   border-top: 1px solid rgba(255,255,255,0.055);
 }
 
 .learning-glossary dt {
   color: var(--cyan);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 750;
 }
 
 .learning-glossary dd {
   margin: 0;
   color: #bdb6c8;
-  font-size: 14px;
-  line-height: 1.55;
+  font-size: 13px;
+  line-height: 1.5;
 }
-
 
 .learning-model-card,
 .learning-use-card,
 .learning-playlab-card,
 .learning-daw-card,
 .learning-pitfall {
-  padding: 16px 17px;
+  padding: 15px 16px;
   border: 1px solid rgba(255,255,255,0.075);
   border-radius: 13px;
   background: rgba(20,18,31,0.42);
@@ -7596,7 +7697,7 @@ body {
 .learning-daw-card > p + p {
   margin-top: 10px;
   color: #aaa2b8;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .learning-daw-transfer {
@@ -7715,43 +7816,41 @@ body {
 }
 
 .daw-checkpoint {
-  margin-top: 32px;
-  padding: 22px;
-  border: 1px solid rgba(95,225,239,0.22);
-  border-radius: 16px;
+  border-color: rgba(95,225,239,0.19);
   background:
-    linear-gradient(145deg, rgba(95,225,239,0.055), rgba(159,140,255,0.055));
+    linear-gradient(145deg, rgba(95,225,239,0.045), rgba(159,140,255,0.04));
 }
 
-.daw-checkpoint-heading > span {
+.daw-checkpoint > summary > div > span {
+  display: block;
   color: var(--cyan);
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.11em;
+  letter-spacing: 0.1em;
 }
 
-.daw-checkpoint-heading h3 {
-  margin: 7px 0 7px;
+.daw-checkpoint > summary > div > strong {
+  display: block;
+  margin-top: 4px;
   color: var(--text);
-  font-size: 19px;
+  font-size: 15px;
 }
 
-.daw-checkpoint-heading p,
-.daw-checkpoint-grid p,
-.daw-checkpoint-challenge {
-  color: #c3bccf;
-  font-size: 13px;
-  line-height: 1.58;
+.daw-checkpoint > summary > div > small {
+  display: block;
+  max-width: 760px;
+  margin-top: 4px;
+  color: #aaa2b8;
+  font-size: 11px;
+  line-height: 1.4;
 }
 
-.daw-checkpoint-heading p {
-  margin: 0;
-  max-width: 780px;
+.daw-checkpoint-body {
+  padding: 18px 20px 20px;
 }
 
 .daw-checkpoint-grid {
-  margin-top: 18px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
@@ -7769,14 +7868,20 @@ body {
   font-size: 12px;
 }
 
+.daw-checkpoint-grid p,
+.daw-checkpoint-challenge {
+  color: #c3bccf;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
 .daw-checkpoint-grid p {
   margin: 4px 0 0;
-  font-size: 12px;
 }
 
 .daw-checkpoint-challenge {
-  margin: 18px 0 0;
-  padding-top: 16px;
+  margin: 16px 0 0;
+  padding-top: 14px;
   border-top: 1px solid rgba(255,255,255,0.07);
 }
 
@@ -7833,8 +7938,13 @@ body {
     grid-template-columns: 220px minmax(650px, 1fr) 290px;
   }
 
+  .learning-essentials,
   .learning-reading-grid {
-    gap: 26px;
+    grid-template-columns: 1fr;
+  }
+
+  .learning-reading-grid {
+    gap: 22px;
   }
 
   .learning-glossary dl {
