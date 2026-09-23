@@ -4,6 +4,7 @@ import {
   harmonyOffbeats,
   writtenHarmonyFitsChords,
 } from "./harmonyApplication";
+import { heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -58,6 +59,7 @@ export const seventhChordsLesson: LessonDefinition = {
         successLabel: "You added and heard the B inside Cmaj7",
       }),
       evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+        { label: "You listened to the seventh-chord change in context", complete: heardPlayback(experiments) },
         { label: "Bar 1 finishes on Cmaj7", complete: chordProgression[0] === "Cmaj7" },
         { label: "You compared plain C with Cmaj7 in this exercise", complete: triedChord(experiments, 0, "C") && triedChord(experiments, 0, "Cmaj7") },
         { label: "C, E, G and B are all written in bar 1", complete: barUsesAllChordTones(harmonySequence, chordProgression, 0) },
@@ -85,6 +87,7 @@ export const seventhChordsLesson: LessonDefinition = {
         successLabel: "The dominant seventh now resolves through notes you placed",
       }),
       evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+        { label: "You listened to the seventh-chord change in context", complete: heardPlayback(experiments) },
         { label: "G7 resolves directly to Cmaj7", complete: chordProgression[1] === "G7" && chordProgression[2] === "Cmaj7" },
         { label: "Both seventh chords contain all four chord tones", complete: barUsesAllChordTones(harmonySequence, chordProgression, 1) && barUsesAllChordTones(harmonySequence, chordProgression, 2) },
         { label: "Written notes fit the current chords", complete: writtenHarmonyFitsChords(harmonySequence, chordProgression) },
@@ -112,6 +115,7 @@ export const seventhChordsLesson: LessonDefinition = {
         successLabel: "You wrote ii7–V7–Imaj7 as a four-note chord part",
       }),
       evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+        { label: "You listened to the seventh-chord change in context", complete: heardPlayback(experiments) },
         { label: "Progression begins Dm7 → G7 → Cmaj7", complete: chordProgression[0] === "Dm7" && chordProgression[1] === "G7" && chordProgression[2] === "Cmaj7" },
         { label: "The first three bars contain all four chord tones", complete: [0, 1, 2].every((bar) => barUsesAllChordTones(harmonySequence, chordProgression, bar)) },
         { label: "The written notes fit their chords", complete: writtenHarmonyFitsChords(harmonySequence, chordProgression) },
@@ -139,6 +143,7 @@ export const seventhChordsLesson: LessonDefinition = {
         successLabel: "The turnaround is a performed four-bar part",
       }),
       evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+        { label: "You listened to the seventh-chord change in context", complete: heardPlayback(experiments) },
         { label: "Progression is Cmaj7 → Am7 → Dm7 → G7", complete: chordProgression.join("|") === "Cmaj7|Am7|Dm7|G7" },
         { label: "Every bar contains all four chord tones", complete: [0, 1, 2, 3].every((bar) => barUsesAllChordTones(harmonySequence, chordProgression, bar)) },
         { label: "The accompaniment uses at least ten time positions", complete: harmonyActiveSteps(harmonySequence) >= 10 },
