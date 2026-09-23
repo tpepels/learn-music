@@ -39,7 +39,7 @@ export type ProductionContext = {
 
 export const productionContext: Record<string, ProductionContext> = {
   "rhythm.pulse-and-groove.a": {
-    why: "A steady four-on-the-floor kick makes the beat impossible to lose. Producers use it when they want the track to feel physically grounded and easy to move to.",
+    why: "A steady four-on-the-floor kick makes the beat impossible to lose. It is useful when the track needs to feel physically grounded and easy to move to.",
     when: "Usually very early: while sketching the groove or laying down the rhythmic foundation before bass, chords, and melody.",
     tools: ["Drum machine", "Step sequencer", "DAW drum rack", "Kick sample"],
     visual: "drum-machine",
@@ -61,7 +61,7 @@ export const productionContext: Record<string, ProductionContext> = {
   },
   "rhythm.pulse-and-groove.d": {
     why: "Syncopation stops a groove from feeling mechanically square. It creates push, surprise, and forward motion by emphasizing weaker positions.",
-    when: "Once the basic groove works. Producers add it while making a loop more alive or when a section needs extra momentum.",
+    when: "Once the basic groove works, especially when a loop needs more life or a section needs extra momentum.",
     tools: ["Step sequencer", "MIDI editor", "Nudge", "Velocity/accent controls"],
     visual: "drum-machine",
     realWorld: "In a piano roll or drum editor, syncopated notes appear between the strong beat lines instead of sitting only on them.",
@@ -79,7 +79,7 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "Near the end of bars, phrases, verses, or before drops and section changes.",
     tools: ["Drum fill", "MIDI editor", "Tom/snare samples", "Pattern variation"],
     visual: "variation",
-    realWorld: "Producers often duplicate the last bar of a loop and make only that bar busier.",
+    realWorld: "A common workflow is to duplicate the last bar of a loop and make only that bar busier.",
   },
   "rhythm.variation.c": {
     why: "Anticipation creates forward pull because an event arrives just before the place the ear expects it. It is one of the simplest ways to make rhythm feel eager.",
@@ -130,7 +130,7 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "At the start of writing a chord part, before the rhythm, voicing, and texture of that part have been decided.",
     tools: ["Piano roll", "MIDI clip", "Chord label", "Loop playback"],
     visual: "harmony",
-    realWorld: "In a DAW, the chord name may sit above the timeline, but the actual music is still MIDI notes that the producer records or draws into the clip.",
+    realWorld: "In a DAW, the chord name may sit above the timeline, but the actual music is still MIDI notes recorded or drawn into the clip.",
   },
   "harmony.chords.b": {
     why: "Writing every bar by hand makes I, IV, V, and I audible as changes in the notes the learner actually entered, rather than as four buttons the software performs automatically.",
@@ -144,7 +144,7 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "After the progression works harmonically and the writer starts shaping the keyboard, guitar, or synth part itself.",
     tools: ["Piano roll", "Grid", "MIDI note editor", "Loop playback"],
     visual: "harmony",
-    realWorld: "A producer may turn one vertical chord stack into repeated notes, offbeat stabs, or a broken-chord figure without changing the chord symbol above it.",
+    realWorld: "One vertical chord stack can become repeated notes, offbeat stabs, or a broken-chord figure without changing the chord symbol above it.",
   },
   "harmony.chords.d": {
     why: "A finished accompaniment needs both harmonic direction and a self-written rhythmic shape. The learner now makes those choices directly instead of selecting a canned accompaniment mode.",
@@ -162,7 +162,7 @@ export const productionContext: Record<string, ProductionContext> = {
     realWorld: "Nearly every subtractive synth has an oscillator section labelled OSC with waveform buttons or a selector.",
   },
   "sound.synthesis.b": {
-    why: "Filters let producers shape brightness and remove spectral energy that is not useful. They are central to both sound design and musical movement.",
+    why: "Filters shape brightness and remove spectral energy that is not useful. They are central to both sound design and musical movement.",
     when: "During synth programming, arrangement transitions, and later during mixing when a sound occupies too much high-frequency space.",
     tools: ["Low-pass filter", "Cutoff knob", "Synth filter", "Automation lane"],
     visual: "synth",
@@ -173,7 +173,7 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "During sound design when a part needs to sit as a pluck, stab, lead, or other clearly articulated voice.",
     tools: ["ADSR envelope", "Attack knob", "Release knob", "Phrase audition"],
     visual: "synth",
-    realWorld: "Producers often loop the actual MIDI phrase while shortening attack and release, because envelope timing only makes full sense against the notes it has to perform.",
+    realWorld: "Loop the actual MIDI phrase while shortening attack and release: envelope timing only makes full sense against the notes it has to perform.",
   },
   "sound.synthesis.d": {
     why: "Replaying the same melody with a slow attack and long release isolates what timbre and time-shape contribute: the notes stay fixed while the part becomes a sustained background layer.",
@@ -195,7 +195,7 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "While arranging sections after the core musical material exists.",
     tools: ["Arrangement view", "Clip duplication", "Track mute", "Section markers"],
     visual: "arrangement",
-    realWorld: "Producers often duplicate an 8- or 16-bar block, then remove/add clips to make the second section different.",
+    realWorld: "A common arrangement workflow is to duplicate an 8- or 16-bar block, then remove or add clips to make the second section different.",
   },
   "form.arrangement.c": {
     why: "A build creates expectation before a high-energy moment. Density is one tool; automation, risers, drums, harmony, and dynamics can reinforce it.",
@@ -213,7 +213,7 @@ export const productionContext: Record<string, ProductionContext> = {
   },
 
   "mixing.balance-space.a": {
-    why: "Level is the first and most powerful mixing decision. Producers balance faders before reaching for complicated processing because many 'mix problems' are simply parts competing at the wrong relative loudness.",
+    why: "Level is the first and most powerful mixing decision. Balance faders before reaching for complicated processing because many mix problems are simply parts competing at the wrong relative loudness.",
     when: "After the composition and rough arrangement exist, at the start of a mix. Engineers also revisit level constantly throughout the rest of the process.",
     tools: ["Mixer channel", "Volume fader", "Level meter", "DAW mixer view"],
     visual: "mixer",
@@ -235,28 +235,28 @@ export const productionContext: Record<string, ProductionContext> = {
   },
   "mixing.balance-space.d": {
     why: "Shared reverb and delay create depth and cohesion without duplicating the same effect on every track. Sends let each channel feed the shared effect by a different amount.",
-    when: "After the dry balance is working. Producers add spatial effects during mixing and often automate them later for transitions or emphasis.",
+    when: "After the dry balance is working. Spatial effects can then be added for depth and automated later for transitions or emphasis.",
     tools: ["Send knob", "Return channel", "Reverb bus", "Delay bus", "Aux track"],
     visual: "mixer",
     realWorld: "DAWs commonly show send knobs on each channel and separate return/aux channels labelled A/B or Reverb/Delay. Hardware mixers use AUX SEND and RETURN controls for the same routing idea.",
   },
 
   "production.automation-dynamics.a": {
-    why: "A static fader can be correct at one moment and wrong at another. Volume automation lets producers shape the foreground continuously so important phrases come forward without changing the performance itself.",
+    why: "A static fader can be correct at one moment and wrong at another. Volume automation shapes the foreground continuously so important phrases can come forward without changing the performance itself.",
     when: "Usually after the rough mix is established, during detailed mixing and arrangement refinement. It is also common during vocal rides, builds, fades, and transitions.",
     tools: ["Automation lane", "Volume automation", "Breakpoints", "DAW arrangement view"],
     visual: "automation",
-    realWorld: "In most DAWs, pressing an automation key or opening an automation lane reveals a line across the track. Producers add breakpoints and drag the line up or down over time.",
+    realWorld: "In most DAWs, opening an automation lane reveals a line across the track. Add breakpoints and drag the line up or down to store changes over time.",
   },
   "production.automation-dynamics.b": {
-    why: "A filter sweep creates motion in timbre without rewriting notes. Producers use it to hide and reveal harmonics gradually, making a section feel as though it is opening, closing, or building toward an arrival.",
+    why: "A filter sweep creates motion in timbre without rewriting notes. It can hide and reveal harmonics gradually, making a section feel as though it is opening, closing, or building toward an arrival.",
     when: "During arrangement and transition design, especially before choruses, drops, climaxes, and breakdowns.",
     tools: ["Filter cutoff", "Automation lane", "Low-pass filter", "Synth or EQ plugin"],
     visual: "automation",
     realWorld: "A cutoff automation curve often slopes upward across several bars while the filter knob moves automatically during playback.",
   },
   "production.automation-dynamics.c": {
-    why: "Compression controls peaks and narrows dynamic range. Producers use it when individual hits jump out too much or when a drum bus needs more consistent impact.",
+    why: "Compression controls peaks and narrows dynamic range. It is useful when individual hits jump out too much or when a drum bus needs more consistent impact.",
     when: "During mixing after basic level balance. Compression is often inserted directly on a channel or bus before or after EQ depending on the goal.",
     tools: ["Compressor", "Threshold", "Ratio", "Attack", "Release", "Gain-reduction meter"],
     visual: "automation",
@@ -267,11 +267,11 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "During detailed mixing and final arrangement refinement, after the core groove, harmony, and structure are already working.",
     tools: ["Compressor timing", "Automation curves", "Drum bus", "Arrangement view", "A/B bypass"],
     visual: "automation",
-    realWorld: "Producers often loop a section, adjust compressor attack/release by ear, then draw automation around the same section so punch, brightness, and level all reinforce its structure.",
+    realWorld: "A useful workflow is to loop a section, adjust compressor attack and release by ear, then shape automation so punch, brightness, and level reinforce the same structure.",
   },
 
   "production.effects-transitions.a": {
-    why: "Reverb is one of the main ways producers create front-to-back depth. Decay, pre-delay, and send amount let a sound feel spacious without automatically becoming blurry.",
+    why: "Reverb is one of the main ways to create front-to-back depth. Decay, pre-delay, and send amount let a sound feel spacious without automatically becoming blurry.",
     when: "After the dry balance is working, during mixing and transition design. Reverb is also revisited later when arrangement density changes.",
     tools: ["Reverb return", "Decay", "Pre-delay", "Send level", "Aux bus"],
     visual: "effects",
@@ -304,7 +304,7 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "Before final mixing and again whenever production work starts feeling like compensation for a weak musical idea.",
     tools: ["Arrangement playback", "Mute/bypass", "Piano roll", "Chord track", "Drum editor"],
     visual: "final",
-    realWorld: "Producers often bypass effects or mute layers to check whether the groove, melody, and harmony still communicate on their own.",
+    realWorld: "Bypass effects or mute layers to check whether the groove, melody, and harmony still communicate on their own.",
   },
   "production.final-project.b": {
     why: "A complete track needs a large-scale reason to keep listening. Arrangement auditing checks whether energy, density, and contrast actually change across time.",
@@ -325,7 +325,7 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "At milestones, before risky changes, before collaboration, and at the end of a session or project.",
     tools: ["Project file", "Save As", "Version number", "Bounce/export"],
     visual: "final",
-    realWorld: "DAWs save editable project/session files and separately render WAV/AIFF/MP3 audio. Versioned filenames let producers return to earlier decisions.",
+    realWorld: "DAWs save editable project/session files and separately render WAV/AIFF/MP3 audio. Versioned filenames make it possible to return to earlier decisions.",
   },
 
   "harmony.voice-leading.a": {
@@ -347,7 +347,7 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "While shaping accompaniment, bass motion, or transitions between close-position chords.",
     tools: ["Piano", "Second inversion", "MIDI editor", "Chord track"],
     visual: "voice-leading",
-    realWorld: "DAWs do not label inversions automatically in most workflows; producers see them as the same chord notes moved into a different vertical order.",
+    realWorld: "DAWs do not label inversions automatically in most workflows; the piano roll simply shows the same chord notes moved into a different vertical order.",
   },
   "harmony.voice-leading.d": {
     why: "Smooth voice leading makes harmony feel connected because individual notes move by small intervals or remain common tones.",
@@ -383,7 +383,7 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "Once roots, chord tones, and transitions are understood, before detailed sound design and mixing.",
     tools: ["Bass instrument", "MIDI clip", "Drum groove", "Chord track"],
     visual: "bassline",
-    realWorld: "Producers commonly loop drums, chords, and bass together while editing the bass line until it locks rhythmically without obscuring the harmony.",
+    realWorld: "Loop drums, chords, and bass together while editing the bass line until it locks rhythmically without obscuring the harmony.",
   },
 
   "rhythm.groove-feel.a": {
@@ -427,7 +427,7 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "When a phrase needs continuation without introducing completely unrelated melodic material.",
     tools: ["Transpose command", "Piano roll", "MIDI selection", "Keyboard"],
     visual: "motif",
-    realWorld: "Producers often select a MIDI phrase and drag it vertically or use a transpose command so the whole shape moves together.",
+    realWorld: "Select a MIDI phrase and drag it vertically, or use a transpose command, so the whole shape moves together.",
   },
   "composition.motif-development.c": {
     why: "Fragmentation keeps a trace of the source idea while creating more space and flexibility than another full repetition.",
@@ -478,7 +478,7 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "While reharmonizing a melody or groove and deciding whether a bar should feel stable, departing, tense, or resolved.",
     tools: ["Chord track", "Polyphonic piano roll", "Loop playback", "Roman numerals"],
     visual: "harmonic-function",
-    realWorld: "A producer may use chord symbols as a map, but the audible part still consists of recorded or drawn MIDI notes that must be rewritten when the harmony changes.",
+    realWorld: "Chord symbols can act as a map, but the audible part still consists of recorded or drawn MIDI notes that must change when the harmony changes.",
   },
   "harmony.function.b": {
     why: "ii–V–I is a compact example of predominant–dominant–tonic motion and makes functional direction especially easy to hear.",
@@ -514,7 +514,7 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "During structural planning before detailed arrangement, production, and transitions are finalized.",
     tools: ["Arrangement markers", "Section labels", "Clip groups", "Timeline"],
     visual: "phrase-form",
-    realWorld: "Producers often color or label first-half and second-half blocks differently in the arrangement view to make binary structure visible.",
+    realWorld: "Colouring or labelling first-half and second-half blocks differently can make binary structure visible in the arrangement view.",
   },
   "composition.phrase-form.c": {
     why: "Ternary A–B–A gives contrast meaning through return: familiar material is heard differently after the contrasting middle.",
@@ -550,7 +550,7 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "At climaxes, choruses, lead entrances, orchestral tuttis, or other moments where a line needs more presence.",
     tools: ["Duplicate MIDI", "Octave transpose", "Layered instrument", "Arrangement"],
     visual: "texture",
-    realWorld: "Producers often duplicate a MIDI melody to another instrument or octave; the two clips share rhythm and contour but occupy different registers.",
+    realWorld: "Duplicate a MIDI melody to another instrument or octave and the two clips can share rhythm and contour while occupying different registers.",
   },
   "composition.texture-orchestration.d": {
     why: "Density contrast makes large moments feel large because sparse moments establish space beforehand.",
@@ -724,7 +724,7 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "When composing sections that move between relative major and minor or when a melody needs contrast without changing its note collection.",
     tools: ["Piano roll", "Phrase markers", "Loop region", "Tonic pedal/reference"],
     visual: "relative-minor",
-    realWorld: "A producer may keep one MIDI clip almost unchanged while changing the bass note or phrase ending so the same material reads as C major in one section and A minor in another.",
+    realWorld: "One MIDI clip can stay almost unchanged while a changed bass note or phrase ending makes the same material read as C major in one section and A minor in another.",
   },
   "harmony.relative-minor.d": {
     why: "The lowered third, sixth, and seventh define the interval pattern of natural minor relative to the tonic. Using them deliberately makes the mode audible as structure rather than merely as a list of allowed notes.",
@@ -789,7 +789,7 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "When V7→i feels too final and the next section or phrase needs to remain open.",
     tools: ["Chord track", "A/B progression comparison", "Piano", "Roman-numeral analysis"],
     visual: "minor-cadence",
-    realWorld: "Producers often duplicate a progression and change only the final chord to compare a closed cadence against a deceptive one.",
+    realWorld: "Duplicate a progression and change only the final chord to compare a closed cadence against a deceptive one.",
   },
 
   "harmony.seventh-chords.a": {
@@ -797,7 +797,7 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "After triads are comfortable and the writer wants richer tonic, predominant, or dominant colour.",
     tools: ["Chord track", "Polyphonic piano roll", "Piano", "Loop playback"],
     visual: "seventh-chords",
-    realWorld: "A Cmaj7 MIDI clip is literally a C-major triad plus B; producers can mute that B to compare the triad and seventh chord instantly.",
+    realWorld: "A Cmaj7 MIDI clip is literally a C-major triad plus B; mute that B to compare the triad and seventh chord instantly.",
   },
   "harmony.seventh-chords.b": {
     why: "The dominant seventh contains two guide tones that move by semitone into tonic, making the cadence stronger than a plain major V chord.",
@@ -861,7 +861,7 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "Use it after the notes already work, before changing EQ or rewriting the part simply because its role is not reading clearly.",
     tools: ["Instrument browser", "Bass instrument", "Keyboard or synth voice", "A/B audition"],
     visual: "texture",
-    realWorld: "Producers routinely duplicate or loop one MIDI part and audition several instruments while the rest of the track keeps playing.",
+    realWorld: "Loop one MIDI part and audition several instruments while the rest of the track keeps playing.",
   },
   "style.house.c": {
     why: "Kick-triggered ducking turns the low-end interaction into something you can hear and control instead of permanently lowering the bass.",
@@ -897,7 +897,7 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "Use it when a groove feels crowded and you want to test articulation before deleting notes or applying corrective processing.",
     tools: ["Instrument palette", "Bass voice", "Chord voice", "A/B audition"],
     visual: "texture",
-    realWorld: "Producers loop a phrase and switch patches or instruments to hear whether decay and transient shape improve the pocket.",
+    realWorld: "Loop a phrase and switch patches or instruments to hear whether decay and transient shape improve the pocket.",
   },
   "style.funk.d": {
     why: "Short chord attacks can function as rhythmic events, allowing harmony to interlock with bass and drums instead of filling the entire bar.",
@@ -933,7 +933,7 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "Use it once the beat and hook have space and you need to decide which remaining sounds should feel intimate, heavy, or forceful.",
     tools: ["Velocity-layered sampler", "Bass instrument selector", "Full-track A/B"],
     visual: "texture",
-    realWorld: "A producer can audition different bass instruments and recorded piano velocity layers against the same MIDI while the beat loops.",
+    realWorld: "Audition different bass instruments and recorded piano velocity layers against the same MIDI while the beat loops.",
   },
 
   "style.ambient.a": {
@@ -991,7 +991,7 @@ export const productionContext: Record<string, ProductionContext> = {
     when: "Use it near the end of arranging when the role of the melody is established and instrument choice should support recognition.",
     tools: ["Instrument palette", "Velocity layers", "Full-mix A/B"],
     visual: "texture",
-    realWorld: "Producers often audition several keyboard or lead sounds against the complete arrangement, then keep the one that preserves the intended hierarchy.",
+    realWorld: "Audition several keyboard or lead sounds against the complete arrangement, then keep the one that preserves the intended hierarchy.",
   },
 
 };
