@@ -1,7 +1,9 @@
 import {
   initialFormSettings,
+  initialGrooveFeelSettings,
   type FormSectionLabel,
   type FormSettings,
+  type GrooveFeelSettings,
 } from "../music/model";
 
 const FORM_SECTIONS = 4;
@@ -12,6 +14,46 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function isBoolean(value: unknown): value is boolean {
   return typeof value === "boolean";
+}
+
+function finiteNumber(value: unknown): number | null {
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+
+function migrateVelocityLane(
+  value: unknown,
+  fallback: number[],
+): number[] {
+  if (!Array.isArray(value)) return [...fallback];
+
+  return fallback.map((defaultValue, index) => {
+    const persisted = finiteNumber(value[index]);
+    return persisted === null ? defaultValue : persisted;
+  });
+}
+
+export function migrateGrooveFeelSettings(value: unknown): GrooveFeelSettings {
+  const record = isRecord(value) ? value : {};
+  const velocities = isRecord(record.velocities) ? record.velocities : {};
+
+  return {
+    swing:
+      finiteNumber(record.swing) ?? initialGrooveFeelSettings.swing,
+    velocities: {
+      kick: migrateVelocityLane(
+        velocities.kick,
+        initialGrooveFeelSettings.velocities.kick,
+      ),
+      snare: migrateVelocityLane(
+        velocities.snare,
+        initialGrooveFeelSettings.velocities.snare,
+      ),
+      hat: migrateVelocityLane(
+        velocities.hat,
+        initialGrooveFeelSettings.velocities.hat,
+      ),
+    },
+  };
 }
 
 export function migrateFormSettings(value: unknown): FormSettings {
