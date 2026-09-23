@@ -11,8 +11,11 @@ import type {
   ExerciseExperiments,
   GrooveFeelSettings,
   FormSettings,
+  HarmonyDurations,
   HarmonySequence,
+  InstrumentSettings,
   MelodySequence,
+  NoteDurationLane,
   MixerSettings,
   ReferenceMixSettings,
   SaturationSettings,
@@ -69,6 +72,7 @@ export const exerciseContentSchema = z.object({
     "minor-harmony",
     "seventh-harmony",
     "borrowed-harmony",
+    "instrument-palette",
   ]),
   checksLabel: z.string(),
   successLabel: z.string(),
@@ -91,8 +95,10 @@ export type LessonContext = {
   B: StepPattern;
   selectedPitchClasses: string[];
   melody: MelodySequence;
+  melodyDurations: NoteDurationLane;
   chordProgression: ChordProgression;
   harmonySequence: HarmonySequence;
+  harmonyDurations: HarmonyDurations;
   accompanimentPattern: AccompanimentPattern;
   synthSettings: SynthSettings;
   arrangement: Arrangement;
@@ -103,9 +109,11 @@ export type LessonContext = {
   projectMilestones: { exported: boolean };
   voicingSettings: VoicingSettings;
   bassSequence: BassSequence;
+  bassDurations: NoteDurationLane;
   grooveFeelSettings: GrooveFeelSettings;
   formSettings: FormSettings;
   textureSettings: TextureSettings;
+  instrumentSettings: InstrumentSettings;
   eqSettings: EqSettings;
   saturationSettings: SaturationSettings;
   sidechainSettings: SidechainSettings;
