@@ -3,6 +3,7 @@ import {
   applyLearningFocusVolume,
   shouldMuteLearningContext,
 } from "./learningFocus";
+import { getSynthPhraseEvents } from "./synthPhrase";
 import pianoSoftA2 from "@audio-samples/piano-mp3-velocity3/audio/A2v3.mp3";
 import pianoSoftC3 from "@audio-samples/piano-mp3-velocity3/audio/C3v3.mp3";
 import pianoSoftA3 from "@audio-samples/piano-mp3-velocity3/audio/A3v3.mp3";
