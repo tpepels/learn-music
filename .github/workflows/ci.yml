@@ -2,9 +2,6 @@ name: Validate branch manually
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - feature/recover-to-lesson-five-v248
 
 permissions:
   contents: read
