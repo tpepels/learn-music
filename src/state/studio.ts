@@ -1,7 +1,10 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { resetLessonProgressState } from "../learning/progress";
-import { migrateFormSettings } from "./migrations";
+import {
+  migrateFormSettings,
+  migrateGrooveFeelSettings,
+} from "./migrations";
 import {
   readLearningProgressCookie,
   writeLearningProgressCookie,
@@ -1287,6 +1290,9 @@ export const useStudioStore = create<StudioState>()(
           ),
           learningExperiments:
             persisted.learningExperiments ?? currentState.learningExperiments,
+          grooveFeelSettings: migrateGrooveFeelSettings(
+            persisted.grooveFeelSettings,
+          ),
           formSettings: migrateFormSettings(persisted.formSettings),
           accompanimentPattern:
             persisted.accompanimentPattern ?? currentState.accompanimentPattern,
