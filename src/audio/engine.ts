@@ -1,4 +1,5 @@
 import * as Tone from "tone";
+import { applyLearningFocusVolume } from "./learningFocus";
 import pianoSoftA2 from "@audio-samples/piano-mp3-velocity3/audio/A2v3.mp3";
 import pianoSoftC3 from "@audio-samples/piano-mp3-velocity3/audio/C3v3.mp3";
 import pianoSoftA3 from "@audio-samples/piano-mp3-velocity3/audio/A3v3.mp3";
@@ -173,6 +174,7 @@ class AudioEngine {
   private referenceSnapshot: ReferenceSnapshot | null = null;
   private referenceTrimDb = 0;
   private quietAuditionDb = 0;
+  private learningFocusTrack: MixerTrackId | null = null;
 
   private drumSampler: Tone.Sampler | null = null;
   private pianoSoft: Tone.Sampler | null = null;
@@ -340,6 +342,11 @@ class AudioEngine {
 
   setQuietAudition(enabled: boolean) {
     this.quietAuditionDb = enabled ? -18 : 0;
+    this.applyMixerSettings();
+  }
+
+  setLearningFocusTrack(track: MixerTrackId | null) {
+    this.learningFocusTrack = track;
     this.applyMixerSettings();
   }
 
@@ -852,8 +859,13 @@ class AudioEngine {
       const delaySend = this.delaySends[track];
 
       if (channel) {
+        const focusedVolume = applyLearningFocusVolume(
+          settings.volume + trim,
+          track,
+          this.learningFocusTrack,
+        );
         channel.volume.rampTo(
-          settings.volume + trim + this.quietAuditionDb,
+          focusedVolume + this.quietAuditionDb,
           0.03,
         );
         channel.pan.rampTo(mono ? 0 : settings.pan, 0.03);
