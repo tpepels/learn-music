@@ -849,6 +849,122 @@ export const productionContext: Record<string, ProductionContext> = {
     visual: "modal-mixture",
     realWorld: "A production can keep C in the bass at structural points while B♭ and Fm colour the middle of the progression.",
   },
+
+  "genre.house.a": {
+    why: "Four-on-the-floor kick and offbeat hats create two interlocking time layers: one marks the floor, the other supplies motion between beats.",
+    when: "Use this relationship when studying dance-oriented grooves or when a track needs an unambiguous physical pulse before bass and arrangement are added.",
+    tools: ["Drum machine", "Step sequencer", "Velocity editor", "Tempo control"],
+    visual: "groove-feel",
+    realWorld: "House drum clips often show quarter-note kicks on the main grid lines with hats placed halfway between them.",
+  },
+  "genre.house.b": {
+    why: "Syncopated bass can answer a steady kick instead of duplicating every beat, making the low end feel active without making the drum pulse less clear.",
+    when: "After the kick pattern is stable and you want the bass line to create forward movement around it.",
+    tools: ["Bass instrument", "Piano roll", "Loop playback", "Kick reference"],
+    visual: "bassline",
+    realWorld: "In a DAW, house bass MIDI often leaves visible gaps on some kick positions and places attacks on the eighth-note spaces between beats.",
+  },
+  "genre.house.c": {
+    why: "Removing drums before their return can create lift through memory and contrast, so the next full section feels larger without requiring a new instrument.",
+    when: "During breakdowns, transitions, and pre-drop sections after the core groove is already established.",
+    tools: ["Arrangement view", "Track mute", "Clip blocks", "Section loop"],
+    visual: "arrangement",
+    realWorld: "A house arrangement commonly shows several bars where kick clips disappear while pads, chords, or vocal material continue.",
+  },
+  "genre.house.d": {
+    why: "Kick-triggered ducking can clarify the low end and reinforce the repeating pulse, but comparing bypass prevents the technique from becoming an automatic genre checkbox.",
+    when: "Once kick and bass overlap audibly and the groove is stable enough to judge whether the processing actually helps.",
+    tools: ["Sidechain compressor", "Kick key input", "Release control", "A/B bypass"],
+    visual: "sidechain",
+    realWorld: "Electronic-music sessions often show a compressor on the bass keyed from the kick, with gain reduction occurring on every kick hit.",
+  },
+
+  "genre.hip-hop.a": {
+    why: "A stable backbeat plus an asymmetrical kick pattern creates pocket by making individual kick placements matter instead of marking every quarter note automatically.",
+    when: "At the beginning of beat construction, before extra percussion and melodic layers make the rhythmic skeleton harder to hear.",
+    tools: ["Drum rack", "Step sequencer", "MIDI editor", "Tempo control"],
+    visual: "groove-feel",
+    realWorld: "Hip-hop drum clips often show snares fixed on 2 and 4 while kick notes form a less regular pattern around them.",
+  },
+  "genre.hip-hop.b": {
+    why: "Velocity and modest swing can turn a quantized pattern into a pocket by separating main accents from supporting hits and shifting how subdivisions lean.",
+    when: "After note placement works but the beat still feels mechanically flat or every hit seems equally important.",
+    tools: ["Velocity lane", "Swing control", "Ghost notes", "Loop playback"],
+    visual: "groove-feel",
+    realWorld: "Beat makers routinely edit velocity bars below MIDI notes and audition groove or swing settings without changing the visible note pattern.",
+  },
+  "genre.hip-hop.c": {
+    why: "Sparse bass gives each low note more weight because it arrives into clear space instead of competing with constant low-frequency activity.",
+    when: "When a beat already has a strong rhythmic identity and the bass should punctuate rather than continuously fill the grid.",
+    tools: ["Bass instrument", "Piano roll", "Mute/solo", "Loop playback"],
+    visual: "bassline",
+    realWorld: "Many beat sessions show short clusters of bass MIDI separated by large empty regions instead of an uninterrupted line of eighth notes.",
+  },
+  "genre.hip-hop.d": {
+    why: "Letting drums and bass carry a section exposes the groove as foreground and makes later harmony or melody returns feel structurally meaningful.",
+    when: "During verse/section arrangement when the beat needs contrast without introducing new musical material.",
+    tools: ["Arrangement view", "Track mute", "Clip duplication", "Section markers"],
+    visual: "arrangement",
+    realWorld: "Producers often remove melodic clips for a bar or phrase while leaving drums and bass running, then restore them at the next section.",
+  },
+
+  "genre.funk.a": {
+    why: "Dense sixteenth-note subdivisions gain life from accents and ghost notes; the groove comes from dynamic hierarchy rather than every hit being equally strong.",
+    when: "When programming a tight rhythm section that should feel busy without becoming mechanically flat.",
+    tools: ["Hi-hat pattern", "Velocity lane", "Ghost snare", "Step sequencer"],
+    visual: "groove-feel",
+    realWorld: "A funk-inspired MIDI drum clip may look dense, but its velocity lane reveals strong accents surrounded by much quieter supporting strokes.",
+  },
+  "genre.funk.b": {
+    why: "An independent syncopated bass rhythm lets drums and bass interlock instead of moving as one doubled part, creating complexity from complementary placement.",
+    when: "After the drum subdivision is established and the bass needs to become an active rhythmic voice rather than only harmonic support.",
+    tools: ["Bass instrument", "Piano roll", "Metronome/loop", "Kick reference"],
+    visual: "bassline",
+    realWorld: "Funk bass MIDI often shows many attacks between strong beats, with a rhythm that remains recognizable even when the drum track is muted.",
+  },
+  "genre.funk.c": {
+    why: "Short chord stabs turn harmony into part of the rhythm section. The chord names can stay the same while duration and placement completely change the role of the part.",
+    when: "Once a progression works harmonically but sustained chords feel too passive for the groove.",
+    tools: ["Piano roll", "Chord track", "Note-length editing", "Loop playback"],
+    visual: "harmony",
+    realWorld: "Keyboard or guitar comping often appears as short repeated MIDI blocks on offbeats rather than one long chord filling each bar.",
+  },
+  "genre.funk.d": {
+    why: "Giving bass and chords separate moments makes their rhythmic jobs easier to hear, while bars where both return show how the interlocking parts combine.",
+    when: "During arrangement refinement when a busy groove needs clearer conversational space between rhythm-section parts.",
+    tools: ["Arrangement view", "Track mute", "Loop regions", "Mixer"],
+    visual: "arrangement",
+    realWorld: "Arrangements often alternate short bass-led and chord-led gaps before bringing the full rhythm section back together.",
+  },
+
+  "genre.ambient.a": {
+    why: "Slow attack and long release shift attention away from note attacks toward evolving timbre and overlap, turning the same melody into a sustained texture.",
+    when: "When a part should behave like an environment or background field instead of a sharply articulated lead.",
+    tools: ["Synth envelope", "Filter cutoff", "Phrase audition", "Tempo control"],
+    visual: "synth",
+    realWorld: "Ambient synth patches commonly show long amp-envelope slopes and are auditioned with sustained MIDI rather than short preset-demo notes.",
+  },
+  "genre.ambient.b": {
+    why: "Long notes and large onset gaps make duration and silence compositional materials, allowing the listener to notice decay, register, and timbral change.",
+    when: "When a melody feels too event-heavy and the piece needs slower perceptual pacing without necessarily changing harmony.",
+    tools: ["Piano roll", "Note-length handles", "Loop playback", "Sustain"],
+    visual: "piano-roll",
+    realWorld: "Ambient MIDI clips often contain a few visibly long note blocks separated by large empty spaces rather than dense short-note patterns.",
+  },
+  "genre.ambient.c": {
+    why: "Low-density arrangement makes small entrances and exits structurally important, so form can emerge from gradual texture change instead of obvious drops or choruses.",
+    when: "When arranging sparse material that should evolve slowly and avoid constant high-energy layering.",
+    tools: ["Arrangement view", "Track mute", "Clip fades", "Layer planning"],
+    visual: "arrangement",
+    realWorld: "Ambient sessions often show long clips with only a few layers overlapping at once and gradual changes in which tracks are present.",
+  },
+  "genre.ambient.d": {
+    why: "Exaggerating reverb first makes its masking effect obvious; pulling it back teaches how a long acoustic field can remain audible without erasing all articulation.",
+    when: "After the dry arrangement works and spatial depth should become part of the piece's identity.",
+    tools: ["Reverb return", "Decay", "Pre-delay", "Send levels"],
+    visual: "effects",
+    realWorld: "Ambient mixes often use long reverb tails on shared returns, with individual tracks feeding the space by different send amounts.",
+  },
 };
 
 export function getProductionContext(exerciseId: string): ProductionContext {
