@@ -10,7 +10,9 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v2.3.0**.
+Current curriculum release: **v2.4.0**.
+
+v2.4.0 adds a curriculum-wide **concept and DAW-transfer layer**. Every workspace now explains the underlying concept separately from the immediate exercise, identifies what musical or signal data is actually changing, shows where that operation sits in the DAW path from timeline/MIDI through instrument, effects, mixer, and output, names common DAW vocabulary and tools, and calls out a common conceptual mistake. Explicit transfer checkpoints in lessons 4, 10, and 28 teach the learner how to read a piano roll, decompose a full DAW project screen, and trace one sound from note data to the speakers. Thin explanations in several harmony, melody, bass, texture, and saturation exercises were expanded so the learner is not asked to manipulate a control before the musical idea behind it is clear.
 
 v2.3.0 is a full curriculum pedagogy audit across all **33 lessons / 132 exercises**. Completion now follows the musical process more consistently: exercises that ask the learner to write, compare, audition, reshape, or critically listen require exercise-local evidence of those actions instead of accepting a plausible final state alone. Playback that continues naturally into the next exercise counts as listening, so the stronger checks do not force repeated Play clicks. Reference/mono comparisons are scoped to the exercise that asks for them, bass and pattern work now record learning evidence, and the former lesson-10 “Final project” is correctly framed as a **first-track checkpoint** before the later harmony, writing, production, and Style Lab material.
 
@@ -60,7 +62,7 @@ There are currently **33 lessons and 132 guided exercises**.
 32. **Style lab · Ambient** — envelope, sustain, harmonic duration, spatial depth, sparse orchestration
 33. **Style lab · Pop** — hook economy, supportive harmony, section contrast, foreground timbre
 
-Each guided exercise keeps the instrument central. The supporting panel is deliberately small: **the idea**, **what to listen for**, how the same thing appears in a DAW or instrument, and the terms needed to name it.
+Each guided exercise keeps the instrument central. The supporting panel now separates **the concept** from **this exercise**, then explains **what is actually changing**, **what to listen for**, where the same operation lives in a DAW, which part of the DAW signal/song path it belongs to, the vocabulary and tools a learner will encounter elsewhere, and one common conceptual confusion. At three transfer checkpoints the course deliberately zooms out and teaches how those familiar pieces combine into the screen of a real DAW.
 
 The curriculum is regression-tested for every implemented exercise. Completion is not based only on the final state. Where it matters, the app records exercise-local evidence that the learner **played the music, changed something, compared alternatives, or explored a control range**. A plausible final knob value therefore cannot stand in for the listening process that was meant to teach it.
 
