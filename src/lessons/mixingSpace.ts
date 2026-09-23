@@ -1,3 +1,4 @@
+import { heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -51,6 +52,7 @@ export const mixingSpaceLesson: LessonDefinition = {
         successLabel: "You found a balance after hearing its failures",
       }),
       evaluate: ({ mixerSettings, experiments }) => [
+        { label: "You listened while moving the balance", complete: heardPlayback(experiments) },
         {
           label: "You explored at least 8 dB of melody level",
           complete: exploredRange(experiments, "mixer.melody.volume") >= 8,
@@ -97,6 +99,7 @@ export const mixingSpaceLesson: LessonDefinition = {
       evaluate: ({ mixerSettings, experiments }) => {
         const chordPan = experiments["mixer.chords.pan"];
         return [
+          { label: "You listened while crossing the stereo field", complete: heardPlayback(experiments) },
           {
             label: "Chords travelled from one side of the field to the other",
             complete:
@@ -143,6 +146,7 @@ export const mixingSpaceLesson: LessonDefinition = {
         successLabel: "You found the useful low-cut by ear",
       }),
       evaluate: ({ mixerSettings, experiments }) => [
+        { label: "You listened while crossing the useful low-cut boundary", complete: heardPlayback(experiments) },
         {
           label: "You swept the chord low-cut through at least 150 Hz",
           complete: exploredRange(experiments, "mixer.chords.highpass") >= 150,
@@ -188,6 +192,7 @@ export const mixingSpaceLesson: LessonDefinition = {
         successLabel: "You created depth after hearing the washed-out version",
       }),
       evaluate: ({ mixerSettings, experiments }) => [
+        { label: "You listened while pushing the mix into and out of wash", complete: heardPlayback(experiments) },
         {
           label: "You deliberately pushed chord reverb into an exaggerated range",
           complete: (experiments["mixer.chords.reverb"]?.max ?? 0) >= 0.34,
