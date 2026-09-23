@@ -30,7 +30,12 @@ export function LearningPanel({
         <div className="learning-reading-grid">
           <div className="learning-reading-column">
             <section>
-              <h3>The idea</h3>
+              <h3>The concept</h3>
+              <p>{transfer.concept}</p>
+            </section>
+
+            <section>
+              <h3>In this exercise</h3>
               <p>{exercise.explanation}</p>
             </section>
 
