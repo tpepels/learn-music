@@ -70,7 +70,7 @@ export const finalProjectLesson: LessonDefinition = {
         explanation:
           "A track needs something the ear can follow: a groove with identity, a melody or motif, and harmony that moves somewhere. More notes are not automatically better, but an unfinished sketch should not be disguised by effects.",
         instruction:
-          "Play the track once from the musical material outward. Ignore the effect names and ask: can you follow the groove, remember part of the melody, and hear the four-bar harmony as one phrase? If one of those disappears, return to that Studio module before continuing.",
+          "Audit the musical material before touching production. Run the track once and ask: can you follow the groove, remember part of the melody, and hear the four-bar harmony as one phrase? If one of those disappears, return to that Studio module before continuing.",
         recognition:
           "After playback, try to recall the groove and one melodic gesture without looking at the grid. If nothing sticks, the next useful edit is probably musical, not technical.",
         terms: [
@@ -98,7 +98,7 @@ export const finalProjectLesson: LessonDefinition = {
         explanation:
           "An arrangement can repeat without feeling static if the listener keeps getting changes in focus. A peak only matters because another moment is smaller; a release only works because something had built up before it.",
         instruction:
-          "Play all eight bars without staring at the layer grid. Then open Arrangement and fix any stretch that feels flat. Keep at least six active bars, use several different layer combinations, include a sparse moment and a fuller moment, and let some density fall away after the peak wherever you chose to put it.",
+          "Close your eyes or look away from the layer grid for one eight-bar pass. Then open Arrangement and repair any stretch that feels flat. Keep at least six active bars, several layer combinations, a sparse moment, a fuller moment, and some release after the peak.",
         recognition:
           "Can you hear where the arrangement changes focus, where it reaches its largest point, and where space returns without knowing the bar numbers?",
         terms: [
@@ -130,7 +130,7 @@ export const finalProjectLesson: LessonDefinition = {
         explanation:
           "The final pass is not a chance to prove that you know every processor. If an effect blurs the rhythm, remove it. If compression makes the drums smaller, back it off. If the track already moves without automation, you do not need to draw a curve for the sake of it.",
         instruction:
-          "Play the full track and make the level balance readable first. Then choose which of the production ideas from the previous lessons actually help: automation, compression, or creative effects. Keep at least one deliberate production move, but do not add a second one unless you can hear why it belongs.",
+          "Balance the track before judging the processors. Once the level hierarchy is readable, choose which previous production idea actually helps—automation, compression, or a creative effect. Keep at least one deliberate move, but do not add another unless you can hear its job.",
         recognition:
           "Bypass or reduce anything you are unsure about. Does the track become worse when the processing disappears? If not, the simpler version is probably stronger.",
         terms: [
@@ -177,7 +177,7 @@ export const finalProjectLesson: LessonDefinition = {
         explanation:
           "Saving matters because a finished decision is worth preserving. The project file keeps the notes, arrangement and production state editable, so this version can become a reference point for whatever you change next.",
         instruction:
-          "Play the track one last time without touching a control. If nothing pulls you out of the music, export the project from this screen. If something does, fix that first and restart the final listen.",
+          "Make the last pass hands-off: start the track and do not touch a control. If nothing pulls you out of the music, export the project from this screen. If something does, fix that issue and restart the final listen from the beginning.",
         recognition:
           "During the last pass, listen for distractions rather than features: one part too loud, a transition that jars, an effect tail that gets in the way. When nothing demands attention, save it.",
         terms: [
