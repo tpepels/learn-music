@@ -7559,6 +7559,7 @@ body {
 
 .learning-model-card,
 .learning-use-card,
+.learning-playlab-card,
 .learning-daw-card,
 .learning-pitfall {
   padding: 16px 17px;
@@ -7575,6 +7576,11 @@ body {
 .learning-use-card {
   border-color: rgba(255,255,255,0.09);
   background: rgba(255,255,255,0.025);
+}
+
+.learning-playlab-card {
+  border-color: rgba(255,255,255,0.11);
+  background: rgba(255,255,255,0.035);
 }
 
 .learning-daw-card {
