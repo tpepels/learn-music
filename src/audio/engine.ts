@@ -23,10 +23,6 @@ import pianoStrongA4 from "@audio-samples/piano-mp3-velocity16/audio/A4v16.mp3";
 import pianoStrongC5 from "@audio-samples/piano-mp3-velocity16/audio/C5v16.mp3";
 import pianoStrongA5 from "@audio-samples/piano-mp3-velocity16/audio/A5v16.mp3";
 import pianoStrongC6 from "@audio-samples/piano-mp3-velocity16/audio/C6v16.mp3";
-import bassElectricCs1 from "tonejs-instrument-bass-electric-mp3/Cs1.mp3";
-import bassElectricG1 from "tonejs-instrument-bass-electric-mp3/G1.mp3";
-import bassElectricCs2 from "tonejs-instrument-bass-electric-mp3/Cs2.mp3";
-import bassElectricG2 from "tonejs-instrument-bass-electric-mp3/G2.mp3";
 import {
   hatClosed as sampledHat,
   kick as sampledKick,
@@ -632,11 +628,12 @@ class AudioEngine {
     if (!this.bassElectric) {
       this.bassElectric = new Tone.Sampler({
         urls: {
-          "C#1": bassElectricCs1,
-          G1: bassElectricG1,
-          "C#2": bassElectricCs2,
-          G2: bassElectricG2,
+          "C#1": "Cs1.mp3",
+          G1: "G1.mp3",
+          "C#2": "Cs2.mp3",
+          G2: "G2.mp3",
         },
+        baseUrl: `${import.meta.env.BASE_URL}samples/bass/`,
         release: 0.5,
       }).connect(this.inputFor("bass"));
       this.bassElectric.volume.value = -8;
