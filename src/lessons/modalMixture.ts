@@ -45,7 +45,7 @@ export const modalMixtureLesson: LessonDefinition = {
         title: "Change F into Fm",
         learn: "Hear the borrowed A♭ by changing one chord tone yourself.",
         explanation:
-          "F major is F–A–C. F minor is F–A♭–C. In C major, that single A→A♭ change creates the borrowed minor iv colour while C can remain the tonal home.",
+          "Modal mixture keeps the tonal centre but borrows material from the parallel mode. In C major, F major is F–A–C while F minor is F–A♭–C: changing only A to A♭ imports the minor-mode ♭6 without changing C as the tonal home. The effect comes from hearing that chromatic note against the established major-key context, not from treating Fm as a new key.",
         instruction:
           "Set C in bar 1. In bar 2, choose F first and write F/A/C. Play it. Then change bar 2 to Fm, replace A with A♭, and leave Fm selected. Keep C in bar 3 so you can hear the return.",
         recognition:
