@@ -1,6 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { initialFormSettings } from "../music/model";
-import { migrateFormSettings } from "./migrations";
+import {
+  initialFormSettings,
+  initialGrooveFeelSettings,
+} from "../music/model";
+import {
+  migrateFormSettings,
+  migrateGrooveFeelSettings,
+} from "./migrations";
 
 describe("persisted form-state migration", () => {
   it("repairs v1.9 form settings that do not contain layer plans", () => {
@@ -44,5 +50,51 @@ describe("persisted form-state migration", () => {
       roles: initialFormSettings.roles,
       layers: initialFormSettings.layers,
     });
+  });
+});
+
+
+describe("persisted groove-state migration", () => {
+  it("repairs legacy groove settings that contain swing but no velocity lanes", () => {
+    const migrated = migrateGrooveFeelSettings({ swing: 0.18 });
+
+    expect(migrated.swing).toBe(0.18);
+    expect(migrated.velocities).toEqual(initialGrooveFeelSettings.velocities);
+    expect(migrated.velocities.kick).not.toBe(
+      initialGrooveFeelSettings.velocities.kick,
+    );
+  });
+
+  it("preserves valid velocity values and fills missing entries from defaults", () => {
+    const migrated = migrateGrooveFeelSettings({
+      swing: 0.12,
+      velocities: {
+        kick: [0.5, 0.6],
+        snare: [0.3],
+      },
+    });
+
+    expect(migrated.velocities.kick[0]).toBe(0.5);
+    expect(migrated.velocities.kick[1]).toBe(0.6);
+    expect(migrated.velocities.kick[2]).toBe(
+      initialGrooveFeelSettings.velocities.kick[2],
+    );
+    expect(migrated.velocities.snare[0]).toBe(0.3);
+    expect(migrated.velocities.hat).toEqual(
+      initialGrooveFeelSettings.velocities.hat,
+    );
+  });
+
+  it("falls back safely from malformed persisted groove data", () => {
+    expect(
+      migrateGrooveFeelSettings({
+        swing: "lots",
+        velocities: {
+          kick: null,
+          snare: ["loud"],
+          hat: {},
+        },
+      }),
+    ).toEqual(initialGrooveFeelSettings);
   });
 });
