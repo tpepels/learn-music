@@ -11,7 +11,7 @@ import {
 import { useStudioStore } from "../state/studio";
 
 const bassDescriptions: Record<BassVoice, string> = {
-  electric: "A plucked, string-like attack with a short natural decay.",
+  electric: "A sampled electric bass with a real string attack and natural decay.",
   sub: "A rounded low fundamental with little upper-edge distraction.",
   synth: "A filtered square-wave bass with a firmer electronic edge.",
 };
