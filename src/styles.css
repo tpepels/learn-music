@@ -7547,6 +7547,155 @@ body {
   line-height: 1.55;
 }
 
+
+.learning-model-card,
+.learning-daw-card,
+.learning-pitfall {
+  padding: 16px 17px;
+  border: 1px solid rgba(255,255,255,0.075);
+  border-radius: 13px;
+  background: rgba(20,18,31,0.42);
+}
+
+.learning-model-card {
+  border-color: rgba(95,225,239,0.16);
+  background: rgba(95,225,239,0.035);
+}
+
+.learning-daw-card {
+  border-color: rgba(159,140,255,0.22);
+  background: rgba(159,140,255,0.045);
+}
+
+.learning-pitfall {
+  border-color: rgba(255,191,75,0.18);
+  background: rgba(255,191,75,0.035);
+}
+
+.learning-daw-card > p + p {
+  margin-top: 10px;
+  color: #aaa2b8;
+  font-size: 14px;
+}
+
+.daw-path {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.daw-path span {
+  min-height: 36px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  padding: 6px 4px;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 8px;
+  background: rgba(12,11,20,0.34);
+  color: var(--dim);
+  font-size: 9px;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.daw-path span:not(:last-child)::after {
+  content: "›";
+  position: absolute;
+  right: -6px;
+  z-index: 2;
+  color: #625a74;
+}
+
+.daw-path span.is-active {
+  border-color: rgba(95,225,239,0.48);
+  background: rgba(95,225,239,0.11);
+  color: var(--cyan);
+  font-weight: 750;
+}
+
+.learning-tool-line {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.learning-tool-line span {
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.daw-checkpoint {
+  margin-top: 32px;
+  padding: 22px;
+  border: 1px solid rgba(95,225,239,0.22);
+  border-radius: 16px;
+  background:
+    linear-gradient(145deg, rgba(95,225,239,0.055), rgba(159,140,255,0.055));
+}
+
+.daw-checkpoint-heading > span {
+  color: var(--cyan);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.11em;
+}
+
+.daw-checkpoint-heading h3 {
+  margin: 7px 0 7px;
+  color: var(--text);
+  font-size: 19px;
+}
+
+.daw-checkpoint-heading p,
+.daw-checkpoint-grid p,
+.daw-checkpoint-challenge {
+  color: #c3bccf;
+  font-size: 13px;
+  line-height: 1.58;
+}
+
+.daw-checkpoint-heading p {
+  margin: 0;
+  max-width: 780px;
+}
+
+.daw-checkpoint-grid {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.daw-checkpoint-grid article {
+  padding: 12px 13px;
+  border: 1px solid rgba(255,255,255,0.065);
+  border-radius: 10px;
+  background: rgba(14,13,23,0.35);
+}
+
+.daw-checkpoint-grid strong {
+  color: var(--accent);
+  font-size: 12px;
+}
+
+.daw-checkpoint-grid p {
+  margin: 4px 0 0;
+  font-size: 12px;
+}
+
+.daw-checkpoint-challenge {
+  margin: 18px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.daw-checkpoint-challenge strong {
+  color: var(--green);
+}
+
 /* Hide old card-based explanation layout if any stale component renders it. */
 .learning-panel .producer-context,
 .learning-explanation-grid,
