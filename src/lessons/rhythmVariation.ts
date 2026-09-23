@@ -81,7 +81,9 @@ export const rhythmVariationLesson: LessonDefinition = {
         checksLabel: "Shape the ending",
         successLabel: "The end of the bar now signals movement",
       }),
-      evaluate: ({ A, B }) => [
+      evaluate: ({ A, B, experiments }) => [
+        { label: "You edited the snare while shaping the fill", complete: changedControl(experiments, "drums.B.snare.edit") },
+        { label: "You listened to the fill in the loop", complete: heardPlayback(experiments) },
         { label: "Backbeat remains on beats 2 and 4", complete: B.snare[4] && B.snare[12] },
         { label: "A snare fill appears after beat 4", complete: [13, 14, 15].some((step) => B.snare[step] && !A.snare[step]) },
         { label: "B is still recognisably related to A", complete: countPatternDifferences(A, B) <= 7 },
@@ -106,7 +108,9 @@ export const rhythmVariationLesson: LessonDefinition = {
         checksLabel: "Pull forward",
         successLabel: "The groove now leans into a strong beat",
       }),
-      evaluate: ({ A, B }) => [
+      evaluate: ({ A, B, experiments }) => [
+        { label: "You moved the kick during this exercise", complete: changedControl(experiments, "drums.B.kick.edit") },
+        { label: "You listened to the anticipation in context", complete: heardPlayback(experiments) },
         { label: "An anticipatory kick is added", complete: [7, 11, 15].some((step) => B.kick[step] && !A.kick[step]) },
         { label: "The original downbeats remain audible", complete: [0, 4, 8, 12].filter((step) => B.kick[step]).length >= 3 },
       ],
@@ -131,7 +135,7 @@ export const rhythmVariationLesson: LessonDefinition = {
         checksLabel: "Shape the phrase",
         successLabel: "The loop now has a beginning and an ending",
       }),
-      evaluate: ({ A, B }) => {
+      evaluate: ({ A, B, experiments }) => {
         const firstHalf =
           rangeDifferences(A.kick, B.kick, 0, 8) +
           rangeDifferences(A.snare, B.snare, 0, 8) +
@@ -163,7 +167,14 @@ export const rhythmVariationLesson: LessonDefinition = {
           );
         }, 0);
 
+        const endingEdits =
+          (experiments["drums.B.kick.edit"]?.changes ?? 0) +
+          (experiments["drums.B.snare.edit"]?.changes ?? 0) +
+          (experiments["drums.B.hat.edit"]?.changes ?? 0);
+
         return [
+          { label: "You reshaped the ending during this exercise", complete: endingEdits >= 3 },
+          { label: "You listened for the return to beat 1", complete: heardPlayback(experiments) },
           { label: "First half stays close to A", complete: firstHalf <= 2 },
           { label: "At least two new ending events are added", complete: additions >= 2 },
           { label: "At least one original ending event is removed", complete: removals >= 1 },
