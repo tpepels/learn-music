@@ -565,8 +565,6 @@ describe("lesson 8: automation and dynamics", () => {
       experiments: {
         "automation.melodyVolumeDb": experiment(8, -12, 0),
         "automation.chordFilterHz": experiment(8, 1000, 10500),
-        "automation.melodyVolumeDb": experiment(8, -12, 0),
-        "automation.chordFilterHz": experiment(8, 1000, 10500),
         "dynamics.attack": experiment(4, 0.008, 0.04),
       },
     });
