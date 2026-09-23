@@ -563,6 +563,8 @@ describe("lesson 8: automation and dynamics", () => {
         release: 0.16,
       },
       experiments: {
+        "automation.melodyVolumeDb": experiment(8, -12, 0),
+        "automation.chordFilterHz": experiment(8, 1000, 10500),
         "dynamics.attack": experiment(4, 0.008, 0.04),
       },
     });
@@ -696,6 +698,9 @@ describe("lesson 11: voicing and voice leading", () => {
     const firstContext = context({
       chordProgression: progression,
       voicingSettings: { inversions: [0, 1, 0, 0] },
+      experiments: {
+        "voicing.slot.1": experiment(2, 0, 1, ["0", "1"]),
+      },
     });
     expect(voiceLeadingLesson.exercises[1].evaluate(firstContext).every((check) => check.complete)).toBe(true);
 
@@ -704,9 +709,9 @@ describe("lesson 11: voicing and voice leading", () => {
       voicingSettings: { inversions: [0, 1, 1, 2] },
       experiments: {
         "voicing.slot.0": experiment(1, 0, 1),
-        "voicing.slot.1": experiment(2, 0, 1),
-        "voicing.slot.2": experiment(1, 0, 1),
-        "voicing.slot.3": experiment(1, 0, 2),
+        "voicing.slot.1": experiment(3, 0, 2, ["0", "1", "2"]),
+        "voicing.slot.2": experiment(1, 0, 1, ["1"]),
+        "voicing.slot.3": experiment(1, 0, 2, ["2"]),
       },
     });
     expect(voiceLeadingLesson.exercises[2].evaluate(mixedContext).every((check) => check.complete)).toBe(true);
@@ -739,6 +744,7 @@ describe("lesson 12: bass lines", () => {
     const ctx = context({
       chordProgression: progression,
       bassSequence: bass,
+      experiments: { "bass.edit": experiment(8) },
     });
 
     for (const exercise of bassLinesLesson.exercises) {
@@ -777,6 +783,9 @@ describe("lesson 13: velocity, accents, and swing", () => {
       A,
       grooveFeelSettings,
       experiments: {
+        "groove.kick.velocity": experiment(4),
+        "groove.hat.velocity": experiment(8),
+        "groove.snare.velocity": experiment(2),
         "groove.swing": experiment(4, 0, 0.22, ["0", "0.22"]),
       },
     });
@@ -796,7 +805,10 @@ describe("lesson 14: motif development", () => {
       62, 66, 69, 66,
       60, null, null, null,
     ];
-    const ctx = context({ melody });
+    const ctx = context({
+      melody,
+      experiments: { "melody.edit": experiment(6) },
+    });
 
     for (const exercise of motifDevelopmentLesson.exercises) {
       expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
@@ -813,7 +825,11 @@ describe("lesson 15: melody over harmony", () => {
       67, 62, 64, 60,
     ];
     const chordProgression: ChordProgression = ["C", "F", "G", "C"];
-    const ctx = context({ melody, chordProgression });
+    const ctx = context({
+      melody,
+      chordProgression,
+      experiments: { "melody.edit": experiment(6) },
+    });
 
     for (const exercise of melodyOverHarmonyLesson.exercises) {
       expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
@@ -866,6 +882,7 @@ describe("lesson 17: phrase and form", () => {
           roles: ["statement", "answer", "contrast", "return"],
           layers: [A, APrime, B, A],
         },
+        experiments: { "form.layer.1.chords": experiment(2) },
       }),
       context({
         formSettings: {
@@ -873,6 +890,7 @@ describe("lesson 17: phrase and form", () => {
           roles: ["statement", "answer", "contrast", "return"],
           layers: [A, A, B, B],
         },
+        experiments: { "form.layer.2.drums": experiment(2) },
       }),
       context({
         formSettings: {
@@ -880,6 +898,7 @@ describe("lesson 17: phrase and form", () => {
           roles: ["statement", "answer", "contrast", "return"],
           layers: [A, B, A, APrime],
         },
+        experiments: { "form.layer.1.bass": experiment(2) },
       }),
       context({
         formSettings: {
@@ -887,6 +906,7 @@ describe("lesson 17: phrase and form", () => {
           roles: ["statement", "answer", "contrast", "return"],
           layers: [A, A, B, A],
         },
+        experiments: { "form.layer.2.drums": experiment(2) },
       }),
     ];
 
@@ -929,6 +949,7 @@ describe("lesson 18: texture and orchestration", () => {
         "texture.melodyOctave": experiment(2, -1, 1, ["-1", "1"]),
         "texture.openChords": experiment(3, null, null, ["true", "false"]),
         "texture.melodyOctaveDouble": experiment(3, null, null, ["true", "false"]),
+        "arrangement.edit": experiment(2),
       },
     });
 
