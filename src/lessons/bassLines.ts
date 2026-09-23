@@ -2,6 +2,7 @@ import {
   bassChordToneMidis,
   bassRootMidi,
 } from "../music/model";
+import { changedControl, heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -48,14 +49,17 @@ export const bassLinesLesson: LessonDefinition = {
         checksLabel: "Anchor the harmony",
         successLabel: "Every bar begins with its chord root",
       }),
-      evaluate: ({ chordProgression, bassSequence }) =>
-        barStarts.map((step, bar) => ({
+      evaluate: ({ chordProgression, bassSequence, experiments }) => [
+        { label: "You placed the four anchors in this exercise", complete: changedControl(experiments, "bass.edit", 4) },
+        { label: "You listened to the roots under the track", complete: heardPlayback(experiments) },
+        ...barStarts.map((step, bar) => ({
           label: "Bar " + (bar + 1) + " begins on its chord root",
           complete: Boolean(
             chordProgression[bar] &&
               bassSequence[step] === bassRootMidi(chordProgression[bar]!),
           ),
         })),
+      ],
     },
     {
       ...exerciseContentSchema.parse({
@@ -77,8 +81,10 @@ export const bassLinesLesson: LessonDefinition = {
         checksLabel: "Outline the chords",
         successLabel: "The bass now describes more than just the roots",
       }),
-      evaluate: ({ chordProgression, bassSequence }) =>
-        beatThree.map((step, bar) => {
+      evaluate: ({ chordProgression, bassSequence, experiments }) => [
+        { label: "You added chord-tone movement in this exercise", complete: changedControl(experiments, "bass.edit", 4) },
+        { label: "You listened to the outline with the harmony", complete: heardPlayback(experiments) },
+        ...beatThree.map((step, bar) => {
           const chord = chordProgression[bar];
           return {
             label: "Bar " + (bar + 1) + " uses a chord tone on beat 3",
@@ -89,6 +95,7 @@ export const bassLinesLesson: LessonDefinition = {
             ),
           };
         }),
+      ],
     },
     {
       ...exerciseContentSchema.parse({
@@ -111,7 +118,7 @@ export const bassLinesLesson: LessonDefinition = {
         checksLabel: "Lead into the changes",
         successLabel: "The bass now points forward into later chords",
       }),
-      evaluate: ({ chordProgression, bassSequence }) => {
+      evaluate: ({ chordProgression, bassSequence, experiments }) => {
         const completed = approaches.filter((step, index) => {
           const nextBar = (index + 1) % 4;
           const nextChord = chordProgression[nextBar];
@@ -124,6 +131,8 @@ export const bassLinesLesson: LessonDefinition = {
         }).length;
 
         return [
+          { label: "You tried approach notes in this exercise", complete: changedControl(experiments, "bass.edit", 2) },
+          { label: "You listened to the approach into the next root", complete: heardPlayback(experiments) },
           {
             label: "At least two bar changes use close approach notes",
             complete: completed >= 2,
@@ -156,13 +165,15 @@ export const bassLinesLesson: LessonDefinition = {
         checksLabel: "Complete the phrase",
         successLabel: "The bass now works as harmony, rhythm, and melody at once",
       }),
-      evaluate: ({ chordProgression, bassSequence }) => {
+      evaluate: ({ chordProgression, bassSequence, experiments }) => {
         const notes = bassSequence.filter((note) => note !== null);
         const offbeats = bassSequence.filter(
           (note, step) => note !== null && step % 2 === 1,
         ).length;
 
         return [
+          { label: "You developed the bass phrase in this exercise", complete: changedControl(experiments, "bass.edit", 4) },
+          { label: "You listened to the complete bass line in context", complete: heardPlayback(experiments) },
           {
             label: "All four bar starts still land on chord roots",
             complete: barStarts.every((step, bar) =>
