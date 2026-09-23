@@ -699,8 +699,8 @@ function App() {
     setExerciseIndex(lesson.id, index);
   };
 
-  const advance = () => {
-    if (!exerciseReady && !exerciseCompleted) return;
+  const advance = (force = false) => {
+    if (!force && !exerciseReady && !exerciseCompleted) return;
     setConfirmLessonReset(false);
 
     if (!exerciseCompleted) {
@@ -1034,11 +1034,20 @@ function App() {
           <button
             className="lesson-action"
             disabled={(!exerciseReady && !exerciseCompleted) || (lessonCompleted && !nextLesson && isLastExercise)}
-            onClick={advance}
+            onClick={() => advance()}
           >
             <span>{actionLabel}</span>
             <b>→</b>
           </button>
+
+          {!exerciseReady && !exerciseCompleted && (
+            <button
+              className="text-button lesson-move-on"
+              onClick={() => advance(true)}
+            >
+              Move on anyway →
+            </button>
+          )}
 
           <button className="text-button" onClick={resetWorkspace}>
             ↺ Reset workspace
