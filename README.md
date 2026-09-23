@@ -10,7 +10,9 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v2.4.1**.
+Current curriculum release: **v2.4.2**.
+
+v2.4.2 repaces the **actual lesson screen** after the concept-depth work. The instrument remains the dominant surface; immediately below it the learner now sees only a short exercise-specific learning headline, one concept explanation, and one listening cue. The underlying model, why/when guidance, PLAY/LAB-to-DAW mapping, vocabulary, tools, conceptual pitfall, visual, and glossary remain available under a single **Go deeper** disclosure instead of all competing for attention at once. The three DAW transfer checkpoints are also compact disclosures: they remain visible as milestones without automatically expanding a grid of reference material into the exercise flow. On narrower screens the optional deep-reading layout becomes one column rather than compressing dense prose into two narrow columns.
 
 v2.4.1 deepens the curriculum-wide **concept and DAW-transfer layer**. The learning panel now follows the same sequence throughout the course: the exercise-specific concept, the underlying mental model, what is actually changing, what to listen for, why and when the technique is useful, how PLAY/LAB represents it, where the same object lives in a DAW, and a common conceptual confusion. The DAW map now grows with the learner: familiar timeline/MIDI, instrument, effects, mixer, and output stages remain visible while later stages stay deliberately muted until they are introduced. Transfer checkpoints now occur at lessons 5, 10, and 29—after the relevant material has actually been learned—and culminate in an explicit PLAY/LAB-to-real-DAW signal-path exercise. Production-context copy was also made direct and learner-facing rather than relying on generic “producers do this” language.
 
