@@ -26,6 +26,13 @@ import { sidechainLesson } from "./sidechain";
 import { soundSynthesisLesson } from "./soundSynthesis";
 import { stereoMonoLesson } from "./stereoMono";
 import { voiceLeadingLesson } from "./voiceLeading";
+import {
+  ambientStyleLesson,
+  funkStyleLesson,
+  hipHopStyleLesson,
+  houseStyleLesson,
+  popStyleLesson,
+} from "./styleGenreLab";
 import type { LessonDefinition } from "./types";
 
 export const implementedLessons: LessonDefinition[] = [
@@ -57,6 +64,11 @@ export const implementedLessons: LessonDefinition[] = [
   minorCadencesLesson,
   seventhChordsLesson,
   modalMixtureLesson,
+  houseStyleLesson,
+  funkStyleLesson,
+  hipHopStyleLesson,
+  ambientStyleLesson,
+  popStyleLesson,
 ];
 
 export const courseOutline = implementedLessons.map((lesson) => ({
