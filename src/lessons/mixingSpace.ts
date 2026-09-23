@@ -103,10 +103,10 @@ export const mixingSpaceLesson: LessonDefinition = {
           {
             label: "Chords travelled from one side of the field to the other",
             complete:
-              chordPan?.min !== null &&
-              chordPan?.max !== null &&
-              chordPan!.min! <= -0.55 &&
-              chordPan!.max! >= 0.55,
+              chordPan?.min != null &&
+              chordPan?.max != null &&
+              chordPan.min <= -0.55 &&
+              chordPan.max >= 0.55,
           },
           {
             label: "Bass finishes near the centre",
