@@ -6,6 +6,10 @@ import { effectsTransitionsLesson } from "./effectsTransitions";
 import { eqSpectralBalanceLesson } from "./eqSpectralBalance";
 import { finalProjectLesson } from "./finalProject";
 import { grooveFeelLesson } from "./grooveFeel";
+import { genreHouseLesson } from "./genreHouse";
+import { genreHipHopLesson } from "./genreHipHop";
+import { genreFunkLesson } from "./genreFunk";
+import { genreAmbientLesson } from "./genreAmbient";
 import { mixingSpaceLesson } from "./mixingSpace";
 import { modalMixtureLesson } from "./modalMixture";
 import { minorCadencesLesson } from "./minorCadences";
@@ -57,6 +61,10 @@ export const implementedLessons: LessonDefinition[] = [
   minorCadencesLesson,
   seventhChordsLesson,
   modalMixtureLesson,
+  genreHouseLesson,
+  genreHipHopLesson,
+  genreFunkLesson,
+  genreAmbientLesson,
 ];
 
 export const courseOutline = implementedLessons.map((lesson) => ({
