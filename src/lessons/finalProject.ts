@@ -49,13 +49,13 @@ function hasArrangementShape(
 const lesson = lessonContentSchema.parse({
   id: "production.final-project",
   number: 10,
-  title: "Finish the track",
-  eyebrow: "Create · Final project",
-  hero: "Stop demonstrating techniques. Finish a piece.",
+  title: "First track checkpoint",
+  eyebrow: "Create · Checkpoint",
+  hero: "Finish a complete version before you extend your vocabulary.",
   description:
-    "Listen to the track as a whole, fix what distracts from it, and keep only the production moves that earn their place. Then save the version you would actually return to.",
+    "Listen to the track as a whole, fix what distracts from it, and save a complete version before the course moves into deeper writing, harmony, feel, and production decisions.",
   overview:
-    "Finishing means judging the piece, not completing a checklist of effects. The groove, melody, harmony and arrangement need to hold together; the mix needs a readable hierarchy; processing is useful only where it improves the music you made.",
+    "This checkpoint asks you to judge the piece rather than complete a checklist of effects. The groove, melody, harmony and arrangement need to hold together; the mix needs a readable hierarchy; later lessons will build on this saved version rather than pretending the course is finished here.",
 });
 
 export const finalProjectLesson: LessonDefinition = {
