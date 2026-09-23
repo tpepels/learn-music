@@ -19,3 +19,16 @@ export function comparedValues(
 ): boolean {
   return (experiments[key]?.values.length ?? 0) >= minimumValues;
 }
+
+
+export function changedRange(
+  experiments: ExerciseExperiments,
+  key: string,
+  minimumRange: number,
+): boolean {
+  const experiment = experiments[key];
+  const min = experiment?.min;
+  const max = experiment?.max;
+
+  return min != null && max != null && max - min >= minimumRange;
+}
