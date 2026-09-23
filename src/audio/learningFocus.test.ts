@@ -3,6 +3,7 @@ import {
   LEARNING_CONTEXT_CEILING_DB,
   LEARNING_FOCUS_FLOOR_DB,
   applyLearningFocusVolume,
+  shouldMuteLearningContext,
 } from "./learningFocus";
 
 describe("learning audio focus", () => {
@@ -26,5 +27,13 @@ describe("learning audio focus", () => {
       LEARNING_CONTEXT_CEILING_DB,
     );
     expect(applyLearningFocusVolume(-16, "chords", "bass")).toBe(-16);
+  });
+
+  it("mutes only earlier context when Solo current is enabled", () => {
+    expect(shouldMuteLearningContext("drums", "bass", true)).toBe(true);
+    expect(shouldMuteLearningContext("chords", "bass", true)).toBe(true);
+    expect(shouldMuteLearningContext("bass", "bass", true)).toBe(false);
+    expect(shouldMuteLearningContext("drums", "bass", false)).toBe(false);
+    expect(shouldMuteLearningContext("drums", null, true)).toBe(false);
   });
 });
