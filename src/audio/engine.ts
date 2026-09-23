@@ -358,6 +358,72 @@ class AudioEngine {
     this.drumSampler?.triggerAttack("F#1", time, velocity);
   }
 
+  private pianoTouchMultiplier(): number {
+    if (this.instrumentSettings.pianoTouch === "soft") return 0.58;
+    if (this.instrumentSettings.pianoTouch === "strong") return 1.28;
+    return 1;
+  }
+
+  private triggerPiano(
+    notes: string | string[],
+    duration: number | string,
+    time: number | undefined,
+    velocity: number,
+  ) {
+    const effectiveVelocity = Math.max(
+      0.12,
+      Math.min(1, velocity * this.pianoTouchMultiplier()),
+    );
+    const sampler =
+      effectiveVelocity < 0.48
+        ? this.pianoSoft
+        : effectiveVelocity < 0.8
+          ? this.pianoMedium
+          : this.pianoStrong;
+    sampler?.triggerAttackRelease(notes, duration, time, effectiveVelocity);
+  }
+
+  private triggerChordNotes(
+    notes: string | string[],
+    duration: number | string,
+    time: number | undefined,
+    velocity: number,
+  ) {
+    switch (this.instrumentSettings.chordVoice) {
+      case "piano":
+        this.chordPiano?.triggerAttackRelease(notes, duration, time, velocity);
+        return;
+      case "electric":
+        this.chordElectric?.triggerAttackRelease(notes, duration, time, velocity);
+        return;
+      case "pad":
+        this.chordPad?.triggerAttackRelease(notes, duration, time, velocity);
+        return;
+      case "pluck":
+        this.chordPluck?.triggerAttackRelease(notes, duration, time, velocity);
+        return;
+    }
+  }
+
+  private triggerBassNote(
+    note: string,
+    duration: number | string,
+    time: number | undefined,
+    velocity: number,
+  ) {
+    switch (this.instrumentSettings.bassVoice) {
+      case "electric":
+        this.bassElectric?.triggerAttackRelease(note, duration, time, velocity);
+        return;
+      case "sub":
+        this.bassSub?.triggerAttackRelease(note, duration, time, velocity);
+        return;
+      case "synth":
+        this.triggerBassNote(note, duration, time, velocity);
+        return;
+    }
+  }
+
   private noteDuration(eighthSteps: number): number {
     return Tone.Time("8n").toSeconds() * Math.max(1, eighthSteps);
   }
@@ -801,10 +867,10 @@ class AudioEngine {
         const texturedMidi = midi + this.textureSettings.melodyOctave * 12;
         const note = Tone.Frequency(texturedMidi, "midi").toNote();
         const duration = this.noteDuration(this.melodyDurations[step] ?? 1);
-        this.piano?.triggerAttackRelease(note, duration, time, 0.72);
+        this.triggerPiano(note, duration, time, 0.72);
 
         if (this.textureSettings.melodyOctaveDouble) {
-          this.piano?.triggerAttackRelease(
+          this.triggerPiano(
             Tone.Frequency(texturedMidi + 12, "midi").toNote(),
             duration,
             time,
@@ -844,7 +910,7 @@ class AudioEngine {
         const midi = this.melody[melodyStep];
         if (midi !== null && midi !== undefined) {
           const texturedMidi = midi + this.textureSettings.melodyOctave * 12;
-          this.piano?.triggerAttackRelease(
+          this.triggerPiano(
             Tone.Frequency(texturedMidi, "midi").toNote(),
             this.noteDuration(this.melodyDurations[melodyStep] ?? 1),
             time,
@@ -892,13 +958,13 @@ class AudioEngine {
             voicedChordMidi(chord, this.voicingSettings.inversions[chordSlot] ?? 0),
             this.textureSettings,
           ).map((midi) => Tone.Frequency(midi, "midi").toNote());
-          this.chordSynth?.triggerAttackRelease(notes, "2n", time, 0.42);
+          this.triggerChordNotes(notes, "2n", time, 0.42);
         }
 
         const midi = this.melody[melodyStep];
         if (midi !== null && midi !== undefined) {
           const texturedMidi = midi + this.textureSettings.melodyOctave * 12;
-          this.piano?.triggerAttackRelease(
+          this.triggerPiano(
             Tone.Frequency(texturedMidi, "midi").toNote(),
             this.noteDuration(this.melodyDurations[melodyStep] ?? 1),
             time,
@@ -929,14 +995,14 @@ class AudioEngine {
 
     if (this.accompanimentPattern === "block") {
       if (localStep === 0) {
-        this.chordSynth?.triggerAttackRelease(notes, "1m", time, velocity);
+        this.triggerChordNotes(notes, "1m", time, velocity);
       }
       return;
     }
 
     if (this.accompanimentPattern === "pulse") {
       if (localStep % 4 === 0) {
-        this.chordSynth?.triggerAttackRelease(notes, "8n", time, velocity * 0.9);
+        this.triggerChordNotes(notes, "8n", time, velocity * 0.9);
       }
       return;
     }
@@ -951,7 +1017,7 @@ class AudioEngine {
           ]
         : eighth % notes.length;
 
-    this.chordSynth?.triggerAttackRelease(
+    this.triggerChordNotes(
       notes[noteIndex],
       "8n",
       time,
@@ -1000,7 +1066,7 @@ class AudioEngine {
       const duration = this.noteDuration(
         this.harmonyDurations[harmonyStep]?.[midi] ?? 1,
       );
-      this.chordSynth?.triggerAttackRelease(rendered, duration, time, velocity);
+      this.triggerChordNotes(rendered, duration, time, velocity);
     });
   }
 
@@ -1037,7 +1103,7 @@ class AudioEngine {
           const midi = this.melody[melodyStep];
           if (midi !== null && midi !== undefined) {
             const texturedMidi = midi + this.textureSettings.melodyOctave * 12;
-            this.piano?.triggerAttackRelease(
+            this.triggerPiano(
               Tone.Frequency(texturedMidi, "midi").toNote(),
               this.noteDuration(this.melodyDurations[melodyStep] ?? 1),
               time,
@@ -1162,7 +1228,7 @@ class AudioEngine {
         const programmedBass = this.bassSequence[bassStep];
 
         if (programmedBass !== null && programmedBass !== undefined) {
-          this.bassSynth?.triggerAttackRelease(
+          this.triggerBassNote(
             Tone.Frequency(
               programmedBass + this.textureSettings.bassOctave * 12,
               "midi",
@@ -1179,7 +1245,7 @@ class AudioEngine {
             chordMidi[chord][0] -
             12 +
             this.textureSettings.bassOctave * 12;
-          this.bassSynth?.triggerAttackRelease(
+          this.triggerBassNote(
             Tone.Frequency(rootMidi, "midi").toNote(),
             "8n",
             time,
@@ -1197,7 +1263,7 @@ class AudioEngine {
           const duration = this.noteDuration(
             this.melodyDurations[melodyStep] ?? 1,
           );
-          this.piano?.triggerAttackRelease(
+          this.triggerPiano(
             Tone.Frequency(texturedMidi, "midi").toNote(),
             duration,
             time,
@@ -1205,7 +1271,7 @@ class AudioEngine {
           );
 
           if (this.textureSettings.melodyOctaveDouble) {
-            this.piano?.triggerAttackRelease(
+            this.triggerPiano(
               Tone.Frequency(texturedMidi + 12, "midi").toNote(),
               duration,
               time,
@@ -1242,7 +1308,7 @@ class AudioEngine {
     await Tone.start();
     this.ensureVoices();
     await Tone.loaded();
-    this.piano?.triggerAttackRelease(
+    this.triggerPiano(
       Tone.Frequency(midi, "midi").toNote(),
       "8n",
       undefined,
@@ -1315,7 +1381,7 @@ class AudioEngine {
 
         const midi = this.bassSequence[bassStep];
         if (midi !== null && midi !== undefined) {
-          this.bassSynth?.triggerAttackRelease(
+          this.triggerBassNote(
             Tone.Frequency(
               midi + this.textureSettings.bassOctave * 12,
               "midi",
