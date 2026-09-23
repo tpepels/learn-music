@@ -1,7 +1,9 @@
-name: Validate branch manually
+name: Validate v2.2 genre and exercise readiness
 
 on:
   workflow_dispatch:
+  push:
+    branches: ["feature/genre-lessons-readiness-v216"]
 
 permissions:
   contents: read
