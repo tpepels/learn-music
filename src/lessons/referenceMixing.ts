@@ -1,6 +1,7 @@
 import {
   mixerTrackIds,
 } from "../music/model";
+import { changedControl, heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -50,7 +51,9 @@ export const referenceMixingLesson: LessonDefinition = {
         checksLabel: "Create the B state",
         successLabel: "A fixed mix snapshot is now available for comparison",
       }),
-      evaluate: ({ referenceMixSettings }) => [
+      evaluate: ({ referenceMixSettings, experiments }) => [
+        { label: "You captured the reference in this exercise", complete: changedControl(experiments, "reference.capture") },
+        { label: "You listened before changing the mix", complete: heardPlayback(experiments) },
         {
           label: "Reference snapshot has been captured",
           complete: referenceMixSettings.snapshot !== null,
@@ -77,7 +80,7 @@ export const referenceMixingLesson: LessonDefinition = {
         checksLabel: "Create a meaningful comparison",
         successLabel: "The current mix now differs from the stored snapshot and has been A/B tested",
       }),
-      evaluate: ({ mixerSettings, referenceMixSettings }) => {
+      evaluate: ({ mixerSettings, referenceMixSettings, experiments }) => {
         const snapshot = referenceMixSettings.snapshot;
         const changed = snapshot
           ? mixerTrackIds.some(
@@ -94,8 +97,8 @@ export const referenceMixingLesson: LessonDefinition = {
             complete: changed,
           },
           {
-            label: "At least two A/B comparisons have been made",
-            complete: referenceMixSettings.comparisons >= 2,
+            label: "You made at least two A/B comparisons in this exercise",
+            complete: changedControl(experiments, "reference.compare", 2),
           },
         ];
       },
@@ -120,13 +123,13 @@ export const referenceMixingLesson: LessonDefinition = {
         checksLabel: "Remove the louder-is-better bias",
         successLabel: "The reference is level-matched closely enough for a disciplined comparison",
       }),
-      evaluate: ({ mixerSettings, referenceMixSettings }) => {
+      evaluate: ({ mixerSettings, referenceMixSettings, experiments }) => {
         const snapshot = referenceMixSettings.snapshot;
         if (!snapshot) {
           return [
             { label: "Reference exists", complete: false },
             { label: "Reference trim matches the guide", complete: false },
-            { label: "At least three comparisons have been made", complete: false },
+            { label: "At least three comparisons were made here", complete: false },
           ];
         }
         const suggested =
@@ -143,8 +146,8 @@ export const referenceMixingLesson: LessonDefinition = {
               Math.abs(referenceMixSettings.trimDb - suggested) <= 1,
           },
           {
-            label: "At least three comparisons have been made",
-            complete: referenceMixSettings.comparisons >= 3,
+            label: "You made at least three level-matched comparisons here",
+            complete: changedControl(experiments, "reference.compare", 3),
           },
         ];
       },
@@ -170,18 +173,22 @@ export const referenceMixingLesson: LessonDefinition = {
         checksLabel: "Test the mix under constraints",
         successLabel: "Reference, quiet, and mono checks now form a repeatable review workflow",
       }),
-      evaluate: ({ referenceMixSettings, stereoSettings }) => [
+      evaluate: ({ referenceMixSettings, stereoSettings, experiments }) => [
         {
           label: "Quiet playback has been checked",
-          complete: referenceMixSettings.quietChecked,
+          complete:
+            referenceMixSettings.quietChecked &&
+            experiments["reference.quiet"]?.values.includes("true") === true,
         },
         {
-          label: "Mono compatibility has been checked",
-          complete: stereoSettings.monoChecked,
+          label: "Mono compatibility was checked in this exercise",
+          complete:
+            stereoSettings.monoChecked &&
+            experiments["stereo.mono"]?.values.includes("true") === true,
         },
         {
-          label: "At least four A/B comparisons have been made",
-          complete: referenceMixSettings.comparisons >= 4,
+          label: "You made at least four focused A/B comparisons here",
+          complete: changedControl(experiments, "reference.compare", 4),
         },
       ],
     },
