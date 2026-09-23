@@ -10,7 +10,9 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v2.1.4**.
+Current curriculum release: **v2.1.5**.
+
+v2.1.5 replaces the basic synthesized kick, snare, and hi-hat with **bundled sampled drum one-shots** while preserving the same sequencer, velocity, compressor, mixer, sidechain, EQ, saturation, stereo, and effects signal path. The piano remains Salamander Grand Piano because the active melody register was already sampled at the source set's native minor-third spacing; the drum voices were the larger quality gap.
 
 ## Current interactive curriculum
 
@@ -155,7 +157,7 @@ Current signal paths include:
 
 - core playback is initialized independently from optional FX, so an effect failure cannot disable Play;
 - Studio transport follows the currently open Studio module rather than being hard-wired to Arrangement;
-- drum voices → **drum-bus compressor** → mixer channel
+- sampled kick/snare/closed-hat one-shots → **drum-bus compressor** → mixer channel
 - melody → **chorus insert** → mixer channel
 - chords → **automated low-pass filter** → mixer channel
 - mixer channels run through **high-pass → parametric bell EQ → saturation → stereo width → fader/pan**
@@ -250,7 +252,7 @@ The GitHub Pages build is now a small PWA:
 - same-origin runtime asset caching
 - cached navigation fallback when offline
 
-Audio runs entirely in the browser. Most voices are synthesized; the piano/melody instrument uses bundled Salamander Grand Piano samples, so the course does not depend on remote sample downloads.
+Audio runs entirely in the browser. Piano/melody and the core drum kit use bundled samples; bass, harmony, and the sound-design instrument remain synthesized so those lessons still expose synthesis and timbre directly. The course does not depend on remote sample downloads.
 
 ## Interface
 
@@ -307,4 +309,6 @@ Production base:
 
 ## Audio sample attribution
 
-The keyboard/melody instrument includes a reduced set of **Salamander Grand Piano V2** samples recorded by Alexander Holm, licensed under **CC BY 3.0**. The bundled sample directory contains the attribution notice and source reference.
+The keyboard/melody instrument includes a reduced set of **Salamander Grand Piano V2** samples recorded by Alexander Holm, licensed under **CC BY 3.0**.
+
+The drum kit uses bundled one-shots from **@teropa/drumkit**. Kick and snare originate from DWSD's Deep House Drum Kit under Creative Commons Attribution; the closed hi-hat comes from Stomachache's Analog Cymbal under CC0. The deployed `SAMPLE_ATTRIBUTION.txt` contains the source links and license details.
