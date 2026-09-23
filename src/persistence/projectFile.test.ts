@@ -15,6 +15,7 @@ import {
   initialGrooveFeelSettings,
   initialHarmonyDurations,
   initialHarmonySequence,
+  initialInstrumentSettings,
   initialEqSettings,
   initialFormSettings,
   initialMelody,
@@ -68,6 +69,7 @@ function sampleProject(): ProjectData {
       layers: initialFormSettings.layers.map((entry) => ({ ...entry })),
     },
     textureSettings: { ...initialTextureSettings },
+    instrumentSettings: { ...initialInstrumentSettings },
     eqSettings: {
       drums: { ...initialEqSettings.drums },
       bass: { ...initialEqSettings.bass },
@@ -109,6 +111,36 @@ describe("PLAY / LAB project files", () => {
 
 
 
+
+
+  it("round-trips and defaults the instrument palette", () => {
+    const project = sampleProject();
+    project.instrumentSettings = {
+      bassVoice: "sub",
+      chordVoice: "electric",
+      pianoTouch: "strong",
+    };
+
+    const parsed = parseProjectFile({
+      format: "play-lab-project",
+      version: 1,
+      exportedAt: "2026-09-23T09:00:00.000Z",
+      project,
+    });
+
+    expect(parsed.instrumentSettings).toEqual(project.instrumentSettings);
+
+    const { instrumentSettings: _instrumentSettings, ...legacyProject } =
+      sampleProject();
+    const legacyParsed = parseProjectFile({
+      format: "play-lab-project",
+      version: 1,
+      exportedAt: "2026-09-23T09:00:00.000Z",
+      project: legacyProject,
+    });
+
+    expect(legacyParsed.instrumentSettings).toEqual(initialInstrumentSettings);
+  });
 
   it("round-trips drawn MIDI note durations", () => {
     const project = sampleProject();
