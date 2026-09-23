@@ -10,7 +10,9 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v2.2.2**.
+Current curriculum release: **v2.3.0**.
+
+v2.3.0 is a full curriculum pedagogy audit across all **33 lessons / 132 exercises**. Completion now follows the musical process more consistently: exercises that ask the learner to write, compare, audition, reshape, or critically listen require exercise-local evidence of those actions instead of accepting a plausible final state alone. Playback that continues naturally into the next exercise counts as listening, so the stronger checks do not force repeated Play clicks. Reference/mono comparisons are scoped to the exercise that asks for them, bass and pattern work now record learning evidence, and the former lesson-10 “Final project” is correctly framed as a **first-track checkpoint** before the later harmony, writing, production, and Style Lab material.
 
 v2.2.2 aligns the instrument-palette wording with the shared piano implementation: **PIANO TOUCH** now explicitly describes the acoustic-piano layer used by melody and by harmony whenever the harmony voice is PIANO.
 
@@ -33,7 +35,7 @@ There are currently **33 lessons and 132 guided exercises**.
 7. **Mixing & space** — faders, pan, low-cut EQ, send/return reverb and delay
 8. **Automation & dynamics** — volume rides, filter sweeps, compression, transients
 9. **Creative effects & transitions** — learn reverb, delay, and chorus by exaggerating them, then choose only the effects a transition needs
-10. **Finish the track** — listen to the composition, arrangement, and mix as a whole; remove unjustified processing; save a version worth keeping
+10. **First track checkpoint** — listen to the composition, arrangement, and mix as a whole; remove unjustified processing; save a complete version before the course moves into deeper writing, harmony, feel, and production
 11. **Voicing & voice leading** — root position, first inversion, second inversion, smooth voice motion
 12. **Bass lines** — roots, chord tones, approach notes, complete four-bar bass phrase
 13. **Velocity, accents & swing** — MIDI velocity, accent patterns, ghost notes, swung timing
@@ -109,7 +111,7 @@ Current workspaces include:
 - automation lanes
 - drum-bus compressor
 - creative FX rack
-- final project listening/finish/export
+- production checkpoint / finish / export
 
 Completing exercise D moves directly into exercise A of the next lesson.
 
