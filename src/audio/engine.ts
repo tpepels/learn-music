@@ -1581,7 +1581,7 @@ class AudioEngine {
     );
     const now = Tone.now() + 0.05;
 
-    if (projectEvents.length >= 4) {
+    if (projectEvents.length > 0) {
       const eighth = Tone.Time("8n").toSeconds();
       projectEvents.forEach(({ midi, step, durationSteps }) => {
         this.soundSynth?.triggerAttackRelease(
