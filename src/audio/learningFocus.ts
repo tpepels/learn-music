@@ -16,3 +16,12 @@ export function applyLearningFocusVolume(
 
   return Math.min(baseVolumeDb, LEARNING_CONTEXT_CEILING_DB);
 }
+
+
+export function shouldMuteLearningContext(
+  track: MixerTrackId,
+  focusTrack: MixerTrackId | null,
+  soloCurrent: boolean,
+): boolean {
+  return soloCurrent && focusTrack !== null && track !== focusTrack;
+}
