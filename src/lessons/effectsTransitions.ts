@@ -28,7 +28,7 @@ export const effectsTransitionsLesson: LessonDefinition = {
         explanation:
           "Reverb decay controls how long the reflected tail lasts. Pre-delay leaves a short gap between the dry sound and the reverb, which can keep the original attack clear even when the room is large. The send amount decides how much of a channel enters the shared reverb return.",
         instruction:
-          "Keep the arrangement playing. Set reverb decay between 2.5 and 4.5 seconds, pre-delay between 15 and 50 ms, and send at least 15% of the chords to Return A. Push decay above 6 seconds briefly so you can hear 'washed out', then return to the useful range.",
+          "Start with the arrangement playing. Push reverb decay above 6 seconds once so the wash is unmistakable; then shorten it to 2.5–4.5 seconds, set pre-delay to 15–50 ms, and send at least 15% of the chords to Return A.",
         recognition:
           "Listen to the gap between the dry chord and the tail. Can you still hear where the chord begins, or has the room swallowed the attack?",
         terms: [
@@ -69,7 +69,7 @@ export const effectsTransitionsLesson: LessonDefinition = {
         explanation:
           "A tempo-synced delay repeats sound in time with the beat. Feedback sends part of each repeat back into the delay, creating more echoes. The send amount determines how strongly the source enters that repeating pattern.",
         instruction:
-          "Raise melody delay until the repeats begin to crowd the phrase, then back it off. Change feedback enough to hear the number of repeats change. Finish with echoes that answer the melody without replacing it.",
+          "Push melody delay until the repeats crowd the phrase, then reduce the send. Sweep feedback far enough to hear the number of repeats change, and finish with echoes that answer the melody without replacing it.",
         recognition:
           "Follow one melody note into its repeats. At what point do the echoes stop answering the phrase and start competing with the next note?",
         terms: [
@@ -112,7 +112,7 @@ export const effectsTransitionsLesson: LessonDefinition = {
         explanation:
           "Chorus creates slightly delayed and modulated copies of a signal. Tiny pitch and timing differences make the copies spread across stereo, creating width and movement. Too much chorus can make pitch feel unstable or blurry.",
         instruction:
-          "Raise melody chorus wet to between 20% and 45%. Compare 0%, your chosen setting, and an exaggerated value above 60%, then return to the moderate range.",
+          "Audition chorus at 0%, above 60%, and then somewhere between 20% and 45%. Keep the moderate setting only after you can hear where useful width turns into wobble.",
         recognition:
           "Compare dry, moderate and exaggerated chorus. When does width become wobble? Keep the point before the effect starts announcing itself.",
         terms: [
@@ -146,7 +146,7 @@ export const effectsTransitionsLesson: LessonDefinition = {
         explanation:
           "A transition is stronger when several cues agree, but that does not mean every effect must be active. A filter opening plus growing space may be enough; a rhythmic echo plus width may work better in another track.",
         instruction:
-          "Keep a clear chord-filter opening across the section. Then choose at least two of these to support it: larger reverb, audible melody delay, or chorus width. Play all eight bars. If one effect calls attention to itself more than the arrival does, back it off or leave it out.",
+          "Build one transition from the chord-filter opening you already have. Choose at least two supporting ideas—larger reverb, audible melody delay, or chorus width—then play all eight bars and remove or reduce anything that attracts more attention than the arrival.",
         recognition:
           "Listen to the destination, not the processors. Do the changes make the later bars feel inevitable, or are you mostly hearing a list of effects?",
         terms: [
