@@ -10,7 +10,9 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v2.4.8**.
+Current curriculum release: **v2.4.9**.
+
+v2.4.9 fixes evaluator crashes on fresh or recovered state. Lesson 5B previously treated an absent cutoff experiment as if it were merely non-null, then dereferenced its missing `max`/ `min` fields. The same unsafe pattern also existed in sidechain release, delay-feedback exploration, and stereo pan exploration. Those checks are now null-safe, and the curriculum test suite now verifies that every exercise evaluator can run with an empty experiment history without throwing.
 
 v2.4.8 adds a **Recover to lesson 5** path for lost or intentionally skipped early progress. The recovery preset rebuilds a coherent prerequisite project—two related drum patterns, a C-major phrase, a C–F–G–C progression, and written harmony—marks lessons 1–4/exercises A–D complete for navigation, and opens Sound & synthesis. Recovery requires confirmation because it replaces the current musical project; it is a catch-up mechanism, not another completion gate.
 
