@@ -10,7 +10,9 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v2.4.9**.
+Current curriculum release: **v2.5.0**.
+
+v2.5.0 repairs and upgrades Lesson 6's eight-bar arrangement editor. Arrangement playback now reads the current grid on every transport step instead of freezing a snapshot when Play is pressed, so adding or removing layers while the loop runs takes effect immediately—including bars 5–8. Melody playback now loops the complete 16-step written phrase across the arrangement rather than repeating only its first eight steps. The 16-bar form player keeps a separate stable arrangement source. The editor also supports click-and-drag painting/erasing across a track row, clearer A/B section labels, and an explicit live-edit indicator while transport is running.
 
 v2.4.9 fixes evaluator crashes on fresh or recovered state. Lesson 5B previously treated an absent cutoff experiment as if it were merely non-null, then dereferenced its missing `max`/ `min` fields. The same unsafe pattern also existed in sidechain release, delay-feedback exploration, and stereo pan exploration. Those checks are now null-safe, and the curriculum test suite now verifies that every exercise evaluator can run with an empty experiment history without throwing.
 
