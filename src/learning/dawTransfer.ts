@@ -310,7 +310,7 @@ const transferProfiles: Record<Workspace, DawTransferProfile> = {
 };
 
 const checkpoints: Record<number, DawCheckpoint> = {
-  4: {
+  5: {
     title: "DAW checkpoint · Read a piano roll",
     intro: "You now know enough to decode the note editor that appears in almost every DAW. It is not a new musical system; it combines ideas you have already used.",
     objects: [
@@ -336,9 +336,9 @@ const checkpoints: Record<number, DawCheckpoint> = {
     ],
     challenge: "Ignore the small buttons. First find these seven objects. If you can locate them, you can already read the architecture of the project.",
   },
-  28: {
-    title: "DAW checkpoint · Trace one sound from note to speakers",
-    intro: "Late-stage projects become easier to understand when you follow one signal path instead of scanning the whole interface.",
+  29: {
+    title: "DAW checkpoint · From PLAY/LAB to a real DAW",
+    intro: "You have now met the main parts separately. A real DAW shows them together, but the signal still follows the same path you have already been using.",
     objects: [
       { name: "MIDI / performance data", meaning: "Says what note or event should happen and when." },
       { name: "Instrument", meaning: "Turns that instruction into audio." },
@@ -347,7 +347,7 @@ const checkpoints: Record<number, DawCheckpoint> = {
       { name: "Bus / master", meaning: "Combines signals before the final output." },
       { name: "Speakers / headphones", meaning: "Turn the final audio signal back into sound." },
     ],
-    challenge: "Pick any track in a DAW and point to each stage of this path. Then distinguish controls that change MIDI before the instrument from effects that change audio after it.",
+    challenge: "Pick one track in a DAW and trace it from clip data to instrument, processing, channel, master, and speakers. Then identify which controls change the composition and which change the resulting audio.",
   },
 };
 
@@ -359,6 +359,31 @@ export const dawStages: Array<{ id: DawStage; label: string }> = [
   { id: "mixer", label: "Mixer" },
   { id: "master", label: "Output" },
 ];
+
+const dawStageIntroducedByLesson: Record<DawStage, number> = {
+  timeline: 1,
+  notes: 1,
+  instrument: 5,
+  effects: 7,
+  mixer: 7,
+  master: 10,
+};
+
+export type DawStageFamiliarity = "current" | "familiar" | "upcoming";
+
+export function getDawStageFamiliarity(
+  stage: DawStage,
+  currentStage: DawStage,
+  lessonNumber: number,
+): DawStageFamiliarity {
+  if (stage === currentStage) {
+    return "current";
+  }
+
+  return dawStageIntroducedByLesson[stage] <= lessonNumber
+    ? "familiar"
+    : "upcoming";
+}
 
 export function getDawTransfer(workspace: Workspace): DawTransferProfile {
   return transferProfiles[workspace];
