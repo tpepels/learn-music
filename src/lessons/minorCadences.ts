@@ -46,7 +46,7 @@ export const minorCadencesLesson: LessonDefinition = {
         title: "Write i → iv",
         learn: "Make tonic-to-predominant motion in A minor with your own notes.",
         explanation:
-          "Am is i and Dm is iv. The move changes the chord tones while staying completely inside A natural minor.",
+          "In A minor, Am is the tonic chord (i) and Dm is the subdominant-region chord (iv). Moving i→iv takes the harmony away from home without introducing any chromatic pitch, so it is a useful baseline for hearing how minor-key motion can happen entirely inside the natural-minor collection before altered dominant harmony is introduced.",
         instruction:
           "Set Am → Dm → Am → Am. Write all three notes of Am in bar 1 and all three notes of Dm in bar 2. Put the notes where you want them rhythmically and keep the loop playing.",
         recognition:
@@ -73,7 +73,7 @@ export const minorCadencesLesson: LessonDefinition = {
         title: "Build i–iv–V7–i",
         learn: "Create the strong minor dominant by writing G♯ into E7.",
         explanation:
-          "E7 is not diatonic to A natural minor because it contains G♯. That altered note is the leading tone: it creates a much stronger pull back to A.",
+          "E7 is built from E–G♯–B–D. The G♯ does not belong to A natural minor, but raising G to G♯ creates a leading tone only one semitone below A. That tiny distance gives the dominant a strong directional pull toward the tonic, which is why minor-key cadences so often borrow this altered note instead of remaining strictly natural minor.",
         instruction:
           "Set Am → Dm → E7 → Am. Rewrite every bar. In bar 3, make sure E, G♯, B and D all appear somewhere. Leave a G♯ close to the final Am so you can hear the leading-tone pull.",
         recognition:
@@ -101,7 +101,7 @@ export const minorCadencesLesson: LessonDefinition = {
         title: "Make the Andalusian descent",
         learn: "Turn Am–G–F–E7 into an actual descending accompaniment.",
         explanation:
-          "The Andalusian cadence traces a descending harmonic path in minor. The final E7 contains G♯ and points back toward Am when the loop restarts.",
+          "The Andalusian pattern i–♭VII–♭VI–V creates a clearly descending bass and harmonic path before the dominant turns the motion back toward tonic. In A minor, Am–G–F–E7 moves downward by step at the roots; the final E7 then introduces G♯, reversing the purely natural-minor sound and creating a strong expectation that the loop will restart on Am.",
         instruction:
           "Set Am → G → F → E7. Rewrite the notes so every bar fits, use at least eight active time positions, and put at least two harmony events on offbeat eighths. Listen to the descending roots while your own rhythm continues through them.",
         recognition:
