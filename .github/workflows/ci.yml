@@ -2,8 +2,6 @@ name: Validate branch manually
 
 on:
   workflow_dispatch:
-  push:
-    branches: ["fix/shared-piano-touch-copy-v222"]
 
 permissions:
   contents: read
