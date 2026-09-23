@@ -1,7 +1,9 @@
-name: Validate v2.2 instrument palette and Style Lab
+name: Validate v2.2.1 shared piano touch
 
 on:
   workflow_dispatch:
+  push:
+    branches: ["hotfix/shared-piano-touch-v2201"]
 
 permissions:
   contents: read
