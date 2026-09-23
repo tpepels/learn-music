@@ -39,6 +39,7 @@ import {
   initialGrooveFeelSettings,
   initialHarmonyDurations,
   initialHarmonySequence,
+  initialInstrumentSettings,
   initialMixerSettings,
   initialPattern,
   initialProjectMilestones,
@@ -65,6 +66,7 @@ import {
   type GrooveFeelSettings,
   type HarmonyDurations,
   type HarmonySequence,
+  type InstrumentSettings,
   type MelodySequence,
   type NoteDurationLane,
   type MixerSettings,
@@ -132,6 +134,7 @@ type StudioState = {
   grooveFeelSettings: GrooveFeelSettings;
   formSettings: FormSettings;
   textureSettings: TextureSettings;
+  instrumentSettings: InstrumentSettings;
   eqSettings: EqSettings;
   saturationSettings: SaturationSettings;
   sidechainSettings: SidechainSettings;
@@ -200,6 +203,8 @@ type StudioState = {
   resetFormSettings: () => void;
   setTextureSettings: (settings: Partial<TextureSettings>) => void;
   resetTextureSettings: () => void;
+  setInstrumentSettings: (settings: Partial<InstrumentSettings>) => void;
+  resetInstrumentSettings: () => void;
   setEqTrack: (track: MixerTrackId, settings: Partial<EqSettings[MixerTrackId]>) => void;
   resetEq: () => void;
   setSaturationTrack: (
@@ -328,6 +333,7 @@ export const useStudioStore = create<StudioState>()(
         layers: initialFormSettings.layers.map((entry) => ({ ...entry })),
       },
       textureSettings: { ...initialTextureSettings },
+      instrumentSettings: { ...initialInstrumentSettings },
       eqSettings: cloneEqSettings(initialEqSettings),
       saturationSettings: cloneSaturationSettings(initialSaturationSettings),
       sidechainSettings: { ...initialSidechainSettings },
@@ -917,6 +923,24 @@ export const useStudioStore = create<StudioState>()(
       resetTextureSettings: () =>
         set({ textureSettings: { ...initialTextureSettings } }),
 
+      setInstrumentSettings: (settings) =>
+        set((state) => ({
+          instrumentSettings: {
+            ...state.instrumentSettings,
+            ...settings,
+          },
+          learningExperiments: recordExperimentEntries(
+            state,
+            Object.entries(settings).map(([key, value]) => [
+              "instrument." + key,
+              value as string | number | boolean,
+            ]),
+          ),
+        })),
+
+      resetInstrumentSettings: () =>
+        set({ instrumentSettings: { ...initialInstrumentSettings } }),
+
       setEqTrack: (track, settings) =>
         set((state) => ({
           eqSettings: {
@@ -1116,6 +1140,7 @@ export const useStudioStore = create<StudioState>()(
             layers: project.formSettings.layers.map((entry) => ({ ...entry })),
           },
           textureSettings: { ...project.textureSettings },
+          instrumentSettings: { ...project.instrumentSettings },
           eqSettings: cloneEqSettings(project.eqSettings),
           saturationSettings: cloneSaturationSettings(project.saturationSettings),
           sidechainSettings: { ...project.sidechainSettings },
@@ -1158,6 +1183,7 @@ export const useStudioStore = create<StudioState>()(
         grooveFeelSettings: state.grooveFeelSettings,
         formSettings: state.formSettings,
         textureSettings: state.textureSettings,
+        instrumentSettings: state.instrumentSettings,
         eqSettings: state.eqSettings,
         saturationSettings: state.saturationSettings,
         sidechainSettings: state.sidechainSettings,
