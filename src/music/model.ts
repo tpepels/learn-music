@@ -628,6 +628,7 @@ export type ProjectData = {
   grooveFeelSettings: GrooveFeelSettings;
   formSettings: FormSettings;
   textureSettings: TextureSettings;
+  instrumentSettings: InstrumentSettings;
   eqSettings: EqSettings;
   saturationSettings: SaturationSettings;
   sidechainSettings: SidechainSettings;
@@ -822,6 +823,27 @@ export const initialFormSettings: FormSettings = {
     chords: false,
     melody: false,
   })),
+};
+
+export const bassVoices = ["electric", "sub", "synth"] as const;
+export type BassVoice = (typeof bassVoices)[number];
+
+export const chordVoices = ["piano", "electric", "pad", "pluck"] as const;
+export type ChordVoice = (typeof chordVoices)[number];
+
+export const pianoTouches = ["soft", "medium", "strong"] as const;
+export type PianoTouch = (typeof pianoTouches)[number];
+
+export type InstrumentSettings = {
+  bassVoice: BassVoice;
+  chordVoice: ChordVoice;
+  pianoTouch: PianoTouch;
+};
+
+export const initialInstrumentSettings: InstrumentSettings = {
+  bassVoice: "electric",
+  chordVoice: "piano",
+  pianoTouch: "medium",
 };
 
 export type TextureSettings = {
