@@ -109,6 +109,23 @@ export function normalizeMonophonicDurations(
   );
 }
 
+export function truncateMonophonicDurationsAtOnset(
+  sequence: Array<number | null>,
+  durations: NoteDurationLane,
+  onsetStep: number,
+): NoteDurationLane {
+  const lane = cloneNoteDurationLane(durations, sequence.length);
+  for (let previous = 0; previous < onsetStep; previous += 1) {
+    if (
+      sequence[previous] !== null &&
+      previous + lane[previous] > onsetStep
+    ) {
+      lane[previous] = Math.max(1, onsetStep - previous);
+    }
+  }
+  return lane;
+}
+
 export function noteDurationLabel(steps: number): string {
   const safe = Math.max(1, Math.round(steps));
   if (safe === 1) return "1/8";
@@ -210,6 +227,24 @@ export function normalizeHarmonyDurations(
         ]),
     ),
   );
+}
+
+export function truncateHarmonyDurationsAtOnset(
+  sequence: HarmonySequence,
+  durations: HarmonyDurations,
+  onsetStep: number,
+  midi: number,
+): HarmonyDurations {
+  const cloned = cloneHarmonyDurations(durations);
+  for (let previous = 0; previous < onsetStep; previous += 1) {
+    if (
+      (sequence[previous] ?? []).includes(midi) &&
+      previous + (cloned[previous]?.[midi] ?? 1) > onsetStep
+    ) {
+      cloned[previous][midi] = Math.max(1, onsetStep - previous);
+    }
+  }
+  return cloned;
 }
 
 export const accompanimentPatterns = ["block", "pulse", "broken", "arpeggio"] as const;
