@@ -99,6 +99,39 @@ import {
   type VoicingSettings,
 } from "../music/model";
 
+const softPianoUrls = {
+  A2: pianoSoftA2,
+  C3: pianoSoftC3,
+  A3: pianoSoftA3,
+  C4: pianoSoftC4,
+  A4: pianoSoftA4,
+  C5: pianoSoftC5,
+  A5: pianoSoftA5,
+  C6: pianoSoftC6,
+};
+
+const mediumPianoUrls = {
+  A2: pianoMediumA2,
+  C3: pianoMediumC3,
+  A3: pianoMediumA3,
+  C4: pianoMediumC4,
+  A4: pianoMediumA4,
+  C5: pianoMediumC5,
+  A5: pianoMediumA5,
+  C6: pianoMediumC6,
+};
+
+const strongPianoUrls = {
+  A2: pianoStrongA2,
+  C3: pianoStrongC3,
+  A3: pianoStrongA3,
+  C4: pianoStrongC4,
+  A4: pianoStrongA4,
+  C5: pianoStrongC5,
+  A5: pianoStrongA5,
+  C6: pianoStrongC6,
+};
+
 class AudioEngine {
   private pattern: StepPattern = clonePattern(initialPattern);
   private melody: MelodySequence = [...initialMelody];
@@ -146,9 +179,9 @@ class AudioEngine {
   private pianoMedium: Tone.Sampler | null = null;
   private pianoStrong: Tone.Sampler | null = null;
   private chordPiano: Tone.Sampler | null = null;
-  private chordElectric: Tone.PolySynth<Tone.FMSynth> | null = null;
-  private chordPad: Tone.PolySynth<Tone.Synth> | null = null;
-  private chordPluck: Tone.PolySynth<Tone.Synth> | null = null;
+  private chordElectric: Tone.PolySynth | null = null;
+  private chordPad: Tone.PolySynth | null = null;
+  private chordPluck: Tone.PolySynth | null = null;
   private melodyChorus: Tone.Chorus | null = null;
   private melodyChorusSend: Tone.Gain | null = null;
   private chordPreviewSynth: Tone.PolySynth | null = null;
@@ -406,9 +439,11 @@ class AudioEngine {
       this.melodyChorus.start();
     }
 
-    if (!this.melodyChorusSend && this.piano) {
+    if (!this.melodyChorusSend) {
       this.melodyChorusSend = new Tone.Gain(0).connect(this.melodyChorus);
-      this.piano.connect(this.melodyChorusSend);
+      [this.pianoSoft, this.pianoMedium, this.pianoStrong]
+        .filter((sampler): sampler is Tone.Sampler => sampler !== null)
+        .forEach((sampler) => sampler.connect(this.melodyChorusSend!));
     }
 
     this.applyMixerSettings();
@@ -448,8 +483,36 @@ class AudioEngine {
       this.drumSampler.volume.value = -4;
     }
 
-    if (!this.piano) {
-      this.piano = new Tone.Sampler({
+    if (!this.pianoSoft) {
+      this.pianoSoft = new Tone.Sampler({
+        urls: softPianoUrls,
+        release: 1.15,
+      }).connect(this.inputFor("melody"));
+      this.pianoSoft.volume.value = -5;
+    }
+
+    if (!this.pianoMedium) {
+      this.pianoMedium = new Tone.Sampler({
+        urls: mediumPianoUrls,
+        release: 1.15,
+      }).connect(this.inputFor("melody"));
+      this.pianoMedium.volume.value = -6;
+    }
+
+    if (!this.pianoStrong) {
+      this.pianoStrong = new Tone.Sampler({
+        urls: strongPianoUrls,
+        release: 1.05,
+      }).connect(this.inputFor("melody"));
+      this.pianoStrong.volume.value = -7;
+    }
+
+    if (!this.chordAutomationFilter) {
+      this.chordAutomationFilter = new Tone.Filter(12000, "lowpass").connect(this.inputFor("chords"));
+    }
+
+    if (!this.chordPiano) {
+      this.chordPiano = new Tone.Sampler({
         urls: {
           A3: "A3.mp3",
           C4: "C4.mp3",
@@ -458,22 +521,69 @@ class AudioEngine {
           A4: "A4.mp3",
           C5: "C5.mp3",
         },
-        release: 1.15,
+        release: 1.2,
         baseUrl: `${import.meta.env.BASE_URL}samples/piano/`,
-      }).connect(this.inputFor("melody"));
-      this.piano.volume.value = -6;
-    }
-
-    if (!this.chordAutomationFilter) {
-      this.chordAutomationFilter = new Tone.Filter(12000, "lowpass").connect(this.inputFor("chords"));
-    }
-
-    if (!this.chordSynth) {
-      this.chordSynth = new Tone.PolySynth(Tone.Synth, {
-        oscillator: { type: "triangle" },
-        envelope: { attack: 0.02, decay: 0.4, sustain: 0.28, release: 1.1 },
       }).connect(this.chordAutomationFilter);
-      this.chordSynth.volume.value = -11;
+      this.chordPiano.volume.value = -10;
+    }
+
+    if (!this.chordElectric) {
+      this.chordElectric = new Tone.PolySynth(Tone.FMSynth, {
+        harmonicity: 1.8,
+        modulationIndex: 3.2,
+        oscillator: { type: "sine" },
+        modulation: { type: "sine" },
+        envelope: { attack: 0.008, decay: 0.65, sustain: 0.24, release: 1.4 },
+        modulationEnvelope: {
+          attack: 0.005,
+          decay: 0.35,
+          sustain: 0.08,
+          release: 0.8,
+        },
+      }).connect(this.chordAutomationFilter);
+      this.chordElectric.volume.value = -12;
+    }
+
+    if (!this.chordPad) {
+      this.chordPad = new Tone.PolySynth(Tone.Synth, {
+        oscillator: { type: "triangle" },
+        envelope: { attack: 0.38, decay: 0.7, sustain: 0.62, release: 2.2 },
+      }).connect(this.chordAutomationFilter);
+      this.chordPad.volume.value = -13;
+    }
+
+    if (!this.chordPluck) {
+      this.chordPluck = new Tone.PolySynth(Tone.Synth, {
+        oscillator: { type: "sawtooth" },
+        envelope: { attack: 0.002, decay: 0.14, sustain: 0.04, release: 0.22 },
+      }).connect(this.chordAutomationFilter);
+      this.chordPluck.volume.value = -16;
+    }
+
+    if (!this.bassElectric) {
+      this.bassElectric = new Tone.PluckSynth({
+        attackNoise: 0.55,
+        dampening: 2600,
+        resonance: 0.86,
+      }).connect(this.inputFor("bass"));
+      this.bassElectric.volume.value = -10;
+    }
+
+    if (!this.bassSub) {
+      this.bassSub = new Tone.MonoSynth({
+        oscillator: { type: "sine" },
+        filter: { type: "lowpass", Q: 0.4, rolloff: -12 },
+        filterEnvelope: {
+          attack: 0.01,
+          decay: 0.25,
+          sustain: 0.45,
+          release: 0.5,
+          baseFrequency: 70,
+          octaves: 1.2,
+        },
+        envelope: { attack: 0.008, decay: 0.18, sustain: 0.72, release: 0.35 },
+      }).connect(this.inputFor("bass"));
+      this.bassSub.volume.value = -11;
     }
 
     if (!this.bassSynth) {
