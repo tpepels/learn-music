@@ -565,6 +565,8 @@ describe("lesson 8: automation and dynamics", () => {
       experiments: {
         "automation.melodyVolumeDb": experiment(8, -12, 0),
         "automation.chordFilterHz": experiment(8, 1000, 10500),
+        "automation.melodyVolumeDb": experiment(8, -12, 0),
+        "automation.chordFilterHz": experiment(8, 1000, 10500),
         "dynamics.attack": experiment(4, 0.008, 0.04),
       },
     });
@@ -786,6 +788,9 @@ describe("lesson 13: velocity, accents, and swing", () => {
         "groove.kick.velocity": experiment(4),
         "groove.hat.velocity": experiment(8),
         "groove.snare.velocity": experiment(2),
+        "groove.kick.velocity": experiment(4),
+        "groove.hat.velocity": experiment(8),
+        "groove.snare.velocity": experiment(1),
         "groove.swing": experiment(4, 0, 0.22, ["0", "0.22"]),
       },
     });
