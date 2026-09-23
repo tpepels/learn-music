@@ -40,7 +40,7 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
         explanation:
           "Chord tones are the notes already inside the current harmony. Landing on them at important moments makes melody and chords feel connected instead of like two unrelated clips playing together.",
         instruction:
-          "Press Play: you now hear your groove, chord progression, and melody together. Make sure all four chord slots are filled, then put a chord tone on melody steps 1, 5, 9, and 13—the start of each chord region.",
+          "Press Play and locate the four harmonic arrivals before editing. Fill all four chord slots, then anchor melody steps 1, 5, 9, and 13 with a chord tone from the harmony sounding underneath.",
         recognition:
           "At each chord change, listen to the melody note first. Does it settle into the chord, or does it immediately ask to move?",
         terms: [
@@ -76,7 +76,7 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
         explanation:
           "A passing tone fills the space between two more stable notes by step. It creates motion because it is heard as part of a line rather than as a destination.",
         instruction:
-          "Create at least two in-key passing tones inside chord regions. A passing tone should be a non-chord note between two nearby notes, moving in the same direction.",
+          "Connect two nearby stable notes with motion instead of jumping directly between them. Place at least two in-key non-chord passing tones inside chord regions, each continuing in the same direction between its neighbours.",
         recognition:
           "Hold the middle note in your ear. Does it sound like a destination, or like a bridge between the notes on either side?",
         terms: [
@@ -139,7 +139,7 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
         explanation:
           "A neighbour note decorates a stable note by moving one step away and then returning. The listener hears the outside note as temporary because the surrounding pitch remains the reference point.",
         instruction:
-          "Create at least one three-note neighbour figure inside a chord region: stable note → one step away → same stable note.",
+          "Bend one stable note away and back. Inside a single chord region, write at least one three-note neighbour figure: stable note → one step away → the same stable note.",
         recognition:
           "Does the middle note feel like a detour while the repeated outer note still feels like the point of rest?",
         terms: [
@@ -186,7 +186,7 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
         explanation:
           "Tension is useful when it has direction. A non-chord note can sound expressive rather than wrong when the listener hears it resolve into a nearby chord tone.",
         instruction:
-          "Create at least two places where a non-chord note resolves on the very next step to a chord tone. End the phrase on a chord tone of the final active chord.",
+          "Resolve tension deliberately in at least two places: let a non-chord note move on the very next step to a chord tone. Finish the phrase on a chord tone belonging to the final active chord.",
         recognition:
           "Pause mentally on the non-chord note, then hear the next step. Does the second note answer the tension the first one created?",
         terms: [
