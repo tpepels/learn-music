@@ -10,13 +10,15 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v2.1.5**.
+Current curriculum release: **v2.2.0**.
 
-v2.1.5 replaces the basic synthesized kick, snare, and hi-hat with **bundled sampled drum one-shots** while preserving the same sequencer, velocity, compressor, mixer, sidechain, EQ, saturation, stereo, and effects signal path. The piano remains Salamander Grand Piano because the active melody register was already sampled at the source set's native minor-third spacing; the drum voices were the larger quality gap.
+v2.1.5 replaces the basic synthesized kick, snare, and hi-hat with **bundled sampled drum one-shots** while preserving the same sequencer, velocity, compressor, mixer, sidechain, EQ, saturation, stereo, and effects signal path.
+
+v2.2 adds a shared **instrument palette** and a five-lesson **Style Lab**. Melody piano now uses three real Salamander velocity layers; electric bass uses six locally bundled sampled anchors with Sub and Synth alternatives; harmony can be played by sampled piano, electric keys, pad, or pluck. The Style Lab reshapes the learner's existing project into House, Funk, Hip-hop, Ambient, and Pop studies. It does not load genre presets: every lesson asks the learner to alter, compare, listen, and decide.
 
 ## Current interactive curriculum
 
-There are currently **28 lessons and 112 guided exercises**.
+There are currently **33 lessons and 132 guided exercises**.
 
 1. **Pulse & groove** — four-on-the-floor, backbeat, eighths, syncopation
 2. **Repetition & variation** — related variation, fill, anticipation, turnaround
@@ -46,6 +48,11 @@ There are currently **28 lessons and 112 guided exercises**.
 26. **Minor-key progressions** — write i/iv, V7–i, Andalusian, and deceptive cadences directly into the harmony piano roll
 27. **Seventh chords** — add and remove the seventh as actual MIDI, then write ii7–V7–Imaj7 and I–vi–ii–V accompaniments
 28. **Borrowed chords & modal mixture** — alter A→A♭ and write B♭/Fm directly into four-bar accompaniments
+29. **Style lab · House** — four-beat pulse, offbeat subdivision, instrument articulation, sidechain movement, evolving repetition
+30. **Style lab · Funk** — accent hierarchy, syncopated bass, short articulation, rhythmic harmony and negative space
+31. **Style lab · Hip-hop** — backbeat space, kick phrasing, swing comparison, sparse hook writing, sonic weight
+32. **Style lab · Ambient** — envelope, sustain, harmonic duration, spatial depth, sparse orchestration
+33. **Style lab · Pop** — hook economy, supportive harmony, section contrast, foreground timbre
 
 Each guided exercise keeps the instrument central. The supporting panel is deliberately small: **the idea**, **what to listen for**, how the same thing appears in a DAW or instrument, and the terms needed to name it.
 
@@ -85,6 +92,8 @@ Current workspaces include:
 - modal-mixture harmony piano roll with editable A♭ and B♭
 - sixteen-bar macro-form player with per-section layer choices
 - texture/orchestration register controls
+- instrument palette with three piano touch layers, sampled electric/sub/synth bass, and piano/electric/pad/pluck harmony
+- Style Lab exercises that reuse the same project instead of loading genre templates
 - parametric EQ display and controls
 - saturation / parallel-distortion processor
 - kick-to-bass sidechain ducking
@@ -137,6 +146,7 @@ Current modules:
 - Form
 - Arrangement
 - Texture
+- Palette
 - Mixer
 - EQ
 - Saturation
@@ -165,7 +175,9 @@ Current signal paths include:
 - post-fader sends → shared **reverb** and **delay** returns
 - drum hits read real per-step **MIDI velocity** values
 - Tone transport applies the project **swing** amount to eighth-note subdivision timing
-- keyboard and melody playback use a bundled sampled Salamander Grand Piano rather than a generic triangle synth
+- keyboard and melody playback choose among three bundled Salamander Grand Piano velocity layers so soft, medium, and strong touch use different recordings rather than gain alone
+- bass playback can use a six-anchor sampled electric bass, a rounded sub synth, or the original filtered synth bass
+- harmony playback can use sampled piano, FM electric keys, a slow pad, or a short pluck
 - the early harmony lesson loops the learner's existing groove and melody while the learner writes every harmony note in a 32-step polyphonic piano roll
 - chord-tone shading follows the selected chord in each bar, but outside notes remain clickable so mistakes and tension can be heard rather than silently prevented
 - chord palette buttons are explicit **target + preview** controls: they set the selected bar's harmonic target, recolour chord-tone guidance, and audibly preview the chord without writing MIDI for the learner
@@ -233,6 +245,7 @@ The project file contains:
 - groove velocity values and swing amount
 - sixteen-bar macro-form map
 - register / open-voicing / octave-doubling texture settings
+- instrument palette settings for piano touch, bass voice, and chord voice
 - parametric EQ settings
 - per-channel saturation settings
 - sidechain amount/release
@@ -252,7 +265,7 @@ The GitHub Pages build is now a small PWA:
 - same-origin runtime asset caching
 - cached navigation fallback when offline
 
-Audio runs entirely in the browser. Piano/melody and the core drum kit use bundled samples; bass, harmony, and the sound-design instrument remain synthesized so those lessons still expose synthesis and timbre directly. The course does not depend on remote sample downloads.
+Audio runs entirely in the browser. Piano/melody, the core drum kit, the electric-bass voice, and the chord-piano voice use bundled samples. Sub/synth bass, electric-key/pad/pluck harmony, and the sound-design instrument remain synthesized so synthesis and timbre can still be compared directly. The course does not depend on remote sample downloads.
 
 ## Interface
 
@@ -309,6 +322,8 @@ Production base:
 
 ## Audio sample attribution
 
-The keyboard/melody instrument includes a reduced set of **Salamander Grand Piano V2** samples recorded by Alexander Holm, licensed under **CC BY 3.0**.
+The keyboard/melody instrument uses selected **Salamander Grand Piano V2** samples recorded by Alexander Holm under **CC BY 3.0**, including three recorded velocity layers. The chord-piano voice uses the earlier reduced Salamander set.
+
+The electric-bass voice bundles six sample anchors from **nbrosowsky/tonejs-instruments**, sourced from Karoryfer and distributed under **CC BY 3.0**.
 
 The drum kit uses bundled one-shots from **@teropa/drumkit**. Kick and snare originate from DWSD's Deep House Drum Kit under Creative Commons Attribution; the closed hi-hat comes from Stomachache's Analog Cymbal under CC0. The deployed `SAMPLE_ATTRIBUTION.txt` contains the source links and license details.
