@@ -173,6 +173,8 @@ describe("lesson 1: pulse and groove", () => {
       experiments: {
         "transport.play": experiment(1, null, null, ["drums"]),
         "drums.A.kick.edit": experiment(4, null, null, ["1:true", "3:true", "3:false", "2:true"]),
+        "drums.A.snare.edit": experiment(4),
+        "drums.A.hat.edit": experiment(8),
       },
     });
 
@@ -199,7 +201,16 @@ describe("lesson 2: repetition and variation", () => {
     B.snare[13] = true;
     B.hat[14] = false;
 
-    const ctx = context({ A, B });
+    const ctx = context({
+      A,
+      B,
+      experiments: {
+        "pattern.select": experiment(2, null, null, ["A", "B"]),
+        "drums.B.kick.edit": experiment(3),
+        "drums.B.snare.edit": experiment(2),
+        "drums.B.hat.edit": experiment(1),
+      },
+    });
 
     for (const exercise of rhythmVariationLesson.exercises) {
       expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
@@ -213,7 +224,14 @@ describe("lesson 2: repetition and variation", () => {
     B.snare[13] = true;
     B.kick[11] = true;
 
-    const ctx = context({ A, B });
+    const ctx = context({
+      A,
+      B,
+      experiments: {
+        "drums.B.kick.edit": experiment(1),
+        "drums.B.snare.edit": experiment(1),
+      },
+    });
     expect(
       rhythmVariationLesson.exercises[1]
         .evaluate(ctx)
@@ -251,13 +269,19 @@ describe("lesson 3: keys and melody", () => {
 
   it("recognises a correct C-major key map", () => {
     const checks = pianoCompositionLesson.exercises[0].evaluate(
-      context({ selectedPitchClasses: ["C", "D", "E", "F", "G", "A", "B"] }),
+      context({
+        selectedPitchClasses: ["C", "D", "E", "F", "G", "A", "B"],
+        experiments: { "pitch-class.select": experiment(7) },
+      }),
     );
     expect(checks.every((check) => check.complete)).toBe(true);
   });
 
   it("accepts an in-key melody with tonic degrees, motif repetition, and an answer", () => {
-    const ctx = context({ melody });
+    const ctx = context({
+      melody,
+      experiments: { "melody.edit": experiment(8) },
+    });
 
     for (const exercise of pianoCompositionLesson.exercises.slice(1)) {
       expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
@@ -297,6 +321,7 @@ describe("lesson 4: chords and progressions", () => {
       context({
         chordProgression: ["C", null, null, null],
         harmonySequence: sequence,
+        experiments: { "harmony.note-edit": experiment(5) },
       }),
     );
 
@@ -309,7 +334,11 @@ describe("lesson 4: chords and progressions", () => {
     const sequence = harmonyFor(progression);
 
     const checks = chordProgressionLesson.exercises[1].evaluate(
-      context({ chordProgression: progression, harmonySequence: sequence }),
+      context({
+        chordProgression: progression,
+        harmonySequence: sequence,
+        experiments: { "harmony.note-edit": experiment(6) },
+      }),
     );
 
     expect(checks.every((check) => check.complete)).toBe(true);
@@ -330,7 +359,11 @@ describe("lesson 4: chords and progressions", () => {
     const sequence = harmonyFor(progression);
 
     const checks = chordProgressionLesson.exercises[2].evaluate(
-      context({ chordProgression: progression, harmonySequence: sequence }),
+      context({
+        chordProgression: progression,
+        harmonySequence: sequence,
+        experiments: { "harmony.note-edit": experiment(4) },
+      }),
     );
 
     expect(checks.every((check) => check.complete)).toBe(true);
@@ -346,7 +379,11 @@ describe("lesson 4: chords and progressions", () => {
     ]);
 
     const checks = chordProgressionLesson.exercises[3].evaluate(
-      context({ chordProgression: progression, harmonySequence: sequence }),
+      context({
+        chordProgression: progression,
+        harmonySequence: sequence,
+        experiments: { "harmony.note-edit": experiment(4) },
+      }),
     );
 
     expect(checks.every((check) => check.complete)).toBe(true);
