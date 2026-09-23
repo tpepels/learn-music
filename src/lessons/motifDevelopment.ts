@@ -1,3 +1,4 @@
+import { changedControl, heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -55,10 +56,12 @@ export const motifDevelopmentLesson: LessonDefinition = {
         checksLabel: "Establish the motif",
         successLabel: "The source idea is now recognizable through repetition",
       }),
-      evaluate: ({ melody }) => {
+      evaluate: ({ melody, experiments }) => {
         const source = block(melody, 0);
         const repeat = block(melody, 4);
         return [
+          { label: "You established or revised the motif here", complete: changedControl(experiments, "melody.edit", 3) },
+          { label: "You listened to the repeated motif", complete: heardPlayback(experiments) },
           {
             label: "Source motif contains at least three notes",
             complete: countNotes(source) >= 3,
@@ -90,10 +93,12 @@ export const motifDevelopmentLesson: LessonDefinition = {
         checksLabel: "Move the motif",
         successLabel: "The motif now exists at a new pitch level",
       }),
-      evaluate: ({ melody }) => {
+      evaluate: ({ melody, experiments }) => {
         const source = block(melody, 0);
         const transposed = block(melody, 8);
         return [
+          { label: "You wrote the transposed version in this exercise", complete: changedControl(experiments, "melody.edit", 3) },
+          { label: "You listened for the preserved contour", complete: heardPlayback(experiments) },
           {
             label: "Source motif still contains at least three notes",
             complete: countNotes(source) >= 3,
@@ -129,7 +134,7 @@ export const motifDevelopmentLesson: LessonDefinition = {
         checksLabel: "Reduce the idea",
         successLabel: "A small fragment now carries the motif's identity",
       }),
-      evaluate: ({ melody }) => {
+      evaluate: ({ melody, experiments }) => {
         const source = block(melody, 0).filter(
           (note): note is number => note !== null,
         );
@@ -139,6 +144,8 @@ export const motifDevelopmentLesson: LessonDefinition = {
         );
 
         return [
+          { label: "You reduced the motif during this exercise", complete: changedControl(experiments, "melody.edit") },
+          { label: "You listened for recognition in the fragment", complete: heardPlayback(experiments) },
           {
             label: "Fragment contains one or two notes",
             complete: notes.length >= 1 && notes.length <= 2,
@@ -175,7 +182,7 @@ export const motifDevelopmentLesson: LessonDefinition = {
         checksLabel: "Make the phrase converse",
         successLabel: "The developed material now functions as an answer",
       }),
-      evaluate: ({ melody }) => {
+      evaluate: ({ melody, experiments }) => {
         const call = melody.slice(0, 8);
         const response = melody.slice(8, 16);
         const responseNotes = response.filter(
@@ -183,6 +190,8 @@ export const motifDevelopmentLesson: LessonDefinition = {
         );
         const last = [...responseNotes].at(-1);
         return [
+          { label: "You wrote or revised the response here", complete: changedControl(experiments, "melody.edit", 4) },
+          { label: "You listened to call and response together", complete: heardPlayback(experiments) },
           {
             label: "Response contains at least four notes",
             complete: responseNotes.length >= 4,
