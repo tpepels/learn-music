@@ -135,8 +135,11 @@ function context(overrides: Partial<LessonContext> = {}): LessonContext {
       ...initialReferenceMixSettings,
       snapshot: null,
     },
-    experiments: {},
     ...overrides,
+    experiments: {
+      "transport.play": experiment(1, null, null, ["continued"]),
+      ...(overrides.experiments ?? {}),
+    },
   } as LessonContext;
 }
 
