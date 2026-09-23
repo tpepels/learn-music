@@ -10,7 +10,7 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v2.1.3**.
+Current curriculum release: **v2.1.4**.
 
 ## Current interactive curriculum
 
@@ -56,6 +56,8 @@ v2.1.1 also repairs persisted pre-v2 form data on startup. Older local projects 
 v2.1.2 strengthens **project continuity** between lessons. Melody writing now happens over the groove the learner already made; harmony is written under that groove and melody; bass is written against the existing groove and harmony; motif, harmonic-function, and minor lessons keep developing shared project material. Continuity is selective rather than automatic: the later C-major seventh/borrowed-chord lessons keep the groove but omit the preceding A-minor melody so incompatible material cannot obscure the harmony being taught.
 
 v2.1.3 adds **drawn MIDI note length**. Melody, harmony, bass, motif, melody-over-harmony, and minor-key piano rolls now distinguish note onset from duration: click for a one-eighth note, or drag horizontally to sustain through later eighth-note cells. Drawn durations affect real playback, carry into arrangement and sound-design reuse, persist across refreshes, and round-trip through project export/import. Older saved projects migrate to the original one-cell duration automatically.
+
+v2.1.4 tightens MIDI note semantics. Melody and bass notes cannot sustain through a later onset in the same part; a new note automatically ends the previous held note. Harmony remains polyphonic, but re-triggering the same pitch ends its earlier sustain without affecting the other chord tones. Tapping any part of a sustained block removes that note; dragging the block still resizes it.
 
 ## Learn
 
