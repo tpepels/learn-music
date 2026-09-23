@@ -380,6 +380,7 @@ const lessonGlyphs: Record<string, string> = {
 };
 
 function App() {
+  const bpm = useStudioStore((state) => state.bpm);
   const currentLessonId = useStudioStore((state) => state.currentLessonId);
   const exerciseIndexByLesson = useStudioStore((state) => state.exerciseIndexByLesson);
   const completedExerciseIds = useStudioStore((state) => state.completedExerciseIds);
@@ -561,12 +562,15 @@ function App() {
   const checks = useMemo(
     () =>
       exercise.evaluate({
+        bpm,
         A: patterns.A,
         B: patterns.B,
         selectedPitchClasses,
         melody,
+        melodyDurations,
         chordProgression,
         harmonySequence,
+        harmonyDurations,
         accompanimentPattern,
         synthSettings,
         arrangement,
@@ -577,6 +581,7 @@ function App() {
         projectMilestones,
         voicingSettings,
         bassSequence,
+        bassDurations,
         grooveFeelSettings,
         formSettings,
         textureSettings,
@@ -589,11 +594,14 @@ function App() {
       }),
     [
       exercise,
+      bpm,
       patterns,
       selectedPitchClasses,
       melody,
+      melodyDurations,
       chordProgression,
       harmonySequence,
+      harmonyDurations,
       accompanimentPattern,
       synthSettings,
       arrangement,
@@ -604,6 +612,7 @@ function App() {
       projectMilestones,
       voicingSettings,
       bassSequence,
+      bassDurations,
       grooveFeelSettings,
       formSettings,
       textureSettings,
