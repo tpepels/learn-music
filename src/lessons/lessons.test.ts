@@ -63,6 +63,7 @@ import { sidechainLesson } from "./sidechain";
 import { soundSynthesisLesson } from "./soundSynthesis";
 import { stereoMonoLesson } from "./stereoMono";
 import { voiceLeadingLesson } from "./voiceLeading";
+import { implementedLessons } from "./course";
 import {
   ambientStyleLesson,
   funkStyleLesson,
@@ -1596,6 +1597,23 @@ describe("style lab lessons", () => {
     });
     for (const exercise of popStyleLesson.exercises) {
       expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
+    }
+  });
+});
+
+
+describe("curriculum evaluator safety", () => {
+  it("does not throw when an exercise has no experiment history yet", () => {
+    const fresh = context();
+    fresh.experiments = {};
+
+    for (const lesson of implementedLessons) {
+      for (const exercise of lesson.exercises) {
+        expect(
+          () => exercise.evaluate(fresh),
+          lesson.id + " / " + exercise.id,
+        ).not.toThrow();
+      }
     }
   });
 });
