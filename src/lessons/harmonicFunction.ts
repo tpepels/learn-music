@@ -6,6 +6,7 @@ import {
   harmonyOffbeats,
   writtenHarmonyFitsChords,
 } from "./harmonyApplication";
+import { heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -54,6 +55,7 @@ export const harmonicFunctionLesson: LessonDefinition = {
         successLabel: "The chord movement is now in the part you wrote",
       }),
       evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+        { label: "You listened to the rewritten harmonic motion", complete: heardPlayback(experiments) },
         {
           label: "Progression is C → F → G → C",
           complete:
@@ -99,6 +101,7 @@ export const harmonicFunctionLesson: LessonDefinition = {
         successLabel: "You rebuilt the phrase as ii–V–I",
       }),
       evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+        { label: "You listened to the rewritten harmonic motion", complete: heardPlayback(experiments) },
         {
           label: "The phrase begins Dm → G → C",
           complete:
@@ -143,6 +146,7 @@ export const harmonicFunctionLesson: LessonDefinition = {
         successLabel: "The deceptive move is part of your accompaniment",
       }),
       evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+        { label: "You listened to the rewritten harmonic motion", complete: heardPlayback(experiments) },
         {
           label: "Progression is C → G → Am → F",
           complete:
@@ -191,6 +195,7 @@ export const harmonicFunctionLesson: LessonDefinition = {
         successLabel: "F♯ now creates the secondary dominant you can hear",
       }),
       evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+        { label: "You listened to the rewritten harmonic motion", complete: heardPlayback(experiments) },
         {
           label: "D7 resolves to G and G resolves to C",
           complete:
