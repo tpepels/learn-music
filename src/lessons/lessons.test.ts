@@ -468,6 +468,23 @@ describe("lesson 5: sound and synthesis", () => {
     );
     expect(checks.every((check) => check.complete)).toBe(false);
   });
+
+  it("treats a missing cutoff experiment as incomplete instead of throwing", () => {
+    const checks = soundSynthesisLesson.exercises[1].evaluate(
+      context({
+        synthSettings: {
+          ...initialSynthSettings,
+          waveform: "sawtooth",
+          cutoff: 1500,
+        },
+        experiments: {},
+      }),
+    );
+
+    expect(checks.find((check) =>
+      check.label.includes("5000 Hz"),
+    )?.complete).toBe(false);
+  });
 });
 
 describe("lesson 6: arrangement and form", () => {
