@@ -7,6 +7,7 @@ import {
   initialAccompanimentPattern,
   initialArrangement,
   initialAutomationSettings,
+  initialBassDurations,
   initialBassSequence,
   initialChordProgression,
   initialDynamicsSettings,
@@ -14,8 +15,11 @@ import {
   initialEqSettings,
   initialFormSettings,
   initialGrooveFeelSettings,
+  initialHarmonyDurations,
   initialHarmonySequence,
+  initialInstrumentSettings,
   initialMelody,
+  initialMelodyDurations,
   initialMixerSettings,
   initialPattern,
   initialReferenceMixSettings,
@@ -59,6 +63,13 @@ import { sidechainLesson } from "./sidechain";
 import { soundSynthesisLesson } from "./soundSynthesis";
 import { stereoMonoLesson } from "./stereoMono";
 import { voiceLeadingLesson } from "./voiceLeading";
+import {
+  ambientStyleLesson,
+  funkStyleLesson,
+  hipHopStyleLesson,
+  houseStyleLesson,
+  popStyleLesson,
+} from "./styleGenreLab";
 import type { LessonContext } from "./types";
 
 function context(overrides: Partial<LessonContext> = {}): LessonContext {
@@ -67,8 +78,10 @@ function context(overrides: Partial<LessonContext> = {}): LessonContext {
     B: clonePattern(initialPattern),
     selectedPitchClasses: [],
     melody: [...initialMelody],
+    melodyDurations: [...initialMelodyDurations],
     chordProgression: [...initialChordProgression],
     harmonySequence: initialHarmonySequence.map((notes) => [...notes]),
+    harmonyDurations: initialHarmonyDurations.map((entry) => ({ ...entry })),
     accompanimentPattern: initialAccompanimentPattern,
     synthSettings: { ...initialSynthSettings },
     arrangement: cloneArrangement(initialArrangement),
@@ -84,6 +97,7 @@ function context(overrides: Partial<LessonContext> = {}): LessonContext {
     projectMilestones: { exported: false },
     voicingSettings: { inversions: [...initialVoicingSettings.inversions] },
     bassSequence: [...initialBassSequence],
+    bassDurations: [...initialBassDurations],
     grooveFeelSettings: {
       swing: initialGrooveFeelSettings.swing,
       velocities: {
@@ -98,6 +112,7 @@ function context(overrides: Partial<LessonContext> = {}): LessonContext {
       layers: initialFormSettings.layers.map((entry) => ({ ...entry })),
     },
     textureSettings: { ...initialTextureSettings },
+    instrumentSettings: { ...initialInstrumentSettings },
     eqSettings: {
       drums: { ...initialEqSettings.drums },
       bass: { ...initialEqSettings.bass },
@@ -1291,5 +1306,202 @@ describe("expanded harmony model", () => {
     expect(chordMidi.G7).toEqual([55, 59, 62, 65]);
     expect(chordMidi.Fm).toEqual([53, 56, 60]);
     expect(chordMidi["B♭"]).toEqual([58, 62, 65]);
+  });
+});
+
+
+describe("style lab lessons", () => {
+  it("requires House to be built through rhythm, timbre, sidechain and arrangement decisions", () => {
+    const A = clonePattern(initialPattern);
+    [0, 4, 8, 12].forEach((step) => { A.kick[step] = true; });
+    [2, 6, 10, 14].forEach((step) => { A.hat[step] = true; });
+    const arrangement = cloneArrangement(initialArrangement);
+    arrangement[0] = { drums: true, bass: false, chords: false, melody: false };
+    arrangement[1] = { drums: true, bass: true, chords: false, melody: false };
+    arrangement[2] = { drums: true, bass: true, chords: true, melody: false };
+    arrangement[3] = { drums: true, bass: true, chords: true, melody: true };
+    arrangement[4] = { drums: true, bass: true, chords: false, melody: true };
+    arrangement[5] = { drums: true, bass: true, chords: true, melody: true };
+    arrangement[6] = { drums: true, bass: false, chords: true, melody: true };
+    arrangement[7] = { drums: true, bass: true, chords: true, melody: false };
+
+    const common = context({
+      A,
+      arrangement,
+      sidechainSettings: { enabled: true, amountDb: 4, release: 0.2 },
+      experiments: {
+        "transport.play": experiment(2, null, null, ["drums", "arrangement"]),
+        "drums.A.kick.edit": experiment(2),
+        "drums.A.hat.edit": experiment(2),
+        "instrument.bassVoice": experiment(2, null, null, ["electric", "sub"]),
+        "instrument.chordVoice": experiment(2, null, null, ["piano", "pluck"]),
+        "sidechain.enabled": experiment(2, null, null, ["false", "true"]),
+        "sidechain.amountDb": experiment(3, 0, 6, ["0", "6", "4"]),
+        "arrangement.edit": experiment(5),
+      },
+    });
+
+    for (const exercise of houseStyleLesson.exercises) {
+      expect(exercise.evaluate(common).every((check) => check.complete)).toBe(true);
+    }
+  });
+
+  it("does not treat a genre-like final state as enough without comparisons", () => {
+    const A = clonePattern(initialPattern);
+    [0, 4, 8, 12].forEach((step) => { A.kick[step] = true; });
+    [2, 6, 10, 14].forEach((step) => { A.hat[step] = true; });
+
+    expect(
+      houseStyleLesson.exercises[1]
+        .evaluate(context({ A }))
+        .every((check) => check.complete),
+    ).toBe(false);
+  });
+
+  it("accepts a Funk pass with articulated hats, syncopated bass and rhythmic harmony", () => {
+    const A = clonePattern(initialPattern);
+    for (let step = 0; step < 16; step += 2) A.hat[step] = true;
+    const grooveFeelSettings = {
+      swing: 0.12,
+      velocities: {
+        kick: [...initialGrooveFeelSettings.velocities.kick],
+        snare: [...initialGrooveFeelSettings.velocities.snare],
+        hat: Array.from({ length: 16 }, (_, step) => step % 4 === 0 ? 0.9 : 0.55),
+      },
+    };
+    const bass = [...initialBassSequence];
+    [0, 3, 6, 9, 12, 15, 18, 21].forEach((step, index) => {
+      bass[step] = 36 + (index % 4);
+    });
+    const harmony = initialHarmonySequence.map((notes) => [...notes]);
+    [0, 3, 8, 11, 16, 19, 24, 27].forEach((step) => {
+      harmony[step] = [60, 64, 67];
+    });
+
+    const ctx = context({
+      A,
+      grooveFeelSettings,
+      bassSequence: bass,
+      harmonySequence: harmony,
+      experiments: {
+        "groove.swing": experiment(3, 0, 0.12, ["0", "0.12"]),
+        "transport.play": experiment(2, null, null, ["bass", "harmony-song"]),
+        "instrument.bassVoice": experiment(2, null, null, ["electric", "synth"]),
+        "instrument.chordVoice": experiment(2, null, null, ["piano", "electric"]),
+      },
+    });
+    for (const exercise of funkStyleLesson.exercises) {
+      expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
+    }
+  });
+
+  it("accepts Hip-hop exploration only after timing, motif and timbre have been compared", () => {
+    const A = clonePattern(initialPattern);
+    [0, 7, 10].forEach((step) => { A.kick[step] = true; });
+    A.snare[4] = true;
+    A.snare[12] = true;
+    [0, 4, 8, 12].forEach((step) => { A.hat[step] = true; });
+    const melody = [...initialMelody];
+    [60, 63, 60, 67, 63].forEach((note, index) => {
+      melody[index * 2] = note;
+    });
+    const ctx = context({
+      A,
+      melody,
+      grooveFeelSettings: {
+        ...initialGrooveFeelSettings,
+        swing: 0.16,
+        velocities: {
+          kick: [...initialGrooveFeelSettings.velocities.kick],
+          snare: [...initialGrooveFeelSettings.velocities.snare],
+          hat: [...initialGrooveFeelSettings.velocities.hat],
+        },
+      },
+      experiments: {
+        "transport.play": experiment(2, null, null, ["drums", "motif"]),
+        "groove.swing": experiment(3, 0, 0.16, ["0", "0.16"]),
+        "instrument.bassVoice": experiment(2, null, null, ["electric", "sub"]),
+        "instrument.pianoTouch": experiment(2, null, null, ["soft", "strong"]),
+      },
+    });
+    for (const exercise of hipHopStyleLesson.exercises) {
+      expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
+    }
+  });
+
+  it("accepts Ambient only when long harmony, spatial comparison and sparse texture are real", () => {
+    const harmony = initialHarmonySequence.map((notes) => [...notes]);
+    const harmonyDurations = initialHarmonyDurations.map((entry) => ({ ...entry }));
+    [0, 8, 16, 24].forEach((step) => {
+      harmony[step] = [60, 64, 67];
+      harmonyDurations[step] = { "60": 4, "64": 4, "67": 4 };
+    });
+    const arrangement = cloneArrangement(initialArrangement);
+    arrangement[0] = { drums: false, bass: false, chords: true, melody: false };
+    arrangement[1] = { drums: false, bass: false, chords: true, melody: true };
+    arrangement[2] = { drums: true, bass: false, chords: true, melody: true };
+    arrangement[3] = { drums: true, bass: true, chords: true, melody: true };
+    arrangement[4] = { drums: false, bass: true, chords: true, melody: false };
+    arrangement[5] = { drums: false, bass: false, chords: true, melody: true };
+    arrangement[6] = { drums: true, bass: true, chords: true, melody: false };
+    arrangement[7] = { drums: true, bass: true, chords: true, melody: true };
+
+    const ctx = context({
+      harmonySequence: harmony,
+      harmonyDurations,
+      arrangement,
+      effectsSettings: {
+        ...initialEffectsSettings,
+        reverbDecay: 4,
+        delayFeedback: 0.3,
+      },
+      experiments: {
+        "transport.play": experiment(2, null, null, ["instrument-palette", "effects"]),
+        "instrument.chordVoice": experiment(2, null, null, ["piano", "pad"]),
+        "instrument.pianoTouch": experiment(2, null, null, ["soft", "medium"]),
+        "effects.reverbDecay": experiment(4, 1.8, 5.2, ["1.8", "5.2", "4"]),
+        "effects.delayFeedback": experiment(2, 0.1, 0.35, ["0.1", "0.35"]),
+      },
+    });
+    for (const exercise of ambientStyleLesson.exercises) {
+      expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
+    }
+  });
+
+  it("accepts Pop when hook, harmony, arrangement and foreground timbre are all deliberate", () => {
+    const melody = [...initialMelody];
+    [60, 64, 60, 67, 64, 69].forEach((note, index) => {
+      melody[index * 2] = note;
+    });
+    const progression: ChordProgression = ["C", "Am", "F", "G"];
+    const harmony = initialHarmonySequence.map((notes) => [...notes]);
+    progression.forEach((chord, bar) => {
+      harmony[bar * 8] = chordMidi[chord!];
+    });
+    const arrangement = cloneArrangement(initialArrangement);
+    arrangement[0] = { drums: true, bass: false, chords: false, melody: true };
+    arrangement[1] = { drums: true, bass: true, chords: false, melody: true };
+    arrangement[2] = { drums: true, bass: true, chords: true, melody: true };
+    arrangement[3] = { drums: true, bass: true, chords: true, melody: false };
+    arrangement[4] = { drums: false, bass: false, chords: true, melody: true };
+    arrangement[5] = { drums: true, bass: true, chords: true, melody: true };
+    arrangement[6] = { drums: true, bass: false, chords: true, melody: true };
+    arrangement[7] = { drums: true, bass: true, chords: true, melody: true };
+
+    const ctx = context({
+      melody,
+      chordProgression: progression,
+      harmonySequence: harmony,
+      arrangement,
+      experiments: {
+        "transport.play": experiment(3, null, null, ["motif", "harmony-song", "instrument-palette"]),
+        "arrangement.edit": experiment(5),
+        "instrument.chordVoice": experiment(2, null, null, ["piano", "electric"]),
+        "instrument.pianoTouch": experiment(2, null, null, ["soft", "strong"]),
+      },
+    });
+    for (const exercise of popStyleLesson.exercises) {
+      expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
+    }
   });
 });
