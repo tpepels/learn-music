@@ -10,7 +10,9 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v2.4.7**.
+Current curriculum release: **v2.4.8**.
+
+v2.4.8 adds a **Recover to lesson 5** path for lost or intentionally skipped early progress. The recovery preset rebuilds a coherent prerequisite project—two related drum patterns, a C-major phrase, a C–F–G–C progression, and written harmony—marks lessons 1–4/exercises A–D complete for navigation, and opens Sound & synthesis. Recovery requires confirmation because it replaces the current musical project; it is a catch-up mechanism, not another completion gate.
 
 v2.4.7 fixes the refresh-only blank-screen failure at its persisted-state source. Older saved groove settings could contain `swing` without the velocity lanes introduced later; the shallow Zustand merge accepted that legacy shape, then the audio-engine synchronization effect threw while reading `velocities.kick`, causing React to clear the root and leave only the page background. Rehydration now migrates groove state forward, preserving valid old values while filling missing velocity lanes from current defaults. A root error boundary also ensures a future project-state incompatibility produces a visible diagnostic instead of an empty interface.
 
