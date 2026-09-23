@@ -10,9 +10,11 @@ The product now has three connected modes:
 
 All three modes operate on the same persistent local project.
 
-Current curriculum release: **v2.2.0**.
+Current curriculum release: **v2.2.1**.
 
 v2.1.5 replaces the basic synthesized kick, snare, and hi-hat with **bundled sampled drum one-shots** while preserving the same sequencer, velocity, compressor, mixer, sidechain, EQ, saturation, stereo, and effects signal path.
+
+v2.2.1 makes piano touch fully shared: the PIANO harmony voice now follows the same soft, medium, and strong recorded Salamander layers as the melody piano.
 
 v2.2 adds a shared **instrument palette** and a five-lesson **Style Lab**. Melody piano now uses three real Salamander velocity layers; electric bass uses six locally bundled sampled anchors with Sub and Synth alternatives; harmony can be played by sampled piano, electric keys, pad, or pluck. The Style Lab reshapes the learner's existing project into House, Funk, Hip-hop, Ambient, and Pop studies. It does not load genre presets: every lesson asks the learner to alter, compare, listen, and decide.
 
@@ -322,7 +324,7 @@ Production base:
 
 ## Audio sample attribution
 
-The keyboard/melody instrument uses selected **Salamander Grand Piano V2** samples recorded by Alexander Holm under **CC BY 3.0**, including three recorded velocity layers. The chord-piano voice uses the earlier reduced Salamander set.
+The keyboard/melody and chord-piano instruments use selected **Salamander Grand Piano V2** samples recorded by Alexander Holm under **CC BY 3.0**, including three recorded velocity layers.
 
 The electric-bass voice bundles six sample anchors from **nbrosowsky/tonejs-instruments**, sourced from Karoryfer and distributed under **CC BY 3.0**.
 
