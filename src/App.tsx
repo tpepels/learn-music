@@ -241,10 +241,10 @@ function Transport({
           className={soloCurrent ? "transport-focus-toggle is-active" : "transport-focus-toggle"}
           type="button"
           aria-pressed={soloCurrent}
-          title={soloCurrent ? "Hear the full context again" : "Temporarily mute earlier parts"}
+          title={soloCurrent ? "Hear the earlier parts again" : "Temporarily mute earlier parts"}
           onClick={() => setSoloCurrent((current) => !current)}
         >
-          {soloCurrent ? "Solo current · on" : "Solo current"}
+          {soloCurrent ? "Earlier parts muted" : "Mute earlier parts"}
         </button>
       )}
 
