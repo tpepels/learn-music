@@ -18,6 +18,8 @@ import {
   maxMonophonicDuration,
   normalizeHarmonyDurations,
   normalizeMonophonicDurations,
+  truncateHarmonyDurationsAtOnset,
+  truncateMonophonicDurationsAtOnset,
   clonePattern,
   cloneReferenceSnapshot,
   cloneSaturationSettings,
@@ -426,18 +428,15 @@ export const useStudioStore = create<StudioState>()(
       setMelodyStep: (step, midi) =>
         set((state) => {
           const melody = [...state.melody];
-          const melodyDurations = [...state.melodyDurations];
+          let melodyDurations = [...state.melodyDurations];
           const removing = melody[step] === midi;
 
           if (!removing) {
-            for (let previous = 0; previous < step; previous += 1) {
-              if (
-                melody[previous] !== null &&
-                previous + (melodyDurations[previous] ?? 1) > step
-              ) {
-                melodyDurations[previous] = Math.max(1, step - previous);
-              }
-            }
+            melodyDurations = truncateMonophonicDurationsAtOnset(
+              melody,
+              melodyDurations,
+              step,
+            );
           }
 
           melody[step] = removing ? null : midi;
@@ -508,7 +507,7 @@ export const useStudioStore = create<StudioState>()(
       toggleHarmonyNote: (step, midi) =>
         set((state) => {
           const harmonySequence = cloneHarmonySequence(state.harmonySequence);
-          const harmonyDurations = cloneHarmonyDurations(state.harmonyDurations);
+          let harmonyDurations = cloneHarmonyDurations(state.harmonyDurations);
           const notes = harmonySequence[step] ?? [];
           const removing = notes.includes(midi);
           harmonySequence[step] = removing
@@ -517,17 +516,12 @@ export const useStudioStore = create<StudioState>()(
           if (removing) {
             delete harmonyDurations[step][midi];
           } else {
-            for (let previous = 0; previous < step; previous += 1) {
-              if (
-                (harmonySequence[previous] ?? []).includes(midi) &&
-                previous + (harmonyDurations[previous]?.[midi] ?? 1) > step
-              ) {
-                harmonyDurations[previous][midi] = Math.max(
-                  1,
-                  step - previous,
-                );
-              }
-            }
+            harmonyDurations = truncateHarmonyDurationsAtOnset(
+              harmonySequence,
+              harmonyDurations,
+              step,
+              midi,
+            );
             harmonyDurations[step][midi] = 1;
           }
           return {
@@ -758,18 +752,15 @@ export const useStudioStore = create<StudioState>()(
       setBassStep: (step, midi) =>
         set((state) => {
           const bassSequence = [...state.bassSequence];
-          const bassDurations = [...state.bassDurations];
+          let bassDurations = [...state.bassDurations];
           const removing = bassSequence[step] === midi;
 
           if (!removing) {
-            for (let previous = 0; previous < step; previous += 1) {
-              if (
-                bassSequence[previous] !== null &&
-                previous + (bassDurations[previous] ?? 1) > step
-              ) {
-                bassDurations[previous] = Math.max(1, step - previous);
-              }
-            }
+            bassDurations = truncateMonophonicDurationsAtOnset(
+              bassSequence,
+              bassDurations,
+              step,
+            );
           }
 
           bassSequence[step] = removing ? null : midi;
