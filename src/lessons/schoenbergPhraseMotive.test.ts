@@ -78,22 +78,15 @@ describe("Schoenberg learning track", () => {
     }
   });
 
-  it("embeds the Beethoven score excerpts it asks the learner to analyse", () => {
+  it("uses native source material instead of raster book crops", () => {
     const literature = schoenbergPhraseMotiveLesson.exercises[1];
     const repair = schoenbergPhraseMotiveLesson.exercises[2];
 
-    expect(literature.source?.examples).toEqual([
-      expect.objectContaining({
-        asset: "book-examples/s01/ex2e-beethoven-eroica-i.jpg",
-      }),
-    ]);
-    expect(repair.source?.examples?.map((example) => example.asset)).toEqual([
-      "book-examples/s01/ex2e-beethoven-eroica-i.jpg",
-      "book-examples/s01/ex4c-beethoven-eroica-scherzo.jpg",
-    ]);
+    expect(literature.source?.exampleIds).toEqual(["s01.ex2e"]);
+    expect(repair.source?.exampleIds).toEqual(["s01.ex2e", "s01.ex4c"]);
 
-    expect(literature.instruction).toContain("embedded Ex. 2e");
-    expect(repair.instruction).toContain("Study both embedded Beethoven excerpts");
+    expect(literature.instruction).toContain("native Ex. 2e");
+    expect(repair.instruction).toContain("Ex. 4c source-analysis map");
   });
 
   it("recognises phrase analysis after listening, marking, and changing notation", () => {

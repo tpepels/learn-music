@@ -22,7 +22,7 @@ const lesson = lessonContentSchema.parse({
   description:
     "Chapter VIII turns the established sentence beginning into a complete theme. The continuation develops more remote motive-forms; sequence-like treatment can drive the music forward, while liquidation gradually removes characteristic features so that a cadence can delimit the sentence.",
   overview:
-    "The 32-step studies compress Schoenberg's discussion around Examples 52–61 into manipulable teaching material. They are not transcriptions. First hear why continuation must do more than repeat the beginning, then isolate sequence-like treatment and liquidation before completing a full sentence from beginning to cadence.",
+    "Examples 52–61 are now represented in the lesson through source-derived interactive analysis maps before the 32-step application studies. The maps preserve Schoenberg's analytical distinctions; the study sequences are explicitly separate practice material, not source transcriptions.",
 });
 
 function visitedAll(values: string[], required: string[]): boolean {
@@ -50,9 +50,15 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg contrasts the repeated beginning with what follows. Once the basic idea has been established, the continuation calls for more remotely varied motive-forms. Development can include growth and extension, but also reduction, condensation and intensification. The point is not novelty for its own sake: the new forms still have to follow the requirements of comprehensibility and musical logic.",
         instruction:
-          "Compare Keep repeating the opening, Developed continuation and New unrelated material. Listen through all 32 steps. Choose the second half that changes the behaviour of the music without abandoning the basic motive.",
+          "Start with the Chapter VIII and Ex. 52 source maps. Then compare Keep repeating the opening, Developed continuation and New unrelated material in the study workspace. Choose the second half that changes behaviour without abandoning the basic motive.",
         recognition:
           "After step 16, does the music begin to work on the established material, or does it simply restate it - or replace it?",
+        source: {
+          reference: "Chapter VIII and Example 52 - Completion of the Sentence",
+          focus:
+            "Use Schoenberg's own functional labels first: tonic form, dominant form, climactic ascension, reduction and melodic residues. The 32-step workspace then isolates the change from presentation to continuation.",
+          exampleIds: ["s05.chapter", "s05.ex52"],
+        },
         terms: [
           {
             term: "Continuation",
@@ -113,9 +119,15 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg notes that sequence-like procedures are common in the continuation of a sentence. The pattern used for sequential treatment is usually a transformation or condensation of preceding motive-forms. With a suitable harmonic progression, such a pattern may begin on different scale degrees.",
         instruction:
-          "Compare Repeat one fragment, Sequential treatment and New unrelated material. Follow steps 17–28 in Staff and Degrees. Choose the version in which the same interval pattern moves to new pitch levels instead of staying fixed or becoming foreign.",
+          "Study the Exs. 53-56 source map first. Then compare Repeat one fragment, Sequential treatment and New unrelated material. Follow steps 17–28 and choose the version in which the same interval pattern moves to new pitch levels.",
         recognition:
           "Can you hear one pattern being carried forward through changing pitch levels?",
+        source: {
+          reference: "Examples 53-56 - extended and sequence-like continuations",
+          focus:
+            "Schoenberg's examples show that remote motive-forms and sequence-like repetition can extend the continuation beyond a mechanically equal practice model.",
+          exampleIds: ["s05.ex53-56"],
+        },
         terms: [
           {
             term: "Sequence-like procedure",
@@ -181,9 +193,15 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg defines liquidation as a gradual elimination of characteristic features. Eventually only relatively uncharacteristic residues remain. He stresses that this often goes together with shortening of the phrase; combined with a cadence or half cadence, the process can give the sentence an adequate boundary. Liquidation is therefore not simply deleting notes at random - it prepares the ending.",
         instruction:
-          "Compare Keep full motive-forms, Liquidate toward cadence and Abrupt cut to cadence. Listen especially to steps 17–32. Choose the version in which characteristic material is reduced progressively before the V → I ending.",
+          "Study Ex. 52 and the Exs. 57-61 source map first. Then compare Keep full motive-forms, Liquidate toward cadence and Abrupt cut to cadence. Choose the version in which characteristic material is reduced progressively before the V → I ending.",
         recognition:
           "Does the motive seem to spend its remaining energy and make the cadence feel earned, rather than simply stopping?",
+        source: {
+          reference: "Example 52 and Examples 57-61 - reduction, residues and delimitation",
+          focus:
+            "The book's literature examples show shortening, inserted repetitions, developing variation and residual material preparing cadence. Study those source maps before the liquidation comparison.",
+          exampleIds: ["s05.ex52", "s05.ex57-61"],
+        },
         terms: [
           {
             term: "Liquidation",
@@ -251,9 +269,15 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg treats these procedures as means rather than a rigid formula. A simple sentence can often be eight measures, but the exact proportions may vary. What matters here is the logic of the succession: the beginning establishes material, the continuation develops more remote motive-forms, liquidation reduces their characteristic features, and the cadence supplies delimitation.",
         instruction:
-          "Start with Sequence → liquidation → cadence. Listen to all 32 steps, then edit at least two pitches in the developed continuation at steps 17–24 so it sounds less mechanical while preserving its connection to the source. Compare at least two notation views. Leave the liquidating reduction and final cadence intact unless you deliberately rebuild them.",
+          "Review the Ex. 52, Exs. 53-56 and Exs. 57-61 source maps. Then use Sequence → liquidation → cadence as the application study. Listen to all 32 steps and edit at least two pitches in steps 17–24 while preserving connection to the source idea.",
         recognition:
           "Does the whole sentence now feel like one process - establishment, development, reduction, close - rather than four adjacent tricks?",
+        source: {
+          reference: "Synthesis of Chapter VIII and Examples 52-61",
+          focus:
+            "Revisit the source maps before composing: Ex. 52 names the functions, Exs. 53-56 show extension, and Exs. 57-61 show how literature bends proportions while preserving formal logic.",
+          exampleIds: ["s05.ex52", "s05.ex53-56", "s05.ex57-61"],
+        },
         terms: [
           {
             term: "Completion of the sentence",

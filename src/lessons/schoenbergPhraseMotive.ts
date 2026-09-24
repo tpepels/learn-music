@@ -107,22 +107,16 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Read Schoenberg's literature examples as evidence that phrases can differ greatly in surface while remaining intelligible units.",
         explanation:
-          "Examples 1-2 collect short phrases from Beethoven and other composers. They differ in length, contour and rhythmic activity. The point is not that one contour defines a phrase; it is that a phrase can be grasped as a unit through the coordination of melodic, rhythmic and harmonic factors. Ex. 2e is embedded below so the literature example itself is part of the exercise.",
+          "Examples 1-2 collect short phrases from Beethoven and other composers. They differ in length, contour and rhythmic activity. The point is not that one contour defines a phrase; it is that a phrase can be grasped as a unit through the coordination of melodic, rhythmic and harmonic factors. Ex. 2e is reproduced below as native, playable notation from the book.",
         instruction:
-          "First study the embedded Ex. 2e from Beethoven's Symphony No. 3-I. Follow the slur, contour and rhythmic shape as one phrase rather than trying to reduce it to a fixed number of steps. Then use the interactive comparison below: audition Exact repeat, Related change and Unrelated change and choose Related change.",
+          "First play and study the native Ex. 2e from Beethoven's Symphony No. 3-I. Follow the two slurred spans, tonic-arpeggio contour and rhythmic shape as one phrase rather than reducing it to a fixed number of steps. Then use the interactive comparison below: audition Exact repeat, Related change and Unrelated change and choose Related change.",
         recognition:
           "Which version sounds changed while still belonging to the same musical thought?",
         source: {
           reference: "Example 2e - Beethoven, Symphony No. 3-I",
           focus:
-            "Analyse the actual score excerpt first. The interactive miniature underneath is a separate transfer exercise for hearing exact, related and unrelated continuation - it is not a substitute for Beethoven's example.",
-          examples: [
-            {
-              asset: "book-examples/s01/ex2e-beethoven-eroica-i.jpg",
-              alt: "Schoenberg Example 2e, excerpt from Beethoven Symphony No. 3 first movement",
-              caption: "Ex. 2e · Beethoven, Symphony No. 3-I · score excerpt reproduced from the supplied book scan",
-            },
-          ],
+            "The complete melodic line reproduced in Schoenberg's Ex. 2e is re-engraved as native playable notation. The study workspace underneath is a separate transfer exercise, not a substitute for the source.",
+          exampleIds: ["s01.ex2e"],
         },
         terms: [
           {
@@ -163,27 +157,16 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Use the kind of family resemblance visible in Schoenberg's Beethoven phrase examples to repair a weak continuation.",
         explanation:
-          "Schoenberg selected two different passages from Beethoven's Symphony No. 3 in these early phrase examples. They are now shown directly below. The purpose of the editable miniature is not to stand in for them: first analyse what Beethoven actually wrote, then transfer the idea of recognisable relationship into your own small phrase.",
+          "Schoenberg selected two different passages from Beethoven's Symphony No. 3 in these early phrase examples. Ex. 2e is reproduced as native score data; Ex. 4c is represented by an interactive source-analysis map while its clean note-for-note transcription remains pending. The editable miniature is application material, not a replacement for either source example.",
         instruction:
-          "Study both embedded Beethoven excerpts first. In Ex. 2e, trace the complete slurred phrase and its changing contour. In Ex. 4c, follow the compact repeated-note rhythmic character and the way the line continues from it. Then move to the editable miniature: keep steps 1-4 as the source and rewrite steps 5-8 until they are recognisably related but not identical. Listen after every substantial edit.",
+          "Play and inspect Ex. 2e, then step through the Ex. 4c source-analysis map. In Ex. 2e, trace the complete slurred phrase and contour. In Ex. 4c, focus on the repeated-note rhythmic character and its continuation. Then move to the editable miniature: keep steps 1-4 as the source and rewrite steps 5-8 until they are recognisably related but not identical.",
         recognition:
           "After looking at Beethoven first, can you make your continuation preserve a clearly recognisable feature without merely copying the source?",
         source: {
           reference: "Example 2e - Beethoven, Symphony No. 3-I · Example 4c - Beethoven, Symphony No. 3, Scherzo",
           focus:
-            "These are the actual examples Schoenberg placed in the chapter. Analyse the score excerpts themselves; the editable miniature below is the follow-up application.",
-          examples: [
-            {
-              asset: "book-examples/s01/ex2e-beethoven-eroica-i.jpg",
-              alt: "Schoenberg Example 2e, excerpt from Beethoven Symphony No. 3 first movement",
-              caption: "Ex. 2e · Beethoven, Symphony No. 3-I",
-            },
-            {
-              asset: "book-examples/s01/ex4c-beethoven-eroica-scherzo.jpg",
-              alt: "Schoenberg Example 4c, excerpt from Beethoven Symphony No. 3 Scherzo",
-              caption: "Ex. 4c · Beethoven, Symphony No. 3 · Scherzo, Allegro vivace",
-            },
-          ],
+            "These are the examples Schoenberg chose. Ex. 2e is natively transcribed; Ex. 4c exposes the book's analytical features interactively and is explicitly marked partial until a verified note-for-note transcription is complete.",
+          exampleIds: ["s01.ex2e", "s01.ex4c"],
         },
         terms: [
           {
@@ -228,13 +211,14 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         explanation:
           "In his Comment on Examples, Schoenberg recommends making many phrase sketches over a predetermined harmony. Example 5 takes the tonic of F major and creates different melodic contours from arrangements of the chord tones. The limitation is deliberate: invention is practised while harmony stays fixed.",
         instruction:
-          "Our interactive version transposes the exercise to C major. Write at least six notes in steps 1-8 using only C, E and G. Try more than one contour, listen, and revise at least one step after hearing it.",
+          "First play the native Ex. 5a exactly as Schoenberg prints it: F-A-C over the fixed F-major tonic. Then use the broader Ex. 5 analysis map to see what the group varies. After that, make the same kind of constrained study in PLAY / LAB, transposed to C major: write at least six notes in steps 1-8 using only C, E and G, listen, and revise at least one step.",
         recognition:
           "How many genuinely different melodic shapes can the same three chord tones produce?",
         source: {
           reference: "Example 5 - Melodic units derived from broken chords",
+          exampleIds: ["s01.ex5a", "s01.ex5"],
           focus:
-            "Schoenberg keeps one tonic harmony fixed and varies the arrangement of its chord tones. We transpose the practice from F major to C major.",
+            "Ex. 5a is reproduced as native playable notation from the book, followed by an analysis map of the larger Ex. 5 group. The PLAY / LAB construction then transposes the same practice constraint from F major to C major.",
         },
         terms: [
           {
@@ -279,6 +263,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
           "Does the phrase feel more active even though it still lives inside the same simple harmonic world?",
         source: {
           reference: "Example 6 - Smaller note values",
+          exampleIds: ["s01.ex6"],
           focus:
             "The exercise changes rhythmic scale before adding richer pitch material. Our reduction keeps chord-tone material and compresses the note values.",
         },
@@ -314,6 +299,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
           "Can a phrase become more fluid before you add any new harmonic pitch?",
         source: {
           reference: "Example 7 - Added upbeats and various note values",
+          exampleIds: ["s01.ex7"],
           focus:
             "Schoenberg still restricts the melody to chord tones; variety comes from metric placement and duration.",
         },
@@ -351,6 +337,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
           "Which notes feel like connective motion rather than new harmonic pillars?",
         source: {
           reference: "Example 8 - Varying Ex. 5 by adding passing notes",
+          exampleIds: ["s01.ex8"],
           focus:
             "The book keeps the earlier chord-tone framework and inserts connective notes to create greater fluency.",
         },
@@ -390,6 +377,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
           "Can you hear repetition acting as articulation inside an otherwise flowing line?",
         source: {
           reference: "Example 9 - Varying Ex. 7 by adding passing notes and note repetitions",
+          exampleIds: ["s01.ex9"],
           focus:
             "The example combines the rhythmic flexibility of Ex. 7 with connective passing notes and local repetitions.",
         },
@@ -429,6 +417,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
           "At what point does detail stop clarifying the line and start competing with the harmonic skeleton?",
         source: {
           reference: "Examples 10-11 - Embellishing Ex. 8 / varying Ex. 7 with appoggiaturas and changing notes",
+          exampleIds: ["s01.ex10-11"],
           focus:
             "Schoenberg values the added flexibility and richness but warns that excessive small-note detail may obscure the harmony.",
         },
@@ -470,6 +459,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
           "Can you explain which notes are structural, which are connective or ornamental, and why the second half still belongs to the first?",
         source: {
           reference: "Comment on Examples + Examples 5-11",
+          exampleIds: ["s01.ex5", "s01.ex7", "s01.ex10-11"],
           focus:
             "This is Schoenberg's stated practice method translated into PLAY / LAB: many constrained phrase sketches, gradually adding rhythmic and melodic resources.",
         },

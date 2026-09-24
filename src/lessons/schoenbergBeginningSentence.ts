@@ -21,7 +21,7 @@ const lesson = lessonContentSchema.parse({
   description:
     "Chapter V introduces the sentence and period as two principal ways of articulating a complete musical idea, then focuses on the beginning of the sentence. Immediate repetition is the characteristic solution, but Schoenberg's Examples 35-41 show that the answer can change pitch, contour, harmony and accompaniment while preserving the relationship.",
   overview:
-    "The lesson first keeps the earlier PLAY / LAB ear-training and construction work, then follows Schoenberg's tonic-form / dominant-form examples directly. Examples 35-41 are treated in the order of the book. Interactive studies are compact reductions of the stated relationships, not copies of the printed engraving.",
+    "The lesson first keeps the earlier PLAY / LAB ear-training and construction work, then follows Schoenberg's tonic-form / dominant-form examples directly. Examples 35-41 are treated in the order of the book: their source-derived analytical structure is built into the guide, followed by a separate playable application study.",
 });
 
 function visitedAll(values: string[], required: string[]): boolean {
@@ -61,6 +61,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         source: {
           reference:
             "Chapter V - 'The Period and the Sentence' and 'The Beginning of the Sentence'",
+          exampleIds: ["s04.period-sentence"],
           focus:
             "Schoenberg places the distinction before the examples: immediate repetition characterises the sentence opening; postponement of repetition is central to the period.",
         },
@@ -126,6 +127,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         source: {
           reference:
             "Chapter V - beginning of the sentence; literature references to Exs. 53a, 57d, 58d/e/g, 59d/f/g, 60c and 61c",
+          exampleIds: ["s04.period-sentence"],
           focus:
             "Schoenberg explicitly allows unvaried repetition, transposition, slight melodic change and slight harmonic change, provided the repetition remains perceptible.",
         },
@@ -195,6 +197,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         source: {
           reference:
             "Chapter V - 'The Dominant Form: The Complementary Repetition'",
+          exampleIds: ["s04.dominant-form"],
           focus:
             "Schoenberg states that rhythm and contour are preserved, while harmony and the necessary melodic adaptation provide contrast. His preferred terminology is tonic form and dominant form.",
         },
@@ -270,6 +273,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         source: {
           reference:
             "Chapter V - practical principle immediately before the tonic/dominant literature examples",
+          exampleIds: ["s04.dominant-form"],
           focus:
             "This is an application of Schoenberg's stated construction rule rather than a transcription: the opening must clearly present its basic motive and establish it through immediate repetition.",
         },
@@ -328,14 +332,15 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg says that in Exs. 35a and 35b the first phrase employs only tonic harmony and the second only dominant harmony. He also says the melody is modified enough to conform with the harmony. These examples make the tonic-form / dominant-form relation unusually easy to hear.",
         instruction:
-          "Play the reduction and listen across step 9. Follow the I → V support, then choose the statement that matches Schoenberg's analysis.",
+          "Step through Schoenberg's Ex. 35 source map first. Then play the application study across step 9, follow the I → V support, and choose the statement that matches the book's analysis.",
         recognition:
           "Does the answer feel like the same phrase adapted to a different harmonic function rather than a literal pitch copy?",
         source: {
           reference:
             "Example 35a Beethoven Op.2/1-I; Example 35b Beethoven Op.10/2-I",
+          exampleIds: ["s04.ex35"],
           focus:
-            "Schoenberg chooses these because the first phrase is supported only by I and the second only by V, making complementary repetition especially clear. The interactive line is a reduction of that relation, not a transcription.",
+            "Schoenberg chooses these because the first phrase is supported only by I and the second only by V, making complementary repetition especially clear. The source map states that relation directly; the playable study below is separate application.",
         },
         terms: [
           {
@@ -372,12 +377,13 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg analyses Ex. 36 as a tonic form based on I-V-I answered by a dominant form based on V-I-V. In Ex. 37 he notes that the dominant form includes passing harmonies. Complementary repetition therefore does not mean each phrase must sit on one chord; the larger functional relationship can remain clear while internal harmony becomes richer.",
         instruction:
-          "Play the reduction and listen for the internal I-V-I / V-I-V motion. Choose the statement that matches why Schoenberg places these after Ex. 35.",
+          "Study the Exs. 36-37 source map first. Then play the application study and listen for the internal I-V-I / V-I-V motion before choosing the matching statement.",
         recognition:
           "Can you hear a tonic-form / dominant-form relationship even when each phrase contains more than one harmony?",
         source: {
           reference:
             "Example 36 Beethoven String Quartet Op.18/4-I, mm.34-37; Example 37 Beethoven String Quartet Op.18/6-IV, mm.45-48",
+          exampleIds: ["s04.ex36-37"],
           focus:
             "Ex. 36 expands the complementary pair to I-V-I / V-I-V. Ex. 37 shows that the dominant form may also include passing harmonies.",
         },
@@ -416,12 +422,13 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg says that in Ex. 38 the passing harmonies of the tonic form are not mechanically preserved in the dominant form. In Ex. 39 the tonic form consists of I-IV while the dominant form is basically V-I, though elaborate part-writing disguises the simplicity. These examples teach abstraction: retain the structural relation, not every local event.",
         instruction:
-          "Play the reduction and compare the busier tonic side with the simpler dominant answer. Choose the principle that best matches Schoenberg's comment.",
+          "Study Schoenberg's Exs. 38-39 source map first. Then play the application study and compare the busier tonic side with the simpler dominant answer.",
         recognition:
           "Can the second phrase be a convincing answer even when it does not reproduce the first phrase's internal harmonic route event by event?",
         source: {
           reference:
             "Example 38 Mozart String Quartet K.464-I; Example 39 Mozart String Quartet K.465-I, mm.23-26",
+          exampleIds: ["s04.ex38-39"],
           focus:
             "Schoenberg explicitly points out non-mechanical preservation in Ex. 38 and the simpler underlying V-I dominant form hidden by elaborate part-writing in Ex. 39.",
         },
@@ -460,11 +467,12 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         explanation:
           "In the Comment on Examples, Schoenberg says the tonic form of Ex. 40a is followed by a dominant form whose melody follows the contour of the first phrase exactly. In Exs. 40b and 40c the rhythm is preserved while the contour is treated more freely. This is a precise demonstration of which feature can carry identity when another is allowed to change.",
         instruction:
-          "The first 16 steps reduce the strict-contour relation; the second 16 reduce the freer-contour but rhythmically related relation. Play all 32 steps and compare Staff with another notation before choosing the statement that matches Schoenberg's comment.",
+          "Use the Ex. 40 source map to compare Schoenberg's 40a and 40b-c distinction first. Then play all 32 application steps: the first pair isolates stricter contour, the second isolates freer contour with preserved rhythm.",
         recognition:
           "In the second pair, can rhythm preserve phrase identity even when the melodic contour no longer copies the first phrase exactly?",
         source: {
           reference: "Example 40a-c - from Example 30",
+          exampleIds: ["s04.ex40"],
           focus:
             "Schoenberg contrasts exact following of the tonic phrase's contour in 40a with 40b-c, where rhythm is preserved but contour is treated more freely.",
         },
@@ -504,11 +512,12 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg says the dominant forms in Ex. 41 are varied more than the harmonic change alone requires. When a tonic form contains too many harmonies, a literal dominant-form answer may be impracticable. He proposes answering only the main harmonies; he also stresses that a definite, regular accompaniment can animate the harmony, express character and powerfully unify the passage.",
         instruction:
-          "The first 16 steps exaggerate a busy literal harmonic answer; the second 16 reduce the relation to a clearer functional skeleton. Listen to both pairs and choose the statement that matches Schoenberg's recommendation.",
+          "Read the Ex. 41 source map first. Then compare the two application pairs: the first exaggerates a busy literal answer, while the second exposes the clearer main-harmony relation Schoenberg recommends.",
         recognition:
           "Does the second pair feel clearer because the answer preserves the main relation instead of trying to duplicate every local harmonic event?",
         source: {
           reference: "Example 41a-c - from Example 30",
+          exampleIds: ["s04.ex41"],
           focus:
             "Schoenberg's comment is explicit: answer only the main harmonies when a literal answer is impracticable, and use consistent accompaniment as a strong unifying factor.",
         },
@@ -552,6 +561,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
           "Can you name which feature carries the relationship in your answer - pitch pattern, contour, rhythm, harmonic function, or some combination?",
         source: {
           reference: "Synthesis of Chapter V and Examples 35-41",
+          exampleIds: ["s04.ex35", "s04.ex40", "s04.ex41"],
           focus:
             "This final exercise applies the progression Schoenberg demonstrates across the examples: from simple complementary repetition to increasingly flexible, functionally controlled answers.",
         },

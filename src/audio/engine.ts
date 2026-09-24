@@ -1727,6 +1727,25 @@ class AudioEngine {
     );
   }
 
+  async playSourceNote(
+    midi: number | number[],
+    eighthSteps = 1,
+    velocity = 0.7,
+  ) {
+    await Tone.start();
+    this.ensureVoices(["piano"]);
+    await Tone.loaded();
+    const notes = Array.isArray(midi)
+      ? midi.map((value) => Tone.Frequency(value, "midi").toNote())
+      : Tone.Frequency(midi, "midi").toNote();
+    this.triggerPiano(
+      notes,
+      this.noteDuration(eighthSteps),
+      undefined,
+      velocity,
+    );
+  }
+
   async playChordPreview(chord: HarmonicChord, inversion: ChordInversion = 0) {
     await Tone.start();
     this.ensureVoices(["chords"]);
