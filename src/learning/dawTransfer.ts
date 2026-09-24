@@ -316,6 +316,15 @@ const transferProfiles: Record<Workspace, DawTransferProfile> = {
     vocabulary: ["transpose", "semitone", "key", "scale degree", "MIDI transform"],
     stage: "notes",
   },
+  "composition-study": {
+    concept: "The same musical passage can be represented as conventional notation, piano-roll events, scale degrees, and analytical annotations.",
+    changes: "You are changing and analysing note relationships while the app keeps multiple representations synchronized.",
+    dawLocation: "A DAW normally exposes the piano-roll layer; notation editors and score views expose the same MIDI events as staff notation.",
+    whyItMatters: "Learning to move between representations separates the music itself from any one notation system.",
+    pitfall: "Do not mistake an analytical label for the sound. Motive brackets and degree numbers describe relationships; the notes still produce the music.",
+    vocabulary: ["staff notation", "piano roll", "scale degree", "motive", "phrase"],
+    stage: "notes",
+  },
 };
 
 const playLabRepresentations: Record<Workspace, string> = {
@@ -351,6 +360,7 @@ const playLabRepresentations: Record<Workspace, string> = {
   "borrowed-harmony": "PLAY/LAB leaves chromatic notes editable in the same harmony grid so out-of-key colour is treated as deliberate note data, not an exception mode.",
   "instrument-palette": "PLAY/LAB keeps the MIDI material fixed while voice selectors change the instrument that performs it, making content and timbre separate layers.",
   transposition: "PLAY/LAB shows chord symbols beside Roman numerals, then lets you change the tonic alone or transpose the written MIDI material with it.",
+  "composition-study": "PLAY/LAB keeps Staff, Piano roll, Degrees and motive annotations tied to one study phrase so analytical notation and editable note data stay connected.",
 };
 
 const checkpoints: Record<number, DawCheckpoint> = {
