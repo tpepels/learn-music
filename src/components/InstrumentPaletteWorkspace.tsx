@@ -10,6 +10,7 @@ import {
   type PianoTouch,
 } from "../music/model";
 import { useStudioStore } from "../state/studio";
+import { LayerVolumeStrip } from "./LayerVolumeStrip";
 
 const bassDescriptions: Record<BassVoice, string> = {
   electric: "A sampled electric bass with a real string attack and natural decay.",
@@ -71,6 +72,8 @@ export function InstrumentPaletteWorkspace() {
           Compare the same musical material before changing notes or reaching for EQ.
         </span>
       </div>
+
+      <LayerVolumeStrip tracks={["drums", "bass", "chords", "melody"] as const} />
 
       <div className="instrument-groups">
         <section className="instrument-group">
