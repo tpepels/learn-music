@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { audioEngine } from "../audio/engine";
 import { synthWaveforms, type SynthWaveform } from "../music/model";
 import { useStudioStore } from "../state/studio";
@@ -8,11 +9,18 @@ const demoNotes = [
   { midi: 67, label: "G" },
 ];
 
-export function SynthWorkspace() {
+export function SynthWorkspace({ exerciseId }: { exerciseId: string }) {
   const bpm = useStudioStore((state) => state.bpm);
   const settings = useStudioStore((state) => state.synthSettings);
   const setSynthSettings = useStudioStore((state) => state.setSynthSettings);
   const recordExperiment = useStudioStore((state) => state.recordLearningExperiment);
+
+  useEffect(
+    () => () => {
+      audioEngine.stopSynthAudition();
+    },
+    [exerciseId],
+  );
 
   const setWaveform = async (waveform: SynthWaveform) => {
     const next = { ...settings, waveform };
