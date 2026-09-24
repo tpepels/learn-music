@@ -485,7 +485,9 @@ function App() {
   const resetMixer = useStudioStore((state) => state.resetMixer);
   const resetAutomation = useStudioStore((state) => state.resetAutomation);
   const resetDynamics = useStudioStore((state) => state.resetDynamics);
-  const resetEffects = useStudioStore((state) => state.resetEffects);
+  const resetEffectsWorkspace = useStudioStore(
+    (state) => state.resetEffectsWorkspace,
+  );
   const resetVoicings = useStudioStore((state) => state.resetVoicings);
   const clearBass = useStudioStore((state) => state.clearBass);
   const resetGrooveFeel = useStudioStore((state) => state.resetGrooveFeel);
@@ -495,7 +497,9 @@ function App() {
   const resetEq = useStudioStore((state) => state.resetEq);
   const resetSaturation = useStudioStore((state) => state.resetSaturation);
   const resetSidechain = useStudioStore((state) => state.resetSidechain);
-  const resetStereo = useStudioStore((state) => state.resetStereo);
+  const resetStereoWorkspace = useStudioStore(
+    (state) => state.resetStereoWorkspace,
+  );
   const resetReferenceMix = useStudioStore((state) => state.resetReferenceMix);
   const resetLessonProgress = useStudioStore((state) => state.resetLessonProgress);
   const setAppMode = useStudioStore((state) => state.setAppMode);
@@ -775,10 +779,10 @@ function App() {
         resetDynamics();
         break;
       case "effects":
-        resetEffects();
+        resetEffectsWorkspace();
         break;
       case "final-project":
-        break;
+        return;
       case "voicing":
         resetVoicings();
         break;
@@ -812,7 +816,7 @@ function App() {
         resetSidechain();
         break;
       case "stereo":
-        resetStereo();
+        resetStereoWorkspace();
         break;
       case "reference":
         resetReferenceMix();
@@ -1105,9 +1109,11 @@ function App() {
             </button>
           )}
 
-          <button className="text-button" onClick={resetWorkspace}>
-            ↺ Reset workspace
-          </button>
+          {exercise.workspace !== "final-project" && (
+            <button className="text-button" onClick={resetWorkspace}>
+              ↺ Reset workspace
+            </button>
+          )}
 
           <div className="lesson-reset-block">
             <button
