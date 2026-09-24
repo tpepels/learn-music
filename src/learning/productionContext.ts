@@ -1141,6 +1141,35 @@ export const productionContext: Record<string, ProductionContext> = {
     realWorld: "A short MIDI or notation sketch can be revised in several representations while the underlying notes stay the same.",
   },
 
+  "schoenberg.developing-variation.a": {
+    why: "Separating what changed from what stayed characteristic makes motive development a controlled musical process rather than random editing.",
+    when: "Use this before creating variants, especially when several transformations sound related but you cannot yet explain why.",
+    tools: ["Staff notation", "Piano roll", "Scale-degree view", "A/B playback"],
+    visual: "motif",
+    realWorld: "A composer often keeps the source phrase visible while comparing duplicate MIDI or notation versions with one property changed at a time.",
+  },
+  "schoenberg.developing-variation.b": {
+    why: "Rhythmic change can create momentum or alter accent without forcing the pitch identity of a motive to disappear.",
+    when: "Use it when a repeated motive is recognisable but rhythmically static or metrically predictable.",
+    tools: ["Piano roll", "Note duration", "Nudge/displacement", "Loop playback"],
+    visual: "motif",
+    realWorld: "In a DAW the same pitch pattern can be stretched, shortened or moved against the grid while remaining visibly related to its source.",
+  },
+  "schoenberg.developing-variation.c": {
+    why: "Interval, ornament and reduction changes show how pitch detail can evolve while rhythm and anchor pitches preserve continuity.",
+    when: "Use it when a motive needs melodic development without replacing its rhythmic character.",
+    tools: ["Staff notation", "Piano roll", "MIDI editing", "Loop playback"],
+    visual: "motif",
+    realWorld: "Composers duplicate a MIDI idea and alter pitch order, add passing notes, or remove notes while comparing the result to the source.",
+  },
+  "schoenberg.developing-variation.d": {
+    why: "Combining transformations teaches adaptation: the motive-form changes because the continuation needs a new shape, not simply to demonstrate a technique.",
+    when: "Use it when turning a basic motive into material for a longer phrase and deciding how much identity must remain audible.",
+    tools: ["Piano roll", "Staff notation", "Source overlay", "A/B playback"],
+    visual: "motif",
+    realWorld: "A practical workflow is to duplicate the source, apply several edits, loop both versions, then revise the transformed copy until the relationship is convincing.",
+  },
+
 };
 
 export function getProductionContext(exerciseId: string): ProductionContext {
