@@ -14,7 +14,7 @@ import { syncEighthNoteDelay } from "./tempoSync";
 import { reverbValueChanged } from "./reverbState";
 import {
   resolveArrangementFrame,
-  resolveArrangementMelodyStep,
+  resolveArrangementMelodyEvent,
 } from "./arrangementPlayback";
 import pianoSoftA2 from "@audio-samples/piano-mp3-velocity3/audio/A2v3.mp3";
 import pianoSoftC3 from "@audio-samples/piano-mp3-velocity3/audio/C3v3.mp3";
@@ -1577,19 +1577,22 @@ class AudioEngine {
         }
       }
 
-      const melodyStep = resolveArrangementMelodyStep(
+      const melodyEvent = resolveArrangementMelodyEvent(
         globalStep,
-        this.melody.length,
+        this.melody,
+        this.tonalContext,
       );
 
-      if (bar?.melody && melodyStep !== null) {
-        const midi = this.melody[melodyStep];
+      if (bar?.melody && melodyEvent) {
+        const midi = melodyEvent.midi;
 
         if (midi !== null && midi !== undefined) {
           const texturedMidi =
             midi + this.textureSettings.melodyOctave * 12;
           const duration = this.noteDuration(
-            this.melodyDurations[melodyStep] ?? 1,
+            melodyEvent.fallback
+              ? 1
+              : this.melodyDurations[melodyEvent.step] ?? 1,
           );
 
           this.triggerPiano(
