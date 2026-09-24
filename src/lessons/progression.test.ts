@@ -4,12 +4,12 @@ import { getAdvanceDestination } from "./progression";
 
 describe("lesson progression", () => {
 
-  it("keeps the full v2.2 curriculum intact", () => {
+  it("keeps the full curriculum intact", () => {
     expect(implementedLessons).toHaveLength(37);
     expect(
       implementedLessons.flatMap((lesson) => lesson.exercises),
-    ).toHaveLength(132);
-    expect(implementedLessons.slice(-9, -5).map((lesson) => lesson.id)).toEqual([
+    ).toHaveLength(148);
+    expect(implementedLessons.map((lesson) => lesson.number)).toEqual(\n      Array.from({ length: 37 }, (_, index) => index + 1),\n    );\n    expect(implementedLessons.slice(-9, -5).map((lesson) => lesson.id)).toEqual([
       "pitch.intervals-transposition",
       "harmony.chord-colour",
       "rhythm.phrasing-space",
