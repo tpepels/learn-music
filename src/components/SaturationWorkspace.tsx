@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { mixerTrackIds, type MixerTrackId } from "../music/model";
 import { useStudioStore } from "../state/studio";
+import { LayerVolumeStrip } from "./LayerVolumeStrip";
 
 const labels: Record<MixerTrackId, string> = {
   drums: "DRUMS",
@@ -28,6 +29,8 @@ export function SaturationWorkspace() {
           Drive changes how hard the signal hits the waveshaper. Wet controls how much processed signal is blended back in.
         </span>
       </div>
+
+      <LayerVolumeStrip tracks={["drums", "bass", "chords", "melody"] as const} />
 
       <nav className="processor-track-tabs">
         {mixerTrackIds.map((id) => (
