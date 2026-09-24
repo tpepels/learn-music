@@ -2,6 +2,9 @@ name: Validate branch manually
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - fix/clean-production-build
 
 permissions:
   contents: read
@@ -20,6 +23,9 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+
+      - name: Audit dependencies
+        run: npm audit --json
 
       - name: Typecheck
         run: npm run typecheck
