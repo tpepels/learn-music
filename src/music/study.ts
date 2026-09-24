@@ -26,6 +26,16 @@ export type StudySentenceMode =
   | "transposed"
   | "tonic-repeat"
   | "complementary";
+export type StudyCompletionMode =
+  | "repeat-presentation"
+  | "developed-continuation"
+  | "foreign-continuation"
+  | "static-fragment"
+  | "sequence"
+  | "unliquidated"
+  | "liquidation"
+  | "abrupt"
+  | "complete";
 
 export type StudyExerciseState = {
   notes: Array<number | null>;
@@ -38,6 +48,7 @@ export type StudyExerciseState = {
   featureDecision: StudyFeature | null;
   operations: StudyTransformation[];
   sentenceMode: StudySentenceMode;
+  completionMode: StudyCompletionMode;
   harmony: StudyHarmony[];
 };
 
@@ -83,6 +94,17 @@ export const SCHOENBERG_SENTENCE_EXERCISE_IDS = new Set<string>(
   Object.values(SCHOENBERG_SENTENCE_IDS),
 );
 
+export const SCHOENBERG_COMPLETION_IDS = {
+  function: "schoenberg.completing-sentence.a",
+  sequence: "schoenberg.completing-sentence.b",
+  liquidation: "schoenberg.completing-sentence.c",
+  compose: "schoenberg.completing-sentence.d",
+} as const;
+
+export const SCHOENBERG_COMPLETION_EXERCISE_IDS = new Set<string>(
+  Object.values(SCHOENBERG_COMPLETION_IDS),
+);
+
 export const studyTransformationFeature: Record<
   Exclude<StudyTransformation, "source">,
   StudyFeature
@@ -110,15 +132,19 @@ const comparisonVariants: Record<StudyVariant, number[]> = {
   unrelated: [67, 60, 66, 61],
 };
 
-function padStudyNotes(notes: Array<number | null>): Array<number | null> {
-  return Array.from({ length: STUDY_STEPS }, (_, index) => notes[index] ?? null);
+function padStudyNotes(
+  notes: Array<number | null>,
+  length = STUDY_STEPS,
+): Array<number | null> {
+  return Array.from({ length }, (_, index) => notes[index] ?? null);
 }
 
 function padDurations(
   durations: number[] = [],
   fallback: StudyDuration = 1,
+  length = STUDY_STEPS,
 ): StudyDuration[] {
-  return Array.from({ length: STUDY_STEPS }, (_, index) => {
+  return Array.from({ length }, (_, index) => {
     const duration = durations[index] ?? fallback;
     return Math.max(1, Math.min(4, Math.round(duration))) as StudyDuration;
   });
@@ -472,9 +498,10 @@ const sentenceBasicDurations: StudyDuration[] = [
 
 function padStudyHarmony(
   harmony: StudyHarmony[] = [],
+  length = STUDY_STEPS,
 ): StudyHarmony[] {
   return Array.from(
-    { length: STUDY_STEPS },
+    { length },
     (_, index) => harmony[index] ?? null,
   );
 }
@@ -593,7 +620,7 @@ export function setStudySentenceModeState(
     ...state,
     notes: [...sequence.notes],
     durations: [...sequence.durations],
-    harmony: padStudyHarmony(sequence.harmony),
+    harmony: padStudyHarmony(sequence.harmony, sequence.notes.length),
     sentenceMode,
   };
 }
@@ -620,7 +647,129 @@ export function setStudySentenceSourceStepState(
     ...state,
     notes: [...sequence.notes],
     durations: [...sequence.durations],
-    harmony: padStudyHarmony(sequence.harmony),
+    harmony: padStudyHarmony(sequence.harmony, sequence.notes.length),
+  };
+}
+
+
+const completionLength = 32;
+
+function sentencePresentation(
+  sourceNotes: Array<number | null> = sentenceBasicIdea,
+  sourceDurations: StudyDuration[] = sentenceBasicDurations,
+): StudySequence {
+  return studySentenceSequence("complementary", sourceNotes, sourceDurations);
+}
+
+function continuationHarmony(): StudyHarmony[] {
+  const harmony = Array<StudyHarmony>(completionLength).fill(null);
+  harmony[0] = "I";
+  harmony[8] = "V";
+  harmony[16] = "I";
+  harmony[28] = "V";
+  harmony[30] = "I";
+  return harmony;
+}
+
+function studyContinuationMaterial(
+  mode: StudyCompletionMode,
+  sourceNotes: Array<number | null>,
+): Array<number | null> {
+  const motive = Array.from(
+    { length: 4 },
+    (_, index) => sourceNotes[index] ?? sentenceBasicIdea[index],
+  );
+  const seq1 = transposeStudyNotes(motive, 2);
+  const seq2 = transposeStudyNotes(motive, 4);
+  const seq3 = transposeStudyNotes(motive, 5);
+  const cadence: Array<number | null> = [62, 59, 60, null];
+
+  switch (mode) {
+    case "repeat-presentation":
+      return [
+        ...sourceNotes.slice(0, 8),
+        ...adaptStudyNotesToDominant(sourceNotes.slice(0, 8)),
+      ];
+    case "foreign-continuation":
+      return [68, 59, 66, 61, 70, 60, 67, 62, 69, 58, 65, 61, 63, 70, 59, 66];
+    case "static-fragment":
+      return [...motive, ...motive, ...motive, ...motive];
+    case "sequence":
+      return [...motive, ...seq1, ...seq2, ...seq3];
+    case "unliquidated":
+      return [...seq1, ...seq2, ...seq3, ...motive];
+    case "abrupt":
+      return [...seq1, ...seq2, 67, 60, 68, 61, ...cadence];
+    case "liquidation":
+    case "complete":
+    case "developed-continuation":
+      return [
+        ...seq1,
+        ...seq2,
+        motive[2], motive[1],
+        motive[1], motive[0],
+        ...cadence,
+      ];
+  }
+}
+
+export function studyCompletionSequence(
+  mode: StudyCompletionMode,
+  sourceNotes: Array<number | null> = sentenceBasicIdea,
+  sourceDurations: StudyDuration[] = sentenceBasicDurations,
+): StudySequence {
+  const presentation = sentencePresentation(sourceNotes, sourceDurations);
+  const continuation = studyContinuationMaterial(mode, sourceNotes);
+  const continuationDurations = Array<StudyDuration>(16).fill(1);
+
+  return {
+    notes: [...presentation.notes, ...continuation],
+    durations: [...presentation.durations, ...continuationDurations],
+    harmony: continuationHarmony(),
+  };
+}
+
+export function setStudyCompletionModeState(
+  state: StudyExerciseState,
+  completionMode: StudyCompletionMode,
+): StudyExerciseState {
+  const sequence = studyCompletionSequence(
+    completionMode,
+    state.notes.slice(0, 8),
+    state.durations.slice(0, 8),
+  );
+  return {
+    ...state,
+    notes: [...sequence.notes],
+    durations: [...sequence.durations],
+    harmony: padStudyHarmony(sequence.harmony, sequence.notes.length),
+    completionMode,
+  };
+}
+
+export function setStudyCompletionSourceStepState(
+  state: StudyExerciseState,
+  step: number,
+  midi: number | null,
+): StudyExerciseState {
+  const notes = [...state.notes];
+  if (step < 0 || step >= notes.length) return state;
+  notes[step] = midi;
+
+  if (step >= 8) {
+    return { ...state, notes };
+  }
+
+  const sequence = studyCompletionSequence(
+    state.completionMode,
+    notes.slice(0, 8),
+    state.durations.slice(0, 8),
+  );
+  return {
+    ...state,
+    notes: [...sequence.notes],
+    durations: [...sequence.durations],
+    harmony: padStudyHarmony(sequence.harmony, sequence.notes.length),
   };
 }
 
@@ -636,7 +785,8 @@ function baseState(sequence: StudySequence): StudyExerciseState {
     featureDecision: null,
     operations: [],
     sentenceMode: "exact",
-    harmony: padStudyHarmony(sequence.harmony),
+    completionMode: "complete",
+    harmony: padStudyHarmony(sequence.harmony, sequence.notes.length),
   };
 }
 
@@ -774,6 +924,38 @@ function defaultExerciseState(id: string): StudyExerciseState {
     };
   }
 
+  if (id === SCHOENBERG_COMPLETION_IDS.function) {
+    return {
+      ...baseState(studyCompletionSequence("developed-continuation")),
+      completionMode: "developed-continuation",
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_COMPLETION_IDS.sequence) {
+    return {
+      ...baseState(studyCompletionSequence("sequence")),
+      completionMode: "sequence",
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_COMPLETION_IDS.liquidation) {
+    return {
+      ...baseState(studyCompletionSequence("liquidation")),
+      completionMode: "liquidation",
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_COMPLETION_IDS.compose) {
+    return {
+      ...baseState(studyCompletionSequence("complete")),
+      completionMode: "complete",
+      notation: "piano-roll",
+    };
+  }
+
   return baseState({
     notes: padStudyNotes([]),
     durations: padDurations(),
@@ -785,6 +967,7 @@ const allStudyExerciseIds = [
   ...Object.values(SCHOENBERG_VARIATION_IDS),
   ...Object.values(SCHOENBERG_CONNECTION_IDS),
   ...Object.values(SCHOENBERG_SENTENCE_IDS),
+  ...Object.values(SCHOENBERG_COMPLETION_IDS),
 ];
 
 export function initialCompositionStudyState(): CompositionStudyState {
@@ -802,9 +985,18 @@ export function cloneStudyExerciseState(
   id?: string,
 ): StudyExerciseState {
   const fallback = defaultExerciseState(id ?? "");
+  const length = Math.max(
+    STUDY_STEPS,
+    fallback.notes.length,
+    state.notes?.length ?? 0,
+  );
   return {
-    notes: padStudyNotes(state.notes ?? fallback.notes),
-    durations: padDurations(state.durations ?? fallback.durations),
+    notes: padStudyNotes(state.notes ?? fallback.notes, length),
+    durations: padDurations(
+      state.durations ?? fallback.durations,
+      1,
+      length,
+    ),
     notation: state.notation ?? fallback.notation,
     selectedSteps: [...(state.selectedSteps ?? fallback.selectedSteps)],
     decision: state.decision ?? null,
@@ -813,7 +1005,11 @@ export function cloneStudyExerciseState(
     featureDecision: state.featureDecision ?? null,
     operations: [...(state.operations ?? fallback.operations)],
     sentenceMode: state.sentenceMode ?? fallback.sentenceMode,
-    harmony: padStudyHarmony(state.harmony ?? fallback.harmony),
+    completionMode: state.completionMode ?? fallback.completionMode,
+    harmony: padStudyHarmony(
+      state.harmony ?? fallback.harmony,
+      length,
+    ),
   };
 }
 
@@ -1120,4 +1316,78 @@ export function studySentenceHarmonyIsComplementary(
   harmony: StudyHarmony[],
 ): boolean {
   return harmony[0] === "I" && harmony[8] === "V";
+}
+
+
+export function studyCompletionHasDevelopment(
+  notes: Array<number | null>,
+): boolean {
+  if (notes.length < completionLength) return false;
+  const presentation = notes.slice(0, 16);
+  const continuation = notes.slice(16, 32);
+  const same = presentation.every(
+    (note, index) => note === continuation[index],
+  );
+  if (same) return false;
+
+  const source = notes
+    .slice(0, 4)
+    .filter((note): note is number => note !== null);
+  const continuationNotes = continuation.filter(
+    (note): note is number => note !== null,
+  );
+  const sourcePitchClasses = new Set(source.map((note) => note % 12));
+  return continuationNotes.filter((note) =>
+    sourcePitchClasses.has(note % 12),
+  ).length >= 4;
+}
+
+export function studyCompletionHasSequence(
+  notes: Array<number | null>,
+): boolean {
+  if (notes.length < completionLength) return false;
+  const blocks = [16, 20, 24].map((start) =>
+    notes
+      .slice(start, start + 4)
+      .filter((note): note is number => note !== null),
+  );
+  if (blocks.some((block) => block.length < 4)) return false;
+
+  const shapes = blocks.map((block) =>
+    block.slice(1).map((note, index) => note - block[index]),
+  );
+  return shapes.slice(1).every((shape) =>
+    shape.every((interval, index) => interval === shapes[0][index]),
+  );
+}
+
+export function studyCompletionHasLiquidation(
+  notes: Array<number | null>,
+): boolean {
+  if (notes.length < completionLength) return false;
+  const early = notes.slice(16, 24).filter((note) => note !== null).length;
+  const late = notes.slice(24, 28).filter((note) => note !== null).length;
+  return early >= 7 && late <= 4 && late >= 2;
+}
+
+export function studyCompletionHasCadence(
+  notes: Array<number | null>,
+  harmony: StudyHarmony[],
+): boolean {
+  if (notes.length < completionLength) return false;
+  const finalActive = [...notes.slice(28, 32)]
+    .reverse()
+    .find((note): note is number => note !== null);
+  return (
+    finalActive !== undefined &&
+    finalActive % 12 === 0 &&
+    harmony[28] === "V" &&
+    harmony[30] === "I"
+  );
+}
+
+export function studyCompletionSourceIntact(
+  notes: Array<number | null>,
+): boolean {
+  return notes.slice(0, 8).filter((note) => note !== null).length >= 5;
 }
