@@ -9,7 +9,7 @@ const demoNotes = [
   { midi: 67, label: "G" },
 ];
 
-export function SynthWorkspace({ exerciseId }: { exerciseId: string }) {
+export function SynthWorkspace({ exerciseId }: { exerciseId?: string }) {
   const bpm = useStudioStore((state) => state.bpm);
   const settings = useStudioStore((state) => state.synthSettings);
   const setSynthSettings = useStudioStore((state) => state.setSynthSettings);
