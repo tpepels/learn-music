@@ -1524,8 +1524,12 @@ export function CompositionStudyWorkspace({
               : "Listen beyond step 16. The opening has already established the idea; now judge what the second half does with it."
             : isSentence
               ? isSentenceCompose
-              ? "Edit the basic idea in the first half. Its repetition is regenerated from the selected sentence-opening strategy; the pale overlay shows the source relationship."
-              : "Listen across the boundary at step 9: in a sentence beginning, the basic idea is repeated immediately, even when pitch or harmony changes."
+                ? "Edit the basic idea in the first half. Its repetition is regenerated from the selected sentence-opening strategy; the pale overlay shows the source relationship."
+                : isSentenceSource
+                  ? visibleSequence.notes.length > 16
+                    ? "The two 16-step pairs reduce contrasting treatments from the cited book example. Listen to both pairs before answering."
+                    : "This is a compact reduction of the cited book example. Listen to the phrase relationship and the supporting harmony before answering."
+                  : "Listen across the boundary at step 9: in a sentence beginning, the basic idea is repeated immediately, even when pitch or harmony changes."
             : isConnection
               ? isConnectionCompose
               ? "The pale outline repeats the basic motive under each form. Use it as a reference, not a target: the phrase needs relationship and contrast."
