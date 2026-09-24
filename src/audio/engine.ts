@@ -13,9 +13,19 @@ import { TransportStartGate } from "./transportStartGate";
 import { syncEighthNoteDelay } from "./tempoSync";
 import { reverbValueChanged } from "./reverbState";
 import {
+  buildArrangementFallbackMelody,
+  hasArrangementMelody,
   resolveArrangementFrame,
   resolveArrangementMelodyEvent,
 } from "./arrangementPlayback";
+import {
+  ensureProductionLayersPresent,
+  fallbackBassRoot,
+  hasBassContent,
+  hasWrittenHarmony,
+  resolveContextDrumPattern,
+  resolveContextProgression,
+} from "./playbackFallbacks";
 import pianoSoftA2 from "@audio-samples/piano-mp3-velocity3/audio/A2v3.mp3";
 import pianoSoftC3 from "@audio-samples/piano-mp3-velocity3/audio/C3v3.mp3";
 import pianoSoftA3 from "@audio-samples/piano-mp3-velocity3/audio/A3v3.mp3";
