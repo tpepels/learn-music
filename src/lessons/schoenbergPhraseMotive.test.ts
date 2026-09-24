@@ -51,7 +51,7 @@ describe("Schoenberg learning track", () => {
     const checks = schoenbergPhraseMotiveLesson.exercises[0].evaluate(
       context(study, {
         "transport.play": experiment(1, ["composition-study"]),
-        "study.notation": experiment(1, ["piano-roll"]),
+        "study.notation": experiment(2, ["piano-roll", "degrees"]),
       }),
     );
 
