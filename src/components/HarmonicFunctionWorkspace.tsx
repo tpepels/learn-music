@@ -1,11 +1,13 @@
 import { audioEngine } from "../audio/engine";
 import {
-  chordFunction,
-  basicChordNames,
-  romanNumerals,
-  type ChordName,
-} from "../music/model";
+  basicHarmonyPalette,
+  chordSymbol,
+  harmonicFunction,
+  romanNumeral,
+  type HarmonicChord,
+} from "../music/harmony";
 import { useStudioStore } from "../state/studio";
+import { HarmonyKeyControl } from "./HarmonyKeyControl";
 
 const functionLabels = {
   tonic: "TONIC",
@@ -16,11 +18,13 @@ const functionLabels = {
 } as const;
 
 export function HarmonicFunctionWorkspace() {
-  const progression = useStudioStore((state) => state.chordProgression);
-  const setChordSlot = useStudioStore((state) => state.setChordSlot);
+  const progression = useStudioStore((state) => state.harmonicProgression);
+  const tonalContext = useStudioStore((state) => state.tonalContext);
+  const setHarmonicSlot = useStudioStore((state) => state.setHarmonicSlot);
+  const palette = basicHarmonyPalette(tonalContext);
 
-  const choose = async (slot: number, chord: ChordName) => {
-    setChordSlot(slot, chord);
+  const choose = async (slot: number, chord: HarmonicChord) => {
+    setHarmonicSlot(slot, chord);
     await audioEngine.playChord(chord);
   };
 
@@ -35,42 +39,52 @@ export function HarmonicFunctionWorkspace() {
           </div>
         </div>
         <span className="workspace-hint">
-          Chord symbols name the harmony; function describes its role in creating stability, departure, tension, and return.
+          Chord symbols name the absolute harmony; Roman numerals and function keep the musical role stable across keys.
         </span>
       </div>
+
+      <HarmonyKeyControl />
 
       <div className="function-slots">
         {progression.map((chord, slot) => (
           <section className="function-slot" key={slot}>
             <header>
               <span>SLOT {slot + 1}</span>
-              <strong>{chord ?? "—"}</strong>
-              <small>{chord ? romanNumerals[chord] : "choose chord"}</small>
+              <strong>{chord ? chordSymbol(chord, tonalContext) : "—"}</strong>
+              <small>{chord ? romanNumeral(chord, tonalContext) : "choose chord"}</small>
             </header>
 
             <div className="function-current">
               <span>FUNCTION</span>
               <strong>
-                {chord ? functionLabels[chordFunction[chord]] : "—"}
+                {chord ? functionLabels[harmonicFunction(chord)] : "—"}
               </strong>
             </div>
 
             <div className="function-choice-grid">
-              {basicChordNames.map((choice) => (
-                <button
-                  key={choice}
-                  className={progression[slot] === choice ? "is-active" : ""}
-                  onClick={() => choose(slot, choice)}
-                >
-                  <strong>{choice}</strong>
-                  <span>{romanNumerals[choice]}</span>
-                  <small>{functionLabels[chordFunction[choice]]}</small>
-                </button>
-              ))}
+              {palette.map((choice) => {
+                const symbol = chordSymbol(choice, tonalContext);
+                const numeral = romanNumeral(choice, tonalContext);
+                const active =
+                  chord &&
+                  romanNumeral(chord, tonalContext) === numeral &&
+                  chordSymbol(chord, tonalContext) === symbol;
+                return (
+                  <button
+                    key={numeral + ":" + symbol}
+                    className={active ? "is-active" : ""}
+                    onClick={() => void choose(slot, choice)}
+                  >
+                    <strong>{symbol}</strong>
+                    <span>{numeral}</span>
+                    <small>{functionLabels[harmonicFunction(choice)]}</small>
+                  </button>
+                );
+              })}
             </div>
             <button
               className="chord-clear-button"
-              onClick={() => setChordSlot(slot, null)}
+              onClick={() => setHarmonicSlot(slot, null)}
               disabled={chord === null}
             >
               Clear chord
