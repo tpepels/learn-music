@@ -1,6 +1,5 @@
 import {
   SCHOENBERG_VARIATION_IDS,
-  studyTransformationFeature,
   studyVariationIsChanged,
   studyVariationSharesIdentity,
 } from "../music/study";
@@ -8,152 +7,249 @@ import { changedControl, heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
+  type LessonContext,
   type LessonDefinition,
 } from "./types";
 
 const lesson = lessonContentSchema.parse({
   id: "schoenberg.developing-variation",
   number: 2,
-  title: "Developing variation",
-  eyebrow: "Schoenberg · The motive",
-  hero: "Change the idea without discarding the idea.",
+  title: "The motive - treatment & variation",
+  eyebrow: "Schoenberg · Chapter III · The Motive",
+  hero: "Learn what a motive can preserve while rhythm, interval, harmony and context change.",
   description:
-    "Chapter III treats variation as controlled change: alter rhythm, intervallic content, order, ornament or position while retaining characteristic features that keep the motive comprehensible.",
+    "Chapter III first asks what constitutes a motive, then distinguishes exact, modified and developed repetition. Schoenberg's Examples 12-16 come from literature and isolate characteristic features; Examples 17-29 then vary one broken-chord motive systematically through rhythm, interval, metric placement, harmony and melodic adaptation.",
   overview:
-    "The interactive miniatures simplify the transformation categories Schoenberg demonstrates in Examples 17–23. They are reductions for manipulation rather than literal transcriptions. The aim is to hear what is retained, what is changed, and why successive motive-forms can still belong to one basic idea.",
+    "The lesson follows that order rather than collapsing the chapter into a few generic transformations. Public-domain repertoire examples are named where Schoenberg uses them; the interactive studies are compact reductions of the analytical procedure, not copies of the book's engraving.",
 });
 
-const correctFeaturePairs = Object.entries(studyTransformationFeature).map(
-  ([transformation, feature]) => transformation + ":" + feature,
-);
+function inspectedTwoNotations(
+  experiments: LessonContext["experiments"],
+): boolean {
+  return (experiments["study.notation"]?.values.length ?? 0) >= 2;
+}
+
+function viewed(
+  experiments: LessonContext["experiments"],
+  required: string[],
+): boolean {
+  const values = experiments["study.transformation"]?.values ?? [];
+  return required.every((value) => values.includes(value));
+}
 
 export const schoenbergDevelopingVariationLesson: LessonDefinition = {
   ...lesson,
   exercises: [
     {
       ...exerciseContentSchema.parse({
-        id: SCHOENBERG_VARIATION_IDS.analyse,
+        id: SCHOENBERG_VARIATION_IDS.motive,
         letter: "A",
-        title: "Hear what changed",
+        title: "Exs. 12-13 - what constitutes a motive?",
         learn:
-          "Separate the changed feature from the features that still carry the motive's identity.",
+          "Hear how a very small number of characteristic rhythmic or intervallic features can be enough to establish a motive.",
         explanation:
-          "Schoenberg first establishes a basic motive, then shows that repetition alone is insufficient. Variation changes some features while characteristic ones remain. His Chapter III examples isolate rhythmic change, changes of interval or order, auxiliary notes, reduction and displacement so that a motive can appear in many forms without becoming arbitrary.",
+          "Schoenberg explicitly says that any rhythmicized succession of notes can serve as a basic motive, but that it should not contain too many different features. Ex. 12 contrasts simple rhythmic shapes with the note-repetition character of Beethoven's Fifth Symphony; Ex. 13 shows Brahms's Fourth Symphony built largely from successive thirds. The lesson is economy: identity can come from a few strongly treated features.",
         instruction:
-          "Audition Rhythm, Intervals / direction, Auxiliary note, Reduction and Beat position. For each version, choose the feature that changed most clearly. Switch between Staff, Piano roll and Degrees when the answer is easier to see than to name.",
+          "Play the reduction of the note-repetition principle from Ex. 12b, then inspect Staff and Degrees. Choose the statement that matches Schoenberg's point. Afterward, compare the book references mentally: Beethoven 5 uses repetition as a defining feature, while Brahms 4 can derive identity from interval succession.",
         recognition:
-          "Can you name what changed without losing track of what still makes the right-hand figure sound related to the left-hand motive?",
+          "What is doing the identifying work here - sheer length and complexity, or a small feature that keeps returning?",
+        source: {
+          reference:
+            "Examples 12-13 - Ex. 12a Op.14/1-I; Ex. 12b Beethoven Symphony No.5-I; Ex. 12c Beethoven Symphony No.5-III; Ex. 13 Brahms Symphony No.4-I",
+          focus:
+            "Schoenberg chose these to show that a motive may be rhythmically simple, dominated by note repetitions, or built from a limited intervallic idea. The interactive line reduces the Ex. 12b principle rather than reproducing the printed score.",
+        },
         terms: [
           {
-            term: "Developing variation",
+            term: "Motive",
             definition:
-              "Successive transformation of a basic idea so that new motive-forms grow from it while preserving comprehensible relationships.",
+              "A characteristic rhythmic and intervallic idea whose features can generate later material.",
           },
           {
             term: "Characteristic feature",
             definition:
-              "A rhythmic, intervallic, contour or other property important enough to help a motive remain recognisable.",
+              "A feature important enough to help identify the motive when it returns or changes.",
           },
           {
-            term: "Motive-form",
+            term: "Economy",
             definition:
-              "One particular transformed appearance of the basic motive.",
+              "Using a limited number of characteristic features rather than overloading the basic motive.",
           },
         ],
         workspace: "composition-study",
-        checksLabel: "Identify the changing feature",
-        successLabel: "You can hear variation as controlled change",
+        checksLabel: "Identify what defines the motive",
+        successLabel: "You heard how a few features can carry identity",
       }),
       evaluate: ({ compositionStudy, experiments }) => {
-        const state = compositionStudy[SCHOENBERG_VARIATION_IDS.analyse];
-        const viewed = experiments["study.transformation"]?.values ?? [];
-        const answers = experiments["study.feature-answer"]?.values ?? [];
-        const correctAnswers = new Set(
-          answers.filter((answer) => correctFeaturePairs.includes(answer)),
-        );
+        const state = compositionStudy[SCHOENBERG_VARIATION_IDS.motive];
+        return [
+          { label: "You listened to the Ex. 12 reduction", complete: heardPlayback(experiments) },
+          { label: "You inspected more than one notation", complete: inspectedTwoNotations(experiments) },
+          { label: "You identified economy of characteristic features", complete: state?.decision === "related" },
+        ];
+      },
+    },
+    {
+      ...exerciseContentSchema.parse({
+        id: SCHOENBERG_VARIATION_IDS.exact,
+        letter: "B",
+        title: "Ex. 14 - exact repetition can transform",
+        learn:
+          "Understand Schoenberg's broader use of exact repetition: note relations can be preserved under inversion, retrograde, diminution and augmentation.",
+        explanation:
+          "Schoenberg distinguishes exact, modified and developed repetition. He says that transposition to another degree, inversion, retrograde, diminution and augmentation can still count as exact repetitions if the features and note relationships are strictly preserved. Ex. 14 demonstrates inversion, retrograde, retrograde inversion, diminution and augmentation explicitly.",
+        instruction:
+          "Audition Inversion, Retrograde, Diminution and Augmentation. Use Staff first, then another notation. Do not ask whether the absolute notes are identical - ask which relationships have been preserved systematically.",
+        recognition:
+          "Can the motive remain 'the same' in Schoenberg's technical sense even when every absolute pitch or duration changes?",
+        source: {
+          reference: "Example 14 - inversion, retrograde, retrograde inversion, diminution and augmentation",
+          focus:
+            "This example is the reason the lesson does not equate exact repetition with literal copy-and-paste. The interactive versions isolate four of Schoenberg's printed operations.",
+        },
+        terms: [
+          {
+            term: "Exact repetition",
+            definition:
+              "In Schoenberg's usage here, repetition that strictly preserves relevant features and note relationships, even under systematic transformation.",
+          },
+          {
+            term: "Inversion",
+            definition:
+              "Reversal of interval direction around a reference pitch.",
+          },
+          {
+            term: "Retrograde",
+            definition:
+              "Presentation of the succession in reverse order.",
+          },
+          {
+            term: "Diminution / augmentation",
+            definition:
+              "Systematic shortening or lengthening of note-values while preserving proportional relationships.",
+          },
+        ],
+        workspace: "composition-study",
+        checksLabel: "Compare exact transformations",
+        successLabel: "You separated literal identity from preserved relationships",
+      }),
+      evaluate: ({ compositionStudy, experiments }) => {
+        const state = compositionStudy[SCHOENBERG_VARIATION_IDS.exact];
         return [
           {
-            label: "You auditioned all five transformation types",
+            label: "You auditioned inversion, retrograde, diminution and augmentation",
+            complete: viewed(experiments, [
+              "inversion",
+              "retrograde",
+              "diminution",
+              "augmentation",
+            ]),
+          },
+          { label: "You listened while comparing", complete: heardPlayback(experiments) },
+          { label: "You inspected more than one notation", complete: inspectedTwoNotations(experiments) },
+          {
+            label: "One exact transformation remains selected",
             complete: [
-              "rhythm",
-              "interval",
-              "auxiliary",
-              "reduction",
-              "displacement",
-            ].every((value) => viewed.includes(value)),
-          },
-          {
-            label: "You listened while comparing motive-forms",
-            complete: heardPlayback(experiments),
-          },
-          {
-            label: "You correctly identified at least four changed features",
-            complete: correctAnswers.size >= 4,
-          },
-          {
-            label: "You used more than one notation",
-            complete:
-              (experiments["study.notation"]?.values.length ?? 0) >= 2,
-          },
-          {
-            label: "A motive-form is selected for inspection",
-            complete: state?.transformation !== "source",
+              "inversion",
+              "retrograde",
+              "diminution",
+              "augmentation",
+            ].includes(state?.transformation ?? ""),
           },
         ];
       },
     },
     {
       ...exerciseContentSchema.parse({
-        id: SCHOENBERG_VARIATION_IDS.rhythm,
-        letter: "B",
-        title: "Change rhythm, retain pitch identity",
+        id: SCHOENBERG_VARIATION_IDS.literature,
+        letter: "C",
+        title: "Exs. 15-16 - motive-forms in real music",
         learn:
-          "Alter temporal shape while keeping the pitch sequence recognisably tied to the source.",
+          "See how several kinds of change can operate together in actual musical continuation rather than as isolated classroom tricks.",
         explanation:
-          "Schoenberg lists changes of note length, repetitions, rhythmic figures, displacement to other beats, upbeats and metre as rhythmic means of variation. Here we isolate two of the most audible: changing note lengths and shifting the same idea away from its original metric position.",
+          "After the abstract transformations of Ex. 14, Schoenberg turns to motive-forms in context. Ex. 15 combines transposition with changes of direction and includes Beethoven Op.2/3-II. Ex. 16 labels transposition, embellishment, rhythmic change, a filled-in interval, chain and sequence, including Beethoven Op.22-III. The point is cumulative treatment: one basic motive can survive several interacting modifications.",
         instruction:
-          "Compare Rhythm with Beat position. Keep the source motive on the left and choose one version for the right. Hear it in Staff view, then inspect the same timing in Piano roll or Degrees. Decide which kind of rhythmic change gives the motive more forward motion.",
+          "Play the four-part reduction and follow its repeated contour in Staff or Degrees. Choose the statement that best matches why Schoenberg places Exs. 15-16 before the systematic broken-chord studies.",
         recognition:
-          "If the pitches are familiar but the accent pattern changes, does the motive still feel like the same idea?",
+          "Can you still hear one family of material after pitch level, direction, rhythm and detail have all shifted?",
+        source: {
+          reference:
+            "Examples 15-16 - including Ex. 15c Beethoven Op.2/3-II and Ex. 16b Beethoven Op.22-III, Menuetto",
+          focus:
+            "Schoenberg labels transposition, change of direction, embellishment, rhythmic change, filling-in, chain and sequence to show transformations working together in context. The interactive study is a compact reduction of that cumulative logic.",
+        },
+        terms: [
+          {
+            term: "Motive-form",
+            definition:
+              "A particular transformed appearance of the basic motive.",
+          },
+          {
+            term: "Chain",
+            definition:
+              "A linked succession of motive-forms in which one transformed form leads into another.",
+          },
+          {
+            term: "Sequence",
+            definition:
+              "Repetition of a pattern at another pitch level.",
+          },
+        ],
+        workspace: "composition-study",
+        checksLabel: "Recognise cumulative treatment",
+        successLabel: "You heard several transformations as one motivic family",
+      }),
+      evaluate: ({ compositionStudy, experiments }) => {
+        const state = compositionStudy[SCHOENBERG_VARIATION_IDS.literature];
+        return [
+          { label: "You listened to the literature-style reduction", complete: heardPlayback(experiments) },
+          { label: "You compared more than one notation", complete: inspectedTwoNotations(experiments) },
+          { label: "You identified cumulative transformation", complete: state?.decision === "related" },
+        ];
+      },
+    },
+    {
+      ...exerciseContentSchema.parse({
+        id: SCHOENBERG_VARIATION_IDS.rhythm,
+        letter: "D",
+        title: "Ex. 17 - change the rhythm systematically",
+        learn:
+          "Use one broken-chord motive to isolate rhythmic changes while pitch identity stays easy to compare.",
+        explanation:
+          "Schoenberg says Examples 17-29 are based solely on a broken chord so the methods can be shown as systematically as practicable. Ex. 17 begins with rhythmic changes. His list includes changing note lengths, note repetitions and repetition of rhythmic features. The restricted pitch material is deliberate experimental control.",
+        instruction:
+          "Compare Note lengths / rhythm with Note repetition. Listen to both against the same source half. The pitches are intentionally simple: concentrate on how different rhythmic treatment changes character and continuity.",
+        recognition:
+          "How much can the temporal shape change before the broken-chord identity stops being obvious?",
+        source: {
+          reference: "Example 17 - Developing variations of a motive based on a broken chord: Rhythmic changes",
+          focus:
+            "Schoenberg uses many variants of one broken-chord motive to isolate note-length changes, repetitions and rhythmic recurrence. Our two controls sample that larger printed series.",
+        },
         terms: [
           {
             term: "Rhythmic variation",
             definition:
-              "Changing duration, repetition or spacing while preserving enough of the motive's other features for identity to remain clear.",
+              "Change in note length, repetition or rhythmic pattern while other identifying material remains available.",
           },
           {
-            term: "Displacement",
+            term: "Experimental control",
             definition:
-              "Moving familiar material to a different position in the bar or beat pattern.",
+              "A modern description of Schoenberg's didactic setup: keeping the broken-chord pitch source stable makes each transformation easier to compare.",
           },
         ],
         workspace: "composition-study",
-        checksLabel: "Reshape the rhythm",
-        successLabel: "You changed timing without replacing the motive",
+        checksLabel: "Hear rhythmic treatment",
+        successLabel: "You heard rhythm change while pitch identity stayed controlled",
       }),
       evaluate: ({ compositionStudy, experiments }) => {
         const state = compositionStudy[SCHOENBERG_VARIATION_IDS.rhythm];
-        const viewed = experiments["study.transformation"]?.values ?? [];
         return [
+          { label: "You compared note-length change and note repetition", complete: viewed(experiments, ["rhythm", "repetition"]) },
+          { label: "You listened to the alternatives", complete: heardPlayback(experiments) },
           {
-            label: "You compared rhythmic change with displacement",
-            complete:
-              viewed.includes("rhythm") && viewed.includes("displacement"),
-          },
-          {
-            label: "You listened to the alternatives",
-            complete: heardPlayback(experiments),
-          },
-          {
-            label: "You kept one rhythmic motive-form selected",
-            complete:
-              state?.transformation === "rhythm" ||
-              state?.transformation === "displacement",
-          },
-          {
-            label: "You inspected the rhythm in more than one notation",
-            complete:
-              (experiments["study.notation"]?.values.length ?? 0) >= 2,
+            label: "A rhythmic variant remains selected",
+            complete: ["rhythm", "repetition"].includes(state?.transformation ?? ""),
           },
         ];
       },
@@ -161,125 +257,299 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
     {
       ...exerciseContentSchema.parse({
         id: SCHOENBERG_VARIATION_IDS.intervals,
-        letter: "C",
-        title: "Change pitch detail, retain rhythmic identity",
+        letter: "E",
+        title: "Exs. 18-21 - change interval content",
         learn:
-          "Alter intervallic content, add a neighbouring note, or reduce material while keeping the rhythmic frame intelligible.",
+          "Distinguish addition, reordering, embellishment and reduction as different ways of changing intervallic material.",
         explanation:
-          "The Chapter III list also changes original order and direction, adds or omits intervals, fills intervals with auxiliary notes, and reduces material by omission or condensation. These are not interchangeable tricks: each changes a different aspect of the pitch idea while the surrounding rhythm can preserve continuity.",
+          "The sequence is carefully staged. Ex. 18 adds ancillary notes. Ex. 19 changes the original order. Ex. 20 embellishes Ex. 19. Ex. 21 demonstrates reduction, omission and condensation. Schoenberg is showing that development is not synonymous with adding more notes - subtraction can be just as developmental.",
         instruction:
-          "Audition Intervals / direction, Auxiliary note and Reduction. The rhythmic frame stays comparatively stable while the pitch material changes. Listen to all three, inspect the Staff view, and leave selected the version that most clearly sounds new while still belonging to the source.",
+          "Compare Ancillary notes, Order / direction and Reduction / condensation. Listen before looking, then inspect Staff. Leave selected the one whose process you can explain most clearly.",
         recognition:
-          "Which version changes the surface most while leaving enough contour, rhythm or anchor pitches for the source to remain audible?",
+          "Do you hear development as one generic kind of 'variation', or can you distinguish addition, reordering and reduction?",
+        source: {
+          reference:
+            "Examples 18-21 - Addition of ancillary notes; Changing the original order; Embellishing Ex. 19; Reduction, omission, condensation",
+          focus:
+            "The order matters: Schoenberg first adds, then reorders, then embellishes the reordered form, and finally demonstrates reduction and condensation.",
+        },
         terms: [
           {
-            term: "Auxiliary note",
+            term: "Ancillary note",
             definition:
-              "An added neighbouring or connecting note that elaborates an interval or melodic feature.",
+              "Schoenberg's preferred term here for a note added to fill or decorate an interval.",
           },
           {
-            term: "Reduction",
+            term: "Condensation",
             definition:
-              "A motive-form produced by omitting or condensing material rather than adding more.",
+              "Reduction of material into a shorter or more concentrated motive-form.",
           },
           {
-            term: "Intervallic variation",
+            term: "Omission",
             definition:
-              "Changing pitch distances, order or direction while retaining other characteristic features.",
+              "Removal of part of the source material as a deliberate variation procedure.",
           },
         ],
         workspace: "composition-study",
-        checksLabel: "Transform the pitch idea",
-        successLabel: "The rhythm now carries identity through pitch change",
+        checksLabel: "Separate interval procedures",
+        successLabel: "You distinguished addition, reordering and reduction",
       }),
       evaluate: ({ compositionStudy, experiments }) => {
         const state = compositionStudy[SCHOENBERG_VARIATION_IDS.intervals];
-        const viewed = experiments["study.transformation"]?.values ?? [];
         return [
+          { label: "You compared ancillary notes, reordering and reduction", complete: viewed(experiments, ["auxiliary", "interval", "reduction"]) },
+          { label: "You listened before deciding", complete: heardPlayback(experiments) },
           {
-            label: "You compared all three pitch transformations",
-            complete: ["interval", "auxiliary", "reduction"].every((value) =>
-              viewed.includes(value),
-            ),
-          },
-          {
-            label: "You listened before deciding",
-            complete: heardPlayback(experiments),
-          },
-          {
-            label: "You left a transformed pitch version selected",
-            complete:
-              state?.transformation === "interval" ||
-              state?.transformation === "auxiliary" ||
-              state?.transformation === "reduction",
+            label: "One interval procedure remains selected",
+            complete: ["auxiliary", "interval", "reduction"].includes(state?.transformation ?? ""),
           },
         ];
       },
     },
     {
       ...exerciseContentSchema.parse({
-        id: SCHOENBERG_VARIATION_IDS.compose,
-        letter: "D",
-        title: "Build and revise a motive-form",
+        id: SCHOENBERG_VARIATION_IDS.metric,
+        letter: "F",
+        title: "Exs. 22-24 - move the motive against the metre",
         learn:
-          "Combine transformations because the continuation needs them, not merely to demonstrate a technique.",
+          "Hear the difference between adding an upbeat, shifting familiar features to other beats and changing metric grouping.",
         explanation:
-          "Schoenberg's larger principle is adaptation: motive-forms change according to the needs of the developing music. A convincing variation therefore does not need to preserve every feature. It needs enough relationship to remain comprehensible while the changed features create a useful new continuation.",
+          "Ex. 22 adds upbeats and repeats features. Ex. 23 shifts features to other beats. Ex. 24 changes the metre - a device Schoenberg notes is seldom usable within a piece. These examples separate three ways of changing where the listener feels the motive in relation to the beat.",
         instruction:
-          "Choose two or three transformations. PLAY / LAB will apply them to the second half while keeping the source on the left. Listen, switch notation, then revise at least one pitch manually in Piano roll if the generated result needs a clearer relationship or better direction.",
+          "Compare Add upbeat, Shift to other beats and Change metre / grouping. Use Piano roll to see placement and Staff to hear it as notation. The metre version is a compact regrouping because PLAY / LAB's study grid does not redraw literal changing time signatures.",
         recognition:
-          "Can you explain in one sentence what your version preserved and what it changed?",
+          "Is the motive itself different, or has its relationship to the metric frame changed?",
+        source: {
+          reference:
+            "Examples 22-24 - Addition of upbeats and repetition of features; Shift to other beats; Change of metre",
+          focus:
+            "Schoenberg deliberately distinguishes pickup, beat displacement and metre change. The interactive metre case is a reduction of the regrouping principle, not a transcription of Ex. 24.",
+        },
         terms: [
+          {
+            term: "Upbeat",
+            definition:
+              "A pickup before a stronger metric position.",
+          },
+          {
+            term: "Displacement",
+            definition:
+              "Shifting familiar features to different beats without replacing the basic motive.",
+          },
+          {
+            term: "Metre change",
+            definition:
+              "Changing the metric organization itself rather than only moving notes within it.",
+          },
+        ],
+        workspace: "composition-study",
+        checksLabel: "Hear metric transformation",
+        successLabel: "You separated pickup, displacement and regrouping",
+      }),
+      evaluate: ({ compositionStudy, experiments }) => {
+        const state = compositionStudy[SCHOENBERG_VARIATION_IDS.metric];
+        return [
+          { label: "You compared upbeat, displacement and metre", complete: viewed(experiments, ["upbeat", "displacement", "metre"]) },
+          { label: "You listened to the metric alternatives", complete: heardPlayback(experiments) },
+          { label: "You inspected more than one notation", complete: inspectedTwoNotations(experiments) },
+          {
+            label: "One metric treatment remains selected",
+            complete: ["upbeat", "displacement", "metre"].includes(state?.transformation ?? ""),
+          },
+        ];
+      },
+    },
+    {
+      ...exerciseContentSchema.parse({
+        id: SCHOENBERG_VARIATION_IDS.harmony,
+        letter: "G",
+        title: "Ex. 25 - adapt the motive to richer harmony",
+        learn:
+          "Hear that motivic preservation may require melodic adjustment when the harmonic context changes.",
+        explanation:
+          "Schoenberg's next category is harmonic change. Ex. 25 explicitly adapts the motive to richer harmony and refers back to Ex. 21d. His list includes use of inversions and additions at the end. The melody is not treated as an untouchable object laid over new chords; it can be adjusted so motive and harmony remain coherent together.",
+        instruction:
+          "Play the reduction and listen to the simplified changing support underneath it. Choose the statement that matches Schoenberg's method. The I/V support here is deliberately simpler than the printed harmonic detail so the relationship remains audible in PLAY / LAB.",
+        recognition:
+          "Does preserving the motive mean freezing every pitch, or preserving its identity while adapting to the harmonic situation?",
+        source: {
+          reference: "Example 25 - Adaptation to richer harmony (cf. Ex. 21d)",
+          focus:
+            "The printed example explores richer harmonic support and inversion. PLAY / LAB reduces that harmonic complexity but preserves the didactic point: melodic motive-form and harmony are adapted together.",
+        },
+        terms: [
+          {
+            term: "Harmonic adaptation",
+            definition:
+              "Adjustment of a motive-form so that its melodic details fit a changed harmonic context while its identity remains perceptible.",
+          },
+          {
+            term: "Inversion (harmony)",
+            definition:
+              "A chord voicing in which a chord tone other than the root appears in the bass.",
+          },
+        ],
+        workspace: "composition-study",
+        checksLabel: "Relate motive and harmony",
+        successLabel: "You treated harmony as part of motivic adaptation",
+      }),
+      evaluate: ({ compositionStudy, experiments }) => {
+        const state = compositionStudy[SCHOENBERG_VARIATION_IDS.harmony];
+        return [
+          { label: "You listened to the harmonic reduction", complete: heardPlayback(experiments) },
+          { label: "You identified harmonic adaptation", complete: state?.decision === "related" },
+        ];
+      },
+    },
+    {
+      ...exerciseContentSchema.parse({
+        id: SCHOENBERG_VARIATION_IDS.substitution,
+        letter: "H",
+        title: "Exs. 26-27 - insert and substitute harmony",
+        learn:
+          "Follow the same motive through harmonic insertions and substitutions rather than treating every chord change as a new idea.",
+        explanation:
+          "Schoenberg's list says harmony can be changed by insertions in the middle (Ex. 26) and by substituting a different chord or succession (Ex. 27). These examples matter because they move beyond 'decorate the melody': the harmonic route itself can be varied while motivic continuity is maintained.",
+        instruction:
+          "Play the reduction with its simplified support. Choose the description that matches Exs. 26-27. Then switch notation once so you can separate the melodic relation from the harmonic change you are hearing.",
+        recognition:
+          "Can the harmony take a different route while the motive still sounds like one continuing object?",
+        source: {
+          reference: "Examples 26-27 - harmonic insertion in the middle; substitution of a different chord or succession",
+          focus:
+            "The interactive support is simplified, but the analytical distinction follows Schoenberg's categories exactly: insertion and substitution are harmonic means of variation.",
+        },
+        terms: [
+          {
+            term: "Harmonic insertion",
+            definition:
+              "Addition of harmonic motion inside an existing span rather than only changing its ending.",
+          },
+          {
+            term: "Substitution",
+            definition:
+              "Replacement of an expected chord or chord succession by another harmonic route.",
+          },
+        ],
+        workspace: "composition-study",
+        checksLabel: "Recognise harmonic route changes",
+        successLabel: "You heard insertion and substitution as variation resources",
+      }),
+      evaluate: ({ compositionStudy, experiments }) => {
+        const state = compositionStudy[SCHOENBERG_VARIATION_IDS.substitution];
+        return [
+          { label: "You listened to the insertion/substitution reduction", complete: heardPlayback(experiments) },
+          { label: "You inspected more than one notation", complete: inspectedTwoNotations(experiments) },
+          { label: "You identified harmonic insertion or substitution", complete: state?.decision === "related" },
+        ];
+      },
+    },
+    {
+      ...exerciseContentSchema.parse({
+        id: SCHOENBERG_VARIATION_IDS.adaptation,
+        letter: "I",
+        title: "Exs. 28-29 - adapt melody to a moving context",
+        learn:
+          "Connect transposition and sequence with adaptation to passing harmony and accompaniment.",
+        explanation:
+          "Schoenberg finishes the systematic series by saying the melody is adapted through transposition (Ex. 28), addition of passing harmonies (Ex. 29), and 'semi-contrapuntal' treatment of the accompaniment (Ex. 29). This is a decisive step: variation now involves the relationship between motive, harmony and accompanying voice rather than one isolated melodic line.",
+        instruction:
+          "Play the sequential reduction and listen to the simplified changing support. Choose the statement that includes all three resources Schoenberg names. The printed Ex. 29 contains contrapuntal accompaniment that this compact monophonic staff cannot reproduce; the guide calls that limitation out rather than pretending the reduction is complete.",
+        recognition:
+          "Do you hear the motive as something that can be re-fitted to a changing musical environment rather than merely transformed in isolation?",
+        source: {
+          reference: "Examples 28-29 - transposition; passing harmonies; semi-contrapuntal treatment of the accompaniment",
+          focus:
+            "The sequence-like top line models Ex. 28's transpositional logic. The simplified support represents Ex. 29's harmonic adaptation; the actual printed accompaniment contains more contrapuntal information than the current study view can show.",
+        },
+        terms: [
+          {
+            term: "Passing harmony",
+            definition:
+              "Intermediate harmonic motion connecting more structural harmonies.",
+          },
+          {
+            term: "Semi-contrapuntal accompaniment",
+            definition:
+              "Schoenberg's term here for accompaniment treated with enough independent motion to interact contrapuntally with the motive.",
+          },
           {
             term: "Adaptation",
             definition:
-              "Changing a motive-form in response to its musical context rather than applying a transformation mechanically.",
+              "Modification of the melodic form in response to its harmonic and contrapuntal context.",
+          },
+        ],
+        workspace: "composition-study",
+        checksLabel: "Connect motive, harmony and accompaniment",
+        successLabel: "You followed the motive into a changing context",
+      }),
+      evaluate: ({ compositionStudy, experiments }) => {
+        const state = compositionStudy[SCHOENBERG_VARIATION_IDS.adaptation];
+        return [
+          { label: "You listened to the adaptation reduction", complete: heardPlayback(experiments) },
+          { label: "You compared more than one notation", complete: inspectedTwoNotations(experiments) },
+          { label: "You identified transposition plus harmonic/accompanimental adaptation", complete: state?.decision === "related" },
+        ];
+      },
+    },
+    {
+      ...exerciseContentSchema.parse({
+        id: SCHOENBERG_VARIATION_IDS.compose,
+        letter: "J",
+        title: "Exs. 17-29 - make a systematic variation series",
+        learn:
+          "Use Schoenberg's broken-chord method yourself: keep one source simple enough that each transformation can be heard and judged.",
+        explanation:
+          "Schoenberg says Examples 17-29 are based solely on a broken chord so the available methods can be shown systematically, and that exploring these resources helps develop technical skill and inventive faculty. The final exercise therefore keeps the source intentionally plain. Your job is not to make the source impressive; it is to make the treatment intelligible.",
+        instruction:
+          "Choose at least three transformations for the second half. Include one rhythmic or metric change and one pitch/order change. Listen, inspect another notation, then revise at least one pitch manually in Piano roll. Keep only a result whose relation to the broken-chord source you can still explain.",
+        recognition:
+          "Can you identify exactly what was preserved, exactly what changed, and why the result still functions as a motive-form?",
+        source: {
+          reference: "Comment on Examples + Examples 17-29",
+          focus:
+            "This reproduces Schoenberg's didactic method rather than any one printed variant: a deliberately simple broken-chord motive becomes a laboratory for systematic changes of rhythm, interval, position, harmony and adaptation.",
+        },
+        terms: [
+          {
+            term: "Developing variation",
+            definition:
+              "A succession of motive-forms in which change produces material for further continuation rather than only local decoration.",
+          },
+          {
+            term: "Local variant",
+            definition:
+              "Schoenberg's distinction for a variation that has little or no influence on subsequent continuation.",
           },
           {
             term: "Preservation",
             definition:
-              "Retaining selected characteristic features so the relationship to the basic motive remains perceptible.",
-          },
-          {
-            term: "Revision",
-            definition:
-              "Changing a compositional solution after listening to how its relationships actually function.",
+              "Retention of selected characteristic features so the transformed result remains comprehensible as related material.",
           },
         ],
         workspace: "composition-study",
-        checksLabel: "Develop the motive",
-        successLabel: "Your motive-form changes the idea without abandoning it",
+        checksLabel: "Build the systematic variation",
+        successLabel: "Your motive-form is changed, related and consciously constructed",
       }),
       evaluate: ({ compositionStudy, experiments }) => {
         const state = compositionStudy[SCHOENBERG_VARIATION_IDS.compose];
         const notes = state?.notes ?? [];
         const durations = state?.durations ?? [];
+        const operations = state?.operations ?? [];
+        const hasRhythmic = operations.some((operation) =>
+          ["rhythm", "repetition", "displacement", "upbeat", "metre", "diminution", "augmentation"].includes(operation),
+        );
+        const hasPitch = operations.some((operation) =>
+          ["interval", "auxiliary", "reduction", "inversion", "retrograde", "transposition"].includes(operation),
+        );
         return [
-          {
-            label: "You combined at least two transformations",
-            complete: (state?.operations.length ?? 0) >= 2,
-          },
-          {
-            label: "You listened to the developed motive-form",
-            complete: heardPlayback(experiments),
-          },
-          {
-            label: "You revised the generated result in Piano roll",
-            complete: changedControl(experiments, "study.note-edit"),
-          },
-          {
-            label: "You compared more than one notation",
-            complete:
-              (experiments["study.notation"]?.values.length ?? 0) >= 2,
-          },
-          {
-            label: "The motive-form is genuinely changed",
-            complete: studyVariationIsChanged(notes, durations),
-          },
-          {
-            label: "The motive-form still shares audible identity with the source",
-            complete: studyVariationSharesIdentity(notes),
-          },
+          { label: "You combined at least three transformations", complete: operations.length >= 3 },
+          { label: "Your set includes rhythmic/metric and pitch treatment", complete: hasRhythmic && hasPitch },
+          { label: "You listened to the motive-form", complete: heardPlayback(experiments) },
+          { label: "You revised the generated result in Piano roll", complete: changedControl(experiments, "study.note-edit") },
+          { label: "You compared more than one notation", complete: inspectedTwoNotations(experiments) },
+          { label: "The motive-form is genuinely changed", complete: studyVariationIsChanged(notes, durations) },
+          { label: "The motive-form still shares identity with the source", complete: studyVariationSharesIdentity(notes) },
         ];
       },
     },
