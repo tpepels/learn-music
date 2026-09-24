@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { audioEngine } from "./audio/engine";
+import { isProductionAuditionWorkspace } from "./audio/workspaceLayerPolicy";
 import {
   canWorkspaceUseTransport,
   resolveLearningFocusTrack,
@@ -114,17 +115,7 @@ async function startWorkspacePlayback(
     return audioEngine.playArrangement(bpm, onStep);
   }
 
-  if (
-    workspace === "mixer" ||
-    workspace === "automation-dynamics" ||
-    workspace === "effects" ||
-    workspace === "eq" ||
-    workspace === "saturation" ||
-    workspace === "sidechain" ||
-    workspace === "stereo" ||
-    workspace === "reference" ||
-    workspace === "instrument-palette"
-  ) {
+  if (isProductionAuditionWorkspace(workspace)) {
     return audioEngine.playProductionMix(bpm, onStep);
   }
 
