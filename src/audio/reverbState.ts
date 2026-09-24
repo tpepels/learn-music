@@ -1,5 +1,5 @@
 export function reverbValueChanged(
-  current: number | string,
+  current: unknown,
   next: number,
   epsilon = 1e-6,
 ): boolean {
