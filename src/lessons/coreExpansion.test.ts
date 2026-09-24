@@ -1,4 +1,8 @@
 import { describe, expect, it } from "vitest";
+import {
+  diatonicChord,
+  type TonalContext,
+} from "../music/harmony";
 import { chordColorExtensionsLesson } from "./chordColorExtensions";
 import { gainStagingLoudnessLesson } from "./gainStagingLoudness";
 import { intervalsTranspositionLesson } from "./intervalsTransposition";
@@ -46,18 +50,39 @@ describe("lesson 29: intervals and transposition", () => {
     ).toBe(true);
   });
 
-  it("accepts a complete D-major pitch collection and a D-centred phrase", () => {
-    const scaleMap = melody(61, 62, 64, 66, 67, 69, 71);
+  it("keeps I-IV-V-I intact when harmony is moved to D major", () => {
+    const tonalContext: TonalContext = { tonic: 2, mode: "major" };
+    const harmonicProgression = [1, 4, 5, 1].map((degree) =>
+      diatonicChord(tonalContext, degree as 1 | 4 | 5),
+    );
+
     expect(
       intervalsTranspositionLesson.exercises[2]
-        .evaluate(ctx({ melody: scaleMap }))
+        .evaluate(ctx({ tonalContext, harmonicProgression }))
         .every((check) => check.complete),
     ).toBe(true);
+  });
 
-    const phrase = melody(62, 66, 61, 69, 71, 62);
+  it("accepts a whole-project transposition into D major", () => {
+    const tonalContext: TonalContext = { tonic: 2, mode: "major" };
+    const harmonicProgression = [1, 4, 5, 1].map((degree) =>
+      diatonicChord(tonalContext, degree as 1 | 4 | 5),
+    );
+    const phrase = melody(62, null, 64, null, 66, null, 69);
+
     expect(
       intervalsTranspositionLesson.exercises[3]
-        .evaluate(ctx({ melody: phrase }))
+        .evaluate(
+          ctx({
+            melody: phrase,
+            tonalContext,
+            harmonicProgression,
+            experiments: {
+              ...played,
+              "harmony.transpose": experiment(1, null, null, ["2"]),
+            },
+          }),
+        )
         .every((check) => check.complete),
     ).toBe(true);
   });
