@@ -23,6 +23,7 @@ import { MotifWorkspace } from "./components/MotifWorkspace";
 import { MixerWorkspace } from "./components/MixerWorkspace";
 import { MinorTonalityWorkspace } from "./components/MinorTonalityWorkspace";
 import { LearningPanel } from "./components/LearningPanel";
+import { LayerVolumeStrip } from "./components/LayerVolumeStrip";
 import { MelodyWorkspace, PianoKeyWorkspace } from "./components/PianoWorkspace";
 import { PhraseFormWorkspace } from "./components/PhraseFormWorkspace";
 import { ReferenceWorkspace } from "./components/ReferenceWorkspace";
@@ -1139,6 +1140,10 @@ function App() {
           </section>
 
           <LearningPanel exercise={exercise} lessonNumber={lesson.number} />
+
+          {activeTrack.id === "play-lab" && exercise.workspace !== "mixer" && (
+            <LayerVolumeStrip />
+          )}
 
           <Workspace exercise={exercise} />
         </main>
