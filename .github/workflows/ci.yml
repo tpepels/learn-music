@@ -2,6 +2,9 @@ name: Validate branch manually
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - feature/core-lessons-29-32
 
 permissions:
   contents: read
