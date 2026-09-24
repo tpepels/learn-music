@@ -115,14 +115,8 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         source: {
           reference: "Example 2e - Beethoven, Symphony No. 3-I",
           focus:
-            "Analyse the actual score excerpt first. The interactive miniature underneath is a separate transfer exercise for hearing exact, related and unrelated continuation - it is not a substitute for Beethoven's example.",
-          examples: [
-            {
-              asset: "book-examples/s01/ex2e-beethoven-eroica-i.jpg",
-              alt: "Schoenberg Example 2e, excerpt from Beethoven Symphony No. 3 first movement",
-              caption: "Ex. 2e · Beethoven, Symphony No. 3-I · score excerpt reproduced from the supplied book scan",
-            },
-          ],
+            "Analyse the native, playable transcription of Schoenberg's printed melodic excerpt first. The editable miniature underneath is a separate transfer exercise, not a substitute for Beethoven's phrase.",
+          exampleIds: ["s01-ex2e"],
         },
         terms: [
           {
@@ -171,19 +165,8 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         source: {
           reference: "Example 2e - Beethoven, Symphony No. 3-I · Example 4c - Beethoven, Symphony No. 3, Scherzo",
           focus:
-            "These are the actual examples Schoenberg placed in the chapter. Analyse the score excerpts themselves; the editable miniature below is the follow-up application.",
-          examples: [
-            {
-              asset: "book-examples/s01/ex2e-beethoven-eroica-i.jpg",
-              alt: "Schoenberg Example 2e, excerpt from Beethoven Symphony No. 3 first movement",
-              caption: "Ex. 2e · Beethoven, Symphony No. 3-I",
-            },
-            {
-              asset: "book-examples/s01/ex4c-beethoven-eroica-scherzo.jpg",
-              alt: "Schoenberg Example 4c, excerpt from Beethoven Symphony No. 3 Scherzo",
-              caption: "Ex. 4c · Beethoven, Symphony No. 3 · Scherzo, Allegro vivace",
-            },
-          ],
+            "These are the examples Schoenberg placed in the chapter. Analyse and play the native source transcriptions first; the editable miniature below is the follow-up application.",
+          exampleIds: ["s01-ex2e", "s01-ex4c"],
         },
         terms: [
           {
@@ -234,7 +217,8 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         source: {
           reference: "Example 5 - Melodic units derived from broken chords",
           focus:
-            "Schoenberg keeps one tonic harmony fixed and varies the arrangement of its chord tones. We transpose the practice from F major to C major.",
+            "Play Schoenberg's native Ex. 5a source first: tonic chord tones become melody while harmony stays fixed. The editable practice then transposes that method from F major to C major.",
+          exampleIds: ["s01-ex5a"],
         },
         terms: [
           {
@@ -280,7 +264,8 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         source: {
           reference: "Example 6 - Smaller note values",
           focus:
-            "The exercise changes rhythmic scale before adding richer pitch material. Our reduction keeps chord-tone material and compresses the note values.",
+            "The source example is playable here. Compare it with Ex. 5: the chord-tone resource remains restricted while smaller note-values change the result.",
+          exampleIds: ["s01-ex6a"],
         },
         terms: [
           { term: "Note-value", definition: "The notated duration of a note." },
@@ -315,7 +300,8 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         source: {
           reference: "Example 7 - Added upbeats and various note values",
           focus:
-            "Schoenberg still restricts the melody to chord tones; variety comes from metric placement and duration.",
+            "Use the native source extraction to hear the pickups and mixed durations before identifying the same resource in the study workspace.",
+          exampleIds: ["s01-ex7"],
         },
         terms: [
           { term: "Upbeat", definition: "An unaccented pickup that leads into a stronger metric position." },
@@ -352,7 +338,8 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         source: {
           reference: "Example 8 - Varying Ex. 5 by adding passing notes",
           focus:
-            "The book keeps the earlier chord-tone framework and inserts connective notes to create greater fluency.",
+            "The native source extraction makes the chord-tone skeleton and its passing motion audible before you work with the reduced study.",
+          exampleIds: ["s01-ex8"],
         },
         terms: [
           { term: "Passing note", definition: "A non-chord tone that connects more structural pitches by step." },
@@ -391,7 +378,8 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         source: {
           reference: "Example 9 - Varying Ex. 7 by adding passing notes and note repetitions",
           focus:
-            "The example combines the rhythmic flexibility of Ex. 7 with connective passing notes and local repetitions.",
+            "Play the native source extraction and identify both additions Schoenberg names: passing motion and local pitch repetition.",
+          exampleIds: ["s01-ex9"],
         },
         terms: [
           { term: "Note repetition", definition: "Immediate or local recurrence of the same pitch as part of the melodic rhythm." },
@@ -430,7 +418,8 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         source: {
           reference: "Examples 10-11 - Embellishing Ex. 8 / varying Ex. 7 with appoggiaturas and changing notes",
           focus:
-            "Schoenberg values the added flexibility and richness but warns that excessive small-note detail may obscure the harmony.",
+            "Both source procedures are playable natively. Hear the added small-note detail, then judge Schoenberg's warning that enrichment can obscure the harmonic basis.",
+          exampleIds: ["s01-ex10", "s01-ex11"],
         },
         terms: [
           { term: "Changing note", definition: "An ornamental non-chord tone that decorates or redirects a melodic line." },
