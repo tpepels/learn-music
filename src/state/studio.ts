@@ -1567,7 +1567,8 @@ export const useStudioStore = create<StudioState>()(
             exerciseId,
           );
           const nextExercise =
-            exerciseId === SCHOENBERG_SENTENCE_IDS.compose
+            (exerciseId === SCHOENBERG_SENTENCE_IDS.compose ||
+              exerciseId === SCHOENBERG_SENTENCE_IDS.final)
               ? setStudySentenceSourceStepState(exercise, step, midi)
               : exerciseId === SCHOENBERG_COMPLETION_IDS.compose
                 ? setStudyCompletionSourceStepState(exercise, step, midi)

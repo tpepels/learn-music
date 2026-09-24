@@ -6,8 +6,10 @@ import {
   SCHOENBERG_CONNECTION_EXERCISE_IDS,
   SCHOENBERG_CONNECTION_IDS,
   SCHOENBERG_CONNECTION_SOURCE_IDS,
+  SCHOENBERG_SENTENCE_COMPOSE_IDS,
   SCHOENBERG_SENTENCE_EXERCISE_IDS,
   SCHOENBERG_SENTENCE_IDS,
+  SCHOENBERG_SENTENCE_SOURCE_IDS,
   SCHOENBERG_PHRASE_SOURCE_IDS,
   SCHOENBERG_STUDY_IDS,
   SCHOENBERG_VARIATION_EXERCISE_IDS,
@@ -804,6 +806,64 @@ function ConnectionPanel({
 }
 
 
+
+const sentenceSourceAnswers: Record<
+  string,
+  Array<{ decision: "same" | "related" | "unrelated"; label: string }>
+> = {
+  [SCHOENBERG_SENTENCE_IDS.ex35]: [
+    { decision: "related", label: "Tonic form answered by dominant form" },
+    { decision: "same", label: "Both phrases remain tonic" },
+    { decision: "unrelated", label: "The second phrase becomes a new idea" },
+  ],
+  [SCHOENBERG_SENTENCE_IDS.ex36_37]: [
+    { decision: "related", label: "Complementary form may include passing harmonies" },
+    { decision: "same", label: "The harmony must be copied literally" },
+    { decision: "unrelated", label: "Passing harmony breaks the repetition" },
+  ],
+  [SCHOENBERG_SENTENCE_IDS.ex38_39]: [
+    { decision: "related", label: "Preserve function, not every passing harmony" },
+    { decision: "same", label: "Every tonic-form harmony must reappear mechanically" },
+    { decision: "unrelated", label: "Part-writing detail is the only thing that matters" },
+  ],
+  [SCHOENBERG_SENTENCE_IDS.ex40]: [
+    { decision: "related", label: "Contour can be exact, or rhythm can survive freer contour" },
+    { decision: "same", label: "All dominant forms must preserve contour exactly" },
+    { decision: "unrelated", label: "Rhythm may be discarded once harmony changes" },
+  ],
+  [SCHOENBERG_SENTENCE_IDS.ex41]: [
+    { decision: "related", label: "Answer the main harmonies; regular accompaniment can unify" },
+    { decision: "same", label: "Every harmony needs a literal dominant counterpart" },
+    { decision: "unrelated", label: "Accompaniment should vary constantly" },
+  ],
+};
+
+function SentenceSourceAnswerPanel({
+  exerciseId,
+  decision,
+  setDecision,
+}: {
+  exerciseId: string;
+  decision: "same" | "related" | "unrelated" | null;
+  setDecision: (decision: "same" | "related" | "unrelated") => void;
+}) {
+  const answers = sentenceSourceAnswers[exerciseId] ?? [];
+  return (
+    <div className="study-source-answer-panel" role="group" aria-label="Book example answer">
+      {answers.map((answer) => (
+        <button
+          type="button"
+          key={answer.decision}
+          className={decision === answer.decision ? "is-active" : ""}
+          onClick={() => setDecision(answer.decision)}
+        >
+          {answer.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 const sentenceModeCopy: Record<StudySentenceMode, string> = {
   immediate: "Immediate repetition",
   delayed: "Delayed return",
@@ -863,7 +923,7 @@ function SentencePanel({
   const isRecognise = exerciseId === SCHOENBERG_SENTENCE_IDS.recognise;
   const isRepetition = exerciseId === SCHOENBERG_SENTENCE_IDS.repetition;
   const isHarmony = exerciseId === SCHOENBERG_SENTENCE_IDS.harmony;
-  const isCompose = exerciseId === SCHOENBERG_SENTENCE_IDS.compose;
+  const isCompose = SCHOENBERG_SENTENCE_COMPOSE_IDS.has(exerciseId);
 
   const options: StudySentenceMode[] = isRecognise
     ? ["immediate", "delayed", "contrast"]
@@ -1184,7 +1244,8 @@ export function CompositionStudyWorkspace({
   const isConnectionRepair = exerciseId === SCHOENBERG_CONNECTION_IDS.repair;
   const isConnectionCompose = exerciseId === SCHOENBERG_CONNECTION_IDS.compose;
   const isSentence = SCHOENBERG_SENTENCE_EXERCISE_IDS.has(exerciseId);
-  const isSentenceCompose = exerciseId === SCHOENBERG_SENTENCE_IDS.compose;
+  const isSentenceSource = SCHOENBERG_SENTENCE_SOURCE_IDS.has(exerciseId);
+  const isSentenceCompose = SCHOENBERG_SENTENCE_COMPOSE_IDS.has(exerciseId);
   const isCompletion = SCHOENBERG_COMPLETION_EXERCISE_IDS.has(exerciseId);
   const isCompletionCompose = exerciseId === SCHOENBERG_COMPLETION_IDS.compose;
   const sentenceMode = state?.sentenceMode ?? "exact";
@@ -1252,8 +1313,10 @@ export function CompositionStudyWorkspace({
           <h2>
             {isCompletion
               ? "Complete sentence · beginning → cadence"
-              : isSentence
-                ? "Basic idea → immediate repetition"
+              : isSentenceSource
+                ? "Chapter V examples · tonic form → dominant form"
+                : isSentence
+                  ? "Basic idea → immediate repetition"
                 : isConnection
                 ? "Four motive-forms · one basic motive"
                 : isVariation
@@ -1370,7 +1433,15 @@ export function CompositionStudyWorkspace({
         />
       )}
 
-      {isSentence && (
+      {isSentenceSource && (
+        <SentenceSourceAnswerPanel
+          exerciseId={exerciseId}
+          decision={state?.decision ?? null}
+          setDecision={(next) => setStudyDecision(exerciseId, next)}
+        />
+      )}
+
+      {isSentence && !isSentenceSource && (
         <SentencePanel
           exerciseId={exerciseId}
           mode={sentenceMode}
@@ -1391,7 +1462,9 @@ export function CompositionStudyWorkspace({
       )}
 
       {isSentence &&
-        (exerciseId === SCHOENBERG_SENTENCE_IDS.harmony ||
+        notes.length === 16 &&
+        (isSentenceSource ||
+          exerciseId === SCHOENBERG_SENTENCE_IDS.harmony ||
           sentenceMode === "complementary" ||
           sentenceMode === "tonic-repeat") && (
           <StudyHarmonyLane harmony={harmony} sentenceMode={sentenceMode} />
@@ -1410,7 +1483,9 @@ export function CompositionStudyWorkspace({
                 ? [0, 8, 16, 20, 24, 28, 30]
                 : isConnection
                   ? [0, 4, 8, 12]
-                  : [0, 8]
+                  : isSentence && visibleSequence.notes.length > 16
+                    ? [0, 8, 16, 24]
+                    : [0, 8]
             }
           />
         )}
@@ -1427,7 +1502,9 @@ export function CompositionStudyWorkspace({
                 ? [0, 8, 16, 20, 24, 28, 30]
                 : isConnection
                   ? [0, 4, 8, 12]
-                  : [0, 8]
+                  : isSentence && visibleSequence.notes.length > 16
+                    ? [0, 8, 16, 24]
+                    : [0, 8]
             }
           />
         )}
@@ -1447,8 +1524,12 @@ export function CompositionStudyWorkspace({
               : "Listen beyond step 16. The opening has already established the idea; now judge what the second half does with it."
             : isSentence
               ? isSentenceCompose
-              ? "Edit the basic idea in the first half. Its repetition is regenerated from the selected sentence-opening strategy; the pale overlay shows the source relationship."
-              : "Listen across the boundary at step 9: in a sentence beginning, the basic idea is repeated immediately, even when pitch or harmony changes."
+                ? "Edit the basic idea in the first half. Its repetition is regenerated from the selected sentence-opening strategy; the pale overlay shows the source relationship."
+                : isSentenceSource
+                  ? visibleSequence.notes.length > 16
+                    ? "The two 16-step pairs reduce contrasting treatments from the cited book example. Listen to both pairs before answering."
+                    : "This is a compact reduction of the cited book example. Listen to the phrase relationship and the supporting harmony before answering."
+                  : "Listen across the boundary at step 9: in a sentence beginning, the basic idea is repeated immediately, even when pitch or harmony changes."
             : isConnection
               ? isConnectionCompose
               ? "The pale outline repeats the basic motive under each form. Use it as a reference, not a target: the phrase needs relationship and contrast."
