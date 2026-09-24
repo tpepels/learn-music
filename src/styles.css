@@ -8831,3 +8831,370 @@ body {
   white-space: pre-wrap;
   word-break: break-word;
 }
+
+
+/* ==========================================================================
+   LEARNING TRACKS + SCHOENBERG COMPOSITION STUDY
+   ========================================================================== */
+
+.track-switcher {
+  display: grid;
+  gap: 7px;
+  margin: 0 0 22px;
+}
+
+.track-switcher button {
+  width: 100%;
+  min-height: 54px;
+  padding: 9px 11px;
+  display: grid;
+  gap: 2px;
+  text-align: left;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255,255,255,0.018);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.track-switcher button:hover {
+  border-color: var(--line-strong);
+  background: rgba(255,255,255,0.035);
+}
+
+.track-switcher button.is-active {
+  border-color: rgba(240,184,106,0.5);
+  background: var(--accent-soft);
+}
+
+.track-switcher button span {
+  color: var(--dim);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.track-switcher button strong {
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.track-heading {
+  padding-bottom: 16px;
+}
+
+.track-heading small {
+  color: var(--dim);
+  font-size: 9px;
+  line-height: 1.45;
+}
+
+.composition-study-card {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--panel);
+  padding: 24px;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.18);
+}
+
+.study-heading {
+  align-items: center;
+}
+
+.study-notation-tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.study-notation-tabs button,
+.study-variant-buttons button,
+.study-decision-buttons button {
+  min-height: 32px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.025);
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.study-notation-tabs button:hover,
+.study-variant-buttons button:hover,
+.study-decision-buttons button:hover {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+.study-notation-tabs button.is-active,
+.study-variant-buttons button.is-active,
+.study-decision-buttons button.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.study-compare-panel {
+  margin-top: 18px;
+  padding: 14px;
+  display: grid;
+  gap: 11px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: rgba(255,255,255,0.018);
+}
+
+.study-compare-panel > div:first-child {
+  display: grid;
+  gap: 4px;
+}
+
+.study-compare-panel > div:first-child strong {
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.study-variant-buttons,
+.study-decision-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.study-decision-buttons {
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+  align-items: center;
+}
+
+.study-decision-buttons > span {
+  flex: 1 0 100%;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.study-notation-stage {
+  margin-top: 18px;
+  min-height: 255px;
+}
+
+.study-staff-wrap {
+  padding: 18px 8px 6px;
+  border: 1px solid rgba(255,255,255,0.055);
+  border-radius: 12px;
+  background: #f1f0e9;
+  overflow-x: auto;
+}
+
+.study-staff {
+  width: 100%;
+  min-width: 680px;
+  min-height: 180px;
+  color: #282b29;
+}
+
+.staff-line,
+.staff-barline {
+  stroke: #686d69;
+  stroke-width: 1;
+}
+
+.staff-barline {
+  stroke-width: 1.5;
+}
+
+.staff-clef {
+  fill: #292d2a;
+  font-family: serif;
+  font-size: 39px;
+}
+
+.staff-note {
+  fill: #292d2a;
+  stroke: #292d2a;
+  stroke-width: 1.4;
+  cursor: default;
+}
+
+.staff-note.is-selected {
+  fill: #9b5f1e;
+  stroke: #9b5f1e;
+}
+
+.staff-accidental {
+  fill: #292d2a;
+  stroke: none;
+  font-size: 13px;
+}
+
+.staff-step-label {
+  fill: #868a86;
+  stroke: none;
+  font-size: 8px;
+  text-anchor: middle;
+}
+
+.study-motive-strip {
+  min-width: 680px;
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  gap: 3px;
+  padding: 0 32px 8px 70px;
+}
+
+.study-motive-strip button {
+  min-height: 24px;
+  border: 0;
+  border-top: 2px solid transparent;
+  background: transparent;
+  color: #8a8d88;
+  font-size: 8px;
+}
+
+.study-motive-strip button:not(:disabled) {
+  cursor: pointer;
+}
+
+.study-motive-strip button.is-selected {
+  border-top-color: #9b5f1e;
+  color: #6f4416;
+  font-weight: 800;
+}
+
+.study-roll-scroll {
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+
+.study-roll {
+  min-width: 830px;
+  display: grid;
+  gap: 2px;
+}
+
+.study-roll-head,
+.study-roll-row {
+  display: grid;
+  grid-template-columns: 52px repeat(16, minmax(28px, 1fr));
+  gap: 2px;
+}
+
+.study-roll-head span {
+  min-height: 18px;
+  display: grid;
+  place-items: center;
+  color: var(--dim);
+  font-size: 8px;
+}
+
+.study-roll-head span.is-unit-start {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.study-note-audition {
+  border: 0;
+  border-right: 1px solid var(--line);
+  background: transparent;
+  color: var(--muted);
+  text-align: right;
+  padding-right: 8px;
+  font-size: 9px;
+  cursor: pointer;
+}
+
+.study-roll-cell {
+  min-height: 22px;
+  padding: 0;
+  position: relative;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 3px;
+  background: #1b1f1e;
+  cursor: pointer;
+}
+
+.study-roll-cell.is-unit-start {
+  box-shadow: inset 2px 0 rgba(240,184,106,0.28);
+}
+
+.study-roll-cell.is-active {
+  border-color: rgba(240,184,106,0.65);
+  background: rgba(240,184,106,0.15);
+}
+
+.study-roll-cell.is-active span {
+  position: absolute;
+  inset: 4px 3px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+.study-roll-cell.is-playhead {
+  outline: 1px solid var(--green);
+  outline-offset: 1px;
+}
+
+.study-roll-cell:disabled {
+  cursor: default;
+}
+
+.study-degree-grid {
+  display: grid;
+  grid-template-columns: repeat(16, minmax(0, 1fr));
+  gap: 5px;
+  min-width: 720px;
+}
+
+.study-degree-grid > div {
+  min-height: 116px;
+  padding: 10px 4px;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.02);
+}
+
+.study-degree-grid > div:nth-child(1),
+.study-degree-grid > div:nth-child(5) {
+  border-left-color: var(--accent);
+}
+
+.study-degree-grid span,
+.study-degree-grid small {
+  color: var(--dim);
+  font-size: 8px;
+}
+
+.study-degree-grid strong {
+  color: var(--text);
+  font-size: 22px;
+  font-weight: 620;
+}
+
+.study-degree-grid .is-rest strong {
+  color: var(--dim);
+}
+
+.study-footer {
+  margin-top: 14px;
+  padding-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.study-footer strong {
+  color: var(--text);
+  white-space: nowrap;
+}
