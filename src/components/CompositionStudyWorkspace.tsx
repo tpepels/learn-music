@@ -2,8 +2,14 @@ import { useEffect, useMemo } from "react";
 import { audioEngine } from "../audio/engine";
 import {
   SCHOENBERG_STUDY_IDS,
+  SCHOENBERG_VARIATION_EXERCISE_IDS,
+  SCHOENBERG_VARIATION_IDS,
   studyComparisonSequence,
+  studyVariationSequence,
+  type StudyDuration,
+  type StudyFeature,
   type StudyNotation,
+  type StudyTransformation,
   type StudyVariant,
 } from "../music/study";
 import { useStudioStore } from "../state/studio";
@@ -27,6 +33,19 @@ function degreeLabel(midi: number): string {
     11: "7",
   };
   return labels[midi % 12] ?? "·";
+}
+
+function durationLabel(duration: StudyDuration): string {
+  switch (duration) {
+    case 1:
+      return "⅛";
+    case 2:
+      return "¼";
+    case 3:
+      return "¼·";
+    case 4:
+      return "½";
+  }
 }
 
 function staffY(midi: number): number {
@@ -57,11 +76,13 @@ function accidental(midi: number): string {
 
 function StaffView({
   notes,
+  durations,
   selectedSteps,
   onToggleSelection,
   editable,
 }: {
   notes: Array<number | null>;
+  durations: StudyDuration[];
   selectedSteps: number[];
   onToggleSelection: (step: number) => void;
   editable: boolean;
@@ -83,15 +104,30 @@ function StaffView({
           if (midi === null) return null;
           const x = 86 + step * 39;
           const y = staffY(midi);
+          const duration = durations[step] ?? 1;
           const selected = selectedSteps.includes(step);
+          const openHead = duration === 4;
           return (
             <g
               key={step}
               className={selected ? "staff-note is-selected" : "staff-note"}
               onClick={() => editable && onToggleSelection(step)}
             >
-              <ellipse cx={x} cy={y} rx="7" ry="5" />
+              <ellipse
+                cx={x}
+                cy={y}
+                rx="7"
+                ry="5"
+                className={openHead ? "is-open" : ""}
+              />
               <line x1={x + 6} x2={x + 6} y1={y} y2={y - 28} />
+              {duration === 1 && (
+                <path
+                  d={`M ${x + 6} ${y - 28} q 12 5 8 16`}
+                  className="staff-flag"
+                />
+              )}
+              {duration === 3 && <circle cx={x + 12} cy={y} r="1.7" />}
               {accidental(midi) && (
                 <text x={x - 15} y={y + 4} className="staff-accidental">
                   {accidental(midi)}
@@ -121,11 +157,15 @@ function StaffView({
 
 function PianoRollView({
   notes,
+  durations,
+  overlayNotes,
   currentStep,
   editable,
   onEdit,
 }: {
   notes: Array<number | null>;
+  durations: StudyDuration[];
+  overlayNotes?: Array<number | null>;
   currentStep: number;
   editable: boolean;
   onEdit: (step: number, midi: number | null) => void;
@@ -136,7 +176,7 @@ function PianoRollView({
         <div className="study-roll-head">
           <span />
           {notes.map((_, step) => (
-            <span key={step} className={step === 0 || step === 4 ? "is-unit-start" : ""}>
+            <span key={step} className={step === 0 || step === 8 ? "is-unit-start" : ""}>
               {step + 1}
             </span>
           ))}
@@ -150,23 +190,38 @@ function PianoRollView({
             >
               {noteName(midi)}
             </button>
-            {notes.map((note, step) => (
-              <button
-                type="button"
-                key={step}
-                className={[
-                  "study-roll-cell",
-                  note === midi ? "is-active" : "",
-                  currentStep === step ? "is-playhead" : "",
-                  step === 0 || step === 4 ? "is-unit-start" : "",
-                ].filter(Boolean).join(" ")}
-                disabled={!editable}
-                onClick={() => onEdit(step, note === midi ? null : midi)}
-                aria-label={"Step " + (step + 1) + " " + noteName(midi)}
-              >
-                <span />
-              </button>
-            ))}
+            {notes.map((note, step) => {
+              const duration = durations[step] ?? 1;
+              const hasOverlay =
+                overlayNotes?.[step] === midi &&
+                (note !== midi || step >= 8);
+              return (
+                <button
+                  type="button"
+                  key={step}
+                  className={[
+                    "study-roll-cell",
+                    note === midi ? "is-active" : "",
+                    currentStep === step ? "is-playhead" : "",
+                    step === 0 || step === 8 ? "is-unit-start" : "",
+                    hasOverlay ? "has-source-overlay" : "",
+                  ].filter(Boolean).join(" ")}
+                  disabled={!editable}
+                  onClick={() => onEdit(step, note === midi ? null : midi)}
+                  aria-label={"Step " + (step + 1) + " " + noteName(midi)}
+                >
+                  {hasOverlay && <i aria-hidden="true" />}
+                  {note === midi && (
+                    <span
+                      className="study-roll-note-block"
+                      style={{
+                        width: `calc(${duration * 100}% + ${Math.max(0, duration - 1) * 2}px)`,
+                      }}
+                    />
+                  )}
+                </button>
+              );
+            })}
           </div>
         ))}
       </div>
@@ -174,16 +229,28 @@ function PianoRollView({
   );
 }
 
-function DegreeView({ notes }: { notes: Array<number | null> }) {
+function DegreeView({
+  notes,
+  durations,
+}: {
+  notes: Array<number | null>;
+  durations: StudyDuration[];
+}) {
   return (
-    <div className="study-degree-grid">
-      {notes.map((midi, step) => (
-        <div key={step} className={midi === null ? "is-rest" : ""}>
-          <span>{step + 1}</span>
-          <strong>{midi === null ? "—" : degreeLabel(midi)}</strong>
-          <small>{midi === null ? "rest" : noteName(midi)}</small>
-        </div>
-      ))}
+    <div className="study-degree-scroll">
+      <div className="study-degree-grid">
+        {notes.map((midi, step) => (
+          <div key={step} className={midi === null ? "is-rest" : ""}>
+            <span>{step + 1}</span>
+            <strong>{midi === null ? "—" : degreeLabel(midi)}</strong>
+            <small>
+              {midi === null
+                ? "rest"
+                : noteName(midi) + " · " + durationLabel(durations[step] ?? 1)}
+            </small>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -193,6 +260,123 @@ const variantCopy: Record<Exclude<StudyVariant, "source">, string> = {
   related: "Related change",
   unrelated: "Unrelated change",
 };
+
+const transformationCopy: Record<
+  Exclude<StudyTransformation, "source">,
+  string
+> = {
+  rhythm: "Rhythm",
+  interval: "Intervals / direction",
+  auxiliary: "Auxiliary note",
+  reduction: "Reduction",
+  displacement: "Beat position",
+};
+
+const featureCopy: Record<StudyFeature, string> = {
+  rhythm: "Rhythm",
+  intervals: "Intervals / order",
+  ornamentation: "Added note",
+  reduction: "Reduction",
+  position: "Position in the bar",
+};
+
+function TransformationPanel({
+  exerciseId,
+  transformation,
+  featureDecision,
+  operations,
+  setTransformation,
+  setFeatureDecision,
+  toggleOperation,
+}: {
+  exerciseId: string;
+  transformation: StudyTransformation;
+  featureDecision: StudyFeature | null;
+  operations: StudyTransformation[];
+  setTransformation: (transformation: StudyTransformation) => void;
+  setFeatureDecision: (feature: StudyFeature) => void;
+  toggleOperation: (operation: StudyTransformation) => void;
+}) {
+  const isAnalyse = exerciseId === SCHOENBERG_VARIATION_IDS.analyse;
+  const isRhythm = exerciseId === SCHOENBERG_VARIATION_IDS.rhythm;
+  const isIntervals = exerciseId === SCHOENBERG_VARIATION_IDS.intervals;
+  const isCompose = exerciseId === SCHOENBERG_VARIATION_IDS.compose;
+
+  const options: Array<Exclude<StudyTransformation, "source">> = isRhythm
+    ? ["rhythm", "displacement"]
+    : isIntervals
+      ? ["interval", "auxiliary", "reduction"]
+      : ["rhythm", "interval", "auxiliary", "reduction", "displacement"];
+
+  return (
+    <div className="study-transform-panel">
+      <div>
+        <span className="section-label">
+          {isAnalyse ? "Chapter III · compare motive-forms" : "Transform the second half"}
+        </span>
+        <strong>
+          {isCompose
+            ? "Combine at least two changes, then revise the result"
+            : "Source motive stays on the left; the motive-form is on the right"}
+        </strong>
+      </div>
+
+      <div className="study-transform-buttons">
+        {options.map((option) => (
+          <button
+            type="button"
+            key={option}
+            className={
+              isCompose
+                ? operations.includes(option) ? "is-active" : ""
+                : transformation === option ? "is-active" : ""
+            }
+            onClick={() =>
+              isCompose ? toggleOperation(option) : setTransformation(option)
+            }
+          >
+            {transformationCopy[option]}
+          </button>
+        ))}
+      </div>
+
+      {isAnalyse && transformation !== "source" && (
+        <div className="study-feature-question">
+          <span>What changed most clearly in this motive-form?</span>
+          <div>
+            {(Object.keys(featureCopy) as StudyFeature[]).map((feature) => (
+              <button
+                type="button"
+                key={feature}
+                className={featureDecision === feature ? "is-active" : ""}
+                onClick={() => setFeatureDecision(feature)}
+              >
+                {featureCopy[feature]}
+              </button>
+            ))}
+          </div>
+          <small>
+            Schoenberg's categories overlap in real music. Here each miniature
+            isolates one feature so you can hear the distinction first.
+          </small>
+        </div>
+      )}
+
+      {isCompose && (
+        <div className="study-operation-summary">
+          <span>Selected transformations</span>
+          <strong>
+            {operations.length
+              ? operations.map((operation) => transformationCopy[
+                  operation as Exclude<StudyTransformation, "source">
+                ]).join(" + ")
+              : "Choose two or three"}
+          </strong>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function CompositionStudyWorkspace({
   exerciseId,
@@ -206,31 +390,49 @@ export function CompositionStudyWorkspace({
   const setStudyStep = useStudioStore((state) => state.setStudyStep);
   const setStudyDecision = useStudioStore((state) => state.setStudyDecision);
   const setStudyVariant = useStudioStore((state) => state.setStudyVariant);
+  const setStudyTransformation = useStudioStore((state) => state.setStudyTransformation);
+  const setStudyFeatureDecision = useStudioStore((state) => state.setStudyFeatureDecision);
+  const toggleStudyOperation = useStudioStore((state) => state.toggleStudyOperation);
 
   const state = compositionStudy[exerciseId];
   const notes = state?.notes ?? Array(16).fill(null);
+  const durations = state?.durations ?? Array<StudyDuration>(16).fill(1);
   const notation = state?.notation ?? "staff";
   const selectedSteps = state?.selectedSteps ?? [];
+  const transformation = state?.transformation ?? "source";
+  const featureDecision = state?.featureDecision ?? null;
+  const operations = state?.operations ?? [];
+
   const isAnalyse = exerciseId === SCHOENBERG_STUDY_IDS.analyse;
   const isCompare = exerciseId === SCHOENBERG_STUDY_IDS.compare;
+  const isVariation = SCHOENBERG_VARIATION_EXERCISE_IDS.has(exerciseId);
+  const isVariationCompose = exerciseId === SCHOENBERG_VARIATION_IDS.compose;
   const editable =
     exerciseId === SCHOENBERG_STUDY_IDS.repair ||
-    exerciseId === SCHOENBERG_STUDY_IDS.compose;
+    exerciseId === SCHOENBERG_STUDY_IDS.compose ||
+    isVariationCompose;
 
-  useEffect(() => {
-    audioEngine.setStudySequence(notes);
-  }, [notes]);
+  const visibleSequence = useMemo(() => {
+    if (isCompare && state?.variant) {
+      return {
+        notes: studyComparisonSequence(state.variant),
+        durations: Array<StudyDuration>(16).fill(1),
+      };
+    }
+    return { notes, durations };
+  }, [durations, isCompare, notes, state?.variant]);
 
-  const visibleNotes = useMemo(
-    () => isCompare && state?.variant
-      ? studyComparisonSequence(state.variant)
-      : notes,
-    [isCompare, notes, state?.variant],
+  const sourceOverlay = useMemo(
+    () => isVariation ? studyVariationSequence("source").notes : undefined,
+    [isVariation],
   );
 
   useEffect(() => {
-    audioEngine.setStudySequence(visibleNotes);
-  }, [visibleNotes]);
+    audioEngine.setStudySequence(
+      visibleSequence.notes,
+      visibleSequence.durations,
+    );
+  }, [visibleSequence]);
 
   const notationOptions: Array<[StudyNotation, string]> = [
     ["staff", "Staff"],
@@ -243,7 +445,11 @@ export function CompositionStudyWorkspace({
       <header className="workspace-heading study-heading">
         <div>
           <span className="section-label">Composition study</span>
-          <h2>One phrase · three representations</h2>
+          <h2>
+            {isVariation
+              ? "Source motive → motive-form"
+              : "One phrase · three representations"}
+          </h2>
         </div>
         <div className="study-notation-tabs" role="group" aria-label="Notation">
           {notationOptions.map(([value, label]) => (
@@ -304,10 +510,27 @@ export function CompositionStudyWorkspace({
         </div>
       )}
 
+      {isVariation && (
+        <TransformationPanel
+          exerciseId={exerciseId}
+          transformation={transformation}
+          featureDecision={featureDecision}
+          operations={operations}
+          setTransformation={(next) => setStudyTransformation(exerciseId, next)}
+          setFeatureDecision={(feature) =>
+            setStudyFeatureDecision(exerciseId, feature)
+          }
+          toggleOperation={(operation) =>
+            toggleStudyOperation(exerciseId, operation)
+          }
+        />
+      )}
+
       <div className="study-notation-stage">
         {notation === "staff" && (
           <StaffView
-            notes={visibleNotes}
+            notes={visibleSequence.notes}
+            durations={visibleSequence.durations}
             selectedSteps={selectedSteps}
             onToggleSelection={(step) => toggleStudySelection(exerciseId, step)}
             editable={isAnalyse}
@@ -315,22 +538,33 @@ export function CompositionStudyWorkspace({
         )}
         {notation === "piano-roll" && (
           <PianoRollView
-            notes={visibleNotes}
+            notes={visibleSequence.notes}
+            durations={visibleSequence.durations}
+            overlayNotes={sourceOverlay}
             currentStep={currentStep}
             editable={editable}
             onEdit={(step, midi) => setStudyStep(exerciseId, step, midi)}
           />
         )}
-        {notation === "degrees" && <DegreeView notes={visibleNotes} />}
+        {notation === "degrees" && (
+          <DegreeView
+            notes={visibleSequence.notes}
+            durations={visibleSequence.durations}
+          />
+        )}
       </div>
 
       <footer className="study-footer">
         <span>
-          {isAnalyse
-            ? "Click steps 1–4 below the staff to bracket the opening motive."
-            : editable
-              ? "Edit in Piano roll; Staff and Degrees update from the same notes."
-              : "Use Play in the top bar after selecting each comparison."}
+          {isVariation
+            ? isVariationCompose
+              ? "The pale piano-roll outline is the unaltered source. Edit the generated motive-form if the combination needs refinement."
+              : "Compare the unchanged source on the left with its motive-form on the right. Switch notation whenever another view makes the relationship clearer."
+            : isAnalyse
+              ? "Click steps 1–4 below the staff to bracket the opening motive."
+              : editable
+                ? "Edit in Piano roll; Staff and Degrees update from the same notes."
+                : "Use Play in the top bar after selecting each comparison."}
         </span>
         <strong>C major · 4/4</strong>
       </footer>

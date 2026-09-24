@@ -38,6 +38,7 @@ import {
   popStyleLesson,
 } from "./styleGenreLab";
 import { schoenbergPhraseMotiveLesson } from "./schoenbergPhraseMotive";
+import { schoenbergDevelopingVariationLesson } from "./schoenbergDevelopingVariation";
 import type { LessonDefinition } from "./types";
 
 export const playLabLessons: LessonDefinition[] = [
@@ -82,6 +83,7 @@ export const playLabLessons: LessonDefinition[] = [
 
 export const schoenbergLessons: LessonDefinition[] = [
   schoenbergPhraseMotiveLesson,
+  schoenbergDevelopingVariationLesson,
 ];
 
 export type LearningTrackId = "play-lab" | "schoenberg";

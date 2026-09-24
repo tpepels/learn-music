@@ -119,11 +119,17 @@ import {
 import {
   ensureStudyExerciseState,
   initialCompositionStudyState,
+  mergeCompositionStudyState,
   resetStudyExerciseState,
+  setStudyOperationsState,
+  setStudyTransformationState,
   studyComparisonSequence,
   type CompositionStudyState,
   type StudyDecision,
+  type StudyDuration,
+  type StudyFeature,
   type StudyNotation,
+  type StudyTransformation,
   type StudyVariant,
 } from "../music/study";
 
@@ -337,8 +343,21 @@ type StudioState = {
   setStudyNotation: (exerciseId: string, notation: StudyNotation) => void;
   toggleStudySelection: (exerciseId: string, step: number) => void;
   setStudyStep: (exerciseId: string, step: number, midi: number | null) => void;
+  setStudyDuration: (exerciseId: string, step: number, duration: StudyDuration) => void;
   setStudyDecision: (exerciseId: string, decision: StudyDecision) => void;
   setStudyVariant: (exerciseId: string, variant: StudyVariant) => void;
+  setStudyTransformation: (
+    exerciseId: string,
+    transformation: StudyTransformation,
+  ) => void;
+  setStudyFeatureDecision: (
+    exerciseId: string,
+    feature: StudyFeature,
+  ) => void;
+  toggleStudyOperation: (
+    exerciseId: string,
+    operation: StudyTransformation,
+  ) => void;
   resetStudyExercise: (exerciseId: string) => void;
 };
 
@@ -1543,6 +1562,28 @@ export const useStudioStore = create<StudioState>()(
           };
         }),
 
+      setStudyDuration: (exerciseId, step, duration) =>
+        set((state) => {
+          const exercise = ensureStudyExerciseState(
+            state.compositionStudy,
+            exerciseId,
+          );
+          if (step < 0 || step >= exercise.durations.length) return state;
+          const durations = [...exercise.durations];
+          durations[step] = duration;
+          return {
+            compositionStudy: {
+              ...state.compositionStudy,
+              [exerciseId]: { ...exercise, durations },
+            },
+            learningExperiments: recordExperimentValue(
+              state,
+              "study.duration-edit",
+              step + ":" + duration,
+            ),
+          };
+        }),
+
       setStudyDecision: (exerciseId, decision) =>
         set((state) => {
           const exercise = ensureStudyExerciseState(
@@ -1581,6 +1622,69 @@ export const useStudioStore = create<StudioState>()(
               state,
               "study.variant",
               variant,
+            ),
+          };
+        }),
+
+      setStudyTransformation: (exerciseId, transformation) =>
+        set((state) => {
+          const exercise = ensureStudyExerciseState(
+            state.compositionStudy,
+            exerciseId,
+          );
+          return {
+            compositionStudy: {
+              ...state.compositionStudy,
+              [exerciseId]: setStudyTransformationState(
+                exercise,
+                transformation,
+              ),
+            },
+            learningExperiments: recordExperimentValue(
+              state,
+              "study.transformation",
+              transformation,
+            ),
+          };
+        }),
+
+      setStudyFeatureDecision: (exerciseId, feature) =>
+        set((state) => {
+          const exercise = ensureStudyExerciseState(
+            state.compositionStudy,
+            exerciseId,
+          );
+          return {
+            compositionStudy: {
+              ...state.compositionStudy,
+              [exerciseId]: { ...exercise, featureDecision: feature },
+            },
+            learningExperiments: recordExperimentValue(
+              state,
+              "study.feature-answer",
+              exercise.transformation + ":" + feature,
+            ),
+          };
+        }),
+
+      toggleStudyOperation: (exerciseId, operation) =>
+        set((state) => {
+          const exercise = ensureStudyExerciseState(
+            state.compositionStudy,
+            exerciseId,
+          );
+          const operations = exercise.operations.includes(operation)
+            ? exercise.operations.filter((entry) => entry !== operation)
+            : [...exercise.operations, operation].slice(-3);
+          return {
+            compositionStudy: {
+              ...state.compositionStudy,
+              [exerciseId]: setStudyOperationsState(exercise, operations),
+            },
+            learningExperiments: recordExperimentValue(
+              state,
+              "study.operation",
+              operation + ":" + operations.includes(operation),
             ),
           };
         }),
@@ -1728,6 +1832,9 @@ export const useStudioStore = create<StudioState>()(
           ...migrated,
           learningExperiments:
             persisted.learningExperiments ?? currentState.learningExperiments,
+          compositionStudy: mergeCompositionStudyState(
+            persisted.compositionStudy ?? currentState.compositionStudy,
+          ),
           currentLessonId: progress.currentLessonId,
           exerciseIndexByLesson: progress.exerciseIndexByLesson,
           completedExerciseIds: progress.completedExerciseIds,

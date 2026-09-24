@@ -31,9 +31,12 @@ describe("lesson progression", () => {
       "style.pop",
     ]);
 
-    expect(schoenbergLessons).toHaveLength(1);
-    expect(schoenbergLessons[0].id).toBe("schoenberg.phrase-motive");
-    expect(implementedLessons).toHaveLength(38);
+    expect(schoenbergLessons).toHaveLength(2);
+    expect(schoenbergLessons.map((lesson) => lesson.id)).toEqual([
+      "schoenberg.phrase-motive",
+      "schoenberg.developing-variation",
+    ]);
+    expect(implementedLessons).toHaveLength(39);
     expect(learningTracks.map((track) => track.id)).toEqual([
       "play-lab",
       "schoenberg",
