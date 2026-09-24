@@ -44,9 +44,10 @@ function staffY(midi: number): number {
     10: 6,
     11: 6,
   };
-  const octave = Math.floor(midi / 12) - 5;
+  const octave = Math.floor(midi / 12) - 1;
   const diatonic = octave * 7 + naturalSteps[midi % 12];
-  return 77 - diatonic * 4;
+  const bottomLineE4 = 4 * 7 + 2;
+  return 77 - (diatonic - bottomLineE4) * 4;
 }
 
 function accidental(midi: number): string {
