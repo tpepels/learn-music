@@ -1389,23 +1389,18 @@ class AudioEngine {
       )
     )) return false;
     const transport = Tone.getTransport();
-    const drums = resolveContextDrumPattern(this.pattern);
-    const progression = resolveContextProgression(
-      this.harmonicProgression,
-      this.tonalContext,
-    );
-    const writtenHarmony = hasWrittenHarmony(this.harmonySequence);
-    const melodyFallback =
-      includeMelody && !hasArrangementMelody(this.melody);
-    const melody = melodyFallback
-      ? buildArrangementFallbackMelody(this.tonalContext)
-      : this.melody;
-    const totalTransportSteps = progression.length * 16;
+    const totalTransportSteps = 64;
 
     this.eventId = transport.scheduleRepeat((time) => {
       const globalStep = this.step;
       const barIndex = Math.floor(globalStep / 16);
       const localStep = globalStep % 16;
+      const drums = resolveContextDrumPattern(this.pattern);
+      const progression = resolveContextProgression(
+        this.harmonicProgression,
+        this.tonalContext,
+      );
+      const writtenHarmony = hasWrittenHarmony(this.harmonySequence);
 
       if (drums.kick[localStep]) {
         this.triggerKick(time, this.grooveFeelSettings.velocities.kick[localStep] ?? 0.9);
@@ -1418,7 +1413,7 @@ class AudioEngine {
       }
 
       if (!writtenHarmony) {
-        const chord = progression[barIndex];
+        const chord = progression[barIndex % progression.length];
         if (chord) {
           this.triggerChordPattern(
             chord,
@@ -1436,7 +1431,11 @@ class AudioEngine {
           this.triggerWrittenHarmonyStep(harmonyStep, time);
         }
 
-        if (includeMelody && melody.length > 0) {
+        if (includeMelody) {
+          const melodyFallback = !hasArrangementMelody(this.melody);
+          const melody = melodyFallback
+            ? buildArrangementFallbackMelody(this.tonalContext)
+            : this.melody;
           const melodyStep = harmonyStep % melody.length;
           const midi = melody[melodyStep];
           if (midi !== null && midi !== undefined) {
