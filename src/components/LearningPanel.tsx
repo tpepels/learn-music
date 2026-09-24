@@ -8,6 +8,8 @@ import {
   getPlayLabRepresentation,
 } from "../learning/dawTransfer";
 import type { ExerciseDefinition } from "../lessons/types";
+import { SourceScoreExamples } from "./SourceScorePlayer";
+import type { SchoenbergSourceExampleId } from "../music/schoenbergSourceExamples";
 
 export function LearningPanel({
   exercise,
@@ -40,7 +42,15 @@ export function LearningPanel({
             <span className="section-label">From the book</span>
             <strong>{exercise.source.reference}</strong>
             <p>{exercise.source.focus}</p>
-            {exercise.source.examples?.length ? (
+            {exercise.source.exampleIds?.length ? (
+              <SourceScoreExamples
+                exampleIds={
+                  exercise.source.exampleIds as SchoenbergSourceExampleId[]
+                }
+              />
+            ) : null}
+            {!exercise.source.exampleIds?.length &&
+            exercise.source.examples?.length ? (
               <div className="book-example-grid">
                 {exercise.source.examples.map((example) => {
                   const src = `${import.meta.env.BASE_URL}${example.asset}`;
