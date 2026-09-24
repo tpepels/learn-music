@@ -77,6 +77,49 @@ describe("Schoenberg source material", () => {
     ]);
   });
 
+  it("keeps Chapter VIII literature examples separate and source-specific", () => {
+    const ids = [
+      "s05.ex52",
+      "s05.ex53",
+      "s05.ex54-56",
+      "s05.ex57-58",
+      "s05.ex59",
+      "s05.ex60",
+      "s05.ex61",
+    ];
+
+    for (const id of ids) {
+      const material = getSchoenbergSourceMaterial(id);
+      expect(material?.kind, id).toBe("map");
+      if (!material || material.kind !== "map") continue;
+      expect(material.segments.length, id).toBeGreaterThanOrEqual(4);
+    }
+
+    const ex59 = getSchoenbergSourceMaterial("s05.ex59");
+    const ex60 = getSchoenbergSourceMaterial("s05.ex60");
+    const ex61 = getSchoenbergSourceMaterial("s05.ex61");
+
+    expect(
+      ex59?.kind === "map"
+        ? ex59.segments.some((segment) =>
+            segment.detail.includes("omitting"),
+          )
+        : false,
+    ).toBe(true);
+    expect(
+      ex60?.kind === "map"
+        ? ex60.segments.some((segment) => segment.detail.includes("VI"))
+        : false,
+    ).toBe(true);
+    expect(
+      ex61?.kind === "map"
+        ? ex61.segments.some((segment) =>
+            segment.detail.includes("developing variation"),
+          )
+        : false,
+    ).toBe(true);
+  });
+
   it("never names a specific example without in-app source material", () => {
     for (const lesson of lessons) {
       for (const exercise of lesson.exercises) {
