@@ -8,6 +8,8 @@ import {
   pitchClassNameInContext,
   scaleDegreePitchClass,
   scalePitchClassNames,
+  type TonalContext,
+  type TonalMode,
 } from "../music/harmony";
 import {
   MELODY_STEPS,
@@ -39,7 +41,7 @@ export function MinorTonalityWorkspace({ harmonic }: { harmonic: boolean }) {
   const setMelodyDuration = useStudioStore((state) => state.setMelodyDuration);
   const currentStep = useStudioStore((state) => state.currentStep);
   const isPlaying = useStudioStore((state) => state.isPlaying);
-  const desiredMode = harmonic ? "harmonic-minor" : "natural-minor";
+  const desiredMode: TonalMode = harmonic ? "harmonic-minor" : "natural-minor";
 
   useEffect(() => {
     if (tonalContext.mode !== desiredMode) {
@@ -50,7 +52,7 @@ export function MinorTonalityWorkspace({ harmonic }: { harmonic: boolean }) {
     }
   }, [harmonic, setTonalContext]);
 
-  const context =
+  const context: TonalContext =
     tonalContext.mode === desiredMode
       ? tonalContext
       : {
