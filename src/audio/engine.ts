@@ -1189,30 +1189,37 @@ class AudioEngine {
   async playMelodyWithGroove(bpm: number, onStep: (step: number) => void) {
     if (!(await this.prepare(bpm, onStep, ["drums", "piano"]))) return false;
     const transport = Tone.getTransport();
-    const totalTransportSteps = this.melody.length * 2;
+    const drums = resolveContextDrumPattern(this.pattern);
+    const melodyFallback = !hasArrangementMelody(this.melody);
+    const melody = melodyFallback
+      ? buildArrangementFallbackMelody(this.tonalContext)
+      : this.melody;
+    const totalTransportSteps = melody.length * 2;
 
     this.eventId = transport.scheduleRepeat((time) => {
       const globalStep = this.step;
       const drumStep = globalStep % 16;
 
-      if (this.pattern.kick[drumStep]) {
+      if (drums.kick[drumStep]) {
         this.triggerKick(time, this.grooveFeelSettings.velocities.kick[drumStep] ?? 0.9);
       }
-      if (this.pattern.snare[drumStep]) {
+      if (drums.snare[drumStep]) {
         this.triggerSnare(time, this.grooveFeelSettings.velocities.snare[drumStep] ?? 0.72);
       }
-      if (this.pattern.hat[drumStep]) {
+      if (drums.hat[drumStep]) {
         this.triggerHat(time, this.grooveFeelSettings.velocities.hat[drumStep] ?? 0.42);
       }
 
       if (globalStep % 2 === 0) {
         const melodyStep = globalStep / 2;
-        const midi = this.melody[melodyStep];
+        const midi = melody[melodyStep];
         if (midi !== null && midi !== undefined) {
           const texturedMidi = midi + this.textureSettings.melodyOctave * 12;
           this.triggerPiano(
             Tone.Frequency(texturedMidi, "midi").toNote(),
-            this.noteDuration(this.melodyDurations[melodyStep] ?? 1),
+            this.noteDuration(
+              melodyFallback ? 1 : this.melodyDurations[melodyStep] ?? 1,
+            ),
             time,
             0.68,
           );
