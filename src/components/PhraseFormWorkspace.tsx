@@ -3,6 +3,7 @@ import {
   type FormSectionLabel,
 } from "../music/model";
 import { useStudioStore } from "../state/studio";
+import { LayerVolumeStrip } from "./LayerVolumeStrip";
 
 const labels: FormSectionLabel[] = ["A", "A′", "B", "C"];
 const roleText = {
@@ -40,6 +41,8 @@ export function PhraseFormWorkspace() {
           The labels name the relationship. The layer buttons decide what each four-bar section sounds like.
         </span>
       </div>
+
+      <LayerVolumeStrip tracks={["drums", "bass", "chords", "melody"] as const} />
 
       <div className="form-timeline">
         {settings.sections.map((section, index) => {
