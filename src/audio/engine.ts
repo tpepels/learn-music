@@ -1480,6 +1480,13 @@ class AudioEngine {
         bar,
       } = resolveArrangementFrame(arrangement, globalStep);
       const arrangementLength = Math.max(1, arrangement.length);
+      const drums = resolveContextDrumPattern(this.pattern);
+      const progression = resolveContextProgression(
+        this.harmonicProgression,
+        this.tonalContext,
+      );
+      const writtenHarmony = hasWrittenHarmony(this.harmonySequence);
+      const bassContent = hasBassContent(this.bassSequence);
 
       if (localStep === 0) {
         const melodyChannel = this.mixerChannels.melody;
@@ -1528,7 +1535,7 @@ class AudioEngine {
       }
 
       if (bar?.drums) {
-        if (this.pattern.kick[localStep]) {
+        if (drums.kick[localStep]) {
           this.triggerKick(
             time,
             this.grooveFeelSettings.velocities.kick[localStep] ?? 0.9,
@@ -1559,13 +1566,13 @@ class AudioEngine {
           }
         }
 
-        if (this.pattern.snare[localStep]) {
+        if (drums.snare[localStep]) {
           this.triggerSnare(
             time,
             this.grooveFeelSettings.velocities.snare[localStep] ?? 0.72,
           );
         }
-        if (this.pattern.hat[localStep]) {
+        if (drums.hat[localStep]) {
           this.triggerHat(
             time,
             this.grooveFeelSettings.velocities.hat[localStep] ?? 0.42,
@@ -1573,23 +1580,16 @@ class AudioEngine {
         }
       }
 
-      const chordSlot =
-        this.harmonicProgression.length > 0
-          ? barIndex % this.harmonicProgression.length
-          : 0;
+      const chordSlot = barIndex % progression.length;
       const chord =
-        this.harmonicProgression[chordSlot] ??
+        progression[chordSlot] ??
         diatonicChord(this.tonalContext, 1);
 
       if (bar?.chords) {
-        const hasWrittenHarmony = this.harmonySequence.some(
-          (notes) => notes.length > 0,
-        );
-
-        if (hasWrittenHarmony && localStep % 2 === 0) {
+        if (writtenHarmony && localStep % 2 === 0) {
           const harmonyStep = chordSlot * 8 + localStep / 2;
           this.triggerWrittenHarmonyStep(harmonyStep, time, 0.48);
-        } else if (!hasWrittenHarmony) {
+        } else if (!writtenHarmony) {
           const inversion = this.voicingSettings.inversions[chordSlot] ?? 0;
           this.triggerChordPattern(
             chord,
@@ -1615,12 +1615,9 @@ class AudioEngine {
             time,
             0.52,
           );
-        } else if (
-          this.bassSequence.every((note) => note === null) &&
-          localStep % 4 === 0
-        ) {
+        } else if (!bassContent && localStep % 4 === 0) {
           const rootMidi =
-            harmonicBassRootMidi(chord, this.tonalContext) +
+            fallbackBassRoot(progression, this.tonalContext, chordSlot) +
             this.textureSettings.bassOctave * 12;
           this.triggerBassNote(
             Tone.Frequency(rootMidi, "midi").toNote(),
@@ -1692,6 +1689,17 @@ class AudioEngine {
     );
   }
 
+  async playProductionMix(
+    bpm: number,
+    onStep: (bar: number) => void,
+  ) {
+    return this.startArrangementPlayback(
+      bpm,
+      onStep,
+      () => ensureProductionLayersPresent(this.arrangement),
+    );
+  }
+
   async playForm(bpm: number, onStep: (bar: number) => void) {
     const formArrangement: Arrangement = Array.from(
       { length: 16 },
@@ -1760,13 +1768,13 @@ class AudioEngine {
       const barIndex = Math.floor(globalStep / 16);
       const localStep = globalStep % 16;
 
-      if (this.pattern.kick[localStep]) {
+      if (drums.kick[localStep]) {
         this.triggerKick(time, this.grooveFeelSettings.velocities.kick[localStep] ?? 0.9);
       }
-      if (this.pattern.snare[localStep]) {
+      if (drums.snare[localStep]) {
         this.triggerSnare(time, this.grooveFeelSettings.velocities.snare[localStep] ?? 0.72);
       }
-      if (this.pattern.hat[localStep]) {
+      if (drums.hat[localStep]) {
         this.triggerHat(time, this.grooveFeelSettings.velocities.hat[localStep] ?? 0.42);
       }
 
