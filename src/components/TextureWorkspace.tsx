@@ -1,4 +1,5 @@
 import { useStudioStore } from "../state/studio";
+import { LayerVolumeStrip } from "./LayerVolumeStrip";
 
 const octaveLabels = {
   "-1": "LOWER",
@@ -61,6 +62,8 @@ export function TextureWorkspace() {
           Change the register before reaching for EQ when two parts are fighting for the same musical space.
         </span>
       </div>
+
+      <LayerVolumeStrip tracks={["drums", "bass", "chords", "melody"] as const} />
 
       <div className="register-stack">
         <RegisterControl
