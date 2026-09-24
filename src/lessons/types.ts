@@ -26,6 +26,10 @@ import type {
   TextureSettings,
   VoicingSettings,
 } from "../music/model";
+import type {
+  HarmonicProgression,
+  TonalContext,
+} from "../music/harmony";
 
 const termSchema = z.object({
   term: z.string(),
@@ -96,6 +100,8 @@ export type LessonContext = {
   selectedPitchClasses: string[];
   melody: MelodySequence;
   melodyDurations: NoteDurationLane;
+  tonalContext: TonalContext;
+  harmonicProgression: HarmonicProgression;
   chordProgression: ChordProgression;
   harmonySequence: HarmonySequence;
   harmonyDurations: HarmonyDurations;
