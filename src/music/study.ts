@@ -16,7 +16,15 @@ export type StudyTransformation =
   | "interval"
   | "auxiliary"
   | "reduction"
-  | "displacement";
+  | "displacement"
+  | "inversion"
+  | "retrograde"
+  | "diminution"
+  | "augmentation"
+  | "repetition"
+  | "upbeat"
+  | "metre"
+  | "transposition";
 export type StudyHarmony = "I" | "V" | null;
 export type StudySentenceMode =
   | "immediate"
@@ -76,15 +84,37 @@ export const SCHOENBERG_PHRASE_SOURCE_IDS = new Set<string>([
 ]);
 
 export const SCHOENBERG_VARIATION_IDS = {
-  analyse: "schoenberg.developing-variation.a",
-  rhythm: "schoenberg.developing-variation.b",
-  intervals: "schoenberg.developing-variation.c",
-  compose: "schoenberg.developing-variation.d",
+  motive: "schoenberg.developing-variation.a",
+  exact: "schoenberg.developing-variation.b",
+  literature: "schoenberg.developing-variation.c",
+  rhythm: "schoenberg.developing-variation.d",
+  intervals: "schoenberg.developing-variation.e",
+  metric: "schoenberg.developing-variation.f",
+  harmony: "schoenberg.developing-variation.g",
+  substitution: "schoenberg.developing-variation.h",
+  adaptation: "schoenberg.developing-variation.i",
+  compose: "schoenberg.developing-variation.j",
 } as const;
 
 export const SCHOENBERG_VARIATION_EXERCISE_IDS = new Set<string>(
   Object.values(SCHOENBERG_VARIATION_IDS),
 );
+
+export const SCHOENBERG_VARIATION_SOURCE_IDS = new Set<string>([
+  SCHOENBERG_VARIATION_IDS.motive,
+  SCHOENBERG_VARIATION_IDS.literature,
+  SCHOENBERG_VARIATION_IDS.harmony,
+  SCHOENBERG_VARIATION_IDS.substitution,
+  SCHOENBERG_VARIATION_IDS.adaptation,
+]);
+
+export const SCHOENBERG_VARIATION_TRANSFORM_IDS = new Set<string>([
+  SCHOENBERG_VARIATION_IDS.exact,
+  SCHOENBERG_VARIATION_IDS.rhythm,
+  SCHOENBERG_VARIATION_IDS.intervals,
+  SCHOENBERG_VARIATION_IDS.metric,
+  SCHOENBERG_VARIATION_IDS.compose,
+]);
 
 export const SCHOENBERG_CONNECTION_IDS = {
   compare: "schoenberg.connecting-motive-forms.a",
@@ -128,6 +158,14 @@ export const studyTransformationFeature: Record<
   auxiliary: "ornamentation",
   reduction: "reduction",
   displacement: "position",
+  inversion: "intervals",
+  retrograde: "intervals",
+  diminution: "rhythm",
+  augmentation: "rhythm",
+  repetition: "rhythm",
+  upbeat: "position",
+  metre: "rhythm",
+  transposition: "intervals",
 };
 
 const analysePhrase = [
@@ -179,6 +217,105 @@ export function studyComparisonSequence(
     null,
     ...comparisonVariants[variant],
   ]);
+}
+
+
+const variationChapterReductions: Record<
+  "motive" | "literature" | "harmony" | "substitution" | "adaptation",
+  StudySequence
+> = {
+  motive: {
+    // Ex. 12b: reduction of the note-repetition principle in Beethoven 5-I.
+    // This is deliberately not a transcription of the printed engraving.
+    notes: padStudyNotes([
+      67, 67, 67, 63,
+      null, null, null, null,
+      65, 65, 65, 62,
+    ]),
+    durations: padDurations([
+      1, 1, 1, 3,
+      1, 1, 1, 1,
+      1, 1, 1, 3,
+    ]),
+  },
+  literature: {
+    // Exs. 15-16: reduction of motive-forms that preserve identity while
+    // transposition, direction, embellishment, rhythm and sequence change.
+    notes: padStudyNotes([
+      60, 64, 67, 64,
+      62, 66, 69, 67,
+      64, 67, 71, 69,
+      65, 69, 72, 70,
+    ]),
+    durations: padDurations([
+      1, 1, 2, 1,
+      1, 1, 2, 1,
+      1, 2, 1, 1,
+      1, 1, 2, 1,
+    ]),
+  },
+  harmony: {
+    // Ex. 25: melody adapted as the harmonic support becomes richer.
+    notes: padStudyNotes([
+      60, 64, 67, 65,
+      59, 62, 67, 65,
+      60, 63, 67, 66,
+      62, 65, 69, 67,
+    ]),
+    durations: padDurations(),
+    harmony: [
+      "I", null, null, null,
+      "V", null, null, null,
+      "I", null, null, null,
+      "V", null, null, null,
+    ],
+  },
+  substitution: {
+    // Exs. 26-27: the motive is retained while harmonic insertion or
+    // substitution changes the route beneath it.
+    notes: padStudyNotes([
+      60, 64, 67, 65,
+      62, 65, 69, 67,
+      59, 62, 67, 64,
+      60, 64, 69, 67,
+    ]),
+    durations: padDurations(),
+    harmony: [
+      "I", null, null, null,
+      "V", null, null, null,
+      "I", null, null, null,
+      "V", null, null, null,
+    ],
+  },
+  adaptation: {
+    // Exs. 28-29: transposition/sequence plus melodic adaptation to
+    // passing harmony. The book's contrapuntal accompaniment is represented
+    // here by simplified harmonic support rather than copied engraving.
+    notes: padStudyNotes([
+      60, 64, 67, 64,
+      62, 66, 69, 66,
+      64, 68, 71, 68,
+      65, 69, 72, 69,
+    ]),
+    durations: padDurations(),
+    harmony: [
+      "I", null, null, null,
+      "V", null, null, null,
+      "I", null, null, null,
+      "V", null, null, null,
+    ],
+  },
+};
+
+export function studyVariationBookSequence(
+  kind: keyof typeof variationChapterReductions,
+): StudySequence {
+  const sequence = variationChapterReductions[kind];
+  return {
+    notes: [...sequence.notes],
+    durations: [...sequence.durations],
+    harmony: sequence.harmony ? [...sequence.harmony] : undefined,
+  };
 }
 
 const variationSourceHalf: Array<number | null> = [
@@ -237,6 +374,46 @@ export function studyVariationSequence(
         [null, 60, null, 64, null, 67, null, 65],
         [1, 1, 1, 1, 1, 1, 1, 1],
       );
+    case "inversion":
+      return combineHalves(
+        [60, null, 56, null, 53, null, 55, null],
+        [...variationSourceDurations],
+      );
+    case "retrograde":
+      return combineHalves(
+        [65, null, 67, null, 64, null, 60, null],
+        [...variationSourceDurations],
+      );
+    case "diminution":
+      return combineHalves(
+        [60, 64, 67, 65, null, null, null, null],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+      );
+    case "augmentation":
+      return combineHalves(
+        [60, null, null, 64, null, null, 67, null],
+        [4, 1, 1, 4, 1, 1, 2, 1],
+      );
+    case "repetition":
+      return combineHalves(
+        [60, 60, 64, 64, 67, 67, 65, 65],
+        [1, 1, 1, 1, 1, 1, 1, 1],
+      );
+    case "upbeat":
+      return combineHalves(
+        [null, 60, null, 64, 67, null, 65, null],
+        [1, 1, 1, 2, 1, 1, 2, 1],
+      );
+    case "metre":
+      return combineHalves(
+        [60, 64, 67, 60, 64, 67, 65, null],
+        [1, 1, 2, 1, 1, 2, 2, 1],
+      );
+    case "transposition":
+      return combineHalves(
+        [62, null, 66, null, 69, null, 67, null],
+        [...variationSourceDurations],
+      );
     case "source":
       return combineHalves(
         [...variationSourceHalf],
@@ -293,6 +470,62 @@ function applyOperationToSecondHalf(
       return {
         notes: [null, ...second.slice(0, -1)],
         durations: [1, ...durations.slice(0, -1)] as StudyDuration[],
+      };
+    case "inversion": {
+      const anchor = second.find((note): note is number => note !== null) ?? 60;
+      return {
+        notes: second.map((note) =>
+          note === null ? null : anchor - (note - anchor),
+        ),
+        durations,
+      };
+    }
+    case "retrograde":
+      return {
+        notes: [...second].reverse(),
+        durations: [...durations].reverse(),
+      };
+    case "diminution": {
+      const pitches = second.filter((note): note is number => note !== null);
+      return {
+        notes: Array.from({ length: 8 }, (_, index) => pitches[index] ?? null),
+        durations: Array<StudyDuration>(8).fill(1),
+      };
+    }
+    case "augmentation": {
+      const pitches = second.filter((note): note is number => note !== null);
+      const notes: Array<number | null> = Array(8).fill(null);
+      [0, 3, 6].forEach((step, index) => {
+        if (pitches[index] !== undefined) notes[step] = pitches[index];
+      });
+      const nextDurations = Array<StudyDuration>(8).fill(1);
+      nextDurations[0] = 3;
+      nextDurations[3] = 3;
+      nextDurations[6] = 2;
+      return { notes, durations: nextDurations };
+    }
+    case "repetition": {
+      const pitches = second.filter((note): note is number => note !== null);
+      const repeated = pitches.flatMap((note) => [note, note]).slice(0, 8);
+      return {
+        notes: Array.from({ length: 8 }, (_, index) => repeated[index] ?? null),
+        durations: Array<StudyDuration>(8).fill(1),
+      };
+    }
+    case "upbeat":
+      return {
+        notes: [null, ...second.slice(0, -1)],
+        durations: [1, ...durations.slice(0, -1)] as StudyDuration[],
+      };
+    case "metre":
+      return {
+        notes: second,
+        durations: [1, 1, 2, 1, 1, 2, 2, 1],
+      };
+    case "transposition":
+      return {
+        notes: second.map((note) => (note === null ? null : note + 2)),
+        durations,
       };
   }
 }
