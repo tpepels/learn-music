@@ -1,8 +1,8 @@
 import {
-  barUsesAllChordTones,
+  barUsesAllHarmonicChordTones,
   harmonyActiveSteps,
   harmonyOffbeats,
-  writtenHarmonyFitsChords,
+  writtenHarmonyFitsHarmonicProgression,
 } from "./harmonyApplication";
 import { heardPlayback } from "./learningEvidence";
 import {
@@ -59,11 +59,17 @@ export const modalMixtureLesson: LessonDefinition = {
         checksLabel: "Borrow the note",
         successLabel: "You changed A into A♭ and heard minor iv",
       }),
-      evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+      evaluate: ({
+        chordProgression,
+        harmonicProgression,
+        tonalContext,
+        harmonySequence,
+        experiments,
+      }) => [
         { label: "You listened to the borrowed colour in context", complete: heardPlayback(experiments) },
         { label: "Bar 2 finishes on borrowed Fm", complete: chordProgression[1] === "Fm" },
         { label: "You compared F and Fm in bar 2", complete: triedChord(experiments, 1, "F") && triedChord(experiments, 1, "Fm") },
-        { label: "F, A♭ and C are all written in the Fm bar", complete: barUsesAllChordTones(harmonySequence, chordProgression, 1) },
+        { label: "F, A♭ and C are all written in the Fm bar", complete: barUsesAllHarmonicChordTones(harmonySequence, harmonicProgression, tonalContext, 1) },
         { label: "You edited the MIDI notes", complete: edits(experiments) >= 2 },
       ],
     },
@@ -87,12 +93,18 @@ export const modalMixtureLesson: LessonDefinition = {
         checksLabel: "Write ♭VII",
         successLabel: "B♭ is now a note you placed, not a symbol you clicked",
       }),
-      evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+      evaluate: ({
+        chordProgression,
+        harmonicProgression,
+        tonalContext,
+        harmonySequence,
+        experiments,
+      }) => [
         { label: "You listened to the borrowed colour in context", complete: heardPlayback(experiments) },
         { label: "Progression is C → B♭ → F → C", complete: chordProgression.join("|") === "C|B♭|F|C" },
-        { label: "The B♭ bar contains all three chord tones", complete: barUsesAllChordTones(harmonySequence, chordProgression, 1) },
+        { label: "The B♭ bar contains all three chord tones", complete: barUsesAllHarmonicChordTones(harmonySequence, harmonicProgression, tonalContext, 1) },
         { label: "The B♭ bar uses at least two time positions", complete: harmonyActiveSteps(harmonySequence, 1) >= 2 },
-        { label: "All written notes fit the current harmony", complete: writtenHarmonyFitsChords(harmonySequence, chordProgression) },
+        { label: "All written notes fit the current harmony", complete: writtenHarmonyFitsHarmonicProgression(harmonySequence, harmonicProgression, tonalContext) },
         { label: "You rewrote the changed harmony", complete: edits(experiments) >= 3 },
       ],
     },
@@ -116,12 +128,18 @@ export const modalMixtureLesson: LessonDefinition = {
         checksLabel: "Write the inner line",
         successLabel: "The borrowed chord now has an audible chromatic reason",
       }),
-      evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+      evaluate: ({
+        chordProgression,
+        harmonicProgression,
+        tonalContext,
+        harmonySequence,
+        experiments,
+      }) => [
         { label: "You listened to the borrowed colour in context", complete: heardPlayback(experiments) },
         { label: "Progression is C → F → Fm → C", complete: chordProgression.join("|") === "C|F|Fm|C" },
-        { label: "F and Fm both contain all their chord tones", complete: barUsesAllChordTones(harmonySequence, chordProgression, 1) && barUsesAllChordTones(harmonySequence, chordProgression, 2) },
-        { label: "The final C chord is actually written", complete: barUsesAllChordTones(harmonySequence, chordProgression, 3) },
-        { label: "Written notes fit each chord", complete: writtenHarmonyFitsChords(harmonySequence, chordProgression) },
+        { label: "F and Fm both contain all their chord tones", complete: barUsesAllHarmonicChordTones(harmonySequence, harmonicProgression, tonalContext, 1) && barUsesAllHarmonicChordTones(harmonySequence, harmonicProgression, tonalContext, 2) },
+        { label: "The final C chord is actually written", complete: barUsesAllHarmonicChordTones(harmonySequence, harmonicProgression, tonalContext, 3) },
+        { label: "Written notes fit each chord", complete: writtenHarmonyFitsHarmonicProgression(harmonySequence, harmonicProgression, tonalContext) },
         { label: "You edited the harmony", complete: edits(experiments) >= 3 },
       ],
     },
@@ -145,10 +163,16 @@ export const modalMixtureLesson: LessonDefinition = {
         checksLabel: "Compose",
         successLabel: "You turned modal mixture into a four-bar accompaniment",
       }),
-      evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+      evaluate: ({
+        chordProgression,
+        harmonicProgression,
+        tonalContext,
+        harmonySequence,
+        experiments,
+      }) => [
         { label: "You listened to the borrowed colour in context", complete: heardPlayback(experiments) },
         { label: "Progression is C → B♭ → Fm → C", complete: chordProgression.join("|") === "C|B♭|Fm|C" },
-        { label: "Every bar contains all of its chord tones", complete: [0, 1, 2, 3].every((bar) => barUsesAllChordTones(harmonySequence, chordProgression, bar)) },
+        { label: "Every bar contains all of its chord tones", complete: [0, 1, 2, 3].every((bar) => barUsesAllHarmonicChordTones(harmonySequence, harmonicProgression, tonalContext, bar)) },
         { label: "The accompaniment uses at least ten time positions", complete: harmonyActiveSteps(harmonySequence) >= 10 },
         { label: "At least three harmony events are offbeat", complete: harmonyOffbeats(harmonySequence) >= 3 },
         { label: "You edited the accompaniment in this exercise", complete: edits(experiments) >= 4 },
