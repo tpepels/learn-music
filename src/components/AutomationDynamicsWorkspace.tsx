@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useStudioStore } from "../state/studio";
+import { LayerVolumeStrip } from "./LayerVolumeStrip";
 
 function pointsToPolyline(
   values: number[],
@@ -148,6 +149,8 @@ export function AutomationDynamicsWorkspace() {
           Play the eight-bar arrangement while reshaping curves and compressor timing.
         </span>
       </div>
+
+      <LayerVolumeStrip tracks={["drums", "bass", "chords", "melody"] as const} />
 
       <div className="automation-stack">
         <AutomationLane
