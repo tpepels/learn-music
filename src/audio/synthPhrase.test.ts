@@ -26,8 +26,6 @@ describe("synth phrase scheduling", () => {
       { midi: 67, step: 5, durationSteps: 3 },
     ]);
   });
-});
-
 
   it("maps written steps and durations to the project BPM", () => {
     const melody = [60, null, 64, null, 67];
@@ -68,3 +66,4 @@ describe("synth phrase scheduling", () => {
     expect(eighthNoteSeconds(120)).toBeCloseTo(0.25);
     expect(() => eighthNoteSeconds(0)).toThrow();
   });
+});
