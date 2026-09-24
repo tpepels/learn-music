@@ -31,6 +31,7 @@ import { StereoWorkspace } from "./components/StereoWorkspace";
 import { StudioMode } from "./components/StudioMode";
 import { SynthWorkspace } from "./components/SynthWorkspace";
 import { TextureWorkspace } from "./components/TextureWorkspace";
+import { TranspositionWorkspace } from "./components/TranspositionWorkspace";
 import { VoicingWorkspace } from "./components/VoicingWorkspace";
 import {
   courseOutline,
@@ -60,6 +61,10 @@ async function startWorkspacePlayback(
 
   if (workspace === "melody-harmony") {
     return audioEngine.playHarmonyContext(bpm, onStep, true);
+  }
+
+  if (workspace === "transposition") {
+    return audioEngine.playChordMelody(bpm, onStep);
   }
 
   if (
@@ -399,6 +404,8 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
       return <HarmonySequencerWorkspace mode="borrowed" />;
     case "instrument-palette":
       return <InstrumentPaletteWorkspace />;
+    case "transposition":
+      return <TranspositionWorkspace />;
   }
 }
 
@@ -453,6 +460,8 @@ function App() {
   const selectedPitchClasses = useStudioStore((state) => state.selectedPitchClasses);
   const melody = useStudioStore((state) => state.melody);
   const melodyDurations = useStudioStore((state) => state.melodyDurations);
+  const tonalContext = useStudioStore((state) => state.tonalContext);
+  const harmonicProgression = useStudioStore((state) => state.harmonicProgression);
   const chordProgression = useStudioStore((state) => state.chordProgression);
   const harmonySequence = useStudioStore((state) => state.harmonySequence);
   const harmonyDurations = useStudioStore((state) => state.harmonyDurations);
@@ -561,6 +570,14 @@ function App() {
   }, [chordProgression]);
 
   useEffect(() => {
+    audioEngine.setTonalContext(tonalContext);
+  }, [tonalContext]);
+
+  useEffect(() => {
+    audioEngine.setHarmonicProgression(harmonicProgression);
+  }, [harmonicProgression]);
+
+  useEffect(() => {
     audioEngine.setHarmonySequence(harmonySequence);
   }, [harmonySequence]);
 
@@ -648,6 +665,8 @@ function App() {
         selectedPitchClasses,
         melody,
         melodyDurations,
+        tonalContext,
+        harmonicProgression,
         chordProgression,
         harmonySequence,
         harmonyDurations,
@@ -679,6 +698,8 @@ function App() {
       selectedPitchClasses,
       melody,
       melodyDurations,
+      tonalContext,
+      harmonicProgression,
       chordProgression,
       harmonySequence,
       harmonyDurations,

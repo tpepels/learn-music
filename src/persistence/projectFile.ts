@@ -27,6 +27,36 @@ import {
   synthWaveforms,
   type ProjectData,
 } from "../music/model";
+import {
+  chordQualities,
+  harmonicRoles,
+  inferLegacyTonalContext,
+  migrateLegacyProgression,
+  sanitizeHarmonicProgression,
+  sanitizeTonalContext,
+  seventhQualities,
+  tonalModes,
+} from "../music/harmony";
+
+const tonalContextSchema = z.object({
+  tonic: z.number().int().min(0).max(11),
+  mode: z.enum(tonalModes),
+});
+
+const harmonicChordSchema = z.object({
+  degree: z.number().int().min(1).max(7),
+  rootAlteration: z.union([
+    z.literal(-2),
+    z.literal(-1),
+    z.literal(0),
+    z.literal(1),
+    z.literal(2),
+  ]),
+  quality: z.enum(chordQualities),
+  seventh: z.union([z.enum(seventhQualities), z.null()]),
+  role: z.enum(harmonicRoles),
+  targetDegree: z.number().int().min(1).max(7).optional(),
+});
 
 const stepPatternSchema = z.object({
   kick: z.array(z.boolean()).length(STEPS),
@@ -44,7 +74,7 @@ const mixerTrackSchema = z.object({
 
 export const projectFileSchema = z.object({
   format: z.literal("play-lab-project"),
-  version: z.literal(1),
+  version: z.union([z.literal(1), z.literal(2)]),
   exportedAt: z.string(),
   project: z.object({
     bpm: z.number().min(40).max(240),
@@ -58,6 +88,11 @@ export const projectFileSchema = z.object({
     melodyDurations: z
       .array(z.number().int().min(1).max(MELODY_STEPS))
       .length(MELODY_STEPS)
+      .optional(),
+    tonalContext: tonalContextSchema.optional(),
+    harmonicProgression: z
+      .array(z.union([harmonicChordSchema, z.null()]))
+      .length(4)
       .optional(),
     chordProgression: z
       .array(z.union([z.enum(chordNames), z.null()]))
@@ -244,9 +279,24 @@ export type ProjectFile = z.infer<typeof projectFileSchema>;
 
 export function parseProjectFile(input: unknown): ProjectData {
   const project = projectFileSchema.parse(input).project;
+  const inferredTonalContext = inferLegacyTonalContext(
+    project.chordProgression,
+  );
+  const tonalContext = sanitizeTonalContext(
+    project.tonalContext,
+    inferredTonalContext,
+  );
+  const harmonicProgression = project.harmonicProgression
+    ? sanitizeHarmonicProgression(project.harmonicProgression)
+    : migrateLegacyProgression(
+        project.chordProgression,
+        inferredTonalContext,
+      );
 
   return {
     ...project,
+    tonalContext,
+    harmonicProgression,
     melodyDurations:
       project.melodyDurations ?? [...initialMelodyDurations],
     harmonySequence:

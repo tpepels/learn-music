@@ -1,7 +1,5 @@
-import {
-  voiceLeadingDistance,
-  type ChordInversion,
-} from "../music/model";
+import { harmonicVoiceLeadingDistance } from "../music/harmony";
+import { type ChordInversion } from "../music/model";
 import { heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
@@ -55,11 +53,11 @@ export const voiceLeadingLesson: LessonDefinition = {
         checksLabel: "Set the reference voicing",
         successLabel: "You now have a root-position baseline to compare against",
       }),
-      evaluate: ({ chordProgression, voicingSettings, experiments }) => [
+      evaluate: ({ harmonicProgression, voicingSettings, experiments }) => [
         { label: "You listened to the root-position baseline", complete: heardPlayback(experiments) },
         {
           label: "All four chord slots contain harmony",
-          complete: chordProgression.filter(Boolean).length === 4,
+          complete: harmonicProgression.filter(Boolean).length === 4,
         },
         {
           label: "All four chords are in root position",
@@ -150,10 +148,10 @@ export const voiceLeadingLesson: LessonDefinition = {
         checksLabel: "Connect the voices",
         successLabel: "The same harmony now moves with less unnecessary distance",
       }),
-      evaluate: ({ chordProgression, voicingSettings, experiments }) => {
+      evaluate: ({ harmonicProgression, tonalContext, voicingSettings, experiments }) => {
         const inversions = voicingSettings.inversions as ChordInversion[];
-        const current = voiceLeadingDistance(chordProgression, inversions);
-        const baseline = voiceLeadingDistance(chordProgression, [0, 0, 0, 0]);
+        const current = harmonicVoiceLeadingDistance(harmonicProgression, tonalContext, inversions);
+        const baseline = harmonicVoiceLeadingDistance(harmonicProgression, tonalContext, [0, 0, 0, 0]);
         const explored = [0, 1, 2, 3].reduce(
           (total, slot) => total + (experiments["voicing.slot." + slot]?.changes ?? 0),
           0,

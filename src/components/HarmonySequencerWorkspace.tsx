@@ -1,26 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { audioEngine } from "../audio/engine";
 import {
+  basicHarmonyPalette,
+  borrowedMajorPalette,
+  chordSymbol,
+  diatonicPalette,
+  harmonicChordPitchClasses,
+  keyLabel,
+  minorHarmonyPalette,
+  romanNumeral,
+  type HarmonicChord,
+  type TonalMode,
+} from "../music/harmony";
+import {
   HARMONY_STEPS,
-  aMinorRomanNumerals,
-  basicChordNames,
-  borrowedChordNames,
-  borrowedRomanNumerals,
-  chordPitchClasses,
   harmonyPitches,
   midiNoteName,
-  minorKeyChordNames,
   noteDurationLabel,
-  romanNumerals,
-  seventhChordNames,
-  seventhRomanNumerals,
-  type ChordName,
 } from "../music/model";
 import { useStudioStore } from "../state/studio";
 import {
   findHarmonyNoteStart,
   useNoteLengthDrag,
 } from "./noteLengthDrag";
+import { HarmonyKeyControl } from "./HarmonyKeyControl";
 
 export type HarmonySequencerMode =
   | "basic"
@@ -41,9 +44,6 @@ const configs: Record<
   {
     eyebrow: string;
     title: string;
-    keyLabel: string;
-    palette: readonly ChordName[];
-    numeral: Partial<Record<ChordName, string>>;
     contextLabel: string;
     hint: string;
   }
@@ -51,47 +51,32 @@ const configs: Record<
   basic: {
     eyebrow: "Harmony MIDI clip · four bars",
     title: "Write the chord part",
-    keyLabel: "KEY C MAJOR",
-    palette: basicChordNames.filter((chord) => chord !== "D7"),
-    numeral: romanNumerals,
     contextLabel: "YOUR GROOVE + MELODY",
     hint: "Play uses the groove and melody you already made. Set a harmonic target, then write the notes that make it real.",
   },
   function: {
     eyebrow: "Harmonic function · four bars",
     title: "Make function audible in the part",
-    keyLabel: "FUNCTION IN C",
-    palette: basicChordNames,
-    numeral: romanNumerals,
     contextLabel: "YOUR GROOVE + MELODY",
     hint: "The same groove and melody stay in place while you change what the harmony is doing underneath them.",
   },
   minor: {
-    eyebrow: "A-minor harmony · four bars",
+    eyebrow: "Minor harmony · four bars",
     title: "Write the minor progression",
-    keyLabel: "KEY A MINOR",
-    palette: minorKeyChordNames,
-    numeral: aMinorRomanNumerals,
     contextLabel: "YOUR GROOVE + MINOR MELODY",
-    hint: "Your groove and minor melody stay in place. Write the harmony underneath them, including G♯ when E7 needs it.",
+    hint: "Use a minor tonal context, then write the harmony underneath it. A dominant seventh may raise scale degree 7.",
   },
   sevenths: {
     eyebrow: "Seventh-chord MIDI clip · four bars",
     title: "Write the extra chord tones",
-    keyLabel: "SEVENTH CHORDS",
-    palette: seventhChordNames,
-    numeral: seventhRomanNumerals,
     contextLabel: "YOUR GROOVE",
-    hint: "The groove stays as context while you focus on the added seventh. The previous minor melody is left out here so it cannot confuse the C-major harmony.",
+    hint: "The groove stays as context while you focus on the added seventh and its voice-leading.",
   },
   borrowed: {
     eyebrow: "Modal mixture · four bars",
     title: "Write the borrowed colour",
-    keyLabel: "HOME C MAJOR",
-    palette: borrowedChordNames,
-    numeral: borrowedRomanNumerals,
     contextLabel: "YOUR GROOVE",
-    hint: "The groove stays as context while the inherited minor melody stays out. That leaves the borrowed C-major colour clear.",
+    hint: "Keep a major tonic while borrowing iv or ♭VII from the parallel minor.",
   },
 };
 
@@ -100,10 +85,12 @@ export function HarmonySequencerWorkspace({
 }: {
   mode?: HarmonySequencerMode;
 }) {
-  const progression = useStudioStore((state) => state.chordProgression);
+  const progression = useStudioStore((state) => state.harmonicProgression);
+  const tonalContext = useStudioStore((state) => state.tonalContext);
+  const setTonalContext = useStudioStore((state) => state.setTonalContext);
   const harmonySequence = useStudioStore((state) => state.harmonySequence);
   const harmonyDurations = useStudioStore((state) => state.harmonyDurations);
-  const setChordSlot = useStudioStore((state) => state.setChordSlot);
+  const setHarmonicSlot = useStudioStore((state) => state.setHarmonicSlot);
   const toggleHarmonyNote = useStudioStore((state) => state.toggleHarmonyNote);
   const setHarmonyDuration = useStudioStore((state) => state.setHarmonyDuration);
   const clearHarmonyBar = useStudioStore((state) => state.clearHarmonyBar);
@@ -112,8 +99,37 @@ export function HarmonySequencerWorkspace({
   const [selectedSlot, setSelectedSlot] = useState(0);
   const config = configs[mode];
 
-  const chooseChord = async (chord: ChordName) => {
-    setChordSlot(selectedSlot, chord);
+  useEffect(() => {
+    if (mode === "minor" && tonalContext.mode === "major") {
+      setTonalContext({ tonic: 9, mode: "natural-minor" });
+    } else if (
+      (mode === "sevenths" || mode === "borrowed") &&
+      tonalContext.mode !== "major"
+    ) {
+      setTonalContext({ tonic: 0, mode: "major" });
+    }
+  }, [mode, setTonalContext]);
+
+  const palette: HarmonicChord[] =
+    mode === "minor"
+      ? minorHarmonyPalette(tonalContext)
+      : mode === "sevenths"
+        ? diatonicPalette(tonalContext, true)
+        : mode === "borrowed"
+          ? borrowedMajorPalette(tonalContext)
+          : mode === "function"
+            ? basicHarmonyPalette(tonalContext)
+            : diatonicPalette(tonalContext);
+
+  const allowedModes: readonly TonalMode[] =
+    mode === "minor"
+      ? ["natural-minor", "harmonic-minor"]
+      : mode === "borrowed"
+        ? ["major"]
+        : ["major", "natural-minor", "harmonic-minor"];
+
+  const chooseChord = async (chord: HarmonicChord) => {
+    setHarmonicSlot(selectedSlot, chord);
     await audioEngine.playChordPreview(chord);
   };
 
@@ -141,7 +157,7 @@ export function HarmonySequencerWorkspace({
           <span className="section-label">{config.eyebrow}</span>
           <h2>{config.title}</h2>
           <div className="daw-strip">
-            <span>{config.keyLabel}</span>
+            <span>KEY {keyLabel(tonalContext).toUpperCase()}</span>
             <span>GRID 1/8</span>
             <span>POLYPHONIC</span>
             <span>32 STEPS</span>
@@ -150,6 +166,8 @@ export function HarmonySequencerWorkspace({
         </div>
         <span className="workspace-hint">{config.hint}</span>
       </div>
+
+      <HarmonyKeyControl modes={allowedModes} />
 
       <div className="harmony-chord-slots">
         {progression.map((chord, index) => (
@@ -162,35 +180,44 @@ export function HarmonySequencerWorkspace({
             onClick={() => void selectSlot(index)}
           >
             <span>Bar {index + 1}</span>
-            <strong>{chord ?? "—"}</strong>
+            <strong>{chord ? chordSymbol(chord, tonalContext) : "—"}</strong>
             <small>
-              {chord
-                ? config.numeral[chord] ?? romanNumerals[chord] ?? "colour"
-                : "choose harmony"}
+              {chord ? romanNumeral(chord, tonalContext) : "choose harmony"}
             </small>
           </button>
         ))}
       </div>
 
       <div className="harmony-chord-palette">
-        {config.palette.map((chord) => (
-          <button
-            key={chord}
-            onClick={() => void chooseChord(chord)}
-            className={progression[selectedSlot] === chord ? "is-selected" : ""}
-            aria-label={
-              "Set bar " +
-              (selectedSlot + 1) +
-              " to " +
-              chord +
-              " and preview the chord"
-            }
-          >
-            <strong>{chord}</strong>
-            <span>{config.numeral[chord] ?? romanNumerals[chord] ?? "—"}</span>
-            <small>set + hear</small>
-          </button>
-        ))}
+        {palette.map((chord) => {
+          const symbol = chordSymbol(chord, tonalContext);
+          const numeral = romanNumeral(chord, tonalContext);
+          const selected = progression[selectedSlot];
+          const isSelected =
+            selected &&
+            chordSymbol(selected, tonalContext) === symbol &&
+            romanNumeral(selected, tonalContext) === numeral;
+          return (
+            <button
+              key={numeral + ":" + symbol}
+              onClick={() => void chooseChord(chord)}
+              className={isSelected ? "is-selected" : ""}
+              aria-label={
+                "Set bar " +
+                (selectedSlot + 1) +
+                " to " +
+                symbol +
+                " (" +
+                numeral +
+                ") and preview the chord"
+              }
+            >
+              <strong>{symbol}</strong>
+              <span>{numeral}</span>
+              <small>set + hear</small>
+            </button>
+          );
+        })}
       </div>
 
       <div className="harmony-target-note">
@@ -202,7 +229,7 @@ export function HarmonySequencerWorkspace({
 
       <div className="harmony-clear-actions">
         <button
-          onClick={() => setChordSlot(selectedSlot, null)}
+          onClick={() => setHarmonicSlot(selectedSlot, null)}
           disabled={progression[selectedSlot] === null}
         >
           Clear chord
@@ -252,7 +279,7 @@ export function HarmonySequencerWorkspace({
                 const chord = progression[Math.floor(step / 8)];
                 const pitchClass = ((midi % 12) + 12) % 12;
                 const chordTone = Boolean(
-                  chord && chordPitchClasses(chord).includes(pitchClass),
+                  chord && harmonicChordPitchClasses(chord, tonalContext).includes(pitchClass),
                 );
                 const active = harmonySequence[step]?.includes(midi) ?? false;
                 const coveringStart = findHarmonyNoteStart(

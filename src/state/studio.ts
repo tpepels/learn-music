@@ -23,6 +23,7 @@ import {
   resetStereoWorkspaceState,
 } from "./workspaceReset";
 import {
+  chordNames,
   cloneArrangement,
   cloneEqSettings,
   cloneGrooveFeelSettings,
@@ -99,6 +100,46 @@ import {
   type TrackName,
   type VoicingSettings,
 } from "../music/model";
+import {
+  cloneHarmonicProgression,
+  cloneTonalContext,
+  initialHarmonicProgression,
+  initialTonalContext,
+  legacyChordToHarmonic,
+  progressionSymbols,
+  sanitizeTonalContext,
+  transposeHarmonySequence,
+  transposeNullableMidiSequence,
+  type HarmonicChord,
+  type HarmonicProgression,
+  type PitchClass,
+  type TonalContext,
+  type TonalMode,
+} from "../music/harmony";
+
+function canonicalCompatibilityContext(context: TonalContext): TonalContext {
+  return context.mode === "major"
+    ? { tonic: 0, mode: "major" }
+    : {
+        tonic: 9,
+        mode: context.mode,
+      };
+}
+
+function compatibilityProgression(
+  progression: HarmonicProgression,
+  context: TonalContext,
+): ChordProgression {
+  const symbols = progressionSymbols(
+    progression,
+    canonicalCompatibilityContext(context),
+  );
+  return symbols.map((symbol) =>
+    symbol && chordNames.includes(symbol as ChordName)
+      ? (symbol as ChordName)
+      : null,
+  );
+}
 
 const FIRST_LESSON_ID = "rhythm.pulse-and-groove";
 const progressDefinitions = implementedLessons.map((lesson) => ({
@@ -160,6 +201,8 @@ type StudioState = {
   selectedPitchClasses: string[];
   melody: MelodySequence;
   melodyDurations: NoteDurationLane;
+  tonalContext: TonalContext;
+  harmonicProgression: HarmonicProgression;
   chordProgression: ChordProgression;
   harmonySequence: HarmonySequence;
   harmonyDurations: HarmonyDurations;
@@ -203,6 +246,11 @@ type StudioState = {
   setMelodyStep: (step: number, midi: number | null) => void;
   setMelodyDuration: (step: number, duration: number) => void;
   clearMelody: () => void;
+  setTonalContext: (context: TonalContext) => void;
+  setTonic: (tonic: PitchClass) => void;
+  setTonalMode: (mode: TonalMode) => void;
+  setHarmonicSlot: (slot: number, chord: HarmonicChord | null) => void;
+  transposeProjectToTonic: (tonic: PitchClass) => void;
   setChordSlot: (slot: number, chord: ChordName | null) => void;
   clearChords: () => void;
   toggleHarmonyNote: (step: number, midi: number) => void;
@@ -355,6 +403,8 @@ export const useStudioStore = create<StudioState>()(
       selectedPitchClasses: [],
       melody: [...initialMelody],
       melodyDurations: [...initialMelodyDurations],
+      tonalContext: cloneTonalContext(initialTonalContext),
+      harmonicProgression: cloneHarmonicProgression(initialHarmonicProgression),
       chordProgression: [...initialChordProgression],
       harmonySequence: cloneHarmonySequence(initialHarmonySequence),
       harmonyDurations: cloneHarmonyDurations(initialHarmonyDurations),
@@ -596,12 +646,139 @@ export const useStudioStore = create<StudioState>()(
           currentStep: 0,
         }),
 
+      setTonalContext: (context) =>
+        set((state) => {
+          const tonalContext = sanitizeTonalContext(context, state.tonalContext);
+          return {
+            tonalContext,
+            chordProgression: compatibilityProgression(
+              state.harmonicProgression,
+              tonalContext,
+            ),
+            learningExperiments: recordExperimentValue(
+              state,
+              "harmony.key",
+              tonalContext.tonic + ":" + tonalContext.mode,
+            ),
+          };
+        }),
+
+      setTonic: (tonic) =>
+        set((state) => {
+          const tonalContext = { ...state.tonalContext, tonic };
+          return {
+            tonalContext,
+            chordProgression: compatibilityProgression(
+              state.harmonicProgression,
+              tonalContext,
+            ),
+            learningExperiments: recordExperimentValue(
+              state,
+              "harmony.tonic",
+              tonic,
+            ),
+          };
+        }),
+
+      setTonalMode: (mode) =>
+        set((state) => {
+          const tonalContext = { ...state.tonalContext, mode };
+          return {
+            tonalContext,
+            chordProgression: compatibilityProgression(
+              state.harmonicProgression,
+              tonalContext,
+            ),
+            learningExperiments: recordExperimentValue(
+              state,
+              "harmony.mode",
+              mode,
+            ),
+          };
+        }),
+
+      setHarmonicSlot: (slot, chord) =>
+        set((state) => {
+          const harmonicProgression = cloneHarmonicProgression(
+            state.harmonicProgression,
+          );
+          harmonicProgression[slot] = chord ? { ...chord } : null;
+          return {
+            harmonicProgression,
+            chordProgression: compatibilityProgression(
+              harmonicProgression,
+              state.tonalContext,
+            ),
+            learningExperiments: recordExperimentValue(
+              state,
+              "harmony.chord." + slot,
+              chord
+                ? progressionSymbols([chord], state.tonalContext)[0] ?? "clear"
+                : "clear",
+            ),
+          };
+        }),
+
+      transposeProjectToTonic: (tonic) =>
+        set((state) => {
+          const semitones =
+            ((tonic - state.tonalContext.tonic + 18) % 12) - 6;
+          const tonalContext = { ...state.tonalContext, tonic };
+          const melody = transposeNullableMidiSequence(state.melody, semitones);
+          const harmonySequence = transposeHarmonySequence(
+            state.harmonySequence,
+            semitones,
+          );
+          const bassSequence = transposeNullableMidiSequence(
+            state.bassSequence,
+            semitones,
+          );
+          return {
+            tonalContext,
+            chordProgression: compatibilityProgression(
+              state.harmonicProgression,
+              tonalContext,
+            ),
+            melody,
+            melodyDurations: normalizeMonophonicDurations(
+              melody,
+              state.melodyDurations,
+            ),
+            harmonySequence,
+            harmonyDurations: normalizeHarmonyDurations(
+              harmonySequence,
+              state.harmonyDurations,
+            ),
+            bassSequence,
+            bassDurations: normalizeMonophonicDurations(
+              bassSequence,
+              state.bassDurations,
+            ),
+            learningExperiments: recordExperimentEntries(state, [
+              ["harmony.transpose", semitones],
+              ["harmony.tonic", tonic],
+            ]),
+          };
+        }),
+
       setChordSlot: (slot, chord) =>
         set((state) => {
-          const chordProgression = [...state.chordProgression];
-          chordProgression[slot] = chord;
+          const harmonicProgression = cloneHarmonicProgression(
+            state.harmonicProgression,
+          );
+          const compatibilityContext = canonicalCompatibilityContext(
+            state.tonalContext,
+          );
+          harmonicProgression[slot] =
+            chord === null
+              ? null
+              : legacyChordToHarmonic(chord, compatibilityContext);
           return {
-            chordProgression,
+            harmonicProgression,
+            chordProgression: compatibilityProgression(
+              harmonicProgression,
+              state.tonalContext,
+            ),
             learningExperiments: recordExperimentValue(
               state,
               "harmony.chord." + slot,
@@ -611,7 +788,13 @@ export const useStudioStore = create<StudioState>()(
         }),
 
       clearChords: () =>
-        set({ chordProgression: [...initialChordProgression], currentStep: 0 }),
+        set({
+          harmonicProgression: cloneHarmonicProgression(
+            initialHarmonicProgression,
+          ),
+          chordProgression: [...initialChordProgression],
+          currentStep: 0,
+        }),
 
       toggleHarmonyNote: (step, midi) =>
         set((state) => {
@@ -1291,7 +1474,14 @@ export const useStudioStore = create<StudioState>()(
             project.melody,
             project.melodyDurations,
           ),
-          chordProgression: [...project.chordProgression],
+          tonalContext: cloneTonalContext(project.tonalContext),
+          harmonicProgression: cloneHarmonicProgression(
+            project.harmonicProgression,
+          ),
+          chordProgression: compatibilityProgression(
+            project.harmonicProgression,
+            project.tonalContext,
+          ),
           harmonySequence: cloneHarmonySequence(project.harmonySequence),
           harmonyDurations: normalizeHarmonyDurations(
             project.harmonySequence,
@@ -1352,6 +1542,8 @@ export const useStudioStore = create<StudioState>()(
         selectedPitchClasses: state.selectedPitchClasses,
         melody: state.melody,
         melodyDurations: state.melodyDurations,
+        tonalContext: state.tonalContext,
+        harmonicProgression: state.harmonicProgression,
         chordProgression: state.chordProgression,
         harmonySequence: state.harmonySequence,
         harmonyDurations: state.harmonyDurations,

@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { audioEngine } from "../audio/engine";
 import {
+  chordSymbol,
+  harmonicChordPitchClasses,
+  isMidiInTonalContext,
+} from "../music/harmony";
+import {
   MELODY_STEPS,
-  chordPitchClasses,
   chromaticPitches,
-  isCMajorMidi,
   noteDurationLabel,
 } from "../music/model";
 import { chordSlotForMelodyStep } from "../music/melodyHarmonyTimeline";
@@ -17,7 +20,8 @@ import {
 export function MelodyHarmonyWorkspace() {
   const melody = useStudioStore((state) => state.melody);
   const durations = useStudioStore((state) => state.melodyDurations);
-  const chords = useStudioStore((state) => state.chordProgression);
+  const chords = useStudioStore((state) => state.harmonicProgression);
+  const tonalContext = useStudioStore((state) => state.tonalContext);
   const currentStep = useStudioStore((state) => state.currentStep);
   const isPlaying = useStudioStore((state) => state.isPlaying);
   const setMelodyStep = useStudioStore((state) => state.setMelodyStep);
@@ -88,10 +92,10 @@ export function MelodyHarmonyWorkspace() {
             <small>
               BAR {firstBar + index + 1} · MELODY STEPS {index * 8 + 1}–{index * 8 + 8}
             </small>
-            <strong>{chord ?? "No chord"}</strong>
+            <strong>{chord ? chordSymbol(chord, tonalContext) : "No chord"}</strong>
             <span>
               {chord
-                ? chordPitchClasses(chord).join(" · ")
+                ? harmonicChordPitchClasses(chord, tonalContext).join(" · ")
                 : "set progression first"}
             </span>
           </div>
@@ -126,11 +130,11 @@ export function MelodyHarmonyWorkspace() {
                 coveringStart + duration - 1 === step;
               const chordTone = Boolean(
                 chord &&
-                  chordPitchClasses(chord).includes(
+                  harmonicChordPitchClasses(chord, tonalContext).includes(
                     ((pitch.midi % 12) + 12) % 12,
                   ),
               );
-              const scaleTone = isCMajorMidi(pitch.midi);
+              const scaleTone = isMidiInTonalContext(pitch.midi, tonalContext);
               const type = chordTone
                 ? "is-chord-tone"
                 : scaleTone

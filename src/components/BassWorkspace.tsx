@@ -1,8 +1,14 @@
 import { audioEngine } from "../audio/engine";
 import {
+  chordSymbol,
+  harmonicBassRootMidi,
+  isMidiInTonalContext,
+  keyLabel,
+} from "../music/harmony";
+import {
   BASS_STEPS,
   bassPitches,
-  bassRootMidi,
+  midiNoteName,
   noteDurationLabel,
 } from "../music/model";
 import { useStudioStore } from "../state/studio";
@@ -16,7 +22,8 @@ export function BassWorkspace() {
   const durations = useStudioStore((state) => state.bassDurations);
   const setBassStep = useStudioStore((state) => state.setBassStep);
   const setBassDuration = useStudioStore((state) => state.setBassDuration);
-  const progression = useStudioStore((state) => state.chordProgression);
+  const progression = useStudioStore((state) => state.harmonicProgression);
+  const tonalContext = useStudioStore((state) => state.tonalContext);
   const currentStep = useStudioStore((state) => state.currentStep);
   const isPlaying = useStudioStore((state) => state.isPlaying);
 
@@ -52,8 +59,10 @@ export function BassWorkspace() {
         {progression.map((chord, bar) => (
           <div key={bar}>
             <small>BAR {bar + 1}</small>
-            <strong>{chord ?? "—"}</strong>
-            <span>{chord ? "root " + bassRootMidi(chord) : "set chord first"}</span>
+            <strong>{chord ? chordSymbol(chord, tonalContext) : "—"}</strong>
+            <span>{chord
+                  ? "root " + midiNoteName(harmonicBassRootMidi(chord, tonalContext))
+                  : "set chord first"}</span>
           </div>
         ))}
       </div>
@@ -62,14 +71,14 @@ export function BassWorkspace() {
         {bassPitches.map((pitch) => (
           <div
             key={pitch.midi}
-            className={pitch.inCMajor ? "bass-row is-key-row" : "bass-row"}
+            className={isMidiInTonalContext(pitch.midi, tonalContext) ? "bass-row is-key-row" : "bass-row"}
           >
             <button
               className="bass-note-label"
               onClick={() => audioEngine.playPianoNote(pitch.midi)}
             >
               <strong>{pitch.name}</strong>
-              <span>{pitch.inCMajor ? "key" : "chromatic"}</span>
+              <span>{isMidiInTonalContext(pitch.midi, tonalContext) ? "key" : "chromatic"}</span>
             </button>
 
             {Array.from({ length: BASS_STEPS }, (_, step) => {
@@ -141,7 +150,7 @@ export function BassWorkspace() {
       </div>
 
       <div className="bass-grid-legend">
-        <span><i className="legend-key key-note" /> C-major pitch</span>
+        <span><i className="legend-key key-note" /> pitch in {keyLabel(tonalContext)}</span>
         <span><i className="legend-key outside-note" /> chromatic pitch</span>
         <span>Bright columns = beats · darker columns = eighth-note offbeats</span>
         <span>Length: 1 cell = 1/8 · 2 = 1/4 · 4 = 1/2 · 8 = 1 bar</span>

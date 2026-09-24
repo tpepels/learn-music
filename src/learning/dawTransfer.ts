@@ -307,6 +307,15 @@ const transferProfiles: Record<Workspace, DawTransferProfile> = {
     vocabulary: ["instrument plugin", "preset", "timbre", "MIDI track"],
     stage: "instrument",
   },
+  transposition: {
+    concept: "Transposition moves pitch material while preserving interval and harmonic relationships.",
+    changes: "You can change the tonal reference for generated harmony or move written MIDI notes by the same number of semitones.",
+    dawLocation: "DAWs expose this as clip transpose, MIDI transform, pitch-shift, or key-aware chord tools.",
+    whyItMatters: "Separating scale-degree identity from absolute pitch lets the same musical idea move to a new key without rebuilding it note by note.",
+    pitfall: "Changing only a key label does not automatically move MIDI notes that were already written.",
+    vocabulary: ["transpose", "semitone", "key", "scale degree", "MIDI transform"],
+    stage: "notes",
+  },
 };
 
 const playLabRepresentations: Record<Workspace, string> = {
@@ -341,6 +350,7 @@ const playLabRepresentations: Record<Workspace, string> = {
   "seventh-harmony": "PLAY/LAB extends the familiar chord stacks by one editable note, so seventh chords remain ordinary MIDI voicings.",
   "borrowed-harmony": "PLAY/LAB leaves chromatic notes editable in the same harmony grid so out-of-key colour is treated as deliberate note data, not an exception mode.",
   "instrument-palette": "PLAY/LAB keeps the MIDI material fixed while voice selectors change the instrument that performs it, making content and timbre separate layers.",
+  transposition: "PLAY/LAB shows chord symbols beside Roman numerals, then lets you change the tonic alone or transpose the written MIDI material with it.",
 };
 
 const checkpoints: Record<number, DawCheckpoint> = {

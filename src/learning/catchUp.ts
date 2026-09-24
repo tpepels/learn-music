@@ -34,6 +34,11 @@ import {
   type ProjectData,
   type StepPattern,
 } from "../music/model";
+import {
+  cloneTonalContext,
+  diatonicChord,
+  initialTonalContext,
+} from "../music/harmony";
 
 export const LESSON_FIVE_ID = "sound.synthesis";
 
@@ -126,6 +131,13 @@ export function buildLessonFiveRecoveryProject(): ProjectData {
     },
     melody: [...melody],
     melodyDurations: [...melodyDurations],
+    tonalContext: cloneTonalContext(initialTonalContext),
+    harmonicProgression: [
+      diatonicChord(initialTonalContext, 1),
+      diatonicChord(initialTonalContext, 4),
+      diatonicChord(initialTonalContext, 5),
+      diatonicChord(initialTonalContext, 1),
+    ],
     chordProgression: ["C", "F", "G", "C"] satisfies ChordProgression,
     harmonySequence: cloneHarmonySequence(harmonySequence),
     harmonyDurations: cloneHarmonyDurations(

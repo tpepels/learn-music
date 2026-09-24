@@ -1,8 +1,11 @@
 import {
-  chordPitchClasses,
-  type ChordProgression,
-  type HarmonySequence,
-} from "../music/model";
+  harmonicChordPitchClasses,
+  harmonicIdentityEquals,
+  progressionMatchesDegrees,
+  type HarmonicProgression,
+  type TonalContext,
+} from "../music/harmony";
+import { type HarmonySequence } from "../music/model";
 import { changedControl, heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
@@ -29,18 +32,22 @@ function pitchClasses(notes: number[]): Set<number> {
 
 function barUsesAllChordTones(
   sequence: HarmonySequence,
-  progression: ChordProgression,
+  progression: HarmonicProgression,
+  tonalContext: TonalContext,
   bar: number,
 ): boolean {
   const chord = progression[bar];
   if (!chord) return false;
   const written = pitchClasses(barSteps(sequence, bar).flat());
-  return chordPitchClasses(chord).every((pitchClass) => written.has(pitchClass));
+  return harmonicChordPitchClasses(chord, tonalContext).every((pitchClass) =>
+    written.has(pitchClass),
+  );
 }
 
 function writtenNotesFitChords(
   sequence: HarmonySequence,
-  progression: ChordProgression,
+  progression: HarmonicProgression,
+  tonalContext: TonalContext,
 ): boolean {
   let found = false;
 
@@ -51,7 +58,7 @@ function writtenNotesFitChords(
 
     const chord = progression[Math.floor(step / 8)];
     if (!chord) return false;
-    const allowed = chordPitchClasses(chord);
+    const allowed = harmonicChordPitchClasses(chord, tonalContext);
     if (
       notes.some(
         (midi) => !allowed.includes(((midi % 12) + 12) % 12),
@@ -107,18 +114,31 @@ export const chordProgressionLesson: LessonDefinition = {
         checksLabel: "Build it",
         successLabel: "You wrote C major into the sequence",
       }),
-      evaluate: ({ chordProgression, harmonySequence, experiments }) => {
+      evaluate: ({
+        harmonicProgression,
+        tonalContext,
+        harmonySequence,
+        experiments,
+      }) => {
         const first = pitchClasses(harmonySequence[0] ?? []);
         return [
           { label: "You built, disturbed, and restored the chord notes", complete: changedControl(experiments, "harmony.note-edit", 5) },
           { label: "You listened to C major under your existing music", complete: heardPlayback(experiments) },
           {
             label: "Bar 1 is C major",
-            complete: chordProgression[0] === "C",
+            complete: harmonicIdentityEquals(harmonicProgression[0], {
+              degree: 1,
+              quality: "major",
+            }),
           },
           {
             label: "The first step contains C, E, and G",
-            complete: [0, 4, 7].every((pitchClass) => first.has(pitchClass)),
+            complete:
+              harmonicProgression[0] !== null &&
+              harmonicChordPitchClasses(
+                harmonicProgression[0],
+                tonalContext,
+              ).every((pitchClass) => first.has(pitchClass)),
           },
         ];
       },
@@ -145,26 +165,30 @@ export const chordProgressionLesson: LessonDefinition = {
         checksLabel: "Write the phrase",
         successLabel: "Every bar now contains harmony you entered yourself",
       }),
-      evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+      evaluate: ({
+        harmonicProgression,
+        tonalContext,
+        harmonySequence,
+        experiments,
+      }) => [
         { label: "You wrote the progression into the piano roll", complete: changedControl(experiments, "harmony.note-edit", 6) },
         { label: "You listened across the four chord changes", complete: heardPlayback(experiments) },
         {
           label: "The progression is C → F → G → C",
-          complete:
-            chordProgression[0] === "C" &&
-            chordProgression[1] === "F" &&
-            chordProgression[2] === "G" &&
-            chordProgression[3] === "C",
+          complete: progressionMatchesDegrees(
+            harmonicProgression,
+            [1, 4, 5, 1],
+          ),
         },
         {
           label: "Every bar uses all three notes of its chord",
           complete: [0, 1, 2, 3].every((bar) =>
-            barUsesAllChordTones(harmonySequence, chordProgression, bar),
+            barUsesAllChordTones(harmonySequence, harmonicProgression, tonalContext, bar),
           ),
         },
         {
           label: "Every written note belongs to the chord above that bar",
-          complete: writtenNotesFitChords(harmonySequence, chordProgression),
+          complete: writtenNotesFitChords(harmonySequence, harmonicProgression, tonalContext),
         },
       ],
     },
@@ -190,7 +214,12 @@ export const chordProgressionLesson: LessonDefinition = {
         checksLabel: "Make it move",
         successLabel: "The chords now have a rhythm you composed",
       }),
-      evaluate: ({ chordProgression, harmonySequence, experiments }) => {
+      evaluate: ({
+        harmonicProgression,
+        tonalContext,
+        harmonySequence,
+        experiments,
+      }) => {
         const offbeats = harmonySequence.filter(
           (notes, step) => notes.length > 0 && step % 2 === 1,
         ).length;
@@ -215,7 +244,7 @@ export const chordProgressionLesson: LessonDefinition = {
           },
           {
             label: "The notes still fit the chords",
-            complete: writtenNotesFitChords(harmonySequence, chordProgression),
+            complete: writtenNotesFitChords(harmonySequence, harmonicProgression, tonalContext),
           },
         ];
       },
@@ -242,7 +271,12 @@ export const chordProgressionLesson: LessonDefinition = {
         checksLabel: "Compose",
         successLabel: "You wrote a real four-bar harmony part",
       }),
-      evaluate: ({ chordProgression, harmonySequence, experiments }) => {
+      evaluate: ({
+        harmonicProgression,
+        tonalContext,
+        harmonySequence,
+        experiments,
+      }) => {
         const signatures = [0, 1, 2, 3].map((bar) =>
           rhythmSignature(harmonySequence, bar),
         );
@@ -256,15 +290,15 @@ export const chordProgressionLesson: LessonDefinition = {
           {
             label: "C frames the phrase and G prepares the final return",
             complete:
-              chordProgression[0] === "C" &&
-              chordProgression[2] === "G" &&
-              chordProgression[3] === "C",
+              harmonicProgression[0]?.degree === 1 &&
+              harmonicProgression[2]?.degree === 5 &&
+              harmonicProgression[3]?.degree === 1,
           },
           {
             label: "Bar 2 uses a different chord from tonic C",
             complete:
-              chordProgression[1] !== null &&
-              chordProgression[1] !== "C",
+              harmonicProgression[1] !== null &&
+              harmonicProgression[1]?.degree !== 1,
           },
           {
             label: "Every bar contains at least two written time positions",
@@ -285,7 +319,7 @@ export const chordProgressionLesson: LessonDefinition = {
           },
           {
             label: "Every written note belongs to its current chord",
-            complete: writtenNotesFitChords(harmonySequence, chordProgression),
+            complete: writtenNotesFitChords(harmonySequence, harmonicProgression, tonalContext),
           },
         ];
       },

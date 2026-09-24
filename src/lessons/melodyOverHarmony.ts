@@ -1,9 +1,11 @@
 import {
-  isChordTone,
-  isCMajorMidi,
-  type ChordProgression,
-  type MelodySequence,
-} from "../music/model";
+  isHarmonicChordTone,
+  isMidiInTonalContext,
+  type HarmonicChord,
+  type HarmonicProgression,
+  type TonalContext,
+} from "../music/harmony";
+import { type MelodySequence } from "../music/model";
 import {
   MELODY_HARMONY_BAR_COUNT,
   MELODY_HARMONY_BAR_EIGHTHS,
@@ -23,7 +25,8 @@ function sourceStartForBar(bar: number): number {
 
 function barHasChordTone(
   melody: MelodySequence,
-  progression: ChordProgression,
+  progression: HarmonicProgression,
+  tonalContext: TonalContext,
   bar: number,
 ): boolean {
   const chord = progression[bar];
@@ -32,12 +35,13 @@ function barHasChordTone(
   const start = sourceStartForBar(bar);
   return melody
     .slice(start, start + MELODY_HARMONY_BAR_EIGHTHS)
-    .some((note) => note !== null && isChordTone(note, chord));
+    .some((note) => note !== null && isHarmonicChordTone(note, chord, tonalContext));
 }
 
 function countPassingToneMoments(
   melody: MelodySequence,
-  progression: ChordProgression,
+  progression: HarmonicProgression,
+  tonalContext: TonalContext,
 ): number {
   let passing = 0;
 
@@ -61,8 +65,8 @@ function countPassingToneMoments(
       if (
         (up || down) &&
         stepwise &&
-        isCMajorMidi(note) &&
-        !isChordTone(note, chord)
+        isMidiInTonalContext(note, tonalContext) &&
+        !isHarmonicChordTone(note, chord, tonalContext)
       ) {
         passing += 1;
       }
@@ -74,7 +78,8 @@ function countPassingToneMoments(
 
 function hasNeighbourMoment(
   melody: MelodySequence,
-  progression: ChordProgression,
+  progression: HarmonicProgression,
+  tonalContext: TonalContext,
 ): boolean {
   for (let bar = 0; bar < MELODY_HARMONY_BAR_COUNT; bar += 1) {
     const chord = progression[bar];
@@ -93,7 +98,7 @@ function hasNeighbourMoment(
         a === c &&
         Math.abs(b - a) <= 2 &&
         Math.abs(b - a) > 0 &&
-        isChordTone(a, chord)
+        isHarmonicChordTone(a, chord, tonalContext)
       ) {
         return true;
       }
@@ -105,7 +110,8 @@ function hasNeighbourMoment(
 
 function countResolutionMoments(
   melody: MelodySequence,
-  progression: ChordProgression,
+  progression: HarmonicProgression,
+  tonalContext: TonalContext,
 ): number {
   let resolutions = 0;
 
@@ -121,8 +127,8 @@ function countResolutionMoments(
       if (
         note !== null &&
         next !== null &&
-        !isChordTone(note, chord) &&
-        isChordTone(next, chord) &&
+        !isHarmonicChordTone(note, chord, tonalContext) &&
+        isHarmonicChordTone(next, chord, tonalContext) &&
         Math.abs(next - note) <= 2
       ) {
         resolutions += 1;
@@ -135,8 +141,9 @@ function countResolutionMoments(
 
 function finalPlaybackNote(
   melody: MelodySequence,
-  progression: ChordProgression,
-): { note: number; chord: NonNullable<ChordProgression[number]> } | null {
+  progression: HarmonicProgression,
+  tonalContext: TonalContext,
+): { note: number; chord: HarmonicChord } | null {
   if (melody.length === 0) return null;
 
   for (
@@ -192,16 +199,21 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
         checksLabel: "Anchor all four bars",
         successLabel: "Every harmony bar now contains a stable melody point",
       }),
-      evaluate: ({ melody, chordProgression, experiments }) => [
+      evaluate: ({
+        melody,
+        harmonicProgression,
+        tonalContext,
+        experiments,
+      }) => [
         { label: "You placed or revised melody notes for the harmony", complete: changedControl(experiments, "melody.edit", 4) },
         { label: "You listened across the complete four-bar harmony", complete: heardPlayback(experiments) },
         {
           label: "All four chord slots are filled",
-          complete: chordProgression.every(Boolean),
+          complete: harmonicProgression.every(Boolean),
         },
         ...[0, 1, 2, 3].map((bar) => ({
           label: "Bar " + (bar + 1) + " contains a melody chord tone",
-          complete: barHasChordTone(melody, chordProgression, bar),
+          complete: barHasChordTone(melody, harmonicProgression, tonalContext, bar),
         })),
       ],
     },
@@ -225,12 +237,17 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
         checksLabel: "Connect the anchors",
         successLabel: "Passing notes now create smooth motion through the harmony",
       }),
-      evaluate: ({ melody, chordProgression, experiments }) => [
+      evaluate: ({
+        melody,
+        harmonicProgression,
+        tonalContext,
+        experiments,
+      }) => [
         { label: "You revised the line to create passing motion", complete: changedControl(experiments, "melody.edit", 2) },
         { label: "You listened to the passing tones in context", complete: heardPlayback(experiments) },
         {
           label: "At least two in-key passing-tone moments occur in the four-bar playback",
-          complete: countPassingToneMoments(melody, chordProgression) >= 2,
+          complete: countPassingToneMoments(melody, harmonicProgression, tonalContext) >= 2,
         },
       ],
     },
@@ -254,12 +271,17 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
         checksLabel: "Decorate one stable pitch",
         successLabel: "The melody now uses a clear neighbour-note gesture",
       }),
-      evaluate: ({ melody, chordProgression, experiments }) => [
+      evaluate: ({
+        melody,
+        harmonicProgression,
+        tonalContext,
+        experiments,
+      }) => [
         { label: "You revised the melody to make the neighbour gesture", complete: changedControl(experiments, "melody.edit", 2) },
         { label: "You listened to the detour and return", complete: heardPlayback(experiments) },
         {
           label: "A stable–neighbour–stable figure exists in at least one bar",
-          complete: hasNeighbourMoment(melody, chordProgression),
+          complete: hasNeighbourMoment(melody, harmonicProgression, tonalContext),
         },
       ],
     },
@@ -284,19 +306,27 @@ export const melodyOverHarmonyLesson: LessonDefinition = {
         checksLabel: "Aim the tension",
         successLabel: "Non-chord notes now have clear destinations",
       }),
-      evaluate: ({ melody, chordProgression, experiments }) => {
-        const final = finalPlaybackNote(melody, chordProgression);
+      evaluate: ({
+        melody,
+        harmonicProgression,
+        tonalContext,
+        experiments,
+      }) => {
+        const final = finalPlaybackNote(melody, harmonicProgression, tonalContext);
 
         return [
           { label: "You revised the line to create directed tension", complete: changedControl(experiments, "melody.edit", 2) },
           { label: "You listened to tension resolve into the chord", complete: heardPlayback(experiments) },
           {
             label: "At least two tensions resolve by step inside their bars",
-            complete: countResolutionMoments(melody, chordProgression) >= 2,
+            complete: countResolutionMoments(melody, harmonicProgression, tonalContext) >= 2,
           },
           {
             label: "The final sounding melody note belongs to its actual final-bar chord",
-            complete: Boolean(final && isChordTone(final.note, final.chord)),
+            complete: Boolean(
+              final &&
+                isHarmonicChordTone(final.note, final.chord, tonalContext),
+            ),
           },
         ];
       },

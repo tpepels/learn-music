@@ -1,10 +1,10 @@
-import { chordFunction } from "../music/model";
+import { harmonicFunction } from "../music/harmony";
 import {
-  barUsesAllChordTones,
-  everyActiveBarWritten,
+  barUsesAllHarmonicChordTones,
+  everyActiveHarmonicBarWritten,
   harmonyActiveSteps,
   harmonyOffbeats,
-  writtenHarmonyFitsChords,
+  writtenHarmonyFitsHarmonicProgression,
 } from "./harmonyApplication";
 import { heardPlayback } from "./learningEvidence";
 import {
@@ -54,7 +54,13 @@ export const harmonicFunctionLesson: LessonDefinition = {
         checksLabel: "Write the function",
         successLabel: "The chord movement is now in the part you wrote",
       }),
-      evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+      evaluate: ({
+        chordProgression,
+        harmonicProgression,
+        tonalContext,
+        harmonySequence,
+        experiments,
+      }) => [
         { label: "You listened to the rewritten harmonic motion", complete: heardPlayback(experiments) },
         {
           label: "Progression is C → F → G → C",
@@ -67,7 +73,7 @@ export const harmonicFunctionLesson: LessonDefinition = {
         {
           label: "Every bar contains all of its chord tones",
           complete: [0, 1, 2, 3].every((bar) =>
-            barUsesAllChordTones(harmonySequence, chordProgression, bar),
+            barUsesAllHarmonicChordTones(harmonySequence, harmonicProgression, tonalContext, bar),
           ),
         },
         {
@@ -100,7 +106,13 @@ export const harmonicFunctionLesson: LessonDefinition = {
         checksLabel: "Reharmonize",
         successLabel: "You rebuilt the phrase as ii–V–I",
       }),
-      evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+      evaluate: ({
+        chordProgression,
+        harmonicProgression,
+        tonalContext,
+        harmonySequence,
+        experiments,
+      }) => [
         { label: "You listened to the rewritten harmonic motion", complete: heardPlayback(experiments) },
         {
           label: "The phrase begins Dm → G → C",
@@ -112,12 +124,12 @@ export const harmonicFunctionLesson: LessonDefinition = {
         {
           label: "The first three bars contain every chord tone",
           complete: [0, 1, 2].every((bar) =>
-            barUsesAllChordTones(harmonySequence, chordProgression, bar),
+            barUsesAllHarmonicChordTones(harmonySequence, harmonicProgression, tonalContext, bar),
           ),
         },
         {
           label: "No written note fights the chord above it",
-          complete: writtenHarmonyFitsChords(harmonySequence, chordProgression),
+          complete: writtenHarmonyFitsHarmonicProgression(harmonySequence, harmonicProgression, tonalContext),
         },
         {
           label: "You edited the MIDI rather than only the labels",
@@ -145,7 +157,13 @@ export const harmonicFunctionLesson: LessonDefinition = {
         checksLabel: "Redirect it",
         successLabel: "The deceptive move is part of your accompaniment",
       }),
-      evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+      evaluate: ({
+        chordProgression,
+        harmonicProgression,
+        tonalContext,
+        harmonySequence,
+        experiments,
+      }) => [
         { label: "You listened to the rewritten harmonic motion", complete: heardPlayback(experiments) },
         {
           label: "Progression is C → G → Am → F",
@@ -158,8 +176,8 @@ export const harmonicFunctionLesson: LessonDefinition = {
         {
           label: "Every active bar has written harmony that fits",
           complete:
-            everyActiveBarWritten(harmonySequence, chordProgression) &&
-            writtenHarmonyFitsChords(harmonySequence, chordProgression),
+            everyActiveHarmonicBarWritten(harmonySequence, harmonicProgression, tonalContext) &&
+            writtenHarmonyFitsHarmonicProgression(harmonySequence, harmonicProgression, tonalContext),
         },
         {
           label: "The accompaniment has rhythm, including offbeats",
@@ -194,7 +212,13 @@ export const harmonicFunctionLesson: LessonDefinition = {
         checksLabel: "Write the chromatic pull",
         successLabel: "F♯ now creates the secondary dominant you can hear",
       }),
-      evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+      evaluate: ({
+        chordProgression,
+        harmonicProgression,
+        tonalContext,
+        harmonySequence,
+        experiments,
+      }) => [
         { label: "You listened to the rewritten harmonic motion", complete: heardPlayback(experiments) },
         {
           label: "D7 resolves to G and G resolves to C",
@@ -207,18 +231,19 @@ export const harmonicFunctionLesson: LessonDefinition = {
           label: "Bar 4 returns to tonic function",
           complete: Boolean(
             chordProgression[3] &&
-              chordFunction[chordProgression[3]] === "tonic",
+              harmonicProgression[3] &&
+              harmonicFunction(harmonicProgression[3]) === "tonic",
           ),
         },
         {
           label: "D7 contains all four written chord tones",
-          complete: barUsesAllChordTones(harmonySequence, chordProgression, 0),
+          complete: barUsesAllHarmonicChordTones(harmonySequence, harmonicProgression, tonalContext, 0),
         },
         {
           label: "The whole written accompaniment fits its current chords",
           complete:
-            everyActiveBarWritten(harmonySequence, chordProgression) &&
-            writtenHarmonyFitsChords(harmonySequence, chordProgression),
+            everyActiveHarmonicBarWritten(harmonySequence, harmonicProgression, tonalContext) &&
+            writtenHarmonyFitsHarmonicProgression(harmonySequence, harmonicProgression, tonalContext),
         },
         {
           label: "You edited the harmony rather than only choosing D7",
