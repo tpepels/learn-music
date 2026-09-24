@@ -78,6 +78,24 @@ describe("Schoenberg learning track", () => {
     }
   });
 
+  it("embeds the Beethoven score excerpts it asks the learner to analyse", () => {
+    const literature = schoenbergPhraseMotiveLesson.exercises[1];
+    const repair = schoenbergPhraseMotiveLesson.exercises[2];
+
+    expect(literature.source?.examples).toEqual([
+      expect.objectContaining({
+        asset: "book-examples/s01/ex2e-beethoven-eroica-i.jpg",
+      }),
+    ]);
+    expect(repair.source?.examples?.map((example) => example.asset)).toEqual([
+      "book-examples/s01/ex2e-beethoven-eroica-i.jpg",
+      "book-examples/s01/ex4c-beethoven-eroica-scherzo.jpg",
+    ]);
+
+    expect(literature.instruction).toContain("embedded Ex. 2e");
+    expect(repair.instruction).toContain("Study both embedded Beethoven excerpts");
+  });
+
   it("recognises phrase analysis after listening, marking, and changing notation", () => {
     const study = initialCompositionStudyState();
     study[SCHOENBERG_STUDY_IDS.analyse].selectedSteps = [0, 1, 2, 3];
