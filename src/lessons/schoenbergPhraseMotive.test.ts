@@ -66,7 +66,19 @@ describe("Schoenberg learning track", () => {
     ).toBeUndefined();
   });
 
-  it("recognises motive analysis after listening, marking, and changing notation", () => {
+  it("expands S01 into a source-grounded A-J sequence", () => {
+    expect(schoenbergPhraseMotiveLesson.title).toBe("Form & phrase");
+    expect(schoenbergPhraseMotiveLesson.exercises).toHaveLength(10);
+    expect(schoenbergPhraseMotiveLesson.exercises.map((exercise) => exercise.letter))
+      .toEqual(["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]);
+
+    for (const exercise of schoenbergPhraseMotiveLesson.exercises) {
+      expect(exercise.source?.reference).toBeTruthy();
+      expect(exercise.source?.focus).toBeTruthy();
+    }
+  });
+
+  it("recognises phrase analysis after listening, marking, and changing notation", () => {
     const study = initialCompositionStudyState();
     study[SCHOENBERG_STUDY_IDS.analyse].selectedSteps = [0, 1, 2, 3];
 
@@ -80,7 +92,7 @@ describe("Schoenberg learning track", () => {
     expect(checks.every((check) => check.complete)).toBe(true);
   });
 
-  it("requires comparison of exact, related, and unrelated motive-forms", () => {
+  it("requires comparison of exact, related, and unrelated phrase relationships", () => {
     const study = initialCompositionStudyState();
     study[SCHOENBERG_STUDY_IDS.compare].decision = "related";
 
@@ -117,6 +129,78 @@ describe("Schoenberg learning track", () => {
       context(study, {
         "transport.play": experiment(1, ["composition-study"]),
         "study.note-edit": experiment(3, ["4:62", "5:64", "6:67"]),
+      }),
+    );
+
+    expect(checks.every((check) => check.complete)).toBe(true);
+  });
+
+  it("accepts the Ex. 5 chord-tone construction only inside one triad", () => {
+    const study = initialCompositionStudyState();
+    study[SCHOENBERG_STUDY_IDS.compose].notes = [
+      60, 64, 67, 64, 60, 67, 64, 60,
+      null, null, null, null, null, null, null, null,
+    ];
+
+    const checks = schoenbergPhraseMotiveLesson.exercises[3].evaluate(
+      context(study, {
+        "transport.play": experiment(1, ["composition-study"]),
+        "study.note-edit": experiment(9, [
+          "0:60", "1:64", "2:67", "3:64", "4:60", "5:67", "6:64", "7:60",
+          "3:67", "3:64",
+        ]),
+      }),
+    );
+
+    expect(checks.every((check) => check.complete)).toBe(true);
+  });
+
+  it("uses the book's Exs. 6-11 as separate analysis steps", () => {
+    const study = initialCompositionStudyState();
+    const ids = [
+      SCHOENBERG_STUDY_IDS.noteValues,
+      SCHOENBERG_STUDY_IDS.upbeats,
+      SCHOENBERG_STUDY_IDS.passingNotes,
+      SCHOENBERG_STUDY_IDS.repetitions,
+      SCHOENBERG_STUDY_IDS.embellishment,
+    ];
+
+    ids.forEach((id) => {
+      study[id].decision = "related";
+    });
+
+    const sharedExperiments = {
+      "transport.play": experiment(1, ["composition-study"]),
+      "study.notation": experiment(2, ["staff", "degrees"]),
+    };
+
+    for (let index = 4; index <= 8; index += 1) {
+      const checks = schoenbergPhraseMotiveLesson.exercises[index].evaluate(
+        context(study, sharedExperiments),
+      );
+      expect(
+        checks.every((check) => check.complete),
+        schoenbergPhraseMotiveLesson.exercises[index].id,
+      ).toBe(true);
+    }
+  });
+
+  it("accepts a revised final phrase study with related but changed halves", () => {
+    const study = initialCompositionStudyState();
+    study[SCHOENBERG_STUDY_IDS.build].notes = [
+      60, 62, 64, 65, 67, null, null, null,
+      62, 64, 66, 67, 69, null, null, null,
+    ];
+
+    const checks = schoenbergPhraseMotiveLesson.exercises[9].evaluate(
+      context(study, {
+        "transport.play": experiment(1, ["composition-study"]),
+        "study.notation": experiment(2, ["piano-roll", "staff"]),
+        "study.note-edit": experiment(12, [
+          "0:60", "1:62", "2:64", "3:65", "4:67",
+          "8:62", "9:64", "10:66", "11:67", "12:69",
+          "8:63", "8:62",
+        ]),
       }),
     );
 
