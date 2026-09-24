@@ -61,7 +61,7 @@ export const bassLinesLesson: LessonDefinition = {
           label: "Bar " + (bar + 1) + " begins on its chord root",
           complete: Boolean(
             harmonicProgression[bar] &&
-              bassSequence[step] === bassRootMidi(harmonicProgression[bar]!),
+              bassSequence[step] === harmonicBassRootMidi(harmonicProgression[bar]!, tonalContext),
           ),
         })),
       ],
@@ -199,7 +199,7 @@ export const bassLinesLesson: LessonDefinition = {
             complete: barStarts.every((step, bar) =>
               Boolean(
                 harmonicProgression[bar] &&
-                  bassSequence[step] === bassRootMidi(harmonicProgression[bar]!),
+                  bassSequence[step] === harmonicBassRootMidi(harmonicProgression[bar]!, tonalContext),
               ),
             ),
           },
