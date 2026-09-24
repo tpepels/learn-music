@@ -49,6 +49,7 @@ export const exerciseContentSchema = z.object({
     .object({
       reference: z.string(),
       focus: z.string(),
+      exampleIds: z.array(z.string()).optional(),
       examples: z
         .array(
           z.object({
