@@ -117,12 +117,15 @@ import {
   type TonalMode,
 } from "../music/harmony";
 import {
+  SCHOENBERG_COMPLETION_IDS,
   SCHOENBERG_CONNECTION_IDS,
   SCHOENBERG_SENTENCE_IDS,
   ensureStudyExerciseState,
   initialCompositionStudyState,
   mergeCompositionStudyState,
   resetStudyExerciseState,
+  setStudyCompletionModeState,
+  setStudyCompletionSourceStepState,
   setStudyConnectionOperationsState,
   setStudyOperationsState,
   setStudySentenceModeState,
@@ -132,6 +135,7 @@ import {
   studyComparisonSequence,
   studyConnectionSequence,
   type CompositionStudyState,
+  type StudyCompletionMode,
   type StudyDecision,
   type StudyDuration,
   type StudyFeature,
@@ -369,6 +373,10 @@ type StudioState = {
   setStudySentenceMode: (
     exerciseId: string,
     mode: StudySentenceMode,
+  ) => void;
+  setStudyCompletionMode: (
+    exerciseId: string,
+    mode: StudyCompletionMode,
   ) => void;
   resetStudyExercise: (exerciseId: string) => void;
 };
@@ -1561,12 +1569,14 @@ export const useStudioStore = create<StudioState>()(
           const nextExercise =
             exerciseId === SCHOENBERG_SENTENCE_IDS.compose
               ? setStudySentenceSourceStepState(exercise, step, midi)
-              : (() => {
-                  const notes = [...exercise.notes];
-                  if (step < 0 || step >= notes.length) return exercise;
-                  notes[step] = midi;
-                  return { ...exercise, notes };
-                })();
+              : exerciseId === SCHOENBERG_COMPLETION_IDS.compose
+                ? setStudyCompletionSourceStepState(exercise, step, midi)
+                : (() => {
+                    const notes = [...exercise.notes];
+                    if (step < 0 || step >= notes.length) return exercise;
+                    notes[step] = midi;
+                    return { ...exercise, notes };
+                  })();
           return {
             compositionStudy: {
               ...state.compositionStudy,
@@ -1735,6 +1745,25 @@ export const useStudioStore = create<StudioState>()(
             learningExperiments: recordExperimentValue(
               state,
               "study.sentence-mode",
+              mode,
+            ),
+          };
+        }),
+
+      setStudyCompletionMode: (exerciseId, mode) =>
+        set((state) => {
+          const exercise = ensureStudyExerciseState(
+            state.compositionStudy,
+            exerciseId,
+          );
+          return {
+            compositionStudy: {
+              ...state.compositionStudy,
+              [exerciseId]: setStudyCompletionModeState(exercise, mode),
+            },
+            learningExperiments: recordExperimentValue(
+              state,
+              "study.completion-mode",
               mode,
             ),
           };

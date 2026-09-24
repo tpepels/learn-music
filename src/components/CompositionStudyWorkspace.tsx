@@ -1,6 +1,8 @@
 import { useEffect, useMemo } from "react";
 import { audioEngine } from "../audio/engine";
 import {
+  SCHOENBERG_COMPLETION_EXERCISE_IDS,
+  SCHOENBERG_COMPLETION_IDS,
   SCHOENBERG_CONNECTION_EXERCISE_IDS,
   SCHOENBERG_CONNECTION_IDS,
   SCHOENBERG_SENTENCE_EXERCISE_IDS,
@@ -11,6 +13,7 @@ import {
   studyComparisonSequence,
   studyConnectionSequence,
   studyVariationSequence,
+  type StudyCompletionMode,
   type StudyDuration,
   type StudyFeature,
   type StudyHarmony,
@@ -96,16 +99,26 @@ function StaffView({
   editable: boolean;
   unitStarts?: number[];
 }) {
+  const staffWidth = Math.max(760, 130 + notes.length * 39);
   return (
     <div className="study-staff-wrap">
       <svg
         className="study-staff"
-        viewBox="0 0 760 150"
+        viewBox={`0 0 ${staffWidth} 150`}
+        style={{ minWidth: staffWidth }}
+
         role="img"
         aria-label="Treble staff representation of the study phrase"
       >
         {[45, 53, 61, 69, 77].map((y) => (
-          <line key={y} x1="26" x2="738" y1={y} y2={y} className="staff-line" />
+          <line
+            key={y}
+            x1="26"
+            x2={staffWidth - 22}
+            y1={y}
+            y2={y}
+            className="staff-line"
+          />
         ))}
         <text x="34" y="73" className="staff-clef">𝄞</text>
         {unitStarts.filter((step) => step > 0).map((step) => {
@@ -159,7 +172,13 @@ function StaffView({
           );
         })}
       </svg>
-      <div className="study-motive-strip">
+      <div
+        className="study-motive-strip"
+        style={{
+          gridTemplateColumns: `repeat(${notes.length}, 1fr)`,
+          minWidth: Math.max(680, 78 + notes.length * 39),
+        }}
+      >
         {notes.map((_, step) => (
           <button
             type="button"
@@ -195,8 +214,16 @@ function PianoRollView({
 }) {
   return (
     <div className="study-roll-scroll">
-      <div className="study-roll">
-        <div className="study-roll-head">
+      <div
+        className="study-roll"
+        style={{ minWidth: Math.max(830, 52 + notes.length * 30) }}
+      >
+        <div
+          className="study-roll-head"
+          style={{
+            gridTemplateColumns: `52px repeat(${notes.length}, minmax(28px, 1fr))`,
+          }}
+        >
           <span />
           {notes.map((_, step) => (
             <span key={step} className={unitStarts.includes(step) ? "is-unit-start" : ""}>
@@ -205,7 +232,13 @@ function PianoRollView({
           ))}
         </div>
         {PITCH_ROWS.map((midi) => (
-          <div className="study-roll-row" key={midi}>
+          <div
+            className="study-roll-row"
+            key={midi}
+            style={{
+              gridTemplateColumns: `52px repeat(${notes.length}, minmax(28px, 1fr))`,
+            }}
+          >
             <button
               type="button"
               className="study-note-audition"
@@ -261,7 +294,13 @@ function DegreeView({
 }) {
   return (
     <div className="study-degree-scroll">
-      <div className="study-degree-grid">
+      <div
+        className="study-degree-grid"
+        style={{
+          gridTemplateColumns: `repeat(${notes.length}, minmax(44px, 1fr))`,
+          minWidth: Math.max(720, notes.length * 49),
+        }}
+      >
         {notes.map((midi, step) => (
           <div key={step} className={midi === null ? "is-rest" : ""}>
             <span>{step + 1}</span>
@@ -757,6 +796,175 @@ function SentencePanel({
   );
 }
 
+
+const completionModeCopy: Record<StudyCompletionMode, string> = {
+  "repeat-presentation": "Keep repeating the opening",
+  "developed-continuation": "Developed continuation",
+  "foreign-continuation": "New unrelated material",
+  "static-fragment": "Repeat one fragment",
+  sequence: "Sequential treatment",
+  unliquidated: "Keep full motive-forms",
+  liquidation: "Liquidate toward cadence",
+  abrupt: "Abrupt cut to cadence",
+  complete: "Sequence → liquidation → cadence",
+};
+
+function CompletionPanel({
+  exerciseId,
+  mode,
+  decision,
+  setMode,
+  setDecision,
+}: {
+  exerciseId: string;
+  mode: StudyCompletionMode;
+  decision: "same" | "related" | "unrelated" | null;
+  setMode: (mode: StudyCompletionMode) => void;
+  setDecision: (decision: "same" | "related" | "unrelated") => void;
+}) {
+  const isFunction = exerciseId === SCHOENBERG_COMPLETION_IDS.function;
+  const isSequence = exerciseId === SCHOENBERG_COMPLETION_IDS.sequence;
+  const isLiquidation = exerciseId === SCHOENBERG_COMPLETION_IDS.liquidation;
+  const isCompose = exerciseId === SCHOENBERG_COMPLETION_IDS.compose;
+
+  const options: StudyCompletionMode[] = isFunction
+    ? [
+        "repeat-presentation",
+        "developed-continuation",
+        "foreign-continuation",
+      ]
+    : isSequence
+      ? ["static-fragment", "sequence", "foreign-continuation"]
+      : isLiquidation
+        ? ["unliquidated", "liquidation", "abrupt"]
+        : ["complete", "sequence", "unliquidated"];
+
+  return (
+    <div className="study-completion-panel">
+      <div className="study-completion-map" aria-label="Sentence functions">
+        <div className="is-opening">
+          <span>Beginning</span>
+          <strong>basic idea + repetition</strong>
+          <small>steps 1–16</small>
+        </div>
+        <b>→</b>
+        <div className="is-continuation">
+          <span>Continuation</span>
+          <strong>
+            {mode === "repeat-presentation"
+              ? "more repetition"
+              : mode === "foreign-continuation"
+                ? "foreign material"
+                : mode === "static-fragment"
+                  ? "static fragment"
+                  : "developed motive-forms"}
+          </strong>
+          <small>steps 17–24</small>
+        </div>
+        <b>→</b>
+        <div
+          className={
+            ["liquidation", "complete", "developed-continuation"].includes(mode)
+              ? "is-liquidation is-active"
+              : "is-liquidation"
+          }
+        >
+          <span>Liquidation</span>
+          <strong>remove characteristic features</strong>
+          <small>steps 25–28</small>
+        </div>
+        <b>→</b>
+        <div
+          className={
+            ["liquidation", "complete", "developed-continuation", "abrupt"].includes(mode)
+              ? "is-cadence is-active"
+              : "is-cadence"
+          }
+        >
+          <span>Cadence</span>
+          <strong>V → I</strong>
+          <small>steps 29–32</small>
+        </div>
+      </div>
+
+      <div className="study-connection-copy">
+        <span className="section-label">
+          {isFunction
+            ? "Chapter VIII · completion of the sentence"
+            : isSequence
+              ? "Sequence-like continuation"
+              : isLiquidation
+                ? "Liquidation and delimitation"
+                : "Complete the sentence"}
+        </span>
+        <strong>
+          {isFunction
+            ? "After the beginning has established the idea, which second half actually develops it?"
+            : isSequence
+              ? "Which continuation repeats a transformed pattern at new pitch levels rather than merely looping it?"
+              : isLiquidation
+                ? "Which version gradually reduces characteristic material so that a cadence can end the sentence?"
+                : "Shape one full sentence: establish, develop, liquidate, then cadence."}
+        </strong>
+      </div>
+
+      <div className="study-completion-buttons">
+        {options.map((option) => (
+          <button
+            type="button"
+            key={option}
+            className={mode === option ? "is-active" : ""}
+            onClick={() => setMode(option)}
+          >
+            {completionModeCopy[option]}
+          </button>
+        ))}
+      </div>
+
+      {!isCompose && (
+        <div className="study-decision-buttons">
+          <span>
+            {isFunction
+              ? "Which version has continuation function?"
+              : isSequence
+                ? "Which version uses a sequence-like procedure?"
+                : "Which version demonstrates liquidation rather than mere omission?"}
+          </span>
+          <button
+            type="button"
+            className={decision === "related" ? "is-active" : ""}
+            onClick={() => setDecision("related")}
+          >
+            {isFunction
+              ? "Developed continuation"
+              : isSequence
+                ? "Sequential treatment"
+                : "Gradual liquidation"}
+          </button>
+          <button
+            type="button"
+            className={decision === "same" ? "is-active" : ""}
+            onClick={() => setDecision("same")}
+          >
+            {isFunction
+              ? "More presentation"
+              : isSequence
+                ? "Static repetition"
+                : "No liquidation"}
+          </button>
+          <button
+            type="button"
+            className={decision === "unrelated" ? "is-active" : ""}
+            onClick={() => setDecision("unrelated")}
+          >
+            {isLiquidation ? "Abrupt break" : "Unrelated material"}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function CompositionStudyWorkspace({
   exerciseId,
 }: {
@@ -773,6 +981,9 @@ export function CompositionStudyWorkspace({
   const setStudyFeatureDecision = useStudioStore((state) => state.setStudyFeatureDecision);
   const toggleStudyOperation = useStudioStore((state) => state.toggleStudyOperation);
   const setStudySentenceMode = useStudioStore((state) => state.setStudySentenceMode);
+  const setStudyCompletionMode = useStudioStore(
+    (state) => state.setStudyCompletionMode,
+  );
 
   const state = compositionStudy[exerciseId];
   const notes = state?.notes ?? Array(16).fill(null);
@@ -792,15 +1003,20 @@ export function CompositionStudyWorkspace({
   const isConnectionCompose = exerciseId === SCHOENBERG_CONNECTION_IDS.compose;
   const isSentence = SCHOENBERG_SENTENCE_EXERCISE_IDS.has(exerciseId);
   const isSentenceCompose = exerciseId === SCHOENBERG_SENTENCE_IDS.compose;
+  const isCompletion = SCHOENBERG_COMPLETION_EXERCISE_IDS.has(exerciseId);
+  const isCompletionCompose = exerciseId === SCHOENBERG_COMPLETION_IDS.compose;
   const sentenceMode = state?.sentenceMode ?? "exact";
-  const harmony = state?.harmony ?? Array<StudyHarmony>(16).fill(null);
+  const completionMode = state?.completionMode ?? "complete";
+  const harmony =
+    state?.harmony ?? Array<StudyHarmony>(notes.length).fill(null);
   const editable =
     exerciseId === SCHOENBERG_STUDY_IDS.repair ||
     exerciseId === SCHOENBERG_STUDY_IDS.compose ||
     isVariationCompose ||
     isConnectionRepair ||
     isConnectionCompose ||
-    isSentenceCompose;
+    isSentenceCompose ||
+    isCompletionCompose;
 
   const visibleSequence = useMemo(() => {
     if (isCompare && state?.variant) {
@@ -835,9 +1051,9 @@ export function CompositionStudyWorkspace({
     audioEngine.setStudySequence(
       visibleSequence.notes,
       visibleSequence.durations,
-      isSentence ? harmony : undefined,
+      isSentence || isCompletion ? harmony : undefined,
     );
-  }, [harmony, isSentence, visibleSequence]);
+  }, [harmony, isCompletion, isSentence, visibleSequence]);
 
   const notationOptions: Array<[StudyNotation, string]> = [
     ["staff", "Staff"],
@@ -851,9 +1067,11 @@ export function CompositionStudyWorkspace({
         <div>
           <span className="section-label">Composition study</span>
           <h2>
-            {isSentence
-              ? "Basic idea → immediate repetition"
-              : isConnection
+            {isCompletion
+              ? "Complete sentence · beginning → cadence"
+              : isSentence
+                ? "Basic idea → immediate repetition"
+                : isConnection
                 ? "Four motive-forms · one basic motive"
                 : isVariation
                   ? "Source motive → motive-form"
@@ -959,6 +1177,16 @@ export function CompositionStudyWorkspace({
         />
       )}
 
+      {isCompletion && (
+        <CompletionPanel
+          exerciseId={exerciseId}
+          mode={completionMode}
+          decision={state?.decision ?? null}
+          setMode={(next) => setStudyCompletionMode(exerciseId, next)}
+          setDecision={(next) => setStudyDecision(exerciseId, next)}
+        />
+      )}
+
       {isSentence &&
         (exerciseId === SCHOENBERG_SENTENCE_IDS.harmony ||
           sentenceMode === "complementary" ||
@@ -974,7 +1202,13 @@ export function CompositionStudyWorkspace({
             selectedSteps={selectedSteps}
             onToggleSelection={(step) => toggleStudySelection(exerciseId, step)}
             editable={isAnalyse}
-            unitStarts={isConnection ? [0, 4, 8, 12] : [0, 8]}
+            unitStarts={
+              isCompletion
+                ? [0, 8, 16, 20, 24, 28, 30]
+                : isConnection
+                  ? [0, 4, 8, 12]
+                  : [0, 8]
+            }
           />
         )}
         {notation === "piano-roll" && (
@@ -985,7 +1219,13 @@ export function CompositionStudyWorkspace({
             currentStep={currentStep}
             editable={editable}
             onEdit={(step, midi) => setStudyStep(exerciseId, step, midi)}
-            unitStarts={isConnection ? [0, 4, 8, 12] : [0, 8]}
+            unitStarts={
+              isCompletion
+                ? [0, 8, 16, 20, 24, 28, 30]
+                : isConnection
+                  ? [0, 4, 8, 12]
+                  : [0, 8]
+            }
           />
         )}
         {notation === "degrees" && (
@@ -998,8 +1238,12 @@ export function CompositionStudyWorkspace({
 
       <footer className="study-footer">
         <span>
-          {isSentence
-            ? isSentenceCompose
+          {isCompletion
+            ? isCompletionCompose
+              ? "Edit the basic idea or the continuation in Piano roll. Listen to all 32 steps: the second half should develop the source, reduce characteristic material, and earn the final V → I cadence."
+              : "Listen beyond step 16. The opening has already established the idea; now judge what the second half does with it."
+            : isSentence
+              ? isSentenceCompose
               ? "Edit the basic idea in the first half. Its repetition is regenerated from the selected sentence-opening strategy; the pale overlay shows the source relationship."
               : "Listen across the boundary at step 9: in a sentence beginning, the basic idea is repeated immediately, even when pitch or harmony changes."
             : isConnection

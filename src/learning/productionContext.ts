@@ -1228,6 +1228,35 @@ export const productionContext: Record<string, ProductionContext> = {
     realWorld: "Build the opening phrase, duplicate or transform it immediately, loop the two together, and only then continue writing the rest of the theme.",
   },
 
+  "schoenberg.completing-sentence.a": {
+    why: "Continuation changes the job of the material: instead of confirming the basic idea again, the music develops more remote forms of it.",
+    when: "Use this when the second half of a theme feels like another opening phrase rather than a genuine move toward an ending.",
+    tools: ["Loop playback", "Formal markers", "Staff notation", "Piano roll"],
+    visual: "motif",
+    realWorld: "Loop the complete theme and compare a copied opening against a more developmental second half while keeping the first half fixed.",
+  },
+  "schoenberg.completing-sentence.b": {
+    why: "Sequential treatment moves a transformed or condensed pattern through new pitch levels while preserving enough identity to remain coherent.",
+    when: "Use it when a continuation needs forward motion but you want the development to stay visibly and audibly tied to the original motive.",
+    tools: ["MIDI transpose", "Piano roll", "Staff notation", "Loop playback"],
+    visual: "motif",
+    realWorld: "Duplicate a short derived MIDI fragment several times and transpose each copy while checking that the interval pattern still reads as one process.",
+  },
+  "schoenberg.completing-sentence.c": {
+    why: "Liquidation prevents development from extending indefinitely by removing characteristic features until the remaining material can yield to a cadence.",
+    when: "Use it when a theme keeps generating material but never creates a convincing sense that the phrase is allowed to end.",
+    tools: ["Piano roll", "Phrase shortening", "Roman numerals", "Loop playback"],
+    visual: "motif",
+    realWorld: "Shorten or thin the final derived fragments while looping into the cadence; the aim is a gradual loss of motivic insistence rather than an arbitrary cut.",
+  },
+  "schoenberg.completing-sentence.d": {
+    why: "A complete sentence coordinates four different behaviours - establishment, development, liquidation and cadence - into one intelligible process.",
+    when: "Use this as a theme-writing workflow before moving to periods and larger formal structures.",
+    tools: ["Piano roll", "Staff notation", "Scale degrees", "Roman numerals"],
+    visual: "motif",
+    realWorld: "Work on the full MIDI phrase in a loop: preserve the opening, revise the developmental middle, reduce the late fragments, then check whether the cadence now feels prepared.",
+  },
+
 };
 
 export function getProductionContext(exerciseId: string): ProductionContext {
