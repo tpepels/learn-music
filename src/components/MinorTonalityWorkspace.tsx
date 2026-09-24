@@ -17,6 +17,7 @@ import {
   noteDurationLabel,
 } from "../music/model";
 import { useStudioStore } from "../state/studio";
+import { LayerVolumeStrip } from "./LayerVolumeStrip";
 import {
   findMonophonicNoteStart,
   useNoteLengthDrag,
@@ -106,6 +107,8 @@ export function MinorTonalityWorkspace({ harmonic }: { harmonic: boolean }) {
           Select scale notes above, then write directly in the piano roll below. Drag a note right to sustain it.
         </span>
       </div>
+
+      <LayerVolumeStrip tracks={["drums", "melody"] as const} />
 
       <HarmonyKeyControl
         modes={[desiredMode]}
