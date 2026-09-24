@@ -659,7 +659,7 @@ function SentencePanel({
     <div className="study-sentence-panel">
       <div className="study-sentence-form">
         <div>
-          <span>Presentation</span>
+          <span>Beginning of sentence</span>
           <strong>basic idea</strong>
           <small>a</small>
         </div>
@@ -959,9 +959,12 @@ export function CompositionStudyWorkspace({
         />
       )}
 
-      {isSentence && (
-        <StudyHarmonyLane harmony={harmony} sentenceMode={sentenceMode} />
-      )}
+      {isSentence &&
+        (exerciseId === SCHOENBERG_SENTENCE_IDS.harmony ||
+          sentenceMode === "complementary" ||
+          sentenceMode === "tonic-repeat") && (
+          <StudyHarmonyLane harmony={harmony} sentenceMode={sentenceMode} />
+        )}
 
       <div className="study-notation-stage">
         {notation === "staff" && (
