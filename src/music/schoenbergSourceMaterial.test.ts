@@ -64,6 +64,35 @@ describe("Schoenberg source material", () => {
     expect(material.events.map((event) => event.duration)).toEqual([4, 4, 8]);
   });
 
+  it("stores Exs. 6a-8a as verified native Chapter II source excerpts", () => {
+    const ex6a = getSchoenbergSourceMaterial("s01.ex6a");
+    const ex7a = getSchoenbergSourceMaterial("s01.ex7a");
+    const ex8a = getSchoenbergSourceMaterial("s01.ex8a");
+
+    expect(ex6a?.kind).toBe("score");
+    expect(ex7a?.kind).toBe("score");
+    expect(ex8a?.kind).toBe("score");
+    if (
+      !ex6a || ex6a.kind !== "score" ||
+      !ex7a || ex7a.kind !== "score" ||
+      !ex8a || ex8a.kind !== "score"
+    ) return;
+
+    expect(ex6a.events.map((event) => event.midi)).toEqual([
+      65, 69, 72, null,
+    ]);
+    expect(ex6a.events.map((event) => event.duration)).toEqual([2, 2, 2, 2]);
+    expect(ex6a.meter).toBeUndefined();
+
+    expect(ex7a.events.map((event) => event.midi)).toEqual([70, 77, 74]);
+    expect(ex7a.events.map((event) => event.duration)).toEqual([2, 4, 4]);
+    expect(ex7a.events[0]?.barAfter).toBe(true);
+    expect(ex7a.meter).toBeUndefined();
+
+    expect(ex8a.events.map((event) => event.midi)).toEqual([65, 69, 70, 72]);
+    expect(ex8a.events.map((event) => event.duration)).toEqual([4, 3, 1, 4]);
+  });
+
   it("stores Beethoven 5 Ex. 12b as playable native note data", () => {
     const material = getSchoenbergSourceMaterial("s02.ex12b");
     expect(material?.kind).toBe("score");
@@ -75,6 +104,29 @@ describe("Schoenberg source material", () => {
     expect(material.events.slice(4, 8).map((event) => event.midi)).toEqual([
       65, 65, 65, 62,
     ]);
+  });
+
+  it("stores Ex. 14 diminution and augmentation as the same pitches at different scales", () => {
+    const diminution = getSchoenbergSourceMaterial("s02.ex14b");
+    const augmentation = getSchoenbergSourceMaterial("s02.ex14c");
+    expect(diminution?.kind).toBe("score");
+    expect(augmentation?.kind).toBe("score");
+    if (
+      !diminution || diminution.kind !== "score" ||
+      !augmentation || augmentation.kind !== "score"
+    ) return;
+
+    const pitches = [67, 64, 60, 69, 65, 62, 61, 67];
+    expect(diminution.events.map((event) => event.midi)).toEqual(pitches);
+    expect(augmentation.events.map((event) => event.midi)).toEqual(pitches);
+    expect(diminution.events.map((event) => event.duration)).toEqual(
+      Array(8).fill(1),
+    );
+    expect(augmentation.events.map((event) => event.duration)).toEqual(
+      Array(8).fill(4),
+    );
+    expect(diminution.meter).toBeUndefined();
+    expect(augmentation.meter).toBeUndefined();
   });
 
   it("keeps Chapter VIII literature examples separate and source-specific", () => {

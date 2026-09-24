@@ -15,7 +15,7 @@ export type SchoenbergSourceScore = {
   fidelityNote: string;
   clef: "treble" | "bass";
   keyLabel: string;
-  meter: string;
+  meter?: string;
   bpm: number;
   events: SchoenbergSourceEvent[];
   slurs?: Array<{ start: number; end: number }>;
@@ -131,6 +131,65 @@ export const schoenbergSourceMaterial: Record<
       { midi: 65, duration: 4 },
       { midi: 69, duration: 4, barAfter: true },
       { midi: 72, duration: 8, barAfter: true },
+    ],
+  },
+
+  "s01.ex6a": {
+    kind: "score",
+    id: "s01.ex6a",
+    reference: "Ex. 6a",
+    title: "Smaller note values",
+    attribution: "Subexample a transcribed from Schoenberg's Ex. 6",
+    fidelity: "verified-excerpt",
+    fidelityNote:
+      "Native transcription of Ex. 6a from the supplied book scan: F-A-C followed by a rest, all in smaller values than Ex. 5a. The book does not print a time signature for this isolated unit, so PLAY / LAB does not add one.",
+    clef: "treble",
+    keyLabel: "F major · 1 flat",
+    bpm: 92,
+    events: [
+      { midi: 65, duration: 2 },
+      { midi: 69, duration: 2 },
+      { midi: 72, duration: 2 },
+      { midi: null, duration: 2, barAfter: true },
+    ],
+  },
+
+  "s01.ex7a": {
+    kind: "score",
+    id: "s01.ex7a",
+    reference: "Ex. 7a",
+    title: "Added upbeat and varied note values",
+    attribution: "Subexample a transcribed from Schoenberg's Ex. 7",
+    fidelity: "verified-excerpt",
+    fidelityNote:
+      "Native transcription of Ex. 7a from the supplied book scan. The B-flat pickup is followed by the longer F-D span exactly as printed. No time signature is added because the isolated subexample does not print one.",
+    clef: "treble",
+    keyLabel: "F major · 1 flat",
+    bpm: 96,
+    events: [
+      { midi: 70, duration: 2, accidental: "♭", barAfter: true },
+      { midi: 77, duration: 4 },
+      { midi: 74, duration: 4, barAfter: true },
+    ],
+  },
+
+  "s01.ex8a": {
+    kind: "score",
+    id: "s01.ex8a",
+    reference: "Ex. 8a",
+    title: "Passing note added to Ex. 5",
+    attribution: "Subexample a transcribed from Schoenberg's Ex. 8",
+    fidelity: "verified-excerpt",
+    fidelityNote:
+      "Native transcription of Ex. 8a from the supplied book scan: the earlier F-A-C framework is connected by the printed B-flat passing motion. The notation and playback use the same source data.",
+    clef: "treble",
+    keyLabel: "F major · 1 flat",
+    bpm: 92,
+    events: [
+      { midi: 65, duration: 4 },
+      { midi: 69, duration: 3 },
+      { midi: 70, duration: 1, accidental: "♭", barAfter: true },
+      { midi: 72, duration: 4, barAfter: true },
     ],
   },
 
@@ -307,6 +366,54 @@ export const schoenbergSourceMaterial: Record<
       { start: 4, end: 7 },
     ],
   },
+  "s02.ex14b": {
+    kind: "score",
+    id: "s02.ex14b",
+    reference: "Ex. 14b",
+    title: "Diminution",
+    attribution: "Diminution line transcribed from Schoenberg's Ex. 14",
+    fidelity: "verified-excerpt",
+    fidelityNote:
+      "Native transcription of the printed diminution line. The eight pitches are G-E-C-A-F-D-C-sharp-G; Schoenberg compresses them to equal eighth-note values. No time signature is printed for this isolated transformation.",
+    clef: "treble",
+    keyLabel: "1 sharp · printed key signature",
+    bpm: 104,
+    events: [
+      { midi: 67, duration: 1 },
+      { midi: 64, duration: 1 },
+      { midi: 60, duration: 1, barAfter: true },
+      { midi: 69, duration: 1 },
+      { midi: 65, duration: 1 },
+      { midi: 62, duration: 1 },
+      { midi: 61, duration: 1, accidental: "♯", barAfter: true },
+      { midi: 67, duration: 1, barAfter: true },
+    ],
+  },
+
+  "s02.ex14c": {
+    kind: "score",
+    id: "s02.ex14c",
+    reference: "Ex. 14c",
+    title: "Augmentation",
+    attribution: "Augmentation line transcribed from Schoenberg's Ex. 14",
+    fidelity: "verified-excerpt",
+    fidelityNote:
+      "Native transcription of the printed augmentation line. It preserves the same G-E-C-A-F-D-C-sharp-G pitch succession while expanding every note to a half-note value. No time signature is printed for this isolated transformation.",
+    clef: "treble",
+    keyLabel: "1 sharp · printed key signature",
+    bpm: 80,
+    events: [
+      { midi: 67, duration: 4 },
+      { midi: 64, duration: 4 },
+      { midi: 60, duration: 4, barAfter: true },
+      { midi: 69, duration: 4 },
+      { midi: 65, duration: 4 },
+      { midi: 62, duration: 4 },
+      { midi: 61, duration: 4, accidental: "♯", barAfter: true },
+      { midi: 67, duration: 4, barAfter: true },
+    ],
+  },
+
   "s02.ex14": map(
     "s02.ex14",
     "Ex. 14",

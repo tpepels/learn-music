@@ -258,14 +258,14 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         explanation:
           "After the simple broken-chord contours of Ex. 5, Schoenberg's Ex. 6 uses smaller note-values. His comment is explicit: the smaller values produce different results even though the harmonic basis has not changed.",
         instruction:
-          "Play the reduction, then inspect Staff and Degrees. Which feature is responsible for the new result compared with the simpler Ex. 5 approach? Choose the matching answer below.",
+          "First play the native Ex. 6a from the book and compare it with Ex. 5a: the pitch material is still simple, but the note-values are shorter. Then play the PLAY / LAB reduction and inspect Staff and Degrees before choosing the matching answer.",
         recognition:
           "Does the phrase feel more active even though it still lives inside the same simple harmonic world?",
         source: {
           reference: "Example 6 - Smaller note values",
-          exampleIds: ["s01.ex6"],
+          exampleIds: ["s01.ex6a", "s01.ex6"],
           focus:
-            "The exercise changes rhythmic scale before adding richer pitch material. Our reduction keeps chord-tone material and compresses the note values.",
+            "Ex. 6a is reproduced as native playable notation from the book. The analysis map covers the larger Ex. 6 group; the PLAY / LAB reduction underneath is separate application material.",
         },
         terms: [
           { term: "Note-value", definition: "The notated duration of a note." },
@@ -294,14 +294,14 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         explanation:
           "Example 7 remains confined to chord tones but combines different note-values and adds upbeats. Schoenberg uses it to show how much variety can be created before passing notes or chromatic embellishment are introduced.",
         instruction:
-          "Play the reduction and look at the rests and mixed durations in Staff view. Choose the answer that best describes what Ex. 7 adds to the earlier chord-tone studies.",
+          "First play the native Ex. 7a and hear the printed B-flat upbeat lead into the longer F-D span. Then play the PLAY / LAB reduction and look at its rests and mixed durations in Staff view. Choose the answer that best describes what Ex. 7 adds to the earlier studies.",
         recognition:
           "Can a phrase become more fluid before you add any new harmonic pitch?",
         source: {
           reference: "Example 7 - Added upbeats and various note values",
-          exampleIds: ["s01.ex7"],
+          exampleIds: ["s01.ex7a", "s01.ex7"],
           focus:
-            "Schoenberg still restricts the melody to chord tones; variety comes from metric placement and duration.",
+            "Ex. 7a is now present as native playable notation. The group analysis shows Schoenberg's broader use of upbeats and mixed values; the application reduction is kept distinct from the printed source.",
         },
         terms: [
           { term: "Upbeat", definition: "An unaccented pickup that leads into a stronger metric position." },
@@ -332,14 +332,14 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         explanation:
           "Schoenberg says Exs. 8 and 9 build on Exs. 5 and 7 and show how simple melodic and rhythmic additions contribute fluency and vitality. Ex. 8 specifically varies Ex. 5 by adding passing notes.",
         instruction:
-          "Play the reduction. The chord-tone skeleton is still audible, but stepwise tones now connect it. Choose the technique Schoenberg is adding.",
+          "First play native Ex. 8a and follow F-A-B-flat-C: the added B-flat connects the structural tones directly in Schoenberg's printed example. Then play the PLAY / LAB reduction and choose the technique being added.",
         recognition:
           "Which notes feel like connective motion rather than new harmonic pillars?",
         source: {
           reference: "Example 8 - Varying Ex. 5 by adding passing notes",
-          exampleIds: ["s01.ex8"],
+          exampleIds: ["s01.ex8a", "s01.ex8"],
           focus:
-            "The book keeps the earlier chord-tone framework and inserts connective notes to create greater fluency.",
+            "Ex. 8a is reproduced natively from the book so the passing motion can be read and heard directly. The group map and PLAY / LAB reduction then generalize that device.",
         },
         terms: [
           { term: "Passing note", definition: "A non-chord tone that connects more structural pitches by step." },

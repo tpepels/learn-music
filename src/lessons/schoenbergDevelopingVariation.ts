@@ -100,7 +100,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         explanation:
           "Schoenberg distinguishes exact, modified and developed repetition. He says that transposition to another degree, inversion, retrograde, diminution and augmentation can still count as exact repetitions if the features and note relationships are strictly preserved. Ex. 14 demonstrates inversion, retrograde, retrograde inversion, diminution and augmentation explicitly.",
         instruction:
-          "Audition Inversion, Retrograde, Diminution and Augmentation. Use Staff first, then another notation. Do not ask whether the absolute notes are identical - ask which relationships have been preserved systematically.",
+          "First play the native Ex. 14b Diminution and Ex. 14c Augmentation exactly as printed in the book. Hear the same G-E-C-A-F-D-C-sharp-G succession at two rhythmic scales. Then use the interactive controls to compare Inversion, Retrograde, Diminution and Augmentation and ask which relationships are preserved systematically.",
         recognition:
           "Can the motive remain 'the same' in Schoenberg's technical sense even when every absolute pitch or duration changes?",
         source: {
