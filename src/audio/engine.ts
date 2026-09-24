@@ -1389,35 +1389,63 @@ class AudioEngine {
       )
     )) return false;
     const transport = Tone.getTransport();
-    const totalTransportSteps = this.harmonicProgression.length * 16;
+    const drums = resolveContextDrumPattern(this.pattern);
+    const progression = resolveContextProgression(
+      this.harmonicProgression,
+      this.tonalContext,
+    );
+    const writtenHarmony = hasWrittenHarmony(this.harmonySequence);
+    const melodyFallback =
+      includeMelody && !hasArrangementMelody(this.melody);
+    const melody = melodyFallback
+      ? buildArrangementFallbackMelody(this.tonalContext)
+      : this.melody;
+    const totalTransportSteps = progression.length * 16;
 
     this.eventId = transport.scheduleRepeat((time) => {
       const globalStep = this.step;
       const barIndex = Math.floor(globalStep / 16);
       const localStep = globalStep % 16;
 
-      if (this.pattern.kick[localStep]) {
+      if (drums.kick[localStep]) {
         this.triggerKick(time, this.grooveFeelSettings.velocities.kick[localStep] ?? 0.9);
       }
-      if (this.pattern.snare[localStep]) {
+      if (drums.snare[localStep]) {
         this.triggerSnare(time, this.grooveFeelSettings.velocities.snare[localStep] ?? 0.72);
       }
-      if (this.pattern.hat[localStep]) {
+      if (drums.hat[localStep]) {
         this.triggerHat(time, this.grooveFeelSettings.velocities.hat[localStep] ?? 0.42);
+      }
+
+      if (!writtenHarmony) {
+        const chord = progression[barIndex];
+        if (chord) {
+          this.triggerChordPattern(
+            chord,
+            this.voicingSettings.inversions[barIndex] ?? 0,
+            localStep,
+            time,
+            0.48,
+          );
+        }
       }
 
       if (localStep % 2 === 0) {
         const harmonyStep = barIndex * 8 + localStep / 2;
-        this.triggerWrittenHarmonyStep(harmonyStep, time);
+        if (writtenHarmony) {
+          this.triggerWrittenHarmonyStep(harmonyStep, time);
+        }
 
-        if (includeMelody) {
-          const melodyStep = harmonyStep % this.melody.length;
-          const midi = this.melody[melodyStep];
+        if (includeMelody && melody.length > 0) {
+          const melodyStep = harmonyStep % melody.length;
+          const midi = melody[melodyStep];
           if (midi !== null && midi !== undefined) {
             const texturedMidi = midi + this.textureSettings.melodyOctave * 12;
             this.triggerPiano(
               Tone.Frequency(texturedMidi, "midi").toNote(),
-              this.noteDuration(this.melodyDurations[melodyStep] ?? 1),
+              this.noteDuration(
+                melodyFallback ? 1 : this.melodyDurations[melodyStep] ?? 1,
+              ),
               time,
               0.54,
             );
