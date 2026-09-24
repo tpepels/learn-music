@@ -6,6 +6,7 @@ import {
   noteDurationLabel,
 } from "../music/model";
 import { useStudioStore } from "../state/studio";
+import { LayerVolumeStrip } from "./LayerVolumeStrip";
 import {
   findMonophonicNoteStart,
   useNoteLengthDrag,
@@ -100,6 +101,8 @@ export function MelodyWorkspace({ title }: { title: string }) {
         </div>
         <span className="workspace-hint">Play loops the melody against the groove you built earlier · click for 1/8, drag right for longer notes</span>
       </div>
+
+      <LayerVolumeStrip tracks={["drums", "melody"] as const} />
 
       <div className="melody-step-head" aria-hidden="true">
         <span />
