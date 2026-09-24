@@ -1219,6 +1219,46 @@ class AudioEngine {
     return true;
   }
 
+  async playChordMelody(bpm: number, onStep: (step: number) => void) {
+    if (!(await this.prepare(bpm, onStep, ["piano", "chords"]))) return false;
+    const transport = Tone.getTransport();
+    const totalSteps = Math.max(1, this.harmonicProgression.length) * 16;
+
+    this.eventId = transport.scheduleRepeat((time) => {
+      const globalStep = this.step;
+      const barIndex = Math.floor(globalStep / 16);
+      const localStep = globalStep % 16;
+      const chord = this.harmonicProgression[barIndex];
+
+      if (chord) {
+        const inversion = this.voicingSettings.inversions[barIndex] ?? 0;
+        this.triggerChordPattern(chord, inversion, localStep, time, 0.52);
+      }
+
+      if (globalStep % 2 === 0 && this.melody.length > 0) {
+        const melodyStep = (globalStep / 2) % this.melody.length;
+        const midi = this.melody[melodyStep];
+        if (midi !== null && midi !== undefined) {
+          this.triggerPiano(
+            Tone.Frequency(
+              midi + this.textureSettings.melodyOctave * 12,
+              "midi",
+            ).toNote(),
+            this.noteDuration(this.melodyDurations[melodyStep] ?? 1),
+            time,
+            0.58,
+          );
+        }
+        Tone.getDraw().schedule(() => this.onStep?.(melodyStep), time);
+      }
+
+      this.step = (this.step + 1) % totalSteps;
+    }, "16n");
+
+    transport.start();
+    return true;
+  }
+
   private triggerWrittenHarmonyStep(
     harmonyStep: number,
     time: number,
