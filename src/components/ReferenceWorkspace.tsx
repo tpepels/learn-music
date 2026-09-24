@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { audioEngine } from "../audio/engine";
 import { mixerTrackIds } from "../music/model";
 import { useStudioStore } from "../state/studio";
+import { LayerVolumeStrip } from "./LayerVolumeStrip";
 
 export function ReferenceWorkspace() {
   const mixer = useStudioStore((state) => state.mixerSettings);
@@ -57,6 +58,8 @@ export function ReferenceWorkspace() {
           Capture a known version, change the mix, then switch back and forth. The reference is only useful if louder is not allowed to win automatically.
         </span>
       </div>
+
+      <LayerVolumeStrip tracks={["drums", "bass", "chords", "melody"] as const} />
 
       <div className="reference-console">
         <section>
