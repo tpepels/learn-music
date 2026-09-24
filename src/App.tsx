@@ -1141,9 +1141,11 @@ function App() {
 
           <LearningPanel exercise={exercise} lessonNumber={lesson.number} />
 
-          {activeTrack.id === "play-lab" && exercise.workspace !== "mixer" && (
-            <LayerVolumeStrip />
-          )}
+          {activeTrack.id === "play-lab" &&
+            exercise.workspace !== "mixer" &&
+            exercise.workspace !== "arrangement" && (
+              <LayerVolumeStrip />
+            )}
 
           <Workspace exercise={exercise} />
         </main>
