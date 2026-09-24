@@ -37,7 +37,7 @@ function harmonyOnsetCount(context: LessonContext): number {
 
 const house = lessonContentSchema.parse({
   id: "style.house",
-  number: 29,
+  number: 33,
   title: "Style lab · House",
   eyebrow: "Style lab · House",
   hero: "Keep the musical idea. Change what makes the body read it.",
@@ -202,7 +202,7 @@ export const houseStyleLesson: LessonDefinition = {
 
 const funk = lessonContentSchema.parse({
   id: "style.funk",
-  number: 30,
+  number: 34,
   title: "Style lab · Funk",
   eyebrow: "Style lab · Funk",
   hero: "Make the parts answer one another.",
@@ -370,7 +370,7 @@ export const funkStyleLesson: LessonDefinition = {
 
 const hipHop = lessonContentSchema.parse({
   id: "style.hip-hop",
-  number: 31,
+  number: 35,
   title: "Style lab · Hip-hop",
   eyebrow: "Style lab · Hip-hop",
   hero: "Make space feel intentional.",
@@ -515,7 +515,7 @@ export const hipHopStyleLesson: LessonDefinition = {
 
 const ambient = lessonContentSchema.parse({
   id: "style.ambient",
-  number: 32,
+  number: 36,
   title: "Style lab · Ambient",
   eyebrow: "Style lab · Ambient",
   hero: "Let duration and space become compositional material.",
@@ -669,7 +669,7 @@ export const ambientStyleLesson: LessonDefinition = {
 
 const pop = lessonContentSchema.parse({
   id: "style.pop",
-  number: 33,
+  number: 37,
   title: "Style lab · Pop",
   eyebrow: "Style lab · Pop",
   hero: "Make the main idea easy to recognise and easy to return to.",
