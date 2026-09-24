@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { audioEngine } from "../audio/engine";
 import {
   MELODY_STEPS,
@@ -6,6 +7,7 @@ import {
   isCMajorMidi,
   noteDurationLabel,
 } from "../music/model";
+import { chordSlotForMelodyStep } from "../music/melodyHarmonyTimeline";
 import { useStudioStore } from "../state/studio";
 import {
   findMonophonicNoteStart,
@@ -16,8 +18,18 @@ export function MelodyHarmonyWorkspace() {
   const melody = useStudioStore((state) => state.melody);
   const durations = useStudioStore((state) => state.melodyDurations);
   const chords = useStudioStore((state) => state.chordProgression);
+  const currentStep = useStudioStore((state) => state.currentStep);
+  const isPlaying = useStudioStore((state) => state.isPlaying);
   const setMelodyStep = useStudioStore((state) => state.setMelodyStep);
   const setMelodyDuration = useStudioStore((state) => state.setMelodyDuration);
+  const [selectedPass, setSelectedPass] = useState<0 | 1>(0);
+
+  const displayPass: 0 | 1 = isPlaying
+    ? currentStep >= 16
+      ? 1
+      : 0
+    : selectedPass;
+  const firstBar = displayPass * 2;
 
   const { beginNoteDrag, moveNoteDrag } = useNoteLengthDrag({
     maxSteps: MELODY_STEPS,
@@ -33,21 +45,49 @@ export function MelodyHarmonyWorkspace() {
       <div className="workspace-heading">
         <div>
           <span className="section-label">Melody + harmony overlay</span>
-          <h2>See tension against each chord</h2>
+          <h2>See the same phrase under four bars of harmony</h2>
           <div className="daw-strip">
-            <span>CHORD TONE</span><span>SCALE TONE</span><span>CHROMATIC</span><span>RESOLUTION</span><span>YOUR GROOVE + CHORDS</span>
+            <span>CHORD TONE</span><span>SCALE TONE</span><span>CHROMATIC</span><span>RESOLUTION</span><span>2-BAR MELODY × 2</span>
           </div>
         </div>
         <span className="workspace-hint">
-          Play puts your melody over the current groove and chord progression. Drag notes horizontally to shape how long tension and resolution last.
+          Your melody is two bars long. Play repeats those 16 eighth-notes once across the four-bar chord progression: bars 1–2 first, then the same melody steps under bars 3–4.
         </span>
       </div>
 
+      <div className="mh-context-tabs" role="group" aria-label="Harmony pass">
+        <button
+          type="button"
+          className={displayPass === 0 ? "is-active" : ""}
+          disabled={isPlaying}
+          onClick={() => setSelectedPass(0)}
+        >
+          Bars 1–2 · first pass
+        </button>
+        <button
+          type="button"
+          className={displayPass === 1 ? "is-active" : ""}
+          disabled={isPlaying}
+          onClick={() => setSelectedPass(1)}
+        >
+          Bars 3–4 · repeated melody
+        </button>
+        {isPlaying && (
+          <small>
+            Playback is showing bars {displayPass === 0 ? "1–2" : "3–4"} automatically.
+          </small>
+        )}
+      </div>
+
       <div className="harmony-overlay-header">
-        <span />
-        {chords.map((chord, index) => (
-          <div key={index}>
-            <small>STEPS {index * 4 + 1}–{index * 4 + 4}</small>
+        <span>
+          <small>{displayPass === 0 ? "FIRST PASS" : "REPEAT"}</small>
+        </span>
+        {chords.slice(firstBar, firstBar + 2).map((chord, index) => (
+          <div key={firstBar + index}>
+            <small>
+              BAR {firstBar + index + 1} · MELODY STEPS {index * 8 + 1}–{index * 8 + 8}
+            </small>
             <strong>{chord ?? "No chord"}</strong>
             <span>
               {chord
@@ -68,7 +108,8 @@ export function MelodyHarmonyWorkspace() {
               {pitch.name}
             </button>
             {melody.map((note, step) => {
-              const chord = chords[Math.floor(step / 4)];
+              const chordSlot = chordSlotForMelodyStep(step, displayPass);
+              const chord = chords[chordSlot];
               const active = note === pitch.midi;
               const coveringStart = findMonophonicNoteStart(
                 melody,
@@ -105,7 +146,7 @@ export function MelodyHarmonyWorkspace() {
                     active ? "is-active is-note-start" : "",
                     sustained ? "is-sustain" : "",
                     noteEnd && duration > 1 ? "is-note-end" : "",
-                    step % 4 === 0 ? "is-chord-start" : "",
+                    step % 8 === 0 ? "is-chord-start" : "",
                   ].filter(Boolean).join(" ")}
                   data-note-step={step}
                   data-note-midi={pitch.midi}
@@ -123,7 +164,9 @@ export function MelodyHarmonyWorkspace() {
                       ? pitch.name +
                         " · " +
                         noteDurationLabel(duration) +
-                        " · drag horizontally to resize"
+                        " · bar " +
+                        (chordSlot + 1) +
+                        " harmony · drag horizontally to resize"
                       : "Click or drag to draw " + pitch.name
                   }
                 >
@@ -136,9 +179,10 @@ export function MelodyHarmonyWorkspace() {
       </div>
 
       <div className="mh-legend">
-        <span><i className="legend-chord-tone" /> chord tone</span>
+        <span><i className="legend-chord-tone" /> chord tone in the displayed bars</span>
         <span><i className="legend-scale-tone" /> in-key non-chord tone</span>
         <span><i className="legend-chromatic-tone" /> chromatic tension</span>
+        <span>Bars 3–4 reuse the same 16 melody steps under different chords</span>
         <span>Drag right to lengthen a note in 1/8 steps</span>
       </div>
     </div>
