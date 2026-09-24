@@ -1,28 +1,42 @@
 import { describe, expect, it } from "vitest";
-import { getNextImplementedLesson, implementedLessons } from "./course";
+import {
+  getNextImplementedLesson,
+  implementedLessons,
+  learningTracks,
+  playLabLessons,
+  schoenbergLessons,
+} from "./course";
 import { getAdvanceDestination } from "./progression";
 
 describe("lesson progression", () => {
-  it("keeps the full curriculum intact", () => {
-    expect(implementedLessons).toHaveLength(37);
+  it("keeps the existing curriculum intact and adds a separate Schoenberg track", () => {
+    expect(playLabLessons).toHaveLength(37);
     expect(
-      implementedLessons.flatMap((lesson) => lesson.exercises),
+      playLabLessons.flatMap((lesson) => lesson.exercises),
     ).toHaveLength(148);
-    expect(implementedLessons.map((lesson) => lesson.number)).toEqual(
+    expect(playLabLessons.map((lesson) => lesson.number)).toEqual(
       Array.from({ length: 37 }, (_, index) => index + 1),
     );
-    expect(implementedLessons.slice(-9, -5).map((lesson) => lesson.id)).toEqual([
+    expect(playLabLessons.slice(-9, -5).map((lesson) => lesson.id)).toEqual([
       "pitch.intervals-transposition",
       "harmony.chord-colour",
       "rhythm.phrasing-space",
       "production.gain-staging-loudness",
     ]);
-    expect(implementedLessons.slice(-5).map((lesson) => lesson.id)).toEqual([
+    expect(playLabLessons.slice(-5).map((lesson) => lesson.id)).toEqual([
       "style.house",
       "style.funk",
       "style.hip-hop",
       "style.ambient",
       "style.pop",
+    ]);
+
+    expect(schoenbergLessons).toHaveLength(1);
+    expect(schoenbergLessons[0].id).toBe("schoenberg.phrase-motive");
+    expect(implementedLessons).toHaveLength(38);
+    expect(learningTracks.map((track) => track.id)).toEqual([
+      "play-lab",
+      "schoenberg",
     ]);
   });
 
@@ -34,32 +48,36 @@ describe("lesson progression", () => {
     });
   });
 
-  it("advances directly from the final exercise to the next lesson", () => {
-    for (let index = 0; index < implementedLessons.length - 1; index += 1) {
-      const lesson = implementedLessons[index];
-      const nextLesson = getNextImplementedLesson(lesson.id);
+  it("advances directly from the final exercise to the next lesson within each track", () => {
+    for (const track of learningTracks) {
+      for (let index = 0; index < track.lessons.length - 1; index += 1) {
+        const lesson = track.lessons[index];
+        const nextLesson = getNextImplementedLesson(lesson.id);
 
+        expect(
+          getAdvanceDestination(
+            lesson,
+            lesson.exercises.length - 1,
+            nextLesson,
+          ),
+        ).toEqual({
+          type: "lesson",
+          lessonId: track.lessons[index + 1].id,
+        });
+      }
+    }
+  });
+
+  it("marks the end of each learning track after its final lesson", () => {
+    for (const track of learningTracks) {
+      const lesson = track.lessons[track.lessons.length - 1];
       expect(
         getAdvanceDestination(
           lesson,
           lesson.exercises.length - 1,
-          nextLesson,
+          getNextImplementedLesson(lesson.id),
         ),
-      ).toEqual({
-        type: "lesson",
-        lessonId: implementedLessons[index + 1].id,
-      });
+      ).toEqual({ type: "complete" });
     }
-  });
-
-  it("marks the end of the current implemented course after the final lesson", () => {
-    const lesson = implementedLessons[implementedLessons.length - 1];
-    expect(
-      getAdvanceDestination(
-        lesson,
-        lesson.exercises.length - 1,
-        undefined,
-      ),
-    ).toEqual({ type: "complete" });
   });
 });

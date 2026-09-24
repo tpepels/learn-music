@@ -163,6 +163,7 @@ const strongPianoUrls = {
 class AudioEngine {
   private pattern: StepPattern = clonePattern(initialPattern);
   private melody: MelodySequence = [...initialMelody];
+  private studySequence: MelodySequence = Array.from({ length: 16 }, () => null);
   private melodyDurations: NoteDurationLane = [...initialMelodyDurations];
   private chordProgression: ChordProgression = [...initialChordProgression];
   private tonalContext: TonalContext = cloneTonalContext(initialTonalContext);
@@ -248,6 +249,10 @@ class AudioEngine {
 
   setMelody(melody: MelodySequence) {
     this.melody = [...melody];
+  }
+
+  setStudySequence(sequence: MelodySequence) {
+    this.studySequence = [...sequence];
   }
 
   setMelodyDurations(durations: NoteDurationLane) {
@@ -1102,6 +1107,31 @@ class AudioEngine {
 
       Tone.getDraw().schedule(() => this.onStep?.(step), time);
       this.step = (this.step + 1) % this.melody.length;
+    }, "8n");
+
+    transport.start();
+    return true;
+  }
+
+  async playStudySequence(bpm: number, onStep: (step: number) => void) {
+    if (!(await this.prepare(bpm, onStep, ["piano"]))) return false;
+    const transport = Tone.getTransport();
+    const totalSteps = Math.max(1, this.studySequence.length);
+
+    this.eventId = transport.scheduleRepeat((time) => {
+      const step = this.step % totalSteps;
+      const midi = this.studySequence[step];
+      if (midi !== null && midi !== undefined) {
+        this.triggerPiano(
+          Tone.Frequency(midi, "midi").toNote(),
+          "8n",
+          time,
+          0.68,
+        );
+      }
+
+      Tone.getDraw().schedule(() => this.onStep?.(step), time);
+      this.step = (this.step + 1) % totalSteps;
     }, "8n");
 
     transport.start();

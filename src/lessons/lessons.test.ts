@@ -43,6 +43,7 @@ import {
   initialTonalContext,
   migrateLegacyProgression,
 } from "../music/harmony";
+import { initialCompositionStudyState } from "../music/study";
 import { arrangementFormLesson } from "./arrangementForm";
 import { automationDynamicsLesson } from "./automationDynamics";
 import { bassLinesLesson } from "./bassLines";
@@ -159,6 +160,7 @@ function context(overrides: Partial<LessonContext> = {}): LessonContext {
       ...initialReferenceMixSettings,
       snapshot: null,
     },
+    compositionStudy: initialCompositionStudyState(),
     ...overrides,
     experiments: {
       "transport.play": experiment(1, null, null, ["continued"]),

@@ -40,6 +40,7 @@ export function resolveLearningFocusTrack(
     case "minor-key":
     case "harmonic-minor":
     case "transposition":
+    case "composition-study":
       return "melody";
 
     case "chords":
