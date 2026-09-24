@@ -19,6 +19,7 @@ import {
   noteDurationLabel,
 } from "../music/model";
 import { useStudioStore } from "../state/studio";
+import { LayerVolumeStrip } from "./LayerVolumeStrip";
 import {
   findHarmonyNoteStart,
   useNoteLengthDrag,
@@ -166,6 +167,14 @@ export function HarmonySequencerWorkspace({
         </div>
         <span className="workspace-hint">{config.hint}</span>
       </div>
+
+      <LayerVolumeStrip
+              tracks={
+                mode === "sevenths" || mode === "borrowed"
+                  ? (["drums", "chords"] as const)
+                  : (["drums", "chords", "melody"] as const)
+              }
+            />
 
       <HarmonyKeyControl modes={allowedModes} />
 
