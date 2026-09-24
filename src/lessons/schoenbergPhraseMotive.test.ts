@@ -10,6 +10,7 @@ import {
   playLabLessons,
   schoenbergLessons,
 } from "./course";
+import { schoenbergDevelopingVariationLesson } from "./schoenbergDevelopingVariation";
 import { schoenbergPhraseMotiveLesson } from "./schoenbergPhraseMotive";
 import type { LessonContext } from "./types";
 
@@ -33,14 +34,20 @@ function context(
 describe("Schoenberg learning track", () => {
   it("keeps the composition course separate from the existing PLAY / LAB course", () => {
     expect(playLabLessons).toHaveLength(37);
-    expect(schoenbergLessons).toEqual([schoenbergPhraseMotiveLesson]);
+    expect(schoenbergLessons).toEqual([
+      schoenbergPhraseMotiveLesson,
+      schoenbergDevelopingVariationLesson,
+    ]);
     expect(learningTracks.map((track) => track.id)).toEqual([
       "play-lab",
       "schoenberg",
     ]);
     expect(getNextImplementedLesson(playLabLessons.at(-1)!.id)).toBeUndefined();
     expect(
-      getNextImplementedLesson(schoenbergPhraseMotiveLesson.id),
+      getNextImplementedLesson(schoenbergPhraseMotiveLesson.id)?.id,
+    ).toBe(schoenbergDevelopingVariationLesson.id);
+    expect(
+      getNextImplementedLesson(schoenbergDevelopingVariationLesson.id),
     ).toBeUndefined();
   });
 
