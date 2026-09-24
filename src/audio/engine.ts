@@ -127,6 +127,12 @@ import {
   type TonalContext,
 } from "../music/harmony";
 
+export type ScorePlaybackEvent = {
+  start: number;
+  duration: number;
+  pitches: number[];
+};
+
 const softPianoUrls = {
   A2: pianoSoftA2,
   C3: pianoSoftC3,
@@ -526,6 +532,10 @@ class AudioEngine {
 
   private noteDuration(eighthSteps: number): number {
     return Tone.Time("8n").toSeconds() * Math.max(1, eighthSteps);
+  }
+
+  private scoreDuration(sixteenthSteps: number): number {
+    return Tone.Time("16n").toSeconds() * Math.max(1, sixteenthSteps) * 0.94;
   }
 
   private ensureMixerGraph() {
@@ -1174,6 +1184,53 @@ class AudioEngine {
 
     transport.start();
     return true;
+  }
+
+  async playScoreExample(
+    events: ScorePlaybackEvent[],
+    totalSteps: number,
+    bpm: number,
+    onStep: (step: number) => void,
+  ) {
+    if (!(await this.prepare(bpm, onStep, ["piano"]))) return false;
+    const transport = Tone.getTransport();
+    const loopSteps = Math.max(1, totalSteps);
+
+    this.eventId = transport.scheduleRepeat((time) => {
+      const step = this.step % loopSteps;
+      events
+        .filter((event) => event.start === step && event.pitches.length > 0)
+        .forEach((event) => {
+          const notes = event.pitches.map((midi) =>
+            Tone.Frequency(midi, "midi").toNote(),
+          );
+          this.triggerPiano(
+            notes,
+            this.scoreDuration(event.duration),
+            time,
+            0.68,
+          );
+        });
+
+      Tone.getDraw().schedule(() => this.onStep?.(step), time);
+      this.step = (this.step + 1) % loopSteps;
+    }, "16n");
+
+    transport.start();
+    return true;
+  }
+
+  async playPianoNotes(midis: number[], durationSixteenths = 2) {
+    if (!midis.length) return;
+    await Tone.start();
+    this.ensureVoices(["piano"]);
+    await Tone.loaded();
+    this.triggerPiano(
+      midis.map((midi) => Tone.Frequency(midi, "midi").toNote()),
+      this.scoreDuration(durationSixteenths),
+      undefined,
+      0.72,
+    );
   }
 
   async playMelodyWithGroove(bpm: number, onStep: (step: number) => void) {
