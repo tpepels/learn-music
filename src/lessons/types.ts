@@ -59,6 +59,7 @@ export const exerciseContentSchema = z.object({
           }),
         )
         .optional(),
+      scoreExamples: z.array(z.string()).optional(),
     })
     .optional(),
   terms: z.array(termSchema),
