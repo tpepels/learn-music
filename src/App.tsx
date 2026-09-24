@@ -108,11 +108,16 @@ async function startWorkspacePlayback(
 
   if (
     workspace === "arrangement" ||
+    workspace === "final-project" ||
+    workspace === "texture"
+  ) {
+    return audioEngine.playArrangement(bpm, onStep);
+  }
+
+  if (
     workspace === "mixer" ||
     workspace === "automation-dynamics" ||
     workspace === "effects" ||
-    workspace === "final-project" ||
-    workspace === "texture" ||
     workspace === "eq" ||
     workspace === "saturation" ||
     workspace === "sidechain" ||
@@ -120,7 +125,7 @@ async function startWorkspacePlayback(
     workspace === "reference" ||
     workspace === "instrument-palette"
   ) {
-    return audioEngine.playArrangement(bpm, onStep);
+    return audioEngine.playProductionMix(bpm, onStep);
   }
 
   return audioEngine.playDrums(bpm, onStep);
