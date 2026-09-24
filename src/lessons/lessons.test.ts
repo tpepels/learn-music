@@ -835,12 +835,12 @@ describe("lesson 14: motif development", () => {
 });
 
 describe("lesson 15: melody over harmony", () => {
-  it("recognises chord-tone anchors, passing tones, neighbour motion, and resolutions", () => {
+  it("evaluates the two-bar melody across both passes of the four-bar harmony", () => {
     const melody: MelodySequence = [
-      60, 62, 64, 65,
-      65, 67, 65, 69,
-      67, 69, 71, 66,
-      67, 62, 64, 60,
+      60, 62, 60, 64,
+      65, 67, 69, 67,
+      65, 67, 69, 67,
+      66, 67, 64, 60,
     ];
     const chordProgression: ChordProgression = ["C", "F", "G", "C"];
     const ctx = context({
@@ -852,6 +852,26 @@ describe("lesson 15: melody over harmony", () => {
     for (const exercise of melodyOverHarmonyLesson.exercises) {
       expect(exercise.evaluate(ctx).every((check) => check.complete)).toBe(true);
     }
+  });
+
+  it("does not pretend bars 3–4 use new melody steps", () => {
+    const melody: MelodySequence = [
+      60, null, null, null, null, null, null, null,
+      65, null, null, null, null, null, null, 60,
+    ];
+    const chordProgression: ChordProgression = ["C", "F", "G", "C"];
+    const checks = melodyOverHarmonyLesson.exercises[0].evaluate(
+      context({
+        melody,
+        chordProgression,
+        experiments: { "melody.edit": experiment(4) },
+      }),
+    );
+
+    expect(checks.find((check) => check.label.startsWith("Bar 1"))?.complete).toBe(true);
+    expect(checks.find((check) => check.label.startsWith("Bar 2"))?.complete).toBe(true);
+    expect(checks.find((check) => check.label.startsWith("Bar 3"))?.complete).toBe(false);
+    expect(checks.find((check) => check.label.startsWith("Bar 4"))?.complete).toBe(true);
   });
 });
 
