@@ -40,6 +40,26 @@ export function LearningPanel({
             <span className="section-label">From the book</span>
             <strong>{exercise.source.reference}</strong>
             <p>{exercise.source.focus}</p>
+            {exercise.source.examples?.length ? (
+              <div className="book-example-grid">
+                {exercise.source.examples.map((example) => {
+                  const src = `${import.meta.env.BASE_URL}${example.asset}`;
+                  return (
+                    <figure className="book-example-figure" key={example.asset}>
+                      <a href={src} target="_blank" rel="noreferrer">
+                        <img
+                          className="book-example-image"
+                          src={src}
+                          alt={example.alt}
+                          loading="lazy"
+                        />
+                      </a>
+                      <figcaption>{example.caption}</figcaption>
+                    </figure>
+                  );
+                })}
+              </div>
+            ) : null}
           </div>
         )}
       </div>
