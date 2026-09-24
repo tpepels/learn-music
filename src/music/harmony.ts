@@ -587,40 +587,50 @@ const ROOT_PCS: Record<string, PitchClass> = {
 };
 
 function parseLegacyChordSymbol(symbol: string): {
+  rootName: string;
   root: PitchClass;
   quality: ChordQuality;
   seventh: SeventhQuality;
 } | null {
   const match = symbol.match(/^([A-G](?:♯|♭)?)(.*)$/);
   if (!match) return null;
-  const root = ROOT_PCS[match[1]];
+  const rootName = match[1];
+  const root = ROOT_PCS[rootName];
   if (root === undefined) return null;
   const suffix = match[2];
-  if (suffix === "") return { root, quality: "major", seventh: null };
-  if (suffix === "m") return { root, quality: "minor", seventh: null };
-  if (suffix === "dim") return { root, quality: "diminished", seventh: null };
-  if (suffix === "aug") return { root, quality: "augmented", seventh: null };
-  if (suffix === "7") return { root, quality: "major", seventh: "minor" };
-  if (suffix === "maj7") return { root, quality: "major", seventh: "major" };
-  if (suffix === "m7") return { root, quality: "minor", seventh: "minor" };
-  if (suffix === "m7b5") return { root, quality: "diminished", seventh: "minor" };
-  if (suffix === "dim7") return { root, quality: "diminished", seventh: "diminished" };
+  const base = { rootName, root };
+  if (suffix === "") return { ...base, quality: "major", seventh: null };
+  if (suffix === "m") return { ...base, quality: "minor", seventh: null };
+  if (suffix === "dim") return { ...base, quality: "diminished", seventh: null };
+  if (suffix === "aug") return { ...base, quality: "augmented", seventh: null };
+  if (suffix === "7") return { ...base, quality: "major", seventh: "minor" };
+  if (suffix === "maj7") return { ...base, quality: "major", seventh: "major" };
+  if (suffix === "m7") return { ...base, quality: "minor", seventh: "minor" };
+  if (suffix === "m7b5") return { ...base, quality: "diminished", seventh: "minor" };
+  if (suffix === "dim7") return { ...base, quality: "diminished", seventh: "diminished" };
   return null;
 }
 
-function degreeForRoot(
+function degreeForSpelledRoot(
+  rootName: string,
   root: PitchClass,
   context: TonalContext,
 ): { degree: HarmonicDegree; alteration: HarmonicChord["rootAlteration"] } | null {
-  for (const degree of harmonicDegrees) {
-    const scalePitch = scaleDegreePitchClass(context, degree);
-    for (const alteration of [0, -1, 1, -2, 2] as const) {
-      if (normalizePitchClass(scalePitch + alteration) === root) {
-        return { degree, alteration };
-      }
-    }
-  }
-  return null;
+  const tonicLetter = tonicName(context)[0] as (typeof LETTERS)[number];
+  const rootLetter = rootName[0] as (typeof LETTERS)[number];
+  const tonicIndex = LETTERS.indexOf(tonicLetter);
+  const rootIndex = LETTERS.indexOf(rootLetter);
+  if (tonicIndex < 0 || rootIndex < 0) return null;
+
+  const degree = (((rootIndex - tonicIndex + 7) % 7) + 1) as HarmonicDegree;
+  const scalePitch = scaleDegreePitchClass(context, degree);
+  const alteration = signedPitchDifference(root, scalePitch);
+  if (![-2, -1, 0, 1, 2].includes(alteration)) return null;
+
+  return {
+    degree,
+    alteration: alteration as HarmonicChord["rootAlteration"],
+  };
 }
 
 export function legacyChordToHarmonic(
@@ -629,7 +639,11 @@ export function legacyChordToHarmonic(
 ): HarmonicChord | null {
   const parsed = parseLegacyChordSymbol(symbol);
   if (!parsed) return null;
-  const located = degreeForRoot(parsed.root, context);
+  const located = degreeForSpelledRoot(
+    parsed.rootName,
+    parsed.root,
+    context,
+  );
   if (!located) return null;
 
   let role: HarmonicRole = "diatonic";
