@@ -31,6 +31,12 @@ import {
   initialVoicingSettings,
   type ProjectData,
 } from "../music/model";
+import {
+  cloneHarmonicProgression,
+  cloneTonalContext,
+  initialHarmonicProgression,
+  initialTonalContext,
+} from "../music/harmony";
 import { parseProjectFile, projectFileSchema } from "./projectFile";
 
 function sampleProject(): ProjectData {
@@ -42,6 +48,8 @@ function sampleProject(): ProjectData {
     },
     melody: [...initialMelody],
     melodyDurations: [...initialMelodyDurations],
+    tonalContext: cloneTonalContext(initialTonalContext),
+    harmonicProgression: cloneHarmonicProgression(initialHarmonicProgression),
     chordProgression: [...initialChordProgression],
     harmonySequence: initialHarmonySequence.map((notes) => [...notes]),
     harmonyDurations: initialHarmonyDurations.map((entry) => ({ ...entry })),
