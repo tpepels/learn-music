@@ -1213,23 +1213,69 @@ function defaultExerciseState(id: string): StudyExerciseState {
     };
   }
 
-  if (id === SCHOENBERG_VARIATION_IDS.analyse) {
+  if (id === SCHOENBERG_VARIATION_IDS.motive) {
     return {
-      ...baseState(studyVariationSequence("rhythm")),
-      transformation: "rhythm",
+      ...baseState(studyVariationBookSequence("motive")),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_VARIATION_IDS.exact) {
+    return {
+      ...baseState(studyVariationSequence("inversion")),
+      transformation: "inversion",
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_VARIATION_IDS.literature) {
+    return {
+      ...baseState(studyVariationBookSequence("literature")),
+      notation: "staff",
     };
   }
 
   if (id === SCHOENBERG_VARIATION_IDS.rhythm) {
     return {
-      ...baseState(studyVariationSequence("source")),
-      notation: "piano-roll",
+      ...baseState(studyVariationSequence("rhythm")),
+      transformation: "rhythm",
+      notation: "staff",
     };
   }
 
   if (id === SCHOENBERG_VARIATION_IDS.intervals) {
     return {
-      ...baseState(studyVariationSequence("source")),
+      ...baseState(studyVariationSequence("auxiliary")),
+      transformation: "auxiliary",
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_VARIATION_IDS.metric) {
+    return {
+      ...baseState(studyVariationSequence("upbeat")),
+      transformation: "upbeat",
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_VARIATION_IDS.harmony) {
+    return {
+      ...baseState(studyVariationBookSequence("harmony")),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_VARIATION_IDS.substitution) {
+    return {
+      ...baseState(studyVariationBookSequence("substitution")),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_VARIATION_IDS.adaptation) {
+    return {
+      ...baseState(studyVariationBookSequence("adaptation")),
       notation: "staff",
     };
   }
