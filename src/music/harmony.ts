@@ -256,14 +256,15 @@ export function minorHarmonyPalette(context: TonalContext): HarmonicChord[] {
       context.mode === "harmonic-minor" ? "harmonic-minor" : "natural-minor",
   };
   const palette = diatonicPalette(minorContext, false);
-  const dominant = dominantSeventh(5, 1);
-  const duplicate = palette.findIndex(
-    (chord) =>
-      chord.degree === 5 &&
-      chord.quality === dominant.quality &&
-      chord.seventh === dominant.seventh,
-  );
-  if (duplicate >= 0) palette.splice(duplicate, 1);
+  const dominant: HarmonicChord = {
+    degree: 5,
+    rootAlteration: 0,
+    quality: "major",
+    seventh: "minor",
+    role: "diatonic",
+  };
+  const fifth = palette.findIndex((chord) => chord.degree === 5);
+  if (fifth >= 0) palette.splice(fifth, 1);
   palette.push(dominant);
   return palette;
 }
@@ -622,8 +623,7 @@ export function legacyChordToHarmonic(
     parsed.quality === "major" &&
     parsed.seventh === "minor"
   ) {
-    role = "secondary-dominant";
-    targetDegree = 1;
+    role = "diatonic";
   }
 
   return {
