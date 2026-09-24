@@ -1127,62 +1127,6 @@ class AudioEngine {
     return true;
   }
 
-  async playMelodyHarmonyContext(
-    bpm: number,
-    onStep: (step: number) => void,
-  ) {
-    if (!(await this.prepare(bpm, onStep, ["drums", "piano", "chords"]))) return false;
-    const transport = Tone.getTransport();
-    const totalTransportSteps = this.melody.length * 2;
-
-    this.eventId = transport.scheduleRepeat((time) => {
-      const globalStep = this.step;
-      const drumStep = globalStep % 16;
-
-      if (this.pattern.kick[drumStep]) {
-        this.triggerKick(time, this.grooveFeelSettings.velocities.kick[drumStep] ?? 0.8);
-      }
-      if (this.pattern.snare[drumStep]) {
-        this.triggerSnare(time, this.grooveFeelSettings.velocities.snare[drumStep] ?? 0.64);
-      }
-      if (this.pattern.hat[drumStep]) {
-        this.triggerHat(time, (this.grooveFeelSettings.velocities.hat[drumStep] ?? 0.42) * 0.8);
-      }
-
-      if (globalStep % 2 === 0) {
-        const melodyStep = globalStep / 2;
-        const chordSlot = Math.floor(melodyStep / 4);
-        const chord = this.chordProgression[chordSlot];
-
-        if (chord && melodyStep % 4 === 0) {
-          const notes = applyChordTexture(
-            voicedChordMidi(chord, this.voicingSettings.inversions[chordSlot] ?? 0),
-            this.textureSettings,
-          ).map((midi) => Tone.Frequency(midi, "midi").toNote());
-          this.triggerChordNotes(notes, "2n", time, 0.42);
-        }
-
-        const midi = this.melody[melodyStep];
-        if (midi !== null && midi !== undefined) {
-          const texturedMidi = midi + this.textureSettings.melodyOctave * 12;
-          this.triggerPiano(
-            Tone.Frequency(texturedMidi, "midi").toNote(),
-            this.noteDuration(this.melodyDurations[melodyStep] ?? 1),
-            time,
-            0.72,
-          );
-        }
-
-        Tone.getDraw().schedule(() => this.onStep?.(melodyStep), time);
-      }
-
-      this.step = (this.step + 1) % totalTransportSteps;
-    }, "16n");
-
-    transport.start();
-    return true;
-  }
-
   private triggerChordPattern(
     chord: ChordName,
     inversion: ChordInversion,
