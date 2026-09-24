@@ -1307,29 +1307,39 @@ class AudioEngine {
   async playChordMelody(bpm: number, onStep: (step: number) => void) {
     if (!(await this.prepare(bpm, onStep, ["piano", "chords"]))) return false;
     const transport = Tone.getTransport();
-    const totalSteps = Math.max(1, this.harmonicProgression.length) * 16;
+    const progression = resolveContextProgression(
+      this.harmonicProgression,
+      this.tonalContext,
+    );
+    const melodyFallback = !hasArrangementMelody(this.melody);
+    const melody = melodyFallback
+      ? buildArrangementFallbackMelody(this.tonalContext)
+      : this.melody;
+    const totalSteps = Math.max(1, progression.length) * 16;
 
     this.eventId = transport.scheduleRepeat((time) => {
       const globalStep = this.step;
       const barIndex = Math.floor(globalStep / 16);
       const localStep = globalStep % 16;
-      const chord = this.harmonicProgression[barIndex];
+      const chord = progression[barIndex];
 
       if (chord) {
         const inversion = this.voicingSettings.inversions[barIndex] ?? 0;
         this.triggerChordPattern(chord, inversion, localStep, time, 0.52);
       }
 
-      if (globalStep % 2 === 0 && this.melody.length > 0) {
-        const melodyStep = (globalStep / 2) % this.melody.length;
-        const midi = this.melody[melodyStep];
+      if (globalStep % 2 === 0 && melody.length > 0) {
+        const melodyStep = (globalStep / 2) % melody.length;
+        const midi = melody[melodyStep];
         if (midi !== null && midi !== undefined) {
           this.triggerPiano(
             Tone.Frequency(
               midi + this.textureSettings.melodyOctave * 12,
               "midi",
             ).toNote(),
-            this.noteDuration(this.melodyDurations[melodyStep] ?? 1),
+            this.noteDuration(
+              melodyFallback ? 1 : this.melodyDurations[melodyStep] ?? 1,
+            ),
             time,
             0.58,
           );
