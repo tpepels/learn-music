@@ -1,3 +1,5 @@
+import type { HarmonicProgression, TonalContext } from "./harmony";
+
 export const trackNames = ["kick", "snare", "hat"] as const;
 export const patternIds = ["A", "B"] as const;
 
@@ -612,6 +614,8 @@ export type ProjectData = {
   patterns: Record<PatternId, StepPattern>;
   melody: MelodySequence;
   melodyDurations: NoteDurationLane;
+  tonalContext: TonalContext;
+  harmonicProgression: HarmonicProgression;
   chordProgression: ChordProgression;
   harmonySequence: HarmonySequence;
   harmonyDurations: HarmonyDurations;
