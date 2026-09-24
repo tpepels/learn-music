@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { resetLessonProgressState } from "./progress";
+import {
+  resetLessonProgressState,
+  sanitizeLearningProgress,
+} from "./progress";
 
 describe("resetLessonProgressState", () => {
   it("clears only the selected lesson's completion and returns it to A", () => {
@@ -55,5 +58,69 @@ describe("resetLessonProgressState", () => {
     );
 
     expect(result.currentStep).toBe(7);
+  });
+});
+
+
+describe("sanitizeLearningProgress", () => {
+  const lessons = [
+    {
+      id: "lesson.one",
+      exerciseIds: ["lesson.one.a", "lesson.one.b"],
+    },
+    {
+      id: "lesson.two",
+      exerciseIds: ["lesson.two.a", "lesson.two.b", "lesson.two.c"],
+    },
+  ];
+
+  it("removes stale curriculum IDs and repairs the current lesson", () => {
+    const result = sanitizeLearningProgress(
+      {
+        currentLessonId: "lesson.removed",
+        exerciseIndexByLesson: {
+          "lesson.one": 1,
+          "lesson.two": 99,
+          "lesson.removed": 3,
+        },
+        completedExerciseIds: [
+          "lesson.one.a",
+          "lesson.one.a",
+          "lesson.removed.a",
+        ],
+        completedLessonIds: [
+          "lesson.one",
+          "lesson.one",
+          "lesson.removed",
+        ],
+      },
+      lessons,
+      "lesson.one",
+    );
+
+    expect(result).toEqual({
+      currentLessonId: "lesson.one",
+      exerciseIndexByLesson: {
+        "lesson.one": 1,
+        "lesson.two": 2,
+      },
+      completedExerciseIds: ["lesson.one.a"],
+      completedLessonIds: ["lesson.one"],
+    });
+  });
+
+  it("uses the first current lesson when the configured fallback no longer exists", () => {
+    const result = sanitizeLearningProgress(
+      {
+        currentLessonId: "lesson.removed",
+        exerciseIndexByLesson: {},
+        completedExerciseIds: [],
+        completedLessonIds: [],
+      },
+      lessons,
+      "another.removed.lesson",
+    );
+
+    expect(result.currentLessonId).toBe("lesson.one");
   });
 });
