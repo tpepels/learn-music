@@ -45,6 +45,12 @@ export const exerciseContentSchema = z.object({
   explanation: z.string(),
   instruction: z.string(),
   recognition: z.string(),
+  source: z
+    .object({
+      reference: z.string(),
+      focus: z.string(),
+    })
+    .optional(),
   terms: z.array(termSchema),
   workspace: z.enum([
     "drums",
