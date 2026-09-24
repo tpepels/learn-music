@@ -9867,3 +9867,40 @@ body {
     grid-column: auto;
   }
 }
+
+
+/* Expanded Schoenberg exercises */
+
+.exercise-lights {
+  flex-wrap: wrap;
+}
+
+.study-source-answer-panel {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.study-source-answer-panel button {
+  min-height: 34px;
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.025);
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.study-source-answer-panel button:hover {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+.study-source-answer-panel button.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text);
+}
