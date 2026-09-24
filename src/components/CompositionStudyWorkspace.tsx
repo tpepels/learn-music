@@ -5,7 +5,6 @@ import {
   SCHOENBERG_VARIATION_EXERCISE_IDS,
   SCHOENBERG_VARIATION_IDS,
   studyComparisonSequence,
-  studyTransformationFeature,
   studyVariationSequence,
   type StudyDuration,
   type StudyFeature,
