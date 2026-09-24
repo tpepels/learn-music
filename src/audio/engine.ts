@@ -3,7 +3,10 @@ import {
   applyLearningFocusVolume,
   shouldMuteLearningContext,
 } from "./learningFocus";
-import { getSynthPhraseEvents } from "./synthPhrase";
+import {
+  eighthNoteSeconds,
+  getSynthPhraseSchedule,
+} from "./synthPhrase";
 import {
   resolveArrangementFrame,
   resolveArrangementMelodyStep,
@@ -1633,35 +1636,38 @@ class AudioEngine {
     );
   }
 
-  async playSynthPhrase() {
+  async playSynthPhrase(bpm: number) {
     await Tone.start();
     this.ensureVoices(["synth"]);
     this.applySynthSettings();
 
-    const projectEvents = getSynthPhraseEvents(
+    const projectEvents = getSynthPhraseSchedule(
       this.melody,
       this.melodyDurations,
+      bpm,
     );
     const now = Tone.now() + 0.05;
 
     if (projectEvents.length > 0) {
-      const eighth = Tone.Time("8n").toSeconds();
-      projectEvents.forEach(({ midi, step, durationSteps }) => {
-        this.soundSynth?.triggerAttackRelease(
-          Tone.Frequency(midi, "midi").toNote(),
-          this.noteDuration(durationSteps),
-          now + step * eighth,
-          0.62,
-        );
-      });
+      projectEvents.forEach(
+        ({ midi, startSeconds, durationSeconds }) => {
+          this.soundSynth?.triggerAttackRelease(
+            Tone.Frequency(midi, "midi").toNote(),
+            durationSeconds,
+            now + startSeconds,
+            0.62,
+          );
+        },
+      );
       return;
     }
 
+    const eighth = eighthNoteSeconds(bpm);
     [60, 64, 67, 64, 62, 65, 67, 60].forEach((midi, index) => {
       this.soundSynth?.triggerAttackRelease(
         Tone.Frequency(midi, "midi").toNote(),
-        "8n",
-        now + index * 0.34,
+        eighth,
+        now + index * eighth,
         0.62,
       );
     });
