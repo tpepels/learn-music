@@ -1,11 +1,21 @@
 import { describe, expect, it } from "vitest";
 import {
+  ARRANGEMENT_BARS,
+  MELODY_STEPS,
+  STEPS,
+  initialAutomationSettings,
+  initialEqSettings,
   initialFormSettings,
   initialGrooveFeelSettings,
+  initialInstrumentSettings,
+  initialMixerSettings,
+  initialStereoSettings,
+  initialTextureSettings,
 } from "../music/model";
 import {
   migrateFormSettings,
   migrateGrooveFeelSettings,
+  migratePersistedStudioState,
 } from "./migrations";
 
 describe("persisted form-state migration", () => {
@@ -96,5 +106,137 @@ describe("persisted groove-state migration", () => {
         },
       }),
     ).toEqual(initialGrooveFeelSettings);
+  });
+});
+
+
+describe("persisted studio-state migration", () => {
+  it("repairs short legacy lanes without discarding valid saved values", () => {
+    const migrated = migratePersistedStudioState({
+      patterns: {
+        A: {
+          kick: [true, false],
+          snare: [false],
+          hat: [],
+        },
+      },
+      melody: [60, 62, 64, 65, 67, 69, 71, 72],
+      arrangement: [
+        { drums: true, bass: false, chords: false, melody: false },
+        { drums: true, bass: true, chords: false, melody: false },
+        { drums: true, bass: true, chords: true, melody: false },
+        { drums: true, bass: true, chords: true, melody: true },
+      ],
+      automationSettings: {
+        melodyVolumeDb: [-12, -9, -6, -3],
+      },
+    });
+
+    expect(migrated.patterns.A.kick).toHaveLength(STEPS);
+    expect(migrated.patterns.A.kick.slice(0, 2)).toEqual([true, false]);
+    expect(migrated.melody).toHaveLength(MELODY_STEPS);
+    expect(migrated.melody.slice(0, 8)).toEqual([
+      60, 62, 64, 65, 67, 69, 71, 72,
+    ]);
+    expect(migrated.arrangement).toHaveLength(ARRANGEMENT_BARS);
+    expect(migrated.arrangement[3].melody).toBe(true);
+    expect(migrated.arrangement[7]).toEqual({
+      drums: false,
+      bass: false,
+      chords: false,
+      melody: false,
+    });
+    expect(migrated.automationSettings.melodyVolumeDb).toEqual([
+      -12, -9, -6, -3, 0, 0, 0, 0,
+    ]);
+    expect(migrated.automationSettings.chordFilterHz).toEqual(
+      initialAutomationSettings.chordFilterHz,
+    );
+  });
+
+  it("fills missing nested production fields from defaults", () => {
+    const migrated = migratePersistedStudioState({
+      mixerSettings: {
+        melody: {
+          volume: -4,
+        },
+      },
+      textureSettings: {
+        melodyOctave: 1,
+      },
+      instrumentSettings: {
+        chordVoice: "pad",
+      },
+      eqSettings: {
+        chords: {
+          gain: -3,
+        },
+      },
+      stereoSettings: {
+        widths: {
+          melody: 0.9,
+        },
+      },
+    });
+
+    expect(migrated.mixerSettings.melody.volume).toBe(-4);
+    expect(migrated.mixerSettings.melody.pan).toBe(
+      initialMixerSettings.melody.pan,
+    );
+    expect(migrated.mixerSettings.drums).toEqual(initialMixerSettings.drums);
+
+    expect(migrated.textureSettings).toEqual({
+      ...initialTextureSettings,
+      melodyOctave: 1,
+    });
+    expect(migrated.instrumentSettings).toEqual({
+      ...initialInstrumentSettings,
+      chordVoice: "pad",
+    });
+
+    expect(migrated.eqSettings.chords.gain).toBe(-3);
+    expect(migrated.eqSettings.chords.frequency).toBe(
+      initialEqSettings.chords.frequency,
+    );
+    expect(migrated.eqSettings.melody).toEqual(initialEqSettings.melody);
+
+    expect(migrated.stereoSettings.widths.melody).toBe(0.9);
+    expect(migrated.stereoSettings.widths.drums).toBe(
+      initialStereoSettings.widths.drums,
+    );
+    expect(migrated.stereoSettings.monoAudition).toBe(
+      initialStereoSettings.monoAudition,
+    );
+  });
+
+  it("repairs partial reference snapshots instead of hydrating unsafe nested objects", () => {
+    const migrated = migratePersistedStudioState({
+      referenceMixSettings: {
+        snapshot: {
+          mixerSettings: {
+            melody: { volume: -7 },
+          },
+          stereoWidths: {
+            melody: 0.75,
+          },
+        },
+        trimDb: -2,
+      },
+    });
+
+    expect(migrated.referenceMixSettings.trimDb).toBe(-2);
+    expect(migrated.referenceMixSettings.snapshot).not.toBeNull();
+    expect(
+      migrated.referenceMixSettings.snapshot?.mixerSettings.melody.volume,
+    ).toBe(-7);
+    expect(
+      migrated.referenceMixSettings.snapshot?.mixerSettings.melody.highpass,
+    ).toBe(initialMixerSettings.melody.highpass);
+    expect(
+      migrated.referenceMixSettings.snapshot?.stereoWidths.melody,
+    ).toBe(0.75);
+    expect(
+      migrated.referenceMixSettings.snapshot?.stereoWidths.bass,
+    ).toBe(initialStereoSettings.widths.bass);
   });
 });
