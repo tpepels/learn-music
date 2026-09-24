@@ -11,6 +11,7 @@ import { disposeSynthAudition } from "./synthAudition";
 import { effectiveChorusWet } from "./stereoAudition";
 import { TransportStartGate } from "./transportStartGate";
 import { syncEighthNoteDelay } from "./tempoSync";
+import { reverbValueChanged } from "./reverbState";
 import {
   resolveArrangementFrame,
   resolveArrangementMelodyStep,
@@ -866,8 +867,22 @@ class AudioEngine {
 
   private applyEffectsSettings() {
     if (this.mixReverb) {
-      this.mixReverb.decay = this.effectsSettings.reverbDecay;
-      this.mixReverb.preDelay = this.effectsSettings.reverbPreDelay;
+      if (
+        reverbValueChanged(
+          this.mixReverb.decay,
+          this.effectsSettings.reverbDecay,
+        )
+      ) {
+        this.mixReverb.decay = this.effectsSettings.reverbDecay;
+      }
+      if (
+        reverbValueChanged(
+          this.mixReverb.preDelay,
+          this.effectsSettings.reverbPreDelay,
+        )
+      ) {
+        this.mixReverb.preDelay = this.effectsSettings.reverbPreDelay;
+      }
     }
 
     if (this.mixDelay) {
@@ -992,6 +1007,9 @@ class AudioEngine {
 
     try {
       this.ensureEffectsGraph();
+      if (this.mixReverb) {
+        await this.mixReverb.ready;
+      }
     } catch (error) {
       console.error("PLAY / LAB optional effects failed to initialise", error);
     }
