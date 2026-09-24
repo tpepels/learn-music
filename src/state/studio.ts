@@ -118,12 +118,15 @@ import {
 } from "../music/harmony";
 import {
   SCHOENBERG_CONNECTION_IDS,
+  SCHOENBERG_SENTENCE_IDS,
   ensureStudyExerciseState,
   initialCompositionStudyState,
   mergeCompositionStudyState,
   resetStudyExerciseState,
   setStudyConnectionOperationsState,
   setStudyOperationsState,
+  setStudySentenceModeState,
+  setStudySentenceSourceStepState,
   setStudyTransformationState,
   studyBridgeSequence,
   studyComparisonSequence,
@@ -133,6 +136,7 @@ import {
   type StudyDuration,
   type StudyFeature,
   type StudyNotation,
+  type StudySentenceMode,
   type StudyTransformation,
   type StudyVariant,
 } from "../music/study";
@@ -361,6 +365,10 @@ type StudioState = {
   toggleStudyOperation: (
     exerciseId: string,
     operation: StudyTransformation,
+  ) => void;
+  setStudySentenceMode: (
+    exerciseId: string,
+    mode: StudySentenceMode,
   ) => void;
   resetStudyExercise: (exerciseId: string) => void;
 };
@@ -1550,13 +1558,19 @@ export const useStudioStore = create<StudioState>()(
             state.compositionStudy,
             exerciseId,
           );
-          const notes = [...exercise.notes];
-          if (step < 0 || step >= notes.length) return state;
-          notes[step] = midi;
+          const nextExercise =
+            exerciseId === SCHOENBERG_SENTENCE_IDS.compose
+              ? setStudySentenceSourceStepState(exercise, step, midi)
+              : (() => {
+                  const notes = [...exercise.notes];
+                  if (step < 0 || step >= notes.length) return exercise;
+                  notes[step] = midi;
+                  return { ...exercise, notes };
+                })();
           return {
             compositionStudy: {
               ...state.compositionStudy,
-              [exerciseId]: { ...exercise, notes },
+              [exerciseId]: nextExercise,
             },
             learningExperiments: recordExperimentValue(
               state,
@@ -1703,6 +1717,25 @@ export const useStudioStore = create<StudioState>()(
               state,
               "study.operation",
               operation + ":" + operations.includes(operation),
+            ),
+          };
+        }),
+
+      setStudySentenceMode: (exerciseId, mode) =>
+        set((state) => {
+          const exercise = ensureStudyExerciseState(
+            state.compositionStudy,
+            exerciseId,
+          );
+          return {
+            compositionStudy: {
+              ...state.compositionStudy,
+              [exerciseId]: setStudySentenceModeState(exercise, mode),
+            },
+            learningExperiments: recordExperimentValue(
+              state,
+              "study.sentence-mode",
+              mode,
             ),
           };
         }),
