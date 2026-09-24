@@ -117,13 +117,17 @@ import {
   type TonalMode,
 } from "../music/harmony";
 import {
+  SCHOENBERG_CONNECTION_IDS,
   ensureStudyExerciseState,
   initialCompositionStudyState,
   mergeCompositionStudyState,
   resetStudyExerciseState,
+  setStudyConnectionOperationsState,
   setStudyOperationsState,
   setStudyTransformationState,
+  studyBridgeSequence,
   studyComparisonSequence,
+  studyConnectionSequence,
   type CompositionStudyState,
   type StudyDecision,
   type StudyDuration,
@@ -1609,13 +1613,23 @@ export const useStudioStore = create<StudioState>()(
             state.compositionStudy,
             exerciseId,
           );
+          const sequence =
+            exerciseId === SCHOENBERG_CONNECTION_IDS.compare
+              ? studyConnectionSequence(variant)
+              : exerciseId === SCHOENBERG_CONNECTION_IDS.bridge
+                ? studyBridgeSequence(variant)
+                : {
+                    notes: studyComparisonSequence(variant),
+                    durations: exercise.durations,
+                  };
           return {
             compositionStudy: {
               ...state.compositionStudy,
               [exerciseId]: {
                 ...exercise,
                 variant,
-                notes: studyComparisonSequence(variant),
+                notes: [...sequence.notes],
+                durations: [...sequence.durations],
               },
             },
             learningExperiments: recordExperimentValue(
@@ -1676,10 +1690,14 @@ export const useStudioStore = create<StudioState>()(
           const operations = exercise.operations.includes(operation)
             ? exercise.operations.filter((entry) => entry !== operation)
             : [...exercise.operations, operation].slice(-3);
+          const nextExercise =
+            exerciseId === SCHOENBERG_CONNECTION_IDS.compose
+              ? setStudyConnectionOperationsState(exercise, operations)
+              : setStudyOperationsState(exercise, operations);
           return {
             compositionStudy: {
               ...state.compositionStudy,
-              [exerciseId]: setStudyOperationsState(exercise, operations),
+              [exerciseId]: nextExercise,
             },
             learningExperiments: recordExperimentValue(
               state,
