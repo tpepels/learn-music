@@ -9,6 +9,7 @@ import {
   exerciseContentSchema,
   lessonContentSchema,
   type LessonDefinition,
+  type LessonContext,
 } from "./types";
 
 const lesson = lessonContentSchema.parse({
@@ -38,7 +39,7 @@ function revisedStepCount(values: string[]): number {
 }
 
 function inspectedTwoNotations(
-  experiments: Parameters<LessonDefinition["exercises"][number]["evaluate"]>[0]["experiments"],
+  experiments: LessonContext["experiments"],
 ): boolean {
   return (experiments["study.notation"]?.values.length ?? 0) >= 2;
 }
