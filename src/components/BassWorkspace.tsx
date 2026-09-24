@@ -12,6 +12,7 @@ import {
   noteDurationLabel,
 } from "../music/model";
 import { useStudioStore } from "../state/studio";
+import { LayerVolumeStrip } from "./LayerVolumeStrip";
 import {
   findMonophonicNoteStart,
   useNoteLengthDrag,
@@ -53,6 +54,8 @@ export function BassWorkspace() {
           Play keeps your groove and harmony running while you add the bass line underneath them. Drag notes right to sustain them.
         </span>
       </div>
+
+      <LayerVolumeStrip tracks={["drums", "chords", "bass"] as const} />
 
       <div className="bass-chord-header">
         <span />
