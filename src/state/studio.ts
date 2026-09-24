@@ -116,6 +116,16 @@ import {
   type TonalContext,
   type TonalMode,
 } from "../music/harmony";
+import {
+  ensureStudyExerciseState,
+  initialCompositionStudyState,
+  resetStudyExerciseState,
+  studyComparisonSequence,
+  type CompositionStudyState,
+  type StudyDecision,
+  type StudyNotation,
+  type StudyVariant,
+} from "../music/study";
 
 function canonicalCompatibilityContext(context: TonalContext): TonalContext {
   return context.mode === "major"
@@ -228,6 +238,7 @@ type StudioState = {
   referenceMixSettings: ReferenceMixSettings;
   activeExerciseId: string;
   learningExperiments: Record<string, ExerciseExperiments>;
+  compositionStudy: CompositionStudyState;
   appMode: "learn" | "create" | "studio";
 
   setBpm: (bpm: number) => void;
@@ -323,6 +334,12 @@ type StudioState = {
   resetReferenceMix: () => void;
   setActiveExerciseId: (exerciseId: string) => void;
   recordLearningExperiment: (key: string, value?: string | number | boolean) => void;
+  setStudyNotation: (exerciseId: string, notation: StudyNotation) => void;
+  toggleStudySelection: (exerciseId: string, step: number) => void;
+  setStudyStep: (exerciseId: string, step: number, midi: number | null) => void;
+  setStudyDecision: (exerciseId: string, decision: StudyDecision) => void;
+  setStudyVariant: (exerciseId: string, variant: StudyVariant) => void;
+  resetStudyExercise: (exerciseId: string) => void;
 };
 
 function recordExperimentValue(
@@ -445,6 +462,7 @@ export const useStudioStore = create<StudioState>()(
       },
       activeExerciseId: "",
       learningExperiments: {},
+      compositionStudy: initialCompositionStudyState(),
       appMode: "learn",
 
       setBpm: (bpm) => set({ bpm }),
@@ -1462,6 +1480,120 @@ export const useStudioStore = create<StudioState>()(
           learningExperiments: recordExperimentValue(state, key, value),
         })),
 
+      setStudyNotation: (exerciseId, notation) =>
+        set((state) => {
+          const exercise = ensureStudyExerciseState(
+            state.compositionStudy,
+            exerciseId,
+          );
+          return {
+            compositionStudy: {
+              ...state.compositionStudy,
+              [exerciseId]: { ...exercise, notation },
+            },
+            learningExperiments: recordExperimentValue(
+              state,
+              "study.notation",
+              notation,
+            ),
+          };
+        }),
+
+      toggleStudySelection: (exerciseId, step) =>
+        set((state) => {
+          const exercise = ensureStudyExerciseState(
+            state.compositionStudy,
+            exerciseId,
+          );
+          const selectedSteps = exercise.selectedSteps.includes(step)
+            ? exercise.selectedSteps.filter((entry) => entry !== step)
+            : [...exercise.selectedSteps, step].sort((left, right) => left - right);
+          return {
+            compositionStudy: {
+              ...state.compositionStudy,
+              [exerciseId]: { ...exercise, selectedSteps },
+            },
+            learningExperiments: recordExperimentValue(
+              state,
+              "study.selection",
+              step + ":" + selectedSteps.includes(step),
+            ),
+          };
+        }),
+
+      setStudyStep: (exerciseId, step, midi) =>
+        set((state) => {
+          const exercise = ensureStudyExerciseState(
+            state.compositionStudy,
+            exerciseId,
+          );
+          const notes = [...exercise.notes];
+          if (step < 0 || step >= notes.length) return state;
+          notes[step] = midi;
+          return {
+            compositionStudy: {
+              ...state.compositionStudy,
+              [exerciseId]: { ...exercise, notes },
+            },
+            learningExperiments: recordExperimentValue(
+              state,
+              "study.note-edit",
+              step + ":" + (midi ?? "rest"),
+            ),
+          };
+        }),
+
+      setStudyDecision: (exerciseId, decision) =>
+        set((state) => {
+          const exercise = ensureStudyExerciseState(
+            state.compositionStudy,
+            exerciseId,
+          );
+          return {
+            compositionStudy: {
+              ...state.compositionStudy,
+              [exerciseId]: { ...exercise, decision },
+            },
+            learningExperiments: recordExperimentValue(
+              state,
+              "study.decision",
+              decision ?? "clear",
+            ),
+          };
+        }),
+
+      setStudyVariant: (exerciseId, variant) =>
+        set((state) => {
+          const exercise = ensureStudyExerciseState(
+            state.compositionStudy,
+            exerciseId,
+          );
+          return {
+            compositionStudy: {
+              ...state.compositionStudy,
+              [exerciseId]: {
+                ...exercise,
+                variant,
+                notes: studyComparisonSequence(variant),
+              },
+            },
+            learningExperiments: recordExperimentValue(
+              state,
+              "study.variant",
+              variant,
+            ),
+          };
+        }),
+
+      resetStudyExercise: (exerciseId) =>
+        set((state) => ({
+          compositionStudy: {
+            ...state.compositionStudy,
+            [exerciseId]: resetStudyExerciseState(exerciseId),
+          },
+          currentStep: 0,
+        })),
+
       loadProject: (project) =>
         set({
           bpm: project.bpm,
@@ -1568,6 +1700,7 @@ export const useStudioStore = create<StudioState>()(
         stereoSettings: state.stereoSettings,
         referenceMixSettings: state.referenceMixSettings,
         learningExperiments: state.learningExperiments,
+        compositionStudy: state.compositionStudy,
         appMode: state.appMode,
       }),
       merge: (persistedState, currentState) => {
