@@ -4,6 +4,23 @@ export function heardPlayback(experiments: ExerciseExperiments): boolean {
   return (experiments["transport.play"]?.changes ?? 0) >= 1;
 }
 
+export function heardSourceExample(
+  experiments: ExerciseExperiments,
+  exampleId: string,
+): boolean {
+  return (experiments["source-score.play"]?.values ?? []).includes(exampleId);
+}
+
+export function inspectedSourceSegment(
+  experiments: ExerciseExperiments,
+  exampleId: string,
+  segmentId: string,
+): boolean {
+  return (experiments["source-score.segment"]?.values ?? []).includes(
+    exampleId + ":" + segmentId,
+  );
+}
+
 export function changedControl(
   experiments: ExerciseExperiments,
   key: string,
