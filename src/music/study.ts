@@ -661,13 +661,33 @@ function sentencePresentation(
   return studySentenceSequence("complementary", sourceNotes, sourceDurations);
 }
 
-function continuationHarmony(): StudyHarmony[] {
+function continuationHarmony(
+  mode: StudyCompletionMode,
+): StudyHarmony[] {
   const harmony = Array<StudyHarmony>(completionLength).fill(null);
   harmony[0] = "I";
   harmony[8] = "V";
-  harmony[16] = "I";
-  harmony[28] = "V";
-  harmony[30] = "I";
+
+  if (mode === "repeat-presentation") {
+    harmony[16] = "I";
+    harmony[24] = "V";
+    return harmony;
+  }
+
+  if (mode !== "foreign-continuation") {
+    harmony[16] = "I";
+  }
+
+  if (
+    mode === "developed-continuation" ||
+    mode === "liquidation" ||
+    mode === "abrupt" ||
+    mode === "complete"
+  ) {
+    harmony[28] = "V";
+    harmony[30] = "I";
+  }
+
   return harmony;
 }
 
@@ -706,8 +726,8 @@ function studyContinuationMaterial(
       return [
         ...seq1,
         ...seq2,
-        motive[2], motive[1],
-        motive[1], motive[0],
+        motive[2], null,
+        motive[1], null,
         ...cadence,
       ];
   }
@@ -725,7 +745,7 @@ export function studyCompletionSequence(
   return {
     notes: [...presentation.notes, ...continuation],
     durations: [...presentation.durations, ...continuationDurations],
-    harmony: continuationHarmony(),
+    harmony: continuationHarmony(mode),
   };
 }
 
@@ -1367,7 +1387,7 @@ export function studyCompletionHasLiquidation(
   if (notes.length < completionLength) return false;
   const early = notes.slice(16, 24).filter((note) => note !== null).length;
   const late = notes.slice(24, 28).filter((note) => note !== null).length;
-  return early >= 7 && late <= 4 && late >= 2;
+  return early >= 7 && late === 2;
 }
 
 export function studyCompletionHasCadence(
