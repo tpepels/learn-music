@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { audioEngine } from "../audio/engine";
 import {
-  accompanimentPatterns,
-  basicChordNames,
-  romanNumerals,
-  type ChordName,
-} from "../music/model";
+  basicHarmonyPalette,
+  chordSymbol,
+  keyLabel,
+  romanNumeral,
+  type HarmonicChord,
+} from "../music/harmony";
+import { accompanimentPatterns } from "../music/model";
 import { useStudioStore } from "../state/studio";
+import { HarmonyKeyControl } from "./HarmonyKeyControl";
 
 const accompanimentLabels = {
   block: ["Block", "all notes together"],
@@ -16,16 +19,18 @@ const accompanimentLabels = {
 } as const;
 
 export function ChordWorkspace({ contextual = false }: { contextual?: boolean }) {
-  const progression = useStudioStore((state) => state.chordProgression);
-  const setChordSlot = useStudioStore((state) => state.setChordSlot);
+  const progression = useStudioStore((state) => state.harmonicProgression);
+  const tonalContext = useStudioStore((state) => state.tonalContext);
+  const setHarmonicSlot = useStudioStore((state) => state.setHarmonicSlot);
   const currentStep = useStudioStore((state) => state.currentStep);
   const isPlaying = useStudioStore((state) => state.isPlaying);
   const accompanimentPattern = useStudioStore((state) => state.accompanimentPattern);
   const setAccompanimentPattern = useStudioStore((state) => state.setAccompanimentPattern);
   const [selectedSlot, setSelectedSlot] = useState(0);
+  const palette = basicHarmonyPalette(tonalContext);
 
-  const chooseChord = async (chord: ChordName) => {
-    setChordSlot(selectedSlot, chord);
+  const chooseChord = async (chord: HarmonicChord) => {
+    setHarmonicSlot(selectedSlot, chord);
     await audioEngine.playChordPreview(chord);
   };
 
@@ -38,17 +43,19 @@ export function ChordWorkspace({ contextual = false }: { contextual?: boolean })
           </span>
           <h2>{contextual ? "Shape the harmony inside the phrase" : "Build the progression"}</h2>
           <div className="daw-strip">
-            <span>KEY C MAJOR</span>
+            <span>KEY {keyLabel(tonalContext).toUpperCase()}</span>
             <span>1 CHORD / BAR</span>
-            <span>{contextual ? "GROOVE + BASS + MELODY" : "ROMAN NUMERALS"}</span>
+            <span>{contextual ? "GROOVE + BASS + MELODY" : "SYMBOL + FUNCTION"}</span>
           </div>
         </div>
         <span className="workspace-hint">
           {contextual
             ? "Keep the loop running while you change chords or accompaniment."
-            : "Select a slot, then choose a chord."}
+            : "Select a slot, then choose a harmonic function."}
         </span>
       </div>
+
+      <HarmonyKeyControl />
 
       <div className="chord-slots">
         {progression.map((chord, index) => (
@@ -62,28 +69,32 @@ export function ChordWorkspace({ contextual = false }: { contextual?: boolean })
             onClick={() => setSelectedSlot(index)}
           >
             <span>Bar {index + 1}</span>
-            <strong>{chord ?? "—"}</strong>
-            <small>{chord ? romanNumerals[chord] : "choose chord"}</small>
+            <strong>{chord ? chordSymbol(chord, tonalContext) : "—"}</strong>
+            <small>{chord ? romanNumeral(chord, tonalContext) : "choose chord"}</small>
           </button>
         ))}
       </div>
 
       <div className="chord-palette">
-        {basicChordNames.map((chord) => (
-          <button
-            key={chord}
-            onClick={() => void chooseChord(chord)}
-            className="chord-choice"
-          >
-            <strong>{chord}</strong>
-            <span>{romanNumerals[chord]}</span>
-          </button>
-        ))}
+        {palette.map((chord) => {
+          const symbol = chordSymbol(chord, tonalContext);
+          const numeral = romanNumeral(chord, tonalContext);
+          return (
+            <button
+              key={numeral + ":" + symbol}
+              onClick={() => void chooseChord(chord)}
+              className="chord-choice"
+            >
+              <strong>{symbol}</strong>
+              <span>{numeral}</span>
+            </button>
+          );
+        })}
       </div>
 
       <button
         className="chord-clear-button"
-        onClick={() => setChordSlot(selectedSlot, null)}
+        onClick={() => setHarmonicSlot(selectedSlot, null)}
         disabled={progression[selectedSlot] === null}
       >
         Clear selected chord
@@ -110,8 +121,10 @@ export function ChordWorkspace({ contextual = false }: { contextual?: boolean })
       </div>
 
       <div className="chord-note">
-        <strong>Roman numerals describe harmonic identity, not a playing pattern.</strong>
-        <span>C is I in C major, F is IV, G is V, and A minor is vi.</span>
+        <strong>Chord symbol and harmonic identity are separate.</strong>
+        <span>
+          Change the tonic: the absolute chord names move, while I, IV, V and the other scale-degree functions stay attached to the progression.
+        </span>
       </div>
     </div>
   );
