@@ -1,11 +1,15 @@
 import { audioEngine } from "../audio/engine";
 import {
+  chordSymbol,
+  harmonicVoiceLeadingDistance,
+  voicedHarmonicChordMidi,
+} from "../music/harmony";
+import {
   midiNoteName,
-  voiceLeadingDistance,
-  voicedChordMidi,
   type ChordInversion,
 } from "../music/model";
 import { useStudioStore } from "../state/studio";
+import { HarmonyKeyControl } from "./HarmonyKeyControl";
 
 const inversionNames: Record<ChordInversion, string> = {
   0: "Root",
@@ -14,17 +18,23 @@ const inversionNames: Record<ChordInversion, string> = {
 };
 
 export function VoicingWorkspace() {
-  const progression = useStudioStore((state) => state.chordProgression);
+  const progression = useStudioStore((state) => state.harmonicProgression);
+  const tonalContext = useStudioStore((state) => state.tonalContext);
   const voicing = useStudioStore((state) => state.voicingSettings);
   const setChordInversion = useStudioStore((state) => state.setChordInversion);
   const currentStep = useStudioStore((state) => state.currentStep);
   const isPlaying = useStudioStore((state) => state.isPlaying);
 
-  const currentDistance = voiceLeadingDistance(
+  const currentDistance = harmonicVoiceLeadingDistance(
     progression,
+    tonalContext,
     voicing.inversions as ChordInversion[],
   );
-  const rootDistance = voiceLeadingDistance(progression, [0, 0, 0, 0]);
+  const rootDistance = harmonicVoiceLeadingDistance(
+    progression,
+    tonalContext,
+    [0, 0, 0, 0],
+  );
 
   return (
     <div className="voicing-card">
@@ -39,9 +49,11 @@ export function VoicingWorkspace() {
           </div>
         </div>
         <span className="workspace-hint">
-          Keep the chord progression; change which chord tone sits at the bottom.
+          Keep the harmonic progression; change which chord tone sits at the bottom.
         </span>
       </div>
+
+      <HarmonyKeyControl />
 
       <div className="voice-leading-meter">
         <span className="section-label">Total voice movement</span>
@@ -54,7 +66,9 @@ export function VoicingWorkspace() {
       <div className="voicing-slots">
         {progression.map((chord, slot) => {
           const inversion = (voicing.inversions[slot] ?? 0) as ChordInversion;
-          const notes = chord ? voicedChordMidi(chord, inversion) : [];
+          const notes = chord
+            ? voicedHarmonicChordMidi(chord, tonalContext, inversion)
+            : [];
           return (
             <section
               key={slot}
@@ -65,7 +79,7 @@ export function VoicingWorkspace() {
             >
               <header>
                 <span>Bar {slot + 1}</span>
-                <strong>{chord ?? "No chord"}</strong>
+                <strong>{chord ? chordSymbol(chord, tonalContext) : "No chord"}</strong>
                 <small>{inversionNames[inversion]}</small>
               </header>
 
