@@ -8,6 +8,7 @@ import {
 } from "../music/model";
 import { parseProjectFile } from "../persistence/projectFile";
 import { useStudioStore } from "../state/studio";
+import { LayerVolumeStrip } from "./LayerVolumeStrip";
 
 function countActivePattern(pattern: Record<(typeof trackNames)[number], boolean[]>) {
   return trackNames.reduce(
@@ -167,6 +168,8 @@ export function FinalProjectWorkspace() {
           Play the whole track. Keep what helps the music, remove what does not, and save the version you want to come back to.
         </span>
       </div>
+
+      <LayerVolumeStrip tracks={["drums", "bass", "chords", "melody"] as const} />
 
       <div className="final-project-grid">
         {checks.map(([title, ready, description], index) => (
