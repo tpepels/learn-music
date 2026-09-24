@@ -18,6 +18,8 @@ describe("learning progress cookie", () => {
         "rhythm.pulse-and-groove.a",
         "rhythm.pulse-and-groove.b",
         "harmony.voice-leading.a",
+        "schoenberg.phrase-motive.e",
+        "schoenberg.phrase-motive.j",
       ],
       completedLessonIds: ["rhythm.pulse-and-groove"],
     };
