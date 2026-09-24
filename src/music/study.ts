@@ -177,11 +177,34 @@ export const SCHOENBERG_COMPLETION_IDS = {
   sequence: "schoenberg.completing-sentence.b",
   liquidation: "schoenberg.completing-sentence.c",
   compose: "schoenberg.completing-sentence.d",
+  ex52: "schoenberg.completing-sentence.e",
+  ex53: "schoenberg.completing-sentence.f",
+  ex54_56: "schoenberg.completing-sentence.g",
+  ex57_58: "schoenberg.completing-sentence.h",
+  ex59: "schoenberg.completing-sentence.i",
+  ex60: "schoenberg.completing-sentence.j",
+  ex61: "schoenberg.completing-sentence.k",
+  final: "schoenberg.completing-sentence.l",
 } as const;
 
 export const SCHOENBERG_COMPLETION_EXERCISE_IDS = new Set<string>(
   Object.values(SCHOENBERG_COMPLETION_IDS),
 );
+
+export const SCHOENBERG_COMPLETION_SOURCE_IDS = new Set<string>([
+  SCHOENBERG_COMPLETION_IDS.ex52,
+  SCHOENBERG_COMPLETION_IDS.ex53,
+  SCHOENBERG_COMPLETION_IDS.ex54_56,
+  SCHOENBERG_COMPLETION_IDS.ex57_58,
+  SCHOENBERG_COMPLETION_IDS.ex59,
+  SCHOENBERG_COMPLETION_IDS.ex60,
+  SCHOENBERG_COMPLETION_IDS.ex61,
+]);
+
+export const SCHOENBERG_COMPLETION_COMPOSE_IDS = new Set<string>([
+  SCHOENBERG_COMPLETION_IDS.compose,
+  SCHOENBERG_COMPLETION_IDS.final,
+]);
 
 export const studyTransformationFeature: Record<
   Exclude<StudyTransformation, "source">,
@@ -1260,6 +1283,129 @@ export function studyCompletionSequence(
   };
 }
 
+
+const completionChapterReductions: Record<
+  "ex52" | "ex53" | "ex54_56" | "ex57_58" | "ex59" | "ex60" | "ex61",
+  StudySequence
+> = {
+  ex52: {
+    // Ex. 52: phrase units become progressively shorter before cadence.
+    notes: [
+      60, 64, 67, 65, 62, 65, 69, 67,
+      60, 64, 67, 65, 62, 65, 69, 67,
+      62, 65, 69, 67, 64, 67, 71, 69,
+      67, null, 65, null, 62, 59, 60, null,
+    ],
+    durations: padDurations([], 1, 32),
+    harmony: continuationHarmony("complete"),
+  },
+  ex53: {
+    // Ex. 53: remote motive-forms require extra repetitions, extending the
+    // continuation beyond the compact eight-measure practice model.
+    notes: [
+      60, 64, 67, 65, 62, 65, 69, 67,
+      60, 64, 67, 65, 62, 65, 69, 67,
+      67, 70, 73, 71, 69, 72, 75, 73,
+      65, 68, 71, 69, 67, 70, 73, 71,
+      64, null, 62, null, 59, 60, null, null,
+    ],
+    durations: padDurations([], 1, 40),
+    harmony: [
+      "I", null, null, null, null, null, null, null,
+      "V", null, null, null, null, null, null, null,
+      "I", null, null, null, null, null, null, null,
+      null, null, null, null, "V", null, null, null,
+      null, null, null, null, "I", null, null, null,
+    ],
+  },
+  ex54_56: {
+    // Exs. 54-56: broken-chord practice material is progressively varied,
+    // then condensed into sequence-like continuation and cadence.
+    notes: [
+      60, 64, 67, 64, 62, 65, 69, 65,
+      67, 71, 74, 71, 69, 72, 76, 72,
+      62, 65, 69, 65, 64, 67, 71, 67,
+      65, 64, 62, null, 59, 60, null, null,
+    ],
+    durations: padDurations([], 1, 32),
+    harmony: continuationHarmony("complete"),
+  },
+  ex57_58: {
+    // Exs. 57-58: literature sentences keep the same broad functions while
+    // using unequal units and more remote motive-forms.
+    notes: [
+      60, 62, 65, 64, 67, 65, 64, 62,
+      62, 64, 67, 66, 69, 67, 66, 64,
+      64, 67, 71, 69, 66, 69, 72, 70,
+      67, 69, 67, 65, 64, 62, 60, null,
+      62, 59, 60, null, null, null, null, null,
+    ],
+    durations: padDurations([], 1, 40),
+    harmony: [
+      "I", null, null, null, null, null, null, null,
+      "V", null, null, null, null, null, null, null,
+      "I", null, null, null, null, null, null, null,
+      null, null, null, null, "V", null, null, null,
+      "I", null, null, null, null, null, null, null,
+    ],
+  },
+  ex59: {
+    // Ex. 59: Mozart's apparent irregularity often comes from inserted
+    // repetitions; the 40-step study exposes an eight-step insertion.
+    notes: [
+      60, 64, 67, 65, 62, 65, 69, 67,
+      60, 64, 67, 65, 62, 65, 69, 67,
+      64, 67, 71, 69, 64, 67, 71, 69,
+      66, 69, 72, 70, 67, 70, 73, 71,
+      67, null, 65, null, 62, 59, 60, null,
+    ],
+    durations: padDurations([], 1, 40),
+    harmony: [
+      "I", null, null, null, null, null, null, null,
+      "V", null, null, null, null, null, null, null,
+      "I", null, null, null, null, null, null, null,
+      null, null, null, null, "V", null, null, null,
+      null, null, null, null, "I", null, null, null,
+    ],
+  },
+  ex60: {
+    // Ex. 60: the source examples include unusual starts/endings and
+    // quasi-sequential extension. The reduction isolates extension and
+    // cadence rather than pretending to reproduce those exact harmonies.
+    notes: [
+      69, 72, 76, 72, 67, 71, 74, 71,
+      69, 72, 76, 72, 67, 71, 74, 71,
+      64, 67, 71, 69, 66, 69, 72, 70,
+      67, 69, 67, 65, 62, 59, 60, null,
+    ],
+    durations: padDurations([], 1, 32),
+    harmony: continuationHarmony("complete"),
+  },
+  ex61: {
+    // Ex. 61: gradual developing variation from a tiny opening cell,
+    // condensation into residues, and final cadence.
+    notes: [
+      60, 64, 62, 65, 64, 67, 65, 69,
+      62, 65, 64, 67, 65, 69, 67, 71,
+      64, 67, 65, 69, 67, 71, 69, 72,
+      67, 65, 64, null, 62, 59, 60, null,
+    ],
+    durations: padDurations([], 1, 32),
+    harmony: continuationHarmony("complete"),
+  },
+};
+
+export function studyCompletionBookSequence(
+  kind: keyof typeof completionChapterReductions,
+): StudySequence {
+  const sequence = completionChapterReductions[kind];
+  return {
+    notes: [...sequence.notes],
+    durations: [...sequence.durations],
+    harmony: sequence.harmony ? [...sequence.harmony] : undefined,
+  };
+}
+
 export function setStudyCompletionModeState(
   state: StudyExerciseState,
   completionMode: StudyCompletionMode,
@@ -1723,6 +1869,63 @@ function defaultExerciseState(id: string): StudyExerciseState {
   }
 
   if (id === SCHOENBERG_COMPLETION_IDS.compose) {
+    return {
+      ...baseState(studyCompletionSequence("complete")),
+      completionMode: "complete",
+      notation: "piano-roll",
+    };
+  }
+
+  if (id === SCHOENBERG_COMPLETION_IDS.ex52) {
+    return {
+      ...baseState(studyCompletionBookSequence("ex52")),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_COMPLETION_IDS.ex53) {
+    return {
+      ...baseState(studyCompletionBookSequence("ex53")),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_COMPLETION_IDS.ex54_56) {
+    return {
+      ...baseState(studyCompletionBookSequence("ex54_56")),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_COMPLETION_IDS.ex57_58) {
+    return {
+      ...baseState(studyCompletionBookSequence("ex57_58")),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_COMPLETION_IDS.ex59) {
+    return {
+      ...baseState(studyCompletionBookSequence("ex59")),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_COMPLETION_IDS.ex60) {
+    return {
+      ...baseState(studyCompletionBookSequence("ex60")),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_COMPLETION_IDS.ex61) {
+    return {
+      ...baseState(studyCompletionBookSequence("ex61")),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_COMPLETION_IDS.final) {
     return {
       ...baseState(studyCompletionSequence("complete")),
       completionMode: "complete",
