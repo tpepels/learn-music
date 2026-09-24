@@ -30,6 +30,7 @@ import type {
   HarmonicProgression,
   TonalContext,
 } from "../music/harmony";
+import type { CompositionStudyState } from "../music/study";
 
 const termSchema = z.object({
   term: z.string(),
@@ -78,6 +79,7 @@ export const exerciseContentSchema = z.object({
     "borrowed-harmony",
     "instrument-palette",
     "transposition",
+    "composition-study",
   ]),
   checksLabel: z.string(),
   successLabel: z.string(),
@@ -127,6 +129,7 @@ export type LessonContext = {
   stereoSettings: StereoSettings;
   referenceMixSettings: ReferenceMixSettings;
   experiments: ExerciseExperiments;
+  compositionStudy: CompositionStudyState;
 };
 
 export type ExerciseDefinition = z.infer<typeof exerciseContentSchema> & {
