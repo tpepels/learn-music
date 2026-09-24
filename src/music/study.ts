@@ -583,8 +583,39 @@ function connectionBlock(
         durations: [...connectionSourceDurations],
       };
     case "displacement":
+    case "upbeat":
       return {
         notes: [null, 60, 62, 65],
+        durations: [...connectionSourceDurations],
+      };
+    case "inversion":
+      return {
+        notes: [60, 58, 55, 56],
+        durations: [...connectionSourceDurations],
+      };
+    case "retrograde":
+      return {
+        notes: [...connectionSourceBlock].reverse(),
+        durations: [...connectionSourceDurations],
+      };
+    case "diminution":
+    case "augmentation":
+    case "repetition":
+    case "metre":
+      return {
+        notes: [...connectionSourceBlock],
+        durations:
+          operation === "augmentation"
+            ? [2, 2, 2, 2]
+            : operation === "diminution"
+              ? [1, 1, 1, 1]
+              : [...connectionSourceDurations],
+      };
+    case "transposition":
+      return {
+        notes: connectionSourceBlock.map((note) =>
+          note === null ? null : note + transpose,
+        ),
         durations: [...connectionSourceDurations],
       };
     case "source":
