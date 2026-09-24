@@ -453,6 +453,8 @@ function App() {
   const selectedPitchClasses = useStudioStore((state) => state.selectedPitchClasses);
   const melody = useStudioStore((state) => state.melody);
   const melodyDurations = useStudioStore((state) => state.melodyDurations);
+  const tonalContext = useStudioStore((state) => state.tonalContext);
+  const harmonicProgression = useStudioStore((state) => state.harmonicProgression);
   const chordProgression = useStudioStore((state) => state.chordProgression);
   const harmonySequence = useStudioStore((state) => state.harmonySequence);
   const harmonyDurations = useStudioStore((state) => state.harmonyDurations);
@@ -561,6 +563,14 @@ function App() {
   }, [chordProgression]);
 
   useEffect(() => {
+    audioEngine.setTonalContext(tonalContext);
+  }, [tonalContext]);
+
+  useEffect(() => {
+    audioEngine.setHarmonicProgression(harmonicProgression);
+  }, [harmonicProgression]);
+
+  useEffect(() => {
     audioEngine.setHarmonySequence(harmonySequence);
   }, [harmonySequence]);
 
@@ -648,6 +658,8 @@ function App() {
         selectedPitchClasses,
         melody,
         melodyDurations,
+        tonalContext,
+        harmonicProgression,
         chordProgression,
         harmonySequence,
         harmonyDurations,
@@ -679,6 +691,8 @@ function App() {
       selectedPitchClasses,
       melody,
       melodyDurations,
+      tonalContext,
+      harmonicProgression,
       chordProgression,
       harmonySequence,
       harmonyDurations,
