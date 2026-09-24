@@ -20,7 +20,7 @@ const lesson = lessonContentSchema.parse({
   description:
     "Chapter III first asks what constitutes a motive, then distinguishes exact, modified and developed repetition. Schoenberg's Examples 12-16 come from literature and isolate characteristic features; Examples 17-29 then vary one broken-chord motive systematically through rhythm, interval, metric placement, harmony and melodic adaptation.",
   overview:
-    "The lesson follows that order rather than collapsing the chapter into a few generic transformations. Public-domain repertoire examples are named where Schoenberg uses them; the interactive studies are compact reductions of the analytical procedure, not copies of the book's engraving.",
+    "The lesson follows that order rather than collapsing the chapter into generic transformations. Source material from Examples 12-29 is built into the lesson as native score data where verified and interactive source-analysis maps elsewhere; the study workspace then applies those same distinctions.",
 });
 
 function inspectedTwoNotations(
@@ -50,14 +50,15 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         explanation:
           "Schoenberg explicitly says that any rhythmicized succession of notes can serve as a basic motive, but that it should not contain too many different features. Ex. 12 contrasts simple rhythmic shapes with the note-repetition character of Beethoven's Fifth Symphony; Ex. 13 shows Brahms's Fourth Symphony built largely from successive thirds. The lesson is economy: identity can come from a few strongly treated features.",
         instruction:
-          "Play the reduction of the note-repetition principle from Ex. 12b, then inspect Staff and Degrees. Choose the statement that matches Schoenberg's point. Afterward, compare the book references mentally: Beethoven 5 uses repetition as a defining feature, while Brahms 4 can derive identity from interval succession.",
+          "Start with the native playable Ex. 12b score and the Exs. 12-13 source map below. Compare Beethoven's repeated-note motive with Schoenberg's Brahms-third observation, then play the study workspace and inspect Staff and Degrees before choosing the matching statement.",
         recognition:
           "What is doing the identifying work here - sheer length and complexity, or a small feature that keeps returning?",
         source: {
           reference:
             "Examples 12-13 - Ex. 12a Op.14/1-I; Ex. 12b Beethoven Symphony No.5-I; Ex. 12c Beethoven Symphony No.5-III; Ex. 13 Brahms Symphony No.4-I",
+          exampleIds: ["s02.ex12b", "s02.ex12-13"],
           focus:
-            "Schoenberg chose these to show that a motive may be rhythmically simple, dominated by note repetitions, or built from a limited intervallic idea. The interactive line reduces the Ex. 12b principle rather than reproducing the printed score.",
+            "Schoenberg chose these examples to contrast different carriers of motivic identity. Ex. 12b is re-engraved as native playable notation; the companion map preserves Schoenberg's analytical comparison across Exs. 12-13.",
         },
         terms: [
           {
@@ -104,6 +105,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
           "Can the motive remain 'the same' in Schoenberg's technical sense even when every absolute pitch or duration changes?",
         source: {
           reference: "Example 14 - inversion, retrograde, retrograde inversion, diminution and augmentation",
+          exampleIds: ["s02.ex14"],
           focus:
             "This example is the reason the lesson does not equate exact repetition with literal copy-and-paste. The interactive versions isolate four of Schoenberg's printed operations.",
         },
@@ -175,6 +177,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         source: {
           reference:
             "Examples 15-16 - including Ex. 15c Beethoven Op.2/3-II and Ex. 16b Beethoven Op.22-III, Menuetto",
+          exampleIds: ["s02.ex15-16"],
           focus:
             "Schoenberg labels transposition, change of direction, embellishment, rhythmic change, filling-in, chain and sequence to show transformations working together in context. The interactive study is a compact reduction of that cumulative logic.",
         },
@@ -223,6 +226,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
           "How much can the temporal shape change before the broken-chord identity stops being obvious?",
         source: {
           reference: "Example 17 - Developing variations of a motive based on a broken chord: Rhythmic changes",
+          exampleIds: ["s02.ex17"],
           focus:
             "Schoenberg uses many variants of one broken-chord motive to isolate note-length changes, repetitions and rhythmic recurrence. Our two controls sample that larger printed series.",
         },
@@ -270,6 +274,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         source: {
           reference:
             "Examples 18-21 - Addition of ancillary notes; Changing the original order; Embellishing Ex. 19; Reduction, omission, condensation",
+          exampleIds: ["s02.ex18-21"],
           focus:
             "The order matters: Schoenberg first adds, then reorders, then embellishes the reordered form, and finally demonstrates reduction and condensation.",
         },
@@ -322,6 +327,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         source: {
           reference:
             "Examples 22-24 - Addition of upbeats and repetition of features; Shift to other beats; Change of metre",
+          exampleIds: ["s02.ex22-24"],
           focus:
             "Schoenberg deliberately distinguishes pickup, beat displacement and metre change. The interactive metre case is a reduction of the regrouping principle, not a transcription of Ex. 24.",
         },
@@ -374,6 +380,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
           "Does preserving the motive mean freezing every pitch, or preserving its identity while adapting to the harmonic situation?",
         source: {
           reference: "Example 25 - Adaptation to richer harmony (cf. Ex. 21d)",
+          exampleIds: ["s02.ex25"],
           focus:
             "The printed example explores richer harmonic support and inversion. PLAY / LAB reduces that harmonic complexity but preserves the didactic point: melodic motive-form and harmony are adapted together.",
         },
@@ -416,6 +423,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
           "Can the harmony take a different route while the motive still sounds like one continuing object?",
         source: {
           reference: "Examples 26-27 - harmonic insertion in the middle; substitution of a different chord or succession",
+          exampleIds: ["s02.ex26-27"],
           focus:
             "The interactive support is simplified, but the analytical distinction follows Schoenberg's categories exactly: insertion and substitution are harmonic means of variation.",
         },
@@ -459,6 +467,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
           "Do you hear the motive as something that can be re-fitted to a changing musical environment rather than merely transformed in isolation?",
         source: {
           reference: "Examples 28-29 - transposition; passing harmonies; semi-contrapuntal treatment of the accompaniment",
+          exampleIds: ["s02.ex28-29"],
           focus:
             "The sequence-like top line models Ex. 28's transpositional logic. The simplified support represents Ex. 29's harmonic adaptation; the actual printed accompaniment contains more contrapuntal information than the current study view can show.",
         },
@@ -507,6 +516,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
           "Can you identify exactly what was preserved, exactly what changed, and why the result still functions as a motive-form?",
         source: {
           reference: "Comment on Examples + Examples 17-29",
+          exampleIds: ["s02.ex17", "s02.ex18-21", "s02.ex22-24", "s02.ex28-29"],
           focus:
             "This reproduces Schoenberg's didactic method rather than any one printed variant: a deliberately simple broken-chord motive becomes a laboratory for systematic changes of rhythm, interval, position, harmony and adaptation.",
         },
