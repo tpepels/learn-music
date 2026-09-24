@@ -1,4 +1,5 @@
 import { useStudioStore } from "../state/studio";
+import { LayerVolumeStrip } from "./LayerVolumeStrip";
 
 export function SidechainWorkspace() {
   const settings = useStudioStore((state) => state.sidechainSettings);
@@ -17,6 +18,8 @@ export function SidechainWorkspace() {
           Every active kick temporarily turns the bass channel down, then the bass returns over the release time.
         </span>
       </div>
+
+      <LayerVolumeStrip tracks={["drums", "bass", "chords", "melody"] as const} />
 
       <div className="sidechain-routing">
         <div className="sidechain-source">
