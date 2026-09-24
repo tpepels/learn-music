@@ -11,34 +11,50 @@ const labels: Record<MixerTrackId, string> = {
   melody: "Melody",
 };
 
-export function LayerVolumeStrip() {
-  const mixerSettings = useStudioStore((state) => state.mixerSettings);
+export function LayerVolumeControl({
+  track,
+  compact = false,
+  showLabel = true,
+}: {
+  track: MixerTrackId;
+  compact?: boolean;
+  showLabel?: boolean;
+}) {
+  const volume = useStudioStore((state) => state.mixerSettings[track].volume);
   const setMixerTrack = useStudioStore((state) => state.setMixerTrack);
 
+  return (
+    <label
+      className={[
+        "layer-volume-control",
+        compact ? "is-compact" : "",
+      ].filter(Boolean).join(" ")}
+    >
+      {showLabel && <span>{labels[track]}</span>}
+      <input
+        type="range"
+        min="-18"
+        max="3"
+        step="0.5"
+        value={volume}
+        aria-label={labels[track] + " volume"}
+        onChange={(event) =>
+          setMixerTrack(track, { volume: Number(event.target.value) })
+        }
+      />
+      <output>{volume.toFixed(1)} dB</output>
+    </label>
+  );
+}
+
+export function LayerVolumeStrip() {
   return (
     <section className="layer-volume-strip" aria-label="Layer volumes">
       <span className="layer-volume-strip-label">Layer levels</span>
       <div className="layer-volume-controls">
-        {mixerTrackIds.map((track) => {
-          const volume = mixerSettings[track].volume;
-          return (
-            <label className="layer-volume-control" key={track}>
-              <span>{labels[track]}</span>
-              <input
-                type="range"
-                min="-18"
-                max="3"
-                step="0.5"
-                value={volume}
-                aria-label={labels[track] + " volume"}
-                onChange={(event) =>
-                  setMixerTrack(track, { volume: Number(event.target.value) })
-                }
-              />
-              <output>{volume.toFixed(1)} dB</output>
-            </label>
-          );
-        })}
+        {mixerTrackIds.map((track) => (
+          <LayerVolumeControl key={track} track={track} />
+        ))}
       </div>
     </section>
   );
