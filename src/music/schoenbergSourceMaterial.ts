@@ -561,46 +561,251 @@ export const schoenbergSourceMaterial: Record<
     "Chapter VIII",
     "Completion of the sentence",
     [
-      { label: "Beginning established", detail: "The basic idea has already been presented and repeated." },
-      { label: "Continuation", detail: "More remote motive-forms develop the established material." },
-      { label: "Liquidation", detail: "Characteristic features are progressively eliminated, often with shortening." },
-      { label: "Cadence", detail: "The reduced material and cadential process delimit the sentence." },
+      {
+        label: "Continuation needs remoter forms",
+        detail:
+          "Because the sentence beginning already contains repetition, Schoenberg says the continuation demands more remotely varied motive-forms rather than another presentation.",
+      },
+      {
+        label: "Development can also reduce",
+        detail:
+          "Development includes growth, augmentation and extension, but also reduction, condensation and intensification.",
+      },
+      {
+        label: "Liquidation",
+        detail:
+          "Characteristic features are gradually eliminated until only less characteristic residues remain and no longer strongly demand continuation.",
+      },
+      {
+        label: "Shortening + cadence",
+        detail:
+          "Liquidation is generally supported by shorter phrase units and can combine with a cadence or half cadence to delimit the sentence.",
+      },
     ],
+    "This interactive map follows Schoenberg's Chapter VIII text directly. It is conceptual source material, not a substitute for any numbered score example.",
   ),
   "s05.ex52": map(
     "s05.ex52",
     "Ex. 52",
-    "Annotated sentence functions",
+    "Reduction, condensation and melodic residues",
     [
-      { label: "Tonic form", detail: "The opening establishes the basic material in tonic function." },
-      { label: "Dominant form", detail: "The answering phrase restates the material in complementary dominant function." },
-      { label: "Climactic ascension", detail: "The continuation intensifies through rising treatment." },
-      { label: "Reduction", detail: "The motive-forms become shorter and less characteristic." },
-      { label: "Melodic residues", detail: "Only residues remain as the cadence is approached." },
+      {
+        label: "Tonic form → dominant form",
+        detail:
+          "Schoenberg labels the opening phrase forms explicitly before the continuation begins.",
+      },
+      {
+        label: "Climactic ascension",
+        detail:
+          "Ex. 52a intensifies the continuation through an ascending passage before the material is shortened.",
+      },
+      {
+        label: "Reduction / condensation",
+        detail:
+          "The two-measure phrases are reduced to one measure; in Ex. 52c four measures are condensed into two.",
+      },
+      {
+        label: "Melodic residues",
+        detail:
+          "The final small units retain little of the full motive and help prepare the boundary of the sentence.",
+      },
+      {
+        label: "Cadential destination can vary",
+        detail:
+          "Schoenberg notes that a sentence may close on I, V or III with a suitable full, half, Phrygian, plagal, perfect or imperfect cadence according to function.",
+      },
     ],
-    "This map reproduces Schoenberg's printed analytical labels for Ex. 52a. A full native two-staff transcription is still pending.",
+    "The labels and reduction process are taken from Schoenberg's text and the printed annotations in Ex. 52. A complete native two-staff transcription remains pending.",
   ),
-  "s05.ex53-56": map(
-    "s05.ex53-56",
-    "Exs. 53-56",
-    "Continuation can extend beyond a compact practice model",
+  "s05.ex53": map(
+    "s05.ex53",
+    "Ex. 53",
+    "Remote motive-forms can justify a longer sentence",
     [
-      { label: "Remote motive-forms", detail: "More distant derivatives may require extra repetitions before the cadence is ready." },
-      { label: "Sequence / extension", detail: "Sequential treatment can lengthen the continuation while preserving motivic connection." },
-      { label: "Practice to literature", detail: "Schoenberg relates the more complicated structures back to the same tonic/dominant foundation used in the practice forms." },
+      {
+        label: "53a: tonic form → mediant form",
+        detail:
+          "The printed analysis shows the opening changing harmonic/formal role before later material is reduced to residues.",
+      },
+      {
+        label: "53a: reduced → residues",
+        detail:
+          "The continuation shortens the material rather than merely adding another full phrase.",
+      },
+      {
+        label: "53b: remote variation",
+        detail:
+          "Schoenberg says the motive-form in m. 5 is a very remote variation, based on a third and indirectly derived from the marked figure b.",
+      },
+      {
+        label: "Repetition explains the length",
+        detail:
+          "Because the remote form needs establishment, its repetitions account for the twelve-measure length.",
+      },
     ],
+    "This map follows Schoenberg's comment on Ex. 53 and the labels printed in the score. Full native piano notation remains pending.",
   ),
-  "s05.ex57-61": map(
-    "s05.ex57-61",
-    "Exs. 57-61",
-    "Literature examples of sentence completion",
+  "s05.ex54-56": map(
+    "s05.ex54-56",
+    "Exs. 54-56",
+    "Progressive variation, sequence-like treatment and alternative endings",
     [
-      { label: "Unequal proportions", detail: "Real sentences need not fit a mechanically equal 4+4 plan." },
-      { label: "Inserted repetitions", detail: "Extra repetitions can explain apparent irregularity without destroying formal logic." },
-      { label: "Developing variation", detail: "Later motive-forms may grow gradually out of tiny initial features." },
-      { label: "Residues and cadence", detail: "Reduction and residual material prepare the final delimitation." },
+      {
+        label: "One broken-chord source",
+        detail:
+          "Schoenberg states that Exs. 54-56 are based on the broken-chord form Ex. 7b.",
+      },
+      {
+        label: "Progressive variation",
+        detail:
+          "Ex. 54a-c progressively varies the source until a motive-form is reached that can build sharply contrasting sentences.",
+      },
+      {
+        label: "Sequence-like continuation",
+        detail:
+          "The pattern is usually a transformation or condensation of preceding motive-forms and may begin on different scale degrees when the harmony permits.",
+      },
+      {
+        label: "Free transposition",
+        detail:
+          "The quasi-sequential repetitions in Exs. 54-56 are mostly free transpositions by a whole tone or semitone; Ex. 56b includes a fourth downward.",
+      },
+      {
+        label: "Alternative cadential regions",
+        detail:
+          "Schoenberg supplies alternatives because the main endings lead to V and III in major and v and III in minor; the alternatives move toward the relative-major region.",
+      },
     ],
+    "The interactive map preserves Schoenberg's explicit comment on Exs. 54-56. The dense multi-voice examples themselves still await verified native transcription.",
   ),
+  "s05.ex57-58": map(
+    "s05.ex57-58",
+    "Exs. 57-58",
+    "Literature sentences depart from the eight-measure practice form",
+    [
+      {
+        label: "Practice form is an abstraction",
+        detail:
+          "Schoenberg warns that masterworks often differ considerably from the simple eight-measure scheme.",
+      },
+      {
+        label: "Condensed continuation",
+        detail:
+          "In almost all of Exs. 57-61, continuation after the repeated first phrase is carried by condensed phrases giving way to a cadence contour.",
+      },
+      {
+        label: "Closing residues",
+        detail:
+          "The closing measures generally employ only residues of the basic motive.",
+      },
+      {
+        label: "57a: remote derivative + sequence",
+        detail:
+          "After a twofold statement of the basic phrase, remote derivatives can appear; Schoenberg says the extension in 57a is produced by the sequence in m. 6.",
+      },
+    ],
+    "This map follows the opening of Schoenberg's 'Illustrations from the literature' discussion and his later generalization of Ex. 57a. Native literature transcriptions remain pending.",
+  ),
+  "s05.ex59": map(
+    "s05.ex59",
+    "Ex. 59",
+    "Mozart: irregularity through inserted repetition",
+    [
+      {
+        label: "59a: interpolation",
+        detail:
+          "After two one-measure phrases in mm. 5-6, a three-measure segment appears and is repeated with slight variation.",
+      },
+      {
+        label: "Omission test",
+        detail:
+          "Schoenberg proposes omitting measures to discover what causes the extension: removing mm. 7-11 reduces 59a to the eight measures of the practice form.",
+      },
+      {
+        label: "59b / 59c",
+        detail:
+          "In 59b, mm. 5-6 could be omitted; in 59c, omission of mm. 7-8 reduces ten measures to eight.",
+      },
+      {
+        label: "59d: overlap + sequence",
+        detail:
+          "The sentence overlaps the beginning of a repetition and is extended by a sequence in mm. 6-7.",
+      },
+      {
+        label: "59h: remote forms need repetition",
+        detail:
+          "Remote motive-forms in mm. 5-6 are followed by a modified repetition in mm. 7-8; Schoenberg calls such repetitions consequences of comprehensibility.",
+      },
+    ],
+    "This source map reproduces Schoenberg's measure-by-measure explanation of the Mozart examples in Ex. 59. Full native piano notation remains pending.",
+  ),
+  "s05.ex60": map(
+    "s05.ex60",
+    "Ex. 60",
+    "Unusual sentence endings, beginnings and extensions",
+    [
+      {
+        label: "60a: unusual VI ending",
+        detail:
+          "Schoenberg calls the ending on VI unusual and the anticipation of VI through a deceptive cadence still more unusual.",
+      },
+      {
+        label: "60c: remarkable beginning",
+        detail:
+          "He points out the beginning on VII-II and compares it with the Finale of Beethoven's String Quartet Op. 130.",
+      },
+      {
+        label: "60e: short segment + condensation",
+        detail:
+          "Quasi-sequential repetition of a short segment and condensation in the cadence show similarity to the practice form.",
+      },
+      {
+        label: "60f: three-measure units",
+        detail:
+          "Its two three-measure units are not created by reduction or extension, but by quasi-sequential insertions and repetitions.",
+      },
+      {
+        label: "60h: independent addition",
+        detail:
+          "Omitting mm. 7-11 and m. 13 would reduce it to eight measures, but mm. 7-14 can also be heard as an independent four-measure addition with varied repetition.",
+      },
+    ],
+    "This map follows Schoenberg's explicit comments on the subexamples of Ex. 60. It deliberately does not invent the omitted piano texture or harmony.",
+  ),
+  "s05.ex61": map(
+    "s05.ex61",
+    "Ex. 61",
+    "Developing variation, exchange of voices and cadential reduction",
+    [
+      {
+        label: "61a: theme less complicated than it looks",
+        detail:
+          "Schoenberg says the analysis shows a less complicated theme than first glance suggests; melody need not always remain in the highest voice.",
+      },
+      {
+        label: "Melody and accompaniment exchange",
+        detail:
+          "Accompaniment and melody may exchange places; Schoenberg also remarks on the unusual bass treatment below mm. 6-7.",
+      },
+      {
+        label: "61b: developing variation",
+        detail:
+          "The example has little in common with the practice form except repeated smaller segments and the cadential process.",
+      },
+      {
+        label: "One-measure phrases → half-measure residues",
+        detail:
+          "The one-measure phrases of mm. 3-4 are reduced to half-measure residues in mm. 7-8, reinforced by accompaniment phrasing.",
+      },
+      {
+        label: "61d: insertion and refrain-like return",
+        detail:
+          "Schoenberg says 61d would be eight measures without insertion of motive-form b and repetition b¹; the opening phrase then returns refrain-like in mm. 8-9.",
+      },
+    ],
+    "This map follows Schoenberg's analysis of Ex. 61, including his explicit use of the term 'developing variation'. Full multi-voice transcription remains pending.",
+  ),
+
 };
 
 export function getSchoenbergSourceMaterial(
