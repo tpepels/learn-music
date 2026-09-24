@@ -9953,3 +9953,264 @@ body {
     max-height: none;
   }
 }
+
+
+/* Native source scores · verified book material rendered as interactive notation. */
+
+.source-score-examples {
+  margin-top: 14px;
+  display: grid;
+  gap: 14px;
+}
+
+.source-score-card {
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(10, 12, 17, 0.58);
+}
+
+.source-score-header {
+  padding: 12px 14px 9px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.source-score-header > div {
+  min-width: 0;
+}
+
+.source-score-header span,
+.source-score-header small {
+  display: block;
+  color: var(--dim);
+  font-size: 10px;
+}
+
+.source-score-header strong {
+  display: block;
+  margin: 2px 0;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.source-score-header button,
+.source-score-analysis button {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.025);
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.source-score-header button {
+  flex: 0 0 auto;
+  min-height: 34px;
+  padding: 7px 11px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.source-score-header button:hover,
+.source-score-analysis button:hover {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+.source-score-meta {
+  padding: 0 14px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.source-score-meta span {
+  padding: 3px 6px;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 999px;
+  color: var(--dim);
+  font-size: 9px;
+}
+
+.source-score-scope-note {
+  margin: 0;
+  padding: 0 14px 11px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.source-score-scroll {
+  overflow-x: auto;
+  padding: 10px 12px 12px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: #f7f4ec;
+}
+
+.source-score-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.source-score-line,
+.source-score-ledger,
+.source-score-stem,
+.source-score-flag,
+.source-score-barline {
+  stroke: #171717;
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.source-score-line,
+.source-score-ledger {
+  stroke-width: 1.1;
+}
+
+.source-score-barline {
+  stroke-width: 1.25;
+}
+
+.source-score-clef,
+.source-score-bass-clef,
+.source-score-meter,
+.source-score-accidental,
+.source-score-rest {
+  fill: #171717;
+  font-family: "Times New Roman", serif;
+}
+
+.source-score-clef {
+  font-size: 42px;
+}
+
+.source-score-bass-clef {
+  font-size: 34px;
+}
+
+.source-score-meter {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.source-score-accidental {
+  font-size: 17px;
+}
+
+.source-score-rest {
+  font-size: 21px;
+  text-anchor: middle;
+}
+
+.source-score-event {
+  cursor: pointer;
+  outline: none;
+}
+
+.source-score-event ellipse {
+  fill: #171717;
+  stroke: #171717;
+  stroke-width: 1.25;
+  transform: rotate(-13deg);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.source-score-event ellipse.is-open {
+  fill: #f7f4ec;
+}
+
+.source-score-event.is-active ellipse,
+.source-score-event.is-active .source-score-stem,
+.source-score-event.is-active .source-score-flag {
+  stroke-width: 2.2;
+}
+
+.source-score-event.is-current ellipse {
+  fill: #5a5142;
+}
+
+.source-score-event.is-current ellipse.is-open {
+  fill: #ded7c8;
+}
+
+.source-score-dot {
+  fill: #171717;
+}
+
+.source-score-playhead {
+  stroke: #786d5b;
+  stroke-width: 1.4;
+  stroke-dasharray: 3 3;
+}
+
+.source-score-segment path {
+  fill: none;
+  stroke: #817563;
+  stroke-width: 1;
+}
+
+.source-score-segment text {
+  fill: #62594c;
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.source-score-segment.is-active path {
+  stroke-width: 2;
+}
+
+.source-score-segment.is-active text {
+  fill: #171717;
+}
+
+.source-score-analysis {
+  padding: 10px 12px 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.source-score-analysis button {
+  min-width: 150px;
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.source-score-analysis button strong,
+.source-score-analysis button span {
+  display: block;
+}
+
+.source-score-analysis button strong {
+  color: var(--text);
+  font-size: 10px;
+}
+
+.source-score-analysis button span {
+  margin-top: 3px;
+  color: var(--dim);
+  font-size: 9px;
+  line-height: 1.35;
+}
+
+.source-score-analysis button.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+@media (max-width: 700px) {
+  .source-score-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .source-score-analysis {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+}
