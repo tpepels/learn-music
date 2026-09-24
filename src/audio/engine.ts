@@ -8,6 +8,7 @@ import {
   getSynthPhraseSchedule,
 } from "./synthPhrase";
 import { disposeSynthAudition } from "./synthAudition";
+import { effectiveChorusWet } from "./stereoAudition";
 import {
   resolveArrangementFrame,
   resolveArrangementMelodyStep,
@@ -340,6 +341,7 @@ class AudioEngine {
     this.stereoSettings = cloneStereoSettings(settings);
     this.applyMixerSettings();
     this.applyAdvancedChannelSettings();
+    this.applyEffectsSettings();
   }
 
   setReferenceAudition(
@@ -864,7 +866,10 @@ class AudioEngine {
 
     if (this.melodyChorusSend) {
       this.melodyChorusSend.gain.rampTo(
-        Math.min(0.65, this.effectsSettings.chorusWet),
+        effectiveChorusWet(
+          this.effectsSettings.chorusWet,
+          this.stereoSettings.monoAudition,
+        ),
         0.05,
       );
     }
