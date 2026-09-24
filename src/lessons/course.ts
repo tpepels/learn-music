@@ -40,6 +40,7 @@ import {
 import { schoenbergPhraseMotiveLesson } from "./schoenbergPhraseMotive";
 import { schoenbergDevelopingVariationLesson } from "./schoenbergDevelopingVariation";
 import { schoenbergConnectingMotiveFormsLesson } from "./schoenbergConnectingMotiveForms";
+import { schoenbergBeginningSentenceLesson } from "./schoenbergBeginningSentence";
 import type { LessonDefinition } from "./types";
 
 export const playLabLessons: LessonDefinition[] = [
@@ -86,6 +87,7 @@ export const schoenbergLessons: LessonDefinition[] = [
   schoenbergPhraseMotiveLesson,
   schoenbergDevelopingVariationLesson,
   schoenbergConnectingMotiveFormsLesson,
+  schoenbergBeginningSentenceLesson,
 ];
 
 export type LearningTrackId = "play-lab" | "schoenberg";
