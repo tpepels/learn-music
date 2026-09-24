@@ -1,4 +1,5 @@
 import { useStudioStore } from "../state/studio";
+import { LayerVolumeStrip } from "./LayerVolumeStrip";
 
 function percent(value: number) {
   return Math.round(value * 100) + "%";
@@ -26,6 +27,8 @@ export function EffectsWorkspace() {
           Keep the arrangement playing and exaggerate each effect before returning to a musical amount.
         </span>
       </div>
+
+      <LayerVolumeStrip tracks={["drums", "bass", "chords", "melody"] as const} />
 
       <div className="fx-rack-grid">
         <section className="fx-unit fx-reverb">
