@@ -541,6 +541,31 @@ export function keyLabel(context: TonalContext): string {
   return tonicName(context) + " " + mode;
 }
 
+export function pitchClassNameInContext(
+  pitchClass: number,
+  context: TonalContext,
+): string {
+  const normalized = normalizePitchClass(pitchClass);
+  for (const degree of harmonicDegrees) {
+    if (scaleDegreePitchClass(context, degree) === normalized) {
+      return spellScaleDegree(context, degree);
+    }
+  }
+  return DEFAULT_TONIC_NAMES[normalized];
+}
+
+export function midiNoteNameInContext(
+  midi: number,
+  context: TonalContext,
+): string {
+  const octave = Math.floor(midi / 12) - 1;
+  return pitchClassNameInContext(midi, context) + octave;
+}
+
+export function scalePitchClassNames(context: TonalContext): string[] {
+  return harmonicDegrees.map((degree) => spellScaleDegree(context, degree));
+}
+
 const ROOT_PCS: Record<string, PitchClass> = {
   C: 0,
   "C♯": 1,
