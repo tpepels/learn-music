@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { audioEngine } from "../audio/engine";
+import { useStudioStore } from "../state/studio";
 import {
   getSchoenbergSourceMaterial,
   type SchoenbergSourceScore,
@@ -46,6 +47,9 @@ function SourceScore({
 }) {
   const [playingIndex, setPlayingIndex] = useState<number | null>(null);
   const timers = useRef<number[]>([]);
+  const recordLearningExperiment = useStudioStore(
+    (state) => state.recordLearningExperiment,
+  );
 
   const positions = useMemo(() => {
     let cursor = 0;
@@ -77,6 +81,7 @@ function SourceScore({
   };
 
   const play = () => {
+    recordLearningExperiment("source.play", score.id);
     stopLocalPlayback();
     const eighthMs = 60000 / score.bpm / 2;
     let elapsed = 0;
@@ -165,6 +170,7 @@ function SourceScore({
                 ].filter(Boolean).join(" ")}
                 onClick={() => {
                   if (event.midi !== null) {
+                    recordLearningExperiment("source.note", score.id + ":" + index);
                     void audioEngine.playSourceNote(
                       event.midi,
                       event.duration,
@@ -274,6 +280,9 @@ function SourceMap({
 }) {
   const material = getSchoenbergSourceMaterial(id);
   const [active, setActive] = useState(0);
+  const recordLearningExperiment = useStudioStore(
+    (state) => state.recordLearningExperiment,
+  );
   if (!material || material.kind !== "map") return null;
   const segment = material.segments[active];
 
@@ -291,7 +300,10 @@ function SourceMap({
             type="button"
             key={entry.label}
             className={active === index ? "is-active" : ""}
-            onClick={() => setActive(index)}
+            onClick={() => {
+              setActive(index);
+              recordLearningExperiment("source.analysis", id + ":" + index);
+            }}
             role="tab"
             aria-selected={active === index}
           >
