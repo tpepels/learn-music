@@ -1570,7 +1570,8 @@ export const useStudioStore = create<StudioState>()(
             (exerciseId === SCHOENBERG_SENTENCE_IDS.compose ||
               exerciseId === SCHOENBERG_SENTENCE_IDS.final)
               ? setStudySentenceSourceStepState(exercise, step, midi)
-              : exerciseId === SCHOENBERG_COMPLETION_IDS.compose
+              : (exerciseId === SCHOENBERG_COMPLETION_IDS.compose ||
+                  exerciseId === SCHOENBERG_COMPLETION_IDS.final)
                 ? setStudyCompletionSourceStepState(exercise, step, midi)
                 : (() => {
                     const notes = [...exercise.notes];
