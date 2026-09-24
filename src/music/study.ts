@@ -147,11 +147,30 @@ export const SCHOENBERG_SENTENCE_IDS = {
   repetition: "schoenberg.beginning-sentence.b",
   harmony: "schoenberg.beginning-sentence.c",
   compose: "schoenberg.beginning-sentence.d",
+  ex35: "schoenberg.beginning-sentence.e",
+  ex36_37: "schoenberg.beginning-sentence.f",
+  ex38_39: "schoenberg.beginning-sentence.g",
+  ex40: "schoenberg.beginning-sentence.h",
+  ex41: "schoenberg.beginning-sentence.i",
+  final: "schoenberg.beginning-sentence.j",
 } as const;
 
 export const SCHOENBERG_SENTENCE_EXERCISE_IDS = new Set<string>(
   Object.values(SCHOENBERG_SENTENCE_IDS),
 );
+
+export const SCHOENBERG_SENTENCE_SOURCE_IDS = new Set<string>([
+  SCHOENBERG_SENTENCE_IDS.ex35,
+  SCHOENBERG_SENTENCE_IDS.ex36_37,
+  SCHOENBERG_SENTENCE_IDS.ex38_39,
+  SCHOENBERG_SENTENCE_IDS.ex40,
+  SCHOENBERG_SENTENCE_IDS.ex41,
+]);
+
+export const SCHOENBERG_SENTENCE_COMPOSE_IDS = new Set<string>([
+  SCHOENBERG_SENTENCE_IDS.compose,
+  SCHOENBERG_SENTENCE_IDS.final,
+]);
 
 export const SCHOENBERG_COMPLETION_IDS = {
   function: "schoenberg.completing-sentence.a",
@@ -1008,6 +1027,97 @@ export function studySentenceSequence(
   }
 }
 
+
+const sentenceChapterReductions: Record<
+  "ex35" | "ex36_37" | "ex38_39" | "ex40" | "ex41",
+  StudySequence
+> = {
+  ex35: {
+    // Ex. 35a-b: tonic phrase followed by a dominant-form answer.
+    // The melody is adjusted rather than mechanically copied.
+    notes: [
+      60, 62, 64, 67, 65, 64, 62, 60,
+      67, 69, 71, 74, 72, 71, 70, 67,
+    ],
+    durations: padDurations(),
+    harmony: sentenceHarmony("I", "V"),
+  },
+  ex36_37: {
+    // Ex. 36 models I-V-I answered by V-I-V; Ex. 37 adds passing harmony
+    // in the dominant form. The reduction combines those two observations.
+    notes: [
+      60, 64, 67, 65, 64, 62, 64, 67,
+      67, 71, 74, 72, 71, 69, 71, 74,
+    ],
+    durations: padDurations(),
+    harmony: [
+      "I", null, null, "V", null, null, "I", null,
+      "V", null, null, "I", null, null, "V", null,
+    ],
+  },
+  ex38_39: {
+    // Exs. 38-39: the dominant form preserves the broad complementary
+    // relation without mechanically copying every passing harmony or
+    // part-writing detail from the tonic form.
+    notes: [
+      60, 62, 64, 65, 67, 65, 64, 62,
+      67, 69, 71, 72, 74, 72, 71, 69,
+    ],
+    durations: padDurations(),
+    harmony: [
+      "I", null, "V", null, "I", null, "V", null,
+      "V", null, null, null, "I", null, null, null,
+    ],
+  },
+  ex40: {
+    // Ex. 40 (from Ex. 30): first pair keeps the first phrase's contour
+    // exactly in the dominant answer; second pair preserves the rhythm
+    // while treating contour more freely.
+    notes: [
+      60, 62, 65, 64, 67, 65, 64, 62,
+      67, 69, 72, 71, 74, 72, 71, 69,
+      60, 62, 65, 64, 67, 65, 64, 62,
+      67, 70, 69, 72, 71, 74, 72, 67,
+    ],
+    durations: padDurations([], 1, 32),
+    harmony: [
+      "I", null, null, null, null, null, null, null,
+      "V", null, null, null, null, null, null, null,
+      "I", null, null, null, null, null, null, null,
+      "V", null, null, null, null, null, null, null,
+    ],
+  },
+  ex41: {
+    // Ex. 41 (from Ex. 30): a literal answer to a harmonically busy tonic
+    // form is impractical; the second pair reduces the answer to the main
+    // complementary harmonic functions.
+    notes: [
+      60, 62, 64, 67, 65, 64, 62, 60,
+      67, 69, 71, 74, 72, 71, 69, 67,
+      60, 62, 64, 67, 65, 64, 62, 60,
+      67, 69, 71, 74, 72, 71, 69, 67,
+    ],
+    durations: padDurations([], 1, 32),
+    harmony: [
+      "I", null, "V", null, "I", null, "V", null,
+      "V", null, "I", null, "V", null, "I", null,
+      "I", null, null, null, "V", null, "I", null,
+      "V", null, null, null, "I", null, "V", null,
+    ],
+  },
+};
+
+export function studySentenceBookSequence(
+  kind: keyof typeof sentenceChapterReductions,
+): StudySequence {
+  const sequence = sentenceChapterReductions[kind];
+  return {
+    notes: [...sequence.notes],
+    durations: [...sequence.durations],
+    harmony: sequence.harmony ? [...sequence.harmony] : undefined,
+  };
+}
+
 export function setStudySentenceModeState(
   state: StudyExerciseState,
   sentenceMode: StudySentenceMode,
@@ -1541,6 +1651,49 @@ function defaultExerciseState(id: string): StudyExerciseState {
     return {
       ...baseState(studySentenceSequence("exact")),
       sentenceMode: "exact",
+      notation: "piano-roll",
+    };
+  }
+
+  if (id === SCHOENBERG_SENTENCE_IDS.ex35) {
+    return {
+      ...baseState(studySentenceBookSequence("ex35")),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_SENTENCE_IDS.ex36_37) {
+    return {
+      ...baseState(studySentenceBookSequence("ex36_37")),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_SENTENCE_IDS.ex38_39) {
+    return {
+      ...baseState(studySentenceBookSequence("ex38_39")),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_SENTENCE_IDS.ex40) {
+    return {
+      ...baseState(studySentenceBookSequence("ex40")),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_SENTENCE_IDS.ex41) {
+    return {
+      ...baseState(studySentenceBookSequence("ex41")),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_SENTENCE_IDS.final) {
+    return {
+      ...baseState(studySentenceSequence("complementary")),
+      sentenceMode: "complementary",
       notation: "piano-roll",
     };
   }
