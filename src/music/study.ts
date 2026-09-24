@@ -121,11 +121,26 @@ export const SCHOENBERG_CONNECTION_IDS = {
   bridge: "schoenberg.connecting-motive-forms.b",
   repair: "schoenberg.connecting-motive-forms.c",
   compose: "schoenberg.connecting-motive-forms.d",
+  wave: "schoenberg.connecting-motive-forms.e",
+  ex30: "schoenberg.connecting-motive-forms.f",
+  ex31: "schoenberg.connecting-motive-forms.g",
+  ex32: "schoenberg.connecting-motive-forms.h",
+  ex33: "schoenberg.connecting-motive-forms.i",
+  ex34: "schoenberg.connecting-motive-forms.j",
 } as const;
 
 export const SCHOENBERG_CONNECTION_EXERCISE_IDS = new Set<string>(
   Object.values(SCHOENBERG_CONNECTION_IDS),
 );
+
+export const SCHOENBERG_CONNECTION_SOURCE_IDS = new Set<string>([
+  SCHOENBERG_CONNECTION_IDS.wave,
+  SCHOENBERG_CONNECTION_IDS.ex30,
+  SCHOENBERG_CONNECTION_IDS.ex31,
+  SCHOENBERG_CONNECTION_IDS.ex32,
+  SCHOENBERG_CONNECTION_IDS.ex33,
+  SCHOENBERG_CONNECTION_IDS.ex34,
+]);
 
 export const SCHOENBERG_SENTENCE_IDS = {
   recognise: "schoenberg.beginning-sentence.a",
@@ -552,6 +567,114 @@ export function studyCombinedVariation(
   return combineHalves(second, secondDurations);
 }
 
+
+
+const connectionChapterReductions: Record<
+  "wave" | "ex30" | "ex31" | "ex32" | "ex33" | "ex34",
+  StudySequence
+> = {
+  wave: {
+    // Chapter IV text: melodic progression in waves, with recessions between
+    // intermediate high points and a return toward a central range.
+    notes: [
+      60, 62, 64, 65,
+      67, 65, 64, 62,
+      64, 67, 69, 67,
+      65, 64, 62, 60,
+    ],
+    durations: padDurations(),
+  },
+  ex30: {
+    // Ex. 30: a phrase grown from the broken-chord derivative of Ex. 21d.
+    notes: [
+      60, 64, 67, 64,
+      62, 65, 69, 65,
+      64, 67, 71, 67,
+      62, 65, 69, 67,
+    ],
+    durations: [
+      1, 1, 2, 1,
+      1, 1, 2, 1,
+      1, 1, 2, 1,
+      1, 1, 2, 2,
+    ],
+  },
+  ex31: {
+    // Ex. 31: closely related motive-forms, with essential rhythmic features
+    // retained while ancillary notes and pitch details vary.
+    notes: [
+      60, 62, 65, 64,
+      62, 64, 67, 66,
+      64, 65, 69, 67,
+      65, 67, 70, 69,
+    ],
+    durations: [
+      1, 1, 2, 1,
+      1, 1, 2, 1,
+      1, 1, 2, 1,
+      1, 1, 2, 1,
+    ],
+  },
+  ex32: {
+    // Ex. 32: rhythm strictly preserved while interval direction and pitch
+    // level change through transposition.
+    notes: [
+      60, 62, 65, 64,
+      62, 64, 67, 66,
+      67, 65, 62, 63,
+      64, 66, 69, 68,
+    ],
+    durations: [
+      1, 1, 2, 1,
+      1, 1, 2, 1,
+      1, 1, 2, 1,
+      1, 1, 2, 1,
+    ],
+  },
+  ex33: {
+    // Ex. 33: farther-reaching variation combining rhythmic change, ancillary
+    // notes and changes of interval and direction.
+    notes: [
+      60, 62, 65, 64,
+      61, 64, 66, 69,
+      67, 65, 64, 68,
+      66, 63, 65, 62,
+    ],
+    durations: [
+      1, 1, 2, 1,
+      1, 2, 1, 1,
+      2, 1, 1, 2,
+      1, 2, 1, 2,
+    ],
+  },
+  ex34: {
+    // Ex. 34: rhythmic shifts, added upbeats, reduction and omission of
+    // features. Rests expose the thinning and displacement directly.
+    notes: [
+      null, 60, 62, 65,
+      64, null, 62, 65,
+      null, 64, null, 67,
+      65, null, 62, null,
+    ],
+    durations: [
+      1, 1, 1, 2,
+      1, 1, 2, 1,
+      1, 1, 1, 2,
+      2, 1, 2, 1,
+    ],
+  },
+};
+
+export function studyConnectionBookSequence(
+  kind: keyof typeof connectionChapterReductions,
+): StudySequence {
+  const sequence = connectionChapterReductions[kind];
+  return {
+    notes: [...sequence.notes],
+    durations: [...sequence.durations],
+    harmony: sequence.harmony ? [...sequence.harmony] : undefined,
+  };
+}
 
 const connectionSourceBlock: Array<number | null> = [60, 62, 65, 64];
 const connectionSourceDurations: StudyDuration[] = [1, 1, 1, 1];
@@ -1345,6 +1468,48 @@ function defaultExerciseState(id: string): StudyExerciseState {
     return {
       ...baseState(studyConnectionFromOperations([])),
       notation: "piano-roll",
+    };
+  }
+
+  if (id === SCHOENBERG_CONNECTION_IDS.wave) {
+    return {
+      ...baseState(studyConnectionBookSequence("wave")),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_CONNECTION_IDS.ex30) {
+    return {
+      ...baseState(studyConnectionBookSequence("ex30")),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_CONNECTION_IDS.ex31) {
+    return {
+      ...baseState(studyConnectionBookSequence("ex31")),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_CONNECTION_IDS.ex32) {
+    return {
+      ...baseState(studyConnectionBookSequence("ex32")),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_CONNECTION_IDS.ex33) {
+    return {
+      ...baseState(studyConnectionBookSequence("ex33")),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_CONNECTION_IDS.ex34) {
+    return {
+      ...baseState(studyConnectionBookSequence("ex34")),
+      notation: "staff",
     };
   }
 
