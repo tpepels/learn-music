@@ -2,6 +2,9 @@ name: Validate branch manually
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - fix/project-import-stops-audio
 
 permissions:
   contents: read
