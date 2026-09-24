@@ -45,23 +45,35 @@ export function sanitizeLearningProgress(
     ),
   );
 
+  const completedExerciseIds = [
+    ...new Set(
+      progress.completedExerciseIds.filter((id) =>
+        validExerciseIds.has(id),
+      ),
+    ),
+  ];
+  const completedExerciseSet = new Set(completedExerciseIds);
+
+  const completedLessonIds = [
+    ...new Set(
+      progress.completedLessonIds.filter((id) => {
+        if (!validLessonIds.has(id)) return false;
+        const lesson = lessonById.get(id);
+        return Boolean(
+          lesson &&
+            lesson.exerciseIds.every((exerciseId) =>
+              completedExerciseSet.has(exerciseId),
+            ),
+        );
+      }),
+    ),
+  ];
+
   return {
     currentLessonId,
     exerciseIndexByLesson,
-    completedExerciseIds: [
-      ...new Set(
-        progress.completedExerciseIds.filter((id) =>
-          validExerciseIds.has(id),
-        ),
-      ),
-    ],
-    completedLessonIds: [
-      ...new Set(
-        progress.completedLessonIds.filter((id) =>
-          validLessonIds.has(id),
-        ),
-      ),
-    ],
+    completedExerciseIds,
+    completedLessonIds,
   };
 }
 
