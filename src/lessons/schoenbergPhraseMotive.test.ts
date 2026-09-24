@@ -79,7 +79,7 @@ describe("Schoenberg learning track", () => {
     ];
     const unrelated = [
       60, 62, 65, 64,
-      67, 60, 66, 61,
+      67, 60, 58, 65,
     ];
 
     expect(studyBlocksAreRelated(related)).toBe(true);
