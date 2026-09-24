@@ -59,7 +59,21 @@ export const SCHOENBERG_STUDY_IDS = {
   compare: "schoenberg.phrase-motive.b",
   repair: "schoenberg.phrase-motive.c",
   compose: "schoenberg.phrase-motive.d",
+  noteValues: "schoenberg.phrase-motive.e",
+  upbeats: "schoenberg.phrase-motive.f",
+  passingNotes: "schoenberg.phrase-motive.g",
+  repetitions: "schoenberg.phrase-motive.h",
+  embellishment: "schoenberg.phrase-motive.i",
+  build: "schoenberg.phrase-motive.j",
 } as const;
+
+export const SCHOENBERG_PHRASE_SOURCE_IDS = new Set<string>([
+  SCHOENBERG_STUDY_IDS.noteValues,
+  SCHOENBERG_STUDY_IDS.upbeats,
+  SCHOENBERG_STUDY_IDS.passingNotes,
+  SCHOENBERG_STUDY_IDS.repetitions,
+  SCHOENBERG_STUDY_IDS.embellishment,
+]);
 
 export const SCHOENBERG_VARIATION_IDS = {
   analyse: "schoenberg.developing-variation.a",
@@ -810,6 +824,73 @@ function baseState(sequence: StudySequence): StudyExerciseState {
   };
 }
 
+
+const phraseChapterReductions: Record<
+  "noteValues" | "upbeats" | "passingNotes" | "repetitions" | "embellishment",
+  StudySequence
+> = {
+  noteValues: {
+    // Interactive reduction of the Ex. 6 principle, transposed from F to C.
+    notes: [
+      60, 64, 67, 72,
+      67, 64, 60, 64,
+      67, 64, 60, 67,
+      72, 67, 64, 60,
+    ],
+    durations: [
+      1, 1, 1, 1,
+      1, 1, 1, 1,
+      1, 1, 1, 1,
+      1, 1, 1, 1,
+    ],
+  },
+  upbeats: {
+    // Reduction of Ex. 7's upbeats and mixed note values.
+    notes: [
+      null, 60, 64, 67,
+      64, 60, null, 67,
+      64, 72, 67, 64,
+      60, null, 64, 67,
+    ],
+    durations: [
+      1, 1, 2, 1,
+      2, 1, 1, 1,
+      1, 2, 1, 1,
+      2, 1, 1, 2,
+    ],
+  },
+  passingNotes: {
+    // Reduction of Ex. 8: passing notes animate a chord-tone framework.
+    notes: [
+      60, 62, 64, 65,
+      67, 69, 67, 65,
+      64, 62, 60, 62,
+      64, 65, 64, 60,
+    ],
+    durations: padDurations(),
+  },
+  repetitions: {
+    // Reduction of Ex. 9: passing tones plus local note repetition.
+    notes: [
+      60, 60, 62, 64,
+      64, 65, 67, 67,
+      65, 64, 64, 62,
+      60, 62, 62, 60,
+    ],
+    durations: padDurations(),
+  },
+  embellishment: {
+    // Reduction of Exs. 10-11: denser changing/auxiliary notes.
+    notes: [
+      60, 61, 64, 63,
+      64, 66, 67, 69,
+      68, 67, 65, 64,
+      62, 61, 60, null,
+    ],
+    durations: padDurations(),
+  },
+};
+
 function defaultExerciseState(id: string): StudyExerciseState {
   if (id === SCHOENBERG_STUDY_IDS.analyse) {
     return {
@@ -845,6 +926,51 @@ function defaultExerciseState(id: string): StudyExerciseState {
   }
 
   if (id === SCHOENBERG_STUDY_IDS.compose) {
+    return {
+      ...baseState({
+        notes: padStudyNotes([]),
+        durations: padDurations(),
+      }),
+      notation: "piano-roll",
+    };
+  }
+
+  if (id === SCHOENBERG_STUDY_IDS.noteValues) {
+    return {
+      ...baseState(phraseChapterReductions.noteValues),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_STUDY_IDS.upbeats) {
+    return {
+      ...baseState(phraseChapterReductions.upbeats),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_STUDY_IDS.passingNotes) {
+    return {
+      ...baseState(phraseChapterReductions.passingNotes),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_STUDY_IDS.repetitions) {
+    return {
+      ...baseState(phraseChapterReductions.repetitions),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_STUDY_IDS.embellishment) {
+    return {
+      ...baseState(phraseChapterReductions.embellishment),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_STUDY_IDS.build) {
     return {
       ...baseState({
         notes: padStudyNotes([]),
