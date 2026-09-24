@@ -15,7 +15,7 @@ export type SchoenbergSourceScore = {
   fidelityNote: string;
   clef: "treble" | "bass";
   keyLabel: string;
-  meter: string;
+  meter?: string;
   bpm: number;
   events: SchoenbergSourceEvent[];
   slurs?: Array<{ start: number; end: number }>;
