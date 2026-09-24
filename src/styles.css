@@ -5754,10 +5754,44 @@ body {
 
 /* Melody over harmony */
 
-.harmony-overlay-header {
+.mh-context-tabs {
   margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  align-items: center;
+}
+
+.mh-context-tabs button {
+  min-height: 34px;
+  padding: 7px 11px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 9px;
+  background: #211e30;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.mh-context-tabs button.is-active {
+  color: var(--cyan);
+  border-color: rgba(95,225,239,0.34);
+  background: rgba(95,225,239,0.08);
+}
+
+.mh-context-tabs button:disabled {
+  cursor: default;
+  opacity: 0.9;
+}
+
+.mh-context-tabs small {
+  color: var(--dim);
+  font-size: 10px;
+}
+
+.harmony-overlay-header {
+  margin-top: 8px;
   display: grid;
-  grid-template-columns: 68px repeat(4, minmax(0, 1fr));
+  grid-template-columns: 68px repeat(2, minmax(0, 1fr));
   gap: 3px;
 }
 
