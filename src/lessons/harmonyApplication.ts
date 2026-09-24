@@ -1,4 +1,9 @@
 import {
+  harmonicChordPitchClasses,
+  type HarmonicProgression,
+  type TonalContext,
+} from "../music/harmony";
+import {
   chordPitchClasses,
   type ChordProgression,
   type HarmonySequence,
@@ -84,6 +89,75 @@ export function everyActiveBarWritten(
     if (!chord) return false;
     if (requireEveryTone) {
       return barUsesAllChordTones(sequence, progression, bar);
+    }
+    return harmonyActiveSteps(sequence, bar) > 0;
+  });
+}
+
+
+export function barUsesAllHarmonicChordTones(
+  sequence: HarmonySequence,
+  progression: HarmonicProgression,
+  tonalContext: TonalContext,
+  bar: number,
+): boolean {
+  const chord = progression[bar];
+  if (!chord) return false;
+
+  const written = new Set(
+    harmonyBarSteps(sequence, bar)
+      .flat()
+      .map((midi) => ((midi % 12) + 12) % 12),
+  );
+
+  return harmonicChordPitchClasses(chord, tonalContext).every((pitchClass) =>
+    written.has(pitchClass),
+  );
+}
+
+export function writtenHarmonyFitsHarmonicProgression(
+  sequence: HarmonySequence,
+  progression: HarmonicProgression,
+  tonalContext: TonalContext,
+): boolean {
+  let found = false;
+
+  for (let step = 0; step < sequence.length; step += 1) {
+    const notes = sequence[step] ?? [];
+    if (notes.length === 0) continue;
+    found = true;
+
+    const chord = progression[Math.floor(step / 8)];
+    if (!chord) return false;
+    const allowed = harmonicChordPitchClasses(chord, tonalContext);
+
+    if (
+      notes.some(
+        (midi) => !allowed.includes(((midi % 12) + 12) % 12),
+      )
+    ) {
+      return false;
+    }
+  }
+
+  return found;
+}
+
+export function everyActiveHarmonicBarWritten(
+  sequence: HarmonySequence,
+  progression: HarmonicProgression,
+  tonalContext: TonalContext,
+  requireEveryTone = false,
+): boolean {
+  return progression.every((chord, bar) => {
+    if (!chord) return false;
+    if (requireEveryTone) {
+      return barUsesAllHarmonicChordTones(
+        sequence,
+        progression,
+        tonalContext,
+        bar,
+      );
     }
     return harmonyActiveSteps(sequence, bar) > 0;
   });
