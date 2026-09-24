@@ -545,25 +545,25 @@ export function studySentenceSequence(
       return {
         notes: [...source, ...exact],
         durations: [...durations, ...durations],
-        harmony: sentenceHarmony("I", "I"),
+        harmony: sentenceHarmony(null, null),
       };
     case "transposed":
       return {
         notes: [...source, ...transposed],
         durations: [...durations, ...durations],
-        harmony: sentenceHarmony("I", "I"),
+        harmony: sentenceHarmony(null, null),
       };
     case "delayed":
       return {
         notes: [...source, ...delayed],
         durations: [...durations, ...durations],
-        harmony: sentenceHarmony("I", "I"),
+        harmony: sentenceHarmony(null, null),
       };
     case "contrast":
       return {
         notes: [...source, ...contrast],
         durations: [...durations, ...durations],
-        harmony: sentenceHarmony("I", "V"),
+        harmony: sentenceHarmony(null, null),
       };
     case "tonic-repeat":
       return {
