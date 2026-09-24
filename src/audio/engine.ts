@@ -9,6 +9,7 @@ import {
 } from "./synthPhrase";
 import { disposeSynthAudition } from "./synthAudition";
 import { effectiveChorusWet } from "./stereoAudition";
+import { TransportStartGate } from "./transportStartGate";
 import {
   resolveArrangementFrame,
   resolveArrangementMelodyStep,
@@ -223,6 +224,7 @@ class AudioEngine {
   private eventId: number | null = null;
   private step = 0;
   private onStep: ((step: number) => void) | null = null;
+  private transportStartGate = new TransportStartGate();
 
   setPattern(pattern: StepPattern) {
     this.pattern = clonePattern(pattern);
@@ -959,24 +961,34 @@ class AudioEngine {
     }
   }
 
+  cancelPendingTransportStart() {
+    this.transportStartGate.invalidate();
+  }
+
   private async prepare(
     bpm: number,
     onStep: (step: number) => void,
     requirements: ReadonlyArray<
       "drums" | "piano" | "chords" | "bass" | "synth"
     >,
-  ) {
+  ): Promise<boolean> {
+    const startToken = this.transportStartGate.begin();
+
     await Tone.start();
+    if (!this.transportStartGate.isCurrent(startToken)) return false;
 
     // Only create/load the voices this transport path actually uses.
     this.ensureVoices(requirements);
     await Tone.loaded();
+    if (!this.transportStartGate.isCurrent(startToken)) return false;
 
     try {
       this.ensureEffectsGraph();
     } catch (error) {
       console.error("PLAY / LAB optional effects failed to initialise", error);
     }
+
+    if (!this.transportStartGate.isCurrent(startToken)) return false;
 
     const transport = Tone.getTransport();
     transport.stop();
@@ -987,10 +999,11 @@ class AudioEngine {
     transport.swingSubdivision = "8n";
     this.step = 0;
     this.onStep = onStep;
+    return true;
   }
 
   async playDrums(bpm: number, onStep: (step: number) => void) {
-    await this.prepare(bpm, onStep, ["drums"]);
+    if (!(await this.prepare(bpm, onStep, ["drums"]))) return false;
     const transport = Tone.getTransport();
 
     this.eventId = transport.scheduleRepeat((time) => {
@@ -1011,10 +1024,11 @@ class AudioEngine {
     }, "16n");
 
     transport.start();
+    return true;
   }
 
   async playMelody(bpm: number, onStep: (step: number) => void) {
-    await this.prepare(bpm, onStep, ["piano"]);
+    if (!(await this.prepare(bpm, onStep, ["piano"]))) return false;
     const transport = Tone.getTransport();
 
     this.eventId = transport.scheduleRepeat((time) => {
@@ -1042,10 +1056,11 @@ class AudioEngine {
     }, "8n");
 
     transport.start();
+    return true;
   }
 
   async playMelodyWithGroove(bpm: number, onStep: (step: number) => void) {
-    await this.prepare(bpm, onStep, ["drums", "piano"]);
+    if (!(await this.prepare(bpm, onStep, ["drums", "piano"]))) return false;
     const transport = Tone.getTransport();
     const totalTransportSteps = this.melody.length * 2;
 
@@ -1082,13 +1097,14 @@ class AudioEngine {
     }, "16n");
 
     transport.start();
+    return true;
   }
 
   async playMelodyHarmonyContext(
     bpm: number,
     onStep: (step: number) => void,
   ) {
-    await this.prepare(bpm, onStep, ["drums", "piano", "chords"]);
+    if (!(await this.prepare(bpm, onStep, ["drums", "piano", "chords"]))) return false;
     const transport = Tone.getTransport();
     const totalTransportSteps = this.melody.length * 2;
 
@@ -1137,6 +1153,7 @@ class AudioEngine {
     }, "16n");
 
     transport.start();
+    return true;
   }
 
   private triggerChordPattern(
@@ -1184,7 +1201,7 @@ class AudioEngine {
   }
 
   async playChords(bpm: number, onStep: (step: number) => void) {
-    await this.prepare(bpm, onStep, ["chords"]);
+    if (!(await this.prepare(bpm, onStep, ["chords"]))) return false;
     const transport = Tone.getTransport();
     const totalSteps = this.chordProgression.length * 16;
 
@@ -1206,6 +1223,7 @@ class AudioEngine {
     }, "16n");
 
     transport.start();
+    return true;
   }
 
   private triggerWrittenHarmonyStep(
@@ -1233,13 +1251,15 @@ class AudioEngine {
     onStep: (step: number) => void,
     includeMelody = true,
   ) {
-    await this.prepare(
-      bpm,
-      onStep,
-      includeMelody
-        ? ["drums", "piano", "chords"]
-        : ["drums", "chords"],
-    );
+    if (!(
+      await this.prepare(
+        bpm,
+        onStep,
+        includeMelody
+          ? ["drums", "piano", "chords"]
+          : ["drums", "chords"],
+      )
+    )) return false;
     const transport = Tone.getTransport();
     const totalTransportSteps = this.chordProgression.length * 16;
 
@@ -1283,6 +1303,7 @@ class AudioEngine {
     }, "16n");
 
     transport.start();
+    return true;
   }
 
   private async startArrangementPlayback(
@@ -1290,7 +1311,7 @@ class AudioEngine {
     onStep: (bar: number) => void,
     getArrangement: () => Arrangement,
   ) {
-    await this.prepare(bpm, onStep, ["drums", "piano", "chords", "bass"]);
+    if (!(await this.prepare(bpm, onStep, ["drums", "piano", "chords", "bass"]))) return false;
     const transport = Tone.getTransport();
     const initialArrangement = getArrangement();
     const totalSteps = Math.max(1, initialArrangement.length) * 16;
@@ -1498,13 +1519,14 @@ class AudioEngine {
     }, "16n");
 
     transport.start();
+    return true;
   }
 
   async playArrangement(
     bpm: number,
     onStep: (bar: number) => void,
   ) {
-    await this.startArrangementPlayback(
+    return this.startArrangementPlayback(
       bpm,
       onStep,
       () => this.arrangement,
@@ -1519,7 +1541,7 @@ class AudioEngine {
       }),
     );
 
-    await this.startArrangementPlayback(
+    return this.startArrangementPlayback(
       bpm,
       onStep,
       () => formArrangement,
@@ -1567,7 +1589,7 @@ class AudioEngine {
   }
 
   async playBass(bpm: number, onStep: (step: number) => void) {
-    await this.prepare(bpm, onStep, ["drums", "chords", "bass"]);
+    if (!(await this.prepare(bpm, onStep, ["drums", "chords", "bass"]))) return false;
     const transport = Tone.getTransport();
     const totalTransportSteps = BASS_STEPS * 2;
     const hasWrittenHarmony = this.harmonySequence.some(
@@ -1628,6 +1650,7 @@ class AudioEngine {
     }, "16n");
 
     transport.start();
+    return true;
   }
 
   stopSynthAudition() {
@@ -1686,6 +1709,7 @@ class AudioEngine {
   }
 
   stop() {
+    this.cancelPendingTransportStart();
     const transport = Tone.getTransport();
     transport.stop();
     this.stopSynthAudition();
