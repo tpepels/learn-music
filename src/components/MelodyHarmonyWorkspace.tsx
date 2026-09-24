@@ -12,6 +12,7 @@ import {
 } from "../music/model";
 import { chordSlotForMelodyStep } from "../music/melodyHarmonyTimeline";
 import { useStudioStore } from "../state/studio";
+import { LayerVolumeStrip } from "./LayerVolumeStrip";
 import {
   findMonophonicNoteStart,
   useNoteLengthDrag,
@@ -58,6 +59,8 @@ export function MelodyHarmonyWorkspace() {
           Your melody is two bars long. Play repeats those 16 eighth-notes once across the four-bar chord progression: bars 1–2 first, then the same melody steps under bars 3–4.
         </span>
       </div>
+
+      <LayerVolumeStrip tracks={["drums", "chords", "melody"] as const} />
 
       <div className="mh-context-tabs" role="group" aria-label="Harmony pass">
         <button
