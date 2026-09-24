@@ -2,6 +2,8 @@ name: Validate branch manually
 
 on:
   workflow_dispatch:
+  push:
+    branches: ["feature/key-agnostic-harmony"]
 
 permissions:
   contents: read
