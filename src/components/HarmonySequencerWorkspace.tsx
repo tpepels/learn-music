@@ -279,7 +279,7 @@ export function HarmonySequencerWorkspace({
                 const chord = progression[Math.floor(step / 8)];
                 const pitchClass = ((midi % 12) + 12) % 12;
                 const chordTone = Boolean(
-                  chord && chordPitchClasses(chord).includes(pitchClass),
+                  chord && harmonicChordPitchClasses(chord, tonalContext).includes(pitchClass),
                 );
                 const active = harmonySequence[step]?.includes(midi) ?? false;
                 const coveringStart = findHarmonyNoteStart(
