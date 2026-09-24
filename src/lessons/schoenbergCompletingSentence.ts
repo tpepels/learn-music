@@ -6,7 +6,7 @@ import {
   studyCompletionHasSequence,
   studyCompletionSourceIntact,
 } from "../music/study";
-import { changedControl, heardPlayback } from "./learningEvidence";
+import { heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -567,7 +567,18 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
           { label: "The second half develops the material", complete: studyCompletionHasDevelopment(state?.notes ?? []) },
           { label: "The continuation liquidates", complete: studyCompletionHasLiquidation(state?.notes ?? []) },
           { label: "The sentence reaches a cadence", complete: studyCompletionHasCadence(state?.notes ?? [], state?.harmony ?? []) },
-          { label: "You interacted with the literature examples", complete: changedControl(experiments, "source.analysis", 7) },
+          {
+            label: "You revisited every literature-example group",
+            complete: [
+              "s05.ex52",
+              "s05.ex53",
+              "s05.ex54-56",
+              "s05.ex57-58",
+              "s05.ex59",
+              "s05.ex60",
+              "s05.ex61",
+            ].every((sourceId) => studiedSource(experiments, sourceId, 1)),
+          },
         ];
       },
     },
