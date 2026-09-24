@@ -1282,6 +1282,48 @@ export const productionContext: Record<string, ProductionContext> = {
     visual: "motif",
     realWorld: "A composer can treat a short MIDI clip as a seed, derive several related cells, then revise the chain while looping the entire phrase rather than judging one cell at a time.",
   },
+  "schoenberg.connecting-motive-forms.e": {
+    why: "Melodic waves keep local motion balanced while allowing a phrase to approach a larger climax through smaller high points and recessions.",
+    when: "Use this when a melody either wanders without direction or climbs continuously without creating shape.",
+    tools: ["Staff notation", "Piano roll", "Scale degrees", "Loop playback"],
+    visual: "melody-harmony",
+    realWorld: "Plot the contour of a MIDI phrase and shape intermediate rises and falls before the main high point instead of treating every bar as the same energy level.",
+  },
+  "schoenberg.connecting-motive-forms.f": {
+    why: "A single derivative can generate a whole phrase when its later forms remain audibly traceable to the same source.",
+    when: "Use this when one promising fragment exists but the rest of the phrase still feels like newly invented filler.",
+    tools: ["Motive labels", "Staff notation", "Loop playback", "Phrase cells"],
+    visual: "motif",
+    realWorld: "Duplicate a short derived MIDI cell several times and vary each copy just enough that the whole line grows from one seed.",
+  },
+  "schoenberg.connecting-motive-forms.g": {
+    why: "Retaining an essential rhythmic profile can unify pitch variants more strongly than preserving every note.",
+    when: "Use it when you want melodic freedom but need the listener to recognise the same family of motive-forms.",
+    tools: ["Note lengths", "Piano roll", "Staff notation", "Loop playback"],
+    visual: "motif",
+    realWorld: "Keep the same duration pattern across several MIDI cells while changing pitch detail and ancillary notes.",
+  },
+  "schoenberg.connecting-motive-forms.h": {
+    why: "Strict rhythmic preservation can support large changes of pitch direction and transposition without losing continuity.",
+    when: "Use it when a repeated contour feels too literal but the phrase still needs a strong unifying fingerprint.",
+    tools: ["Staff notation", "Transpose", "Scale degrees", "Loop playback"],
+    visual: "motif",
+    realWorld: "Copy the rhythm exactly, then redraw or transpose the pitches in each cell while comparing whether the rhythmic identity remains audible.",
+  },
+  "schoenberg.connecting-motive-forms.i": {
+    why: "Farther-reaching variation combines several changes at once and trains you to recognise derivation beyond obvious one-parameter transformations.",
+    when: "Use it when close variants are becoming predictable and a continuation needs more distance without abandoning the source.",
+    tools: ["Piano roll", "Ancillary notes", "Rhythm editing", "Loop playback"],
+    visual: "motif",
+    realWorld: "Change rhythm, contour and note detail together in a copied MIDI cell, then compare it against the source to check whether the derivation is still intelligible.",
+  },
+  "schoenberg.connecting-motive-forms.j": {
+    why: "Rhythmic shifts, upbeats, reduction and omission create material for continuation and contrast, but they can also make the source relationship too remote.",
+    when: "Use these procedures when extending a theme or creating contrast, then check whether the result still behaves as a complete phrase.",
+    tools: ["Piano roll", "Rests", "Beat displacement", "Loop playback"],
+    visual: "motif",
+    realWorld: "Shift a MIDI figure off the beat, remove selected notes and add pickups, then loop the entire phrase rather than judging the fragment in isolation.",
+  },
 
   "schoenberg.beginning-sentence.a": {
     why: "Immediate repetition establishes the basic idea strongly enough that later continuation can develop rather than introduce material from scratch.",
