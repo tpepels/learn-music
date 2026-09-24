@@ -243,9 +243,9 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
           "By step 16, is the listener more certain what the basic idea is - and is there still a reason for the music to continue?",
         terms: [
           {
-            term: "Presentation",
+            term: "Presentation (modern label)",
             definition:
-              "The opening function of a sentence in which the basic idea is stated and immediately repeated.",
+              "A later formal-theory label for what Schoenberg calls the beginning of the sentence: the basic idea and its immediate repetition.",
           },
           {
             term: "Formal function",
