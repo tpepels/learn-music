@@ -1,10 +1,13 @@
 import { useEffect, useMemo } from "react";
 import { audioEngine } from "../audio/engine";
 import {
+  SCHOENBERG_CONNECTION_EXERCISE_IDS,
+  SCHOENBERG_CONNECTION_IDS,
   SCHOENBERG_STUDY_IDS,
   SCHOENBERG_VARIATION_EXERCISE_IDS,
   SCHOENBERG_VARIATION_IDS,
   studyComparisonSequence,
+  studyConnectionSequence,
   studyVariationSequence,
   type StudyDuration,
   type StudyFeature,
@@ -80,12 +83,14 @@ function StaffView({
   selectedSteps,
   onToggleSelection,
   editable,
+  unitStarts = [0, 8],
 }: {
   notes: Array<number | null>;
   durations: StudyDuration[];
   selectedSteps: number[];
   onToggleSelection: (step: number) => void;
   editable: boolean;
+  unitStarts?: number[];
 }) {
   return (
     <div className="study-staff-wrap">
@@ -99,7 +104,19 @@ function StaffView({
           <line key={y} x1="26" x2="738" y1={y} y2={y} className="staff-line" />
         ))}
         <text x="34" y="73" className="staff-clef">𝄞</text>
-        <line x1="389" x2="389" y1="41" y2="81" className="staff-barline" />
+        {unitStarts.filter((step) => step > 0).map((step) => {
+          const x = 86 + step * 39 - 19.5;
+          return (
+            <line
+              key={step}
+              x1={x}
+              x2={x}
+              y1="41"
+              y2="81"
+              className="staff-barline"
+            />
+          );
+        })}
         {notes.map((midi, step) => {
           if (midi === null) return null;
           const x = 86 + step * 39;
@@ -162,6 +179,7 @@ function PianoRollView({
   currentStep,
   editable,
   onEdit,
+  unitStarts = [0, 8],
 }: {
   notes: Array<number | null>;
   durations: StudyDuration[];
@@ -169,6 +187,7 @@ function PianoRollView({
   currentStep: number;
   editable: boolean;
   onEdit: (step: number, midi: number | null) => void;
+  unitStarts?: number[];
 }) {
   return (
     <div className="study-roll-scroll">
@@ -176,7 +195,7 @@ function PianoRollView({
         <div className="study-roll-head">
           <span />
           {notes.map((_, step) => (
-            <span key={step} className={step === 0 || step === 8 ? "is-unit-start" : ""}>
+            <span key={step} className={unitStarts.includes(step) ? "is-unit-start" : ""}>
               {step + 1}
             </span>
           ))}
@@ -203,7 +222,7 @@ function PianoRollView({
                     "study-roll-cell",
                     note === midi ? "is-active" : "",
                     currentStep === step ? "is-playhead" : "",
-                    step === 0 || step === 8 ? "is-unit-start" : "",
+                    unitStarts.includes(step) ? "is-unit-start" : "",
                     hasOverlay ? "has-source-overlay" : "",
                   ].filter(Boolean).join(" ")}
                   disabled={!editable}
@@ -378,6 +397,190 @@ function TransformationPanel({
   );
 }
 
+
+const connectionVariantCopy: Record<
+  Exclude<StudyVariant, "source">,
+  string
+> = {
+  exact: "Too much sameness",
+  related: "Connected motive-forms",
+  unrelated: "Disconnected ideas",
+};
+
+const bridgeVariantCopy: Record<Exclude<StudyVariant, "source">, string> = {
+  exact: "Weak bridge",
+  related: "Connecting bridge",
+  unrelated: "Foreign insertion",
+};
+
+function ConnectionPanel({
+  exerciseId,
+  variant,
+  decision,
+  operations,
+  setVariant,
+  setDecision,
+  toggleOperation,
+}: {
+  exerciseId: string;
+  variant: StudyVariant;
+  decision: "same" | "related" | "unrelated" | null;
+  operations: StudyTransformation[];
+  setVariant: (variant: StudyVariant) => void;
+  setDecision: (decision: "same" | "related" | "unrelated") => void;
+  toggleOperation: (operation: StudyTransformation) => void;
+}) {
+  const isCompare = exerciseId === SCHOENBERG_CONNECTION_IDS.compare;
+  const isBridge = exerciseId === SCHOENBERG_CONNECTION_IDS.bridge;
+  const isRepair = exerciseId === SCHOENBERG_CONNECTION_IDS.repair;
+  const isCompose = exerciseId === SCHOENBERG_CONNECTION_IDS.compose;
+  const labels = isBridge ? bridgeVariantCopy : connectionVariantCopy;
+  const options: Array<Exclude<StudyTransformation, "source">> = [
+    "rhythm",
+    "interval",
+    "auxiliary",
+    "reduction",
+    "displacement",
+  ];
+
+  return (
+    <div className="study-connection-panel">
+      <div className="study-form-chain" aria-label="Four related motive-forms">
+        {["a", "a¹", "a²", "a³"].map((label, index) => (
+          <div key={label}>
+            <strong>{label}</strong>
+            <span>
+              {index === 0
+                ? "basic motive"
+                : isCompose && operations[index - 1]
+                  ? transformationCopy[
+                      operations[index - 1] as Exclude<
+                        StudyTransformation,
+                        "source"
+                      >
+                    ]
+                  : "motive-form"}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {(isCompare || isBridge) && (
+        <>
+          <div className="study-connection-copy">
+            <span className="section-label">
+              {isBridge
+                ? "Common factors can bridge different forms"
+                : "Common content + contrast"}
+            </span>
+            <strong>
+              {isBridge
+                ? "Which middle form makes the phrase feel continuously related?"
+                : "Which phrase is coherent without becoming mere repetition?"}
+            </strong>
+          </div>
+          <div className="study-variant-buttons">
+            {(Object.keys(labels) as Array<Exclude<StudyVariant, "source">>).map(
+              (option) => (
+                <button
+                  type="button"
+                  key={option}
+                  className={variant === option ? "is-active" : ""}
+                  onClick={() => setVariant(option)}
+                >
+                  {labels[option]}
+                </button>
+              ),
+            )}
+          </div>
+          <div className="study-decision-buttons">
+            <span>
+              {isBridge
+                ? "Choose the relationship that best connects source and destination."
+                : "Choose the balance of relationship and contrast that reads as one phrase."}
+            </span>
+            <button
+              type="button"
+              className={decision === "related" ? "is-active" : ""}
+              onClick={() => setDecision("related")}
+            >
+              Connected
+            </button>
+            <button
+              type="button"
+              className={decision === "same" ? "is-active" : ""}
+              onClick={() => setDecision("same")}
+            >
+              Too repetitive
+            </button>
+            <button
+              type="button"
+              className={decision === "unrelated" ? "is-active" : ""}
+              onClick={() => setDecision("unrelated")}
+            >
+              Too foreign
+            </button>
+          </div>
+        </>
+      )}
+
+      {isRepair && (
+        <div className="study-connection-copy">
+          <span className="section-label">Repair the broken link</span>
+          <strong>
+            a² breaks away from the basic motive. Rework steps 9–12 until all
+            four forms feel derived from the same material.
+          </strong>
+        </div>
+      )}
+
+      {isCompose && (
+        <>
+          <div className="study-connection-copy">
+            <span className="section-label">Build a phrase from one motive</span>
+            <strong>
+              Choose three different transformations for a¹, a² and a³.
+            </strong>
+          </div>
+          <div className="study-transform-buttons">
+            {options.map((option) => (
+              <button
+                type="button"
+                key={option}
+                className={operations.includes(option) ? "is-active" : ""}
+                onClick={() => toggleOperation(option)}
+              >
+                {transformationCopy[option]}
+              </button>
+            ))}
+          </div>
+          <div className="study-operation-summary">
+            <span>Forms after the basic motive</span>
+            <strong>
+              {operations.length
+                ? operations
+                    .map(
+                      (operation, index) =>
+                        "a" +
+                        ["¹", "²", "³"][index] +
+                        " " +
+                        transformationCopy[
+                          operation as Exclude<
+                            StudyTransformation,
+                            "source"
+                          >
+                        ],
+                    )
+                    .join(" · ")
+                : "Choose three"}
+            </strong>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
 export function CompositionStudyWorkspace({
   exerciseId,
 }: {
@@ -407,10 +610,15 @@ export function CompositionStudyWorkspace({
   const isCompare = exerciseId === SCHOENBERG_STUDY_IDS.compare;
   const isVariation = SCHOENBERG_VARIATION_EXERCISE_IDS.has(exerciseId);
   const isVariationCompose = exerciseId === SCHOENBERG_VARIATION_IDS.compose;
+  const isConnection = SCHOENBERG_CONNECTION_EXERCISE_IDS.has(exerciseId);
+  const isConnectionRepair = exerciseId === SCHOENBERG_CONNECTION_IDS.repair;
+  const isConnectionCompose = exerciseId === SCHOENBERG_CONNECTION_IDS.compose;
   const editable =
     exerciseId === SCHOENBERG_STUDY_IDS.repair ||
     exerciseId === SCHOENBERG_STUDY_IDS.compose ||
-    isVariationCompose;
+    isVariationCompose ||
+    isConnectionRepair ||
+    isConnectionCompose;
 
   const visibleSequence = useMemo(() => {
     if (isCompare && state?.variant) {
@@ -422,10 +630,13 @@ export function CompositionStudyWorkspace({
     return { notes, durations };
   }, [durations, isCompare, notes, state?.variant]);
 
-  const sourceOverlay = useMemo(
-    () => isVariation ? studyVariationSequence("source").notes : undefined,
-    [isVariation],
-  );
+  const sourceOverlay = useMemo(() => {
+    if (isVariation) return studyVariationSequence("source").notes;
+    if (isConnection && (isConnectionRepair || isConnectionCompose)) {
+      return studyConnectionSequence("exact").notes;
+    }
+    return undefined;
+  }, [isConnection, isConnectionCompose, isConnectionRepair, isVariation]);
 
   useEffect(() => {
     audioEngine.setStudySequence(
@@ -446,9 +657,11 @@ export function CompositionStudyWorkspace({
         <div>
           <span className="section-label">Composition study</span>
           <h2>
-            {isVariation
-              ? "Source motive → motive-form"
-              : "One phrase · three representations"}
+            {isConnection
+              ? "Four motive-forms · one basic motive"
+              : isVariation
+                ? "Source motive → motive-form"
+                : "One phrase · three representations"}
           </h2>
         </div>
         <div className="study-notation-tabs" role="group" aria-label="Notation">
@@ -526,6 +739,20 @@ export function CompositionStudyWorkspace({
         />
       )}
 
+      {isConnection && (
+        <ConnectionPanel
+          exerciseId={exerciseId}
+          variant={state?.variant ?? "source"}
+          decision={state?.decision ?? null}
+          operations={operations}
+          setVariant={(next) => setStudyVariant(exerciseId, next)}
+          setDecision={(next) => setStudyDecision(exerciseId, next)}
+          toggleOperation={(operation) =>
+            toggleStudyOperation(exerciseId, operation)
+          }
+        />
+      )}
+
       <div className="study-notation-stage">
         {notation === "staff" && (
           <StaffView
@@ -534,6 +761,7 @@ export function CompositionStudyWorkspace({
             selectedSteps={selectedSteps}
             onToggleSelection={(step) => toggleStudySelection(exerciseId, step)}
             editable={isAnalyse}
+            unitStarts={isConnection ? [0, 4, 8, 12] : [0, 8]}
           />
         )}
         {notation === "piano-roll" && (
@@ -544,6 +772,7 @@ export function CompositionStudyWorkspace({
             currentStep={currentStep}
             editable={editable}
             onEdit={(step, midi) => setStudyStep(exerciseId, step, midi)}
+            unitStarts={isConnection ? [0, 4, 8, 12] : [0, 8]}
           />
         )}
         {notation === "degrees" && (
@@ -556,15 +785,21 @@ export function CompositionStudyWorkspace({
 
       <footer className="study-footer">
         <span>
-          {isVariation
-            ? isVariationCompose
-              ? "The pale piano-roll outline is the unaltered source. Edit the generated motive-form if the combination needs refinement."
-              : "Compare the unchanged source on the left with its motive-form on the right. Switch notation whenever another view makes the relationship clearer."
-            : isAnalyse
-              ? "Click steps 1–4 below the staff to bracket the opening motive."
-              : editable
-                ? "Edit in Piano roll; Staff and Degrees update from the same notes."
-                : "Use Play in the top bar after selecting each comparison."}
+          {isConnection
+            ? isConnectionCompose
+              ? "The pale outline repeats the basic motive under each form. Use it as a reference, not a target: the phrase needs relationship and contrast."
+              : isConnectionRepair
+                ? "Repair a² in Piano roll, then compare all four motive-forms in Staff and Degrees."
+                : "Listen to the whole four-form phrase before deciding how strongly the common factors connect it."
+            : isVariation
+              ? isVariationCompose
+                ? "The pale piano-roll outline is the unaltered source. Edit the generated motive-form if the combination needs refinement."
+                : "Compare the unchanged source on the left with its motive-form on the right. Switch notation whenever another view makes the relationship clearer."
+              : isAnalyse
+                ? "Click steps 1–4 below the staff to bracket the opening motive."
+                : editable
+                  ? "Edit in Piano roll; Staff and Degrees update from the same notes."
+                  : "Use Play in the top bar after selecting each comparison."}
         </span>
         <strong>C major · 4/4</strong>
       </footer>
