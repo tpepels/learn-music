@@ -9,6 +9,7 @@ import { ArrangementWorkspace } from "./components/ArrangementWorkspace";
 import { AutomationDynamicsWorkspace } from "./components/AutomationDynamicsWorkspace";
 import { BassWorkspace } from "./components/BassWorkspace";
 import { ChordWorkspace } from "./components/ChordWorkspace";
+import { CompositionStudyWorkspace } from "./components/CompositionStudyWorkspace";
 import { CreateMode } from "./components/CreateMode";
 import { DrumWorkspace } from "./components/DrumWorkspace";
 import { EffectsWorkspace } from "./components/EffectsWorkspace";
@@ -34,9 +35,13 @@ import { TextureWorkspace } from "./components/TextureWorkspace";
 import { TranspositionWorkspace } from "./components/TranspositionWorkspace";
 import { VoicingWorkspace } from "./components/VoicingWorkspace";
 import {
-  courseOutline,
+  getFirstIncompleteLesson,
   getLesson,
   getNextImplementedLesson,
+  getTrackForLesson,
+  getTrackOutline,
+  learningTracks,
+  type LearningTrackId,
 } from "./lessons/course";
 import { getAdvanceDestination } from "./lessons/progression";
 import { RECOVERED_LESSON_IDS } from "./learning/catchUp";
@@ -65,6 +70,10 @@ async function startWorkspacePlayback(
 
   if (workspace === "transposition") {
     return audioEngine.playChordMelody(bpm, onStep);
+  }
+
+  if (workspace === "composition-study") {
+    return audioEngine.playStudySequence(bpm, onStep);
   }
 
   if (
@@ -406,6 +415,8 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
       return <InstrumentPaletteWorkspace />;
     case "transposition":
       return <TranspositionWorkspace />;
+    case "composition-study":
+      return <CompositionStudyWorkspace exerciseId={exercise.id} />;
   }
 }
 
@@ -447,6 +458,7 @@ const lessonGlyphs: Record<string, string> = {
   "style.hip-hop": "HH",
   "style.ambient": "∞",
   "style.pop": "★",
+  "schoenberg.phrase-motive": "S",
 };
 
 function App() {
@@ -457,6 +469,7 @@ function App() {
   const activePattern = useStudioStore((state) => state.activePattern);
   const patterns = useStudioStore((state) => state.patterns);
   const completedLessonIds = useStudioStore((state) => state.completedLessonIds);
+  const compositionStudy = useStudioStore((state) => state.compositionStudy);
   const selectedPitchClasses = useStudioStore((state) => state.selectedPitchClasses);
   const melody = useStudioStore((state) => state.melody);
   const melodyDurations = useStudioStore((state) => state.melodyDurations);
@@ -530,10 +543,13 @@ function App() {
   );
   const resetReferenceMix = useStudioStore((state) => state.resetReferenceMix);
   const resetLessonProgress = useStudioStore((state) => state.resetLessonProgress);
+  const resetStudyExercise = useStudioStore((state) => state.resetStudyExercise);
   const setAppMode = useStudioStore((state) => state.setAppMode);
   const setActiveExerciseId = useStudioStore((state) => state.setActiveExerciseId);
 
   const lesson = getLesson(currentLessonId);
+  const activeTrack = getTrackForLesson(lesson.id);
+  const courseOutline = getTrackOutline(activeTrack.id);
   const storedExerciseIndex = exerciseIndexByLesson[lesson.id] ?? 0;
   const exerciseIndex = Math.min(storedExerciseIndex, lesson.exercises.length - 1);
   const exercise = lesson.exercises[exerciseIndex];
@@ -691,6 +707,7 @@ function App() {
         stereoSettings,
         referenceMixSettings,
         experiments,
+        compositionStudy,
       }),
     [
       exercise,
@@ -724,6 +741,7 @@ function App() {
       stereoSettings,
       referenceMixSettings,
       experiments,
+      compositionStudy,
     ],
   );
 
@@ -745,6 +763,13 @@ function App() {
     if (lessonId === currentLessonId) return;
     setConfirmLessonReset(false);
     setCurrentLesson(lessonId);
+  };
+
+  const openTrack = (trackId: LearningTrackId) => {
+    if (trackId === activeTrack.id) return;
+    const destination = getFirstIncompleteLesson(trackId, completedLessonIds);
+    setConfirmLessonReset(false);
+    setCurrentLesson(destination.id);
   };
 
   const openExercise = (index: number) => {
@@ -875,6 +900,9 @@ function App() {
       case "instrument-palette":
         resetInstrumentSettings();
         break;
+      case "composition-study":
+        resetStudyExercise(exercise.id);
+        break;
     }
   };
 
@@ -917,7 +945,9 @@ function App() {
     setConfirmLessonReset(false);
   };
 
-  const completedCount = completedLessonIds.length;
+  const completedCount = activeTrack.lessons.filter((item) =>
+    completedLessonIds.includes(item.id),
+  ).length;
   const lessonExerciseCount = lesson.exercises.length;
   const lessonCompletedExercises = lesson.exercises.filter((item) =>
     completedExerciseIds.includes(item.id),
@@ -936,7 +966,10 @@ function App() {
         <div className="lesson-title">
           {appMode === "learn" ? (
             <>
-              <span className="topbar-lesson-kicker">LESSON {String(lesson.number).padStart(2, "0")}</span>
+              <span className="topbar-lesson-kicker">
+                {activeTrack.id === "schoenberg" ? "S" : "LESSON "}
+                {String(lesson.number).padStart(2, "0")}
+              </span>
               <strong>{lesson.title}</strong>
 
             </>
@@ -997,11 +1030,27 @@ function App() {
       ) : (
       <div className="workspace">
         <aside className="course-panel">
-          <div className="panel-heading">
-            <strong>Lessons</strong>
+          <div className="track-switcher" role="group" aria-label="Learning track">
+            {learningTracks.map((track) => (
+              <button
+                type="button"
+                key={track.id}
+                className={track.id === activeTrack.id ? "is-active" : ""}
+                onClick={() => openTrack(track.id)}
+              >
+                <span>{track.label}</span>
+                <strong>{track.title}</strong>
+              </button>
+            ))}
           </div>
 
-          <nav className="course-list" aria-label="Course lessons">
+          <div className="panel-heading track-heading">
+            <span className="section-label">{activeTrack.label}</span>
+            <strong>{activeTrack.title}</strong>
+            <small>{activeTrack.description}</small>
+          </div>
+
+          <nav className="course-list" aria-label={activeTrack.title + " lessons"}>
             {courseOutline.map((item, index) => {
               const previous = courseOutline[index - 1];
               const unlocked =
@@ -1024,6 +1073,7 @@ function App() {
                 >
                   <span className="course-number">
                     <b>{lessonGlyphs[item.id] ?? "•"}</b>
+                    {activeTrack.id === "schoenberg" ? "S" : ""}
                     {String(item.number).padStart(2, "0")}
                   </span>
                   <span>
@@ -1053,7 +1103,7 @@ function App() {
 
           </div>
 
-          {canRecoverToLessonFive && (
+          {activeTrack.id === "play-lab" && canRecoverToLessonFive && (
             <div className="catch-up-card">
               <span className="section-label">Recovery</span>
               <strong>Already covered lessons 1–4?</strong>
