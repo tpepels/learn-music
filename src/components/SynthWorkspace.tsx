@@ -9,6 +9,7 @@ const demoNotes = [
 ];
 
 export function SynthWorkspace() {
+  const bpm = useStudioStore((state) => state.bpm);
   const settings = useStudioStore((state) => state.synthSettings);
   const setSynthSettings = useStudioStore((state) => state.setSynthSettings);
   const recordExperiment = useStudioStore((state) => state.recordLearningExperiment);
@@ -130,7 +131,7 @@ export function SynthWorkspace() {
             className="synth-phrase-button"
             onClick={async () => {
               recordExperiment("synth.phrase-audition", true);
-              await audioEngine.playSynthPhrase();
+              await audioEngine.playSynthPhrase(bpm);
             }}
           >
             Play current melody
