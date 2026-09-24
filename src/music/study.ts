@@ -1376,9 +1376,13 @@ export function studyCompletionHasSequence(
   const shapes = blocks.map((block) =>
     block.slice(1).map((note, index) => note - block[index]),
   );
-  return shapes.slice(1).every((shape) =>
+  const sameIntervalPattern = shapes.slice(1).every((shape) =>
     shape.every((interval, index) => interval === shapes[0][index]),
   );
+  const changesPitchLevel = blocks
+    .slice(1)
+    .some((block) => block[0] !== blocks[0][0]);
+  return sameIntervalPattern && changesPitchLevel;
 }
 
 export function studyCompletionHasLiquidation(
