@@ -459,6 +459,7 @@ const lessonGlyphs: Record<string, string> = {
   "style.ambient": "∞",
   "style.pop": "★",
   "schoenberg.phrase-motive": "S",
+  "schoenberg.developing-variation": "S",
 };
 
 function App() {
