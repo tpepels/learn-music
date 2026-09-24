@@ -7,6 +7,7 @@ import {
   eighthNoteSeconds,
   getSynthPhraseSchedule,
 } from "./synthPhrase";
+import { disposeSynthAudition } from "./synthAudition";
 import {
   resolveArrangementFrame,
   resolveArrangementMelodyStep,
@@ -1624,8 +1625,13 @@ class AudioEngine {
     transport.start();
   }
 
+  stopSynthAudition() {
+    this.soundSynth = disposeSynthAudition(this.soundSynth);
+  }
+
   async playSynthNote(midi = 60) {
     await Tone.start();
+    this.stopSynthAudition();
     this.ensureVoices(["synth"]);
     this.applySynthSettings();
     this.soundSynth?.triggerAttackRelease(
@@ -1638,6 +1644,7 @@ class AudioEngine {
 
   async playSynthPhrase(bpm: number) {
     await Tone.start();
+    this.stopSynthAudition();
     this.ensureVoices(["synth"]);
     this.applySynthSettings();
 
@@ -1676,6 +1683,7 @@ class AudioEngine {
   stop() {
     const transport = Tone.getTransport();
     transport.stop();
+    this.stopSynthAudition();
     transport.position = 0;
     this.clearEvent();
     this.step = 0;
