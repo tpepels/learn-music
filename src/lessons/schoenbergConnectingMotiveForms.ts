@@ -252,7 +252,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
           reference: "Chapter IV - paragraph on well-balanced melodic progression in waves",
           exampleIds: ["s03.chapter"],
           focus:
-            "This reduction models Schoenberg's verbal description directly: rise, recession, a higher point, and return toward a central range.",
+            "The source map preserves Schoenberg's verbal description: rise, recession, a higher point, and return toward a central range. The study below is the separate audible application.",
         },
         terms: [
           {
@@ -301,7 +301,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
           reference: "Example 30 - A phrase built from a broken-chord derivative (Ex. 21d)",
           exampleIds: ["s03.ex30"],
           focus:
-            "The app reduction keeps the phrase-building principle - one broken-chord derivative generates successive related cells - without copying Schoenberg's engraving.",
+            "The source map records the phrase-building role of Ex. 30. The PLAY / LAB chain below applies the same principle without claiming to be Schoenberg's notation.",
         },
         terms: [
           {
@@ -345,7 +345,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
           reference: "Example 31 - Closely related motive-forms; essential rhythmic features retained",
           exampleIds: ["s03.ex31"],
           focus:
-            "The reduction preserves one rhythmic profile across changing pitch forms to isolate the relationship Schoenberg highlights.",
+            "The source map records Schoenberg's retained-rhythm observation for Ex. 31. The study below isolates that relationship in separate application material.",
         },
         terms: [
           {
@@ -389,7 +389,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
           reference: "Example 32 - Rhythm strictly preserved; changes of direction and transposition",
           exampleIds: ["s03.ex32"],
           focus:
-            "The reduction keeps one rhythm fixed while altering direction and pitch level, exactly the relationship named in the printed heading and prose.",
+            "The source map preserves the relationship named in Ex. 32: strict rhythmic identity with changed direction and pitch level. The study below applies it separately.",
         },
         terms: [
           {
@@ -433,7 +433,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
           reference: "Example 33 - farther-reaching variations through combined changes",
           exampleIds: ["s03.ex33"],
           focus:
-            "The reduction deliberately changes more than one parameter per cell to model Schoenberg's move from close relationship to more remote derivation.",
+            "The source map records Schoenberg's farther-reaching combined changes in Ex. 33. The study below deliberately combines parameters as application.",
         },
         terms: [
           {
@@ -477,7 +477,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
           reference: "Example 34 - Rhythmic shifts, added upbeats, reduction, omission of features",
           exampleIds: ["s03.ex34"],
           focus:
-            "This final example broadens the resource for continuation and contrast while the prose immediately warns about comprehensibility and demands true phrase character.",
+            "The source map follows Ex. 34's shifts, upbeats, reduction and omission, together with Schoenberg's warning that the result must remain comprehensible and phrase-like.",
         },
         terms: [
           {
