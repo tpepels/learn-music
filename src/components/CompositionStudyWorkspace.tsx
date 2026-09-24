@@ -1,8 +1,10 @@
 import { useEffect, useMemo } from "react";
 import { audioEngine } from "../audio/engine";
 import {
+  SCHOENBERG_COMPLETION_COMPOSE_IDS,
   SCHOENBERG_COMPLETION_EXERCISE_IDS,
   SCHOENBERG_COMPLETION_IDS,
+  SCHOENBERG_COMPLETION_SOURCE_IDS,
   SCHOENBERG_CONNECTION_EXERCISE_IDS,
   SCHOENBERG_CONNECTION_IDS,
   SCHOENBERG_CONNECTION_SOURCE_IDS,
@@ -1064,7 +1066,7 @@ function CompletionPanel({
   const isFunction = exerciseId === SCHOENBERG_COMPLETION_IDS.function;
   const isSequence = exerciseId === SCHOENBERG_COMPLETION_IDS.sequence;
   const isLiquidation = exerciseId === SCHOENBERG_COMPLETION_IDS.liquidation;
-  const isCompose = exerciseId === SCHOENBERG_COMPLETION_IDS.compose;
+  const isCompose = SCHOENBERG_COMPLETION_COMPOSE_IDS.has(exerciseId);
 
   const options: StudyCompletionMode[] = isFunction
     ? [
@@ -1247,7 +1249,8 @@ export function CompositionStudyWorkspace({
   const isSentenceSource = SCHOENBERG_SENTENCE_SOURCE_IDS.has(exerciseId);
   const isSentenceCompose = SCHOENBERG_SENTENCE_COMPOSE_IDS.has(exerciseId);
   const isCompletion = SCHOENBERG_COMPLETION_EXERCISE_IDS.has(exerciseId);
-  const isCompletionCompose = exerciseId === SCHOENBERG_COMPLETION_IDS.compose;
+  const isCompletionSource = SCHOENBERG_COMPLETION_SOURCE_IDS.has(exerciseId);
+  const isCompletionCompose = SCHOENBERG_COMPLETION_COMPOSE_IDS.has(exerciseId);
   const sentenceMode = state?.sentenceMode ?? "exact";
   const completionMode = state?.completionMode ?? "complete";
   const harmony =
@@ -1451,7 +1454,7 @@ export function CompositionStudyWorkspace({
         />
       )}
 
-      {isCompletion && (
+      {isCompletion && !isCompletionSource && (
         <CompletionPanel
           exerciseId={exerciseId}
           mode={completionMode}
