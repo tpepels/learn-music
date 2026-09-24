@@ -106,18 +106,27 @@ const progressDefinitions = implementedLessons.map((lesson) => ({
   exerciseIds: lesson.exercises.map((exercise) => exercise.id),
 }));
 
-function readSanitizedLearningProgress(): LearningProgressCookie | null {
-  const progress = readLearningProgressCookie();
-  if (!progress) return null;
-
+function sanitizeStoredLearningProgress(
+  progress: Partial<LearningProgressCookie>,
+): LearningProgressCookie {
   return {
     version: 2,
     ...sanitizeLearningProgress(
-      progress,
+      {
+        currentLessonId: progress.currentLessonId ?? FIRST_LESSON_ID,
+        exerciseIndexByLesson: progress.exerciseIndexByLesson ?? {},
+        completedExerciseIds: progress.completedExerciseIds ?? [],
+        completedLessonIds: progress.completedLessonIds ?? [],
+      },
       progressDefinitions,
       FIRST_LESSON_ID,
     ),
   };
+}
+
+function readSanitizedLearningProgress(): LearningProgressCookie | null {
+  const progress = readLearningProgressCookie();
+  return progress ? sanitizeStoredLearningProgress(progress) : null;
 }
 
 const cookieProgress = readSanitizedLearningProgress();
@@ -1372,7 +1381,21 @@ export const useStudioStore = create<StudioState>()(
       merge: (persistedState, currentState) => {
         const persisted = (persistedState ?? {}) as Partial<StudioState>;
         const migrated = migratePersistedStudioState(persisted);
-        const progress = readSanitizedLearningProgress();
+        const progress =
+          readSanitizedLearningProgress() ??
+          sanitizeStoredLearningProgress({
+            currentLessonId:
+              persisted.currentLessonId ?? currentState.currentLessonId,
+            exerciseIndexByLesson:
+              persisted.exerciseIndexByLesson ??
+              currentState.exerciseIndexByLesson,
+            completedExerciseIds:
+              persisted.completedExerciseIds ??
+              currentState.completedExerciseIds,
+            completedLessonIds:
+              persisted.completedLessonIds ??
+              currentState.completedLessonIds,
+          });
 
         return {
           ...currentState,
@@ -1380,14 +1403,10 @@ export const useStudioStore = create<StudioState>()(
           ...migrated,
           learningExperiments:
             persisted.learningExperiments ?? currentState.learningExperiments,
-          ...(progress
-            ? {
-                currentLessonId: progress.currentLessonId,
-                exerciseIndexByLesson: progress.exerciseIndexByLesson,
-                completedExerciseIds: progress.completedExerciseIds,
-                completedLessonIds: progress.completedLessonIds,
-              }
-            : {}),
+          currentLessonId: progress.currentLessonId,
+          exerciseIndexByLesson: progress.exerciseIndexByLesson,
+          completedExerciseIds: progress.completedExerciseIds,
+          completedLessonIds: progress.completedLessonIds,
         };
       },
     },
