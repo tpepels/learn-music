@@ -2,6 +2,8 @@
 
 PLAY / LAB is a browser-based environment for learning **music composition and music production together by making music**.
 
+Product, curriculum, source-fidelity, and lesson-design decisions should follow [DESIGN_PRINCIPLES.md](DESIGN_PRINCIPLES.md).
+
 The product now has three connected modes:
 
 - **Learn** — guided, progressive lessons with checks and explanations;
