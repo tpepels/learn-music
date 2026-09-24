@@ -1759,14 +1759,18 @@ class AudioEngine {
     if (!(await this.prepare(bpm, onStep, ["drums", "chords", "bass"]))) return false;
     const transport = Tone.getTransport();
     const totalTransportSteps = BASS_STEPS * 2;
-    const hasWrittenHarmony = this.harmonySequence.some(
-      (notes) => notes.length > 0,
-    );
 
     this.eventId = transport.scheduleRepeat((time) => {
       const globalStep = this.step;
       const barIndex = Math.floor(globalStep / 16);
       const localStep = globalStep % 16;
+      const drums = resolveContextDrumPattern(this.pattern);
+      const progression = resolveContextProgression(
+        this.harmonicProgression,
+        this.tonalContext,
+      );
+      const writtenHarmony = hasWrittenHarmony(this.harmonySequence);
+      const bassContent = hasBassContent(this.bassSequence);
 
       if (drums.kick[localStep]) {
         this.triggerKick(time, this.grooveFeelSettings.velocities.kick[localStep] ?? 0.9);
@@ -1778,8 +1782,8 @@ class AudioEngine {
         this.triggerHat(time, this.grooveFeelSettings.velocities.hat[localStep] ?? 0.42);
       }
 
-      if (!hasWrittenHarmony) {
-        const chord = this.harmonicProgression[barIndex];
+      if (!writtenHarmony) {
+        const chord = progression[barIndex % progression.length];
         if (chord) {
           this.triggerChordPattern(
             chord,
@@ -1793,7 +1797,7 @@ class AudioEngine {
 
       if (globalStep % 2 === 0) {
         const bassStep = globalStep / 2;
-        if (hasWrittenHarmony) {
+        if (writtenHarmony) {
           this.triggerWrittenHarmonyStep(bassStep, time, 0.34);
         }
 
@@ -1805,6 +1809,16 @@ class AudioEngine {
               "midi",
             ).toNote(),
             this.noteDuration(this.bassDurations[bassStep] ?? 1),
+            time,
+            0.62,
+          );
+        } else if (!bassContent && localStep % 4 === 0) {
+          const rootMidi =
+            fallbackBassRoot(progression, this.tonalContext, barIndex) +
+            this.textureSettings.bassOctave * 12;
+          this.triggerBassNote(
+            Tone.Frequency(rootMidi, "midi").toNote(),
+            "8n",
             time,
             0.62,
           );
