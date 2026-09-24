@@ -18,7 +18,6 @@ import {
   studyVariationSequence,
   type StudyCompletionMode,
   type StudyDuration,
-  type StudyFeature,
   type StudyHarmony,
   type StudyNotation,
   type StudySentenceMode,
@@ -461,29 +460,17 @@ function VariationSourceAnswerPanel({
   );
 }
 
-const featureCopy: Record<StudyFeature, string> = {
-  rhythm: "Rhythm",
-  intervals: "Intervals / order",
-  ornamentation: "Added note",
-  reduction: "Reduction",
-  position: "Position in the bar",
-};
-
 function TransformationPanel({
   exerciseId,
   transformation,
-  featureDecision,
   operations,
   setTransformation,
-  setFeatureDecision,
   toggleOperation,
 }: {
   exerciseId: string;
   transformation: StudyTransformation;
-  featureDecision: StudyFeature | null;
   operations: StudyTransformation[];
   setTransformation: (transformation: StudyTransformation) => void;
-  setFeatureDecision: (feature: StudyFeature) => void;
   toggleOperation: (operation: StudyTransformation) => void;
 }) {
   const isExact = exerciseId === SCHOENBERG_VARIATION_IDS.exact;
@@ -1106,7 +1093,6 @@ export function CompositionStudyWorkspace({
   const setStudyDecision = useStudioStore((state) => state.setStudyDecision);
   const setStudyVariant = useStudioStore((state) => state.setStudyVariant);
   const setStudyTransformation = useStudioStore((state) => state.setStudyTransformation);
-  const setStudyFeatureDecision = useStudioStore((state) => state.setStudyFeatureDecision);
   const toggleStudyOperation = useStudioStore((state) => state.toggleStudyOperation);
   const setStudySentenceMode = useStudioStore((state) => state.setStudySentenceMode);
   const setStudyCompletionMode = useStudioStore(
@@ -1119,7 +1105,6 @@ export function CompositionStudyWorkspace({
   const notation = state?.notation ?? "staff";
   const selectedSteps = state?.selectedSteps ?? [];
   const transformation = state?.transformation ?? "source";
-  const featureDecision = state?.featureDecision ?? null;
   const operations = state?.operations ?? [];
 
   const isAnalyse = exerciseId === SCHOENBERG_STUDY_IDS.analyse;
@@ -1290,12 +1275,8 @@ export function CompositionStudyWorkspace({
         <TransformationPanel
           exerciseId={exerciseId}
           transformation={transformation}
-          featureDecision={featureDecision}
           operations={operations}
           setTransformation={(next) => setStudyTransformation(exerciseId, next)}
-          setFeatureDecision={(feature) =>
-            setStudyFeatureDecision(exerciseId, feature)
-          }
           toggleOperation={(operation) =>
             toggleStudyOperation(exerciseId, operation)
           }
