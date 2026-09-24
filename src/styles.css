@@ -9436,3 +9436,128 @@ body {
     display: none;
   }
 }
+
+
+/* Schoenberg S04 · beginning the sentence */
+
+.study-sentence-panel {
+  margin-top: 18px;
+  padding: 14px;
+  display: grid;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: rgba(255,255,255,0.018);
+}
+
+.study-sentence-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+}
+
+.study-sentence-form > div {
+  min-height: 64px;
+  padding: 10px 12px;
+  display: grid;
+  align-content: center;
+  gap: 3px;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 9px;
+  background: rgba(255,255,255,0.022);
+}
+
+.study-sentence-form > b {
+  color: var(--accent);
+  font-size: 15px;
+}
+
+.study-sentence-form span,
+.study-sentence-form small {
+  color: var(--dim);
+  font-size: 9px;
+}
+
+.study-sentence-form strong {
+  color: var(--text);
+  font-size: 12px;
+}
+
+.study-sentence-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.study-sentence-buttons button {
+  min-height: 32px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.025);
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.study-sentence-buttons button:hover {
+  border-color: var(--line-strong);
+  color: var(--text);
+}
+
+.study-sentence-buttons button.is-active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--text);
+}
+
+.study-harmony-lane {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.study-harmony-lane > div {
+  min-height: 58px;
+  padding: 9px 12px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px 10px;
+  align-items: center;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 9px;
+  background: rgba(159,140,255,0.045);
+}
+
+.study-harmony-lane span,
+.study-harmony-lane small {
+  color: var(--dim);
+  font-size: 9px;
+}
+
+.study-harmony-lane strong {
+  color: var(--cyan);
+  font-size: 15px;
+}
+
+.study-harmony-lane small {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 900px) {
+  .study-sentence-form {
+    grid-template-columns: 1fr;
+  }
+
+  .study-sentence-form > b {
+    justify-self: center;
+    transform: rotate(90deg);
+  }
+
+  .study-harmony-lane {
+    grid-template-columns: 1fr;
+  }
+}

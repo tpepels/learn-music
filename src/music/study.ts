@@ -17,6 +17,15 @@ export type StudyTransformation =
   | "auxiliary"
   | "reduction"
   | "displacement";
+export type StudyHarmony = "I" | "V" | null;
+export type StudySentenceMode =
+  | "immediate"
+  | "delayed"
+  | "contrast"
+  | "exact"
+  | "transposed"
+  | "tonic-repeat"
+  | "complementary";
 
 export type StudyExerciseState = {
   notes: Array<number | null>;
@@ -28,6 +37,8 @@ export type StudyExerciseState = {
   transformation: StudyTransformation;
   featureDecision: StudyFeature | null;
   operations: StudyTransformation[];
+  sentenceMode: StudySentenceMode;
+  harmony: StudyHarmony[];
 };
 
 export type CompositionStudyState = Record<string, StudyExerciseState>;
@@ -59,6 +70,17 @@ export const SCHOENBERG_CONNECTION_IDS = {
 
 export const SCHOENBERG_CONNECTION_EXERCISE_IDS = new Set<string>(
   Object.values(SCHOENBERG_CONNECTION_IDS),
+);
+
+export const SCHOENBERG_SENTENCE_IDS = {
+  recognise: "schoenberg.beginning-sentence.a",
+  repetition: "schoenberg.beginning-sentence.b",
+  harmony: "schoenberg.beginning-sentence.c",
+  compose: "schoenberg.beginning-sentence.d",
+} as const;
+
+export const SCHOENBERG_SENTENCE_EXERCISE_IDS = new Set<string>(
+  Object.values(SCHOENBERG_SENTENCE_IDS),
 );
 
 export const studyTransformationFeature: Record<
@@ -130,6 +152,7 @@ const variationSourceDurations: StudyDuration[] = [
 export type StudySequence = {
   notes: Array<number | null>;
   durations: StudyDuration[];
+  harmony?: StudyHarmony[];
 };
 
 function combineHalves(
@@ -439,6 +462,168 @@ export function studyConnectionFromOperations(
   return joinConnectionBlocks(blocks);
 }
 
+
+const sentenceBasicIdea: Array<number | null> = [
+  60, 62, 64, 67, 65, 64, 62, 60,
+];
+const sentenceBasicDurations: StudyDuration[] = [
+  1, 1, 1, 1, 1, 1, 1, 1,
+];
+
+function padStudyHarmony(
+  harmony: StudyHarmony[] = [],
+): StudyHarmony[] {
+  return Array.from(
+    { length: STUDY_STEPS },
+    (_, index) => harmony[index] ?? null,
+  );
+}
+
+function transposeStudyNotes(
+  notes: Array<number | null>,
+  semitones: number,
+): Array<number | null> {
+  return notes.map((note) => (note === null ? null : note + semitones));
+}
+
+function adaptStudyNotesToDominant(
+  notes: Array<number | null>,
+): Array<number | null> {
+  const shifts: Record<number, number> = {
+    0: -1,
+    2: 0,
+    4: -2,
+    5: 1,
+    7: 0,
+    9: -2,
+    11: 0,
+  };
+
+  return notes.map((note) => {
+    if (note === null) return null;
+    return note + (shifts[note % 12] ?? 0);
+  });
+}
+
+function sentenceHarmony(
+  first: StudyHarmony,
+  second: StudyHarmony,
+): StudyHarmony[] {
+  const harmony = Array<StudyHarmony>(STUDY_STEPS).fill(null);
+  harmony[0] = first;
+  harmony[8] = second;
+  return harmony;
+}
+
+export function studySentenceSequence(
+  mode: StudySentenceMode,
+  sourceNotes: Array<number | null> = sentenceBasicIdea,
+  sourceDurations: StudyDuration[] = sentenceBasicDurations,
+): StudySequence {
+  const source = Array.from(
+    { length: 8 },
+    (_, index) => sourceNotes[index] ?? null,
+  );
+  const durations = Array.from(
+    { length: 8 },
+    (_, index) => sourceDurations[index] ?? 1,
+  ) as StudyDuration[];
+
+  const exact = [...source];
+  const transposed = transposeStudyNotes(source, 2);
+  const contrast: Array<number | null> = [
+    67, 60, 66, 61, 68, 62, 69, 63,
+  ];
+  const delayed: Array<number | null> = [
+    67, 65, 64, 62,
+    ...source.slice(0, 4),
+  ];
+
+  switch (mode) {
+    case "immediate":
+    case "exact":
+      return {
+        notes: [...source, ...exact],
+        durations: [...durations, ...durations],
+        harmony: sentenceHarmony(null, null),
+      };
+    case "transposed":
+      return {
+        notes: [...source, ...transposed],
+        durations: [...durations, ...durations],
+        harmony: sentenceHarmony(null, null),
+      };
+    case "delayed":
+      return {
+        notes: [...source, ...delayed],
+        durations: [...durations, ...durations],
+        harmony: sentenceHarmony(null, null),
+      };
+    case "contrast":
+      return {
+        notes: [...source, ...contrast],
+        durations: [...durations, ...durations],
+        harmony: sentenceHarmony(null, null),
+      };
+    case "tonic-repeat":
+      return {
+        notes: [...source, ...exact],
+        durations: [...durations, ...durations],
+        harmony: sentenceHarmony("I", "I"),
+      };
+    case "complementary":
+      return {
+        notes: [...source, ...adaptStudyNotesToDominant(source)],
+        durations: [...durations, ...durations],
+        harmony: sentenceHarmony("I", "V"),
+      };
+  }
+}
+
+export function setStudySentenceModeState(
+  state: StudyExerciseState,
+  sentenceMode: StudySentenceMode,
+): StudyExerciseState {
+  const sequence = studySentenceSequence(
+    sentenceMode,
+    state.notes.slice(0, 8),
+    state.durations.slice(0, 8),
+  );
+  return {
+    ...state,
+    notes: [...sequence.notes],
+    durations: [...sequence.durations],
+    harmony: padStudyHarmony(sequence.harmony),
+    sentenceMode,
+  };
+}
+
+export function setStudySentenceSourceStepState(
+  state: StudyExerciseState,
+  step: number,
+  midi: number | null,
+): StudyExerciseState {
+  const notes = [...state.notes];
+  if (step < 0 || step >= notes.length) return state;
+  notes[step] = midi;
+
+  if (step >= 8) {
+    return { ...state, notes };
+  }
+
+  const sequence = studySentenceSequence(
+    state.sentenceMode,
+    notes.slice(0, 8),
+    state.durations.slice(0, 8),
+  );
+  return {
+    ...state,
+    notes: [...sequence.notes],
+    durations: [...sequence.durations],
+    harmony: padStudyHarmony(sequence.harmony),
+  };
+}
+
 function baseState(sequence: StudySequence): StudyExerciseState {
   return {
     notes: [...sequence.notes],
@@ -450,6 +635,8 @@ function baseState(sequence: StudySequence): StudyExerciseState {
     transformation: "source",
     featureDecision: null,
     operations: [],
+    sentenceMode: "exact",
+    harmony: padStudyHarmony(sequence.harmony),
   };
 }
 
@@ -555,6 +742,38 @@ function defaultExerciseState(id: string): StudyExerciseState {
     };
   }
 
+  if (id === SCHOENBERG_SENTENCE_IDS.recognise) {
+    return {
+      ...baseState(studySentenceSequence("immediate")),
+      sentenceMode: "immediate",
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_SENTENCE_IDS.repetition) {
+    return {
+      ...baseState(studySentenceSequence("exact")),
+      sentenceMode: "exact",
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_SENTENCE_IDS.harmony) {
+    return {
+      ...baseState(studySentenceSequence("tonic-repeat")),
+      sentenceMode: "tonic-repeat",
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_SENTENCE_IDS.compose) {
+    return {
+      ...baseState(studySentenceSequence("exact")),
+      sentenceMode: "exact",
+      notation: "piano-roll",
+    };
+  }
+
   return baseState({
     notes: padStudyNotes([]),
     durations: padDurations(),
@@ -565,6 +784,7 @@ const allStudyExerciseIds = [
   ...Object.values(SCHOENBERG_STUDY_IDS),
   ...Object.values(SCHOENBERG_VARIATION_IDS),
   ...Object.values(SCHOENBERG_CONNECTION_IDS),
+  ...Object.values(SCHOENBERG_SENTENCE_IDS),
 ];
 
 export function initialCompositionStudyState(): CompositionStudyState {
@@ -592,6 +812,8 @@ export function cloneStudyExerciseState(
     transformation: state.transformation ?? fallback.transformation,
     featureDecision: state.featureDecision ?? null,
     operations: [...(state.operations ?? fallback.operations)],
+    sentenceMode: state.sentenceMode ?? fallback.sentenceMode,
+    harmony: padStudyHarmony(state.harmony ?? fallback.harmony),
   };
 }
 
@@ -836,4 +1058,66 @@ export function studyConnectionSourceIntact(
   notes: Array<number | null>,
 ): boolean {
   return connectionSourceBlock.every((note, index) => notes[index] === note);
+}
+
+
+export function studySentenceHalvesRelated(
+  notes: Array<number | null>,
+): boolean {
+  const left = notes
+    .slice(0, 8)
+    .filter((note): note is number => note !== null);
+  const right = notes
+    .slice(8, 16)
+    .filter((note): note is number => note !== null);
+
+  if (left.length < 4 || right.length < 4 || left.length !== right.length) {
+    return false;
+  }
+
+  const leftIntervals = left.slice(1).map((note, index) => note - left[index]);
+  const rightIntervals = right.slice(1).map((note, index) => note - right[index]);
+  const exactShape = leftIntervals.every(
+    (interval, index) => interval === rightIntervals[index],
+  );
+  if (exactShape) return true;
+
+  const leftDirections = leftIntervals.map(sign);
+  const rightDirections = rightIntervals.map(sign);
+  const matchingDirections = rightDirections.filter(
+    (direction, index) => direction === leftDirections[index],
+  ).length;
+
+  const leftPitchClasses = new Set(left.map((note) => note % 12));
+  const sharedPitchClasses = right.filter((note) =>
+    leftPitchClasses.has(note % 12),
+  ).length;
+
+  return matchingDirections >= 5 || sharedPitchClasses >= 4;
+}
+
+export function studySentenceHasImmediateRepetition(
+  notes: Array<number | null>,
+): boolean {
+  const left = notes
+    .slice(0, 8)
+    .filter((note): note is number => note !== null);
+  const right = notes
+    .slice(8, 16)
+    .filter((note): note is number => note !== null);
+  if (left.length < 4 || right.length < 4 || left.length !== right.length) {
+    return false;
+  }
+
+  const leftIntervals = left.slice(1).map((note, index) => note - left[index]);
+  const rightIntervals = right.slice(1).map((note, index) => note - right[index]);
+  return leftIntervals.every(
+    (interval, index) => interval === rightIntervals[index],
+  );
+}
+
+export function studySentenceHarmonyIsComplementary(
+  harmony: StudyHarmony[],
+): boolean {
+  return harmony[0] === "I" && harmony[8] === "V";
 }
