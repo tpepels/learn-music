@@ -211,14 +211,14 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         explanation:
           "In his Comment on Examples, Schoenberg recommends making many phrase sketches over a predetermined harmony. Example 5 takes the tonic of F major and creates different melodic contours from arrangements of the chord tones. The limitation is deliberate: invention is practised while harmony stays fixed.",
         instruction:
-          "Our interactive version transposes the exercise to C major. Write at least six notes in steps 1-8 using only C, E and G. Try more than one contour, listen, and revise at least one step after hearing it.",
+          "First play the native Ex. 5a exactly as Schoenberg prints it: F-A-C over the fixed F-major tonic. Then use the broader Ex. 5 analysis map to see what the group varies. After that, make the same kind of constrained study in PLAY / LAB, transposed to C major: write at least six notes in steps 1-8 using only C, E and G, listen, and revise at least one step.",
         recognition:
           "How many genuinely different melodic shapes can the same three chord tones produce?",
         source: {
           reference: "Example 5 - Melodic units derived from broken chords",
-          exampleIds: ["s01.ex5"],
+          exampleIds: ["s01.ex5a", "s01.ex5"],
           focus:
-            "Schoenberg keeps one tonic harmony fixed and varies the arrangement of its chord tones. We transpose the practice from F major to C major.",
+            "Ex. 5a is reproduced as native playable notation from the book, followed by an analysis map of the larger Ex. 5 group. The PLAY / LAB construction then transposes the same practice constraint from F major to C major.",
         },
         terms: [
           {
