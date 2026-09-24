@@ -165,6 +165,10 @@ class AudioEngine {
   private melody: MelodySequence = [...initialMelody];
   private studySequence: MelodySequence = Array.from({ length: 16 }, () => null);
   private studyDurations: number[] = Array.from({ length: 16 }, () => 1);
+  private studyHarmony: Array<"I" | "V" | null> = Array.from(
+    { length: 16 },
+    () => null,
+  );
   private melodyDurations: NoteDurationLane = [...initialMelodyDurations];
   private chordProgression: ChordProgression = [...initialChordProgression];
   private tonalContext: TonalContext = cloneTonalContext(initialTonalContext);
@@ -252,11 +256,19 @@ class AudioEngine {
     this.melody = [...melody];
   }
 
-  setStudySequence(sequence: MelodySequence, durations?: number[]) {
+  setStudySequence(
+    sequence: MelodySequence,
+    durations?: number[],
+    harmony?: Array<"I" | "V" | null>,
+  ) {
     this.studySequence = [...sequence];
     this.studyDurations = Array.from(
       { length: sequence.length },
       (_, index) => Math.max(1, durations?.[index] ?? 1),
+    );
+    this.studyHarmony = Array.from(
+      { length: sequence.length },
+      (_, index) => harmony?.[index] ?? null,
     );
   }
 
@@ -1125,6 +1137,15 @@ class AudioEngine {
 
     this.eventId = transport.scheduleRepeat((time) => {
       const step = this.step % totalSteps;
+      const harmony = this.studyHarmony[step];
+      if (harmony) {
+        const chord =
+          harmony === "I"
+            ? ["C3", "E3", "G3"]
+            : ["G2", "B2", "D3"];
+        this.triggerPiano(chord, this.noteDuration(8), time, 0.27);
+      }
+
       const midi = this.studySequence[step];
       if (midi !== null && midi !== undefined) {
         this.triggerPiano(
