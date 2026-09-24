@@ -114,6 +114,26 @@ export const schoenbergSourceMaterial: Record<
     "The source map is verified against Ex. 4c. A clean native note-for-note transcription of the Scherzo line is still pending; the previous raster crop has been removed.",
   ),
 
+  "s01.ex5a": {
+    kind: "score",
+    id: "s01.ex5a",
+    reference: "Ex. 5a",
+    title: "Melodic unit from one broken chord",
+    attribution: "First F-major broken-chord study as printed by Schoenberg",
+    fidelity: "verified-excerpt",
+    fidelityNote:
+      "Native transcription of Ex. 5a from the supplied book scan: F-A-C over the fixed tonic harmony. This is the actual printed subexample, not the C-major PLAY / LAB application study.",
+    clef: "treble",
+    keyLabel: "F major · 1 flat",
+    meter: "4/4",
+    bpm: 84,
+    events: [
+      { midi: 65, duration: 4 },
+      { midi: 69, duration: 4, barAfter: true },
+      { midi: 72, duration: 8, barAfter: true },
+    ],
+  },
+
   "s01.ex5": map(
     "s01.ex5",
     "Ex. 5",
