@@ -6,6 +6,7 @@ import {
   transposeMelodyNote,
 } from "../music/model";
 import { useStudioStore } from "../state/studio";
+import { LayerVolumeStrip } from "./LayerVolumeStrip";
 import {
   findMonophonicNoteStart,
   useNoteLengthDrag,
@@ -71,6 +72,8 @@ export function MotifWorkspace() {
           The first four steps are the source. Pitch and note length both belong to the motif; drag horizontally to reshape the rhythm.
         </span>
       </div>
+
+      <LayerVolumeStrip tracks={["drums", "melody"] as const} />
 
       <div className="motif-tools">
         <button onClick={seedMotif}>Seed C–E–G–E</button>
