@@ -31,6 +31,7 @@ import { StereoWorkspace } from "./components/StereoWorkspace";
 import { StudioMode } from "./components/StudioMode";
 import { SynthWorkspace } from "./components/SynthWorkspace";
 import { TextureWorkspace } from "./components/TextureWorkspace";
+import { TranspositionWorkspace } from "./components/TranspositionWorkspace";
 import { VoicingWorkspace } from "./components/VoicingWorkspace";
 import {
   courseOutline,
@@ -60,6 +61,10 @@ async function startWorkspacePlayback(
 
   if (workspace === "melody-harmony") {
     return audioEngine.playHarmonyContext(bpm, onStep, true);
+  }
+
+  if (workspace === "transposition") {
+    return audioEngine.playChordMelody(bpm, onStep);
   }
 
   if (
@@ -399,6 +404,8 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
       return <HarmonySequencerWorkspace mode="borrowed" />;
     case "instrument-palette":
       return <InstrumentPaletteWorkspace />;
+    case "transposition":
+      return <TranspositionWorkspace />;
   }
 }
 
