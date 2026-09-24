@@ -35,6 +35,12 @@ import {
   type MelodySequence,
   type StepPattern,
 } from "../music/model";
+import {
+  cloneHarmonicProgression,
+  cloneTonalContext,
+  initialHarmonicProgression,
+  initialTonalContext,
+} from "../music/harmony";
 import { arrangementFormLesson } from "./arrangementForm";
 import { automationDynamicsLesson } from "./automationDynamics";
 import { bassLinesLesson } from "./bassLines";
@@ -80,6 +86,8 @@ function context(overrides: Partial<LessonContext> = {}): LessonContext {
     selectedPitchClasses: [],
     melody: [...initialMelody],
     melodyDurations: [...initialMelodyDurations],
+    tonalContext: cloneTonalContext(initialTonalContext),
+    harmonicProgression: cloneHarmonicProgression(initialHarmonicProgression),
     chordProgression: [...initialChordProgression],
     harmonySequence: initialHarmonySequence.map((notes) => [...notes]),
     harmonyDurations: initialHarmonyDurations.map((entry) => ({ ...entry })),
