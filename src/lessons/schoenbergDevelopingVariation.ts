@@ -107,7 +107,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
           reference: "Example 14 - inversion, retrograde, retrograde inversion, diminution and augmentation",
           exampleIds: ["s02.ex14"],
           focus:
-            "This example is the reason the lesson does not equate exact repetition with literal copy-and-paste. The interactive versions isolate four of Schoenberg's printed operations.",
+            "The source map exposes the operations Schoenberg prints in Ex. 14. The transformation controls below then let you audition those operations as a separate PLAY / LAB application.",
         },
         terms: [
           {
@@ -179,7 +179,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
             "Examples 15-16 - including Ex. 15c Beethoven Op.2/3-II and Ex. 16b Beethoven Op.22-III, Menuetto",
           exampleIds: ["s02.ex15-16"],
           focus:
-            "Schoenberg labels transposition, change of direction, embellishment, rhythmic change, filling-in, chain and sequence to show transformations working together in context. The interactive study is a compact reduction of that cumulative logic.",
+            "The source map preserves Schoenberg's labelled transformation categories from Exs. 15-16. The four-part study below is separate application material for hearing cumulative treatment.",
         },
         terms: [
           {
@@ -228,7 +228,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
           reference: "Example 17 - Developing variations of a motive based on a broken chord: Rhythmic changes",
           exampleIds: ["s02.ex17"],
           focus:
-            "Schoenberg uses many variants of one broken-chord motive to isolate note-length changes, repetitions and rhythmic recurrence. Our two controls sample that larger printed series.",
+            "The source map preserves the rhythmic resources Schoenberg isolates in Ex. 17. The controls below apply two of those procedures to PLAY / LAB's own broken-chord study.",
         },
         terms: [
           {
@@ -329,7 +329,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
             "Examples 22-24 - Addition of upbeats and repetition of features; Shift to other beats; Change of metre",
           exampleIds: ["s02.ex22-24"],
           focus:
-            "Schoenberg deliberately distinguishes pickup, beat displacement and metre change. The interactive metre case is a reduction of the regrouping principle, not a transcription of Ex. 24.",
+            "The source map keeps Schoenberg's distinction between pickup, beat displacement and metre change. The grid below applies those categories without claiming to reproduce Ex. 24's notation.",
         },
         terms: [
           {
@@ -382,7 +382,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
           reference: "Example 25 - Adaptation to richer harmony (cf. Ex. 21d)",
           exampleIds: ["s02.ex25"],
           focus:
-            "The printed example explores richer harmonic support and inversion. PLAY / LAB reduces that harmonic complexity but preserves the didactic point: melodic motive-form and harmony are adapted together.",
+            "The source map records Schoenberg's Ex. 25 point about richer harmony and melodic adaptation. The simplified PLAY / LAB support below is application material, not the printed example.",
         },
         terms: [
           {
@@ -425,7 +425,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
           reference: "Examples 26-27 - harmonic insertion in the middle; substitution of a different chord or succession",
           exampleIds: ["s02.ex26-27"],
           focus:
-            "The interactive support is simplified, but the analytical distinction follows Schoenberg's categories exactly: insertion and substitution are harmonic means of variation.",
+            "The source map follows Schoenberg's distinction between harmonic insertion and substitution. The simplified support below lets you hear that distinction without presenting itself as Exs. 26-27.",
         },
         terms: [
           {
@@ -469,7 +469,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
           reference: "Examples 28-29 - transposition; passing harmonies; semi-contrapuntal treatment of the accompaniment",
           exampleIds: ["s02.ex28-29"],
           focus:
-            "The sequence-like top line models Ex. 28's transpositional logic. The simplified support represents Ex. 29's harmonic adaptation; the actual printed accompaniment contains more contrapuntal information than the current study view can show.",
+            "The source map preserves Schoenberg's three stated resources: transposition, passing harmonies and semi-contrapuntal accompaniment. The application study below cannot yet reproduce Ex. 29's full contrapuntal notation and is labelled accordingly.",
         },
         terms: [
           {
