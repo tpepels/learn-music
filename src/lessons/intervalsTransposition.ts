@@ -1,18 +1,16 @@
 import { heardPlayback } from "./learningEvidence";
 import {
+  progressionMatchesDegrees,
+  progressionSymbols,
+} from "../music/harmony";
+import {
   exerciseContentSchema,
   lessonContentSchema,
   type LessonDefinition,
 } from "./types";
 
-const pc = (midi: number) => ((midi % 12) + 12) % 12;
-
 function noteAt(sequence: Array<number | null>, step: number, midi: number) {
   return sequence[step] === midi;
-}
-
-function activeNotes(sequence: Array<number | null>): number[] {
-  return sequence.filter((note): note is number => note !== null);
 }
 
 const lesson = lessonContentSchema.parse({
@@ -20,11 +18,11 @@ const lesson = lessonContentSchema.parse({
   number: 29,
   title: "Intervals & transposition",
   eyebrow: "Pitch · New keys",
-  hero: "Keep the relationships when the starting note changes.",
+  hero: "Keep the relationships when the starting point changes.",
   description:
-    "Learn to hear pitch distance as an interval, transpose a motif without changing its shape, and write a phrase that belongs clearly to D major rather than falling back into C.",
+    "Learn to hear pitch distance as an interval, transpose a motif, and move melody and harmony into a new key without changing their internal function.",
   overview:
-    "A key is not a collection of memorised piano shapes. Intervals describe distances between notes, and transposition preserves those distances while moving the music somewhere else.",
+    "Intervals describe distances between notes. Harmonic degrees describe relationships to a tonic. Transposition preserves those relationships while the absolute note and chord names change.",
 });
 
 export const intervalsTranspositionLesson: LessonDefinition = {
@@ -50,7 +48,7 @@ export const intervalsTranspositionLesson: LessonDefinition = {
         ],
         workspace: "melody",
         checksLabel: "Build the distances",
-        successLabel: "You can now hear three common intervals from the same root",
+        successLabel: "You can hear three common intervals from the same root",
       }),
       evaluate: ({ melody, experiments }) => [
         { label: "Step 1 is C4", complete: noteAt(melody, 0, 60) },
@@ -67,9 +65,9 @@ export const intervalsTranspositionLesson: LessonDefinition = {
         title: "Transpose a motif up a whole step",
         learn: "Preserve a motif by moving every note by the same interval.",
         explanation:
-          "C–D–E–G becomes D–E–F♯–A when every note moves up two semitones. The absolute pitches change, but the contour and interval pattern stay the same.",
+          "C-D-E-G becomes D-E-F♯-A when every note moves up two semitones. The absolute pitches change, but the contour and interval pattern stay the same.",
         instruction:
-          "Write C4–D4–E4–G4 on steps 1, 3, 5 and 7. Then write its whole-step transposition D4–E4–F♯4–A4 on steps 9, 11, 13 and 15.",
+          "Write C4-D4-E4-G4 on steps 1, 3, 5 and 7. Then write its whole-step transposition D4-E4-F♯4-A4 on steps 9, 11, 13 and 15.",
         recognition:
           "Listen for identity rather than pitch height. Does the second half sound like the same idea moved upward?",
         terms: [
@@ -79,7 +77,7 @@ export const intervalsTranspositionLesson: LessonDefinition = {
         ],
         workspace: "melody",
         checksLabel: "Move the motif",
-        successLabel: "The same motif now exists in two keys",
+        successLabel: "The same motif now exists at two pitch levels",
       }),
       evaluate: ({ melody, experiments }) => {
         const source = [60, 62, 64, 67];
@@ -87,7 +85,7 @@ export const intervalsTranspositionLesson: LessonDefinition = {
         const steps = [0, 2, 4, 6];
         return [
           {
-            label: "The source motif is C–D–E–G",
+            label: "The source motif is C-D-E-G",
             complete: steps.every((step, i) => melody[step] === source[i]),
           },
           {
@@ -102,36 +100,39 @@ export const intervalsTranspositionLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "pitch.intervals-transposition.c",
         letter: "C",
-        title: "Map D major",
-        learn: "Stop treating C major as the default map of music.",
+        title: "Transpose harmony by function",
+        learn: "Separate an absolute chord symbol from the harmonic degree it represents.",
         explanation:
-          "D major contains D, E, F♯, G, A, B and C♯. Those pitches follow the same major-scale interval pattern as C major, but the keyboard shape is different.",
+          "I-IV-V-I is a relationship to the tonic, not a fixed list of chord names. In C major it is C-F-G-C. Change the tonic to D and the same stored harmonic identities become D-G-A-D while the Roman numerals stay I-IV-V-I.",
         instruction:
-          "Use the melody grid to place all seven pitch classes of D major somewhere in the 16 steps: C♯, D, E, F♯, G, A and B. Order is up to you. Play the phrase and listen for F♯ and C♯ as the notes that make this key distinct from C major.",
+          "In the combined workspace choose C major and build I-IV-V-I. Then change only the tonic to D with the key control. Do not use the whole-project transpose buttons yet. Play the result and compare the chord symbols with the Roman numerals.",
         recognition:
-          "Temporarily replace F♯ with F natural or C♯ with C natural. Which change most strongly pulls the phrase away from D major?",
+          "Watch the two labels on each chord. Which part changes when C becomes D, and which part stays fixed?",
         terms: [
-          { term: "Major scale", definition: "A seven-note collection following the whole–whole–half–whole–whole–whole–half interval pattern." },
-          { term: "Key", definition: "A tonal framework organised around a home pitch and its related scale and harmony." },
-          { term: "Pitch class", definition: "All notes sharing the same letter-name pitch regardless of octave." },
+          { term: "Harmonic degree", definition: "A chord's position and role relative to the tonic, written here with a Roman numeral." },
+          { term: "Chord symbol", definition: "The absolute root and quality of a chord, such as C, F♯m or B♭." },
+          { term: "Functional transposition", definition: "Moving harmony to another tonic while preserving its scale-degree relationships." },
         ],
-        workspace: "melody",
-        checksLabel: "Map the new key",
-        successLabel: "Your phrase now contains the complete D-major pitch collection",
+        workspace: "transposition",
+        checksLabel: "Keep the function",
+        successLabel: "The symbols moved to D major while I-IV-V-I stayed intact",
       }),
-      evaluate: ({ melody, experiments }) => {
-        const pcs = new Set(activeNotes(melody).map(pc));
-        const dMajor = [1, 2, 4, 6, 7, 9, 11];
+      evaluate: ({ tonalContext, harmonicProgression, experiments }) => {
+        const symbols = progressionSymbols(harmonicProgression, tonalContext);
         return [
           {
-            label: "All seven D-major pitch classes appear",
-            complete: dMajor.every((pitchClass) => pcs.has(pitchClass)),
+            label: "The key is D major",
+            complete: tonalContext.tonic === 2 && tonalContext.mode === "major",
           },
           {
-            label: "No pitch outside D major appears",
-            complete: activeNotes(melody).every((midi) => dMajor.includes(pc(midi))),
+            label: "The progression still has degrees I-IV-V-I",
+            complete: progressionMatchesDegrees(harmonicProgression, [1, 4, 5, 1]),
           },
-          { label: "You listened in the new key", complete: heardPlayback(experiments) },
+          {
+            label: "The absolute chords are D-G-A-D",
+            complete: symbols.join("|") === "D|G|A|D",
+          },
+          { label: "You listened to the transposed harmony", complete: heardPlayback(experiments) },
         ];
       },
     },
@@ -139,39 +140,44 @@ export const intervalsTranspositionLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "pitch.intervals-transposition.d",
         letter: "D",
-        title: "Write a phrase that belongs to D",
-        learn: "Use tonic, characteristic scale tones and contour to establish a new tonal centre.",
+        title: "Move melody and harmony together",
+        learn: "Apply one transposition to written notes and to the tonal framework.",
         explanation:
-          "A phrase can make D sound like home without copying a fixed melody. Starting or ending on D, using F♯ and C♯, and shaping a clear contour gives the ear evidence for the new key.",
+          "Changing a key label can respell generated harmony, but written MIDI notes are still absolute pitches. A full project transposition moves those notes by the same interval while the structural chord progression keeps its degrees.",
         instruction:
-          "Write six to ten melody onsets using only D-major notes. Start and end on D, include both F♯ and C♯ somewhere, and include at least one melodic leap of five semitones or more. Leave some empty steps.",
+          "Set the key to C major without using a project-transpose button. Put C4-D4-E4-G4 on steps 1, 3, 5 and 7 and keep I-IV-V-I in the chord track. Then press the D whole-project transpose button once. The motif should become D4-E4-F♯4-A4 and the harmony D-G-A-D.",
         recognition:
-          "Does the final D sound like arrival? If not, simplify the last few notes before adding more material.",
+          "Play before and after if you want to compare them. The register moved, but the melodic intervals and the harmonic degrees should be unchanged.",
         terms: [
-          { term: "Tonal centre", definition: "The pitch heard as the point of rest or home." },
-          { term: "Leap", definition: "A melodic move larger than an adjacent scale step." },
-          { term: "Resolution", definition: "A move from relative instability toward a more stable pitch or harmony." },
+          { term: "Absolute pitch", definition: "A specific sounding pitch, represented by a MIDI note number in the editor." },
+          { term: "Tonal context", definition: "The tonic and mode used to interpret harmonic degrees." },
+          { term: "Structural identity", definition: "The interval or harmonic relationship that survives transposition." },
         ],
-        workspace: "melody",
-        checksLabel: "Establish D",
-        successLabel: "You wrote a phrase whose pitch relationships point to a new tonic",
+        workspace: "transposition",
+        checksLabel: "Transpose the complete idea",
+        successLabel: "Melody and harmony now moved together without changing their relationships",
       }),
-      evaluate: ({ melody, experiments }) => {
-        const notes = activeNotes(melody);
-        const indexed = melody
-          .map((note, step) => ({ note, step }))
-          .filter((item): item is { note: number; step: number } => item.note !== null);
-        const dMajor = [1, 2, 4, 6, 7, 9, 11];
-        const leaps = indexed.slice(1).some((item, i) =>
-          Math.abs(item.note - indexed[i].note) >= 5,
-        );
+      evaluate: ({ melody, tonalContext, harmonicProgression, experiments }) => {
+        const target = [62, 64, 66, 69];
+        const steps = [0, 2, 4, 6];
         return [
-          { label: "The phrase uses six to ten onsets", complete: notes.length >= 6 && notes.length <= 10 },
-          { label: "The first and last sounding notes are D", complete: notes.length > 0 && pc(notes[0]) === 2 && pc(notes[notes.length - 1]) === 2 },
-          { label: "F♯ and C♯ both appear", complete: notes.some((n) => pc(n) === 6) && notes.some((n) => pc(n) === 1) },
-          { label: "Every note belongs to D major", complete: notes.every((n) => dMajor.includes(pc(n))) },
-          { label: "The phrase contains at least one leap", complete: leaps },
-          { label: "You listened for D as home", complete: heardPlayback(experiments) },
+          {
+            label: "The project is now in D major",
+            complete: tonalContext.tonic === 2 && tonalContext.mode === "major",
+          },
+          {
+            label: "The first motif is D-E-F♯-A",
+            complete: steps.every((step, i) => melody[step] === target[i]),
+          },
+          {
+            label: "Harmony still has degrees I-IV-V-I",
+            complete: progressionMatchesDegrees(harmonicProgression, [1, 4, 5, 1]),
+          },
+          {
+            label: "You used whole-project transposition",
+            complete: (experiments["harmony.transpose"]?.changes ?? 0) >= 1,
+          },
+          { label: "You listened after transposing", complete: heardPlayback(experiments) },
         ];
       },
     },
