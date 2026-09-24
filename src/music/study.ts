@@ -1240,9 +1240,10 @@ export function studyBlocksAreRelated(
   notes: Array<number | null>,
   leftStart = 0,
   rightStart = 4,
+  length = 4,
 ): boolean {
-  const left = compactBlock(notes, leftStart);
-  const right = compactBlock(notes, rightStart);
+  const left = compactBlock(notes, leftStart, length);
+  const right = compactBlock(notes, rightStart, length);
 
   if (left.length < 3 || right.length < 3 || left.length !== right.length) {
     return false;
