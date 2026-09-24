@@ -5,6 +5,7 @@ import {
   SCHOENBERG_COMPLETION_IDS,
   SCHOENBERG_CONNECTION_EXERCISE_IDS,
   SCHOENBERG_CONNECTION_IDS,
+  SCHOENBERG_CONNECTION_SOURCE_IDS,
   SCHOENBERG_SENTENCE_EXERCISE_IDS,
   SCHOENBERG_SENTENCE_IDS,
   SCHOENBERG_PHRASE_SOURCE_IDS,
@@ -555,6 +556,69 @@ function TransformationPanel({
   );
 }
 
+
+
+const connectionSourceAnswers: Record<
+  string,
+  Array<{ decision: "same" | "related" | "unrelated"; label: string }>
+> = {
+  [SCHOENBERG_CONNECTION_IDS.wave]: [
+    { decision: "related", label: "Waves: rise, recess, higher point, return" },
+    { decision: "same", label: "Keep climbing without recession" },
+    { decision: "unrelated", label: "Large leaps without compensation" },
+  ],
+  [SCHOENBERG_CONNECTION_IDS.ex30]: [
+    { decision: "related", label: "One broken-chord derivative grows into a phrase" },
+    { decision: "same", label: "Several unrelated motives are juxtaposed" },
+    { decision: "unrelated", label: "The phrase is built from exact repetition only" },
+  ],
+  [SCHOENBERG_CONNECTION_IDS.ex31]: [
+    { decision: "related", label: "Essential rhythmic features are retained" },
+    { decision: "same", label: "Pitch must remain unchanged" },
+    { decision: "unrelated", label: "Rhythm is deliberately discarded" },
+  ],
+  [SCHOENBERG_CONNECTION_IDS.ex32]: [
+    { decision: "related", label: "Rhythm stays strict while direction and pitch level change" },
+    { decision: "same", label: "Only note lengths change" },
+    { decision: "unrelated", label: "Every form uses unrelated rhythm" },
+  ],
+  [SCHOENBERG_CONNECTION_IDS.ex33]: [
+    { decision: "related", label: "Several features change together, but derivation remains traceable" },
+    { decision: "same", label: "Only one feature may change at a time" },
+    { decision: "unrelated", label: "Far-reaching variation should abandon the motive" },
+  ],
+  [SCHOENBERG_CONNECTION_IDS.ex34]: [
+    { decision: "related", label: "Shift, add upbeats, reduce and omit - but keep a true phrase" },
+    { decision: "same", label: "Remote forms are always clearer than close ones" },
+    { decision: "unrelated", label: "Reduction and omission cannot support continuation" },
+  ],
+};
+
+function ConnectionSourceAnswerPanel({
+  exerciseId,
+  decision,
+  setDecision,
+}: {
+  exerciseId: string;
+  decision: "same" | "related" | "unrelated" | null;
+  setDecision: (decision: "same" | "related" | "unrelated") => void;
+}) {
+  const answers = connectionSourceAnswers[exerciseId] ?? [];
+  return (
+    <div className="study-source-answer-panel" role="group" aria-label="Chapter IV example answer">
+      {answers.map((answer) => (
+        <button
+          type="button"
+          key={answer.decision}
+          className={decision === answer.decision ? "is-active" : ""}
+          onClick={() => setDecision(answer.decision)}
+        >
+          {answer.label}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 const connectionVariantCopy: Record<
   Exclude<StudyVariant, "source">,
@@ -1116,6 +1180,7 @@ export function CompositionStudyWorkspace({
   const isVariationTransform = SCHOENBERG_VARIATION_TRANSFORM_IDS.has(exerciseId);
   const isVariationCompose = exerciseId === SCHOENBERG_VARIATION_IDS.compose;
   const isConnection = SCHOENBERG_CONNECTION_EXERCISE_IDS.has(exerciseId);
+  const isConnectionSource = SCHOENBERG_CONNECTION_SOURCE_IDS.has(exerciseId);
   const isConnectionRepair = exerciseId === SCHOENBERG_CONNECTION_IDS.repair;
   const isConnectionCompose = exerciseId === SCHOENBERG_CONNECTION_IDS.compose;
   const isSentence = SCHOENBERG_SENTENCE_EXERCISE_IDS.has(exerciseId);
@@ -1283,7 +1348,15 @@ export function CompositionStudyWorkspace({
         />
       )}
 
-      {isConnection && (
+      {isConnectionSource && (
+        <ConnectionSourceAnswerPanel
+          exerciseId={exerciseId}
+          decision={state?.decision ?? null}
+          setDecision={(next) => setStudyDecision(exerciseId, next)}
+        />
+      )}
+
+      {isConnection && !isConnectionSource && (
         <ConnectionPanel
           exerciseId={exerciseId}
           variant={state?.variant ?? "source"}
