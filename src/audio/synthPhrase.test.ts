@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { getSynthPhraseEvents } from "./synthPhrase";
+import {
+  eighthNoteSeconds,
+  getSynthPhraseEvents,
+  getSynthPhraseSchedule,
+} from "./synthPhrase";
 
 describe("synth phrase scheduling", () => {
   it("keeps every written melody event instead of truncating after eight notes", () => {
@@ -23,3 +27,44 @@ describe("synth phrase scheduling", () => {
     ]);
   });
 });
+
+
+  it("maps written steps and durations to the project BPM", () => {
+    const melody = [60, null, 64, null, 67];
+    const durations = [2, 1, 1, 1, 3];
+
+    expect(getSynthPhraseSchedule(melody, durations, 120)).toEqual([
+      {
+        midi: 60,
+        step: 0,
+        durationSteps: 2,
+        startSeconds: 0,
+        durationSeconds: 0.5,
+      },
+      {
+        midi: 64,
+        step: 2,
+        durationSteps: 1,
+        startSeconds: 0.5,
+        durationSeconds: 0.25,
+      },
+      {
+        midi: 67,
+        step: 4,
+        durationSteps: 3,
+        startSeconds: 1,
+        durationSeconds: 0.75,
+      },
+    ]);
+
+    expect(getSynthPhraseSchedule(melody, durations, 60)[1]).toMatchObject({
+      startSeconds: 1,
+      durationSeconds: 0.5,
+    });
+  });
+
+  it("converts an eighth note from BPM without relying on Tone transport state", () => {
+    expect(eighthNoteSeconds(96)).toBeCloseTo(0.3125);
+    expect(eighthNoteSeconds(120)).toBeCloseTo(0.25);
+    expect(() => eighthNoteSeconds(0)).toThrow();
+  });
