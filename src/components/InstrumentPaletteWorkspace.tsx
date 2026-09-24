@@ -1,4 +1,5 @@
 import { audioEngine } from "../audio/engine";
+import { diatonicChord } from "../music/harmony";
 import {
   bassVoices,
   chordVoices,
@@ -31,6 +32,7 @@ const touchDescriptions: Record<PianoTouch, string> = {
 
 export function InstrumentPaletteWorkspace() {
   const settings = useStudioStore((state) => state.instrumentSettings);
+  const tonalContext = useStudioStore((state) => state.tonalContext);
   const setSettings = useStudioStore((state) => state.setInstrumentSettings);
 
   const update = (patch: Partial<InstrumentSettings>) => {
@@ -52,7 +54,7 @@ export function InstrumentPaletteWorkspace() {
 
   const chooseChords = async (chordVoice: ChordVoice) => {
     update({ chordVoice });
-    await audioEngine.playChord("C");
+    await audioEngine.playChord(diatonicChord(tonalContext, 1));
   };
 
   return (
