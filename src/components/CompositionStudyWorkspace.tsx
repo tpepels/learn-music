@@ -1,6 +1,8 @@
 import { useEffect, useMemo } from "react";
 import { audioEngine } from "../audio/engine";
 import {
+  SCHOENBERG_COMPLETION_EXERCISE_IDS,
+  SCHOENBERG_COMPLETION_IDS,
   SCHOENBERG_CONNECTION_EXERCISE_IDS,
   SCHOENBERG_CONNECTION_IDS,
   SCHOENBERG_SENTENCE_EXERCISE_IDS,
@@ -11,6 +13,7 @@ import {
   studyComparisonSequence,
   studyConnectionSequence,
   studyVariationSequence,
+  type StudyCompletionMode,
   type StudyDuration,
   type StudyFeature,
   type StudyHarmony,
@@ -96,16 +99,26 @@ function StaffView({
   editable: boolean;
   unitStarts?: number[];
 }) {
+  const staffWidth = Math.max(760, 130 + notes.length * 39);
   return (
     <div className="study-staff-wrap">
       <svg
         className="study-staff"
-        viewBox="0 0 760 150"
+        viewBox={`0 0 ${staffWidth} 150`}
+        style={{ minWidth: staffWidth }}
+
         role="img"
         aria-label="Treble staff representation of the study phrase"
       >
         {[45, 53, 61, 69, 77].map((y) => (
-          <line key={y} x1="26" x2="738" y1={y} y2={y} className="staff-line" />
+          <line
+            key={y}
+            x1="26"
+            x2={staffWidth - 22}
+            y1={y}
+            y2={y}
+            className="staff-line"
+          />
         ))}
         <text x="34" y="73" className="staff-clef">𝄞</text>
         {unitStarts.filter((step) => step > 0).map((step) => {
@@ -159,7 +172,13 @@ function StaffView({
           );
         })}
       </svg>
-      <div className="study-motive-strip">
+      <div
+        className="study-motive-strip"
+        style={{
+          gridTemplateColumns: `repeat(${notes.length}, 1fr)`,
+          minWidth: Math.max(680, 78 + notes.length * 39),
+        }}
+      >
         {notes.map((_, step) => (
           <button
             type="button"
@@ -195,8 +214,16 @@ function PianoRollView({
 }) {
   return (
     <div className="study-roll-scroll">
-      <div className="study-roll">
-        <div className="study-roll-head">
+      <div
+        className="study-roll"
+        style={{ minWidth: Math.max(830, 52 + notes.length * 30) }}
+      >
+        <div
+          className="study-roll-head"
+          style={{
+            gridTemplateColumns: `52px repeat(${notes.length}, minmax(28px, 1fr))`,
+          }}
+        >
           <span />
           {notes.map((_, step) => (
             <span key={step} className={unitStarts.includes(step) ? "is-unit-start" : ""}>
@@ -205,7 +232,13 @@ function PianoRollView({
           ))}
         </div>
         {PITCH_ROWS.map((midi) => (
-          <div className="study-roll-row" key={midi}>
+          <div
+            className="study-roll-row"
+            key={midi}
+            style={{
+              gridTemplateColumns: `52px repeat(${notes.length}, minmax(28px, 1fr))`,
+            }}
+          >
             <button
               type="button"
               className="study-note-audition"
@@ -261,7 +294,13 @@ function DegreeView({
 }) {
   return (
     <div className="study-degree-scroll">
-      <div className="study-degree-grid">
+      <div
+        className="study-degree-grid"
+        style={{
+          gridTemplateColumns: `repeat(${notes.length}, minmax(44px, 1fr))`,
+          minWidth: Math.max(720, notes.length * 49),
+        }}
+      >
         {notes.map((midi, step) => (
           <div key={step} className={midi === null ? "is-rest" : ""}>
             <span>{step + 1}</span>
