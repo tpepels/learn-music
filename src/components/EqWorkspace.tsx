@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { mixerTrackIds, type MixerTrackId } from "../music/model";
 import { useStudioStore } from "../state/studio";
+import { LayerVolumeStrip } from "./LayerVolumeStrip";
 
 const labels: Record<MixerTrackId, string> = {
   drums: "DRUMS",
@@ -35,6 +36,8 @@ export function EqWorkspace() {
           Select a channel. The high-pass removes lows below a cutoff; the bell targets one frequency area with boost or cut.
         </span>
       </div>
+
+      <LayerVolumeStrip tracks={["drums", "bass", "chords", "melody"] as const} />
 
       <nav className="processor-track-tabs">
         {mixerTrackIds.map((id) => (
