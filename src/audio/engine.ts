@@ -48,7 +48,6 @@ import {
 import {
   BASS_STEPS,
   applyChordTexture,
-  chordMidi,
   cloneArrangement,
   cloneAutomationSettings,
   cloneEqSettings,
@@ -86,7 +85,6 @@ import {
   initialTextureSettings,
   initialVoicingSettings,
   mixerTrackIds,
-  voicedChordMidi,
   type AccompanimentPattern,
   type Arrangement,
   type AutomationSettings,
@@ -115,6 +113,19 @@ import {
   type TextureSettings,
   type VoicingSettings,
 } from "../music/model";
+import {
+  chordMidi as harmonicChordMidi,
+  cloneHarmonicProgression,
+  cloneTonalContext,
+  diatonicChord,
+  harmonicBassRootMidi,
+  initialHarmonicProgression,
+  initialTonalContext,
+  voicedHarmonicChordMidi,
+  type HarmonicChord,
+  type HarmonicProgression,
+  type TonalContext,
+} from "../music/harmony";
 
 const softPianoUrls = {
   A2: pianoSoftA2,
@@ -154,6 +165,9 @@ class AudioEngine {
   private melody: MelodySequence = [...initialMelody];
   private melodyDurations: NoteDurationLane = [...initialMelodyDurations];
   private chordProgression: ChordProgression = [...initialChordProgression];
+  private tonalContext: TonalContext = cloneTonalContext(initialTonalContext);
+  private harmonicProgression: HarmonicProgression =
+    cloneHarmonicProgression(initialHarmonicProgression);
   private harmonySequence: HarmonySequence =
     cloneHarmonySequence(initialHarmonySequence);
   private harmonyDurations: HarmonyDurations =
@@ -245,6 +259,14 @@ class AudioEngine {
 
   setChordProgression(chords: ChordProgression) {
     this.chordProgression = [...chords];
+  }
+
+  setTonalContext(context: TonalContext) {
+    this.tonalContext = cloneTonalContext(context);
+  }
+
+  setHarmonicProgression(progression: HarmonicProgression) {
+    this.harmonicProgression = cloneHarmonicProgression(progression);
   }
 
   setHarmonySequence(sequence: HarmonySequence) {
@@ -1128,14 +1150,14 @@ class AudioEngine {
   }
 
   private triggerChordPattern(
-    chord: ChordName,
+    chord: HarmonicChord,
     inversion: ChordInversion,
     localStep: number,
     time: number,
     velocity = 0.48,
   ) {
     const notes = applyChordTexture(
-      voicedChordMidi(chord, inversion),
+      voicedHarmonicChordMidi(chord, this.tonalContext, inversion),
       this.textureSettings,
     ).map((midi) => Tone.Frequency(midi, "midi").toNote());
 
@@ -1174,13 +1196,13 @@ class AudioEngine {
   async playChords(bpm: number, onStep: (step: number) => void) {
     if (!(await this.prepare(bpm, onStep, ["chords"]))) return false;
     const transport = Tone.getTransport();
-    const totalSteps = this.chordProgression.length * 16;
+    const totalSteps = this.harmonicProgression.length * 16;
 
     this.eventId = transport.scheduleRepeat((time) => {
       const globalStep = this.step;
       const barIndex = Math.floor(globalStep / 16);
       const localStep = globalStep % 16;
-      const chord = this.chordProgression[barIndex];
+      const chord = this.harmonicProgression[barIndex];
 
       if (chord) {
         const inversion = this.voicingSettings.inversions[barIndex] ?? 0;
@@ -1232,7 +1254,7 @@ class AudioEngine {
       )
     )) return false;
     const transport = Tone.getTransport();
-    const totalTransportSteps = this.chordProgression.length * 16;
+    const totalTransportSteps = this.harmonicProgression.length * 16;
 
     this.eventId = transport.scheduleRepeat((time) => {
       const globalStep = this.step;
@@ -1390,10 +1412,12 @@ class AudioEngine {
       }
 
       const chordSlot =
-        this.chordProgression.length > 0
-          ? barIndex % this.chordProgression.length
+        this.harmonicProgression.length > 0
+          ? barIndex % this.harmonicProgression.length
           : 0;
-      const chord = this.chordProgression[chordSlot] ?? "C";
+      const chord =
+        this.harmonicProgression[chordSlot] ??
+        diatonicChord(this.tonalContext, 1);
 
       if (bar?.chords) {
         const hasWrittenHarmony = this.harmonySequence.some(
@@ -1434,8 +1458,7 @@ class AudioEngine {
           localStep % 4 === 0
         ) {
           const rootMidi =
-            chordMidi[chord][0] -
-            12 +
+            harmonicBassRootMidi(chord, this.tonalContext) +
             this.textureSettings.bassOctave * 12;
           this.triggerBassNote(
             Tone.Frequency(rootMidi, "midi").toNote(),
@@ -1531,19 +1554,19 @@ class AudioEngine {
     );
   }
 
-  async playChordPreview(chord: ChordName, inversion: ChordInversion = 0) {
+  async playChordPreview(chord: HarmonicChord, inversion: ChordInversion = 0) {
     await Tone.start();
     this.ensureVoices(["chords"]);
     await Tone.loaded();
 
     const notes = applyChordTexture(
-      voicedChordMidi(chord, inversion),
+      voicedHarmonicChordMidi(chord, this.tonalContext, inversion),
       this.textureSettings,
     ).map((midi) => Tone.Frequency(midi, "midi").toNote());
     this.triggerChordNotes(notes, "2n", undefined, 0.7);
   }
 
-  async playChord(chord: ChordName, inversion: ChordInversion = 0) {
+  async playChord(chord: HarmonicChord, inversion: ChordInversion = 0) {
     await this.playChordPreview(chord, inversion);
   }
 
@@ -1583,7 +1606,7 @@ class AudioEngine {
       }
 
       if (!hasWrittenHarmony) {
-        const chord = this.chordProgression[barIndex];
+        const chord = this.harmonicProgression[barIndex];
         if (chord) {
           this.triggerChordPattern(
             chord,
