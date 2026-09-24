@@ -164,6 +164,7 @@ class AudioEngine {
   private pattern: StepPattern = clonePattern(initialPattern);
   private melody: MelodySequence = [...initialMelody];
   private studySequence: MelodySequence = Array.from({ length: 16 }, () => null);
+  private studyDurations: number[] = Array.from({ length: 16 }, () => 1);
   private melodyDurations: NoteDurationLane = [...initialMelodyDurations];
   private chordProgression: ChordProgression = [...initialChordProgression];
   private tonalContext: TonalContext = cloneTonalContext(initialTonalContext);
@@ -251,8 +252,12 @@ class AudioEngine {
     this.melody = [...melody];
   }
 
-  setStudySequence(sequence: MelodySequence) {
+  setStudySequence(sequence: MelodySequence, durations?: number[]) {
     this.studySequence = [...sequence];
+    this.studyDurations = Array.from(
+      { length: sequence.length },
+      (_, index) => Math.max(1, durations?.[index] ?? 1),
+    );
   }
 
   setMelodyDurations(durations: NoteDurationLane) {
@@ -1124,7 +1129,7 @@ class AudioEngine {
       if (midi !== null && midi !== undefined) {
         this.triggerPiano(
           Tone.Frequency(midi, "midi").toNote(),
-          "8n",
+          this.noteDuration(this.studyDurations[step] ?? 1),
           time,
           0.68,
         );
