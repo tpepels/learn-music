@@ -77,6 +77,7 @@ export const exerciseContentSchema = z.object({
     "seventh-harmony",
     "borrowed-harmony",
     "instrument-palette",
+    "transposition",
   ]),
   checksLabel: z.string(),
   successLabel: z.string(),
