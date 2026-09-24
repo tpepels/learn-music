@@ -1,7 +1,7 @@
 import {
-  bassChordToneMidis,
-  bassRootMidi,
-} from "../music/model";
+  harmonicBassChordToneMidis,
+  harmonicBassRootMidi,
+} from "../music/harmony";
 import { changedControl, heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
@@ -49,14 +49,19 @@ export const bassLinesLesson: LessonDefinition = {
         checksLabel: "Anchor the harmony",
         successLabel: "Every bar begins with its chord root",
       }),
-      evaluate: ({ chordProgression, bassSequence, experiments }) => [
+      evaluate: ({
+        harmonicProgression,
+        tonalContext,
+        bassSequence,
+        experiments,
+      }) => [
         { label: "You placed the four anchors in this exercise", complete: changedControl(experiments, "bass.edit", 4) },
         { label: "You listened to the roots under the track", complete: heardPlayback(experiments) },
         ...barStarts.map((step, bar) => ({
           label: "Bar " + (bar + 1) + " begins on its chord root",
           complete: Boolean(
-            chordProgression[bar] &&
-              bassSequence[step] === bassRootMidi(chordProgression[bar]!),
+            harmonicProgression[bar] &&
+              bassSequence[step] === bassRootMidi(harmonicProgression[bar]!),
           ),
         })),
       ],
@@ -81,17 +86,22 @@ export const bassLinesLesson: LessonDefinition = {
         checksLabel: "Outline the chords",
         successLabel: "The bass now describes more than just the roots",
       }),
-      evaluate: ({ chordProgression, bassSequence, experiments }) => [
+      evaluate: ({
+        harmonicProgression,
+        tonalContext,
+        bassSequence,
+        experiments,
+      }) => [
         { label: "You added chord-tone movement in this exercise", complete: changedControl(experiments, "bass.edit", 4) },
         { label: "You listened to the outline with the harmony", complete: heardPlayback(experiments) },
         ...beatThree.map((step, bar) => {
-          const chord = chordProgression[bar];
+          const chord = harmonicProgression[bar];
           return {
             label: "Bar " + (bar + 1) + " uses a chord tone on beat 3",
             complete: Boolean(
               chord &&
                 bassSequence[step] !== null &&
-                bassChordToneMidis(chord).includes(bassSequence[step]!),
+                harmonicBassChordToneMidis(chord, tonalContext).includes(bassSequence[step]!),
             ),
           };
         }),
@@ -118,15 +128,20 @@ export const bassLinesLesson: LessonDefinition = {
         checksLabel: "Lead into the changes",
         successLabel: "The bass now points forward into later chords",
       }),
-      evaluate: ({ chordProgression, bassSequence, experiments }) => {
+      evaluate: ({
+        harmonicProgression,
+        tonalContext,
+        bassSequence,
+        experiments,
+      }) => {
         const completed = approaches.filter((step, index) => {
           const nextBar = (index + 1) % 4;
-          const nextChord = chordProgression[nextBar];
+          const nextChord = harmonicProgression[nextBar];
           const note = bassSequence[step];
           return Boolean(
             nextChord &&
               note !== null &&
-              Math.abs(note! - bassRootMidi(nextChord)) <= 2,
+              Math.abs(note! - harmonicBassRootMidi(nextChord, tonalContext)) <= 2,
           );
         }).length;
 
@@ -165,7 +180,12 @@ export const bassLinesLesson: LessonDefinition = {
         checksLabel: "Complete the phrase",
         successLabel: "The bass now works as harmony, rhythm, and melody at once",
       }),
-      evaluate: ({ chordProgression, bassSequence, experiments }) => {
+      evaluate: ({
+        harmonicProgression,
+        tonalContext,
+        bassSequence,
+        experiments,
+      }) => {
         const notes = bassSequence.filter((note) => note !== null);
         const offbeats = bassSequence.filter(
           (note, step) => note !== null && step % 2 === 1,
@@ -178,8 +198,8 @@ export const bassLinesLesson: LessonDefinition = {
             label: "All four bar starts still land on chord roots",
             complete: barStarts.every((step, bar) =>
               Boolean(
-                chordProgression[bar] &&
-                  bassSequence[step] === bassRootMidi(chordProgression[bar]!),
+                harmonicProgression[bar] &&
+                  bassSequence[step] === bassRootMidi(harmonicProgression[bar]!),
               ),
             ),
           },
