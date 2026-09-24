@@ -1,6 +1,10 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { resetLessonProgressState } from "../learning/progress";
+import {
+  resetLessonProgressState,
+  sanitizeLearningProgress,
+} from "../learning/progress";
+import { implementedLessons } from "../lessons/course";
 import {
   LESSON_FIVE_ID,
   LESSON_FIVE_RECOVERY_PITCH_CLASSES,
@@ -97,7 +101,26 @@ import {
 } from "../music/model";
 
 const FIRST_LESSON_ID = "rhythm.pulse-and-groove";
-const cookieProgress = readLearningProgressCookie();
+const progressDefinitions = implementedLessons.map((lesson) => ({
+  id: lesson.id,
+  exerciseIds: lesson.exercises.map((exercise) => exercise.id),
+}));
+
+function readSanitizedLearningProgress(): LearningProgressCookie | null {
+  const progress = readLearningProgressCookie();
+  if (!progress) return null;
+
+  return {
+    version: 2,
+    ...sanitizeLearningProgress(
+      progress,
+      progressDefinitions,
+      FIRST_LESSON_ID,
+    ),
+  };
+}
+
+const cookieProgress = readSanitizedLearningProgress();
 
 function progressSnapshot(state: Pick<
   StudioState,
@@ -1349,7 +1372,7 @@ export const useStudioStore = create<StudioState>()(
       merge: (persistedState, currentState) => {
         const persisted = (persistedState ?? {}) as Partial<StudioState>;
         const migrated = migratePersistedStudioState(persisted);
-        const progress = readLearningProgressCookie();
+        const progress = readSanitizedLearningProgress();
 
         return {
           ...currentState,
