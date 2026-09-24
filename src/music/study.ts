@@ -177,11 +177,33 @@ export const SCHOENBERG_COMPLETION_IDS = {
   sequence: "schoenberg.completing-sentence.b",
   liquidation: "schoenberg.completing-sentence.c",
   compose: "schoenberg.completing-sentence.d",
+  ex52: "schoenberg.completing-sentence.e",
+  ex53_56: "schoenberg.completing-sentence.f",
+  ex57_58: "schoenberg.completing-sentence.g",
+  ex59: "schoenberg.completing-sentence.h",
+  ex60: "schoenberg.completing-sentence.i",
+  ex61: "schoenberg.completing-sentence.j",
+  compare: "schoenberg.completing-sentence.k",
+  final: "schoenberg.completing-sentence.l",
 } as const;
 
 export const SCHOENBERG_COMPLETION_EXERCISE_IDS = new Set<string>(
   Object.values(SCHOENBERG_COMPLETION_IDS),
 );
+
+export const SCHOENBERG_COMPLETION_SOURCE_IDS = new Set<string>([
+  SCHOENBERG_COMPLETION_IDS.ex52,
+  SCHOENBERG_COMPLETION_IDS.ex53_56,
+  SCHOENBERG_COMPLETION_IDS.ex57_58,
+  SCHOENBERG_COMPLETION_IDS.ex59,
+  SCHOENBERG_COMPLETION_IDS.ex60,
+  SCHOENBERG_COMPLETION_IDS.ex61,
+]);
+
+export const SCHOENBERG_COMPLETION_COMPOSE_IDS = new Set<string>([
+  SCHOENBERG_COMPLETION_IDS.compose,
+  SCHOENBERG_COMPLETION_IDS.final,
+]);
 
 export const studyTransformationFeature: Record<
   Exclude<StudyTransformation, "source">,
@@ -1723,6 +1745,36 @@ function defaultExerciseState(id: string): StudyExerciseState {
   }
 
   if (id === SCHOENBERG_COMPLETION_IDS.compose) {
+    return {
+      ...baseState(studyCompletionSequence("complete")),
+      completionMode: "complete",
+      notation: "piano-roll",
+    };
+  }
+
+  if (SCHOENBERG_COMPLETION_SOURCE_IDS.has(id)) {
+    const mode: StudyCompletionMode =
+      id === SCHOENBERG_COMPLETION_IDS.ex53_56
+        ? "sequence"
+        : id === SCHOENBERG_COMPLETION_IDS.ex61
+          ? "liquidation"
+          : "developed-continuation";
+    return {
+      ...baseState(studyCompletionSequence(mode)),
+      completionMode: mode,
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_COMPLETION_IDS.compare) {
+    return {
+      ...baseState(studyCompletionSequence("complete")),
+      completionMode: "complete",
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_COMPLETION_IDS.final) {
     return {
       ...baseState(studyCompletionSequence("complete")),
       completionMode: "complete",
