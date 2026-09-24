@@ -278,17 +278,17 @@ function connectionBlock(
       };
     case "auxiliary":
       return {
-        notes: [60 + transpose, 61 + transpose, 62 + transpose, 65 + transpose],
+        notes: [60, 61, 62, 65],
         durations: [...connectionSourceDurations],
       };
     case "reduction":
       return {
-        notes: [60 + transpose, null, 65 + transpose, 64 + transpose],
+        notes: [60, null, 65, 64],
         durations: [...connectionSourceDurations],
       };
     case "displacement":
       return {
-        notes: [null, 60 + transpose, 62 + transpose, 65 + transpose],
+        notes: [null, 60, 62, 65],
         durations: [...connectionSourceDurations],
       };
     case "source":
