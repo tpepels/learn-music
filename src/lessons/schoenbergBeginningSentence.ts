@@ -334,6 +334,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         source: {
           reference:
             "Example 35a Beethoven Op.2/1-I; Example 35b Beethoven Op.10/2-I",
+          exampleIds: ["s04-ex35"],
           focus:
             "Schoenberg chooses these because the first phrase is supported only by I and the second only by V, making complementary repetition especially clear. The interactive line is a reduction of that relation, not a transcription.",
         },
@@ -378,6 +379,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         source: {
           reference:
             "Example 36 Beethoven String Quartet Op.18/4-I, mm.34-37; Example 37 Beethoven String Quartet Op.18/6-IV, mm.45-48",
+          exampleIds: ["s04-ex36-37"],
           focus:
             "Ex. 36 expands the complementary pair to I-V-I / V-I-V. Ex. 37 shows that the dominant form may also include passing harmonies.",
         },
@@ -422,6 +424,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         source: {
           reference:
             "Example 38 Mozart String Quartet K.464-I; Example 39 Mozart String Quartet K.465-I, mm.23-26",
+          exampleIds: ["s04-ex38-39"],
           focus:
             "Schoenberg explicitly points out non-mechanical preservation in Ex. 38 and the simpler underlying V-I dominant form hidden by elaborate part-writing in Ex. 39.",
         },
@@ -465,6 +468,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
           "In the second pair, can rhythm preserve phrase identity even when the melodic contour no longer copies the first phrase exactly?",
         source: {
           reference: "Example 40a-c - from Example 30",
+          exampleIds: ["s04-ex40"],
           focus:
             "Schoenberg contrasts exact following of the tonic phrase's contour in 40a with 40b-c, where rhythm is preserved but contour is treated more freely.",
         },
@@ -509,6 +513,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
           "Does the second pair feel clearer because the answer preserves the main relation instead of trying to duplicate every local harmonic event?",
         source: {
           reference: "Example 41a-c - from Example 30",
+          exampleIds: ["s04-ex41"],
           focus:
             "Schoenberg's comment is explicit: answer only the main harmonies when a literal answer is impracticable, and use consistent accompaniment as a strong unifying factor.",
         },
