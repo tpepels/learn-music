@@ -20,6 +20,7 @@ type PaintGesture = {
 
 export function ArrangementWorkspace() {
   const arrangement = useStudioStore((state) => state.arrangement);
+  const melody = useStudioStore((state) => state.melody);
   const setArrangementLayer = useStudioStore(
     (state) => state.setArrangementLayer,
   );
@@ -29,6 +30,7 @@ export function ArrangementWorkspace() {
   const currentStep = useStudioStore((state) => state.currentStep);
   const isPlaying = useStudioStore((state) => state.isPlaying);
   const paintGesture = useRef<PaintGesture | null>(null);
+  const hasWrittenMelody = melody.some((note) => note !== null);
 
   useEffect(() => {
     const finishPaint = () => {
@@ -112,7 +114,11 @@ export function ArrangementWorkspace() {
           <div className="arrangement-row" key={layer}>
             <div className="arrangement-label">
               <strong>{labels[layer].name}</strong>
-              <span>{labels[layer].role}</span>
+              <span>
+                {layer === "melody" && !hasWrittenMelody
+                  ? "fallback motif · write your own in Melody"
+                  : labels[layer].role}
+              </span>
             </div>
 
             {arrangement.map((bar, barIndex) => (
