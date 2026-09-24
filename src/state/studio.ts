@@ -7,10 +7,7 @@ import {
   RECOVERED_LESSON_IDS,
   lessonFiveRecoveryProject,
 } from "../learning/catchUp";
-import {
-  migrateFormSettings,
-  migrateGrooveFeelSettings,
-} from "./migrations";
+import { migratePersistedStudioState } from "./migrations";
 import {
   readLearningProgressCookie,
   writeLearningProgressCookie,
@@ -1348,33 +1345,15 @@ export const useStudioStore = create<StudioState>()(
       }),
       merge: (persistedState, currentState) => {
         const persisted = (persistedState ?? {}) as Partial<StudioState>;
+        const migrated = migratePersistedStudioState(persisted);
         const progress = readLearningProgressCookie();
 
         return {
           ...currentState,
           ...persisted,
-          melodyDurations: normalizeMonophonicDurations(
-            persisted.melody ?? currentState.melody,
-            persisted.melodyDurations ?? currentState.melodyDurations,
-          ),
-          harmonySequence:
-            persisted.harmonySequence ?? currentState.harmonySequence,
-          harmonyDurations: normalizeHarmonyDurations(
-            persisted.harmonySequence ?? currentState.harmonySequence,
-            persisted.harmonyDurations ?? currentState.harmonyDurations,
-          ),
-          bassDurations: normalizeMonophonicDurations(
-            persisted.bassSequence ?? currentState.bassSequence,
-            persisted.bassDurations ?? currentState.bassDurations,
-          ),
+          ...migrated,
           learningExperiments:
             persisted.learningExperiments ?? currentState.learningExperiments,
-          grooveFeelSettings: migrateGrooveFeelSettings(
-            persisted.grooveFeelSettings,
-          ),
-          formSettings: migrateFormSettings(persisted.formSettings),
-          accompanimentPattern:
-            persisted.accompanimentPattern ?? currentState.accompanimentPattern,
           ...(progress
             ? {
                 currentLessonId: progress.currentLessonId,
