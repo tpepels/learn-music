@@ -1102,6 +1102,44 @@ function App() {
 
           </div>
 
+          {activeTrack.id === "play-lab" && canRecoverToLessonFive && (
+            <div className="catch-up-card">
+              <span className="section-label">Recovery</span>
+              <strong>Already covered lessons 1–4?</strong>
+              <p>
+                Rebuild a starter groove, melody and harmony, mark the first four
+                lessons complete, and continue at Sound & synthesis.
+              </p>
+              <button
+                className={confirmCatchUp ? "catch-up-button is-confirming" : "catch-up-button"}
+                type="button"
+                onClick={recoverBasics}
+              >
+                {confirmCatchUp
+                  ? "Confirm · replace the current project"
+                  : "Recover to lesson 5"}
+              </button>
+              {confirmCatchUp && (
+                <button
+                  className="lesson-reset-cancel"
+                  type="button"
+                  onClick={() => setConfirmCatchUp(false)}
+                >
+                  Cancel
+                </button>
+              )}
+            </div>
+          )}
+        </aside>
+
+        <main className="music-panel">
+          <section className="music-intro">
+            <span className="lesson-context">{lesson.title}</span>
+            <h1>{exercise.letter} · {exercise.title}</h1>
+          </section>
+
+          <LearningPanel exercise={exercise} lessonNumber={lesson.number} />
+
           <Workspace exercise={exercise} />
         </main>
 
