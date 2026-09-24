@@ -2,6 +2,9 @@ name: Validate branch manually
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - fix/tempo-synced-delay-v2
 
 permissions:
   contents: read
