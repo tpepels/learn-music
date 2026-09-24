@@ -117,7 +117,7 @@ function SourceScore({
 
       <div className="source-score-meta">
         <span>{score.keyLabel}</span>
-        <span>{score.meter}</span>
+        {score.meter ? <span>{score.meter}</span> : null}
         <span>{score.bpm} BPM study playback</span>
       </div>
 
@@ -142,12 +142,16 @@ function SourceScore({
           <text x="38" y="91" className="source-score-clef">
             {score.clef === "treble" ? "𝄞" : "𝄢"}
           </text>
-          <text x="84" y="75" className="source-score-meter">
-            {score.meter.split("/")[0]}
-          </text>
-          <text x="84" y="91" className="source-score-meter">
-            {score.meter.split("/")[1]}
-          </text>
+          {score.meter ? (
+            <>
+              <text x="84" y="75" className="source-score-meter">
+                {score.meter.split("/")[0]}
+              </text>
+              <text x="84" y="91" className="source-score-meter">
+                {score.meter.split("/")[1]}
+              </text>
+            </>
+          ) : null}
 
           {score.events.map((event, index) => {
             const x = xForEvent(index);
