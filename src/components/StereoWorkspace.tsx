@@ -1,5 +1,6 @@
 import { mixerTrackIds, type MixerTrackId } from "../music/model";
 import { useStudioStore } from "../state/studio";
+import { LayerVolumeStrip } from "./LayerVolumeStrip";
 
 const labels: Record<MixerTrackId, string> = {
   drums: "DRUMS",
@@ -27,6 +28,8 @@ export function StereoWorkspace() {
           Pan places a channel left/right. Width changes mid/side balance. Bass usually needs a stable centre; supporting layers can occupy more width.
         </span>
       </div>
+
+      <LayerVolumeStrip tracks={["drums", "bass", "chords", "melody"] as const} />
 
       <div className="stereo-stage" aria-label="Stereo placement view">
         <span className="speaker left">L</span>
