@@ -9,7 +9,7 @@ export type LearningProgressCookie = {
 export const PROGRESS_COOKIE_NAME = "play_lab_progress_v1";
 const ONE_YEAR_SECONDS = 60 * 60 * 24 * 365;
 const EXERCISE_LETTERS = [
-  "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+  "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
 ] as const;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
