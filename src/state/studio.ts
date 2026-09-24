@@ -14,6 +14,10 @@ import {
   type LearningProgressCookie,
 } from "../persistence/progressCookie";
 import {
+  resetEffectsWorkspaceState,
+  resetStereoWorkspaceState,
+} from "./workspaceReset";
+import {
   cloneArrangement,
   cloneEqSettings,
   cloneGrooveFeelSettings,
@@ -198,6 +202,7 @@ type StudioState = {
   resetDynamics: () => void;
   setEffectsSettings: (settings: Partial<EffectsSettings>) => void;
   resetEffects: () => void;
+  resetEffectsWorkspace: () => void;
   markProjectExported: () => void;
   setAppMode: (mode: "learn" | "create" | "studio") => void;
   loadProject: (project: ProjectData) => void;
@@ -229,6 +234,7 @@ type StudioState = {
   setStereoWidth: (track: MixerTrackId, width: number) => void;
   setMonoAudition: (enabled: boolean) => void;
   resetStereo: () => void;
+  resetStereoWorkspace: () => void;
   captureReferenceSnapshot: () => void;
   setReferenceTrim: (trimDb: number) => void;
   registerReferenceComparison: () => void;
@@ -817,6 +823,9 @@ export const useStudioStore = create<StudioState>()(
       resetEffects: () =>
         set({ effectsSettings: { ...initialEffectsSettings } }),
 
+      resetEffectsWorkspace: () =>
+        set((state) => resetEffectsWorkspaceState(state.mixerSettings)),
+
       markProjectExported: () =>
         set((state) => ({
           projectMilestones: {
@@ -1147,6 +1156,9 @@ export const useStudioStore = create<StudioState>()(
 
       resetStereo: () =>
         set({ stereoSettings: cloneStereoSettings(initialStereoSettings) }),
+
+      resetStereoWorkspace: () =>
+        set((state) => resetStereoWorkspaceState(state.mixerSettings)),
 
       captureReferenceSnapshot: () =>
         set((state) => ({
