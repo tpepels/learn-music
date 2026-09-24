@@ -39,9 +39,11 @@ A learner should never be told to analyse an example that is only named.
 
 Preferred flow:
 
-**original source example → guided analysis → interactive reduction/abstraction → learner application**
+**native source example → guided analysis → interactive transformation/reduction → learner application**
 
-Reductions are useful, but must be labelled as reductions. They must not silently replace the original repertoire example.
+When practical, reproduce the source example as structured musical data and render it natively in the app. The score should be playable, inspectable, and reusable across notation views. Raster crops of book pages are a fallback only when faithful native reconstruction is not yet practical.
+
+Reductions and partial analytical extractions are useful, but must be labelled clearly. They must not silently replace the original repertoire example or imply that omitted voices/details were present.
 
 ## 5. Use authentic musical language
 
