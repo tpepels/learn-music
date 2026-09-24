@@ -134,6 +134,65 @@ export const schoenbergSourceMaterial: Record<
     ],
   },
 
+  "s01.ex6a": {
+    kind: "score",
+    id: "s01.ex6a",
+    reference: "Ex. 6a",
+    title: "Smaller note values",
+    attribution: "Subexample a transcribed from Schoenberg's Ex. 6",
+    fidelity: "verified-excerpt",
+    fidelityNote:
+      "Native transcription of Ex. 6a from the supplied book scan: F-A-C followed by a rest, all in smaller values than Ex. 5a. The book does not print a time signature for this isolated unit, so PLAY / LAB does not add one.",
+    clef: "treble",
+    keyLabel: "F major · 1 flat",
+    bpm: 92,
+    events: [
+      { midi: 65, duration: 2 },
+      { midi: 69, duration: 2 },
+      { midi: 72, duration: 2 },
+      { midi: null, duration: 2, barAfter: true },
+    ],
+  },
+
+  "s01.ex7a": {
+    kind: "score",
+    id: "s01.ex7a",
+    reference: "Ex. 7a",
+    title: "Added upbeat and varied note values",
+    attribution: "Subexample a transcribed from Schoenberg's Ex. 7",
+    fidelity: "verified-excerpt",
+    fidelityNote:
+      "Native transcription of Ex. 7a from the supplied book scan. The B-flat pickup is followed by the longer F-D span exactly as printed. No time signature is added because the isolated subexample does not print one.",
+    clef: "treble",
+    keyLabel: "F major · 1 flat",
+    bpm: 96,
+    events: [
+      { midi: 70, duration: 2, accidental: "♭", barAfter: true },
+      { midi: 77, duration: 4 },
+      { midi: 74, duration: 4, barAfter: true },
+    ],
+  },
+
+  "s01.ex8a": {
+    kind: "score",
+    id: "s01.ex8a",
+    reference: "Ex. 8a",
+    title: "Passing note added to Ex. 5",
+    attribution: "Subexample a transcribed from Schoenberg's Ex. 8",
+    fidelity: "verified-excerpt",
+    fidelityNote:
+      "Native transcription of Ex. 8a from the supplied book scan: the earlier F-A-C framework is connected by the printed B-flat passing motion. The notation and playback use the same source data.",
+    clef: "treble",
+    keyLabel: "F major · 1 flat",
+    bpm: 92,
+    events: [
+      { midi: 65, duration: 4 },
+      { midi: 69, duration: 3 },
+      { midi: 70, duration: 1, accidental: "♭", barAfter: true },
+      { midi: 72, duration: 4, barAfter: true },
+    ],
+  },
+
   "s01.ex5": map(
     "s01.ex5",
     "Ex. 5",
