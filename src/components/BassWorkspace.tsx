@@ -1,5 +1,6 @@
 import { audioEngine } from "../audio/engine";
 import {
+  chordSymbol,
   harmonicBassRootMidi,
   isMidiInTonalContext,
   keyLabel,
@@ -58,7 +59,7 @@ export function BassWorkspace() {
         {progression.map((chord, bar) => (
           <div key={bar}>
             <small>BAR {bar + 1}</small>
-            <strong>{chord ?? "—"}</strong>
+            <strong>{chord ? chordSymbol(chord, tonalContext) : "—"}</strong>
             <span>{chord
                   ? "root " + midiNoteName(harmonicBassRootMidi(chord, tonalContext))
                   : "set chord first"}</span>
