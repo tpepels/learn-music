@@ -1170,6 +1170,35 @@ export const productionContext: Record<string, ProductionContext> = {
     realWorld: "A practical workflow is to duplicate the source, apply several edits, loop both versions, then revise the transformed copy until the relationship is convincing.",
   },
 
+  "schoenberg.connecting-motive-forms.a": {
+    why: "A phrase needs enough common content to sound coherent and enough contrast to avoid sounding like one loop copied four times.",
+    when: "Use this when several motive-forms are individually plausible but the larger phrase still feels either static or disconnected.",
+    tools: ["Loop playback", "Staff notation", "Piano roll", "Motive labels"],
+    visual: "motif",
+    realWorld: "Composers often duplicate one short MIDI idea into several phrase cells, then compare how much material each cell retains before committing to the phrase.",
+  },
+  "schoenberg.connecting-motive-forms.b": {
+    why: "An intermediate motive-form can make a later version feel prepared by carrying common rhythm, contour or interval features across the transition.",
+    when: "Use it when two related ideas still feel abruptly juxtaposed and need a clearer musical route between them.",
+    tools: ["A/B comparison", "Loop playback", "Piano roll", "Phrase cells"],
+    visual: "motif",
+    realWorld: "In a DAW or notation editor, a composer can insert and audition alternate middle cells while leaving the surrounding phrase fixed.",
+  },
+  "schoenberg.connecting-motive-forms.c": {
+    why: "Repairing one foreign-sounding cell trains you to hear coherence across a whole phrase rather than judge each motive-form in isolation.",
+    when: "Use it when one bar or phrase fragment suddenly sounds as though it came from another piece.",
+    tools: ["Piano roll", "Source overlay", "Loop playback", "Staff view"],
+    visual: "motif",
+    realWorld: "A common editing workflow is to loop the complete phrase while changing only the weak cell until its contour, pitches or rhythm reconnect with the source material.",
+  },
+  "schoenberg.connecting-motive-forms.d": {
+    why: "Building several related forms from one basic motive turns transformation into phrase construction: the changes now have to function together over time.",
+    when: "Use it before larger sentence and period work, once individual motive transformations are understood but still feel like isolated exercises.",
+    tools: ["Piano roll", "Staff notation", "Scale degrees", "Source overlay"],
+    visual: "motif",
+    realWorld: "A composer can treat a short MIDI clip as a seed, derive several related cells, then revise the chain while looping the entire phrase rather than judging one cell at a time.",
+  },
+
 };
 
 export function getProductionContext(exerciseId: string): ProductionContext {
