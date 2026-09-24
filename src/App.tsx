@@ -335,7 +335,7 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
     case "harmony-song":
       return <HarmonySequencerWorkspace />;
     case "synth":
-      return <SynthWorkspace />;
+      return <SynthWorkspace exerciseId={exercise.id} />;
     case "arrangement":
       return <ArrangementWorkspace />;
     case "mixer":
