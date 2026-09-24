@@ -4,6 +4,7 @@ import {
   type PitchClass,
 } from "../music/harmony";
 import { useStudioStore } from "../state/studio";
+import { LayerVolumeStrip } from "./LayerVolumeStrip";
 import { ChordWorkspace } from "./ChordWorkspace";
 import { MelodyWorkspace } from "./PianoWorkspace";
 
@@ -31,6 +32,8 @@ export function TranspositionWorkspace() {
           The key control below changes harmonic spelling. The transpose buttons move the written melody, harmony notes and bass by the same interval as well.
         </span>
       </div>
+
+      <LayerVolumeStrip tracks={["chords", "melody"] as const} />
 
       <div className="chord-note">
         <strong>Transpose the whole project</strong>
