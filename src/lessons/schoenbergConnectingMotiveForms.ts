@@ -294,6 +294,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
           "Do the later cells feel like consequences of one derivative rather than new material introduced each time?",
         source: {
           reference: "Example 30 - A phrase built from a broken-chord derivative (Ex. 21d)",
+          exampleIds: ["s03-ex30"],
           focus:
             "The app reduction keeps the phrase-building principle - one broken-chord derivative generates successive related cells - without copying Schoenberg's engraving.",
         },
@@ -337,6 +338,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
           "If the pitch surface changes, can the rhythm still tell you immediately that the forms belong together?",
         source: {
           reference: "Example 31 - Closely related motive-forms; essential rhythmic features retained",
+          exampleIds: ["s03-ex31"],
           focus:
             "The reduction preserves one rhythmic profile across changing pitch forms to isolate the relationship Schoenberg highlights.",
         },
@@ -380,6 +382,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
           "How far can pitch direction change before the repeated rhythm becomes the main carrier of identity?",
         source: {
           reference: "Example 32 - Rhythm strictly preserved; changes of direction and transposition",
+          exampleIds: ["s03-ex32"],
           focus:
             "The reduction keeps one rhythm fixed while altering direction and pitch level, exactly the relationship named in the printed heading and prose.",
         },
@@ -423,6 +426,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
           "Can you still trace the derivation even when several characteristic features are being altered at once?",
         source: {
           reference: "Example 33 - farther-reaching variations through combined changes",
+          exampleIds: ["s03-ex33"],
           focus:
             "The reduction deliberately changes more than one parameter per cell to model Schoenberg's move from close relationship to more remote derivation.",
         },
@@ -466,6 +470,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
           "Does the reduction still have enough continuity to sound intentionally derived, or have the shifts and omissions broken comprehensibility?",
         source: {
           reference: "Example 34 - Rhythmic shifts, added upbeats, reduction, omission of features",
+          exampleIds: ["s03-ex34"],
           focus:
             "This final example broadens the resource for continuation and contrast while the prose immediately warns about comprehensibility and demands true phrase character.",
         },
