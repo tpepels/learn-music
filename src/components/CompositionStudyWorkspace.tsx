@@ -3,6 +3,8 @@ import { audioEngine } from "../audio/engine";
 import {
   SCHOENBERG_CONNECTION_EXERCISE_IDS,
   SCHOENBERG_CONNECTION_IDS,
+  SCHOENBERG_SENTENCE_EXERCISE_IDS,
+  SCHOENBERG_SENTENCE_IDS,
   SCHOENBERG_STUDY_IDS,
   SCHOENBERG_VARIATION_EXERCISE_IDS,
   SCHOENBERG_VARIATION_IDS,
@@ -11,7 +13,9 @@ import {
   studyVariationSequence,
   type StudyDuration,
   type StudyFeature,
+  type StudyHarmony,
   type StudyNotation,
+  type StudySentenceMode,
   type StudyTransformation,
   type StudyVariant,
 } from "../music/study";
@@ -581,6 +585,178 @@ function ConnectionPanel({
   );
 }
 
+
+const sentenceModeCopy: Record<StudySentenceMode, string> = {
+  immediate: "Immediate repetition",
+  delayed: "Delayed return",
+  contrast: "Contrasting second phrase",
+  exact: "Exact repetition",
+  transposed: "Transposed repetition",
+  "tonic-repeat": "Tonic → tonic",
+  complementary: "Tonic → dominant",
+};
+
+function StudyHarmonyLane({
+  harmony,
+  sentenceMode,
+}: {
+  harmony: StudyHarmony[];
+  sentenceMode: StudySentenceMode;
+}) {
+  const first = harmony[0];
+  const second = harmony[8];
+  return (
+    <div className="study-harmony-lane" aria-label="Harmonic support">
+      <div>
+        <span>Basic idea</span>
+        <strong>{first ?? "—"}</strong>
+        <small>{first === "I" ? "tonic form" : "no harmonic label"}</small>
+      </div>
+      <div>
+        <span>Immediate repetition</span>
+        <strong>{second ?? "—"}</strong>
+        <small>
+          {sentenceMode === "complementary"
+            ? "dominant form"
+            : second === "I"
+              ? "same harmonic support"
+              : second === "V"
+                ? "dominant support"
+                : "no harmonic label"}
+        </small>
+      </div>
+    </div>
+  );
+}
+
+function SentencePanel({
+  exerciseId,
+  mode,
+  decision,
+  setMode,
+  setDecision,
+}: {
+  exerciseId: string;
+  mode: StudySentenceMode;
+  decision: "same" | "related" | "unrelated" | null;
+  setMode: (mode: StudySentenceMode) => void;
+  setDecision: (decision: "same" | "related" | "unrelated") => void;
+}) {
+  const isRecognise = exerciseId === SCHOENBERG_SENTENCE_IDS.recognise;
+  const isRepetition = exerciseId === SCHOENBERG_SENTENCE_IDS.repetition;
+  const isHarmony = exerciseId === SCHOENBERG_SENTENCE_IDS.harmony;
+  const isCompose = exerciseId === SCHOENBERG_SENTENCE_IDS.compose;
+
+  const options: StudySentenceMode[] = isRecognise
+    ? ["immediate", "delayed", "contrast"]
+    : isRepetition
+      ? ["exact", "transposed", "contrast"]
+      : isHarmony
+        ? ["tonic-repeat", "complementary", "contrast"]
+        : ["exact", "transposed", "complementary"];
+
+  return (
+    <div className="study-sentence-panel">
+      <div className="study-sentence-form">
+        <div>
+          <span>Presentation</span>
+          <strong>basic idea</strong>
+          <small>a</small>
+        </div>
+        <b>→</b>
+        <div>
+          <span>immediate repetition</span>
+          <strong>
+            {mode === "transposed"
+              ? "a transposed"
+              : mode === "complementary"
+                ? "a in dominant form"
+                : mode === "contrast"
+                  ? "new material"
+                  : "a repeated"}
+          </strong>
+          <small>a¹</small>
+        </div>
+      </div>
+
+      <div className="study-connection-copy">
+        <span className="section-label">
+          {isRecognise
+            ? "Chapter V · beginning the sentence"
+            : isRepetition
+              ? "Repetition can be exact or transposed"
+              : isHarmony
+                ? "Complementary repetition"
+                : "Construct a presentation"}
+        </span>
+        <strong>
+          {isRecognise
+            ? "Which opening establishes the idea by repeating it immediately?"
+            : isRepetition
+              ? "Which version changes pitch level while preserving the same interval pattern?"
+              : isHarmony
+                ? "Which repetition keeps the idea but changes its harmonic function from tonic to dominant?"
+                : "Reshape the basic idea, then choose how its immediate repetition will function."}
+        </strong>
+      </div>
+
+      <div className="study-sentence-buttons">
+        {options.map((option) => (
+          <button
+            type="button"
+            key={option}
+            className={mode === option ? "is-active" : ""}
+            onClick={() => setMode(option)}
+          >
+            {sentenceModeCopy[option]}
+          </button>
+        ))}
+      </div>
+
+      {!isCompose && (
+        <div className="study-decision-buttons">
+          <span>
+            {isRecognise
+              ? "Which one behaves as the beginning of a sentence?"
+              : isRepetition
+                ? "Which one is a transposed repetition rather than a new idea?"
+                : "Which one demonstrates tonic/dominant complementary repetition?"}
+          </span>
+          <button
+            type="button"
+            className={decision === "related" ? "is-active" : ""}
+            onClick={() => setDecision("related")}
+          >
+            {isRecognise
+              ? "Immediate repetition"
+              : isRepetition
+                ? "Transposed repetition"
+                : "Tonic → dominant"}
+          </button>
+          <button
+            type="button"
+            className={decision === "same" ? "is-active" : ""}
+            onClick={() => setDecision("same")}
+          >
+            {isRecognise
+              ? "Delayed return"
+              : isRepetition
+                ? "Exact repetition"
+                : "Tonic → tonic"}
+          </button>
+          <button
+            type="button"
+            className={decision === "unrelated" ? "is-active" : ""}
+            onClick={() => setDecision("unrelated")}
+          >
+            Contrasting material
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function CompositionStudyWorkspace({
   exerciseId,
 }: {
@@ -596,6 +772,7 @@ export function CompositionStudyWorkspace({
   const setStudyTransformation = useStudioStore((state) => state.setStudyTransformation);
   const setStudyFeatureDecision = useStudioStore((state) => state.setStudyFeatureDecision);
   const toggleStudyOperation = useStudioStore((state) => state.toggleStudyOperation);
+  const setStudySentenceMode = useStudioStore((state) => state.setStudySentenceMode);
 
   const state = compositionStudy[exerciseId];
   const notes = state?.notes ?? Array(16).fill(null);
@@ -613,12 +790,17 @@ export function CompositionStudyWorkspace({
   const isConnection = SCHOENBERG_CONNECTION_EXERCISE_IDS.has(exerciseId);
   const isConnectionRepair = exerciseId === SCHOENBERG_CONNECTION_IDS.repair;
   const isConnectionCompose = exerciseId === SCHOENBERG_CONNECTION_IDS.compose;
+  const isSentence = SCHOENBERG_SENTENCE_EXERCISE_IDS.has(exerciseId);
+  const isSentenceCompose = exerciseId === SCHOENBERG_SENTENCE_IDS.compose;
+  const sentenceMode = state?.sentenceMode ?? "exact";
+  const harmony = state?.harmony ?? Array<StudyHarmony>(16).fill(null);
   const editable =
     exerciseId === SCHOENBERG_STUDY_IDS.repair ||
     exerciseId === SCHOENBERG_STUDY_IDS.compose ||
     isVariationCompose ||
     isConnectionRepair ||
-    isConnectionCompose;
+    isConnectionCompose ||
+    isSentenceCompose;
 
   const visibleSequence = useMemo(() => {
     if (isCompare && state?.variant) {
@@ -635,15 +817,27 @@ export function CompositionStudyWorkspace({
     if (isConnection && (isConnectionRepair || isConnectionCompose)) {
       return studyConnectionSequence("exact").notes;
     }
+    if (isSentence && isSentenceCompose) {
+      return notes.slice(0, 8).concat(notes.slice(0, 8));
+    }
     return undefined;
-  }, [isConnection, isConnectionCompose, isConnectionRepair, isVariation]);
+  }, [
+    isConnection,
+    isConnectionCompose,
+    isConnectionRepair,
+    isSentence,
+    isSentenceCompose,
+    isVariation,
+    notes,
+  ]);
 
   useEffect(() => {
     audioEngine.setStudySequence(
       visibleSequence.notes,
       visibleSequence.durations,
+      isSentence ? harmony : undefined,
     );
-  }, [visibleSequence]);
+  }, [harmony, isSentence, visibleSequence]);
 
   const notationOptions: Array<[StudyNotation, string]> = [
     ["staff", "Staff"],
@@ -657,11 +851,13 @@ export function CompositionStudyWorkspace({
         <div>
           <span className="section-label">Composition study</span>
           <h2>
-            {isConnection
-              ? "Four motive-forms · one basic motive"
-              : isVariation
-                ? "Source motive → motive-form"
-                : "One phrase · three representations"}
+            {isSentence
+              ? "Basic idea → immediate repetition"
+              : isConnection
+                ? "Four motive-forms · one basic motive"
+                : isVariation
+                  ? "Source motive → motive-form"
+                  : "One phrase · three representations"}
           </h2>
         </div>
         <div className="study-notation-tabs" role="group" aria-label="Notation">
@@ -753,6 +949,20 @@ export function CompositionStudyWorkspace({
         />
       )}
 
+      {isSentence && (
+        <SentencePanel
+          exerciseId={exerciseId}
+          mode={sentenceMode}
+          decision={state?.decision ?? null}
+          setMode={(next) => setStudySentenceMode(exerciseId, next)}
+          setDecision={(next) => setStudyDecision(exerciseId, next)}
+        />
+      )}
+
+      {isSentence && (
+        <StudyHarmonyLane harmony={harmony} sentenceMode={sentenceMode} />
+      )}
+
       <div className="study-notation-stage">
         {notation === "staff" && (
           <StaffView
@@ -785,8 +995,12 @@ export function CompositionStudyWorkspace({
 
       <footer className="study-footer">
         <span>
-          {isConnection
-            ? isConnectionCompose
+          {isSentence
+            ? isSentenceCompose
+              ? "Edit the basic idea in the first half. Its repetition is regenerated from the selected sentence-opening strategy; the pale overlay shows the source relationship."
+              : "Listen across the boundary at step 9: in a sentence beginning, the basic idea is repeated immediately, even when pitch or harmony changes."
+            : isConnection
+              ? isConnectionCompose
               ? "The pale outline repeats the basic motive under each form. Use it as a reference, not a target: the phrase needs relationship and contrast."
               : isConnectionRepair
                 ? "Repair a² in Piano roll, then compare all four motive-forms in Staff and Degrees."
