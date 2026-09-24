@@ -340,7 +340,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
             "Example 35a Beethoven Op.2/1-I; Example 35b Beethoven Op.10/2-I",
           exampleIds: ["s04.ex35"],
           focus:
-            "Schoenberg chooses these because the first phrase is supported only by I and the second only by V, making complementary repetition especially clear. The interactive line is a reduction of that relation, not a transcription.",
+            "Schoenberg chooses these because the first phrase is supported only by I and the second only by V, making complementary repetition especially clear. The source map states that relation directly; the playable study below is separate application.",
         },
         terms: [
           {
