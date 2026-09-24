@@ -39,9 +39,11 @@ A learner should never be told to analyse an example that is only named.
 
 Preferred flow:
 
-**original source example → guided analysis → interactive reduction/abstraction → learner application**
+**native source example → guided analysis → interactive reduction/abstraction → learner application**
 
-Reductions are useful, but must be labelled as reductions. They must not silently replace the original repertoire example.
+Source examples should preferably be re-engraved as verified structured musical data so they can be read, played, highlighted, and reused throughout the app. The supplied scan is the verification source, not the normal learner-facing representation. Raster crops are a fallback only when faithful native reconstruction is not yet practical.
+
+If a complete native transcription is not yet available, expose only the source-derived analysis that has actually been verified, label it as partial, and record the missing transcription in the coverage ledger. A reduction must never silently present itself as the original example.
 
 ## 5. Use authentic musical language
 
