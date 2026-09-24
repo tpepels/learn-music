@@ -1111,6 +1111,36 @@ export const productionContext: Record<string, ProductionContext> = {
     realWorld: "Audition several keyboard or lead sounds against the complete arrangement, then keep the one that preserves the intended hierarchy.",
   },
 
+
+  "schoenberg.phrase-motive.a": {
+    why: "A motive is easier to develop when you can hear which small features give it identity inside a larger phrase.",
+    when: "Use this at the start of composition or analysis, before transforming material, so later changes can be judged against a clear source idea.",
+    tools: ["Staff notation", "Piano roll", "Scale-degree view", "Motive brackets"],
+    visual: "motif",
+    realWorld: "Notation software and DAWs can show the same notes in different views; analytical brackets add a separate layer that identifies musical function.",
+  },
+  "schoenberg.phrase-motive.b": {
+    why: "Comparing exact repetition, related transformation, and unrelated material trains the ear to distinguish identity from mere similarity or novelty.",
+    when: "Use it whenever a continuation feels either too repetitive or disconnected from what came before.",
+    tools: ["A/B comparison", "Staff notation", "Piano roll", "Loop playback"],
+    visual: "motif",
+    realWorld: "Composers commonly duplicate a short phrase, transpose or alter it, and compare versions while the source remains visible.",
+  },
+  "schoenberg.phrase-motive.c": {
+    why: "Repairing a weak continuation makes motivic connection a practical compositional decision rather than only an analytical label.",
+    when: "Use it when the second half of a phrase sounds as though it starts a different piece instead of continuing the established idea.",
+    tools: ["Piano roll", "Staff view", "Loop playback", "Motive analysis"],
+    visual: "motif",
+    realWorld: "In a DAW or notation editor, a composer can rewrite a few notes while repeatedly looping the phrase to judge whether the relation becomes clearer.",
+  },
+  "schoenberg.phrase-motive.d": {
+    why: "Constructing a phrase from one small idea tests whether the motive can generate new material without losing its recognisable character.",
+    when: "Use it after analysing and comparing motive-forms, before moving to larger sentence and period structures.",
+    tools: ["Piano roll", "Staff notation", "Scale degrees", "Loop playback"],
+    visual: "motif",
+    realWorld: "A short MIDI or notation sketch can be revised in several representations while the underlying notes stay the same.",
+  },
+
 };
 
 export function getProductionContext(exerciseId: string): ProductionContext {
