@@ -5,6 +5,7 @@ import {
   type ArrangementLayer,
 } from "../music/model";
 import { useStudioStore } from "../state/studio";
+import { LayerVolumeControl } from "./LayerVolumeStrip";
 
 const labels: Record<ArrangementLayer, { name: string; role: string }> = {
   drums: { name: "Drums", role: "pulse + groove" },
@@ -119,6 +120,7 @@ export function ArrangementWorkspace() {
                   ? "fallback motif · write your own in Melody"
                   : labels[layer].role}
               </span>
+              <LayerVolumeControl track={layer} compact showLabel={false} />
             </div>
 
             {arrangement.map((bar, barIndex) => (
