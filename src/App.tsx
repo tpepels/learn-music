@@ -424,6 +424,7 @@ const lessonGlyphs: Record<string, string> = {
 };
 
 function App() {
+  const bpm = useStudioStore((state) => state.bpm);
   const currentLessonId = useStudioStore((state) => state.currentLessonId);
   const exerciseIndexByLesson = useStudioStore((state) => state.exerciseIndexByLesson);
   const completedExerciseIds = useStudioStore((state) => state.completedExerciseIds);
@@ -511,6 +512,10 @@ function App() {
     lessonSummaryEnd >= 0
       ? lesson.description.slice(0, lessonSummaryEnd + 1)
       : lesson.description;
+
+  useEffect(() => {
+    audioEngine.setBpm(bpm);
+  }, [bpm]);
 
   useEffect(() => {
     setActiveExerciseId(exercise.id);
