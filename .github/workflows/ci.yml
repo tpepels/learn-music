@@ -2,9 +2,6 @@ name: Validate branch manually
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - fix/progress-cookie-sanitization
 
 permissions:
   contents: read
