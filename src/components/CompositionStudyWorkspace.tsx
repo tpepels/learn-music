@@ -1,8 +1,10 @@
 import { useEffect, useMemo } from "react";
 import { audioEngine } from "../audio/engine";
 import {
+  SCHOENBERG_COMPLETION_COMPOSE_IDS,
   SCHOENBERG_COMPLETION_EXERCISE_IDS,
   SCHOENBERG_COMPLETION_IDS,
+  SCHOENBERG_COMPLETION_SOURCE_IDS,
   SCHOENBERG_CONNECTION_EXERCISE_IDS,
   SCHOENBERG_CONNECTION_IDS,
   SCHOENBERG_CONNECTION_SOURCE_IDS,
@@ -1036,6 +1038,69 @@ function SentencePanel({
 }
 
 
+
+const completionSourceAnswers: Record<
+  string,
+  Array<{ decision: "same" | "related" | "unrelated"; label: string }>
+> = {
+  [SCHOENBERG_COMPLETION_IDS.ex52]: [
+    { decision: "related", label: "Reduced forms lead into liquidation" },
+    { decision: "same", label: "The opening is simply repeated to the end" },
+    { decision: "unrelated", label: "The cadence is unrelated to the motive" },
+  ],
+  [SCHOENBERG_COMPLETION_IDS.ex53_56]: [
+    { decision: "related", label: "Remote forms gain clarity through repetition, sequence and condensation" },
+    { decision: "same", label: "Every continuation must remain as close as the opening repetition" },
+    { decision: "unrelated", label: "Sequence replaces motivic relationship" },
+  ],
+  [SCHOENBERG_COMPLETION_IDS.ex57_58]: [
+    { decision: "related", label: "Unequal units can still perform the same sentence functions" },
+    { decision: "same", label: "A sentence must divide into mechanically equal units" },
+    { decision: "unrelated", label: "Length alone determines formal function" },
+  ],
+  [SCHOENBERG_COMPLETION_IDS.ex59]: [
+    { decision: "related", label: "Inserted repetition explains the apparent irregularity" },
+    { decision: "same", label: "The extra measures are formally unrelated" },
+    { decision: "unrelated", label: "The phrase is irregular because no material repeats" },
+  ],
+  [SCHOENBERG_COMPLETION_IDS.ex60]: [
+    { decision: "related", label: "Extension can lengthen the continuation while preserving its direction" },
+    { decision: "same", label: "Extension means repeating the presentation unchanged" },
+    { decision: "unrelated", label: "Any unusual length destroys sentence function" },
+  ],
+  [SCHOENBERG_COMPLETION_IDS.ex61]: [
+    { decision: "related", label: "Developing variation gradually condenses into liquidation" },
+    { decision: "same", label: "The motive stays equally characteristic throughout" },
+    { decision: "unrelated", label: "The ending abandons the opening material" },
+  ],
+};
+
+function CompletionSourceAnswerPanel({
+  exerciseId,
+  decision,
+  setDecision,
+}: {
+  exerciseId: string;
+  decision: "same" | "related" | "unrelated" | null;
+  setDecision: (decision: "same" | "related" | "unrelated") => void;
+}) {
+  const answers = completionSourceAnswers[exerciseId] ?? [];
+  return (
+    <div className="study-source-answer-panel" role="group" aria-label="Chapter VIII example answer">
+      {answers.map((answer) => (
+        <button
+          type="button"
+          key={answer.decision}
+          className={decision === answer.decision ? "is-active" : ""}
+          onClick={() => setDecision(answer.decision)}
+        >
+          {answer.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 const completionModeCopy: Record<StudyCompletionMode, string> = {
   "repeat-presentation": "Keep repeating the opening",
   "developed-continuation": "Developed continuation",
@@ -1064,7 +1129,7 @@ function CompletionPanel({
   const isFunction = exerciseId === SCHOENBERG_COMPLETION_IDS.function;
   const isSequence = exerciseId === SCHOENBERG_COMPLETION_IDS.sequence;
   const isLiquidation = exerciseId === SCHOENBERG_COMPLETION_IDS.liquidation;
-  const isCompose = exerciseId === SCHOENBERG_COMPLETION_IDS.compose;
+  const isCompose = SCHOENBERG_COMPLETION_COMPOSE_IDS.has(exerciseId);
 
   const options: StudyCompletionMode[] = isFunction
     ? [
@@ -1247,7 +1312,8 @@ export function CompositionStudyWorkspace({
   const isSentenceSource = SCHOENBERG_SENTENCE_SOURCE_IDS.has(exerciseId);
   const isSentenceCompose = SCHOENBERG_SENTENCE_COMPOSE_IDS.has(exerciseId);
   const isCompletion = SCHOENBERG_COMPLETION_EXERCISE_IDS.has(exerciseId);
-  const isCompletionCompose = exerciseId === SCHOENBERG_COMPLETION_IDS.compose;
+  const isCompletionSource = SCHOENBERG_COMPLETION_SOURCE_IDS.has(exerciseId);
+  const isCompletionCompose = SCHOENBERG_COMPLETION_COMPOSE_IDS.has(exerciseId);
   const sentenceMode = state?.sentenceMode ?? "exact";
   const completionMode = state?.completionMode ?? "complete";
   const harmony =
@@ -1311,8 +1377,10 @@ export function CompositionStudyWorkspace({
         <div>
           <span className="section-label">Composition study</span>
           <h2>
-            {isCompletion
-              ? "Complete sentence · beginning → cadence"
+            {isCompletionSource
+              ? "Chapter VIII source example · sentence process"
+              : isCompletion
+                ? "Complete sentence · beginning → cadence"
               : isSentenceSource
                 ? "Chapter V examples · tonic form → dominant form"
                 : isSentence
@@ -1451,7 +1519,15 @@ export function CompositionStudyWorkspace({
         />
       )}
 
-      {isCompletion && (
+      {isCompletionSource && (
+        <CompletionSourceAnswerPanel
+          exerciseId={exerciseId}
+          decision={state?.decision ?? null}
+          setDecision={(next) => setStudyDecision(exerciseId, next)}
+        />
+      )}
+
+      {isCompletion && !isCompletionSource && (
         <CompletionPanel
           exerciseId={exerciseId}
           mode={completionMode}
@@ -1520,8 +1596,10 @@ export function CompositionStudyWorkspace({
         <span>
           {isCompletion
             ? isCompletionCompose
-              ? "Edit the basic idea or the continuation in Piano roll. Listen to all 32 steps: the second half should develop the source, reduce characteristic material, and earn the final V → I cadence."
-              : "Listen beyond step 16. The opening has already established the idea; now judge what the second half does with it."
+              ? "Edit the basic idea or the continuation in Piano roll. Listen to the full study: the second half should develop the source, reduce characteristic material, and earn the final cadence."
+              : isCompletionSource
+                ? "Analyse and play the native book example above first. This workspace is a separate practice reduction for the same formal behaviour."
+                : "Listen beyond step 16. The opening has already established the idea; now judge what the second half does with it."
             : isSentence
               ? isSentenceCompose
                 ? "Edit the basic idea in the first half. Its repetition is regenerated from the selected sentence-opening strategy; the pale overlay shows the source relationship."
