@@ -37,9 +37,10 @@ import {
   houseStyleLesson,
   popStyleLesson,
 } from "./styleGenreLab";
+import { schoenbergPhraseMotiveLesson } from "./schoenbergPhraseMotive";
 import type { LessonDefinition } from "./types";
 
-export const implementedLessons: LessonDefinition[] = [
+export const playLabLessons: LessonDefinition[] = [
   pulseAndGrooveLesson,
   rhythmVariationLesson,
   pianoCompositionLesson,
@@ -79,7 +80,43 @@ export const implementedLessons: LessonDefinition[] = [
   popStyleLesson,
 ];
 
-export const courseOutline = implementedLessons.map((lesson) => ({
+export const schoenbergLessons: LessonDefinition[] = [
+  schoenbergPhraseMotiveLesson,
+];
+
+export type LearningTrackId = "play-lab" | "schoenberg";
+
+export type LearningTrackDefinition = {
+  id: LearningTrackId;
+  label: string;
+  title: string;
+  description: string;
+  lessons: LessonDefinition[];
+};
+
+export const learningTracks: LearningTrackDefinition[] = [
+  {
+    id: "play-lab",
+    label: "PLAY / LAB",
+    title: "Music & Production",
+    description: "The existing practical course in rhythm, harmony, production and style.",
+    lessons: playLabLessons,
+  },
+  {
+    id: "schoenberg",
+    label: "SCHOENBERG",
+    title: "Composition & Form",
+    description: "A separate composition track based on Fundamentals of Musical Composition.",
+    lessons: schoenbergLessons,
+  },
+];
+
+export const implementedLessons: LessonDefinition[] = [
+  ...playLabLessons,
+  ...schoenbergLessons,
+];
+
+export const courseOutline = playLabLessons.map((lesson) => ({
   id: lesson.id,
   number: lesson.number,
   title: lesson.title,
@@ -90,7 +127,39 @@ export function getLesson(id: string): LessonDefinition {
   return implementedLessons.find((lesson) => lesson.id === id) ?? pulseAndGrooveLesson;
 }
 
+export function getLearningTrack(id: LearningTrackId): LearningTrackDefinition {
+  return learningTracks.find((track) => track.id === id) ?? learningTracks[0];
+}
+
+export function getTrackForLesson(id: string): LearningTrackDefinition {
+  return learningTracks.find((track) =>
+    track.lessons.some((lesson) => lesson.id === id),
+  ) ?? learningTracks[0];
+}
+
+export function getTrackOutline(id: LearningTrackId) {
+  return getLearningTrack(id).lessons.map((lesson) => ({
+    id: lesson.id,
+    number: lesson.number,
+    title: lesson.title,
+    implemented: true as const,
+  }));
+}
+
+export function getFirstIncompleteLesson(
+  trackId: LearningTrackId,
+  completedLessonIds: string[],
+): LessonDefinition {
+  const track = getLearningTrack(trackId);
+  return (
+    track.lessons.find((lesson) => !completedLessonIds.includes(lesson.id)) ??
+    track.lessons.at(-1) ??
+    playLabLessons[0]
+  );
+}
+
 export function getNextImplementedLesson(id: string): LessonDefinition | undefined {
-  const index = implementedLessons.findIndex((lesson) => lesson.id === id);
-  return index >= 0 ? implementedLessons[index + 1] : undefined;
+  const track = getTrackForLesson(id);
+  const index = track.lessons.findIndex((lesson) => lesson.id === id);
+  return index >= 0 ? track.lessons[index + 1] : undefined;
 }
