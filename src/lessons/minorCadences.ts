@@ -1,9 +1,9 @@
 import {
-  barUsesAllChordTones,
-  everyActiveBarWritten,
+  barUsesAllHarmonicChordTones,
+  everyActiveHarmonicBarWritten,
   harmonyActiveSteps,
   harmonyOffbeats,
-  writtenHarmonyFitsChords,
+  writtenHarmonyFitsHarmonicProgression,
 } from "./harmonyApplication";
 import { changedControl, heardPlayback } from "./learningEvidence";
 import {
@@ -59,10 +59,16 @@ export const minorCadencesLesson: LessonDefinition = {
         checksLabel: "Write i–iv",
         successLabel: "The minor departure is in the MIDI you wrote",
       }),
-      evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+      evaluate: ({
+        chordProgression,
+        harmonicProgression,
+        tonalContext,
+        harmonySequence,
+        experiments,
+      }) => [
         { label: "You listened to the minor progression in context", complete: heardPlayback(experiments) },
         { label: "Bars 1–2 are Am → Dm", complete: chordProgression[0] === "Am" && chordProgression[1] === "Dm" },
-        { label: "Am and Dm contain all their written chord tones", complete: barUsesAllChordTones(harmonySequence, chordProgression, 0) && barUsesAllChordTones(harmonySequence, chordProgression, 1) },
+        { label: "Am and Dm contain all their written chord tones", complete: barUsesAllHarmonicChordTones(harmonySequence, harmonicProgression, tonalContext, 0) && barUsesAllHarmonicChordTones(harmonySequence, harmonicProgression, tonalContext, 1) },
         { label: "You edited the harmony notes", complete: edits(experiments) >= 3 },
       ],
     },
@@ -86,11 +92,17 @@ export const minorCadencesLesson: LessonDefinition = {
         checksLabel: "Write the cadence",
         successLabel: "Your E7 now contains the leading tone you can hear",
       }),
-      evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+      evaluate: ({
+        chordProgression,
+        harmonicProgression,
+        tonalContext,
+        harmonySequence,
+        experiments,
+      }) => [
         { label: "You listened to the altered dominant resolve", complete: heardPlayback(experiments) },
         { label: "Progression is Am → Dm → E7 → Am", complete: chordProgression.join("|") === "Am|Dm|E7|Am" },
-        { label: "Every bar contains every chord tone", complete: [0, 1, 2, 3].every((bar) => barUsesAllChordTones(harmonySequence, chordProgression, bar)) },
-        { label: "All written notes fit their current chord", complete: writtenHarmonyFitsChords(harmonySequence, chordProgression) },
+        { label: "Every bar contains every chord tone", complete: [0, 1, 2, 3].every((bar) => barUsesAllHarmonicChordTones(harmonySequence, harmonicProgression, tonalContext, bar)) },
+        { label: "All written notes fit their current chord", complete: writtenHarmonyFitsHarmonicProgression(harmonySequence, harmonicProgression, tonalContext) },
         { label: "You rewrote the MIDI for the cadence", complete: edits(experiments) >= 4 },
       ],
     },
@@ -114,10 +126,16 @@ export const minorCadencesLesson: LessonDefinition = {
         checksLabel: "Make it descend",
         successLabel: "The Andalusian cadence is now a played accompaniment",
       }),
-      evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+      evaluate: ({
+        chordProgression,
+        harmonicProgression,
+        tonalContext,
+        harmonySequence,
+        experiments,
+      }) => [
         { label: "You listened to the descending accompaniment", complete: heardPlayback(experiments) },
         { label: "Progression is Am → G → F → E7", complete: chordProgression.join("|") === "Am|G|F|E7" },
-        { label: "Every bar contains written chord tones", complete: everyActiveBarWritten(harmonySequence, chordProgression) && writtenHarmonyFitsChords(harmonySequence, chordProgression) },
+        { label: "Every bar contains written chord tones", complete: everyActiveHarmonicBarWritten(harmonySequence, harmonicProgression, tonalContext) && writtenHarmonyFitsHarmonicProgression(harmonySequence, harmonicProgression, tonalContext) },
         { label: "The accompaniment uses at least eight positions and two offbeats", complete: harmonyActiveSteps(harmonySequence) >= 8 && harmonyOffbeats(harmonySequence) >= 2 },
         { label: "You rewrote the accompaniment", complete: edits(experiments) >= 4 },
       ],
@@ -142,12 +160,18 @@ export const minorCadencesLesson: LessonDefinition = {
         checksLabel: "Compare the endings",
         successLabel: "You heard and wrote both minor resolutions",
       }),
-      evaluate: ({ chordProgression, harmonySequence, experiments }) => [
+      evaluate: ({
+        chordProgression,
+        harmonicProgression,
+        tonalContext,
+        harmonySequence,
+        experiments,
+      }) => [
         { label: "You listened to both endings before settling", complete: heardPlayback(experiments) },
         { label: "Final progression is Am → Dm → E7 → F", complete: chordProgression.join("|") === "Am|Dm|E7|F" },
         { label: "You tried Am and F in the final bar during this exercise", complete: triedChord(experiments, 3, "Am") && triedChord(experiments, 3, "F") },
-        { label: "The final F chord is written with all its chord tones", complete: barUsesAllChordTones(harmonySequence, chordProgression, 3) },
-        { label: "The finished accompaniment fits all four chords", complete: writtenHarmonyFitsChords(harmonySequence, chordProgression) },
+        { label: "The final F chord is written with all its chord tones", complete: barUsesAllHarmonicChordTones(harmonySequence, harmonicProgression, tonalContext, 3) },
+        { label: "The finished accompaniment fits all four chords", complete: writtenHarmonyFitsHarmonicProgression(harmonySequence, harmonicProgression, tonalContext) },
       ],
     },
   ],
