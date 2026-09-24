@@ -124,7 +124,7 @@ describe("key-agnostic harmony", () => {
     const aMigrated = migrateLegacyProgression(aLegacy, aContext);
     expect(aContext).toEqual({ tonic: 9, mode: "natural-minor" });
     expect(progressionSymbols(aMigrated, aContext)).toEqual(aLegacy);
-    expect(romanNumeral(aMigrated[2]!, aContext)).toBe("V7/i");
+    expect(romanNumeral(aMigrated[2]!, aContext)).toBe("V7");
   });
 
   it("maps legacy special chords to structural roles", () => {
