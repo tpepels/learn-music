@@ -154,10 +154,10 @@ describe("lesson 32: gain staging, headroom, and loudness", () => {
   it("exposes loudness bias and then accepts a level-matched comparison", () => {
     const snapshot = {
       mixerSettings: mixer(-8, -8, -8, -8),
-      eqSettings: {} as LessonContext["referenceMixSettings"]["snapshot"] extends infer _T ? never : never,
-      saturationSettings: {} as never,
-      stereoWidths: {} as never,
-    };
+      eqSettings: {},
+      saturationSettings: {},
+      stereoWidths: {},
+    } as unknown as NonNullable<LessonContext["referenceMixSettings"]["snapshot"]>;
     const live = mixer(-5, -5, -5, -5);
     const referenceMixSettings = {
       snapshot,
