@@ -1307,28 +1307,28 @@ class AudioEngine {
   async playChordMelody(bpm: number, onStep: (step: number) => void) {
     if (!(await this.prepare(bpm, onStep, ["piano", "chords"]))) return false;
     const transport = Tone.getTransport();
-    const progression = resolveContextProgression(
-      this.harmonicProgression,
-      this.tonalContext,
-    );
-    const melodyFallback = !hasArrangementMelody(this.melody);
-    const melody = melodyFallback
-      ? buildArrangementFallbackMelody(this.tonalContext)
-      : this.melody;
-    const totalSteps = Math.max(1, progression.length) * 16;
+    const totalSteps = 64;
 
     this.eventId = transport.scheduleRepeat((time) => {
       const globalStep = this.step;
       const barIndex = Math.floor(globalStep / 16);
       const localStep = globalStep % 16;
-      const chord = progression[barIndex];
+      const progression = resolveContextProgression(
+        this.harmonicProgression,
+        this.tonalContext,
+      );
+      const chord = progression[barIndex % progression.length];
 
       if (chord) {
         const inversion = this.voicingSettings.inversions[barIndex] ?? 0;
         this.triggerChordPattern(chord, inversion, localStep, time, 0.52);
       }
 
-      if (globalStep % 2 === 0 && melody.length > 0) {
+      if (globalStep % 2 === 0) {
+        const melodyFallback = !hasArrangementMelody(this.melody);
+        const melody = melodyFallback
+          ? buildArrangementFallbackMelody(this.tonalContext)
+          : this.melody;
         const melodyStep = (globalStep / 2) % melody.length;
         const midi = melody[melodyStep];
         if (midi !== null && midi !== undefined) {
