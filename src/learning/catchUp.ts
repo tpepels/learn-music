@@ -1,10 +1,38 @@
-import type {
-  ChordProgression,
-  HarmonyDurations,
-  HarmonySequence,
-  MelodySequence,
-  NoteDurationLane,
-  StepPattern,
+import {
+  cloneArrangement,
+  cloneEqSettings,
+  cloneGrooveFeelSettings,
+  cloneHarmonyDurations,
+  cloneHarmonySequence,
+  cloneMixerSettings,
+  cloneSaturationSettings,
+  cloneStereoSettings,
+  initialAccompanimentPattern,
+  initialArrangement,
+  initialAutomationSettings,
+  initialBassDurations,
+  initialBassSequence,
+  initialDynamicsSettings,
+  initialEffectsSettings,
+  initialEqSettings,
+  initialFormSettings,
+  initialGrooveFeelSettings,
+  initialInstrumentSettings,
+  initialMixerSettings,
+  initialReferenceMixSettings,
+  initialSaturationSettings,
+  initialSidechainSettings,
+  initialStereoSettings,
+  initialSynthSettings,
+  initialTextureSettings,
+  initialVoicingSettings,
+  type ChordProgression,
+  type HarmonyDurations,
+  type HarmonySequence,
+  type MelodySequence,
+  type NoteDurationLane,
+  type ProjectData,
+  type StepPattern,
 } from "../music/model";
 
 export const LESSON_FIVE_ID = "sound.synthesis";
@@ -19,6 +47,16 @@ export const RECOVERED_LESSON_IDS = [
 export const RECOVERED_EXERCISE_IDS = RECOVERED_LESSON_IDS.flatMap(
   (lessonId) => ["a", "b", "c", "d"].map((letter) => lessonId + "." + letter),
 );
+
+export const LESSON_FIVE_RECOVERY_PITCH_CLASSES = [
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "A",
+  "B",
+] as const;
 
 function pattern(
   kick: number[],
@@ -71,24 +109,60 @@ const melody: MelodySequence = [
 const melodyDurations: NoteDurationLane = Array(16).fill(1);
 const harmonySequence = buildHarmony();
 
-export const lessonFiveRecoveryProject = {
-  bpm: 104,
-  patterns: {
-    A: pattern(
-      [0, 4, 8, 10, 12],
-      [4, 12],
-      [0, 2, 4, 6, 8, 10, 12, 14],
+export function buildLessonFiveRecoveryProject(): ProjectData {
+  return {
+    bpm: 104,
+    patterns: {
+      A: pattern(
+        [0, 4, 8, 10, 12],
+        [4, 12],
+        [0, 2, 4, 6, 8, 10, 12, 14],
+      ),
+      B: pattern(
+        [0, 4, 8, 11, 12, 15],
+        [4, 12, 14, 15],
+        [0, 2, 4, 6, 8, 10, 12, 15],
+      ),
+    },
+    melody: [...melody],
+    melodyDurations: [...melodyDurations],
+    chordProgression: ["C", "F", "G", "C"] satisfies ChordProgression,
+    harmonySequence: cloneHarmonySequence(harmonySequence),
+    harmonyDurations: cloneHarmonyDurations(
+      buildHarmonyDurations(harmonySequence),
     ),
-    B: pattern(
-      [0, 4, 8, 11, 12, 15],
-      [4, 12, 14, 15],
-      [0, 2, 4, 6, 8, 10, 12, 15],
-    ),
-  },
-  selectedPitchClasses: ["C", "D", "E", "F", "G", "A", "B"],
-  melody,
-  melodyDurations,
-  chordProgression: ["C", "F", "G", "C"] satisfies ChordProgression,
-  harmonySequence,
-  harmonyDurations: buildHarmonyDurations(harmonySequence),
-} as const;
+    accompanimentPattern: initialAccompanimentPattern,
+    synthSettings: { ...initialSynthSettings },
+    arrangement: cloneArrangement(initialArrangement),
+    mixerSettings: cloneMixerSettings(initialMixerSettings),
+    automationSettings: {
+      melodyVolumeDb: [...initialAutomationSettings.melodyVolumeDb],
+      chordFilterHz: [...initialAutomationSettings.chordFilterHz],
+    },
+    dynamicsSettings: { ...initialDynamicsSettings },
+    effectsSettings: { ...initialEffectsSettings },
+    voicingSettings: {
+      inversions: [...initialVoicingSettings.inversions],
+    },
+    bassSequence: [...initialBassSequence],
+    bassDurations: [...initialBassDurations],
+    grooveFeelSettings: cloneGrooveFeelSettings(initialGrooveFeelSettings),
+    formSettings: {
+      sections: [...initialFormSettings.sections],
+      roles: [...initialFormSettings.roles],
+      layers: initialFormSettings.layers.map((entry) => ({ ...entry })),
+    },
+    textureSettings: { ...initialTextureSettings },
+    instrumentSettings: { ...initialInstrumentSettings },
+    eqSettings: cloneEqSettings(initialEqSettings),
+    saturationSettings: cloneSaturationSettings(initialSaturationSettings),
+    sidechainSettings: { ...initialSidechainSettings },
+    stereoSettings: cloneStereoSettings(initialStereoSettings),
+    referenceMixSettings: {
+      ...initialReferenceMixSettings,
+      snapshot: null,
+    },
+  };
+}
+
+export const lessonFiveRecoveryProject = buildLessonFiveRecoveryProject();
