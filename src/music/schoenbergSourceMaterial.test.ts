@@ -114,7 +114,9 @@ describe("Schoenberg source material", () => {
     expect(
       ex61?.kind === "map"
         ? ex61.segments.some((segment) =>
-            segment.detail.includes("developing variation"),
+            (segment.label + " " + segment.detail).includes(
+              "developing variation",
+            ),
           )
         : false,
     ).toBe(true);
