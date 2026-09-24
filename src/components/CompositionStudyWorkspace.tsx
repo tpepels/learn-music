@@ -11,6 +11,8 @@ import {
   SCHOENBERG_STUDY_IDS,
   SCHOENBERG_VARIATION_EXERCISE_IDS,
   SCHOENBERG_VARIATION_IDS,
+  SCHOENBERG_VARIATION_SOURCE_IDS,
+  SCHOENBERG_VARIATION_TRANSFORM_IDS,
   studyComparisonSequence,
   studyConnectionSequence,
   studyVariationSequence,
@@ -386,12 +388,78 @@ const transformationCopy: Record<
   Exclude<StudyTransformation, "source">,
   string
 > = {
-  rhythm: "Rhythm",
-  interval: "Intervals / direction",
-  auxiliary: "Auxiliary note",
-  reduction: "Reduction",
-  displacement: "Beat position",
+  rhythm: "Note lengths / rhythm",
+  interval: "Order / direction",
+  auxiliary: "Ancillary notes",
+  reduction: "Reduction / condensation",
+  displacement: "Shift to other beats",
+  inversion: "Inversion",
+  retrograde: "Retrograde",
+  diminution: "Diminution",
+  augmentation: "Augmentation",
+  repetition: "Note repetition",
+  upbeat: "Add upbeat",
+  metre: "Change metre / grouping",
+  transposition: "Transposition",
 };
+
+
+const variationSourceAnswers: Record<
+  string,
+  Array<{ decision: "same" | "related" | "unrelated"; label: string }>
+> = {
+  [SCHOENBERG_VARIATION_IDS.motive]: [
+    { decision: "related", label: "A few characteristic features can be enough" },
+    { decision: "same", label: "A motive needs many different interval features" },
+    { decision: "unrelated", label: "A motive must be long enough to form a phrase" },
+  ],
+  [SCHOENBERG_VARIATION_IDS.literature]: [
+    { decision: "related", label: "Several changes can still preserve one motive" },
+    { decision: "same", label: "Only exact pitch repetition preserves identity" },
+    { decision: "unrelated", label: "Every changed form is a new motive" },
+  ],
+  [SCHOENBERG_VARIATION_IDS.harmony]: [
+    { decision: "related", label: "Adapt the melody to richer harmony" },
+    { decision: "same", label: "Keep melody and harmony mechanically unchanged" },
+    { decision: "unrelated", label: "Replace the motive when harmony changes" },
+  ],
+  [SCHOENBERG_VARIATION_IDS.substitution]: [
+    { decision: "related", label: "Insert or substitute harmony under related material" },
+    { decision: "same", label: "Harmony may only change at the end" },
+    { decision: "unrelated", label: "Harmonic change destroys motivic relation" },
+  ],
+  [SCHOENBERG_VARIATION_IDS.adaptation]: [
+    { decision: "related", label: "Transpose and adapt melody to passing harmony / accompaniment" },
+    { decision: "same", label: "Transpose only - accompaniment is irrelevant" },
+    { decision: "unrelated", label: "A new accompaniment requires a new motive" },
+  ],
+};
+
+function VariationSourceAnswerPanel({
+  exerciseId,
+  decision,
+  setDecision,
+}: {
+  exerciseId: string;
+  decision: "same" | "related" | "unrelated" | null;
+  setDecision: (decision: "same" | "related" | "unrelated") => void;
+}) {
+  const answers = variationSourceAnswers[exerciseId] ?? [];
+  return (
+    <div className="study-source-answer-panel" role="group" aria-label="Book example answer">
+      {answers.map((answer) => (
+        <button
+          type="button"
+          key={answer.decision}
+          className={decision === answer.decision ? "is-active" : ""}
+          onClick={() => setDecision(answer.decision)}
+        >
+          {answer.label}
+        </button>
+      ))}
+    </div>
+  );
+}
 
 const featureCopy: Record<StudyFeature, string> = {
   rhythm: "Rhythm",
@@ -418,22 +486,45 @@ function TransformationPanel({
   setFeatureDecision: (feature: StudyFeature) => void;
   toggleOperation: (operation: StudyTransformation) => void;
 }) {
-  const isAnalyse = exerciseId === SCHOENBERG_VARIATION_IDS.analyse;
+  const isExact = exerciseId === SCHOENBERG_VARIATION_IDS.exact;
   const isRhythm = exerciseId === SCHOENBERG_VARIATION_IDS.rhythm;
   const isIntervals = exerciseId === SCHOENBERG_VARIATION_IDS.intervals;
+  const isMetric = exerciseId === SCHOENBERG_VARIATION_IDS.metric;
   const isCompose = exerciseId === SCHOENBERG_VARIATION_IDS.compose;
 
-  const options: Array<Exclude<StudyTransformation, "source">> = isRhythm
-    ? ["rhythm", "displacement"]
-    : isIntervals
-      ? ["interval", "auxiliary", "reduction"]
-      : ["rhythm", "interval", "auxiliary", "reduction", "displacement"];
+  const options: Array<Exclude<StudyTransformation, "source">> = isExact
+    ? ["inversion", "retrograde", "diminution", "augmentation"]
+    : isRhythm
+      ? ["rhythm", "repetition"]
+      : isIntervals
+        ? ["auxiliary", "interval", "reduction"]
+        : isMetric
+          ? ["upbeat", "displacement", "metre"]
+          : [
+              "rhythm",
+              "repetition",
+              "interval",
+              "auxiliary",
+              "reduction",
+              "displacement",
+              "inversion",
+              "retrograde",
+              "transposition",
+            ];
 
   return (
     <div className="study-transform-panel">
       <div>
         <span className="section-label">
-          {isAnalyse ? "Chapter III · compare motive-forms" : "Transform the second half"}
+          {isExact
+            ? "Example 14 · exact transformations"
+            : isRhythm
+              ? "Example 17 · rhythmic changes"
+              : isIntervals
+                ? "Examples 18–21 · interval changes"
+                : isMetric
+                  ? "Examples 22–24 · beat and metre"
+                  : "Systematic motive variation"}
         </span>
         <strong>
           {isCompose
@@ -460,28 +551,6 @@ function TransformationPanel({
           </button>
         ))}
       </div>
-
-      {isAnalyse && transformation !== "source" && (
-        <div className="study-feature-question">
-          <span>What changed most clearly in this motive-form?</span>
-          <div>
-            {(Object.keys(featureCopy) as StudyFeature[]).map((feature) => (
-              <button
-                type="button"
-                key={feature}
-                className={featureDecision === feature ? "is-active" : ""}
-                onClick={() => setFeatureDecision(feature)}
-              >
-                {featureCopy[feature]}
-              </button>
-            ))}
-          </div>
-          <small>
-            Schoenberg's categories overlap in real music. Here each miniature
-            isolates one feature so you can hear the distinction first.
-          </small>
-        </div>
-      )}
 
       {isCompose && (
         <div className="study-operation-summary">
@@ -1058,6 +1127,8 @@ export function CompositionStudyWorkspace({
   const isPhraseSource = SCHOENBERG_PHRASE_SOURCE_IDS.has(exerciseId);
   const isPhraseBuild = exerciseId === SCHOENBERG_STUDY_IDS.build;
   const isVariation = SCHOENBERG_VARIATION_EXERCISE_IDS.has(exerciseId);
+  const isVariationSource = SCHOENBERG_VARIATION_SOURCE_IDS.has(exerciseId);
+  const isVariationTransform = SCHOENBERG_VARIATION_TRANSFORM_IDS.has(exerciseId);
   const isVariationCompose = exerciseId === SCHOENBERG_VARIATION_IDS.compose;
   const isConnection = SCHOENBERG_CONNECTION_EXERCISE_IDS.has(exerciseId);
   const isConnectionRepair = exerciseId === SCHOENBERG_CONNECTION_IDS.repair;
@@ -1091,7 +1162,7 @@ export function CompositionStudyWorkspace({
   }, [durations, isCompare, notes, state?.variant]);
 
   const sourceOverlay = useMemo(() => {
-    if (isVariation) return studyVariationSequence("source").notes;
+    if (isVariationTransform) return studyVariationSequence("source").notes;
     if (isConnection && (isConnectionRepair || isConnectionCompose)) {
       return studyConnectionSequence("exact").notes;
     }
@@ -1105,7 +1176,7 @@ export function CompositionStudyWorkspace({
     isConnectionRepair,
     isSentence,
     isSentenceCompose,
-    isVariation,
+    isVariationTransform,
     notes,
   ]);
 
@@ -1113,9 +1184,9 @@ export function CompositionStudyWorkspace({
     audioEngine.setStudySequence(
       visibleSequence.notes,
       visibleSequence.durations,
-      isSentence || isCompletion ? harmony : undefined,
+      harmony,
     );
-  }, [harmony, isCompletion, isSentence, visibleSequence]);
+  }, [harmony, visibleSequence]);
 
   const notationOptions: Array<[StudyNotation, string]> = [
     ["staff", "Staff"],
@@ -1207,7 +1278,15 @@ export function CompositionStudyWorkspace({
         </div>
       )}
 
-      {isVariation && (
+      {isVariationSource && (
+        <VariationSourceAnswerPanel
+          exerciseId={exerciseId}
+          decision={state?.decision ?? null}
+          setDecision={(next) => setStudyDecision(exerciseId, next)}
+        />
+      )}
+
+      {isVariationTransform && (
         <TransformationPanel
           exerciseId={exerciseId}
           transformation={transformation}
