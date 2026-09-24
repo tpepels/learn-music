@@ -59,7 +59,7 @@ async function startWorkspacePlayback(
   }
 
   if (workspace === "melody-harmony") {
-    return audioEngine.playMelodyHarmonyContext(bpm, onStep);
+    return audioEngine.playHarmonyContext(bpm, onStep, true);
   }
 
   if (
