@@ -20,13 +20,15 @@ function downloadProject() {
   const state = useStudioStore.getState();
   const payload = {
     format: "play-lab-project",
-    version: 1,
+    version: 2,
     exportedAt: new Date().toISOString(),
     project: {
       bpm: state.bpm,
       patterns: state.patterns,
       melody: state.melody,
       melodyDurations: state.melodyDurations,
+      tonalContext: state.tonalContext,
+      harmonicProgression: state.harmonicProgression,
       chordProgression: state.chordProgression,
       harmonySequence: state.harmonySequence,
       harmonyDurations: state.harmonyDurations,
