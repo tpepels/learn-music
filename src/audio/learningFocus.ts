@@ -1,22 +1,16 @@
 import type { MixerTrackId } from "../music/model";
 
-export const LEARNING_FOCUS_FLOOR_DB = -3;
-export const LEARNING_CONTEXT_CEILING_DB = -9;
-
+/**
+ * Learning focus now controls only the explicit "Mute earlier parts" action.
+ * Layer faders must always describe the level the learner actually hears.
+ */
 export function applyLearningFocusVolume(
   baseVolumeDb: number,
-  track: MixerTrackId,
-  focusTrack: MixerTrackId | null,
+  _track: MixerTrackId,
+  _focusTrack: MixerTrackId | null,
 ): number {
-  if (focusTrack === null) return baseVolumeDb;
-
-  if (track === focusTrack) {
-    return Math.max(baseVolumeDb, LEARNING_FOCUS_FLOOR_DB);
-  }
-
-  return Math.min(baseVolumeDb, LEARNING_CONTEXT_CEILING_DB);
+  return baseVolumeDb;
 }
-
 
 export function shouldMuteLearningContext(
   track: MixerTrackId,
