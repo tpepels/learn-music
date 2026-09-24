@@ -1199,6 +1199,35 @@ export const productionContext: Record<string, ProductionContext> = {
     realWorld: "A composer can treat a short MIDI clip as a seed, derive several related cells, then revise the chain while looping the entire phrase rather than judging one cell at a time.",
   },
 
+  "schoenberg.beginning-sentence.a": {
+    why: "Immediate repetition establishes the basic idea strongly enough that later continuation can develop rather than introduce material from scratch.",
+    when: "Use this at the start of a theme when the listener needs a clear reference point before the music becomes more developmental.",
+    tools: ["Loop playback", "Phrase boundary", "Staff notation", "Formal labels"],
+    visual: "motif",
+    realWorld: "In a DAW or score editor, duplicate the opening phrase directly after itself and compare that presentation with versions that delay or replace the return.",
+  },
+  "schoenberg.beginning-sentence.b": {
+    why: "Transposition shows that formal repetition depends on preserved relationships, not on keeping every absolute pitch identical.",
+    when: "Use it when an exact repeat feels static but you still want the second phrase to confirm the same idea immediately.",
+    tools: ["MIDI transpose", "Staff notation", "Scale degrees", "A/B playback"],
+    visual: "motif",
+    realWorld: "A composer can duplicate a MIDI phrase and transpose the copy while preserving its interval structure and timing.",
+  },
+  "schoenberg.beginning-sentence.c": {
+    why: "Complementary tonic and dominant forms let repetition confirm the idea while harmony gives the presentation directional energy.",
+    when: "Use it when the opening needs to establish identity without sounding harmonically stationary.",
+    tools: ["Roman numerals", "Chord support", "Staff notation", "Loop playback"],
+    visual: "harmony",
+    realWorld: "The melody can remain closely related while the accompaniment under the repeated phrase moves from tonic support to dominant support.",
+  },
+  "schoenberg.beginning-sentence.d": {
+    why: "Constructing the presentation separately makes you establish material clearly before asking the continuation to develop or liquidate it.",
+    when: "Use this before writing the second half of a sentence, especially when a theme currently starts developing before its basic idea is memorable.",
+    tools: ["Piano roll", "Staff notation", "Roman numerals", "Loop playback"],
+    visual: "motif",
+    realWorld: "Build the opening phrase, duplicate or transform it immediately, loop the two together, and only then continue writing the rest of the theme.",
+  },
+
 };
 
 export function getProductionContext(exerciseId: string): ProductionContext {
