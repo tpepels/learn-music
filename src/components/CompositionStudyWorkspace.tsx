@@ -7,6 +7,7 @@ import {
   SCHOENBERG_CONNECTION_IDS,
   SCHOENBERG_SENTENCE_EXERCISE_IDS,
   SCHOENBERG_SENTENCE_IDS,
+  SCHOENBERG_PHRASE_SOURCE_IDS,
   SCHOENBERG_STUDY_IDS,
   SCHOENBERG_VARIATION_EXERCISE_IDS,
   SCHOENBERG_VARIATION_IDS,
@@ -313,6 +314,64 @@ function DegreeView({
           </div>
         ))}
       </div>
+    </div>
+  );
+}
+
+
+const phraseSourceAnswers: Record<
+  string,
+  Array<{ decision: "same" | "related" | "unrelated"; label: string }>
+> = {
+  [SCHOENBERG_STUDY_IDS.noteValues]: [
+    { decision: "related", label: "Smaller note values" },
+    { decision: "same", label: "New harmony" },
+    { decision: "unrelated", label: "New key" },
+  ],
+  [SCHOENBERG_STUDY_IDS.upbeats]: [
+    { decision: "related", label: "Upbeats + varied values" },
+    { decision: "same", label: "Exact repetition" },
+    { decision: "unrelated", label: "Chromatic modulation" },
+  ],
+  [SCHOENBERG_STUDY_IDS.passingNotes]: [
+    { decision: "related", label: "Passing notes" },
+    { decision: "same", label: "Chord change" },
+    { decision: "unrelated", label: "Meter change" },
+  ],
+  [SCHOENBERG_STUDY_IDS.repetitions]: [
+    { decision: "related", label: "Passing notes + repetition" },
+    { decision: "same", label: "Only longer notes" },
+    { decision: "unrelated", label: "New tonic" },
+  ],
+  [SCHOENBERG_STUDY_IDS.embellishment]: [
+    { decision: "related", label: "More fluent detail" },
+    { decision: "same", label: "No real change" },
+    { decision: "unrelated", label: "Too many small notes can obscure harmony" },
+  ],
+};
+
+function PhraseSourceAnswerPanel({
+  exerciseId,
+  decision,
+  setDecision,
+}: {
+  exerciseId: string;
+  decision: "same" | "related" | "unrelated" | null;
+  setDecision: (decision: "same" | "related" | "unrelated") => void;
+}) {
+  const answers = phraseSourceAnswers[exerciseId] ?? [];
+  return (
+    <div className="study-source-answer-panel" role="group" aria-label="Answer">
+      {answers.map((answer) => (
+        <button
+          type="button"
+          key={answer.decision}
+          className={decision === answer.decision ? "is-active" : ""}
+          onClick={() => setDecision(answer.decision)}
+        >
+          {answer.label}
+        </button>
+      ))}
     </div>
   );
 }
@@ -996,6 +1055,8 @@ export function CompositionStudyWorkspace({
 
   const isAnalyse = exerciseId === SCHOENBERG_STUDY_IDS.analyse;
   const isCompare = exerciseId === SCHOENBERG_STUDY_IDS.compare;
+  const isPhraseSource = SCHOENBERG_PHRASE_SOURCE_IDS.has(exerciseId);
+  const isPhraseBuild = exerciseId === SCHOENBERG_STUDY_IDS.build;
   const isVariation = SCHOENBERG_VARIATION_EXERCISE_IDS.has(exerciseId);
   const isVariationCompose = exerciseId === SCHOENBERG_VARIATION_IDS.compose;
   const isConnection = SCHOENBERG_CONNECTION_EXERCISE_IDS.has(exerciseId);
@@ -1012,6 +1073,7 @@ export function CompositionStudyWorkspace({
   const editable =
     exerciseId === SCHOENBERG_STUDY_IDS.repair ||
     exerciseId === SCHOENBERG_STUDY_IDS.compose ||
+    isPhraseBuild ||
     isVariationCompose ||
     isConnectionRepair ||
     isConnectionCompose ||
@@ -1091,6 +1153,14 @@ export function CompositionStudyWorkspace({
           ))}
         </div>
       </header>
+
+      {isPhraseSource && (
+        <PhraseSourceAnswerPanel
+          exerciseId={exerciseId}
+          decision={state?.decision ?? null}
+          setDecision={(next) => setStudyDecision(exerciseId, next)}
+        />
+      )}
 
       {isCompare && (
         <div className="study-compare-panel">

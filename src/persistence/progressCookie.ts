@@ -8,7 +8,9 @@ export type LearningProgressCookie = {
 
 export const PROGRESS_COOKIE_NAME = "play_lab_progress_v1";
 const ONE_YEAR_SECONDS = 60 * 60 * 24 * 365;
-const EXERCISE_LETTERS = ["a", "b", "c", "d"] as const;
+const EXERCISE_LETTERS = [
+  "a", "b", "c", "d", "e", "f", "g", "h", "i", "j",
+] as const;
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -42,7 +44,7 @@ function expandMasks(masks: Record<string, unknown>): string[] | null {
       typeof rawMask !== "number" ||
       !Number.isInteger(rawMask) ||
       rawMask < 0 ||
-      rawMask > 15
+      rawMask > (1 << EXERCISE_LETTERS.length) - 1
     ) {
       return null;
     }

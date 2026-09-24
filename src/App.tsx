@@ -559,11 +559,6 @@ function App() {
   const exercise = lesson.exercises[exerciseIndex];
   const nextLesson = getNextImplementedLesson(currentLessonId);
   const experiments = learningExperiments[exercise.id] ?? {};
-  const lessonSummaryEnd = lesson.description.search(/[.!?](?:\s|$)/);
-  const lessonSummary =
-    lessonSummaryEnd >= 0
-      ? lesson.description.slice(0, lessonSummaryEnd + 1)
-      : lesson.description;
 
   useEffect(() => {
     audioEngine.setBpm(bpm);
@@ -1139,13 +1134,13 @@ function App() {
 
         <main className="music-panel">
           <section className="music-intro">
-            <h1>{exercise.title}</h1>
-            <p>{lessonSummary}</p>
+            <span className="lesson-context">{lesson.title}</span>
+            <h1>{exercise.letter} · {exercise.title}</h1>
           </section>
 
-          <Workspace exercise={exercise} />
-
           <LearningPanel exercise={exercise} lessonNumber={lesson.number} />
+
+          <Workspace exercise={exercise} />
         </main>
 
         <aside className="teacher-panel">
@@ -1156,11 +1151,6 @@ function App() {
             completedExerciseIds={completedExerciseIds}
             onOpen={openExercise}
           />
-
-          <div className="task-panel">
-            <span className="section-label">Try this</span>
-            <p>{exercise.instruction}</p>
-          </div>
 
           <div className="checks">
             <div className="checks-heading">

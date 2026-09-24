@@ -105,8 +105,32 @@ describe("sanitizeLearningProgress", () => {
         "lesson.two": 2,
       },
       completedExerciseIds: ["lesson.one.a"],
-      completedLessonIds: ["lesson.one"],
+      completedLessonIds: [],
     });
+  });
+
+  it("reopens a lesson when new exercises are missing from saved completion", () => {
+    const result = sanitizeLearningProgress(
+      {
+        currentLessonId: "lesson.one",
+        exerciseIndexByLesson: { "lesson.one": 1 },
+        completedExerciseIds: ["lesson.one.a", "lesson.one.b"],
+        completedLessonIds: ["lesson.one"],
+      },
+      [
+        {
+          id: "lesson.one",
+          exerciseIds: ["lesson.one.a", "lesson.one.b", "lesson.one.c"],
+        },
+      ],
+      "lesson.one",
+    );
+
+    expect(result.completedLessonIds).toEqual([]);
+    expect(result.completedExerciseIds).toEqual([
+      "lesson.one.a",
+      "lesson.one.b",
+    ]);
   });
 
   it("uses the first current lesson when the configured fallback no longer exists", () => {

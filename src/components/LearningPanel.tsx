@@ -23,136 +23,42 @@ export function LearningPanel({
     exercise.letter === "A" ? getDawCheckpoint(lessonNumber) : undefined;
 
   return (
-    <section className="learning-panel" aria-label="Concept and DAW explanation">
-      <div className="learning-essentials">
-        <div className="learning-essential-copy">
-          <span className="section-label">Understand</span>
-          <h2>{exercise.learn}</h2>
-          <p>{exercise.explanation}</p>
+    <section className="exercise-guide" aria-label="Current exercise guide">
+      <div className="exercise-guide-primary">
+        <div className="exercise-guide-do">
+          <span className="section-label">Do this</span>
+          <p>{exercise.instruction}</p>
         </div>
 
-        <aside className="learning-listen-cue">
+        <div className="exercise-guide-listen">
           <span className="section-label">Listen for</span>
           <p>{exercise.recognition}</p>
-        </aside>
+        </div>
+
+        {exercise.source && (
+          <div className="exercise-guide-source">
+            <span className="section-label">From the book</span>
+            <strong>{exercise.source.reference}</strong>
+            <p>{exercise.source.focus}</p>
+          </div>
+        )}
       </div>
 
-      {checkpoint && (
-        <details className="daw-checkpoint">
-          <summary>
-            <div>
-              <span>DAW transfer checkpoint</span>
-              <strong>{checkpoint.title}</strong>
-              <small>{checkpoint.intro}</small>
-            </div>
-            <b>Open checkpoint</b>
-          </summary>
-
-          <div className="daw-checkpoint-body">
-            <div className="daw-checkpoint-grid">
-              {checkpoint.objects.map((item) => (
-                <article key={item.name}>
-                  <strong>{item.name}</strong>
-                  <p>{item.meaning}</p>
-                </article>
-              ))}
-            </div>
-
-            <p className="daw-checkpoint-challenge">
-              <strong>When you open a DAW:</strong> {checkpoint.challenge}
-            </p>
-          </div>
-        </details>
-      )}
-
-      <details className="learning-deep-dive">
+      <details className="exercise-guide-details">
         <summary>
           <div>
-            <strong>Go deeper</strong>
-            <span>Why it works · PLAY/LAB → DAW · vocabulary</span>
+            <strong>Why / theory / vocabulary</strong>
+            <span>Open only when you want the explanation behind the exercise.</span>
           </div>
-          <b>Explore</b>
+          <b>Open</b>
         </summary>
 
-        <div className="learning-panel-body">
-          <div className="learning-reading-grid">
-            <div className="learning-reading-column">
-              <section className="learning-model-card">
-                <h3>The underlying model</h3>
-                <p>{transfer.concept}</p>
-                <h4>What is actually changing?</h4>
-                <p>{transfer.changes}</p>
-              </section>
-
-              <section className="learning-use-card">
-                <h3>Why you would use it</h3>
-                <p>{context.why}</p>
-                <h4>When it comes up</h4>
-                <p>{context.when}</p>
-              </section>
-
-              <section className="learning-pitfall">
-                <h3>Common confusion</h3>
-                <p>{transfer.pitfall}</p>
-              </section>
-            </div>
-
-            <div className="learning-reading-column">
-              <div className="learning-concept-visual">
-                <ConceptVisual kind={context.visual} />
-              </div>
-
-              <section className="learning-playlab-card">
-                <h3>Here in PLAY/LAB</h3>
-                <p>{playLabRepresentation}</p>
-              </section>
-
-              <section className="learning-daw-card">
-                <h3>In a DAW</h3>
-                <p>{transfer.dawLocation}</p>
-                <p>{context.realWorld}</p>
-                <p className="learning-daw-transfer">
-                  <strong>Why it transfers:</strong> {transfer.whyItMatters}
-                </p>
-
-                <div className="daw-path-heading">
-                  <strong>DAW map</strong>
-                  <span>Familiar parts stay visible as new ones are introduced.</span>
-                </div>
-                <div className="daw-path" aria-label="How this concept fits into a DAW">
-                  {dawStages.map((stage) => {
-                    const familiarity = getDawStageFamiliarity(
-                      stage.id,
-                      transfer.stage,
-                      lessonNumber,
-                    );
-
-                    return (
-                      <span
-                        className={`is-${familiarity}`}
-                        key={stage.id}
-                        aria-label={`${stage.label}: ${familiarity}`}
-                      >
-                        {stage.label}
-                      </span>
-                    );
-                  })}
-                </div>
-                <div className="daw-path-legend" aria-hidden="true">
-                  <span className="is-familiar">Already met</span>
-                  <span className="is-current">Current idea</span>
-                  <span className="is-upcoming">Introduced later</span>
-                </div>
-
-                <div className="learning-tool-line">
-                  <strong>Vocabulary:</strong>
-                  <span>{transfer.vocabulary.join(" · ")}</span>
-                  <strong>Tools you may see:</strong>
-                  <span>{context.tools.join(" · ")}</span>
-                </div>
-              </section>
-            </div>
-          </div>
+        <div className="exercise-guide-details-body">
+          <section className="exercise-guide-theory">
+            <span className="section-label">Why</span>
+            <h2>{exercise.learn}</h2>
+            <p>{exercise.explanation}</p>
+          </section>
 
           {exercise.terms.length > 0 && (
             <section className="learning-glossary">
@@ -167,6 +73,105 @@ export function LearningPanel({
               </dl>
             </section>
           )}
+
+          <details className="learning-deep-dive">
+            <summary>
+              <div>
+                <strong>PLAY / LAB → DAW</strong>
+                <span>Transfer the same idea to production tools.</span>
+              </div>
+              <b>Explore</b>
+            </summary>
+
+            <div className="learning-panel-body">
+              {checkpoint && (
+                <div className="daw-checkpoint-inline">
+                  <span className="section-label">DAW checkpoint</span>
+                  <strong>{checkpoint.title}</strong>
+                  <p>{checkpoint.intro}</p>
+                </div>
+              )}
+
+              <div className="learning-reading-grid">
+                <div className="learning-reading-column">
+                  <section className="learning-model-card">
+                    <h3>The underlying model</h3>
+                    <p>{transfer.concept}</p>
+                    <h4>What is actually changing?</h4>
+                    <p>{transfer.changes}</p>
+                  </section>
+
+                  <section className="learning-use-card">
+                    <h3>Why you would use it</h3>
+                    <p>{context.why}</p>
+                    <h4>When it comes up</h4>
+                    <p>{context.when}</p>
+                  </section>
+
+                  <section className="learning-pitfall">
+                    <h3>Common confusion</h3>
+                    <p>{transfer.pitfall}</p>
+                  </section>
+                </div>
+
+                <div className="learning-reading-column">
+                  <div className="learning-concept-visual">
+                    <ConceptVisual kind={context.visual} />
+                  </div>
+
+                  <section className="learning-playlab-card">
+                    <h3>Here in PLAY/LAB</h3>
+                    <p>{playLabRepresentation}</p>
+                  </section>
+
+                  <section className="learning-daw-card">
+                    <h3>In a DAW</h3>
+                    <p>{transfer.dawLocation}</p>
+                    <p>{context.realWorld}</p>
+                    <p className="learning-daw-transfer">
+                      <strong>Why it transfers:</strong> {transfer.whyItMatters}
+                    </p>
+
+                    <div className="daw-path-heading">
+                      <strong>DAW map</strong>
+                      <span>Familiar parts stay visible as new ones are introduced.</span>
+                    </div>
+                    <div className="daw-path" aria-label="How this concept fits into a DAW">
+                      {dawStages.map((stage) => {
+                        const familiarity = getDawStageFamiliarity(
+                          stage.id,
+                          transfer.stage,
+                          lessonNumber,
+                        );
+
+                        return (
+                          <span
+                            className={`is-${familiarity}`}
+                            key={stage.id}
+                            aria-label={`${stage.label}: ${familiarity}`}
+                          >
+                            {stage.label}
+                          </span>
+                        );
+                      })}
+                    </div>
+                    <div className="daw-path-legend" aria-hidden="true">
+                      <span className="is-familiar">Already met</span>
+                      <span className="is-current">Current idea</span>
+                      <span className="is-upcoming">Introduced later</span>
+                    </div>
+
+                    <div className="learning-tool-line">
+                      <strong>Vocabulary:</strong>
+                      <span>{transfer.vocabulary.join(" · ")}</span>
+                      <strong>Tools you may see:</strong>
+                      <span>{context.tools.join(" · ")}</span>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </details>
         </div>
       </details>
     </section>
