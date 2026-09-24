@@ -48,20 +48,18 @@ async function startWorkspacePlayback(
   workspace: ExerciseDefinition["workspace"],
   bpm: number,
   onStep: (step: number) => void,
-) {
+): Promise<boolean> {
   if (
     workspace === "melody" ||
     workspace === "motif" ||
     workspace === "minor-key" ||
     workspace === "harmonic-minor"
   ) {
-    await audioEngine.playMelodyWithGroove(bpm, onStep);
-    return;
+    return audioEngine.playMelodyWithGroove(bpm, onStep);
   }
 
   if (workspace === "melody-harmony") {
-    await audioEngine.playMelodyHarmonyContext(bpm, onStep);
-    return;
+    return audioEngine.playMelodyHarmonyContext(bpm, onStep);
   }
 
   if (
@@ -69,34 +67,29 @@ async function startWorkspacePlayback(
     workspace === "harmonic-function" ||
     workspace === "minor-harmony"
   ) {
-    await audioEngine.playHarmonyContext(bpm, onStep, true);
-    return;
+    return audioEngine.playHarmonyContext(bpm, onStep, true);
   }
 
   if (
     workspace === "seventh-harmony" ||
     workspace === "borrowed-harmony"
   ) {
-    await audioEngine.playHarmonyContext(bpm, onStep, false);
-    return;
+    return audioEngine.playHarmonyContext(bpm, onStep, false);
   }
 
   if (
     workspace === "chords" ||
     workspace === "voicing"
   ) {
-    await audioEngine.playChords(bpm, onStep);
-    return;
+    return audioEngine.playChords(bpm, onStep);
   }
 
   if (workspace === "bass") {
-    await audioEngine.playBass(bpm, onStep);
-    return;
+    return audioEngine.playBass(bpm, onStep);
   }
 
   if (workspace === "phrase-form") {
-    await audioEngine.playForm(bpm, onStep);
-    return;
+    return audioEngine.playForm(bpm, onStep);
   }
 
   if (
@@ -113,11 +106,10 @@ async function startWorkspacePlayback(
     workspace === "reference" ||
     workspace === "instrument-palette"
   ) {
-    await audioEngine.playArrangement(bpm, onStep);
-    return;
+    return audioEngine.playArrangement(bpm, onStep);
   }
 
-  await audioEngine.playDrums(bpm, onStep);
+  return audioEngine.playDrums(bpm, onStep);
 }
 
 function Transport({
@@ -155,7 +147,13 @@ function Transport({
     try {
       audioEngine.setLearningFocusTrack(learningFocusTrack);
       audioEngine.setLearningSolo(soloCurrent);
-      await startWorkspacePlayback(workspace, bpm, setCurrentStep);
+      const started = await startWorkspacePlayback(
+        workspace,
+        bpm,
+        setCurrentStep,
+      );
+      if (!started) return;
+
       recordLearningExperiment("transport.play", workspace);
       setPlaying(true);
     } catch (error) {
@@ -182,6 +180,10 @@ function Transport({
   }, [soloCurrent]);
 
   useEffect(() => {
+    // A workspace change must also cancel a Play request that is still waiting
+    // for samples to load, even though isPlaying has not become true yet.
+    audioEngine.cancelPendingTransportStart();
+
     if (!isPlaying) return;
 
     if (!canPlay) {
@@ -192,20 +194,33 @@ function Transport({
 
     let cancelled = false;
 
-    void startWorkspacePlayback(workspace, bpm, setCurrentStep).catch((error) => {
-      if (cancelled) return;
-      console.error("PLAY / LAB playback failed while changing workspace", error);
-      audioEngine.stop();
-      setPlaying(false);
-      setPlaybackError(
-        error instanceof Error
-          ? error.message
-          : "Audio could not continue in this lesson.",
-      );
-    });
+    void (async () => {
+      try {
+        const started = await startWorkspacePlayback(
+          workspace,
+          bpm,
+          setCurrentStep,
+        );
+        if (cancelled || !started) return;
+      } catch (error) {
+        if (cancelled) return;
+        console.error(
+          "PLAY / LAB playback failed while changing workspace",
+          error,
+        );
+        audioEngine.stop();
+        setPlaying(false);
+        setPlaybackError(
+          error instanceof Error
+            ? error.message
+            : "Audio could not continue in this lesson.",
+        );
+      }
+    })();
 
     return () => {
       cancelled = true;
+      audioEngine.cancelPendingTransportStart();
     };
     // Deliberately restart only when the playback workspace changes.
     // BPM changes are handled live by audioEngine.setBpm().
