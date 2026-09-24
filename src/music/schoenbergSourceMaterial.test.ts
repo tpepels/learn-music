@@ -54,6 +54,16 @@ describe("Schoenberg source material", () => {
     ]);
   });
 
+  it("stores Schoenberg Ex. 5a as the actual F-major broken-chord study", () => {
+    const material = getSchoenbergSourceMaterial("s01.ex5a");
+    expect(material?.kind).toBe("score");
+    if (!material || material.kind !== "score") return;
+
+    expect(material.keyLabel).toContain("F major");
+    expect(material.events.map((event) => event.midi)).toEqual([65, 69, 72]);
+    expect(material.events.map((event) => event.duration)).toEqual([4, 4, 8]);
+  });
+
   it("stores Beethoven 5 Ex. 12b as playable native note data", () => {
     const material = getSchoenbergSourceMaterial("s02.ex12b");
     expect(material?.kind).toBe("score");
@@ -65,6 +75,20 @@ describe("Schoenberg source material", () => {
     expect(material.events.slice(4, 8).map((event) => event.midi)).toEqual([
       65, 65, 65, 62,
     ]);
+  });
+
+  it("never names a specific example without in-app source material", () => {
+    for (const lesson of lessons) {
+      for (const exercise of lesson.exercises) {
+        const reference = exercise.source?.reference ?? "";
+        const namesExample = /\bExample(?:s)?\b|\bEx\.?\s*\d/i.test(reference);
+        if (!namesExample) continue;
+        expect(
+          exercise.source?.exampleIds?.length ?? 0,
+          `${lesson.id} · ${exercise.id} · ${reference}`,
+        ).toBeGreaterThan(0);
+      }
+    }
   });
 
   it("covers all five lessons with in-app source material", () => {
