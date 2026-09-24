@@ -47,12 +47,16 @@ export function LayerVolumeControl({
   );
 }
 
-export function LayerVolumeStrip() {
+export function LayerVolumeStrip({
+  tracks = mixerTrackIds,
+}: {
+  tracks?: readonly MixerTrackId[];
+}) {
   return (
-    <section className="layer-volume-strip" aria-label="Layer volumes">
+    <section className="layer-volume-strip is-component-mixer" aria-label="Layer volumes">
       <span className="layer-volume-strip-label">Layer levels</span>
       <div className="layer-volume-controls">
-        {mixerTrackIds.map((track) => (
+        {tracks.map((track) => (
           <LayerVolumeControl key={track} track={track} />
         ))}
       </div>
