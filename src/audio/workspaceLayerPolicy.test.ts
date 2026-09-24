@@ -30,12 +30,6 @@ describe("Music & Production layer audibility contract", () => {
       }
 
       expect(
-        playbackLayersForWorkspace(exercise.workspace),
-        exercise.id + " (" + exercise.workspace + ") must declare its audible layers",
-      ).toHaveLength(
-        expect.any(Number) as unknown as number,
-      );
-      expect(
         playbackLayersForWorkspace(exercise.workspace).length,
         exercise.id + " (" + exercise.workspace + ") must be genuinely multi-layer",
       ).toBeGreaterThanOrEqual(2);
