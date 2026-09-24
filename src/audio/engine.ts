@@ -1143,7 +1143,19 @@ class AudioEngine {
           harmony === "I"
             ? ["C3", "E3", "G3"]
             : ["G2", "B2", "D3"];
-        this.triggerPiano(chord, this.noteDuration(8), time, 0.27);
+        const nextHarmonyOffset = this.studyHarmony
+          .slice(step + 1)
+          .findIndex((entry) => entry !== null);
+        const harmonySteps =
+          nextHarmonyOffset >= 0
+            ? Math.max(1, nextHarmonyOffset + 1)
+            : Math.min(4, totalSteps - step);
+        this.triggerPiano(
+          chord,
+          this.noteDuration(harmonySteps),
+          time,
+          0.27,
+        );
       }
 
       const midi = this.studySequence[step];
