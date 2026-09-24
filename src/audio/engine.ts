@@ -10,6 +10,7 @@ import {
 import { disposeSynthAudition } from "./synthAudition";
 import { effectiveChorusWet } from "./stereoAudition";
 import { TransportStartGate } from "./transportStartGate";
+import { syncEighthNoteDelay } from "./tempoSync";
 import {
   resolveArrangementFrame,
   resolveArrangementMelodyStep,
@@ -373,8 +374,15 @@ class AudioEngine {
     this.applyMixerSettings();
   }
 
+  private syncTempoEffects(bpm: number, rampTime = 0.05) {
+    if (this.mixDelay) {
+      syncEighthNoteDelay(this.mixDelay.delayTime, bpm, rampTime);
+    }
+  }
+
   setBpm(bpm: number) {
     Tone.getTransport().bpm.rampTo(bpm, 0.05);
+    this.syncTempoEffects(bpm);
   }
 
   private triggerKick(time: number, velocity: number) {
@@ -995,6 +1003,7 @@ class AudioEngine {
     this.clearEvent();
     transport.position = 0;
     transport.bpm.value = bpm;
+    this.syncTempoEffects(bpm, 0);
     transport.swing = this.grooveFeelSettings.swing;
     transport.swingSubdivision = "8n";
     this.step = 0;
