@@ -9352,3 +9352,87 @@ body {
     text-align: left;
   }
 }
+
+
+/* Schoenberg S03 · connecting motive-forms */
+
+.study-connection-panel {
+  margin-top: 18px;
+  padding: 14px;
+  display: grid;
+  gap: 12px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: rgba(255,255,255,0.018);
+}
+
+.study-form-chain {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.study-form-chain > div {
+  min-height: 58px;
+  padding: 9px 10px;
+  display: grid;
+  align-content: center;
+  gap: 3px;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 9px;
+  background: rgba(255,255,255,0.022);
+  position: relative;
+}
+
+.study-form-chain > div:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  z-index: 2;
+  transform: translate(50%, -50%);
+  color: var(--dim);
+  font-size: 10px;
+}
+
+.study-form-chain strong {
+  color: var(--accent);
+  font-size: 14px;
+}
+
+.study-form-chain span {
+  color: var(--muted);
+  font-size: 9px;
+  line-height: 1.35;
+}
+
+.study-connection-copy {
+  display: grid;
+  gap: 4px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.study-connection-copy strong {
+  max-width: 70ch;
+  font-size: 12px;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.study-connection-panel .study-variant-buttons,
+.study-connection-panel .study-transform-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+@media (max-width: 900px) {
+  .study-form-chain {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .study-form-chain > div::after {
+    display: none;
+  }
+}
