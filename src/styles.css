@@ -1546,7 +1546,7 @@ body {
 .arrangement-head,
 .arrangement-row {
   display: grid;
-  grid-template-columns: 112px repeat(8, minmax(36px, 1fr));
+  grid-template-columns: 148px repeat(8, minmax(34px, 1fr));
   gap: 6px;
 }
 
@@ -1614,6 +1614,10 @@ body {
 .arrangement-label span {
   color: var(--dim);
   font-size: 8px;
+}
+
+.arrangement-label .layer-volume-control {
+  margin-top: 2px;
 }
 
 .arrangement-cell {
@@ -10012,6 +10016,20 @@ body {
   color: var(--dim);
   font-variant-numeric: tabular-nums;
   font-size: 8px;
+}
+
+.layer-volume-control.is-compact {
+  grid-template-columns: minmax(48px, 1fr) 40px;
+  gap: 5px;
+}
+
+.layer-volume-control.is-compact input {
+  height: 12px;
+}
+
+.layer-volume-control.is-compact output {
+  min-width: 40px;
+  font-size: 7px;
 }
 
 @media (max-width: 1250px) {
