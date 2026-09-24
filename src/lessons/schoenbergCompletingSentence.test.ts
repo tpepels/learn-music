@@ -68,7 +68,7 @@ describe("Schoenberg S05 completing the sentence", () => {
     const staticFragment = studyCompletionSequence("static-fragment");
 
     expect(studyCompletionHasSequence(sequence.notes)).toBe(true);
-    expect(studyCompletionHasSequence(staticFragment.notes)).toBe(true);
+    expect(studyCompletionHasSequence(staticFragment.notes)).toBe(false);
     expect(sequence.notes.slice(16, 20)).not.toEqual(
       sequence.notes.slice(20, 24),
     );
