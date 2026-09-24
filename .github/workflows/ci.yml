@@ -2,9 +2,6 @@ name: Validate branch manually
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - fix/lesson-five-recovery-state-v2
 
 permissions:
   contents: read
