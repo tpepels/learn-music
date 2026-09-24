@@ -75,7 +75,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
           {
             label: "You inspected more than one notation",
             complete:
-              (experiments["study.notation"]?.values.length ?? 0) >= 1,
+              (experiments["study.notation"]?.values.length ?? 0) >= 2,
           },
         ];
       },
@@ -220,6 +220,21 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
       evaluate: ({ compositionStudy, experiments }) => {
         const state = compositionStudy[SCHOENBERG_STUDY_IDS.compose];
         const notes = state?.notes ?? [];
+        const noteEdits = experiments["study.note-edit"]?.values ?? [];
+        const editsByStep = new Map<string, Set<string>>();
+        noteEdits.forEach((entry) => {
+          const separator = entry.indexOf(":");
+          if (separator < 0) return;
+          const step = entry.slice(0, separator);
+          const value = entry.slice(separator + 1);
+          const values = editsByStep.get(step) ?? new Set<string>();
+          values.add(value);
+          editsByStep.set(step, values);
+        });
+        const revised = [...editsByStep.values()].some(
+          (values) => values.size >= 2,
+        );
+
         return [
           {
             label: "You wrote the phrase in this exercise",
@@ -228,6 +243,15 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
           {
             label: "You listened to your construction",
             complete: heardPlayback(experiments),
+          },
+          {
+            label: "You revised at least one note after trying an idea",
+            complete: revised,
+          },
+          {
+            label: "You compared more than one notation",
+            complete:
+              (experiments["study.notation"]?.values.length ?? 0) >= 2,
           },
           {
             label: "Both units contain at least three notes",
