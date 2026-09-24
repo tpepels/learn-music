@@ -1189,16 +1189,16 @@ class AudioEngine {
   async playMelodyWithGroove(bpm: number, onStep: (step: number) => void) {
     if (!(await this.prepare(bpm, onStep, ["drums", "piano"]))) return false;
     const transport = Tone.getTransport();
-    const drums = resolveContextDrumPattern(this.pattern);
-    const melodyFallback = !hasArrangementMelody(this.melody);
-    const melody = melodyFallback
-      ? buildArrangementFallbackMelody(this.tonalContext)
-      : this.melody;
-    const totalTransportSteps = melody.length * 2;
+    const totalTransportSteps = 32;
 
     this.eventId = transport.scheduleRepeat((time) => {
       const globalStep = this.step;
       const drumStep = globalStep % 16;
+      const drums = resolveContextDrumPattern(this.pattern);
+      const melodyFallback = !hasArrangementMelody(this.melody);
+      const melody = melodyFallback
+        ? buildArrangementFallbackMelody(this.tonalContext)
+        : this.melody;
 
       if (drums.kick[drumStep]) {
         this.triggerKick(time, this.grooveFeelSettings.velocities.kick[drumStep] ?? 0.9);
