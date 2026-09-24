@@ -10,6 +10,7 @@ import type {
   SourceScoreEvent,
   SourceScoreExample,
 } from "../music/sourceScore";
+import { useStudioStore } from "../state/studio";
 
 const LETTER_STEP: Record<string, number> = {
   C: 0,
@@ -389,6 +390,9 @@ function NativeSourceScore({
 }
 
 function SourceScoreCard({ example }: { example: SourceScoreExample }) {
+  const recordLearningExperiment = useStudioStore(
+    (state) => state.recordLearningExperiment,
+  );
   const [playing, setPlaying] = useState(false);
   const [currentStep, setCurrentStep] = useState(-1);
   const [activeSegment, setActiveSegment] = useState<string | null>(
@@ -421,6 +425,9 @@ function SourceScoreCard({ example }: { example: SourceScoreExample }) {
       setCurrentStep,
     );
     setPlaying(Boolean(started));
+    if (started) {
+      recordLearningExperiment("source-score.play", example.id);
+    }
   }
 
   async function audition(event: SourceScoreEvent) {
@@ -469,11 +476,15 @@ function SourceScoreCard({ example }: { example: SourceScoreExample }) {
               type="button"
               key={segment.id}
               className={activeSegment === segment.id ? "is-active" : ""}
-              onClick={() =>
+              onClick={() => {
                 setActiveSegment((current) =>
                   current === segment.id ? null : segment.id,
-                )
-              }
+                );
+                recordLearningExperiment(
+                  "source-score.segment",
+                  example.id + ":" + segment.id,
+                );
+              }}
             >
               <strong>{segment.label}</strong>
               <span>{segment.description}</span>
