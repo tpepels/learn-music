@@ -1,4 +1,6 @@
 import { useRef, useState } from "react";
+import { commitProjectImport } from "../app/projectImport";
+import { audioEngine } from "../audio/engine";
 import {
   activeLayerCount,
   arrangementLayers,
@@ -126,7 +128,10 @@ export function FinalProjectWorkspace() {
     try {
       const raw = JSON.parse(await file.text());
       const project = parseProjectFile(raw);
-      loadProject(project);
+      commitProjectImport(project, {
+        stopAudio: () => audioEngine.stop(),
+        loadProject,
+      });
       setImportMessage("Project loaded successfully.");
     } catch {
       setImportMessage("That file is not a valid PLAY / LAB project.");
