@@ -107,15 +107,22 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Read Schoenberg's literature examples as evidence that phrases can differ greatly in surface while remaining intelligible units.",
         explanation:
-          "Examples 1-2 collect short phrases from Beethoven and other composers. They differ in length, contour and rhythmic activity. The point is not that one contour defines a phrase; it is that a phrase can be grasped as a unit through the coordination of melodic, rhythmic and harmonic factors.",
+          "Examples 1-2 collect short phrases from Beethoven and other composers. They differ in length, contour and rhythmic activity. The point is not that one contour defines a phrase; it is that a phrase can be grasped as a unit through the coordination of melodic, rhythmic and harmonic factors. Ex. 2e is embedded below so the literature example itself is part of the exercise.",
         instruction:
-          "Compare Exact repeat, Related change and Unrelated change in the reduction below. Then choose Related change. Relate what you hear to the book's Ex. 2e, Beethoven Symphony No. 3-I, and Ex. 2g, Beethoven Symphony No. 9-I: very different surfaces can still read as coherent phrase material.",
+          "First study the embedded Ex. 2e from Beethoven's Symphony No. 3-I. Follow the slur, contour and rhythmic shape as one phrase rather than trying to reduce it to a fixed number of steps. Then use the interactive comparison below: audition Exact repeat, Related change and Unrelated change and choose Related change.",
         recognition:
           "Which version sounds changed while still belonging to the same musical thought?",
         source: {
-          reference: "Examples 1-2 - especially Ex. 2e Beethoven Symphony No. 3-I and Ex. 2g Symphony No. 9-I",
+          reference: "Example 2e - Beethoven, Symphony No. 3-I",
           focus:
-            "The book places very different literature excerpts side by side to show that phrase identity is not tied to one fixed length or rhythmic surface. The interactive miniature is a reduction of that comparison, not a transcription.",
+            "Analyse the actual score excerpt first. The interactive miniature underneath is a separate transfer exercise for hearing exact, related and unrelated continuation - it is not a substitute for Beethoven's example.",
+          examples: [
+            {
+              asset: "book-examples/s01/ex2e-beethoven-eroica-i.jpg",
+              alt: "Schoenberg Example 2e, excerpt from Beethoven Symphony No. 3 first movement",
+              caption: "Ex. 2e · Beethoven, Symphony No. 3-I · score excerpt reproduced from the supplied book scan",
+            },
+          ],
         },
         terms: [
           {
@@ -156,15 +163,27 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Use the kind of family resemblance visible in Schoenberg's Beethoven phrase examples to repair a weak continuation.",
         explanation:
-          "Schoenberg's examples include Beethoven's Symphony No. 3 in both Ex. 2 and Ex. 4. The exact notes differ from our miniature, but the analytical question transfers directly: can later material preserve enough contour, interval direction or rhythmic character to sound connected without simply copying?",
+          "Schoenberg selected two different passages from Beethoven's Symphony No. 3 in these early phrase examples. They are now shown directly below. The purpose of the editable miniature is not to stand in for them: first analyse what Beethoven actually wrote, then transfer the idea of recognisable relationship into your own small phrase.",
         instruction:
-          "Keep steps 1-4 as the source. Rewrite steps 5-8 until they are recognisably related but not identical. A transposition works, but so can a contour-preserving change. Listen after every substantial edit.",
+          "Study both embedded Beethoven excerpts first. In Ex. 2e, trace the complete slurred phrase and its changing contour. In Ex. 4c, follow the compact repeated-note rhythmic character and the way the line continues from it. Then move to the editable miniature: keep steps 1-4 as the source and rewrite steps 5-8 until they are recognisably related but not identical. Listen after every substantial edit.",
         recognition:
-          "Does step 5 feel like the continuation of a known thought rather than the start of another melody?",
+          "After looking at Beethoven first, can you make your continuation preserve a clearly recognisable feature without merely copying the source?",
         source: {
-          reference: "Ex. 2e Beethoven Symphony No. 3-I; Ex. 4c Beethoven Symphony No. 3 - Scherzo",
+          reference: "Example 2e - Beethoven, Symphony No. 3-I · Example 4c - Beethoven, Symphony No. 3, Scherzo",
           focus:
-            "Use the Beethoven excerpts as analysis models for phrase relation and rhythmic character. The editable miniature isolates that relationship rather than reproducing the orchestral score.",
+            "These are the actual examples Schoenberg placed in the chapter. Analyse the score excerpts themselves; the editable miniature below is the follow-up application.",
+          examples: [
+            {
+              asset: "book-examples/s01/ex2e-beethoven-eroica-i.jpg",
+              alt: "Schoenberg Example 2e, excerpt from Beethoven Symphony No. 3 first movement",
+              caption: "Ex. 2e · Beethoven, Symphony No. 3-I",
+            },
+            {
+              asset: "book-examples/s01/ex4c-beethoven-eroica-scherzo.jpg",
+              alt: "Schoenberg Example 4c, excerpt from Beethoven Symphony No. 3 Scherzo",
+              caption: "Ex. 4c · Beethoven, Symphony No. 3 · Scherzo, Allegro vivace",
+            },
+          ],
         },
         terms: [
           {
