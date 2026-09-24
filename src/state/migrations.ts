@@ -65,6 +65,20 @@ import {
   type TextureSettings,
   type VoicingSettings,
 } from "../music/model";
+import {
+  inferLegacyTonalContext,
+  migrateLegacyProgression,
+  progressionSymbols,
+  sanitizeHarmonicProgression,
+  sanitizeTonalContext,
+  type TonalContext,
+} from "../music/harmony";
+
+function migrationCompatibilityContext(context: TonalContext): TonalContext {
+  return context.mode === "major"
+    ? { tonic: 0, mode: "major" }
+    : { tonic: 9, mode: context.mode };
+}
 
 const FORM_SECTIONS = 4;
 
@@ -545,6 +559,28 @@ export function migratePersistedStudioState(value: unknown) {
     record.bassSequence,
     initialBassSequence,
   ) as BassSequence;
+  const legacyChordProgression = migrateChordProgression(
+    record.chordProgression,
+  );
+  const inferredTonalContext = inferLegacyTonalContext(
+    record.chordProgression,
+    record.currentLessonId,
+  );
+  const tonalContext = sanitizeTonalContext(
+    record.tonalContext,
+    inferredTonalContext,
+  );
+  const harmonicProgression = Array.isArray(record.harmonicProgression)
+    ? sanitizeHarmonicProgression(record.harmonicProgression)
+    : migrateLegacyProgression(legacyChordProgression, inferredTonalContext);
+  const chordProgression = progressionSymbols(
+    harmonicProgression,
+    migrationCompatibilityContext(tonalContext),
+  ).map((symbol, index) =>
+    symbol && chordNames.includes(symbol as (typeof chordNames)[number])
+      ? (symbol as (typeof chordNames)[number])
+      : legacyChordProgression[index] ?? null,
+  ) as ChordProgression;
 
   return {
     bpm: Math.max(40, Math.min(240, finiteNumber(record.bpm) ?? 96)),
@@ -565,7 +601,9 @@ export function migratePersistedStudioState(value: unknown) {
         ? (record.melodyDurations as number[])
         : initialMelodyDurations,
     ),
-    chordProgression: migrateChordProgression(record.chordProgression),
+    tonalContext,
+    harmonicProgression,
+    chordProgression,
     harmonySequence,
     harmonyDurations: normalizeHarmonyDurations(
       harmonySequence,
