@@ -106,6 +106,29 @@ describe("Schoenberg source material", () => {
     ]);
   });
 
+  it("stores Ex. 14 diminution and augmentation as the same pitches at different scales", () => {
+    const diminution = getSchoenbergSourceMaterial("s02.ex14b");
+    const augmentation = getSchoenbergSourceMaterial("s02.ex14c");
+    expect(diminution?.kind).toBe("score");
+    expect(augmentation?.kind).toBe("score");
+    if (
+      !diminution || diminution.kind !== "score" ||
+      !augmentation || augmentation.kind !== "score"
+    ) return;
+
+    const pitches = [67, 64, 60, 69, 65, 62, 61, 67];
+    expect(diminution.events.map((event) => event.midi)).toEqual(pitches);
+    expect(augmentation.events.map((event) => event.midi)).toEqual(pitches);
+    expect(diminution.events.map((event) => event.duration)).toEqual(
+      Array(8).fill(1),
+    );
+    expect(augmentation.events.map((event) => event.duration)).toEqual(
+      Array(8).fill(4),
+    );
+    expect(diminution.meter).toBeUndefined();
+    expect(augmentation.meter).toBeUndefined();
+  });
+
   it("keeps Chapter VIII literature examples separate and source-specific", () => {
     const ids = [
       "s05.ex52",
