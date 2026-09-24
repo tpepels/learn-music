@@ -50,6 +50,17 @@ export const SCHOENBERG_VARIATION_EXERCISE_IDS = new Set<string>(
   Object.values(SCHOENBERG_VARIATION_IDS),
 );
 
+export const SCHOENBERG_CONNECTION_IDS = {
+  compare: "schoenberg.connecting-motive-forms.a",
+  bridge: "schoenberg.connecting-motive-forms.b",
+  repair: "schoenberg.connecting-motive-forms.c",
+  compose: "schoenberg.connecting-motive-forms.d",
+} as const;
+
+export const SCHOENBERG_CONNECTION_EXERCISE_IDS = new Set<string>(
+  Object.values(SCHOENBERG_CONNECTION_IDS),
+);
+
 export const studyTransformationFeature: Record<
   Exclude<StudyTransformation, "source">,
   StudyFeature
@@ -245,6 +256,189 @@ export function studyCombinedVariation(
   return combineHalves(second, secondDurations);
 }
 
+
+const connectionSourceBlock: Array<number | null> = [60, 62, 65, 64];
+const connectionSourceDurations: StudyDuration[] = [1, 1, 1, 1];
+
+function connectionBlock(
+  operation: StudyTransformation,
+  index = 1,
+): StudySequence {
+  const transpose = index * 2;
+  switch (operation) {
+    case "rhythm":
+      return {
+        notes: [...connectionSourceBlock],
+        durations: [1, 2, 1, 2],
+      };
+    case "interval":
+      return {
+        notes: [60 + transpose, 63 + transpose, 65 + transpose, 64 + transpose],
+        durations: [...connectionSourceDurations],
+      };
+    case "auxiliary":
+      return {
+        notes: [60 + transpose, 61 + transpose, 62 + transpose, 65 + transpose],
+        durations: [...connectionSourceDurations],
+      };
+    case "reduction":
+      return {
+        notes: [60 + transpose, null, 65 + transpose, 64 + transpose],
+        durations: [...connectionSourceDurations],
+      };
+    case "displacement":
+      return {
+        notes: [null, 60 + transpose, 62 + transpose, 65 + transpose],
+        durations: [...connectionSourceDurations],
+      };
+    case "source":
+      return {
+        notes: connectionSourceBlock.map((note) =>
+          note === null ? null : note + transpose,
+        ),
+        durations: [...connectionSourceDurations],
+      };
+  }
+}
+
+function joinConnectionBlocks(blocks: StudySequence[]): StudySequence {
+  return {
+    notes: blocks.flatMap((block) => block.notes),
+    durations: blocks.flatMap((block) => block.durations),
+  };
+}
+
+const connectedForms = joinConnectionBlocks([
+  {
+    notes: [...connectionSourceBlock],
+    durations: [...connectionSourceDurations],
+  },
+  connectionBlock("source", 1),
+  connectionBlock("interval", 1),
+  connectionBlock("source", 2),
+]);
+
+const monotonousForms = joinConnectionBlocks(
+  Array.from({ length: 4 }, () => ({
+    notes: [...connectionSourceBlock],
+    durations: [...connectionSourceDurations],
+  })),
+);
+
+const disconnectedForms = joinConnectionBlocks([
+  {
+    notes: [...connectionSourceBlock],
+    durations: [...connectionSourceDurations],
+  },
+  {
+    notes: [67, 60, 66, 61],
+    durations: [...connectionSourceDurations],
+  },
+  {
+    notes: [61, 68, 62, 70],
+    durations: [...connectionSourceDurations],
+  },
+  {
+    notes: [65, 58, 69, 60],
+    durations: [...connectionSourceDurations],
+  },
+]);
+
+export function studyConnectionSequence(
+  variant: StudyVariant,
+): StudySequence {
+  switch (variant) {
+    case "exact":
+      return monotonousForms;
+    case "unrelated":
+      return disconnectedForms;
+    case "source":
+    case "related":
+      return connectedForms;
+  }
+}
+
+export function studyBridgeSequence(
+  variant: StudyVariant,
+): StudySequence {
+  const source = {
+    notes: [...connectionSourceBlock],
+    durations: [...connectionSourceDurations],
+  };
+  const destination = connectionBlock("source", 2);
+  const close = connectionBlock("interval", 2);
+
+  if (variant === "related" || variant === "source") {
+    return joinConnectionBlocks([
+      source,
+      connectionBlock("source", 1),
+      destination,
+      close,
+    ]);
+  }
+
+  if (variant === "exact") {
+    return joinConnectionBlocks([
+      source,
+      {
+        notes: [60, 65, 61, 67],
+        durations: [...connectionSourceDurations],
+      },
+      destination,
+      close,
+    ]);
+  }
+
+  return joinConnectionBlocks([
+    source,
+    {
+      notes: [68, 59, 66, 61],
+      durations: [...connectionSourceDurations],
+    },
+    destination,
+    close,
+  ]);
+}
+
+export function studyConnectionRepairSequence(): StudySequence {
+  return joinConnectionBlocks([
+    {
+      notes: [...connectionSourceBlock],
+      durations: [...connectionSourceDurations],
+    },
+    connectionBlock("source", 1),
+    {
+      notes: [69, 58, 67, 61],
+      durations: [...connectionSourceDurations],
+    },
+    connectionBlock("source", 2),
+  ]);
+}
+
+export function studyConnectionFromOperations(
+  operations: StudyTransformation[],
+): StudySequence {
+  const blocks: StudySequence[] = [
+    {
+      notes: [...connectionSourceBlock],
+      durations: [...connectionSourceDurations],
+    },
+  ];
+
+  operations
+    .filter((operation) => operation !== "source")
+    .slice(0, 3)
+    .forEach((operation, index) => {
+      blocks.push(connectionBlock(operation, index + 1));
+    });
+
+  while (blocks.length < 4) {
+    blocks.push(connectionBlock("source", blocks.length));
+  }
+
+  return joinConnectionBlocks(blocks);
+}
+
 function baseState(sequence: StudySequence): StudyExerciseState {
   return {
     notes: [...sequence.notes],
@@ -331,6 +525,36 @@ function defaultExerciseState(id: string): StudyExerciseState {
     };
   }
 
+  if (id === SCHOENBERG_CONNECTION_IDS.compare) {
+    return {
+      ...baseState(studyConnectionSequence("related")),
+      variant: "related",
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_CONNECTION_IDS.bridge) {
+    return {
+      ...baseState(studyBridgeSequence("related")),
+      variant: "related",
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_CONNECTION_IDS.repair) {
+    return {
+      ...baseState(studyConnectionRepairSequence()),
+      notation: "piano-roll",
+    };
+  }
+
+  if (id === SCHOENBERG_CONNECTION_IDS.compose) {
+    return {
+      ...baseState(studyConnectionFromOperations([])),
+      notation: "piano-roll",
+    };
+  }
+
   return baseState({
     notes: padStudyNotes([]),
     durations: padDurations(),
@@ -340,6 +564,7 @@ function defaultExerciseState(id: string): StudyExerciseState {
 const allStudyExerciseIds = [
   ...Object.values(SCHOENBERG_STUDY_IDS),
   ...Object.values(SCHOENBERG_VARIATION_IDS),
+  ...Object.values(SCHOENBERG_CONNECTION_IDS),
 ];
 
 export function initialCompositionStudyState(): CompositionStudyState {
@@ -412,6 +637,19 @@ export function setStudyOperationsState(
   operations: StudyTransformation[],
 ): StudyExerciseState {
   const sequence = studyCombinedVariation(operations);
+  return {
+    ...state,
+    notes: [...sequence.notes],
+    durations: [...sequence.durations],
+    operations: [...operations],
+  };
+}
+
+export function setStudyConnectionOperationsState(
+  state: StudyExerciseState,
+  operations: StudyTransformation[],
+): StudyExerciseState {
+  const sequence = studyConnectionFromOperations(operations);
   return {
     ...state,
     notes: [...sequence.notes],
@@ -522,4 +760,80 @@ export function studyVariationIsChanged(
       (duration, index) => duration !== variantDurations[index],
     )
   );
+}
+
+function formsShareConnection(
+  source: Array<number | null>,
+  variant: Array<number | null>,
+): boolean {
+  const sourceNotes = source.filter((note): note is number => note !== null);
+  const variantNotes = variant.filter((note): note is number => note !== null);
+  if (sourceNotes.length < 3 || variantNotes.length < 3) return false;
+
+  if (sourceNotes.length === variantNotes.length) {
+    const sourceIntervals = sourceNotes
+      .slice(1)
+      .map((note, index) => note - sourceNotes[index]);
+    const variantIntervals = variantNotes
+      .slice(1)
+      .map((note, index) => note - variantNotes[index]);
+    if (
+      sourceIntervals.every(
+        (interval, index) => interval === variantIntervals[index],
+      )
+    ) {
+      return true;
+    }
+  }
+
+  const sourcePcs = new Set(sourceNotes.map((note) => note % 12));
+  const sharedPitchClasses = variantNotes.filter((note) =>
+    sourcePcs.has(note % 12),
+  ).length;
+  if (sharedPitchClasses >= 2) return true;
+
+  const sourceDirections = sourceNotes
+    .slice(1)
+    .map((note, index) => sign(note - sourceNotes[index]));
+  const variantDirections = variantNotes
+    .slice(1)
+    .map((note, index) => sign(note - variantNotes[index]));
+  const sharedDirections = variantDirections.filter(
+    (direction, index) => sourceDirections[index] === direction,
+  ).length;
+
+  return sharedDirections >= 2;
+}
+
+export function studyConnectionRelatedFormCount(
+  notes: Array<number | null>,
+): number {
+  const source = notes.slice(0, 4);
+  return [4, 8, 12].filter((start) =>
+    formsShareConnection(source, notes.slice(start, start + 4)),
+  ).length;
+}
+
+export function studyConnectionChangedFormCount(
+  notes: Array<number | null>,
+  durations: StudyDuration[],
+): number {
+  const sourceNotes = notes.slice(0, 4);
+  const sourceDurations = durations.slice(0, 4);
+  return [4, 8, 12].filter((start) => {
+    const blockNotes = notes.slice(start, start + 4);
+    const blockDurations = durations.slice(start, start + 4);
+    return (
+      sourceNotes.some((note, index) => note !== blockNotes[index]) ||
+      sourceDurations.some(
+        (duration, index) => duration !== blockDurations[index],
+      )
+    );
+  }).length;
+}
+
+export function studyConnectionSourceIntact(
+  notes: Array<number | null>,
+): boolean {
+  return connectionSourceBlock.every((note, index) => notes[index] === note);
 }
