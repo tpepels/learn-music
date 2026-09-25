@@ -45,6 +45,11 @@ function availableTokenCovers(
 ): boolean {
   if (availableToken === namedToken) return true;
 
+  if (/^\d+$/.test(availableToken)) {
+    const namedNumber = numericExample(namedToken);
+    if (namedNumber === Number(availableToken)) return true;
+  }
+
   const range = availableToken.match(/^(\d+)-(\d+)$/);
   if (!range) return false;
 
@@ -87,6 +92,17 @@ describe("Schoenberg architecture integrity", () => {
             `${exercise.id} names Example ${namedExample} in the task but does not render matching source material`,
           ).toBe(true);
         }
+      }
+    }
+  });
+
+  it("uses Example rather than Ex. in learner tasks", () => {
+    const abbreviatedExample = /\bExs?\./;
+
+    for (const lesson of lessons) {
+      for (const exercise of lesson.exercises) {
+        const taskCopy = [exercise.instruction, exercise.recognition].join(" ");
+        expect(taskCopy, exercise.id).not.toMatch(abbreviatedExample);
       }
     }
   });
