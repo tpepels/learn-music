@@ -1,7 +1,14 @@
-name: Validate branch manually
+name: Validate review cycle
 
 on:
   workflow_dispatch:
+  pull_request:
+    types:
+      - ready_for_review
+
+concurrency:
+  group: validation-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read

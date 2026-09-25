@@ -5,10 +5,11 @@
 1. Refresh exact `main`, open PRs/issues, recent commits and relevant Actions.
 2. Branch from the exact current `main`.
 3. Keep changes coherent and reversible.
-4. Run typecheck, full tests and production build.
-5. Restore manual-only feature-branch CI before merging.
-6. Merge only when the branch is not behind current `main`.
-7. Verify the exact-main GitHub Pages build and deployment.
+4. Do not add temporary `push` triggers to branch CI. Repeated push-triggered validation creates unnecessary GitHub Actions runs and email notifications.
+5. Finish the coherent change set first, then create a draft PR. Mark it ready for review only when it is ready for one validation cycle; that `ready_for_review` event triggers typecheck, full tests and production build once.
+6. If validation fails, convert the PR back to draft before making fixes. Consolidate fixes, then mark it ready again for one new validation cycle. Do not leave CI running on every corrective commit.
+7. Merge only when the branch is not behind current `main` and the latest deliberate validation cycle is green.
+8. Verify the exact-main GitHub Pages build and deployment.
 
 ## Schoenberg composition track
 
