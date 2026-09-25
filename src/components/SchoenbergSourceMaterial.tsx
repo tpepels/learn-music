@@ -14,23 +14,102 @@ function eventMidis(event: SchoenbergSourceEvent): number[] {
   return Array.isArray(event.midi) ? event.midi : [event.midi];
 }
 
-function diatonicStep(midi: number): number {
-  const steps: Record<number, number> = {
-    0: 0,
-    1: 0,
-    2: 1,
-    3: 2,
-    4: 2,
-    5: 3,
-    6: 3,
-    7: 4,
-    8: 5,
-    9: 5,
-    10: 6,
-    11: 6,
-  };
+type SourceAccidental = NonNullable<SchoenbergSourceEvent["accidental"]>;
+
+const NATURAL_PITCH_CLASS_TO_LETTER = new Map<number, number>([
+  [0, 0], // C
+  [2, 1], // D
+  [4, 2], // E
+  [5, 3], // F
+  [7, 4], // G
+  [9, 5], // A
+  [11, 6], // B
+]);
+
+const FLAT_SIGNATURE_LETTERS = [6, 2, 5, 1, 4, 0, 3]; // B E A D G C F
+const SHARP_SIGNATURE_LETTERS = [3, 0, 4, 1, 5, 2, 6]; // F C G D A E B
+const NATURAL_PITCH_CLASSES = [0, 2, 4, 5, 7, 9, 11];
+
+function naturalDiatonicStep(midi: number): number {
+  const pitchClass = ((midi % 12) + 12) % 12;
+  const letter = NATURAL_PITCH_CLASS_TO_LETTER.get(pitchClass);
+  if (letter === undefined) {
+    throw new Error(`Expected natural MIDI pitch, got ${midi}`);
+  }
   const octave = Math.floor(midi / 12) - 1;
-  return octave * 7 + steps[((midi % 12) + 12) % 12];
+  return octave * 7 + letter;
+}
+
+function signatureAlterationForLetter(
+  letter: number,
+  keySignature = 0,
+): -1 | 0 | 1 {
+  const count = Math.min(7, Math.abs(keySignature));
+  if (!count) return 0;
+  const letters =
+    keySignature < 0 ? FLAT_SIGNATURE_LETTERS : SHARP_SIGNATURE_LETTERS;
+  return letters.slice(0, count).includes(letter)
+    ? keySignature < 0 ? -1 : 1
+    : 0;
+}
+
+export function sourceNoteSpelling(
+  midi: number,
+  keySignature = 0,
+  explicit?: SourceAccidental | null,
+): { step: number; alteration: -1 | 0 | 1 } {
+  const explicitAlteration =
+    explicit === "♭" ? -1 : explicit === "♯" ? 1 : explicit === "♮" ? 0 : null;
+
+  if (explicitAlteration !== null) {
+    return {
+      step: naturalDiatonicStep(midi - explicitAlteration),
+      alteration: explicitAlteration,
+    };
+  }
+
+  const pitchClass = ((midi % 12) + 12) % 12;
+  const count = Math.min(7, Math.abs(keySignature));
+  const signatureLetters =
+    keySignature < 0 ? FLAT_SIGNATURE_LETTERS : SHARP_SIGNATURE_LETTERS;
+  const signatureAlteration: -1 | 1 = keySignature < 0 ? -1 : 1;
+
+  for (const letter of signatureLetters.slice(0, count)) {
+    const alteredPitchClass =
+      (NATURAL_PITCH_CLASSES[letter] + signatureAlteration + 12) % 12;
+    if (alteredPitchClass === pitchClass) {
+      return {
+        step: naturalDiatonicStep(midi - signatureAlteration),
+        alteration: signatureAlteration,
+      };
+    }
+  }
+
+  if (NATURAL_PITCH_CLASS_TO_LETTER.has(pitchClass)) {
+    return { step: naturalDiatonicStep(midi), alteration: 0 };
+  }
+
+  const alteration: -1 | 1 = keySignature < 0 ? -1 : 1;
+  return {
+    step: naturalDiatonicStep(midi - alteration),
+    alteration,
+  };
+}
+
+export function sourceDisplayedAccidental(
+  midi: number,
+  keySignature = 0,
+  explicit?: SourceAccidental | null,
+): string {
+  if (explicit) return explicit;
+
+  const spelling = sourceNoteSpelling(midi, keySignature);
+  const letter = ((spelling.step % 7) + 7) % 7;
+  const signatureAlteration = signatureAlterationForLetter(letter, keySignature);
+
+  if (spelling.alteration === signatureAlteration) return "";
+  if (spelling.alteration === 0) return "♮";
+  return spelling.alteration < 0 ? "♭" : "♯";
 }
 
 function staffTop(clef: StaffClef, grand: boolean): number {
@@ -42,33 +121,20 @@ function sourceStaffY(
   midi: number,
   clef: StaffClef,
   grand = false,
+  keySignature = 0,
+  explicit?: SourceAccidental | null,
 ): number {
   const bottomLineMidi = clef === "treble" ? 64 : 43; // E4 / G2
-  const bottomStep = diatonicStep(bottomLineMidi);
+  const bottomStep = naturalDiatonicStep(bottomLineMidi);
   const bottomY = staffTop(clef, grand) + 40;
-  return bottomY - (diatonicStep(midi) - bottomStep) * 5;
-}
-
-function sourceAccidental(midi: number): string {
-  const pitchClass = ((midi % 12) + 12) % 12;
-  return [1, 6].includes(pitchClass)
-    ? "♯"
-    : [3, 8, 10].includes(pitchClass)
-      ? "♭"
-      : "";
+  const noteStep = sourceNoteSpelling(midi, keySignature, explicit).step;
+  return bottomY - (noteStep - bottomStep) * 5;
 }
 
 const TREBLE_FLAT_MIDIS = [71, 76, 69, 74, 67, 72, 65];
 const TREBLE_SHARP_MIDIS = [77, 72, 79, 74, 69, 76, 71];
 const BASS_FLAT_MIDIS = [47, 52, 45, 50, 43, 48, 41];
 const BASS_SHARP_MIDIS = [53, 48, 55, 50, 45, 52, 47];
-
-function keySignaturePitchClasses(keySignature = 0): Set<number> {
-  const flats = [10, 3, 8, 1, 6, 11, 4];
-  const sharps = [6, 1, 8, 3, 10, 5, 0];
-  const source = keySignature < 0 ? flats : sharps;
-  return new Set(source.slice(0, Math.min(7, Math.abs(keySignature))));
-}
 
 function KeySignature({
   score,
@@ -158,12 +224,18 @@ export function sourceContentStartX(score: SchoenbergSourceScore): number {
 export function sourceStemDirection(
   midis: number[],
   clef: StaffClef,
+  keySignature = 0,
+  accidentals: Array<SourceAccidental | null | undefined> = [],
 ): "up" | "down" {
   if (!midis.length) return "up";
   const middleLineMidi = clef === "treble" ? 71 : 50; // B4 / D3
   const averageStep =
-    midis.reduce((sum, midi) => sum + diatonicStep(midi), 0) / midis.length;
-  return averageStep >= diatonicStep(middleLineMidi) ? "down" : "up";
+    midis.reduce(
+      (sum, midi, index) =>
+        sum + sourceNoteSpelling(midi, keySignature, accidentals[index]).step,
+      0,
+    ) / midis.length;
+  return averageStep >= naturalDiatonicStep(middleLineMidi) ? "down" : "up";
 }
 
 function sourceRestGlyph(durationEighths: number): string {
@@ -355,11 +427,28 @@ function SourceScore({
             const clef = staffForEvent(event);
             const top = staffTop(clef, grand);
             const midis = eventMidis(event);
-            const ys = midis.map((midi) => sourceStaffY(midi, clef, grand));
+            const eventAccidentals = midis.map((_, pitchIndex) =>
+              event.accidentals?.[pitchIndex] ??
+              (pitchIndex === 0 ? event.accidental : null),
+            );
+            const ys = midis.map((midi, pitchIndex) =>
+              sourceStaffY(
+                midi,
+                clef,
+                grand,
+                score.keySignature,
+                eventAccidentals[pitchIndex],
+              ),
+            );
             const y = ys.length
               ? ys.reduce((sum, value) => sum + value, 0) / ys.length
               : top + 20;
-            const stemDirection = sourceStemDirection(midis, clef);
+            const stemDirection = sourceStemDirection(
+              midis,
+              clef,
+              score.keySignature,
+              eventAccidentals,
+            );
             const stemDown = stemDirection === "down";
             const highestY = ys.length ? Math.min(...ys) : y;
             const lowestY = ys.length ? Math.max(...ys) : y;
@@ -373,10 +462,6 @@ function SourceScore({
             );
             const flags =
               durationEighths <= 0.5 ? 2 : durationEighths <= 1 ? 1 : 0;
-            const signaturePitchClasses = keySignaturePitchClasses(
-              score.keySignature,
-            );
-
             return (
               <g
                 key={index}
@@ -412,16 +497,12 @@ function SourceScore({
                   <>
                     {midis.map((midi, pitchIndex) => {
                       const noteY = ys[pitchIndex];
-                      const pitchClass = ((midi % 12) + 12) % 12;
-                      const inferredAccidental = sourceAccidental(midi);
-                      const explicit =
-                        event.accidentals?.[pitchIndex] ??
-                        (pitchIndex === 0 ? event.accidental : null);
-                      const accidental =
-                        explicit ??
-                        (signaturePitchClasses.has(pitchClass)
-                          ? ""
-                          : inferredAccidental);
+                      const explicit = eventAccidentals[pitchIndex];
+                      const accidental = sourceDisplayedAccidental(
+                        midi,
+                        score.keySignature,
+                        explicit,
+                      );
                       return (
                         <g key={midi + ":" + pitchIndex}>
                           {ledgerYs(noteY, clef, grand).map((ledgerY) => (
@@ -511,10 +592,32 @@ function SourceScore({
             if (startClef !== endClef) return null;
             const startX = xForEvent(slur.start) - 4;
             const endX = xForEvent(slur.end) + 7;
+            const startMidi = Math.max(...startMidis);
+            const endMidi = Math.max(...endMidis);
+            const startPitchIndex = startMidis.indexOf(startMidi);
+            const endPitchIndex = endMidis.indexOf(endMidi);
+            const startAccidental =
+              startEvent.accidentals?.[startPitchIndex] ??
+              (startPitchIndex === 0 ? startEvent.accidental : null);
+            const endAccidental =
+              endEvent.accidentals?.[endPitchIndex] ??
+              (endPitchIndex === 0 ? endEvent.accidental : null);
             const startY =
-              sourceStaffY(Math.max(...startMidis), startClef, grand) + 12;
+              sourceStaffY(
+                startMidi,
+                startClef,
+                grand,
+                score.keySignature,
+                startAccidental,
+              ) + 12;
             const endY =
-              sourceStaffY(Math.max(...endMidis), endClef, grand) + 12;
+              sourceStaffY(
+                endMidi,
+                endClef,
+                grand,
+                score.keySignature,
+                endAccidental,
+              ) + 12;
             const controlY = Math.max(startY, endY) + 16;
             return (
               <path
