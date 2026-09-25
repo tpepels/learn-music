@@ -192,6 +192,25 @@ describe("Schoenberg source material", () => {
     expect(material.events.some((event) => event.at === 13 + 1 / 3)).toBe(true);
   });
 
+  it("stores Ex. 35b as the second native grand-staff complementary pair", () => {
+    const material = getSchoenbergSourceMaterial("s04.ex35b");
+    expect(material?.kind).toBe("score");
+    if (!material || material.kind !== "score") return;
+
+    expect(material.keySignature).toBe(-1);
+    expect(material.meter).toBe("2/4");
+    expect(material.barlines).toEqual([1, 5, 9, 13, 17]);
+    expect(material.events.some((event) => event.staff === "bass")).toBe(true);
+
+    const firstChord = material.events.find(
+      (event) => event.at === 0 && event.staff === "treble",
+    );
+    expect(firstChord?.midi).toEqual([57, 60, 65, 69]);
+
+    const naturalB = material.events.find((event) => event.midi === 71);
+    expect(naturalB?.accidental).toBe("♮");
+  });
+
   it("makes every native source score interactive beyond passive playback", () => {
     const scores = Object.values(schoenbergSourceMaterial).filter(
       (material) => material.kind === "score",
