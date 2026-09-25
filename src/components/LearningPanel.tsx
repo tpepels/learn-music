@@ -23,21 +23,41 @@ export function LearningPanel({
         className="exercise-guide schoenberg-guide"
         aria-label="Current exercise guide"
       >
-        <div className="schoenberg-guide-explanation">
-          <span className="section-label">Explanation</span>
-          <h2>{exercise.learn}</h2>
-          <p>{exercise.explanation}</p>
-
-          {exercise.terms.length > 0 ? (
-            <div className="schoenberg-guide-terms" aria-label="Terms">
-              {exercise.terms.map((item) => (
-                <p key={item.term}>
-                  <strong>{item.term}:</strong> {item.definition}
-                </p>
-              ))}
+        <div className="schoenberg-guide-reading-grid">
+          <section className="schoenberg-guide-explanation" aria-label="Concept">
+            <span className="section-label">Concept</span>
+            <h2>{exercise.learn}</h2>
+            <div className="schoenberg-guide-copy">
+              {exercise.explanation
+                .split(/\n\n+/)
+                .map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
             </div>
-          ) : null}
+          </section>
+
+          <section className="schoenberg-guide-exercise" aria-label="Exercise">
+            <span className="section-label">Exercise</span>
+            <div className="schoenberg-guide-copy">
+              {exercise.instruction
+                .split(/\n\n+/)
+                .map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+            </div>
+            <div className="schoenberg-guide-listen">
+              <strong>Listen for</strong>
+              <p>{exercise.recognition}</p>
+            </div>
+          </section>
         </div>
+
+        {exercise.terms.length > 0 ? (
+          <div className="schoenberg-guide-terms" aria-label="Terms">
+            {exercise.terms.map((item) => (
+              <p key={item.term}>
+                <strong>{item.term}</strong>
+                <span>{item.definition}</span>
+              </p>
+            ))}
+          </div>
+        ) : null}
 
         {exercise.source?.exampleIds?.length ? (
           <section className="schoenberg-guide-example-section" aria-label="Examples">
@@ -49,14 +69,6 @@ export function LearningPanel({
             </div>
           </section>
         ) : null}
-
-        <section className="schoenberg-guide-exercise" aria-label="Exercise">
-          <span className="section-label">Exercise</span>
-          <p>{exercise.instruction}</p>
-          <p className="schoenberg-guide-listen">
-            <strong>Listen for:</strong> {exercise.recognition}
-          </p>
-        </section>
       </section>
     );
   }
