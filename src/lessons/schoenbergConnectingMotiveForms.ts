@@ -16,7 +16,7 @@ const lesson = lessonContentSchema.parse({
   id: "schoenberg.connecting-motive-forms",
   number: 3,
   title: "Connecting motive-forms & building phrases",
-  eyebrow: "Schoenberg · Chapter IV · Connecting Motive-Forms",
+  eyebrow: "Schoenberg · Connecting Motive-Forms",
   hero: "Turn related motive-forms into complete musical units rather than a row of isolated transformations.",
   description:
     "Connecting motive-forms requires enough shared content to preserve logic and enough contrast to create movement. Rhythm, harmony, melodic balance and phrase shape all help turn related variants into complete musical units.",
