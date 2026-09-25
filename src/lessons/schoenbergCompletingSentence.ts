@@ -67,7 +67,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         learn:
           "Hear why the second half of a sentence must do more than repeat the already-established beginning.",
         explanation:
-          "Schoenberg says the beginning of the sentence already includes repetition. The continuation therefore demands more remotely varied motive-forms. He treats the sentence as a higher construction that not only states an idea but immediately begins a kind of development.",
+          "The beginning of a sentence already contains repetition, so the continuation usually needs more remotely varied motive-forms. A sentence therefore does more than state an idea: it begins developing that idea almost immediately.",
         instruction:
           "Compare Keep repeating the opening, Developed continuation and New unrelated material. Choose the version that develops the established motive without replacing it.",
         recognition:
@@ -128,7 +128,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         learn:
           "Hear sequence-like procedure as directional continuation rather than static repetition.",
         explanation:
-          "Schoenberg says sequence-like procedures are very useful in sentence continuations. The pattern is usually already a transformation or condensation of preceding motive-forms. With a correct harmonic connection it may begin on different scale degrees; quasi-sequential repetitions may also vary the interval or other features.",
+          "Sequence-like procedures are especially useful in sentence continuations. The repeated pattern is usually already a transformation or condensation of earlier motive-forms. With a convincing harmonic connection it can begin on different scale degrees, and quasi-sequential repetitions may vary interval or other features.",
         instruction:
           "Use the Chapter VIII map, then compare Repeat one fragment, Sequential treatment and New unrelated material. Follow steps 17-28 and choose the version in which one derived pattern moves through new pitch levels.",
         recognition:
@@ -307,7 +307,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         learn:
           "Follow Schoenberg's printed labels from tonic/dominant forms through ascension, reduction and melodic residues.",
         explanation:
-          "Schoenberg uses Ex. 52 to make liquidation visible. He states that two-measure phrases are reduced or condensed to one measure, and in Ex. 52c four measures are condensed to two. The printed analysis labels tonic form, dominant form, climactic ascension, reduction and melodic residues.",
+          "Ex. 52 makes liquidation visible. Two-measure phrases are reduced or condensed to one measure, and in Ex. 52c four measures are condensed to two. The passage moves from tonic and dominant forms through climactic ascent, reduction and finally melodic residues.",
         instruction:
           "Work through Ex. 52 in order, then compare the full motive-forms at the start with the increasingly sparse material near the cadence.",
         recognition:
@@ -339,7 +339,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         learn:
           "Understand why a sentence may grow longer when a remote motive-form needs repetition before it becomes comprehensible.",
         explanation:
-          "Schoenberg calls the motive-form in Ex. 53b, m. 5 a very remote variation. Its repetitions account for the twelve-measure length. Ex. 53a also shows the later material becoming reduced and finally residual.",
+          "In Ex. 53b, m. 5 introduces a very remote variation whose repetitions account for the twelve-measure length. Ex. 53a likewise shows later material becoming progressively reduced and finally residual.",
         instruction:
           "Work through Ex. 53, then listen for the difference between extending material because it still needs establishment and merely filling time.",
         recognition:
@@ -370,7 +370,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         learn:
           "See one broken-chord source transformed progressively until it can support contrasting sentence continuations.",
         explanation:
-          "Schoenberg says Exs. 54-56 are based on the broken-chord form Ex. 7b. Ex. 54 progressively varies it; the continuations use sequence-like procedures and mostly free transpositions. He also supplies alternative endings because different cadential regions change the formal effect.",
+          "Examples 54-56 grow from the broken-chord form of Ex. 7b. Ex. 54 varies it progressively; the continuations use sequence-like procedures and mostly free transpositions. Alternative endings show how different cadential regions change the formal effect.",
         instruction:
           "Work through Exs. 54-56, then listen to the sequential treatment. Notice that the sequential pattern is already a transformed or condensed motive-form rather than a neutral pattern pasted on top.",
         recognition:
@@ -401,7 +401,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         learn:
           "Hear why masterwork sentences may depart from equal proportions while retaining the same formal logic.",
         explanation:
-          "Introducing Examples 57-61, Schoenberg says the eight-measure practice form is only an abstraction. In almost all of these literature examples the continuation uses condensed phrases that give way to a cadence contour, with closing measures often reduced to residues of the basic motive.",
+          "The eight-measure practice form is only an abstraction. In most of Examples 57-61 the continuation uses condensed phrases that give way to a cadential contour, with the closing measures often reduced to residues of the basic motive.",
         instruction:
           "Work through Exs. 57-58 and listen for establishment, a more remote continuation and movement toward cadence. Do not begin by counting equal blocks.",
         recognition:
@@ -468,7 +468,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         learn:
           "Study exceptional endings, beginnings and extensions while preserving Schoenberg's distinction between masterwork evidence and safe student procedure.",
         explanation:
-          "Schoenberg calls several features of Ex. 60 unusual: an ending on VI, anticipation of VI through deceptive cadence, a remarkable beginning on VII-II, and extensions produced in different ways. He explicitly says some alternatives would be safer for a student. The lesson is analytical breadth, not permission to imitate every singularity mechanically.",
+          "Ex. 60 contains several unusual features: an ending on VI, anticipation of VI through deceptive cadence, a beginning on VII-II, and extensions produced in different ways. Some of these solutions are risky to imitate mechanically. The point is to understand what makes each exception function in context.",
         instruction:
           "Work through Ex. 60, then listen to the quasi-sequential study. For each case ask whether it demonstrates a normal procedure, an unusual exception, or a warning about what is risky to imitate.",
         recognition:
@@ -499,7 +499,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         learn:
           "Trace a sentence in which melody, accompaniment and motive-forms change roles while the underlying process remains comprehensible.",
         explanation:
-          "Schoenberg says Ex. 61a is less complicated than it first appears and notes that melody need not always occupy the highest voice. In Ex. 61b, one-measure phrases are reduced to half-measure residues; he calls it a clear illustration of the style of 'developing variation'. Ex. 61d shows another kind of extension through insertion and refrain-like return.",
+          "Ex. 61a is less complicated than it first appears and shows that melody need not always occupy the highest voice. In Ex. 61b, one-measure phrases are reduced to half-measure residues, giving a clear example of developing variation. Ex. 61d shows another kind of extension through insertion and refrain-like return.",
         instruction:
           "Open all five Ex. 61 tabs. Then play the liquidation application. Listen for the important distinction: developing variation changes the material progressively, while liquidation eventually strips characteristic detail away.",
         recognition:
