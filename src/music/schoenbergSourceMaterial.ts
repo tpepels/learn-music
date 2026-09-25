@@ -959,14 +959,14 @@ export const schoenbergSourceMaterial: Record<
         detail:
           "The answering two measures preserve the phrase shape while adapting pitches to dominant harmony; E-natural belongs to that harmonic change.",
         startEvent: 16,
-        endEvent: 32,
+        endEvent: 31,
       },
       {
         label: "complementary repetition",
         detail:
           "Compare the two pairs as Schoenberg asks: recognizable rhythmic/contour relation is preserved while tonic function becomes dominant function.",
         startEvent: 1,
-        endEvent: 32,
+        endEvent: 31,
       },
     ],
   },
