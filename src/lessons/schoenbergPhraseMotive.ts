@@ -107,9 +107,9 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Read Schoenberg's literature examples as evidence that phrases can differ greatly in surface while remaining intelligible units.",
         explanation:
-          "Examples 1-2 collect short phrases from Beethoven and other composers. They differ in length, contour and rhythmic activity. The point is not that one contour defines a phrase; it is that a phrase can be grasped as a unit through the coordination of melodic, rhythmic and harmonic factors. Ex. 2e is reproduced below as native, playable notation from the book.",
+          "Examples 1-2 collect short phrases from Beethoven and other composers. They differ in length, contour and rhythmic activity. No single contour defines a phrase: melodic shape, rhythm and harmony work together so that the listener hears the passage as one unit. Ex. 2e makes this especially clear through its two slurred spans and simple arpeggiated contour.",
         instruction:
-          "First play and study the native Ex. 2e from Beethoven's Symphony No. 3-I. Follow the two slurred spans, tonic-arpeggio contour and rhythmic shape as one phrase rather than reducing it to a fixed number of steps. Then use the interactive comparison below: audition Exact repeat, Related change and Unrelated change and choose Related change.",
+          "Play Ex. 2e and follow the two slurred spans, arpeggiated contour and rhythmic shape as one phrase. Then compare Exact repeat, Related change and Unrelated change below and choose the version that changes the material while still sounding connected.",
         recognition:
           "Which version sounds changed while still belonging to the same musical thought?",
         source: {
@@ -211,7 +211,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         explanation:
           "In his Comment on Examples, Schoenberg recommends making many phrase sketches over a predetermined harmony. Example 5 takes the tonic of F major and creates different melodic contours from arrangements of the chord tones. The limitation is deliberate: invention is practised while harmony stays fixed.",
         instruction:
-          "First play the native Ex. 5a exactly as Schoenberg prints it: F-A-C over the fixed F-major tonic. Then use the broader Ex. 5 analysis map to see what the group varies. After that, make the same kind of constrained study in PLAY / LAB, transposed to C major: write at least six notes in steps 1-8 using only C, E and G, listen, and revise at least one step.",
+          "Play Ex. 5a: F-A-C over a fixed F-major tonic. Notice that the harmony stays fixed while the melodic shape changes. Then make the same kind of study below in C major: write at least six notes in steps 1-8 using only C, E and G, listen, and revise at least one step.",
         recognition:
           "How many genuinely different melodic shapes can the same three chord tones produce?",
         source: {
@@ -258,7 +258,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         explanation:
           "After the simple broken-chord contours of Ex. 5, Schoenberg's Ex. 6 uses smaller note-values. His comment is explicit: the smaller values produce different results even though the harmonic basis has not changed.",
         instruction:
-          "First play the native Ex. 6a from the book and compare it with Ex. 5a: the pitch material is still simple, but the note-values are shorter. Then play the PLAY / LAB reduction and inspect Staff and Degrees before choosing the matching answer.",
+          "Play Ex. 6a and compare it with Ex. 5a. The pitch material remains simple, but the shorter note-values make the phrase more active. Then inspect the Staff and Degrees views below and choose the statement that describes the change.",
         recognition:
           "Does the phrase feel more active even though it still lives inside the same simple harmonic world?",
         source: {
@@ -294,7 +294,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         explanation:
           "Example 7 remains confined to chord tones but combines different note-values and adds upbeats. Schoenberg uses it to show how much variety can be created before passing notes or chromatic embellishment are introduced.",
         instruction:
-          "First play the native Ex. 7a and hear the printed B-flat upbeat lead into the longer F-D span. Then play the PLAY / LAB reduction and look at its rests and mixed durations in Staff view. Choose the answer that best describes what Ex. 7 adds to the earlier studies.",
+          "Play Ex. 7a and hear how the B-flat upbeat leads into the longer F-D span. Then inspect the rests and mixed durations in Staff view and choose the answer that best describes what this adds to the earlier studies.",
         recognition:
           "Can a phrase become more fluid before you add any new harmonic pitch?",
         source: {
@@ -332,7 +332,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         explanation:
           "Schoenberg says Exs. 8 and 9 build on Exs. 5 and 7 and show how simple melodic and rhythmic additions contribute fluency and vitality. Ex. 8 specifically varies Ex. 5 by adding passing notes.",
         instruction:
-          "First play native Ex. 8a and follow F-A-B-flat-C: the added B-flat connects the structural tones directly in Schoenberg's printed example. Then play the PLAY / LAB reduction and choose the technique being added.",
+          "Play Ex. 8a and follow F-A-B-flat-C. The added B-flat connects the structural tones by step. Then compare the study below and choose the technique being added.",
         recognition:
           "Which notes feel like connective motion rather than new harmonic pillars?",
         source: {
