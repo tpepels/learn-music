@@ -310,7 +310,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Keep the harmonic basis",
         detail:
-          "The pitch material remains restricted to the simple chord-tone world established in Ex. 5.",
+          "The pitch material remains restricted to the same simple chord-tone world as the earlier broken-chord study.",
       },
       {
         label: "Shorten note values",
@@ -531,7 +531,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "augmentation",
         detail:
-          "The same pitch succession heard in Ex. 14b is expanded to half-note values, making the proportional transformation directly audible.",
+          "The same pitch succession as the diminution source is expanded to half-note values, making the proportional transformation directly audible.",
         startEvent: 0,
         endEvent: 7,
       },
@@ -622,7 +622,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "baseline rhythm",
         detail:
-          "All four notes are quarter notes in Ex. 17a. Treat this as the baseline before comparing the later rhythmic variants.",
+          "All four notes are quarter notes. Treat this as the baseline before comparing the later rhythmic variants.",
         startEvent: 0,
         endEvent: 3,
       },
@@ -652,7 +652,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "source tones",
         detail:
-          "C, A, F and A preserve the broken-chord source used in Ex. 17.",
+          "C, A, F and A preserve the same broken-chord source used by the rhythmic baseline.",
         startEvent: 0,
         endEvent: 4,
       },
