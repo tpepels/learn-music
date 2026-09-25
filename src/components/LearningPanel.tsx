@@ -23,6 +23,47 @@ export function LearningPanel({
   const checkpoint =
     exercise.letter === "A" ? getDawCheckpoint(lessonNumber) : undefined;
 
+  if (exercise.id.startsWith("schoenberg.")) {
+    return (
+      <section
+        className="exercise-guide schoenberg-guide"
+        aria-label="Current exercise guide"
+      >
+        <div className="schoenberg-guide-copy">
+          <h2>{exercise.learn}</h2>
+          <p>{exercise.explanation}</p>
+        </div>
+
+        {exercise.source?.exampleIds?.length ? (
+          <div className="source-material-list schoenberg-guide-examples">
+            {exercise.source.exampleIds.map((id) => (
+              <SchoenbergSourceMaterial id={id} key={id} />
+            ))}
+          </div>
+        ) : null}
+
+        <div className="schoenberg-guide-action">
+          <p>
+            <strong>Do:</strong> {exercise.instruction}
+          </p>
+          <p>
+            <strong>Listen:</strong> {exercise.recognition}
+          </p>
+        </div>
+
+        {exercise.terms.length > 0 ? (
+          <div className="schoenberg-guide-terms">
+            {exercise.terms.map((item) => (
+              <p key={item.term}>
+                <strong>{item.term}:</strong> {item.definition}
+              </p>
+            ))}
+          </div>
+        ) : null}
+      </section>
+    );
+  }
+
   return (
     <section className="exercise-guide" aria-label="Current exercise guide">
       <div className="exercise-guide-primary">
