@@ -132,7 +132,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Repeated-note character",
         detail:
-          "Schoenberg chooses a phrase whose identity is strongly rhythmic: repeated notes establish the character before the line begins to climb.",
+          "Repeated notes establish a strongly rhythmic identity before the line begins to climb.",
       },
       {
         label: "Gradual ascent",
@@ -288,7 +288,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "One tonic harmony",
         detail:
-          "Schoenberg fixes the tonic of F major as the harmonic basis.",
+          "The tonic of F major remains fixed as the harmonic basis.",
       },
       {
         label: "Rearrange chord tones",
@@ -315,7 +315,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Shorten note values",
         detail:
-          "Schoenberg changes rhythmic scale first, producing a more active surface without requiring richer harmony.",
+          "Shorter note values create a more active surface without requiring richer harmony.",
       },
     ],
   ),
@@ -388,7 +388,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Richer embellishment",
         detail:
-          "Schoenberg adds more elaborate changing-note and appoggiatura-like figures to the earlier studies.",
+          "Changing-note and appoggiatura-like figures add more elaborate surface motion to the earlier studies.",
       },
       {
         label: "Greater flexibility",
@@ -398,7 +398,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Risk: obscure the harmony",
         detail:
-          "Schoenberg explicitly warns that too many small notes can overburden the melody and obscure its harmonic basis.",
+          "Too many small notes can overburden the melody and obscure its harmonic basis.",
       },
     ],
   ),
