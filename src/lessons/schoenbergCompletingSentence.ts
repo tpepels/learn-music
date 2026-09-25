@@ -18,7 +18,7 @@ const lesson = lessonContentSchema.parse({
   id: "schoenberg.completing-sentence",
   number: 5,
   title: "Completing the sentence",
-  eyebrow: "Schoenberg · Chapter VIII · Completion of the Sentence",
+  eyebrow: "Schoenberg · Completing the Sentence",
   hero: "Carry an established beginning through development, shortening and liquidation until a cadence can genuinely end the sentence.",
   description:
     "Completing a sentence involves more than attaching a continuation to a presentation. Development, sequence, shortening, liquidation and cadence interact, while real sentences may expand, overlap, interpolate repetitions and depart from the simple eight-measure model without losing musical logic.",
