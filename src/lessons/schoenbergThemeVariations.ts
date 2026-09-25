@@ -226,25 +226,22 @@ export const schoenbergThemeVariationsLesson: LessonDefinition = {
         successLabel: "The texture has changed while the thematic framework remains the reference",
       }),
       evaluate: ({ textureSettings, experiments }) => {
-        const changed =
-          changedControl(experiments, "texture.bassOctave") ||
-          changedControl(experiments, "texture.chordsOctave") ||
-          changedControl(experiments, "texture.melodyOctave") ||
-          changedControl(experiments, "texture.openChords") ||
-          changedControl(experiments, "texture.melodyOctaveDouble");
+        const textureKeys = [
+          "texture.bassOctave",
+          "texture.chordsOctave",
+          "texture.melodyOctave",
+          "texture.openChords",
+          "texture.melodyOctaveDouble",
+        ];
+        const distinctControlsChanged = textureKeys.filter(
+          (key) => (experiments[key]?.changes ?? 0) > 0,
+        ).length;
         const distinctChoice =
           textureSettings.bassOctave !== 0 ||
           textureSettings.chordsOctave !== 0 ||
           textureSettings.melodyOctave !== 0 ||
           textureSettings.openChords ||
           textureSettings.melodyOctaveDouble;
-        const totalChanges = [
-          "texture.bassOctave",
-          "texture.chordsOctave",
-          "texture.melodyOctave",
-          "texture.openChords",
-          "texture.melodyOctaveDouble",
-        ].reduce((sum, key) => sum + (experiments[key]?.changes ?? 0), 0);
         return [
           {
             label: "You studied how variation preserves structural relations",
@@ -252,7 +249,7 @@ export const schoenbergThemeVariationsLesson: LessonDefinition = {
           },
           {
             label: "You explored at least three texture changes",
-            complete: changed && totalChanges >= 3,
+            complete: distinctControlsChanged >= 3,
           },
           { label: "You listened while changing character", complete: heardPlayback(experiments) },
           {
