@@ -48,13 +48,9 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         learn:
           "Hear how a very small number of characteristic rhythmic or intervallic features can be enough to establish a motive.",
         explanation:
-          "Almost any rhythmicized succession of notes can function as a basic motive, but a motive becomes useful only when some of its features are characteristic enough to be remembered. Those features may lie in rhythm, interval, contour, repetition or a combination of them. Beethoven's Fifth makes rhythm unusually prominent; the Brahms passage shows how a particular intervallic behaviour can bind a much larger span.
-
-Economy matters because later variation needs something definite to preserve. If the basic motive contains too many unrelated peculiarities, every return either has to copy too much or becomes hard to recognise. A small number of strongly treated features gives the composer room to change surface detail while keeping identity audible.",
+          "Almost any rhythmicized succession of notes can function as a basic motive, but a motive becomes useful only when some of its features are characteristic enough to be remembered. Those features may lie in rhythm, interval, contour, repetition or a combination of them. Beethoven's Fifth makes rhythm unusually prominent; the Brahms passage shows how a particular intervallic behaviour can bind a much larger span.\n\nEconomy matters because later variation needs something definite to preserve. If the basic motive contains too many unrelated peculiarities, every return either has to copy too much or becomes hard to recognise. A small number of strongly treated features gives the composer room to change surface detail while keeping identity audible.",
         instruction:
-          "Play the Beethoven repeated-note motive and the Brahms third-based material below. Before choosing anything, identify one feature in each passage that you could remove without destroying its identity, and one feature whose removal would make the relation much harder to hear.
-
-Then compare Staff and Degrees. Decide whether rhythm, interval pattern, contour or sheer amount of material is doing most of the identifying work, and choose the statement that best matches what you hear.",
+          "Play the Beethoven repeated-note motive and the Brahms third-based material below. Before choosing anything, identify one feature in each passage that you could remove without destroying its identity, and one feature whose removal would make the relation much harder to hear.\n\nThen compare Staff and Degrees. Decide whether rhythm, interval pattern, contour or sheer amount of material is doing most of the identifying work, and choose the statement that best matches what you hear.",
         recognition:
           "What is doing the identifying work here - sheer length and complexity, or a small feature that keeps returning?",
         source: {
@@ -102,13 +98,9 @@ Then compare Staff and Degrees. Decide whether rhythm, interval pattern, contour
         learn:
           "Understand how note relationships can remain exact under inversion, retrograde, diminution and augmentation.",
         explanation:
-          "Exact repetition does not have to mean copying the same absolute pitches at the same durations. A transformation can be exact when the relevant relationships are preserved systematically: transposition keeps interval relations while changing pitch level; inversion reverses interval direction; retrograde reverses order; diminution and augmentation preserve rhythmic proportion while changing scale.
-
-The important distinction is between a rule-governed transformation and a freer variation. In the former, you can describe precisely what operation maps the source onto the result. That makes the relationship intelligible even when the transformed version sounds very different on the surface.",
+          "Exact repetition does not have to mean copying the same absolute pitches at the same durations. A transformation can be exact when the relevant relationships are preserved systematically: transposition keeps interval relations while changing pitch level; inversion reverses interval direction; retrograde reverses order; diminution and augmentation preserve rhythmic proportion while changing scale.\n\nThe important distinction is between a rule-governed transformation and a freer variation. In the former, you can describe precisely what operation maps the source onto the result. That makes the relationship intelligible even when the transformed version sounds very different on the surface.",
         instruction:
-          "Play the Diminution and Augmentation sources below and hear the same pitch succession at two rhythmic scales. Notice that the durations change while the proportional relationship between them remains controlled.
-
-Then compare Inversion, Retrograde, Diminution and Augmentation in the study. For each operation, state to yourself what changes and what remains exact. The goal is not to memorise names but to hear why each result still has a demonstrable structural relation to the source.",
+          "Play the Diminution and Augmentation sources below and hear the same pitch succession at two rhythmic scales. Notice that the durations change while the proportional relationship between them remains controlled.\n\nThen compare Inversion, Retrograde, Diminution and Augmentation in the study. For each operation, state to yourself what changes and what remains exact. The goal is not to memorise names but to hear why each result still has a demonstrable structural relation to the source.",
         recognition:
           "Can the motive remain structurally the same even when every absolute pitch or duration changes?",
         source: {
@@ -185,13 +177,9 @@ Then compare Inversion, Retrograde, Diminution and Augmentation in the study. Fo
         learn:
           "See how several kinds of change can operate together in actual musical continuation rather than as isolated classroom tricks.",
         explanation:
-          "Once the individual operations are understood, real continuation rarely uses them one at a time. Transposition, changes of direction, embellishment, rhythmic alteration, filled-in intervals, chains and sequences can interact within the same passage. The listener may therefore recognise the source through several partial correspondences rather than one perfectly preserved feature.
-
-This is where motivic technique becomes compositional rather than mechanical. A transformation is useful only if it helps the phrase continue, intensify, contrast or connect. The question shifts from 'which operation is this?' to 'what keeps this material intelligibly related while the music moves forward?'",
+          "Once the individual operations are understood, real continuation rarely uses them one at a time. Transposition, changes of direction, embellishment, rhythmic alteration, filled-in intervals, chains and sequences can interact within the same passage. The listener may therefore recognise the source through several partial correspondences rather than one perfectly preserved feature.\n\nThis is where motivic technique becomes compositional rather than mechanical. A transformation is useful only if it helps the phrase continue, intensify, contrast or connect. The question shifts from 'which operation is this?' to 'what keeps this material intelligibly related while the music moves forward?'",
         instruction:
-          "Play the four-part study from beginning to end before isolating any one cell. Follow the recurring contour in Staff or Degrees and listen for places where rhythm, pitch level or detail changes while some family resemblance survives.
-
-Then choose the statement that best describes what carries the relation across the whole continuation. Do not require every segment to preserve the same feature in exactly the same way.",
+          "Play the four-part study from beginning to end before isolating any one cell. Follow the recurring contour in Staff or Degrees and listen for places where rhythm, pitch level or detail changes while some family resemblance survives.\n\nThen choose the statement that best describes what carries the relation across the whole continuation. Do not require every segment to preserve the same feature in exactly the same way.",
         recognition:
           "Can you still hear one family of material after pitch level, direction, rhythm and detail have all shifted?",
         source: {
@@ -239,13 +227,9 @@ Then choose the statement that best describes what carries the relation across t
         learn:
           "Use one broken-chord motive to isolate rhythmic changes while pitch identity stays easy to compare.",
         explanation:
-          "The systematic variation series deliberately keeps the pitch source simple so that one variable can be changed without obscuring the result. With a broken chord as the common source, differences in note length, repetition and rhythmic pattern become much easier to hear than they would be in a melodically elaborate idea.
-
-This kind of restriction is a compositional laboratory. The aim is not to write the finished piece yet, but to learn exactly how much character rhythm can contribute when pitch identity remains comparatively stable. Once that is audible, rhythmic treatment can later be combined with intervallic and harmonic change.",
+          "The systematic variation series deliberately keeps the pitch source simple so that one variable can be changed without obscuring the result. With a broken chord as the common source, differences in note length, repetition and rhythmic pattern become much easier to hear than they would be in a melodically elaborate idea.\n\nThis kind of restriction is a compositional laboratory. The aim is not to write the finished piece yet, but to learn exactly how much character rhythm can contribute when pitch identity remains comparatively stable. Once that is audible, rhythmic treatment can later be combined with intervallic and harmonic change.",
         instruction:
-          "Play the four-quarter-note baseline until its neutral rhythmic shape is clear. Then compare Note lengths / rhythm and Note repetition while keeping the broken-chord identity in mind.
-
-Listen for what each change does to emphasis, momentum and grouping. Decide whether you still recognise the motive because of its pitches alone or whether the new rhythm has begun to create a substantially different character.",
+          "Play the four-quarter-note baseline until its neutral rhythmic shape is clear. Then compare Note lengths / rhythm and Note repetition while keeping the broken-chord identity in mind.\n\nListen for what each change does to emphasis, momentum and grouping. Decide whether you still recognise the motive because of its pitches alone or whether the new rhythm has begun to create a substantially different character.",
         recognition:
           "How much can the temporal shape change before the broken-chord identity stops being obvious?",
         source: {
@@ -290,13 +274,9 @@ Listen for what each change does to emphasis, momentum and grouping. Decide whet
         learn:
           "Distinguish addition, reordering, embellishment and reduction as different ways of changing intervallic material.",
         explanation:
-          "The intervallic series is staged so that several distinct procedures do not collapse into the vague idea of 'making it different'. Ancillary notes add material between structural tones; reordering changes succession; embellishment decorates an already altered form; reduction, omission and condensation deliberately remove or compress material.
-
-The final procedures are especially important because development is not synonymous with accumulation. A motive can become more useful by becoming shorter, leaner or more concentrated. What matters is whether enough characteristic relationship remains for the derivative to function as part of the same family.",
+          "The intervallic series is staged so that several distinct procedures do not collapse into the vague idea of 'making it different'. Ancillary notes add material between structural tones; reordering changes succession; embellishment decorates an already altered form; reduction, omission and condensation deliberately remove or compress material.\n\nThe final procedures are especially important because development is not synonymous with accumulation. A motive can become more useful by becoming shorter, leaner or more concentrated. What matters is whether enough characteristic relationship remains for the derivative to function as part of the same family.",
         instruction:
-          "Compare the ancillary-note source with the reordered broken-chord source below. First hear B-flat inserted between C and A without replacing the structural tones; then hear the same limited pitch resource reorganised as A-F-C-F.
-
-Continue through the embellishment and reduction stages before using the controls. When you try Ancillary notes, Order / direction and Reduction / condensation, identify the procedure by what it does to the source rather than by how complicated the result sounds.",
+          "Compare the ancillary-note source with the reordered broken-chord source below. First hear B-flat inserted between C and A without replacing the structural tones; then hear the same limited pitch resource reorganised as A-F-C-F.\n\nContinue through the embellishment and reduction stages before using the controls. When you try Ancillary notes, Order / direction and Reduction / condensation, identify the procedure by what it does to the source rather than by how complicated the result sounds.",
         recognition:
           "Do you hear development as one generic kind of 'variation', or can you distinguish addition, reordering and reduction?",
         source: {
@@ -347,13 +327,9 @@ Continue through the embellishment and reduction stages before using the control
         learn:
           "Hear the difference between adding an upbeat, shifting familiar features to other beats and changing metric grouping.",
         explanation:
-          "Metric treatment changes the relationship between a familiar motive and the temporal frame around it. Adding an upbeat changes how the motive approaches a strong beat; displacement moves familiar features onto different metric positions; changing the metre reorganises the frame itself.
-
-These are not equivalent operations. A motive can survive considerable displacement because its internal features remain intact, while a metre change can alter grouping more fundamentally. Hearing the difference helps separate 'the motive changed' from 'the motive is being heard in a new metric context'.",
+          "Metric treatment changes the relationship between a familiar motive and the temporal frame around it. Adding an upbeat changes how the motive approaches a strong beat; displacement moves familiar features onto different metric positions; changing the metre reorganises the frame itself.\n\nThese are not equivalent operations. A motive can survive considerable displacement because its internal features remain intact, while a metre change can alter grouping more fundamentally. Hearing the difference helps separate 'the motive changed' from 'the motive is being heard in a new metric context'.",
         instruction:
-          "Compare Add upbeat, Shift to other beats and Change metre / grouping. Use Piano roll to see where events fall and Staff to relate that placement to the notated beat structure.
-
-Keep the pitch material in your ear while you compare them. Ask whether the identity is being altered internally or whether the same identity is simply acquiring a different accent pattern and sense of arrival.",
+          "Compare Add upbeat, Shift to other beats and Change metre / grouping. Use Piano roll to see where events fall and Staff to relate that placement to the notated beat structure.\n\nKeep the pitch material in your ear while you compare them. Ask whether the identity is being altered internally or whether the same identity is simply acquiring a different accent pattern and sense of arrival.",
         recognition:
           "Is the motive itself different, or has its relationship to the metric frame changed?",
         source: {
@@ -405,13 +381,9 @@ Keep the pitch material in your ear while you compare them. Ask whether the iden
         learn:
           "Hear that motivic preservation may require melodic adjustment when the harmonic context changes.",
         explanation:
-          "Harmonic variation changes the environment in which the motive has to function. When the supporting harmony becomes richer or changes inversion, a literal preservation of every melodic pitch may create awkward non-chord tones or weaken the intended harmonic direction. The motive may therefore need local adjustment.
-
-The principle is controlled adaptation rather than obedience to a fixed pitch string. Preserve enough rhythm, contour or intervallic character that the motive remains recognisable, while allowing pitches to respond to the new harmony. Motive and harmony should sound as though they belong to one musical process.",
+          "Harmonic variation changes the environment in which the motive has to function. When the supporting harmony becomes richer or changes inversion, a literal preservation of every melodic pitch may create awkward non-chord tones or weaken the intended harmonic direction. The motive may therefore need local adjustment.\n\nThe principle is controlled adaptation rather than obedience to a fixed pitch string. Preserve enough rhythm, contour or intervallic character that the motive remains recognisable, while allowing pitches to respond to the new harmony. Motive and harmony should sound as though they belong to one musical process.",
         instruction:
-          "Listen first to the melody by itself, then to the same material against the changing harmonic support. Notice where the new harmony makes a literal melodic copy feel less natural.
-
-Choose the statement that best describes the adaptation. The relevant question is not whether every pitch is preserved, but whether the motive's characteristic identity remains audible after it has been fitted to the new harmonic situation.",
+          "Listen first to the melody by itself, then to the same material against the changing harmonic support. Notice where the new harmony makes a literal melodic copy feel less natural.\n\nChoose the statement that best describes the adaptation. The relevant question is not whether every pitch is preserved, but whether the motive's characteristic identity remains audible after it has been fitted to the new harmonic situation.",
         recognition:
           "Does preserving the motive mean freezing every pitch, or preserving its identity while adapting to the harmonic situation?",
         source: {
@@ -452,13 +424,9 @@ Choose the statement that best describes the adaptation. The relevant question i
         learn:
           "Follow the same motive through harmonic insertions and substitutions rather than treating every chord change as a new idea.",
         explanation:
-          "Harmonic development can alter the route between structural points without discarding the motive. An insertion lengthens or redirects the path by adding harmonic motion; substitution replaces part of the expected support with another chord or succession. In both cases the melodic material must continue to make sense across the altered route.
-
-This creates a useful separation between motivic continuity and harmonic continuity. The motive can tell the listener 'this is still the same musical thought' even when the harmony takes a less direct path, provided the adaptation remains coherent.",
+          "Harmonic development can alter the route between structural points without discarding the motive. An insertion lengthens or redirects the path by adding harmonic motion; substitution replaces part of the expected support with another chord or succession. In both cases the melodic material must continue to make sense across the altered route.\n\nThis creates a useful separation between motivic continuity and harmonic continuity. The motive can tell the listener 'this is still the same musical thought' even when the harmony takes a less direct path, provided the adaptation remains coherent.",
         instruction:
-          "Play the study with its simplified harmonic support and first locate the point where the route changes. Compare insertion with substitution and identify whether harmony has been added between structural points or replaced by a different path.
-
-Then switch notation once and listen again. Keep the melodic relation separate from the harmonic one: the exercise is complete only when you can explain what changed in the support and why the motive still sounds continuous.",
+          "Play the study with its simplified harmonic support and first locate the point where the route changes. Compare insertion with substitution and identify whether harmony has been added between structural points or replaced by a different path.\n\nThen switch notation once and listen again. Keep the melodic relation separate from the harmonic one: the exercise is complete only when you can explain what changed in the support and why the motive still sounds continuous.",
         recognition:
           "Can the harmony take a different route while the motive still sounds like one continuing object?",
         source: {
@@ -500,13 +468,9 @@ Then switch notation once and listen again. Keep the melodic relation separate f
         learn:
           "Connect transposition and sequence with adaptation to passing harmony and accompaniment.",
         explanation:
-          "The final stage treats the motive as part of a texture rather than as an isolated line. Transposition can move the motive to a new level, passing harmonies can create motion underneath it, and a more independent accompaniment can contribute its own directional line instead of merely filling chords.
-
-At this point variation concerns coordination between voices. The melodic form may need to change because of harmony, while the accompaniment may itself become active enough to influence phrasing and continuity. The motive remains the reference point, but the surrounding musical context now participates in its development.",
+          "The final stage treats the motive as part of a texture rather than as an isolated line. Transposition can move the motive to a new level, passing harmonies can create motion underneath it, and a more independent accompaniment can contribute its own directional line instead of merely filling chords.\n\nAt this point variation concerns coordination between voices. The melodic form may need to change because of harmony, while the accompaniment may itself become active enough to influence phrasing and continuity. The motive remains the reference point, but the surrounding musical context now participates in its development.",
         instruction:
-          "Listen to the sequential treatment once for the motive, then again for the support underneath it. Track how pitch level changes, where passing harmony creates motion, and where the accompaniment behaves like an independent line rather than a static chordal background.
-
-Choose the statement that accounts for all three resources together. The aim is to hear a coordinated texture, not three unrelated techniques applied at once.",
+          "Listen to the sequential treatment once for the motive, then again for the support underneath it. Track how pitch level changes, where passing harmony creates motion, and where the accompaniment behaves like an independent line rather than a static chordal background.\n\nChoose the statement that accounts for all three resources together. The aim is to hear a coordinated texture, not three unrelated techniques applied at once.",
         recognition:
           "Do you hear the motive as something that can be re-fitted to a changing musical environment rather than merely transformed in isolation?",
         source: {
@@ -553,9 +517,7 @@ Choose the statement that accounts for all three resources together. The aim is 
         learn:
           "Keep one source simple enough that every transformation can be heard and judged clearly.",
         explanation:
-          "The final exercise returns to a deliberately plain source because systematic practice works best when every operation can be heard and explained. A simple motive lets you compare rhythmic, metric, intervallic and ordering changes without losing track of what each one contributed.
-
-The goal is not maximal transformation. It is controlled freedom: change enough to create a useful new motive-form, but preserve enough characteristic material that the relation can still be demonstrated. If you cannot say what was preserved, the variation is probably too remote for this exercise.",
+          "The final exercise returns to a deliberately plain source because systematic practice works best when every operation can be heard and explained. A simple motive lets you compare rhythmic, metric, intervallic and ordering changes without losing track of what each one contributed.\n\nThe goal is not maximal transformation. It is controlled freedom: change enough to create a useful new motive-form, but preserve enough characteristic material that the relation can still be demonstrated. If you cannot say what was preserved, the variation is probably too remote for this exercise.",
         instruction:
           "Choose at least three transformations for the second half. Include one rhythmic or metric change and one pitch/order change. Listen, inspect another notation, then revise at least one pitch manually in Piano roll. Keep only a result whose relation to the broken-chord source you can still explain.",
         recognition:
