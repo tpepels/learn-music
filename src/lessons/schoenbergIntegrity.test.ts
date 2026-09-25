@@ -14,51 +14,6 @@ const lessons = [
   schoenbergCompletingSentenceLesson,
 ];
 
-function normalizeExampleToken(value: string): string {
-  return value
-    .toLowerCase()
-    .replace(/\s+/g, "")
-    .replace(/[–—]/g, "-");
-}
-
-function exampleTokensIn(text: string): string[] {
-  const pattern =
-    /\b(?:ex(?:ample)?s?\.?)\s*(\d+(?:[a-z])?(?:\s*[-–—]\s*\d+(?:[a-z])?)?)/gi;
-  return [...text.matchAll(pattern)].map((match) =>
-    normalizeExampleToken(match[1]),
-  );
-}
-
-function exampleTokenFromId(id: string): string | null {
-  const match = id.match(/\.ex(.+)$/i);
-  return match ? normalizeExampleToken(match[1]) : null;
-}
-
-function numericExample(value: string): number | null {
-  const match = value.match(/^(\d+)/);
-  return match ? Number(match[1]) : null;
-}
-
-function availableTokenCovers(
-  availableToken: string,
-  namedToken: string,
-): boolean {
-  if (availableToken === namedToken) return true;
-
-  if (/^\d+$/.test(availableToken)) {
-    const namedNumber = numericExample(namedToken);
-    if (namedNumber === Number(availableToken)) return true;
-  }
-
-  const range = availableToken.match(/^(\d+)-(\d+)$/);
-  if (!range) return false;
-
-  const namedNumber = numericExample(namedToken);
-  if (namedNumber === null) return false;
-
-  return namedNumber >= Number(range[1]) && namedNumber <= Number(range[2]);
-}
-
 describe("Schoenberg architecture integrity", () => {
   it("resolves every source example id through the source registry", () => {
     for (const lesson of lessons) {
@@ -73,36 +28,48 @@ describe("Schoenberg architecture integrity", () => {
     }
   });
 
-  it("keeps named book examples required by a task on the same exercise screen", () => {
-    for (const lesson of lessons) {
-      for (const exercise of lesson.exercises) {
-        const available = new Set(
-          (exercise.source?.exampleIds ?? [])
-            .map(exampleTokenFromId)
-            .filter((value): value is string => Boolean(value)),
-        );
+  it("keeps book indices out of learner-facing content", () => {
+    const bookIndex = /\b(?:Exs?\.\s*\d|Examples?\s+\d)/i;
 
-        const taskCopy = [exercise.instruction, exercise.recognition].join(" ");
-        for (const namedExample of exampleTokensIn(taskCopy)) {
-          const covered = [...available].some((availableToken) =>
-            availableTokenCovers(availableToken, namedExample),
-          );
-          expect(
-            covered,
-            `${exercise.id} names Example ${namedExample} in the task but does not render matching source material`,
-          ).toBe(true);
-        }
+    for (const lesson of lessons) {
+      const lessonCopy = [
+        lesson.title,
+        lesson.hero,
+        lesson.description,
+        lesson.overview,
+      ].join(" ");
+      expect(lessonCopy, lesson.id).not.toMatch(bookIndex);
+
+      for (const exercise of lesson.exercises) {
+        const learnerCopy = [
+          exercise.title,
+          exercise.learn,
+          exercise.explanation,
+          exercise.instruction,
+          exercise.recognition,
+          exercise.checksLabel,
+          exercise.successLabel,
+          ...exercise.terms.flatMap((term) => [term.term, term.definition]),
+        ].join(" ");
+
+        expect(learnerCopy, exercise.id).not.toMatch(bookIndex);
       }
     }
   });
 
-  it("uses Example rather than Ex. in learner tasks", () => {
-    const abbreviatedExample = /\bExs?\./;
+  it("keeps book indices out of source-card content", () => {
+    const bookIndex = /\b(?:Exs?\.\s*\d|Examples?\s+\d)/i;
+    const numberedTab = /^\d+[a-z]?:/i;
 
-    for (const lesson of lessons) {
-      for (const exercise of lesson.exercises) {
-        const taskCopy = [exercise.instruction, exercise.recognition].join(" ");
-        expect(taskCopy, exercise.id).not.toMatch(abbreviatedExample);
+    for (const material of Object.values(schoenbergSourceMaterial)) {
+      const segments =
+        material.kind === "score" ? material.analysis ?? [] : material.segments;
+
+      expect(material.title, material.id).not.toMatch(bookIndex);
+      for (const segment of segments) {
+        expect(segment.label, material.id).not.toMatch(bookIndex);
+        expect(segment.label, material.id).not.toMatch(numberedTab);
+        expect(segment.detail, material.id).not.toMatch(bookIndex);
       }
     }
   });

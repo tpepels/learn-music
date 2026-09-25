@@ -29,7 +29,7 @@ An exercise contains:
 
 ### B. Book source example
 
-A Schoenberg **example** is source material such as Example 2e, Example 14b or Example 35a.
+A Schoenberg source item is verified material from the book. Internally it may retain references such as `Ex. 2e`, `Ex. 14b` or `Ex. 35a` for provenance and coverage tracking.
 
 It lives in:
 
@@ -66,30 +66,35 @@ If source fidelity or coverage changes, update the ledger in the same PR.
 Use these words consistently:
 
 - **Exercise A/B/C...** = app lesson step.
-- **Example 2e / Example 35a...** = book source example.
-- **Source example** = material from the book.
+- **Exercise A/B/C...** = app lesson step.
+- **Source passage / source example** = material from the book shown to the learner.
 - **Study** or **application study** = editable PLAY / LAB material.
+- **Book index** = internal provenance such as `Ex. 2e`; never a teaching label.
 
-Do not call Example 2e an "exercise".
+Do not call a book source an "exercise".
 Do not call Exercise C "Example C".
 
-In learner-facing prose, prefer the full phrase **"Example 2e"** over the abbreviation **"Ex. 2e"** when ambiguity is possible. The compact `Ex. 2e` notation is fine inside a source-card title.
+### Book-index rule
+
+Book indices are useful for verification and maintenance, but they add no pedagogical value by themselves. Keep them in source IDs, `reference`, fidelity notes and the coverage ledger. Do **not** display them in learner-facing lesson titles, explanations, instructions, completion text, source-card headings or analysis-tab labels.
+
+Name the music or the musical idea instead: for example, "Beethoven - Eroica opening theme", "Diminution", "Broken-chord study", or "Mozart K. 280-I".
 
 ---
 
 ## 3. Reference-integrity rule
 
-A learner must never be instructed to inspect, play, compare, open, or study a named book example that is not available on the same exercise screen.
+A learner must never be sent hunting for a book reference. Source material required for a task must already be present on the same exercise screen.
 
 Therefore:
 
 1. Every `source.exampleIds` entry must resolve in `schoenbergSourceMaterial`.
-2. If `instruction` or `recognition` names a book example, that example must be represented by one of the current exercise's `source.exampleIds`.
-3. If a source example is necessary for the task, it appears **before the editable workspace**.
+2. Instructions refer to visible music descriptively - for example "the Eroica opening theme below" or simply "the two source passages below" - never by book index.
+3. If source material is necessary for the task, it appears **before the editable workspace**.
 4. Do not use prose as a substitute for missing source material.
-5. If a source example is not available, rewrite the task so it does not depend on that example, or add a verified source representation first.
+5. If a necessary source is not available, add a verified source representation first or rewrite the task so it does not depend on it.
 
-There is an executable regression test for these rules. Do not weaken it to make a new lesson pass.
+Executable regression tests enforce source-ID resolution and the absence of book indices from learner-facing material.
 
 ---
 

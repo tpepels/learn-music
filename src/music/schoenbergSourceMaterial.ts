@@ -82,7 +82,7 @@ export const schoenbergSourceMaterial: Record<
     kind: "score",
     id: "s01.ex2e",
     reference: "Ex. 2e",
-    title: "Beethoven - Symphony No. 3-I",
+    title: "Beethoven - Eroica opening theme",
     attribution: "Melodic line transcribed from Schoenberg's Ex. 2e",
     fidelity: "full-melodic-line",
     fidelityNote:
@@ -127,7 +127,7 @@ export const schoenbergSourceMaterial: Record<
   "s01.ex4c": map(
     "s01.ex4c",
     "Ex. 4c",
-    "Beethoven - Symphony No. 3, Scherzo",
+    "Beethoven - Eroica Scherzo phrase",
     [
       {
         label: "Repeated-note character",
@@ -247,7 +247,7 @@ export const schoenbergSourceMaterial: Record<
     kind: "score",
     id: "s01.ex8a",
     reference: "Ex. 8a",
-    title: "Passing note added to Ex. 5",
+    title: "Passing note added to the broken-chord line",
     attribution: "Subexample a transcribed from Schoenberg's Ex. 8",
     fidelity: "verified-excerpt",
     fidelityNote:
@@ -266,14 +266,14 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "structural chord tones",
         detail:
-          "F, A and C retain the broken-chord framework inherited from Ex. 5.",
+          "F, A and C retain the earlier broken-chord framework.",
         startEvent: 0,
         endEvent: 3,
       },
       {
         label: "passing B-flat",
         detail:
-          "The short B-flat fills the motion from A to C, demonstrating the new resource introduced in Ex. 8.",
+          "The short B-flat fills the motion from A to C, demonstrating the new passing-note resource.",
         startEvent: 1,
         endEvent: 3,
       },
@@ -310,7 +310,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Keep the harmonic basis",
         detail:
-          "The pitch material remains restricted to the simple chord-tone world established in Ex. 5.",
+          "The pitch material remains restricted to the same simple chord-tone world as the earlier broken-chord study.",
       },
       {
         label: "Shorten note values",
@@ -344,10 +344,10 @@ export const schoenbergSourceMaterial: Record<
   "s01.ex8": map(
     "s01.ex8",
     "Ex. 8",
-    "Varying Ex. 5 by adding passing notes",
+    "Broken-chord line with added passing motion",
     [
       {
-        label: "Preserve the Ex. 5 skeleton",
+        label: "Preserve the chord-tone skeleton",
         detail:
           "The earlier chord-tone framework remains the structural reference.",
       },
@@ -361,10 +361,10 @@ export const schoenbergSourceMaterial: Record<
   "s01.ex9": map(
     "s01.ex9",
     "Ex. 9",
-    "Varying Ex. 7 by passing notes and repetitions",
+    "Upbeat line with passing notes and repetitions",
     [
       {
-        label: "Retain Ex. 7's rhythmic flexibility",
+        label: "Retain the rhythmic flexibility",
         detail:
           "Upbeats and varied values remain part of the model.",
       },
@@ -409,17 +409,17 @@ export const schoenbergSourceMaterial: Record<
     "What constitutes a motive?",
     [
       {
-        label: "Ex. 12a",
+        label: "Beethoven - Op. 14/1-I",
         detail:
           "Beethoven Op. 14/1-I: a compact motive can be identified by a small number of characteristic rhythmic and intervallic features.",
       },
       {
-        label: "Ex. 12b-c",
+        label: "Beethoven - Symphony No. 5",
         detail:
           "Beethoven Symphony No. 5-I and III: repeated notes and rhythm can dominate motivic identity.",
       },
       {
-        label: "Ex. 13",
+        label: "Brahms - Symphony No. 4-I",
         detail:
           "Brahms Symphony No. 4-I: a restricted intervallic idea - successive thirds - can generate extended material.",
       },
@@ -531,7 +531,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "augmentation",
         detail:
-          "The same pitch succession heard in Ex. 14b is expanded to half-note values, making the proportional transformation directly audible.",
+          "The same pitch succession as the diminution source is expanded to half-note values, making the proportional transformation directly audible.",
         startEvent: 0,
         endEvent: 7,
       },
@@ -622,7 +622,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "baseline rhythm",
         detail:
-          "All four notes are quarter notes in Ex. 17a. Treat this as the baseline before comparing the later rhythmic variants.",
+          "All four notes are quarter notes. Treat this as the baseline before comparing the later rhythmic variants.",
         startEvent: 0,
         endEvent: 3,
       },
@@ -652,7 +652,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "source tones",
         detail:
-          "C, A, F and A preserve the broken-chord source used in Ex. 17.",
+          "C, A, F and A preserve the same broken-chord source used by the rhythmic baseline.",
         startEvent: 0,
         endEvent: 4,
       },
@@ -717,10 +717,10 @@ export const schoenbergSourceMaterial: Record<
     "Exs. 18-21",
     "Intervallic development",
     [
-      { label: "Ex. 18", detail: "Add ancillary notes." },
-      { label: "Ex. 19", detail: "Change the original order of the notes." },
-      { label: "Ex. 20", detail: "Embellish the reordered form." },
-      { label: "Ex. 21", detail: "Reduce, omit and condense material." },
+      { label: "Add ancillary notes", detail: "Insert a non-structural note while keeping the source motive recognisable." },
+      { label: "Change note order", detail: "Reorder the source pitches while keeping the same limited pitch resource." },
+      { label: "Embellish the reordered form", detail: "Add decorative motion to the reordered version." },
+      { label: "Reduce, omit and condense", detail: "Develop the motive by subtraction as well as addition." },
     ],
   ),
   "s02.ex22-24": map(
@@ -728,9 +728,9 @@ export const schoenbergSourceMaterial: Record<
     "Exs. 22-24",
     "Metric placement",
     [
-      { label: "Ex. 22", detail: "Add upbeats and repeat features." },
-      { label: "Ex. 23", detail: "Shift familiar features to different beats." },
-      { label: "Ex. 24", detail: "Change the metre itself - a device Schoenberg notes is seldom usable within a piece." },
+      { label: "Add upbeats", detail: "Add pickup motion and repeat characteristic features." },
+      { label: "Shift beat placement", detail: "Move familiar features to different beats." },
+      { label: "Change the metre", detail: "Regroup the motive metrically - a much more disruptive transformation." },
     ],
   ),
   "s02.ex25": map(
@@ -748,8 +748,8 @@ export const schoenbergSourceMaterial: Record<
     "Exs. 26-27",
     "Harmonic insertion and substitution",
     [
-      { label: "Ex. 26", detail: "Insert harmonic motion in the middle of the span." },
-      { label: "Ex. 27", detail: "Substitute another chord or chord succession." },
+      { label: "Insert harmony", detail: "Insert harmonic motion in the middle of the span." },
+      { label: "Substitute harmony", detail: "Replace the original support with another chord or chord succession." },
       { label: "Keep motivic continuity", detail: "The harmonic route changes without requiring abandonment of the motive." },
     ],
   ),
@@ -758,9 +758,9 @@ export const schoenbergSourceMaterial: Record<
     "Exs. 28-29",
     "Adapt melody to a moving context",
     [
-      { label: "Ex. 28", detail: "Transpose the melodic material." },
-      { label: "Ex. 29 - passing harmonies", detail: "Add harmonic motion that the melody must accommodate." },
-      { label: "Ex. 29 - accompaniment", detail: "Treat the accompaniment semi-contrapuntally rather than as inert chord filling." },
+      { label: "Transpose the melody", detail: "Move the melodic material to a different pitch level." },
+      { label: "Add passing harmonies", detail: "Add harmonic motion that the melody must accommodate." },
+      { label: "Make the accompaniment active", detail: "Treat the accompaniment semi-contrapuntally rather than as inert chord filling." },
     ],
   ),
 
@@ -780,7 +780,7 @@ export const schoenbergSourceMaterial: Record<
     "Ex. 30",
     "Phrase built from a broken-chord derivative",
     [
-      { label: "Start from derivative d", detail: "Schoenberg begins from the broken-chord derivative already developed in Ex. 21d." },
+      { label: "Start from a broken-chord derivative", detail: "Begin from an already-developed broken-chord form rather than inventing unrelated material." },
       { label: "Related forms", detail: "Successive forms remain visibly traceable to the source." },
       { label: "Phrase construction", detail: "The derivatives are ordered so they become a coherent phrase rather than isolated exercises." },
     ],
@@ -1059,9 +1059,9 @@ export const schoenbergSourceMaterial: Record<
     "Exs. 36-37",
     "Richer complementary harmony",
     [
-      { label: "Ex. 36 tonic form", detail: "I-V-I." },
-      { label: "Ex. 36 dominant form", detail: "V-I-V." },
-      { label: "Ex. 37", detail: "The dominant form contains passing harmonies while the larger complementary relationship remains clear." },
+      { label: "Tonic form", detail: "I-V-I." },
+      { label: "Dominant form", detail: "V-I-V." },
+      { label: "Richer dominant answer", detail: "The dominant form contains passing harmonies while the larger complementary relationship remains clear." },
     ],
   ),
   "s04.ex38-39": map(
@@ -1069,8 +1069,8 @@ export const schoenbergSourceMaterial: Record<
     "Exs. 38-39",
     "Do not answer mechanically",
     [
-      { label: "Ex. 38", detail: "Passing harmonies from the tonic form are not mechanically preserved in the dominant form." },
-      { label: "Ex. 39", detail: "The tonic form is basically I-IV and the dominant form basically V-I, though elaborate part-writing disguises that simplicity." },
+      { label: "Non-mechanical answer", detail: "Passing harmonies from the tonic form are not mechanically preserved in the dominant form." },
+      { label: "Simple structure under complex writing", detail: "The tonic form is basically I-IV and the dominant form basically V-I, though elaborate part-writing disguises that simplicity." },
     ],
   ),
   "s04.ex40": map(
@@ -1135,12 +1135,12 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Climactic ascension",
         detail:
-          "Ex. 52a intensifies the continuation through an ascending passage before the material is shortened.",
+          "An ascending passage intensifies the continuation before the material is shortened.",
       },
       {
         label: "Reduction / condensation",
         detail:
-          "The two-measure phrases are reduced to one measure; in Ex. 52c four measures are condensed into two.",
+          "Two-measure phrases are reduced to one measure, and a longer four-measure span is condensed into two.",
       },
       {
         label: "Melodic residues",
@@ -1161,17 +1161,17 @@ export const schoenbergSourceMaterial: Record<
     "Remote motive-forms can justify a longer sentence",
     [
       {
-        label: "53a: tonic form → mediant form",
+        label: "Tonic form → mediant form",
         detail:
           "The printed analysis shows the opening changing harmonic/formal role before later material is reduced to residues.",
       },
       {
-        label: "53a: reduced → residues",
+        label: "Reduced material → residues",
         detail:
           "The continuation shortens the material rather than merely adding another full phrase.",
       },
       {
-        label: "53b: remote variation",
+        label: "Remote variation",
         detail:
           "Schoenberg says the motive-form in m. 5 is a very remote variation, based on a third and indirectly derived from the marked figure b.",
       },
@@ -1191,12 +1191,12 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "One broken-chord source",
         detail:
-          "Schoenberg states that Exs. 54-56 are based on the broken-chord form Ex. 7b.",
+          "The sequence grows from a simple broken-chord source.",
       },
       {
         label: "Progressive variation",
         detail:
-          "Ex. 54a-c progressively varies the source until a motive-form is reached that can build sharply contrasting sentences.",
+          "The source is varied progressively until a motive-form is reached that can build sharply contrasting sentences.",
       },
       {
         label: "Sequence-like continuation",
@@ -1206,7 +1206,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Free transposition",
         detail:
-          "The quasi-sequential repetitions in Exs. 54-56 are mostly free transpositions by a whole tone or semitone; Ex. 56b includes a fourth downward.",
+          "The quasi-sequential repetitions are mostly free transpositions by a whole tone or semitone, with one larger downward shift.",
       },
       {
         label: "Alternative cadential regions",
@@ -1229,7 +1229,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Condensed continuation",
         detail:
-          "In almost all of Exs. 57-61, continuation after the repeated first phrase is carried by condensed phrases giving way to a cadence contour.",
+          "In these literature sentences, continuation after the repeated first phrase is often carried by condensed phrases giving way to a cadence contour.",
       },
       {
         label: "Closing residues",
@@ -1237,9 +1237,9 @@ export const schoenbergSourceMaterial: Record<
           "The closing measures generally employ only residues of the basic motive.",
       },
       {
-        label: "57a: remote derivative + sequence",
+        label: "Remote derivative + sequence",
         detail:
-          "After a twofold statement of the basic phrase, remote derivatives can appear; Schoenberg says the extension in 57a is produced by the sequence in m. 6.",
+          "After a twofold statement of the basic phrase, remote derivatives can appear; a later sequence produces the extension.",
       },
     ],
     "Ex. 57 is Bach's St Matthew Passion No. 12 aria; Ex. 58 collects Haydn piano-sonata examples. This map follows Schoenberg's discussion while native transcriptions of those multi-voice excerpts remain pending.",
@@ -1433,27 +1433,27 @@ export const schoenbergSourceMaterial: Record<
     "Mozart - Piano Sonatas and The Marriage of Figaro",
     [
       {
-        label: "59a: interpolation",
+        label: "Interpolation",
         detail:
           "After two one-measure phrases in mm. 5-6, a three-measure segment appears and is repeated with slight variation.",
       },
       {
         label: "Omission test",
         detail:
-          "Schoenberg proposes omitting measures to discover what causes the extension: removing mm. 7-11 reduces 59a to the eight measures of the practice form.",
+          "Omitting measures can reveal what caused the extension: removing mm. 7-11 restores the underlying eight-measure practice form.",
       },
       {
-        label: "59b / 59c",
+        label: "Shorter omission cases",
         detail:
-          "In 59b, mm. 5-6 could be omitted; in 59c, omission of mm. 7-8 reduces ten measures to eight.",
+          "In one case mm. 5-6 can be omitted; in another, removing mm. 7-8 reduces ten measures to eight.",
       },
       {
-        label: "59d: overlap + sequence",
+        label: "Overlap + sequence",
         detail:
           "The sentence overlaps the beginning of a repetition and is extended by a sequence in mm. 6-7.",
       },
       {
-        label: "59h: remote forms need repetition",
+        label: "Remote forms need repetition",
         detail:
           "Remote motive-forms in mm. 5-6 are followed by a modified repetition in mm. 7-8; Schoenberg calls such repetitions consequences of comprehensibility.",
       },
@@ -1466,27 +1466,27 @@ export const schoenbergSourceMaterial: Record<
     "Schubert - unusual sentence endings, beginnings and extensions",
     [
       {
-        label: "60a: unusual VI ending",
+        label: "Unusual VI ending",
         detail:
           "Schoenberg calls the ending on VI unusual and the anticipation of VI through a deceptive cadence still more unusual.",
       },
       {
-        label: "60c: remarkable beginning",
+        label: "Remarkable beginning",
         detail:
           "He points out the beginning on VII-II and compares it with the Finale of Beethoven's String Quartet Op. 130.",
       },
       {
-        label: "60e: short segment + condensation",
+        label: "Short segment + condensation",
         detail:
           "Quasi-sequential repetition of a short segment and condensation in the cadence show similarity to the practice form.",
       },
       {
-        label: "60f: three-measure units",
+        label: "Three-measure units",
         detail:
           "Its two three-measure units are not created by reduction or extension, but by quasi-sequential insertions and repetitions.",
       },
       {
-        label: "60h: independent addition",
+        label: "Independent addition",
         detail:
           "Omitting mm. 7-11 and m. 13 would reduce it to eight measures, but mm. 7-14 can also be heard as an independent four-measure addition with varied repetition.",
       },
@@ -1499,7 +1499,7 @@ export const schoenbergSourceMaterial: Record<
     "Brahms - developing variation, voice exchange and cadential reduction",
     [
       {
-        label: "61a: theme less complicated than it looks",
+        label: "Theme less complicated than it looks",
         detail:
           "Schoenberg says the analysis shows a less complicated theme than first glance suggests; melody need not always remain in the highest voice.",
       },
@@ -1509,7 +1509,7 @@ export const schoenbergSourceMaterial: Record<
           "Accompaniment and melody may exchange places; Schoenberg also remarks on the unusual bass treatment below mm. 6-7.",
       },
       {
-        label: "61b: developing variation",
+        label: "Developing variation",
         detail:
           "The example has little in common with the practice form except repeated smaller segments and the cadential process.",
       },
@@ -1519,9 +1519,9 @@ export const schoenbergSourceMaterial: Record<
           "The one-measure phrases of mm. 3-4 are reduced to half-measure residues in mm. 7-8, reinforced by accompaniment phrasing.",
       },
       {
-        label: "61d: insertion and refrain-like return",
+        label: "Insertion and refrain-like return",
         detail:
-          "Schoenberg says 61d would be eight measures without insertion of motive-form b and repetition b¹; the opening phrase then returns refrain-like in mm. 8-9.",
+          "Without the inserted motive-form and its repetition, the sentence would be eight measures; the opening phrase then returns refrain-like near the end.",
       },
     ],
     "Ex. 61 uses Brahms, principally Cello Sonata Op. 38 and Violin Sonata Op. 78-II. This map follows Schoenberg's analysis, including his explicit use of 'developing variation'; native multi-voice transcription remains pending.",

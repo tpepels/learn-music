@@ -21,9 +21,9 @@ These files are part of the implementation contract, not optional background not
 
 Do not add another Schoenberg lesson while S01-S05 have unresolved reference-integrity, source-fidelity, notation, or readability defects.
 
-The most important terminology rule is:
+The most important learner-facing terminology rule is:
 
 - **Exercise** = a PLAY / LAB lesson step identified by a letter such as A, B, C.
-- **Example** = a source example from Schoenberg's book such as Example 2e or Example 35a.
+- Schoenberg's book indices such as `Ex. 2e` or `Ex. 35a` are **internal provenance only**.
 
-Never use those words interchangeably.
+Do not expose book index numbers in lesson titles, instructions, explanations, completion text, source-card headings or analysis-tab labels. Name the music or the musical idea instead.
