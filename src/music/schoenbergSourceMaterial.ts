@@ -1929,6 +1929,358 @@ export const schoenbergSourceMaterial: Record<
     ],
   ),
 
+  "s11.ternary-form": map(
+    "s11.ternary-form",
+    "Ch. XIII; Exs. 101-107",
+    "Departure, contrast and changed return",
+    [
+      {
+        label: "Three-part logic",
+        detail:
+          "The form is organised as an opening section, a contrasting middle, and a return of the opening material. The return is usually recognisable without being a literal copy.",
+      },
+      {
+        label: "A establishes the home region",
+        detail:
+          "The opening section should establish its tonality clearly enough that later harmonic departure is perceived as contrast rather than uncertainty.",
+      },
+      {
+        label: "Contrast must remain coherent",
+        detail:
+          "The middle section may change harmony, register, texture and motive-form, but it still needs connective features that make it belong to the same piece.",
+      },
+      {
+        label: "Return completes the form",
+        detail:
+          "For an independent piece, the returning section restores the tonic and normally reshapes the cadence so that the ending is more final than the first close.",
+      },
+    ],
+    "Analytical map of Chapter XIII. The literature examples remain untranscribed; no note-for-note source score is claimed.",
+  ),
+
+  "s11.middle-section": map(
+    "s11.middle-section",
+    "Ch. XIII - Contrasting Middle Section",
+    "How the middle departs without breaking the piece",
+    [
+      {
+        label: "Harmony is the strongest contrast",
+        detail:
+          "Harmonic movement is a particularly effective way to distinguish the middle from the opening section while retaining motivic continuity.",
+      },
+      {
+        label: "Reuse transformed material",
+        detail:
+          "Sequences, imitation, altered motive-forms and changes of register can intensify departure without requiring unrelated thematic material.",
+      },
+      {
+        label: "Prepare the return",
+        detail:
+          "The end of the middle often reduces activity or settles on a harmony that creates both repose and expectation before the opening material returns.",
+      },
+      {
+        label: "Upbeat harmony can reconnect",
+        detail:
+          "A preparatory upbeat chord can help turn the end of the middle toward the returning tonic section.",
+      },
+    ],
+  ),
+
+  "s11.recapitulation": map(
+    "s11.recapitulation",
+    "Ch. XIII - Recapitulation",
+    "Return, modification and final cadence",
+    [
+      {
+        label: "Recognition before duplication",
+        detail:
+          "The return needs enough of the opening section for immediate recognition, but exact repetition is only one possibility.",
+      },
+      {
+        label: "Condense or extend",
+        detail:
+          "A return can omit earlier measures, compress material, add sequence or expand the cadence while preserving the identity of the opening.",
+      },
+      {
+        label: "Change the cadence",
+        detail:
+          "The final cadence normally differs from the first section's ending so the return can close the complete form convincingly in the tonic.",
+      },
+      {
+        label: "Vary the surface",
+        detail:
+          "Register, accompaniment, figuration and voice placement may change even when the formal function and thematic identity remain clear.",
+      },
+    ],
+  ),
+
+  "s12.irregular-construction": map(
+    "s12.irregular-construction",
+    "Ch. XIV; Exs. 108-112",
+    "Uneven spans with audible balance",
+    [
+      {
+        label: "Uneven is not unorganised",
+        detail:
+          "A sentence or period may contain an uneven number of measures when the musical idea requires units of different lengths or a different number of units.",
+      },
+      {
+        label: "Symmetry and evenness differ",
+        detail:
+          "Equal halves can still use unusual lengths, while asymmetrical designs can divide the whole into unequal but functionally balanced parts.",
+      },
+      {
+        label: "Internal repetition changes proportion",
+        detail:
+          "Sequential or varied repetition can enlarge one part of a form without making the construction arbitrary.",
+      },
+      {
+        label: "Freedom requires compensation",
+        detail:
+          "Irregular length works when cadence, motive, contour, harmony and repetition still make the larger proportions understandable to the ear.",
+      },
+      {
+        label: "Fluency can justify asymmetry",
+        detail:
+          "Uneven construction can increase spontaneity and natural flow when it grows from the musical material rather than from a desire to avoid regularity for its own sake.",
+      },
+    ],
+    "Analytical map of Chapter XIV. Examples 108-112 remain pending for verified native transcription.",
+  ),
+
+  "s13.minuet-form": map(
+    "s13.minuet-form",
+    "Ch. XV; Exs. 113-119",
+    "Moderate dance character and ternary design",
+    [
+      {
+        label: "Triple-metre identity",
+        detail:
+          "The minuet is associated with a moderate triple metre and usually avoids the extreme rhythmic accentuation characteristic of faster scherzo writing.",
+      },
+      {
+        label: "Moderate harmonic pace",
+        detail:
+          "Because the tempo is moderate, harmony can change relatively frequently while still remaining clear and dance-like.",
+      },
+      {
+        label: "A larger ternary shape",
+        detail:
+          "The movement combines a minuet, a contrasting trio and the return of the minuet, so large-scale contrast grows from two internally coherent sections.",
+      },
+      {
+        label: "Character stays controlled",
+        detail:
+          "The character may vary from lyrical to insistent, but the overall movement normally retains a measured rather than extreme manner.",
+      },
+    ],
+    "Analytical map of Chapter XV. Examples 113-119 remain untranscribed.",
+  ),
+
+  "s13.trio": map(
+    "s13.trio",
+    "Ch. XV - Trio",
+    "Contrast the trio without losing proportion",
+    [
+      {
+        label: "Change character",
+        detail:
+          "The trio should establish a perceptible contrast in melody, rhythm, texture, register, harmony or mode.",
+      },
+      {
+        label: "Keep a comparable formal scale",
+        detail:
+          "Contrast does not require a completely different formal language; the trio can still use the same small-form principles as the minuet.",
+      },
+      {
+        label: "Connect the return",
+        detail:
+          "The end of the trio may prepare the return of the minuet harmonically or motivically so the large ternary movement remains integrated.",
+      },
+      {
+        label: "Variation inside the parts",
+        detail:
+          "Reduction, extension, codettas and altered repetitions can appear in either minuet or trio when the musical material calls for them.",
+      },
+    ],
+  ),
+
+  "s14.scherzo-form": map(
+    "s14.scherzo-form",
+    "Ch. XVI; Exs. 120-123",
+    "Rapid ternary form with sharper rhythmic character",
+    [
+      {
+        label: "Instrumental energy",
+        detail:
+          "The scherzo is characteristically instrumental, fast and rhythmically accented. Rapid tempo changes what kinds of detail the ear can follow.",
+      },
+      {
+        label: "A can still be sentence or period",
+        detail:
+          "The opening section uses the same thematic principles learned earlier, often on a larger notated scale because the tempo is faster.",
+      },
+      {
+        label: "Harmony changes less often",
+        detail:
+          "At rapid tempo, harmonic changes generally need more time to register, so the surface can be active while the harmonic support moves more slowly.",
+      },
+      {
+        label: "Ternary structure remains central",
+        detail:
+          "Despite differences of character and detail, the essential large relation is opening section, contrasting middle and return.",
+      },
+    ],
+    "Analytical map of Chapter XVI. The literature examples and practice-form notation remain untranscribed.",
+  ),
+
+  "s14.modulatory-middle": map(
+    "s14.modulatory-middle",
+    "Ch. XVI - Modulatory Contrasting Middle Section",
+    "Develop material through unstable harmony",
+    [
+      {
+        label: "Move through unstable regions",
+        detail:
+          "The middle section can pass the opening material through changing harmonic regions, producing stronger contrast than a merely static B section.",
+      },
+      {
+        label: "Sequence transformed patterns",
+        detail:
+          "Short patterns can be sequenced while their shape and constitution change in response to the harmonic route.",
+      },
+      {
+        label: "Liquidate toward the return",
+        detail:
+          "As the middle approaches its end, motive-forms can be reduced to simpler residues, scales, broken chords or repeated figures.",
+      },
+      {
+        label: "Repose plus suspense",
+        detail:
+          "A pedal or repeated note can stop harmonic motion while sustaining expectation, preparing the re-entry of the opening theme.",
+      },
+    ],
+  ),
+
+  "s14.return-coda": map(
+    "s14.return-coda",
+    "Ch. XVI - Recapitulation, Extensions, Episodes and Coda",
+    "Return, extension and afterthought",
+    [
+      {
+        label: "The return may be reconstructed",
+        detail:
+          "The recapitulation can be changed, modified, varied or reconstructed rather than copied literally.",
+      },
+      {
+        label: "Extensions can grow from the return",
+        detail:
+          "Episodes, codettas and added repetitions may expand the returning section without obscuring its identity.",
+      },
+      {
+        label: "A coda can complete the energy curve",
+        detail:
+          "The closing passage can recall, intensify or liquidate earlier material so the movement feels concluded rather than merely stopped.",
+      },
+      {
+        label: "Trio contrast can broaden the movement",
+        detail:
+          "A trio supplies a larger-scale contrasting region, and in expanded designs the scherzo and trio may alternate more than once.",
+      },
+    ],
+  ),
+
+  "s15.variation-theme": map(
+    "s15.variation-theme",
+    "Ch. XVII; Exs. 124-127",
+    "Design a theme that leaves room for variation",
+    [
+      {
+        label: "Keep the theme structurally clear",
+        detail:
+          "A useful variation theme has clear subdivision and phrasing so later versions can preserve its proportions while changing the surface.",
+      },
+      {
+        label: "Do not exhaust every possibility at once",
+        detail:
+          "A theme overloaded with striking detail leaves less room for later additions. Simpler material can support a richer sequence of transformations.",
+      },
+      {
+        label: "Use closely related motive-forms",
+        detail:
+          "The theme benefits from internal coherence: related motive-forms establish an identity that can remain audible across later variations.",
+      },
+      {
+        label: "Keep harmony understandable",
+        detail:
+          "A comparatively clear harmonic plan gives the variations a stable structural reference even when texture, figuration or character changes.",
+      },
+    ],
+    "Analytical map of Chapter XVII. Examples 124-127 remain pending for verified native transcription.",
+  ),
+
+  "s15.variation-motive": map(
+    "s15.variation-motive",
+    "Ch. XVII - Motive of Variation",
+    "Give each variation one systematic identity",
+    [
+      {
+        label: "Preserve the course of events",
+        detail:
+          "The variation should remain recognisably related to the theme: the order and proportion of its main parts normally remain perceptible even when character changes.",
+      },
+      {
+        label: "Choose a motive of variation",
+        detail:
+          "A variation gains unity when one characteristic figure or treatment is applied systematically rather than changing every parameter independently.",
+      },
+      {
+        label: "Derive the device when possible",
+        detail:
+          "A particularly strong variation motive can grow from something already latent in the theme, tightening the connection between theme and transformation.",
+      },
+      {
+        label: "Adapt without abandoning the system",
+        detail:
+          "The figure may be adjusted to harmony and structure, but it should remain identifiable enough to unify the whole variation.",
+      },
+    ],
+  ),
+
+  "s15.variation-set": map(
+    "s15.variation-set",
+    "Ch. XVII - Sketching and Organization of the Set",
+    "Plan contrast across several variations",
+    [
+      {
+        label: "Sketch alternatives before polishing",
+        detail:
+          "Several possible variation motives can be generated quickly before choosing which ones are strong enough to develop.",
+      },
+      {
+        label: "Each variation needs self-sufficiency",
+        detail:
+          "A variation should form a coherent musical unit in its own right while still preserving the structural relation to the theme.",
+      },
+      {
+        label: "Vary the type of contrast",
+        detail:
+          "Character, register, texture, rhythm, counterpoint, metre and tempo can change across the set so successive variations do not repeat the same solution.",
+      },
+      {
+        label: "Order the set as a larger form",
+        detail:
+          "The sequence of variations should create a convincing larger progression rather than a random catalogue of techniques.",
+      },
+      {
+        label: "Close deliberately",
+        detail:
+          "A set may conclude through an expanded final variation, a coda or another closing formulation, but the ending should complete the accumulated formal motion.",
+      },
+    ],
+  ),
+
+
 };
 
 export function getSchoenbergSourceMaterial(

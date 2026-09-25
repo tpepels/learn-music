@@ -31,7 +31,7 @@ describe("lesson progression", () => {
       "style.pop",
     ]);
 
-    expect(schoenbergLessons).toHaveLength(10);
+    expect(schoenbergLessons).toHaveLength(15);
     expect(schoenbergLessons.map((lesson) => lesson.id)).toEqual([
       "schoenberg.phrase-motive",
       "schoenberg.developing-variation",
@@ -43,8 +43,13 @@ describe("lesson progression", () => {
       "schoenberg.character-mood",
       "schoenberg.melody-theme",
       "schoenberg.self-criticism",
+      "schoenberg.small-ternary",
+      "schoenberg.irregular-construction",
+      "schoenberg.minuet",
+      "schoenberg.scherzo",
+      "schoenberg.theme-variations",
     ]);
-    expect(implementedLessons).toHaveLength(47);
+    expect(implementedLessons).toHaveLength(52);
     expect(learningTracks.map((track) => track.id)).toEqual([
       "play-lab",
       "schoenberg",

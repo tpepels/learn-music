@@ -48,6 +48,11 @@ describe("Schoenberg learning track", () => {
       "schoenberg.character-mood",
       "schoenberg.melody-theme",
       "schoenberg.self-criticism",
+      "schoenberg.small-ternary",
+      "schoenberg.irregular-construction",
+      "schoenberg.minuet",
+      "schoenberg.scherzo",
+      "schoenberg.theme-variations",
     ]);
     expect(learningTracks.map((track) => track.id)).toEqual([
       "play-lab",
@@ -70,7 +75,10 @@ describe("Schoenberg learning track", () => {
       getNextImplementedLesson(schoenbergCompletingSentenceLesson.id)?.id,
     ).toBe("schoenberg.period");
     expect(
-      getNextImplementedLesson("schoenberg.self-criticism"),
+      getNextImplementedLesson("schoenberg.self-criticism")?.id,
+    ).toBe("schoenberg.small-ternary");
+    expect(
+      getNextImplementedLesson("schoenberg.theme-variations"),
     ).toBeUndefined();
   });
 

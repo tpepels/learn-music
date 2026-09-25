@@ -1633,6 +1633,151 @@ export const productionContext: Record<string, ProductionContext> = {
     realWorld: "Duplicate the MIDI clip into several versions, try different solutions, and compare them from the same starting point before choosing the strongest one.",
   },
 
+  "schoenberg.small-ternary.a": {
+    why: "A clear departure and return turns several short sections into one remembered formal argument rather than a chain of labelled blocks.",
+    when: "Use this when a compact piece needs a complete large-scale shape built from establishment, contrast and return.",
+    tools: ["Section markers", "Arrangement view", "Loop playback"],
+    visual: "phrase-form",
+    realWorld: "In a DAW, compare three neighbouring section blocks and hide the labels to check whether the return is still recognisable by ear.",
+  },
+  "schoenberg.small-ternary.b": {
+    why: "A contrasting middle gives the opening new meaning by taking the listener far enough away that a later return can feel necessary.",
+    when: "Use this when an A-B-A design feels like repetition because the middle does not depart strongly enough.",
+    tools: ["Section markers", "Track layers", "Loop playback"],
+    visual: "phrase-form",
+    realWorld: "Duplicate an opening section, change selected layers or harmony in the middle, and loop both boundaries until the contrast remains connected.",
+  },
+  "schoenberg.small-ternary.c": {
+    why: "A modified return avoids mechanical repetition while preserving enough identity for the listener to hear recapitulation immediately.",
+    when: "Use this when the return sounds either copied without purpose or so transformed that it no longer feels like a return.",
+    tools: ["Arrangement view", "Section duplicate", "A/B playback"],
+    visual: "phrase-form",
+    realWorld: "Copy the opening block into the return position, then change one supporting feature while preserving the material that carries recognition.",
+  },
+  "schoenberg.small-ternary.d": {
+    why: "Coordinating opening, middle, return and extension makes local edits serve one complete energy and memory curve.",
+    when: "Use this after the three sections work individually and the whole form still needs proportion and closure.",
+    tools: ["Arrangement view", "Section markers", "Loop playback"],
+    visual: "phrase-form",
+    realWorld: "Play the complete timeline without stopping and revise only when the departure, return or final extension fails as part of the whole arc.",
+  },
+
+  "schoenberg.irregular-construction.a": {
+    why: "Unequal phrase lengths can sound natural when motive, cadence and activity explain why one span needs more space than another.",
+    when: "Use this when a regular phrase grid feels forced and the musical idea seems to need a longer or shorter continuation.",
+    tools: ["Piano roll", "Phrase loop", "Note editor"],
+    visual: "piano-roll",
+    realWorld: "In a MIDI clip, compare the density of the first and second halves while listening for whether the unequal activity still forms one phrase.",
+  },
+  "schoenberg.irregular-construction.b": {
+    why: "Moving the internal punctuation away from the midpoint trains the ear to follow musical function instead of assuming equal halves.",
+    when: "Use this when a phrase needs an off-centre breath or cadence without losing continuity.",
+    tools: ["Piano roll", "Rests", "Loop playback"],
+    visual: "piano-roll",
+    realWorld: "Insert a short gap away from the visual midpoint, then loop across it until the boundary sounds intentional without counting steps.",
+  },
+  "schoenberg.irregular-construction.c": {
+    why: "A related extension can lengthen one formal function while keeping the extra span audibly derived from material already established.",
+    when: "Use this when a phrase reaches its goal too quickly or needs a longer continuation without introducing a new idea.",
+    tools: ["MIDI duplicate", "Motif editor", "Loop playback"],
+    visual: "motif",
+    realWorld: "Duplicate a small source cell later in the clip, vary it, and compare whether the extra block sounds like continuation rather than pasted repetition.",
+  },
+  "schoenberg.irregular-construction.d": {
+    why: "Balancing asymmetry with clear closure lets irregular proportions disappear into a fluent musical experience.",
+    when: "Use this when several local irregularities work separately but the complete phrase still sounds unfinished or arbitrary.",
+    tools: ["Piano roll", "Phrase loop", "Cadence check"],
+    visual: "piano-roll",
+    realWorld: "Loop the entire phrase with the grid de-emphasised and revise until the off-centre boundary and final resting point make sense by ear.",
+  },
+
+  "schoenberg.minuet.a": {
+    why: "Controlled contour and pacing create a measured dance character that remains identifiable without relying only on a tempo label.",
+    when: "Use this when writing a moderate principal dance section before introducing the contrasting trio.",
+    tools: ["Piano roll", "Loop playback", "Contour view"],
+    visual: "piano-roll",
+    realWorld: "Shape a MIDI melody with moderate range and clear punctuation, then test whether its character survives repeated playback without visual cues.",
+  },
+  "schoenberg.minuet.b": {
+    why: "Harmonic rhythm can articulate a moderate dance phrase while leaving enough space for the melody to remain primary.",
+    when: "Use this when the minuet feels harmonically static or, at the opposite extreme, changes harmony too constantly to feel poised.",
+    tools: ["Harmony sequencer", "Chord track", "Loop playback"],
+    visual: "harmony",
+    realWorld: "Distribute chord events differently across several bars and listen for stable, moving and cadential regions rather than identical harmonic blocks.",
+  },
+  "schoenberg.minuet.c": {
+    why: "The trio refreshes the listener through contrast while preserving enough connection for the return of the minuet to feel integrated.",
+    when: "Use this after the principal minuet character is established and a larger middle section is needed.",
+    tools: ["Section markers", "Track layers", "A/B playback"],
+    visual: "phrase-form",
+    realWorld: "Build a contrasting middle block with a different layer combination, then loop directly from it back into the restored principal section.",
+  },
+  "schoenberg.minuet.d": {
+    why: "Minuet, trio and return form one larger ternary movement whose meaning depends on the contrast between complete sections.",
+    when: "Use this when the individual dance sections exist but the movement still needs a convincing departure-and-return arc.",
+    tools: ["Arrangement view", "Section markers", "Loop playback"],
+    visual: "phrase-form",
+    realWorld: "Play the whole minuet-trio-return timeline and judge whether the final principal section feels like restoration rather than another repetition.",
+  },
+
+  "schoenberg.scherzo.a": {
+    why: "A compact rhythmic and melodic profile gives fast music an identity strong enough to survive later transformation.",
+    when: "Use this at the start of a rapid instrumental section before the material enters a more unstable developmental middle.",
+    tools: ["Motif editor", "Piano roll", "Loop playback"],
+    visual: "motif",
+    realWorld: "Keep a short MIDI source cell visible while reshaping the following cell and checking whether the family resemblance remains immediate at speed.",
+  },
+  "schoenberg.scherzo.b": {
+    why: "Changing harmonic activity can make a middle section feel mobile and developmental without replacing the opening material.",
+    when: "Use this when a scherzo middle needs stronger instability and direction before the principal material returns.",
+    tools: ["Harmony sequencer", "Chord track", "Loop playback"],
+    visual: "harmony",
+    realWorld: "Vary the pattern of harmonic events across several bars while the thematic surface continues, then listen for directed movement instead of random busyness.",
+  },
+  "schoenberg.scherzo.c": {
+    why: "Liquidation reduces thematic activity so the end of a busy middle can create both repose and expectation before the return.",
+    when: "Use this near the end of a developmental section when continuous intensity leaves no room for the principal theme to re-enter.",
+    tools: ["Piano roll", "Mute/delete", "Loop playback"],
+    visual: "motif",
+    realWorld: "Strip the last part of a MIDI phrase down to a small residue and loop into the return, checking whether less local activity creates more anticipation.",
+  },
+  "schoenberg.scherzo.d": {
+    why: "A reconstructed return and short closing extension can complete the scherzo without making the recapitulation feel like a mechanical copy.",
+    when: "Use this after the developmental middle when the principal material must return clearly and then finish the movement's remaining energy.",
+    tools: ["Arrangement view", "Section duplicate", "Loop playback"],
+    visual: "phrase-form",
+    realWorld: "Restore the principal section after the middle, alter one supporting feature, and use the final block as a connected extension rather than a new section.",
+  },
+
+  "schoenberg.theme-variations.a": {
+    why: "A clear, economical theme exposes structural features that later variations can transform without losing their reference point.",
+    when: "Use this before writing any variation, especially when the source theme already feels too dense or over-decorated.",
+    tools: ["Piano roll", "Loop playback", "Versioned clips"],
+    visual: "piano-roll",
+    realWorld: "Keep one clean MIDI theme as an untouched reference and resist filling every subdivision before duplicating it into variation sketches.",
+  },
+  "schoenberg.theme-variations.b": {
+    why: "One systematic variation device gives a transformed passage its own identity while keeping the theme audible underneath.",
+    when: "Use this when a variation contains many unrelated edits and no single procedure seems to unify its surface.",
+    tools: ["Motif editor", "MIDI duplicate", "A/B playback"],
+    visual: "motif",
+    realWorld: "Duplicate the theme and apply one recurring rhythmic or melodic treatment across several blocks instead of improvising a different trick in each one.",
+  },
+  "schoenberg.theme-variations.c": {
+    why: "Changing register, spacing and texture can create a new character while leaving the theme's structural course intact.",
+    when: "Use this when a variation needs stronger contrast without rewriting the underlying formal sequence.",
+    tools: ["Register controls", "Open voicing", "Layer doubling"],
+    visual: "texture",
+    realWorld: "Keep the same phrase timeline while moving parts by octaves, opening chord spacing or doubling a line, then compare the new character against the theme.",
+  },
+  "schoenberg.theme-variations.d": {
+    why: "Ordering several distinct variation characters turns separate transformations into a larger progression with contrast, accumulation and arrival.",
+    when: "Use this after several variation ideas exist and their sequence feels interchangeable or catalogue-like.",
+    tools: ["Arrangement view", "Track layers", "Section ordering"],
+    visual: "arrangement",
+    realWorld: "Sketch several variation textures as neighbouring blocks, then reorder or revise their density until the complete sequence has a perceptible trajectory.",
+  },
+
 };
 
 export function getProductionContext(exerciseId: string): ProductionContext {
