@@ -4,7 +4,7 @@ import {
   studySentenceHarmonyIsComplementary,
   studySentenceHasImmediateRepetition,
 } from "../music/study";
-import { heardPlayback } from "./learningEvidence";
+import { heardPlayback, studiedSource } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -332,15 +332,15 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg says that in Exs. 35a and 35b the first phrase employs only tonic harmony and the second only dominant harmony. He also says the melody is modified enough to conform with the harmony. These examples make the tonic-form / dominant-form relation unusually easy to hear.",
         instruction:
-          "Step through Schoenberg's Ex. 35 source map first. Then play the application study across step 9, follow the I → V support, and choose the statement that matches the book's analysis.",
+          "Play both native book excerpts first. In Ex. 35a, hear the F-minor phrase answered over C-dominant harmony, including the E-natural adjustment. In Ex. 35b, hear the same tonic-form / dominant-form principle compressed into 2/4. Use the score analysis tabs, then use the Ex. 35 map to summarize the comparison before trying the separate PLAY / LAB application.",
         recognition:
           "Does the answer feel like the same phrase adapted to a different harmonic function rather than a literal pitch copy?",
         source: {
           reference:
             "Example 35a Beethoven Op.2/1-I; Example 35b Beethoven Op.10/2-I",
-          exampleIds: ["s04.ex35"],
+          exampleIds: ["s04.ex35a", "s04.ex35b", "s04.ex35"],
           focus:
-            "Schoenberg chooses these because the first phrase is supported only by I and the second only by V, making complementary repetition especially clear. The source map states that relation directly; the playable study below is separate application.",
+            "Both Ex. 35a and Ex. 35b are now present as native playable grand-staff transcriptions of the complete excerpts Schoenberg prints. The source map summarizes the comparison; the PLAY / LAB study below remains separate application.",
         },
         terms: [
           {
@@ -361,9 +361,15 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
       evaluate: ({ compositionStudy, experiments }) => {
         const state = compositionStudy[SCHOENBERG_SENTENCE_IDS.ex35];
         return [
-          { label: "You listened to the Ex. 35 reduction", complete: heardPlayback(experiments) },
+          {
+            label: "You studied both native Ex. 35 scores",
+            complete:
+              studiedSource(experiments, "s04.ex35a") &&
+              studiedSource(experiments, "s04.ex35b"),
+          },
+          { label: "You listened to the separate PLAY / LAB application", complete: heardPlayback(experiments) },
           { label: "You identified tonic form answered by dominant form", complete: state?.decision === "related" },
-          { label: "The reduction begins on I and answers on V", complete: state?.harmony?.[0] === "I" && state?.harmony?.[8] === "V" },
+          { label: "The application begins on I and answers on V", complete: state?.harmony?.[0] === "I" && state?.harmony?.[8] === "V" },
         ];
       },
     },

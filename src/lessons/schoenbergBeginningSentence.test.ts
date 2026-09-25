@@ -161,6 +161,7 @@ describe("Schoenberg S04 beginning the sentence", () => {
         context(study, {
           "transport.play": experiment(1, ["composition-study"]),
           "study.notation": experiment(2, ["staff", "degrees"]),
+          "source.play": experiment(2, ["s04.ex35a", "s04.ex35b"]),
         }),
       );
       expect(

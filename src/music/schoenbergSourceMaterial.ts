@@ -1,8 +1,15 @@
 export type SchoenbergSourceEvent = {
-  midi: number | null;
+  /** One pitch, a simultaneous chord, or a rest. */
+  midi: number | number[] | null;
   duration: number;
+  /** Explicit onset in durationUnit units. Omit for legacy sequential notation. */
+  at?: number;
+  staff?: "treble" | "bass";
+  voice?: number;
   barAfter?: boolean;
   accidental?: "♭" | "♯" | "♮";
+  /** Per-pitch accidentals for simultaneous chords. */
+  accidentals?: Array<"♭" | "♯" | "♮" | null>;
 };
 
 export type SchoenbergAnalysisSegment = {
@@ -28,6 +35,8 @@ export type SchoenbergSourceScore = {
   bpm: number;
   durationUnit?: "eighth" | "sixteenth";
   events: SchoenbergSourceEvent[];
+  /** Explicit barline positions in durationUnit units for polyphonic excerpts. */
+  barlines?: number[];
   slurs?: Array<{ start: number; end: number }>;
   annotation?: string;
   analysis?: SchoenbergAnalysisSegment[];
@@ -147,11 +156,10 @@ export const schoenbergSourceMaterial: Record<
     attribution: "First F-major broken-chord study as printed by Schoenberg",
     fidelity: "verified-excerpt",
     fidelityNote:
-      "Native transcription of Ex. 5a from the supplied book scan: F-A-C over the fixed tonic harmony. This is the actual printed subexample, not the C-major PLAY / LAB application study.",
+      "Native transcription of Ex. 5a from the supplied book scan: F-A-C over the fixed tonic harmony. The isolated subexample prints no time signature, so PLAY / LAB does not invent one. This is the actual printed source, not the C-major application study.",
     clef: "treble",
     keyLabel: "F major · 1 flat",
     keySignature: -1,
-    meter: "4/4",
     bpm: 84,
     events: [
       { midi: 65, duration: 4 },
@@ -880,6 +888,162 @@ export const schoenbergSourceMaterial: Record<
       { label: "Complementary repetition", detail: "Rhythm and contour can preserve the repetition while harmony supplies contrast." },
     ],
   ),
+  "s04.ex35a": {
+    kind: "score",
+    id: "s04.ex35a",
+    reference: "Ex. 35a",
+    title: "Beethoven - Piano Sonata Op. 2/1-I",
+    attribution: "Complete excerpt transcribed from Schoenberg's Ex. 35a",
+    fidelity: "verified-excerpt",
+    fidelityNote:
+      "Native grand-staff transcription of the complete excerpt printed by Schoenberg: the quarter-note pickup and four following measures. The first two measures present the tonic form over F-minor harmony; the second pair gives the dominant form over C-dominant harmony. Notes and onsets were checked against the supplied scan.",
+    clef: "treble",
+    keyLabel: "F minor · 4 flats",
+    keySignature: -4,
+    meter: "2/2",
+    bpm: 104,
+    events: [
+      { midi: 60, duration: 2, at: 0, staff: "treble" },
+
+      { midi: 65, duration: 2, at: 2, staff: "treble" },
+      { midi: null, duration: 8, at: 2, staff: "bass" },
+      { midi: 68, duration: 2, at: 4, staff: "treble" },
+      { midi: 72, duration: 2, at: 6, staff: "treble" },
+      { midi: 77, duration: 2, at: 8, staff: "treble" },
+
+      { midi: 80, duration: 3, at: 10, staff: "treble" },
+      { midi: null, duration: 2, at: 10, staff: "bass" },
+      { midi: [53, 56, 60], duration: 2, at: 12, staff: "bass" },
+      { midi: 79, duration: 1 / 3, at: 13, staff: "treble" },
+      { midi: 77, duration: 1 / 3, at: 13 + 1 / 3, staff: "treble" },
+      { midi: 76, duration: 1 / 3, at: 13 + 2 / 3, staff: "treble", accidental: "♮" },
+      { midi: 77, duration: 2, at: 14, staff: "treble" },
+      { midi: [53, 56, 60], duration: 2, at: 14, staff: "bass" },
+      { midi: null, duration: 2, at: 16, staff: "treble" },
+      { midi: [53, 56, 60], duration: 2, at: 16, staff: "bass" },
+
+      { midi: 67, duration: 2, at: 18, staff: "treble" },
+      { midi: [52, 55, 58, 60], duration: 2, at: 18, staff: "bass", accidentals: ["♮", null, null, null] },
+      { midi: 72, duration: 2, at: 20, staff: "treble" },
+      { midi: null, duration: 6, at: 20, staff: "bass" },
+      { midi: 76, duration: 2, at: 22, staff: "treble", accidental: "♮" },
+      { midi: 79, duration: 2, at: 24, staff: "treble" },
+
+      { midi: 82, duration: 3, at: 26, staff: "treble" },
+      { midi: null, duration: 2, at: 26, staff: "bass" },
+      { midi: [52, 55, 58, 60], duration: 2, at: 28, staff: "bass", accidentals: ["♮", null, null, null] },
+      { midi: 80, duration: 1 / 3, at: 29, staff: "treble" },
+      { midi: 79, duration: 1 / 3, at: 29 + 1 / 3, staff: "treble" },
+      { midi: 77, duration: 1 / 3, at: 29 + 2 / 3, staff: "treble" },
+      { midi: 79, duration: 2, at: 30, staff: "treble" },
+      { midi: [52, 55, 58, 60], duration: 2, at: 30, staff: "bass", accidentals: ["♮", null, null, null] },
+      { midi: null, duration: 2, at: 32, staff: "treble" },
+      { midi: [52, 55, 58, 60], duration: 2, at: 32, staff: "bass", accidentals: ["♮", null, null, null] },
+    ],
+    barlines: [2, 10, 18, 26, 34],
+    slurs: [
+      { start: 6, end: 12 },
+      { start: 22, end: 28 },
+    ],
+    analysis: [
+      {
+        label: "tonic form",
+        detail:
+          "After the pickup, the first two full measures stay on tonic harmony. The melody outlines F minor and then closes its first phrase over repeated tonic chords.",
+        startEvent: 1,
+        endEvent: 15,
+      },
+      {
+        label: "dominant form",
+        detail:
+          "The answering two measures preserve the phrase shape while adapting pitches to dominant harmony; E-natural belongs to that harmonic change.",
+        startEvent: 16,
+        endEvent: 31,
+      },
+      {
+        label: "complementary repetition",
+        detail:
+          "Compare the two pairs as Schoenberg asks: recognizable rhythmic/contour relation is preserved while tonic function becomes dominant function.",
+        startEvent: 1,
+        endEvent: 31,
+      },
+    ],
+  },
+
+  "s04.ex35b": {
+    kind: "score",
+    id: "s04.ex35b",
+    reference: "Ex. 35b",
+    title: "Beethoven - Piano Sonata Op. 10/2-I",
+    attribution: "Complete excerpt transcribed from Schoenberg's Ex. 35b",
+    fidelity: "verified-excerpt",
+    fidelityNote:
+      "Native grand-staff transcription of the complete pickup and four-measure excerpt printed by Schoenberg. The first phrase remains on F-major tonic harmony; the answering phrase remains on C-dominant harmony. Notes and onsets were checked against the supplied scan.",
+    clef: "treble",
+    keyLabel: "F major · 1 flat",
+    keySignature: -1,
+    meter: "2/4",
+    bpm: 104,
+    events: [
+      { midi: [57, 60, 65, 69], duration: 1, at: 0, staff: "treble" },
+      { midi: [41, 48, 53], duration: 1, at: 0, staff: "bass" },
+
+      { midi: [60, 65, 69, 72], duration: 2, at: 1, staff: "treble" },
+      { midi: [41, 48, 53], duration: 2, at: 1, staff: "bass" },
+      { midi: null, duration: 1, at: 3, staff: "treble" },
+      { midi: null, duration: 1, at: 3, staff: "bass" },
+      { midi: 72, duration: 1 / 3, at: 4, staff: "treble" },
+      { midi: 71, duration: 1 / 3, at: 4 + 1 / 3, staff: "treble", accidental: "♮" },
+      { midi: 74, duration: 1 / 3, at: 4 + 2 / 3, staff: "treble" },
+
+      { midi: 72, duration: 2, at: 5, staff: "treble" },
+      { midi: null, duration: 1, at: 7, staff: "treble" },
+      { midi: null, duration: 1, at: 7, staff: "bass" },
+      { midi: [60, 65, 69], duration: 1, at: 8, staff: "treble" },
+      { midi: [41, 48, 53], duration: 1, at: 8, staff: "bass" },
+
+      { midi: [60, 67, 70], duration: 2, at: 9, staff: "treble" },
+      { midi: [40, 48, 52], duration: 2, at: 9, staff: "bass", accidentals: ["♮", null, "♮"] },
+      { midi: null, duration: 1, at: 11, staff: "treble" },
+      { midi: null, duration: 1, at: 11, staff: "bass" },
+      { midi: 70, duration: 1 / 3, at: 12, staff: "treble" },
+      { midi: 69, duration: 1 / 3, at: 12 + 1 / 3, staff: "treble" },
+      { midi: 72, duration: 1 / 3, at: 12 + 2 / 3, staff: "treble" },
+
+      { midi: 70, duration: 2, at: 13, staff: "treble" },
+      { midi: null, duration: 4, at: 13, staff: "bass" },
+      { midi: null, duration: 2, at: 15, staff: "treble" },
+    ],
+    barlines: [1, 5, 9, 13, 17],
+    slurs: [
+      { start: 6, end: 8 },
+      { start: 18, end: 20 },
+    ],
+    analysis: [
+      {
+        label: "tonic form",
+        detail:
+          "The pickup and first two measures remain on F-major tonic harmony. The small triplet ornaments the tonic-form phrase without changing its harmonic function.",
+        startEvent: 0,
+        endEvent: 13,
+      },
+      {
+        label: "dominant form",
+        detail:
+          "The answering two measures move to dominant harmony. The melody is adjusted to the C-dominant sonority while preserving the compact rhythmic shape.",
+        startEvent: 14,
+        endEvent: 23,
+      },
+      {
+        label: "compare 35a / 35b",
+        detail:
+          "Both examples make Schoenberg's complementary repetition unusually exposed: phrase identity stays obvious while tonic support is replaced by dominant support.",
+        startEvent: 0,
+        endEvent: 23,
+      },
+    ],
+  },
+
   "s04.ex35": map(
     "s04.ex35",
     "Ex. 35a-b",
@@ -1055,7 +1219,7 @@ export const schoenbergSourceMaterial: Record<
   "s05.ex57-58": map(
     "s05.ex57-58",
     "Exs. 57-58",
-    "Literature sentences depart from the eight-measure practice form",
+    "Bach and Haydn - literature sentences depart from the practice form",
     [
       {
         label: "Practice form is an abstraction",
@@ -1078,12 +1242,195 @@ export const schoenbergSourceMaterial: Record<
           "After a twofold statement of the basic phrase, remote derivatives can appear; Schoenberg says the extension in 57a is produced by the sequence in m. 6.",
       },
     ],
-    "This map follows the opening of Schoenberg's 'Illustrations from the literature' discussion and his later generalization of Ex. 57a. Native literature transcriptions remain pending.",
+    "Ex. 57 is Bach's St Matthew Passion No. 12 aria; Ex. 58 collects Haydn piano-sonata examples. This map follows Schoenberg's discussion while native transcriptions of those multi-voice excerpts remain pending.",
   ),
+  "s05.ex59a": {
+    kind: "score",
+    id: "s05.ex59a",
+    reference: "Ex. 59a",
+    title: "Mozart - Piano Sonata K. 280-I",
+    attribution: "Complete excerpt printed by Schoenberg in Ex. 59a",
+    fidelity: "verified-excerpt",
+    fidelityNote:
+      "Native grand-staff transcription of the complete fourteen-measure excerpt printed by Schoenberg. Notes, simultaneous accompaniment, rhythm and measure span were checked against the supplied book scan and a public-domain digital score; Schoenberg's omission analysis remains the curricular source.",
+    clef: "treble",
+    keyLabel: "F major · 1 flat",
+    keySignature: -1,
+    meter: "3/4",
+    bpm: 112,
+    durationUnit: "sixteenth",
+    events: [
+      { midi: [60, 65, 69, 72], duration: 4, at: 0, staff: "treble" },
+      { midi: [41, 53], duration: 4, at: 0, staff: "bass" },
+      { midi: [69, 72], duration: 4, at: 4, staff: "treble" },
+      { midi: 48, duration: 4, at: 4, staff: "bass" },
+      { midi: [69, 72], duration: 4, at: 8, staff: "treble" },
+      { midi: 45, duration: 4, at: 8, staff: "bass" },
+      { midi: [69, 72], duration: 6, at: 12, staff: "treble" },
+      { midi: 41, duration: 4, at: 12, staff: "bass" },
+      { midi: 29, duration: 4, at: 16, staff: "bass" },
+      { midi: 74, duration: 1, at: 18, staff: "treble" },
+      { midi: 72, duration: 1, at: 19, staff: "treble" },
+      { midi: 70, duration: 1, at: 20, staff: "treble" },
+      { midi: 69, duration: 1, at: 21, staff: "treble" },
+      { midi: 67, duration: 1, at: 22, staff: "treble" },
+      { midi: 65, duration: 1, at: 23, staff: "treble" },
+      { midi: 77, duration: 4, at: 24, staff: "treble" },
+      { midi: [53, 57], duration: 2, at: 24, staff: "bass" },
+      { midi: [53, 57], duration: 2, at: 26, staff: "bass" },
+      { midi: 76, duration: 4, at: 28, staff: "treble" },
+      { midi: [53, 55, 58], duration: 2, at: 28, staff: "bass" },
+      { midi: [53, 55, 58], duration: 2, at: 30, staff: "bass" },
+      { midi: 75, duration: 4, at: 32, staff: "treble", accidental: "♭" },
+      { midi: [53, 57, 60], duration: 2, at: 32, staff: "bass" },
+      { midi: [53, 57, 60], duration: 2, at: 34, staff: "bass" },
+      { midi: 74, duration: 4, at: 36, staff: "treble" },
+      { midi: [53, 58, 62], duration: 2, at: 36, staff: "bass" },
+      { midi: [53, 58, 62], duration: 2, at: 38, staff: "bass" },
+      { midi: [53, 58, 62], duration: 2, at: 40, staff: "bass" },
+      { midi: [53, 58, 62], duration: 2, at: 42, staff: "bass" },
+      { midi: [53, 58, 62], duration: 2, at: 44, staff: "bass" },
+      { midi: [53, 58, 62], duration: 2, at: 46, staff: "bass" },
+      { midi: 72, duration: 2, at: 48, staff: "treble" },
+      { midi: [53, 55, 64], duration: 2, at: 48, staff: "bass" },
+      { midi: 70, duration: 2, at: 50, staff: "treble" },
+      { midi: [53, 55, 64], duration: 2, at: 50, staff: "bass" },
+      { midi: 70, duration: 4, at: 52, staff: "treble" },
+      { midi: [53, 55, 64], duration: 2, at: 52, staff: "bass" },
+      { midi: [53, 55, 64], duration: 2, at: 54, staff: "bass" },
+      { midi: [53, 55, 64], duration: 2, at: 56, staff: "bass" },
+      { midi: [53, 55, 64], duration: 2, at: 58, staff: "bass" },
+      { midi: 74, duration: 2, at: 60, staff: "treble" },
+      { midi: [53, 57, 65], duration: 2, at: 60, staff: "bass" },
+      { midi: 72, duration: 2, at: 62, staff: "treble" },
+      { midi: [53, 57, 65], duration: 2, at: 62, staff: "bass" },
+      { midi: 72, duration: 4, at: 64, staff: "treble" },
+      { midi: [53, 57, 65], duration: 2, at: 64, staff: "bass" },
+      { midi: [53, 57, 65], duration: 2, at: 66, staff: "bass" },
+      { midi: [53, 57, 65], duration: 2, at: 68, staff: "bass" },
+      { midi: [53, 57, 65], duration: 2, at: 70, staff: "bass" },
+      { midi: 82, duration: 1, at: 72, staff: "treble" },
+      { midi: [52, 55, 60], duration: 4, at: 72, staff: "bass" },
+      { midi: 81, duration: 1, at: 73, staff: "treble" },
+      { midi: 79, duration: 1, at: 74, staff: "treble" },
+      { midi: 81, duration: 1, at: 75, staff: "treble" },
+      { midi: 79, duration: 1, at: 76, staff: "treble" },
+      { midi: 77, duration: 1, at: 77, staff: "treble" },
+      { midi: 76, duration: 1, at: 78, staff: "treble" },
+      { midi: 77, duration: 1, at: 79, staff: "treble" },
+      { midi: 76, duration: 1, at: 80, staff: "treble" },
+      { midi: 74, duration: 1, at: 81, staff: "treble" },
+      { midi: 72, duration: 1, at: 82, staff: "treble" },
+      { midi: 70, duration: 1, at: 83, staff: "treble" },
+      { midi: 69, duration: 2, at: 84, staff: "treble" },
+      { midi: 53, duration: 1, at: 84, staff: "bass" },
+      { midi: 60, duration: 1, at: 85, staff: "bass" },
+      { midi: 77, duration: 4, at: 86, staff: "treble" },
+      { midi: 57, duration: 1, at: 86, staff: "bass" },
+      { midi: 60, duration: 1, at: 87, staff: "bass" },
+      { midi: 55, duration: 1, at: 88, staff: "bass" },
+      { midi: 60, duration: 1, at: 89, staff: "bass" },
+      { midi: 76, duration: 4, at: 90, staff: "treble" },
+      { midi: 58, duration: 1, at: 90, staff: "bass" },
+      { midi: 60, duration: 1, at: 91, staff: "bass" },
+      { midi: 57, duration: 1, at: 92, staff: "bass" },
+      { midi: 60, duration: 1, at: 93, staff: "bass" },
+      { midi: 77, duration: 2, at: 94, staff: "treble" },
+      { midi: 57, duration: 1, at: 94, staff: "bass" },
+      { midi: 60, duration: 1, at: 95, staff: "bass" },
+      { midi: 58, duration: 2, at: 96, staff: "bass" },
+      { midi: [65, 74], duration: 2, at: 98, staff: "treble" },
+      { midi: 46, duration: 2, at: 100, staff: "bass" },
+      { midi: [58, 67], duration: 2, at: 102, staff: "treble" },
+      { midi: 48, duration: 2, at: 104, staff: "bass" },
+      { midi: [55, 64], duration: 2, at: 106, staff: "treble" },
+      { midi: 82, duration: 1, at: 108, staff: "treble" },
+      { midi: [52, 55, 60], duration: 4, at: 108, staff: "bass" },
+      { midi: 81, duration: 1, at: 109, staff: "treble" },
+      { midi: 79, duration: 1, at: 110, staff: "treble" },
+      { midi: 81, duration: 1, at: 111, staff: "treble" },
+      { midi: 79, duration: 1, at: 112, staff: "treble" },
+      { midi: 77, duration: 1, at: 113, staff: "treble" },
+      { midi: 76, duration: 1, at: 114, staff: "treble" },
+      { midi: 77, duration: 1, at: 115, staff: "treble" },
+      { midi: 76, duration: 1, at: 116, staff: "treble" },
+      { midi: 74, duration: 1, at: 117, staff: "treble" },
+      { midi: 72, duration: 1, at: 118, staff: "treble" },
+      { midi: 70, duration: 1, at: 119, staff: "treble" },
+      { midi: 69, duration: 2, at: 120, staff: "treble" },
+      { midi: 53, duration: 1, at: 120, staff: "bass" },
+      { midi: 60, duration: 1, at: 121, staff: "bass" },
+      { midi: 81, duration: 4, at: 122, staff: "treble" },
+      { midi: 57, duration: 1, at: 122, staff: "bass" },
+      { midi: 60, duration: 1, at: 123, staff: "bass" },
+      { midi: 55, duration: 1, at: 124, staff: "bass" },
+      { midi: 64, duration: 1, at: 125, staff: "bass" },
+      { midi: 79, duration: 4, at: 126, staff: "treble" },
+      { midi: 58, duration: 1, at: 126, staff: "bass" },
+      { midi: 64, duration: 1, at: 127, staff: "bass" },
+      { midi: 57, duration: 1, at: 128, staff: "bass" },
+      { midi: 65, duration: 1, at: 129, staff: "bass" },
+      { midi: 77, duration: 2, at: 130, staff: "treble" },
+      { midi: 60, duration: 1, at: 130, staff: "bass" },
+      { midi: 65, duration: 1, at: 131, staff: "bass" },
+      { midi: 58, duration: 2, at: 132, staff: "bass" },
+      { midi: [65, 74], duration: 2, at: 134, staff: "treble" },
+      { midi: 46, duration: 2, at: 136, staff: "bass" },
+      { midi: [58, 67], duration: 2, at: 138, staff: "treble" },
+      { midi: 48, duration: 2, at: 140, staff: "bass" },
+      { midi: [55, 64], duration: 2, at: 142, staff: "treble" },
+      { midi: 57, duration: 1.333333, at: 144, staff: "treble" },
+      { midi: [41, 53], duration: 4, at: 144, staff: "bass" },
+      { midi: 65, duration: 1.333333, at: 145.333333, staff: "treble" },
+      { midi: 60, duration: 1.333333, at: 146.666667, staff: "treble" },
+      { midi: 69, duration: 1.333333, at: 148, staff: "treble" },
+      { midi: 65, duration: 1.333333, at: 149.333333, staff: "treble" },
+      { midi: 60, duration: 1.333333, at: 150.666667, staff: "treble" },
+      { midi: 58, duration: 1.333333, at: 152, staff: "treble" },
+      { midi: [36, 48], duration: 4, at: 152, staff: "bass" },
+      { midi: 67, duration: 1.333333, at: 153.333333, staff: "treble" },
+      { midi: 64, duration: 1.333333, at: 154.666667, staff: "treble" },
+      { midi: 65, duration: 1.333333, at: 156, staff: "treble" },
+      { midi: [29, 41], duration: 4, at: 156, staff: "bass" },
+      { midi: 57, duration: 1.333333, at: 157.333333, staff: "treble" },
+      { midi: 60, duration: 1.333333, at: 158.666667, staff: "treble" },
+      { midi: 67, duration: 1.333333, at: 160, staff: "treble" },
+      { midi: 60, duration: 1.333333, at: 161.333333, staff: "treble" },
+      { midi: 64, duration: 1.333333, at: 162.666667, staff: "treble" },
+      { midi: 69, duration: 1.333333, at: 164, staff: "treble" },
+      { midi: 60, duration: 1.333333, at: 165.333333, staff: "treble" },
+      { midi: 65, duration: 1.333333, at: 166.666667, staff: "treble" },
+    ],
+    barlines: [12, 24, 36, 48, 60, 72, 84, 96, 108, 120, 132, 144, 156, 168],
+    analysis: [
+      {
+        label: "mm. 5-6: short phrase pair",
+        detail:
+          "Schoenberg singles out the two one-measure phrases in mm. 5-6 as the point after which the extension begins.",
+        startEvent: 31,
+        endEvent: 48,
+      },
+      {
+        label: "mm. 7-11: interpolation",
+        detail:
+          "Schoenberg's diagnostic omission test removes mm. 7-11. Hearing this span in the actual Mozart excerpt makes the source of the extension concrete rather than merely verbal.",
+        startEvent: 49,
+        endEvent: 112,
+      },
+      {
+        label: "mm. 12-14: return toward closure",
+        detail:
+          "After the inserted span, the remaining measures resume material that lets the sentence proceed toward its close.",
+        startEvent: 113,
+        endEvent: 139,
+      },
+    ],
+  },
+
   "s05.ex59": map(
     "s05.ex59",
     "Ex. 59",
-    "Mozart: irregularity through inserted repetition",
+    "Mozart - Piano Sonatas and The Marriage of Figaro",
     [
       {
         label: "59a: interpolation",
@@ -1111,12 +1458,12 @@ export const schoenbergSourceMaterial: Record<
           "Remote motive-forms in mm. 5-6 are followed by a modified repetition in mm. 7-8; Schoenberg calls such repetitions consequences of comprehensibility.",
       },
     ],
-    "This source map reproduces Schoenberg's measure-by-measure explanation of the Mozart examples in Ex. 59. Full native piano notation remains pending.",
+    "Ex. 59a (Mozart K. 280-I) is now present separately as a complete native playable score. This map carries Schoenberg's measure-by-measure analysis across the remaining Mozart examples 59b-i, whose native notation is still pending.",
   ),
   "s05.ex60": map(
     "s05.ex60",
     "Ex. 60",
-    "Unusual sentence endings, beginnings and extensions",
+    "Schubert - unusual sentence endings, beginnings and extensions",
     [
       {
         label: "60a: unusual VI ending",
@@ -1144,12 +1491,12 @@ export const schoenbergSourceMaterial: Record<
           "Omitting mm. 7-11 and m. 13 would reduce it to eight measures, but mm. 7-14 can also be heard as an independent four-measure addition with varied repetition.",
       },
     ],
-    "This map follows Schoenberg's explicit comments on the subexamples of Ex. 60. It deliberately does not invent the omitted piano texture or harmony.",
+    "Ex. 60 is a Schubert group: piano sonatas and string quartets. This map follows Schoenberg's explicit comments and deliberately does not invent notation for the still-untranscribed excerpts.",
   ),
   "s05.ex61": map(
     "s05.ex61",
     "Ex. 61",
-    "Developing variation, exchange of voices and cadential reduction",
+    "Brahms - developing variation, voice exchange and cadential reduction",
     [
       {
         label: "61a: theme less complicated than it looks",
@@ -1177,7 +1524,7 @@ export const schoenbergSourceMaterial: Record<
           "Schoenberg says 61d would be eight measures without insertion of motive-form b and repetition b¹; the opening phrase then returns refrain-like in mm. 8-9.",
       },
     ],
-    "This map follows Schoenberg's analysis of Ex. 61, including his explicit use of the term 'developing variation'. Full multi-voice transcription remains pending.",
+    "Ex. 61 uses Brahms, principally Cello Sonata Op. 38 and Violin Sonata Op. 78-II. This map follows Schoenberg's analysis, including his explicit use of 'developing variation'; native multi-voice transcription remains pending.",
   ),
 
 };

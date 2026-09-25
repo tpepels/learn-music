@@ -407,9 +407,9 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         recognition:
           "Can a sentence remain clear when its proportions are unequal?",
         source: {
-          reference: "Examples 57-58 and Schoenberg's introduction to the literature examples",
+          reference: "Example 57 - Bach, St Matthew Passion No. 12 aria · Example 58 - Haydn piano sonatas",
           focus:
-            "The source map follows Schoenberg's warning against treating the eight-measure practice form as a literal template for masterworks.",
+            "Schoenberg opens his literature section with Bach and a large group of Haydn sonata sentences to show why the eight-measure practice form is an abstraction rather than a template.",
           exampleIds: ["s05.ex57-58"],
         },
         terms: [
@@ -434,14 +434,14 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg describes Mozart's technique of producing irregularity through interpolation of incidental repetitions. For Ex. 59 he repeatedly asks which measures could be omitted. The point is diagnostic: the omitted material reveals what caused the extension.",
         instruction:
-          "Work through all five Ex. 59 tabs. Pay particular attention to Schoenberg's omission tests for 59a-c, then to overlap/sequence in 59d and the remote-form repetition in 59h. Play the application and listen for extension as added process rather than a new form.",
+          "Start by playing the complete native Ex. 59a from Mozart's K. 280-I and use its analysis spans to locate mm. 5-6 and Schoenberg's tested insertion in mm. 7-11. Then work through the Ex. 59 source map for 59b-i before playing the separate application.",
         recognition:
           "If the inserted material vanished, can you still perceive the simpler structural span underneath?",
         source: {
-          reference: "Example 59a-h - Mozart and interpolated repetitions",
+          reference: "Example 59a-i - Mozart piano sonatas K. 280, 282, 283, 310, 311, 330, 333 and The Marriage of Figaro",
           focus:
-            "The source map follows Schoenberg's measure-specific omission tests, overlap, sequence and repetition arguments.",
-          exampleIds: ["s05.ex59"],
+            "Ex. 59a (K. 280-I) is reproduced as a complete native grand-staff score. The source map continues Schoenberg's omission, overlap, sequence and repetition analysis across the rest of the Mozart group.",
+          exampleIds: ["s05.ex59a", "s05.ex59"],
         },
         terms: [
           { term: "Interpolation", definition: "Insertion of additional material into an otherwise simpler formal span." },
@@ -452,7 +452,11 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         successLabel: "You found the simpler form underneath Mozart's insertions",
       }),
       evaluate: ({ experiments }) => [
-        { label: "You worked through the Ex. 59 analysis", complete: studiedSource(experiments, "s05.ex59", 5) },
+        { label: "You played or inspected native Mozart Ex. 59a", complete:
+            (experiments["source.play"]?.values ?? []).includes("s05.ex59a") ||
+            (experiments["source.note"]?.values ?? []).some((value) => value.startsWith("s05.ex59a:")) ||
+            (experiments["source.analysis"]?.values ?? []).some((value) => value.startsWith("s05.ex59a:")) },
+        { label: "You worked through Schoenberg's Ex. 59 analysis", complete: studiedSource(experiments, "s05.ex59", 5) },
         { label: "You listened to the extension application", complete: heardPlayback(experiments) },
       ],
     },
@@ -470,9 +474,9 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         recognition:
           "Can you understand why an exceptional passage works without mistaking the exception for a default recipe?",
         source: {
-          reference: "Example 60a-h - unusual endings, beginnings and extensions",
+          reference: "Example 60a-i - Schubert piano sonatas and string quartets",
           focus:
-            "The map follows Schoenberg's own comments on VI, deceptive cadence, VII-II, quasi-sequential insertion and independent addition.",
+            "Schoenberg's Schubert group supplies the unusual VI ending, deceptive-cadence anticipation, VII-II beginning, quasi-sequential insertions and independent additions discussed here.",
           exampleIds: ["s05.ex60"],
         },
         terms: [
@@ -501,9 +505,9 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         recognition:
           "Can the surface become increasingly different while the formal and motivic connection remains intelligible?",
         source: {
-          reference: "Example 61a-d - developing variation, residues and voice exchange",
+          reference: "Example 61a-d - Brahms, Cello Sonata Op. 38 and Violin Sonata Op. 78-II",
           focus:
-            "The source map follows Schoenberg's remarks on voice exchange, developing variation, half-measure residues and insertion.",
+            "The Brahms examples support Schoenberg's remarks on voice exchange, developing variation, half-measure residues and insertion.",
           exampleIds: ["s05.ex61"],
         },
         terms: [
