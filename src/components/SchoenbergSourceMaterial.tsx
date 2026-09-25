@@ -149,6 +149,14 @@ function Staff({
   );
 }
 
+function sourceRestGlyph(durationEighths: number): string {
+  if (durationEighths >= 8) return "𝄻";
+  if (durationEighths >= 4) return "𝄼";
+  if (durationEighths >= 2) return "𝄽";
+  if (durationEighths >= 1) return "𝄾";
+  return "𝄿";
+}
+
 function ledgerYs(y: number, clef: StaffClef, grand: boolean): number[] {
   const top = staffTop(clef, grand);
   const bottom = top + 40;
@@ -375,7 +383,9 @@ function SourceScore({
                 tabIndex={midis.length ? 0 : -1}
               >
                 {!midis.length ? (
-                  <text x={x} y={y + 4} className="source-score-rest">𝄽</text>
+                  <text x={x} y={y + 4} className="source-score-rest">
+                    {sourceRestGlyph(durationEighths)}
+                  </text>
                 ) : (
                   <>
                     {midis.map((midi, pitchIndex) => {
