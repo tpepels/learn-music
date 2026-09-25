@@ -22,6 +22,8 @@ export type SchoenbergSourceScore = {
   fidelityNote: string;
   clef: "treble" | "bass";
   keyLabel: string;
+  /** Negative = flats, positive = sharps, 0/undefined = no rendered signature. */
+  keySignature?: number;
   meter?: string;
   bpm: number;
   durationUnit?: "eighth" | "sixteenth";
@@ -78,6 +80,7 @@ export const schoenbergSourceMaterial: Record<
       "Native transcription of the complete melodic line reproduced by Schoenberg. Orchestral doubling is not part of the book excerpt.",
     clef: "bass",
     keyLabel: "E♭ major · 3 flats",
+    keySignature: -3,
     meter: "3/4",
     bpm: 92,
     events: [
@@ -147,6 +150,7 @@ export const schoenbergSourceMaterial: Record<
       "Native transcription of Ex. 5a from the supplied book scan: F-A-C over the fixed tonic harmony. This is the actual printed subexample, not the C-major PLAY / LAB application study.",
     clef: "treble",
     keyLabel: "F major · 1 flat",
+    keySignature: -1,
     meter: "4/4",
     bpm: 84,
     events: [
@@ -176,6 +180,7 @@ export const schoenbergSourceMaterial: Record<
       "Native transcription of Ex. 6a from the supplied book scan: F-A-C followed by a rest, all in smaller values than Ex. 5a. The book does not print a time signature for this isolated unit, so PLAY / LAB does not add one.",
     clef: "treble",
     keyLabel: "F major · 1 flat",
+    keySignature: -1,
     bpm: 92,
     events: [
       { midi: 65, duration: 2 },
@@ -205,6 +210,7 @@ export const schoenbergSourceMaterial: Record<
       "Native transcription of Ex. 7a from the supplied book scan. The B-flat pickup is followed by the longer F-D span exactly as printed. No time signature is added because the isolated subexample does not print one.",
     clef: "treble",
     keyLabel: "F major · 1 flat",
+    keySignature: -1,
     bpm: 96,
     events: [
       { midi: 70, duration: 2, accidental: "♭", barAfter: true },
@@ -240,6 +246,7 @@ export const schoenbergSourceMaterial: Record<
       "Native transcription of Ex. 8a from the supplied book scan: the earlier F-A-C framework is connected by the printed B-flat passing motion. The notation and playback use the same source data.",
     clef: "treble",
     keyLabel: "F major · 1 flat",
+    keySignature: -1,
     bpm: 92,
     events: [
       { midi: 65, duration: 4 },
@@ -421,6 +428,7 @@ export const schoenbergSourceMaterial: Record<
       "Native transcription of the famous four-note cell and its immediate answering form shown in Ex. 12b.",
     clef: "treble",
     keyLabel: "C minor · 3 flats",
+    keySignature: -3,
     meter: "2/4",
     bpm: 108,
     events: [
@@ -465,6 +473,7 @@ export const schoenbergSourceMaterial: Record<
       "Native transcription of the printed diminution line. The eight pitches are G-E-C-A-F-D-C-sharp-G; Schoenberg compresses them to equal eighth-note values. No time signature is printed for this isolated transformation.",
     clef: "treble",
     keyLabel: "1 sharp · printed key signature",
+    keySignature: 1,
     bpm: 104,
     events: [
       { midi: 67, duration: 1 },
@@ -498,6 +507,7 @@ export const schoenbergSourceMaterial: Record<
       "Native transcription of the printed augmentation line. It preserves the same G-E-C-A-F-D-C-sharp-G pitch succession while expanding every note to a half-note value. No time signature is printed for this isolated transformation.",
     clef: "treble",
     keyLabel: "1 sharp · printed key signature",
+    keySignature: 1,
     bpm: 80,
     events: [
       { midi: 67, duration: 4 },
