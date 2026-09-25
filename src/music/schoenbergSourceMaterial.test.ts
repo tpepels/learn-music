@@ -129,6 +129,30 @@ describe("Schoenberg source material", () => {
     expect(augmentation.meter).toBeUndefined();
   });
 
+  it("makes every native source score interactive beyond passive playback", () => {
+    const scores = Object.values(schoenbergSourceMaterial).filter(
+      (material) => material.kind === "score",
+    );
+
+    expect(scores.length).toBeGreaterThanOrEqual(8);
+    for (const score of scores) {
+      if (score.kind !== "score") continue;
+      expect(score.analysis?.length ?? 0, score.id).toBeGreaterThan(0);
+
+      for (const segment of score.analysis ?? []) {
+        if (
+          segment.startEvent === undefined ||
+          segment.endEvent === undefined
+        ) continue;
+        expect(segment.startEvent, score.id + " " + segment.label)
+          .toBeGreaterThanOrEqual(0);
+        expect(segment.endEvent, score.id + " " + segment.label)
+          .toBeLessThan(score.events.length);
+        expect(segment.endEvent).toBeGreaterThanOrEqual(segment.startEvent);
+      }
+    }
+  });
+
   it("keeps Chapter VIII literature examples separate and source-specific", () => {
     const ids = [
       "s05.ex52",
