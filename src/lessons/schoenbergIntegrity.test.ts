@@ -34,6 +34,26 @@ function exampleTokenFromId(id: string): string | null {
   return match ? normalizeExampleToken(match[1]) : null;
 }
 
+function numericExample(value: string): number | null {
+  const match = value.match(/^(\d+)/);
+  return match ? Number(match[1]) : null;
+}
+
+function availableTokenCovers(
+  availableToken: string,
+  namedToken: string,
+): boolean {
+  if (availableToken === namedToken) return true;
+
+  const range = availableToken.match(/^(\d+)-(\d+)$/);
+  if (!range) return false;
+
+  const namedNumber = numericExample(namedToken);
+  if (namedNumber === null) return false;
+
+  return namedNumber >= Number(range[1]) && namedNumber <= Number(range[2]);
+}
+
 describe("Schoenberg architecture integrity", () => {
   it("resolves every source example id through the source registry", () => {
     for (const lesson of lessons) {
@@ -59,8 +79,11 @@ describe("Schoenberg architecture integrity", () => {
 
         const taskCopy = [exercise.instruction, exercise.recognition].join(" ");
         for (const namedExample of exampleTokensIn(taskCopy)) {
+          const covered = [...available].some((availableToken) =>
+            availableTokenCovers(availableToken, namedExample),
+          );
           expect(
-            available.has(namedExample),
+            covered,
             `${exercise.id} names Example ${namedExample} in the task but does not render matching source material`,
           ).toBe(true);
         }
