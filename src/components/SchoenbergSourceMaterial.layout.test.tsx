@@ -1,7 +1,9 @@
+import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import {
   sourceContentStartX,
   sourceStemDirection,
+  SchoenbergSourceMaterial,
 } from "./SchoenbergSourceMaterial";
 import type { SchoenbergSourceScore } from "../music/schoenbergSourceMaterial";
 
@@ -41,6 +43,23 @@ describe("Schoenberg source score layout", () => {
     expect(sourceStemDirection([77], "treble")).toBe("down");
     expect(sourceStemDirection([43], "bass")).toBe("up");
     expect(sourceStemDirection([55], "bass")).toBe("down");
+  });
+
+  it("keeps grand-staff examples at grand-staff height", () => {
+    const html = renderToStaticMarkup(
+      <SchoenbergSourceMaterial id="s04.ex35a" />,
+    );
+
+    expect(html).toContain("source-score-svg is-grand");
+  });
+
+  it("does not add a separate analytical-extraction heading", () => {
+    const html = renderToStaticMarkup(
+      <SchoenbergSourceMaterial id="s01.ex4c" />,
+    );
+
+    expect(html).toContain("Ex. 4c");
+    expect(html).not.toContain("Analytical extraction");
   });
 
   it("keeps compact examples compact when no meter is printed", () => {

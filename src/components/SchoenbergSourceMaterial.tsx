@@ -302,7 +302,7 @@ function SourceScore({
     event.staff ?? score.clef;
 
   return (
-    <section className="source-score" aria-label={score.reference + " native score"}>
+    <section className="source-score" aria-label={score.reference + " score"}>
       <div className="source-material-heading">
         <div>
           <strong>{score.reference} · {score.title}</strong>
@@ -317,7 +317,7 @@ function SourceScore({
 
       <div className="source-score-scroll">
         <svg
-          className="source-score-svg"
+          className={`source-score-svg${grand ? " is-grand" : ""}`}
           viewBox={`0 0 ${width} ${svgHeight}`}
           style={{ minWidth: width }}
           role="img"
@@ -551,7 +551,6 @@ function SourceScore({
       ) : null}
       {activeSegment ? (
         <div className="source-analysis-detail is-score-analysis">
-          <strong>{activeSegment.label}</strong>
           <p>{activeSegment.detail}</p>
         </div>
       ) : null}
@@ -576,7 +575,6 @@ function SourceMap({
     <section className="source-analysis-map" aria-label={material.reference + " analysis map"}>
       <div className="source-material-heading">
         <div>
-          <span className="section-label">Analytical extraction</span>
           <strong>{material.reference} · {material.title}</strong>
         </div>
       </div>
@@ -598,7 +596,6 @@ function SourceMap({
         ))}
       </div>
       <div className="source-analysis-detail">
-        <strong>{segment.label}</strong>
         <p>{segment.detail}</p>
       </div>
     </section>

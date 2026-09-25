@@ -9923,8 +9923,18 @@ body {
   color: #c9c2d3;
 }
 
+.schoenberg-guide-example-section {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.schoenberg-guide-example-section > .section-label {
+  color: var(--cyan);
+}
+
 .schoenberg-guide-examples {
-  margin-top: 18px;
+  margin-top: 8px;
 }
 
 .schoenberg-guide-exercise {
@@ -10201,6 +10211,10 @@ body {
   background: #f7f4ea;
 }
 
+.source-score-svg.is-grand {
+  height: 232px;
+}
+
 .source-score-line,
 .source-score-barline,
 .source-score-ledger,
@@ -10301,7 +10315,7 @@ body {
 }
 
 .source-analysis-detail p {
-  margin: 5px 0 0;
+  margin: 0;
   color: var(--muted);
   font-size: 12px;
   line-height: 1.5;

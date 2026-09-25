@@ -40,11 +40,14 @@ export function LearningPanel({
         </div>
 
         {exercise.source?.exampleIds?.length ? (
-          <div className="source-material-list schoenberg-guide-examples">
-            {exercise.source.exampleIds.map((id) => (
-              <SchoenbergSourceMaterial id={id} key={id} />
-            ))}
-          </div>
+          <section className="schoenberg-guide-example-section" aria-label="Examples">
+            <span className="section-label">Examples</span>
+            <div className="source-material-list schoenberg-guide-examples">
+              {exercise.source.exampleIds.map((id) => (
+                <SchoenbergSourceMaterial id={id} key={id} />
+              ))}
+            </div>
+          </section>
         ) : null}
 
         <section className="schoenberg-guide-exercise" aria-label="Exercise">
