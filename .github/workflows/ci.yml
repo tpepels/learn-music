@@ -2,6 +2,9 @@ name: Validate branch manually
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - ui/clarify-schoenberg-exercise-and-score-spacing
 
 permissions:
   contents: read
