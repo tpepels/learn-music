@@ -41,7 +41,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
         learn:
           "Hear the balance Schoenberg describes: common factors create relationship, while enough contrast prevents the phrase from becoming stiff.",
         explanation:
-          "Schoenberg says common content, rhythmic similarities and coherent harmony contribute to logic. Common content comes from motive-forms derived from the same basic motive; rhythmic similarities act as unifying elements; coherent harmony reinforces the relationship. Connection is therefore not the same as literal repetition.",
+          "Musical logic can come from common content, rhythmic similarity and coherent harmony. Common content links forms derived from the same basic motive; rhythmic similarities act as unifying elements; coherent harmony reinforces the relationship. Connection does not require literal repetition.",
         instruction:
           "Audition Too much sameness, Connected motive-forms and Disconnected ideas. Listen to all four forms as one phrase, then choose the version in which the relationship stays audible without collapsing into exact repetition.",
         recognition:
@@ -336,7 +336,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
         learn:
           "Hear how ancillary notes can vary the original form while its essential rhythmic features keep the motive-forms closely related.",
         explanation:
-          "Schoenberg says that in Ex. 31 the original form is varied by adding ancillary notes, although all notes of the basic motive are retained. The printed heading emphasizes that the motive-forms remain closely related because essential rhythmic features are retained.",
+          "In Ex. 31 the original form is varied by adding ancillary notes while retaining all notes of the basic motive. The motive-forms remain closely related because their essential rhythmic features are preserved.",
         instruction:
           "Play the complete first bar of Ex. 31a and hear its eighth-eighth-dotted-quarter-eighth-eighth-sixteenth-sixteenth profile. Then compare the changed cells below and listen for how that rhythmic identity survives even when pitch and detail change.",
         recognition:
@@ -380,7 +380,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
         learn:
           "Hear how strict rhythmic preservation can hold motive-forms together despite changes of interval, direction and transposition.",
         explanation:
-          "Schoenberg says Ex. 32 preserves the rhythm, producing closely related motive-forms in spite of changes in interval and direction. Combined with transposition to other degrees, he notes, this procedure is often used in traditional music to produce entire themes.",
+          "Ex. 32 preserves the rhythm while interval and direction change. The motive-forms therefore remain closely related. Combined with transposition to other scale degrees, this procedure can generate much longer thematic spans.",
         instruction:
           "Play the reduction and compare the four cells. Their duration pattern is fixed while contour and pitch level change. Choose the statement that matches Schoenberg's analysis.",
         recognition:
@@ -424,7 +424,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
         learn:
           "Hear a more remote family resemblance when rhythm, ancillary notes, intervals and direction all change together.",
         explanation:
-          "Schoenberg says Ex. 33 produces more far-reaching variations by combining rhythmic changes with ancillary notes and changes of interval and direction. He admits some sketches may be stiff or overcrowded, but insists that making such sketches - trying many methods of variation - should never be abandoned.",
+          "Ex. 33 produces more far-reaching variations by combining rhythmic changes with ancillary notes and changes of interval and direction. Some attempts will sound stiff or overcrowded; making many such sketches is still useful because it exposes which combinations remain clear and which do not.",
         instruction:
           "Play the reduction and compare its cells with Exs. 31-32 in mind. Choose the statement that best matches Schoenberg's reason for making these more complicated sketches.",
         recognition:
@@ -468,7 +468,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
         learn:
           "Use rhythmic shifting, added upbeats, reduction and omission while respecting Schoenberg's warning that remote motive-forms can endanger comprehensibility.",
         explanation:
-          "The heading of Ex. 34 names rhythmic shifts, added upbeats, reduction and omission of features. Schoenberg says such rearrangements can provide material for continuation of extended themes and for contrasts, but remotely related motive-forms may endanger comprehensibility. His final requirement is decisive: derivatives should have the character of true phrases - complete musical units.",
+          "Ex. 34 combines rhythmic shifts, added upbeats, reduction and omission of features. These rearrangements can provide material for continuation and contrast, but remote variants can endanger comprehensibility. The result still needs to behave as a true phrase - a complete musical unit rather than a collection of transformations.",
         instruction:
           "Play the reduction and notice the rests, shifted entries and thinning material. Choose the statement that includes both sides of Schoenberg's point: these remote procedures are useful, but the result still has to read as a phrase.",
         recognition:
