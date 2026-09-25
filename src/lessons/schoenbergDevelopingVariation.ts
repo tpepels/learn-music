@@ -15,7 +15,7 @@ const lesson = lessonContentSchema.parse({
   id: "schoenberg.developing-variation",
   number: 2,
   title: "The motive - treatment & variation",
-  eyebrow: "Schoenberg · Chapter III · The Motive",
+  eyebrow: "Schoenberg · The Motive",
   hero: "Learn what a motive can preserve while rhythm, interval, harmony and context change.",
   description:
     "A motive needs a small number of characteristic features that remain perceptible as the material changes. The lesson moves from exact and modified repetition into systematic changes of rhythm, interval, metric placement, harmony and melodic adaptation.",
