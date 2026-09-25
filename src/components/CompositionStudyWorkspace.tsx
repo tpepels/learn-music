@@ -65,7 +65,7 @@ function durationLabel(duration: StudyDuration): string {
   }
 }
 
-function staffY(midi: number): number {
+export function studyStaffY(midi: number): number {
   const naturalSteps: Record<number, number> = {
     0: 0,
     1: 0,
@@ -84,6 +84,31 @@ function staffY(midi: number): number {
   const diatonic = octave * 7 + naturalSteps[midi % 12];
   const bottomLineE4 = 4 * 7 + 2;
   return 77 - (diatonic - bottomLineE4) * 4;
+}
+
+export function studyLedgerYs(y: number): number[] {
+  const top = 45;
+  const bottom = 77;
+  const ledgerLines: number[] = [];
+
+  if (y < top - 2) {
+    for (let line = top - 8; line >= y - 1; line -= 8) ledgerLines.push(line);
+  }
+  if (y > bottom + 2) {
+    for (let line = bottom + 8; line <= y + 1; line += 8) ledgerLines.push(line);
+  }
+
+  return ledgerLines;
+}
+
+export function studyStemDirection(y: number): "up" | "down" {
+  return y <= 61 ? "down" : "up";
+}
+
+function studyRestGlyph(duration: StudyDuration): string {
+  if (duration === 4) return "𝄼";
+  if (duration >= 2) return "𝄽";
+  return "𝄾";
 }
 
 function accidental(midi: number): string {
@@ -142,18 +167,50 @@ function StaffView({
           );
         })}
         {notes.map((midi, step) => {
-          if (midi === null) return null;
           const x = 86 + step * 39;
-          const y = staffY(midi);
           const duration = durations[step] ?? 1;
           const selected = selectedSteps.includes(step);
+
+          if (midi === null) {
+            return (
+              <g
+                key={step}
+                className={selected ? "staff-note is-selected" : "staff-note"}
+                onClick={() => editable && onToggleSelection(step)}
+              >
+                <text x={x} y="65" className="staff-rest">
+                  {studyRestGlyph(duration)}
+                </text>
+                {duration === 3 && <circle cx={x + 10} cy="60" r="1.7" />}
+                <text x={x} y="112" className="staff-step-label">{step + 1}</text>
+              </g>
+            );
+          }
+
+          const y = studyStaffY(midi);
+          const stemDirection = studyStemDirection(y);
+          const stemDown = stemDirection === "down";
+          const stemX = x + (stemDown ? -6 : 6);
+          const stemEndY = y + (stemDown ? 28 : -28);
+          const selectedClass = selected ? "staff-note is-selected" : "staff-note";
           const openHead = duration === 4;
+
           return (
             <g
               key={step}
-              className={selected ? "staff-note is-selected" : "staff-note"}
+              className={selectedClass}
               onClick={() => editable && onToggleSelection(step)}
             >
+              {studyLedgerYs(y).map((ledgerY) => (
+                <line
+                  key={ledgerY}
+                  x1={x - 11}
+                  x2={x + 11}
+                  y1={ledgerY}
+                  y2={ledgerY}
+                  className="staff-ledger"
+                />
+              ))}
               <ellipse
                 cx={x}
                 cy={y}
@@ -161,10 +218,14 @@ function StaffView({
                 ry="5"
                 className={openHead ? "is-open" : ""}
               />
-              <line x1={x + 6} x2={x + 6} y1={y} y2={y - 28} />
+              <line x1={stemX} x2={stemX} y1={y} y2={stemEndY} />
               {duration === 1 && (
                 <path
-                  d={`M ${x + 6} ${y - 28} q 12 5 8 16`}
+                  d={
+                    stemDown
+                      ? `M ${stemX} ${stemEndY} q -12 -5 -8 -16`
+                      : `M ${stemX} ${stemEndY} q 12 5 8 16`
+                  }
                   className="staff-flag"
                 />
               )}
