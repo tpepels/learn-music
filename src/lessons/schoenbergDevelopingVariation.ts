@@ -50,7 +50,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         explanation:
           "Schoenberg explicitly says that any rhythmicized succession of notes can serve as a basic motive, but that it should not contain too many different features. Ex. 12 contrasts simple rhythmic shapes with the note-repetition character of Beethoven's Fifth Symphony; Ex. 13 shows Brahms's Fourth Symphony built largely from successive thirds. The lesson is economy: identity can come from a few strongly treated features.",
         instruction:
-          "Start with the native playable Ex. 12b score and the Exs. 12-13 source map below. Compare Beethoven's repeated-note motive with Schoenberg's Brahms-third observation, then play the study workspace and inspect Staff and Degrees before choosing the matching statement.",
+          "Play Ex. 12b and compare its repeated-note character with the Brahms example in Ex. 13. Ask what actually carries the motive's identity in each case. Then inspect Staff and Degrees below and choose the statement that best matches what you hear.",
         recognition:
           "What is doing the identifying work here - sheer length and complexity, or a small feature that keeps returning?",
         source: {
@@ -100,7 +100,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         explanation:
           "Schoenberg distinguishes exact, modified and developed repetition. He says that transposition to another degree, inversion, retrograde, diminution and augmentation can still count as exact repetitions if the features and note relationships are strictly preserved. Ex. 14 demonstrates inversion, retrograde, retrograde inversion, diminution and augmentation explicitly.",
         instruction:
-          "First play the native Ex. 14b Diminution and Ex. 14c Augmentation exactly as printed in the book. Hear the same G-E-C-A-F-D-C-sharp-G succession at two rhythmic scales. Then use the interactive controls to compare Inversion, Retrograde, Diminution and Augmentation and ask which relationships are preserved systematically.",
+          "Play Ex. 14b Diminution and Ex. 14c Augmentation. Hear the same G-E-C-A-F-D-C-sharp-G succession at two rhythmic scales. Then compare Inversion, Retrograde, Diminution and Augmentation below and ask which musical relationships each operation preserves.",
         recognition:
           "Can the motive remain 'the same' in Schoenberg's technical sense even when every absolute pitch or duration changes?",
         source: {
@@ -139,11 +139,11 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         const state = compositionStudy[SCHOENBERG_VARIATION_IDS.exact];
         return [
           {
-            label: "You played Schoenberg's native diminution",
+            label: "You played the diminution example",
             complete: studiedSource(experiments, "s02.ex14b"),
           },
           {
-            label: "You played Schoenberg's native augmentation",
+            label: "You played the augmentation example",
             complete: studiedSource(experiments, "s02.ex14c"),
           },
           {
@@ -229,7 +229,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         explanation:
           "Schoenberg says Examples 17-29 are based solely on a broken chord so the methods can be shown as systematically as practicable. Ex. 17 begins with rhythmic changes. His list includes changing note lengths, note repetitions and repetition of rhythmic features. The restricted pitch material is deliberate experimental control.",
         instruction:
-          "Start with native Ex. 17a: play the four equal quarter notes and treat them as the baseline. Then open Schoenberg's Ex. 17 analysis map and compare his rhythmic operations. Only after that use the PLAY / LAB controls for Note lengths / rhythm and Note repetition.",
+          "Play Ex. 17a as the baseline: four equal quarter notes. Then compare the rhythmic alternatives and use the controls for Note lengths / rhythm and Note repetition. Listen for how strongly each rhythmic change alters the motive's character.",
         recognition:
           "How much can the temporal shape change before the broken-chord identity stops being obvious?",
         source: {
@@ -276,7 +276,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         explanation:
           "The sequence is carefully staged. Ex. 18 adds ancillary notes. Ex. 19 changes the original order. Ex. 20 embellishes Ex. 19. Ex. 21 demonstrates reduction, omission and condensation. Schoenberg is showing that development is not synonymous with adding more notes - subtraction can be just as developmental.",
         instruction:
-          "First compare native Ex. 18a and Ex. 19a. Hear B-flat inserted between C and A in Ex. 18a, then hear the broken-chord tones reordered as A-F-C-F in Ex. 19a. Use the Exs. 18-21 source map for the later embellishment and reduction stages, then apply Ancillary notes, Order / direction and Reduction / condensation in the workspace.",
+          "Compare Ex. 18a and Ex. 19a. Hear B-flat inserted between C and A in Ex. 18a, then hear the broken-chord tones reordered as A-F-C-F in Ex. 19a. Continue through the later embellishment and reduction stages, then try Ancillary notes, Order / direction and Reduction / condensation below.",
         recognition:
           "Do you hear development as one generic kind of 'variation', or can you distinguish addition, reordering and reduction?",
         source: {
@@ -329,7 +329,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         explanation:
           "Ex. 22 adds upbeats and repeats features. Ex. 23 shifts features to other beats. Ex. 24 changes the metre - a device Schoenberg notes is seldom usable within a piece. These examples separate three ways of changing where the listener feels the motive in relation to the beat.",
         instruction:
-          "Compare Add upbeat, Shift to other beats and Change metre / grouping. Use Piano roll to see placement and Staff to hear it as notation. The metre version is a compact regrouping because PLAY / LAB's study grid does not redraw literal changing time signatures.",
+          "Compare Add upbeat, Shift to other beats and Change metre / grouping. Use Piano roll to see placement and Staff to hear the rhythmic effect. Notice that moving the same material within the bar can change its character even when the pitches remain familiar.",
         recognition:
           "Is the motive itself different, or has its relationship to the metric frame changed?",
         source: {
@@ -383,7 +383,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         explanation:
           "Schoenberg's next category is harmonic change. Ex. 25 explicitly adapts the motive to richer harmony and refers back to Ex. 21d. His list includes use of inversions and additions at the end. The melody is not treated as an untouchable object laid over new chords; it can be adjusted so motive and harmony remain coherent together.",
         instruction:
-          "Play the reduction and listen to the simplified changing support underneath it. Choose the statement that matches Schoenberg's method. The I/V support here is deliberately simpler than the printed harmonic detail so the relationship remains audible in PLAY / LAB.",
+          "Listen to the melody against the changing harmonic support. Choose the statement that best describes how the melodic form adapts when the harmony becomes richer.",
         recognition:
           "Does preserving the motive mean freezing every pitch, or preserving its identity while adapting to the harmonic situation?",
         source: {
@@ -470,7 +470,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         explanation:
           "Schoenberg finishes the systematic series by saying the melody is adapted through transposition (Ex. 28), addition of passing harmonies (Ex. 29), and 'semi-contrapuntal' treatment of the accompaniment (Ex. 29). This is a decisive step: variation now involves the relationship between motive, harmony and accompanying voice rather than one isolated melodic line.",
         instruction:
-          "Play the sequential reduction and listen to the simplified changing support. Choose the statement that includes all three resources Schoenberg names. The printed Ex. 29 contains contrapuntal accompaniment that this compact monophonic staff cannot reproduce; the guide calls that limitation out rather than pretending the reduction is complete.",
+          "Listen to the sequential treatment and changing support. Choose the statement that includes all three resources at work: transposition, passing harmony and semi-contrapuntal accompaniment.",
         recognition:
           "Do you hear the motive as something that can be re-fitted to a changing musical environment rather than merely transformed in isolation?",
         source: {
