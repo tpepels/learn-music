@@ -9873,6 +9873,97 @@ body {
 }
 
 
+/* Schoenberg track: one continuous explanation instead of nested guide layers. */
+
+.schoenberg-guide {
+  padding: 20px;
+  border-color: rgba(255,255,255,0.09);
+  background: rgba(26,24,38,0.72);
+  overflow: visible;
+}
+
+.schoenberg-guide-copy {
+  max-width: 900px;
+}
+
+.schoenberg-guide-copy h2 {
+  margin: 0 0 9px;
+  color: var(--text);
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+.schoenberg-guide-copy > p {
+  margin: 0;
+  color: #c9c2d3;
+  font-size: 15px;
+  line-height: 1.62;
+}
+
+.schoenberg-guide-examples {
+  margin-top: 18px;
+}
+
+.schoenberg-guide-action {
+  margin-top: 18px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.schoenberg-guide-action p {
+  margin: 0;
+  color: #ddd8e5;
+  font-size: 14px;
+  line-height: 1.58;
+}
+
+.schoenberg-guide-action p + p {
+  margin-top: 7px;
+}
+
+.schoenberg-guide-action strong,
+.schoenberg-guide-terms strong {
+  color: var(--cyan);
+}
+
+.schoenberg-guide-terms {
+  margin-top: 13px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.schoenberg-guide-terms p {
+  max-width: 640px;
+  margin: 0;
+}
+
+.schoenberg-guide .source-score,
+.schoenberg-guide .source-analysis-map {
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.018);
+}
+
+.schoenberg-guide .source-material-heading strong {
+  margin-top: 0;
+  font-size: 14px;
+}
+
+.schoenberg-guide .source-analysis-detail {
+  min-height: 0;
+}
+
+@media (max-width: 700px) {
+  .schoenberg-guide {
+    padding: 16px;
+  }
+}
+
+
 /* Expanded Schoenberg exercises */
 
 .exercise-lights {

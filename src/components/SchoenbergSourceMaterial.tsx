@@ -287,9 +287,7 @@ function SourceScore({
     <section className="source-score" aria-label={score.reference + " native score"}>
       <div className="source-material-heading">
         <div>
-          <span className="section-label">Native source score</span>
           <strong>{score.reference} · {score.title}</strong>
-          <small>{score.attribution}</small>
         </div>
         <button type="button" onClick={play}>Play example</button>
       </div>
@@ -297,7 +295,6 @@ function SourceScore({
       <div className="source-score-meta">
         <span>{score.keyLabel}</span>
         {score.meter ? <span>{score.meter}</span> : null}
-        <span>{score.bpm} BPM study playback</span>
       </div>
 
       <div className="source-score-scroll">
@@ -526,7 +523,6 @@ function SourceScore({
           <p>{activeSegment.detail}</p>
         </div>
       ) : null}
-      <p className="source-material-fidelity">{score.fidelityNote}</p>
     </section>
   );
 }
@@ -548,7 +544,7 @@ function SourceMap({
     <section className="source-analysis-map" aria-label={material.reference + " analysis map"}>
       <div className="source-material-heading">
         <div>
-          <span className="section-label">Interactive book analysis</span>
+          <span className="section-label">Analytical extraction</span>
           <strong>{material.reference} · {material.title}</strong>
         </div>
       </div>
@@ -573,7 +569,6 @@ function SourceMap({
         <strong>{segment.label}</strong>
         <p>{segment.detail}</p>
       </div>
-      <p className="source-material-fidelity">{material.fidelityNote}</p>
     </section>
   );
 }
