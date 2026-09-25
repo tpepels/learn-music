@@ -69,7 +69,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg says the beginning of the sentence already includes repetition. The continuation therefore demands more remotely varied motive-forms. He treats the sentence as a higher construction that not only states an idea but immediately begins a kind of development.",
         instruction:
-          "Read the Chapter VIII source map, then compare Keep repeating the opening, Developed continuation and New unrelated material. Choose the version that develops the established motive without replacing it.",
+          "Compare Keep repeating the opening, Developed continuation and New unrelated material. Choose the version that develops the established motive without replacing it.",
         recognition:
           "After the opening is established, does the music begin to work on it, merely repeat it, or abandon it?",
         source: {
@@ -309,7 +309,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg uses Ex. 52 to make liquidation visible. He states that two-measure phrases are reduced or condensed to one measure, and in Ex. 52c four measures are condensed to two. The printed analysis labels tonic form, dominant form, climactic ascension, reduction and melodic residues.",
         instruction:
-          "Open every Ex. 52 source-analysis tab in order. Then play the fixed liquidation study below. Compare the full motive-forms at the start with the increasingly sparse material near the cadence.",
+          "Work through Ex. 52 in order, then compare the full motive-forms at the start with the increasingly sparse material near the cadence.",
         recognition:
           "Can you hear shortening as part of the formal process rather than as arbitrary deletion?",
         source: {
@@ -341,7 +341,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg calls the motive-form in Ex. 53b, m. 5 a very remote variation. Its repetitions account for the twelve-measure length. Ex. 53a also shows the later material becoming reduced and finally residual.",
         instruction:
-          "Open all four Ex. 53 source-analysis tabs. Then play the developmental application below. Listen for the difference between extending because material needs establishment and merely filling time.",
+          "Work through Ex. 53, then listen for the difference between extending material because it still needs establishment and merely filling time.",
         recognition:
           "Would the remote form be intelligible if it appeared only once?",
         source: {
@@ -372,7 +372,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg says Exs. 54-56 are based on the broken-chord form Ex. 7b. Ex. 54 progressively varies it; the continuations use sequence-like procedures and mostly free transpositions. He also supplies alternative endings because different cadential regions change the formal effect.",
         instruction:
-          "Work through all five source-analysis tabs. Then play the sequence application. Notice that the sequential pattern is itself already a transformed or condensed motive-form.",
+          "Work through Exs. 54-56, then listen to the sequential treatment. Notice that the sequential pattern is already a transformed or condensed motive-form rather than a neutral pattern pasted on top.",
         recognition:
           "Can you trace the sequence back through progressive variation to the earlier broken-chord source?",
         source: {
@@ -403,7 +403,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         explanation:
           "Introducing Examples 57-61, Schoenberg says the eight-measure practice form is only an abstraction. In almost all of these literature examples the continuation uses condensed phrases that give way to a cadence contour, with closing measures often reduced to residues of the basic motive.",
         instruction:
-          "Open all four source-analysis tabs, then listen to the developmental application. Do not count equal blocks first; listen for establishment, more remote continuation and movement toward cadence.",
+          "Work through Exs. 57-58 and listen for establishment, a more remote continuation and movement toward cadence. Do not begin by counting equal blocks.",
         recognition:
           "Can a sentence remain clear when its proportions are unequal?",
         source: {
@@ -434,7 +434,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg describes Mozart's technique of producing irregularity through interpolation of incidental repetitions. For Ex. 59 he repeatedly asks which measures could be omitted. The point is diagnostic: the omitted material reveals what caused the extension.",
         instruction:
-          "Start by playing the complete native Ex. 59a from Mozart's K. 280-I and use its analysis spans to locate mm. 5-6 and Schoenberg's tested insertion in mm. 7-11. Then work through the Ex. 59 source map for 59b-i before playing the separate application.",
+          "Play Ex. 59a from Mozart's K. 280-I and locate mm. 5-6 and the inserted passage in mm. 7-11. Then continue through Ex. 59b-i and listen for how omission, overlap, sequence and repetition change the continuation without destroying its connection to the opening.",
         recognition:
           "If the inserted material vanished, can you still perceive the simpler structural span underneath?",
         source: {
@@ -452,7 +452,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         successLabel: "You found the simpler form underneath Mozart's insertions",
       }),
       evaluate: ({ experiments }) => [
-        { label: "You played or inspected native Mozart Ex. 59a", complete:
+        { label: "You played or inspected Mozart Ex. 59a", complete:
             (experiments["source.play"]?.values ?? []).includes("s05.ex59a") ||
             (experiments["source.note"]?.values ?? []).some((value) => value.startsWith("s05.ex59a:")) ||
             (experiments["source.analysis"]?.values ?? []).some((value) => value.startsWith("s05.ex59a:")) },
@@ -470,7 +470,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg calls several features of Ex. 60 unusual: an ending on VI, anticipation of VI through deceptive cadence, a remarkable beginning on VII-II, and extensions produced in different ways. He explicitly says some alternatives would be safer for a student. The lesson is analytical breadth, not permission to imitate every singularity mechanically.",
         instruction:
-          "Open all five Ex. 60 tabs. Then play the quasi-sequential application. For each source tab ask: is Schoenberg presenting a normal procedure, an analyzable exception, or a warning?",
+          "Work through Ex. 60, then listen to the quasi-sequential study. For each case ask whether it demonstrates a normal procedure, an unusual exception, or a warning about what is risky to imitate.",
         recognition:
           "Can you understand why an exceptional passage works without mistaking the exception for a default recipe?",
         source: {
