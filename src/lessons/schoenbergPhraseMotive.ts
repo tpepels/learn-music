@@ -263,7 +263,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
           "Does the phrase feel more active even though it still lives inside the same simple harmonic world?",
         source: {
           reference: "Example 6 - Smaller note values",
-          exampleIds: ["s01.ex6a", "s01.ex6"],
+          exampleIds: ["s01.ex5a", "s01.ex6a", "s01.ex6"],
           focus:
             "Ex. 6a is reproduced as native playable notation from the book. The analysis map covers the larger Ex. 6 group; the PLAY / LAB reduction underneath is separate application material.",
         },
