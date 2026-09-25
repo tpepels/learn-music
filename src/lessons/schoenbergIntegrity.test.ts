@@ -57,6 +57,23 @@ describe("Schoenberg architecture integrity", () => {
     }
   });
 
+  it("keeps book indices out of source-card content", () => {
+    const bookIndex = /\b(?:Exs?\.\s*\d|Examples?\s+\d)/i;
+    const numberedTab = /^\d+[a-z]?:/i;
+
+    for (const material of Object.values(schoenbergSourceMaterial)) {
+      const segments =
+        material.kind === "score" ? material.analysis ?? [] : material.segments;
+
+      expect(material.title, material.id).not.toMatch(bookIndex);
+      for (const segment of segments) {
+        expect(segment.label, material.id).not.toMatch(bookIndex);
+        expect(segment.label, material.id).not.toMatch(numberedTab);
+        expect(segment.detail, material.id).not.toMatch(bookIndex);
+      }
+    }
+  });
+
   it("reserves the word exercise for PLAY / LAB lettered steps", () => {
     const numberedExercise = /\bexercises?\s+\d/i;
 
