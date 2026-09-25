@@ -121,7 +121,7 @@ Then compare Inversion, Retrograde, Diminution and Augmentation in the study. Fo
           {
             term: "Exact repetition",
             definition:
-              "In Schoenberg's usage here, repetition that strictly preserves relevant features and note relationships, even under systematic transformation.",
+              "Repetition that strictly preserves the relevant features and note relationships, even when a systematic transformation changes the surface.",
           },
           {
             term: "Inversion",
@@ -263,7 +263,7 @@ Listen for what each change does to emphasis, momentum and grouping. Decide whet
           {
             term: "Experimental control",
             definition:
-              "A modern description of Schoenberg's didactic setup: keeping the broken-chord pitch source stable makes each transformation easier to compare.",
+              "Keeping one simple pitch source stable so the effect of each transformation can be heard and compared clearly.",
           },
         ],
         workspace: "composition-study",
@@ -310,7 +310,7 @@ Continue through the embellishment and reduction stages before using the control
           {
             term: "Ancillary note",
             definition:
-              "Schoenberg's preferred term here for a note added to fill or decorate an interval.",
+              "A non-structural note added to fill, connect or decorate an interval between more important tones.",
           },
           {
             term: "Condensation",
@@ -524,7 +524,7 @@ Choose the statement that accounts for all three resources together. The aim is 
           {
             term: "Semi-contrapuntal accompaniment",
             definition:
-              "Schoenberg's term here for accompaniment treated with enough independent motion to interact contrapuntally with the motive.",
+              "Accompaniment with enough independent melodic motion to interact with the motive rather than merely fill chords.",
           },
           {
             term: "Adaptation",
@@ -575,7 +575,7 @@ The goal is not maximal transformation. It is controlled freedom: change enough 
           {
             term: "Local variant",
             definition:
-              "Schoenberg's distinction for a variation that has little or no influence on subsequent continuation.",
+              "A variation that has little or no influence on the continuation that follows.",
           },
           {
             term: "Preservation",
