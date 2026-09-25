@@ -332,15 +332,15 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg says that in Exs. 35a and 35b the first phrase employs only tonic harmony and the second only dominant harmony. He also says the melody is modified enough to conform with the harmony. These examples make the tonic-form / dominant-form relation unusually easy to hear.",
         instruction:
-          "Step through Schoenberg's Ex. 35 source map first. Then play the application study across step 9, follow the I → V support, and choose the statement that matches the book's analysis.",
+          "Play native Ex. 35a first and use the Tonic form / Dominant form analysis tabs on the score itself. Hear the F-minor phrase answered over C-dominant harmony, including the E-natural adjustment in the answer. Then use the Ex. 35 map to compare 35a with 35b before trying the separate PLAY / LAB application study.",
         recognition:
           "Does the answer feel like the same phrase adapted to a different harmonic function rather than a literal pitch copy?",
         source: {
           reference:
             "Example 35a Beethoven Op.2/1-I; Example 35b Beethoven Op.10/2-I",
-          exampleIds: ["s04.ex35"],
+          exampleIds: ["s04.ex35a", "s04.ex35"],
           focus:
-            "Schoenberg chooses these because the first phrase is supported only by I and the second only by V, making complementary repetition especially clear. The source map states that relation directly; the playable study below is separate application.",
+            "Ex. 35a is now present as a native playable grand-staff transcription of the complete excerpt Schoenberg prints. The source map keeps the comparison with 35b explicit; the PLAY / LAB study below remains separate application.",
         },
         terms: [
           {
