@@ -3,7 +3,7 @@ import {
   studyVariationIsChanged,
   studyVariationSharesIdentity,
 } from "../music/study";
-import { changedControl, heardPlayback } from "./learningEvidence";
+import { changedControl, heardPlayback, studiedSource } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -105,7 +105,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
           "Can the motive remain 'the same' in Schoenberg's technical sense even when every absolute pitch or duration changes?",
         source: {
           reference: "Example 14 - inversion, retrograde, retrograde inversion, diminution and augmentation",
-          exampleIds: ["s02.ex14"],
+          exampleIds: ["s02.ex14b", "s02.ex14c", "s02.ex14"],
           focus:
             "The source map exposes the operations Schoenberg prints in Ex. 14. The transformation controls below then let you audition those operations as a separate PLAY / LAB application.",
         },
@@ -138,6 +138,14 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
       evaluate: ({ compositionStudy, experiments }) => {
         const state = compositionStudy[SCHOENBERG_VARIATION_IDS.exact];
         return [
+          {
+            label: "You played Schoenberg's native diminution",
+            complete: studiedSource(experiments, "s02.ex14b"),
+          },
+          {
+            label: "You played Schoenberg's native augmentation",
+            complete: studiedSource(experiments, "s02.ex14c"),
+          },
           {
             label: "You auditioned inversion, retrograde, diminution and augmentation",
             complete: viewed(experiments, [

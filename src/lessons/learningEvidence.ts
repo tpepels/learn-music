@@ -32,3 +32,19 @@ export function changedRange(
 
   return min != null && max != null && max - min >= minimumRange;
 }
+
+
+export function studiedSource(
+  experiments: ExerciseExperiments,
+  sourceId: string,
+): boolean {
+  const played = experiments["source.play"]?.values ?? [];
+  const analysed = experiments["source.analysis"]?.values ?? [];
+  const auditioned = experiments["source.note"]?.values ?? [];
+
+  return (
+    played.includes(sourceId) ||
+    analysed.some((value) => value.startsWith(sourceId + ":")) ||
+    auditioned.some((value) => value.startsWith(sourceId + ":"))
+  );
+}

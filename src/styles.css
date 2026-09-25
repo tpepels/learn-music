@@ -10219,3 +10219,23 @@ body {
     width: auto;
   }
 }
+
+
+.source-score-event.is-analysis-active ellipse {
+  stroke: #695e4d;
+  stroke-width: 2.3;
+}
+
+.source-score-event.is-analysis-active line,
+.source-score-event.is-analysis-active .source-score-flag {
+  stroke: #695e4d;
+  stroke-width: 2;
+}
+
+.source-analysis-tabs.is-score-analysis {
+  margin: 12px 12px 0;
+}
+
+.source-analysis-detail.is-score-analysis {
+  margin: 8px 12px 0;
+}

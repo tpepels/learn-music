@@ -1740,7 +1740,7 @@ class AudioEngine {
       : Tone.Frequency(midi, "midi").toNote();
     this.triggerPiano(
       notes,
-      this.noteDuration(eighthSteps),
+      Tone.Time("8n").toSeconds() * Math.max(0.25, eighthSteps),
       undefined,
       velocity,
     );
