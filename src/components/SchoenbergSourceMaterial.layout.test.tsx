@@ -1,6 +1,7 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import {
+  sourceChordNoteheadOffsets,
   sourceContentStartX,
   sourceDisplayedAccidental,
   sourceHorizontalX,
@@ -81,6 +82,17 @@ describe("Schoenberg source score layout", () => {
 
     expect(fourEighthsLater - start).toBe(112);
     expect(fourEighthsLater - start).toBeLessThan(136);
+  });
+
+  it("displaces seconds without disturbing wider chord intervals", () => {
+    expect(sourceChordNoteheadOffsets([80, 75], "up")).toEqual([0, 13]);
+    expect(sourceChordNoteheadOffsets([80, 75], "down")).toEqual([-13, 0]);
+    expect(sourceChordNoteheadOffsets([80, 70], "up")).toEqual([0, 0]);
+  });
+
+  it("alternates displacement through close-position clusters", () => {
+    expect(sourceChordNoteheadOffsets([85, 80, 75], "up")).toEqual([0, 13, 0]);
+    expect(sourceChordNoteheadOffsets([85, 80, 75], "down")).toEqual([0, -13, 0]);
   });
 
   it("uses conventional stem direction around the middle staff line", () => {
