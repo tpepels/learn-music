@@ -21,7 +21,7 @@ const lesson = lessonContentSchema.parse({
   description:
     "Chapter V introduces the sentence and period as two principal ways of articulating a complete musical idea, then focuses on the beginning of the sentence. Immediate repetition is the characteristic solution, but Schoenberg's Examples 35-41 show that the answer can change pitch, contour, harmony and accompaniment while preserving the relationship.",
   overview:
-    "The lesson first keeps the earlier PLAY / LAB ear-training and construction work, then follows Schoenberg's tonic-form / dominant-form examples directly. Examples 35-41 are treated in the order of the book: their source-derived analytical structure is built into the guide, followed by a separate playable application study.",
+    "Begin a sentence by establishing the basic idea through immediate repetition. Then learn how the answering phrase can change pitch, contour, harmony and accompaniment while preserving a clear tonic-form / dominant-form relationship.",
 });
 
 function visitedAll(values: string[], required: string[]): boolean {
