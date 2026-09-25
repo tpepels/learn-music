@@ -24,6 +24,7 @@ export type SchoenbergSourceScore = {
   keyLabel: string;
   meter?: string;
   bpm: number;
+  durationUnit?: "eighth" | "sixteenth";
   events: SchoenbergSourceEvent[];
   slurs?: Array<{ start: number; end: number }>;
   annotation?: string;
