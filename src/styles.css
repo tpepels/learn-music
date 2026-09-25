@@ -8915,13 +8915,13 @@ body {
 .study-notation-tabs button,
 .study-variant-buttons button,
 .study-decision-buttons button {
-  min-height: 32px;
-  padding: 6px 10px;
+  min-height: 36px;
+  padding: 7px 11px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: rgba(255,255,255,0.025);
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   cursor: pointer;
 }
@@ -8957,7 +8957,7 @@ body {
 }
 
 .study-compare-panel > div:first-child strong {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 650;
 }
 
@@ -8977,7 +8977,7 @@ body {
 .study-decision-buttons > span {
   flex: 1 0 100%;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.45;
 }
 
@@ -9252,13 +9252,13 @@ body {
 
 .study-transform-buttons button,
 .study-feature-question button {
-  min-height: 32px;
-  padding: 6px 10px;
+  min-height: 36px;
+  padding: 7px 11px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: rgba(255,255,255,0.025);
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   cursor: pointer;
 }
@@ -9286,14 +9286,14 @@ body {
 .study-feature-question > span,
 .study-operation-summary span {
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.45;
 }
 
 .study-feature-question small {
   max-width: 68ch;
   color: var(--dim);
-  font-size: 9px;
+  font-size: 11px;
   line-height: 1.45;
 }
 
@@ -9307,7 +9307,7 @@ body {
 
 .study-operation-summary strong {
   color: var(--text);
-  font-size: 10px;
+  font-size: 12px;
   text-align: right;
 }
 
@@ -10077,13 +10077,13 @@ body {
 }
 
 .study-source-answer-panel button {
-  min-height: 34px;
-  padding: 7px 10px;
+  min-height: 36px;
+  padding: 8px 11px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: rgba(255,255,255,0.025);
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   cursor: pointer;
 }
