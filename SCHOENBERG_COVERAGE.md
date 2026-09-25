@@ -1,6 +1,6 @@
 # Schoenberg Source Coverage
 
-This ledger tracks the first five lessons against *Fundamentals of Musical Composition*. It prevents PLAY / LAB application studies from being mistaken for Schoenberg's source examples.
+This ledger tracks the implemented Schoenberg composition track against *Fundamentals of Musical Composition*. It prevents PLAY / LAB application studies from being mistaken for the source material.
 
 Status terms:
 
@@ -15,6 +15,12 @@ Status terms:
 | S03 Connecting motive-forms | Ch. IV; Exs. 30-34 | Ex. 31a now has a **native playable score** for its first complete bar, including the retained rhythmic profile used by the lesson. Exs. 30-34 also retain **interactive source analysis** preserving Schoenberg's distinctions about direction, transposition, combined changes, shifts, reduction and omission. Full native notation for the remaining variants is still pending. | Connection, repair, phrase-building and motive-chain studies |
 | S04 Beginning the sentence | Ch. V; Exs. 35-41 | Exs. 35a and 35b now have **native playable grand-staff scores** of the complete excerpts printed by Schoenberg, including pickups, tonic-form phrases, dominant-form answers, simultaneous accompaniment chords and triplet detail. Exs. 35-41 retain interactive source analysis for the broader comparisons. Native notation for Exs. 36-41 is still pending where the printed examples require quartet or denser multi-voice notation. | Sentence-opening and tonic/dominant application studies |
 | S05 Completing the sentence | Ch. VIII; Exs. 52-61 | A-L follows the chapter and examples individually. Mozart Ex. 59a (Piano Sonata K. 280-I) is now a **complete native playable grand-staff score** for all 14 measures printed by Schoenberg. The remaining Ex. 52-61 groups have interactive source analysis; the ledger now identifies Ex. 57-58 as Bach/Haydn, Ex. 60 as Schubert, and Ex. 61 as Brahms. Further native multi-staff transcriptions remain pending. | Core continuation/liquidation practice, source study, then a final rebuilt sentence |
+| S06 The period - antecedent & consequent | Chs. VI-VII; Exs. 42-51 | **Interactive source analysis** covers postponed repetition, antecedent contrast, caesura, modified consequent return, cadence contour, rhythmic identity and irregular length. Native notation for the dense literature examples remains pending rather than being replaced with invented reductions. | Period comparison, antecedent/consequent listening, and a 32-step editable period study |
+| S07 The accompaniment | Ch. IX; Exs. 62-67 | **Interactive source analysis** covers functional accompaniment, omissibility, accompanimental motive and bass-line treatment. No note-for-note notation is claimed for the still-untranscribed examples. | Transparency/arrangement study, recurring harmonic rhythm, active support, and bass-line revision |
+| S08 Character & mood | Ch. X; Ex. 68 | **Interactive source analysis** covers combined determinants of character and the descriptive-motion categories discussed in the literature examples. No source melody is fabricated. | Groove timing/accent studies and expressive texture shaping |
+| S09 Melody & theme | Ch. XI; Exs. 69-100 | **Interactive source analysis** covers vocal melody, instrumental melody and melody-versus-theme distinctions. The numerous literature examples remain pending for verified native transcription. | Singability, melodic wave/climax, compensated leap and self-contained melody studies |
+| S10 Self-criticism & revision | Ch. XII; illustrations of self-criticism | **Interactive source analysis** presents the revision checklist and diagnostic categories without pretending the referenced score illustrations have been transcribed. | Listening, melodic economy, bass audit, harmonic audit and multi-sketch revision |
+
 
 ## Rules
 
