@@ -324,7 +324,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         ],
         workspace: "composition-study",
         checksLabel: "Trace Ex. 52",
-        successLabel: "You followed the source from full phrase to residue",
+        successLabel: "You followed the phrase from full form to residue",
       }),
       evaluate: ({ experiments }) => [
         { label: "You worked through the Ex. 52 analysis", complete: studiedSource(experiments, "s05.ex52", 5) },
@@ -456,7 +456,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
             (experiments["source.play"]?.values ?? []).includes("s05.ex59a") ||
             (experiments["source.note"]?.values ?? []).some((value) => value.startsWith("s05.ex59a:")) ||
             (experiments["source.analysis"]?.values ?? []).some((value) => value.startsWith("s05.ex59a:")) },
-        { label: "You worked through Schoenberg's Ex. 59 analysis", complete: studiedSource(experiments, "s05.ex59", 5) },
+        { label: "You worked through the Ex. 59 analysis", complete: studiedSource(experiments, "s05.ex59", 5) },
         { label: "You listened to the extension application", complete: heardPlayback(experiments) },
       ],
     },
