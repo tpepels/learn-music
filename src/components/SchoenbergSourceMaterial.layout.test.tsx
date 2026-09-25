@@ -2,6 +2,8 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import {
   sourceContentStartX,
+  sourceDisplayedAccidental,
+  sourceNoteSpelling,
   sourceStemDirection,
   SchoenbergSourceMaterial,
 } from "./SchoenbergSourceMaterial";
@@ -36,6 +38,28 @@ describe("Schoenberg source score layout", () => {
 
     const meterX = 84 + 3 * 13;
     expect(threeFlats - meterX).toBeGreaterThanOrEqual(38);
+  });
+
+  it("spells flat-key pitches on the correct staff positions", () => {
+    expect(sourceNoteSpelling(51, -3).step).toBe(
+      sourceNoteSpelling(52, 0).step,
+    ); // E-flat uses the E position
+    expect(sourceNoteSpelling(46, -3).step).toBe(
+      sourceNoteSpelling(47, 0).step,
+    ); // B-flat uses the B position
+  });
+
+  it("spells sharp-key pitches on the correct staff positions", () => {
+    expect(sourceNoteSpelling(63, 4).step).toBe(
+      sourceNoteSpelling(62, 0).step,
+    ); // D-sharp uses the D position
+  });
+
+  it("shows accidentals relative to the key signature", () => {
+    expect(sourceDisplayedAccidental(51, -3)).toBe("");
+    expect(sourceDisplayedAccidental(52, -3)).toBe("♮");
+    expect(sourceDisplayedAccidental(61, 1)).toBe("♯");
+    expect(sourceDisplayedAccidental(61, -2)).toBe("♭");
   });
 
   it("uses conventional stem direction around the middle staff line", () => {
