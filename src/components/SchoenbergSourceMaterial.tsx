@@ -56,13 +56,15 @@ function SourceScore({
     let cursor = 0;
     return score.events.map((event) => {
       const current = cursor;
-      cursor += Math.max(1, event.duration);
+      cursor += Math.max(1, event.duration) *
+        (score.durationUnit === "sixteenth" ? 0.5 : 1);
       return current;
     });
   }, [score.events]);
 
+  const unitToEighth = score.durationUnit === "sixteenth" ? 0.5 : 1;
   const totalEighths = score.events.reduce(
-    (sum, event) => sum + Math.max(1, event.duration),
+    (sum, event) => sum + Math.max(1, event.duration) * unitToEighth,
     0,
   );
   const width = Math.max(700, 170 + totalEighths * 34);
@@ -91,11 +93,15 @@ function SourceScore({
       const timer = window.setTimeout(() => {
         setPlayingIndex(index);
         if (event.midi !== null) {
-          void audioEngine.playSourceNote(event.midi, event.duration, 0.7);
+          void audioEngine.playSourceNote(
+            event.midi,
+            event.duration * unitToEighth,
+            0.7,
+          );
         }
       }, elapsed);
       timers.current.push(timer);
-      elapsed += Math.max(1, event.duration) * eighthMs;
+      elapsed += Math.max(1, event.duration) * unitToEighth * eighthMs;
     });
 
     timers.current.push(
@@ -162,8 +168,14 @@ function SourceScore({
               event.midi === null
                 ? 76
                 : sourceStaffY(event.midi, score.clef);
-            const open = event.duration >= 4;
-            const dotted = event.duration === 3 || event.duration === 6;
+            const durationEighths = event.duration * unitToEighth;
+            const open = durationEighths >= 4;
+            const dotted =
+              score.durationUnit === "sixteenth"
+                ? [3, 6, 12].includes(event.duration)
+                : event.duration === 3 || event.duration === 6;
+            const flags =
+              durationEighths <= 0.5 ? 2 : durationEighths <= 1 ? 1 : 0;
             const accidental =
               event.accidental ??
               (event.midi === null ? "" : sourceAccidental(event.midi));
@@ -187,7 +199,7 @@ function SourceScore({
                     recordLearningExperiment("source.note", score.id + ":" + index);
                     void audioEngine.playSourceNote(
                       event.midi,
-                      event.duration,
+                      event.duration * unitToEighth,
                       0.74,
                     );
                   }
@@ -221,12 +233,13 @@ function SourceScore({
                       y1={y}
                       y2={y - 30}
                     />
-                    {event.duration === 1 ? (
+                    {Array.from({ length: flags }, (_, flagIndex) => (
                       <path
-                        d={`M ${x + 6.5} ${y - 30} q 13 6 8 18`}
+                        key={flagIndex}
+                        d={`M ${x + 6.5} ${y - 30 + flagIndex * 7} q 13 6 8 18`}
                         className="source-score-flag"
                       />
-                    ) : null}
+                    ))}
                     {dotted ? <circle cx={x + 13} cy={y} r="1.8" /> : null}
                     {y > 101 ? (
                       <line
