@@ -12,6 +12,9 @@ import {
   SCHOENBERG_SENTENCE_EXERCISE_IDS,
   SCHOENBERG_SENTENCE_IDS,
   SCHOENBERG_SENTENCE_SOURCE_IDS,
+  SCHOENBERG_PERIOD_COMPOSE_IDS,
+  SCHOENBERG_PERIOD_EXERCISE_IDS,
+  SCHOENBERG_PERIOD_IDS,
   SCHOENBERG_PHRASE_SOURCE_IDS,
   SCHOENBERG_STUDY_IDS,
   SCHOENBERG_VARIATION_EXERCISE_IDS,
@@ -1099,6 +1102,92 @@ function SentencePanel({
 }
 
 
+function PeriodPanel({
+  mode,
+  decision,
+  setMode,
+  setDecision,
+}: {
+  mode: StudySentenceMode;
+  decision: "same" | "related" | "unrelated" | null;
+  setMode: (mode: StudySentenceMode) => void;
+  setDecision: (decision: "same" | "related" | "unrelated") => void;
+}) {
+  const options: StudySentenceMode[] = ["immediate", "delayed", "contrast"];
+
+  return (
+    <div className="study-sentence-panel">
+      <div className="study-sentence-form">
+        <div>
+          <span>Opening phrase</span>
+          <strong>basic idea</strong>
+          <small>a</small>
+        </div>
+        <b>→</b>
+        <div>
+          <span>{mode === "delayed" ? "contrast before return" : "next phrase"}</span>
+          <strong>
+            {mode === "immediate"
+              ? "a repeated immediately"
+              : mode === "delayed"
+                ? "remote material → return"
+                : "unrelated material"}
+          </strong>
+          <small>{mode === "delayed" ? "b → a¹" : "a¹"}</small>
+        </div>
+      </div>
+
+      <div className="study-connection-copy">
+        <span className="section-label">Period · postponed repetition</span>
+        <strong>Which version delays the return of the opening idea until after contrasting material?</strong>
+      </div>
+
+      <div className="study-sentence-buttons">
+        {options.map((option) => (
+          <button
+            type="button"
+            key={option}
+            className={mode === option ? "is-active" : ""}
+            onClick={() => setMode(option)}
+          >
+            {option === "immediate"
+              ? "Immediate repetition"
+              : option === "delayed"
+                ? "Postponed return"
+                : "Unrelated continuation"}
+          </button>
+        ))}
+      </div>
+
+      <div className="study-decision-buttons">
+        <span>Which one behaves as the beginning of a period?</span>
+        <button
+          type="button"
+          className={decision === "related" ? "is-active" : ""}
+          onClick={() => setDecision("related")}
+        >
+          Postponed return
+        </button>
+        <button
+          type="button"
+          className={decision === "same" ? "is-active" : ""}
+          onClick={() => setDecision("same")}
+        >
+          Immediate repetition
+        </button>
+        <button
+          type="button"
+          className={decision === "unrelated" ? "is-active" : ""}
+          onClick={() => setDecision("unrelated")}
+        >
+          No audible relation
+        </button>
+      </div>
+    </div>
+  );
+}
+
+
 const completionModeCopy: Record<StudyCompletionMode, string> = {
   "repeat-presentation": "Keep repeating the opening",
   "developed-continuation": "Developed continuation",
@@ -1312,6 +1401,9 @@ export function CompositionStudyWorkspace({
   const isCompletion = SCHOENBERG_COMPLETION_EXERCISE_IDS.has(exerciseId);
   const isCompletionSource = SCHOENBERG_COMPLETION_SOURCE_IDS.has(exerciseId);
   const isCompletionCompose = SCHOENBERG_COMPLETION_COMPOSE_IDS.has(exerciseId);
+  const isPeriod = SCHOENBERG_PERIOD_EXERCISE_IDS.has(exerciseId);
+  const isPeriodCompare = exerciseId === SCHOENBERG_PERIOD_IDS.distinguish;
+  const isPeriodCompose = SCHOENBERG_PERIOD_COMPOSE_IDS.has(exerciseId);
   const sentenceMode = state?.sentenceMode ?? "exact";
   const completionMode = state?.completionMode ?? "complete";
   const harmony =
@@ -1324,7 +1416,8 @@ export function CompositionStudyWorkspace({
     isConnectionRepair ||
     isConnectionCompose ||
     isSentenceCompose ||
-    isCompletionCompose;
+    isCompletionCompose ||
+    isPeriodCompose;
 
   const visibleSequence = useMemo(() => {
     if (isCompare && state?.variant) {
@@ -1375,8 +1468,10 @@ export function CompositionStudyWorkspace({
         <div>
           <span className="section-label">Composition study</span>
           <h2>
-            {isCompletion
-              ? "Complete sentence · beginning → cadence"
+            {isPeriod
+              ? "Period · antecedent → caesura → consequent → cadence"
+              : isCompletion
+                ? "Complete sentence · beginning → cadence"
               : isSentenceSource
                 ? "Chapter V examples · tonic form → dominant form"
                 : isSentence
@@ -1505,6 +1600,15 @@ export function CompositionStudyWorkspace({
         />
       )}
 
+      {isPeriodCompare && (
+        <PeriodPanel
+          mode={sentenceMode}
+          decision={state?.decision ?? null}
+          setMode={(next) => setStudySentenceMode(exerciseId, next)}
+          setDecision={(next) => setStudyDecision(exerciseId, next)}
+        />
+      )}
+
       {isSentence && !isSentenceSource && (
         <SentencePanel
           exerciseId={exerciseId}
@@ -1543,8 +1647,10 @@ export function CompositionStudyWorkspace({
             onToggleSelection={(step) => toggleStudySelection(exerciseId, step)}
             editable={isAnalyse}
             unitStarts={
-              isCompletion
-                ? [0, 8, 16, 20, 24, 28, 30]
+              isPeriod && visibleSequence.notes.length > 16
+                ? [0, 8, 16, 24]
+                : isCompletion
+                  ? [0, 8, 16, 20, 24, 28, 30]
                 : isConnection
                   ? [0, 4, 8, 12]
                   : isSentence && visibleSequence.notes.length > 16
@@ -1562,8 +1668,10 @@ export function CompositionStudyWorkspace({
             editable={editable}
             onEdit={(step, midi) => setStudyStep(exerciseId, step, midi)}
             unitStarts={
-              isCompletion
-                ? [0, 8, 16, 20, 24, 28, 30]
+              isPeriod && visibleSequence.notes.length > 16
+                ? [0, 8, 16, 24]
+                : isCompletion
+                  ? [0, 8, 16, 20, 24, 28, 30]
                 : isConnection
                   ? [0, 4, 8, 12]
                   : isSentence && visibleSequence.notes.length > 16
@@ -1582,7 +1690,13 @@ export function CompositionStudyWorkspace({
 
       <footer className="study-footer">
         <span>
-          {isCompletion
+          {isPeriod
+            ? isPeriodCompose
+              ? "Edit the full 32-step period in Piano roll. Keep a contrasting second phrase in the antecedent, let the opening return in the consequent, and preserve a clear final close."
+              : isPeriodCompare
+                ? "Compare immediate repetition with postponed return. A period delays the larger repetition until contrasting material has formed an antecedent."
+                : "Listen across all four eight-step units: opening, contrasting continuation, return, and cadential close."
+            : isCompletion
             ? isCompletionCompose
               ? "Edit the basic idea or the continuation in Piano roll. Listen to all 32 steps: the second half should develop the source, reduce characteristic material, and earn the final V → I cadence."
               : "Listen beyond step 16. The opening has already established the idea; now judge what the second half does with it."
