@@ -132,7 +132,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Repeated-note character",
         detail:
-          "Schoenberg chooses a phrase whose identity is strongly rhythmic: repeated notes establish the character before the line begins to climb.",
+          "Repeated notes establish a strongly rhythmic identity before the line begins to climb.",
       },
       {
         label: "Gradual ascent",
@@ -288,7 +288,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "One tonic harmony",
         detail:
-          "Schoenberg fixes the tonic of F major as the harmonic basis.",
+          "The tonic of F major remains fixed as the harmonic basis.",
       },
       {
         label: "Rearrange chord tones",
@@ -315,7 +315,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Shorten note values",
         detail:
-          "Schoenberg changes rhythmic scale first, producing a more active surface without requiring richer harmony.",
+          "Shorter note values create a more active surface without requiring richer harmony.",
       },
     ],
   ),
@@ -388,7 +388,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Richer embellishment",
         detail:
-          "Schoenberg adds more elaborate changing-note and appoggiatura-like figures to the earlier studies.",
+          "Changing-note and appoggiatura-like figures add more elaborate surface motion to the earlier studies.",
       },
       {
         label: "Greater flexibility",
@@ -398,7 +398,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Risk: obscure the harmony",
         detail:
-          "Schoenberg explicitly warns that too many small notes can overburden the melody and obscure its harmonic basis.",
+          "Too many small notes can overburden the melody and obscure its harmonic basis.",
       },
     ],
   ),
@@ -457,7 +457,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "first rhythmic cell",
         detail:
-          "Three repeated short notes lead to a longer arrival - one of the characteristic features Schoenberg wants isolated.",
+          "Three repeated short notes lead to a longer arrival. That short-short-short-long pattern is the characteristic feature to isolate.",
         startEvent: 0,
         endEvent: 3,
       },
@@ -615,7 +615,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "fixed broken-chord pitches",
         detail:
-          "C-A-F-A is deliberately plain. Schoenberg keeps the pitch identity obvious so the rhythmic changes in the following variants can be compared directly.",
+          "C-A-F-A is deliberately plain, keeping pitch identity obvious so the rhythmic changes in the following variants can be compared directly.",
         startEvent: 0,
         endEvent: 3,
       },
@@ -695,7 +695,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "new order",
         detail:
-          "A-F-C-F changes the succession itself. This is Schoenberg's next distinct operation after adding ancillary notes.",
+          "A-F-C-F changes the succession itself. The operation is reordering rather than adding or removing pitches.",
         startEvent: 0,
         endEvent: 3,
       },
@@ -740,7 +740,7 @@ export const schoenbergSourceMaterial: Record<
     [
       { label: "Richer support", detail: "The harmonic context changes rather than remaining a fixed background." },
       { label: "Melodic adaptation", detail: "The motive-form adjusts enough to fit the changed harmony while preserving identity." },
-      { label: "Inversions / additions", detail: "Schoenberg lists inversions and additions among the harmonic resources illustrated here." },
+      { label: "Inversions / additions", detail: "Inversions and added harmonic material are among the resources used to enrich the support." },
     ],
   ),
   "s02.ex26-27": map(
@@ -812,7 +812,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "essential rhythm",
         detail:
-          "The eighth-eighth-dotted-quarter-eighth-eighth-sixteenth-sixteenth profile is one of the rhythmic identities Schoenberg preserves through the closely related forms that follow.",
+          "The eighth-eighth-dotted-quarter-eighth-eighth-sixteenth-sixteenth profile is the rhythmic identity preserved through the closely related forms that follow.",
         startEvent: 0,
         endEvent: 6,
       },
@@ -963,7 +963,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "complementary repetition",
         detail:
-          "Compare the two pairs as Schoenberg asks: recognizable rhythmic/contour relation is preserved while tonic function becomes dominant function.",
+          "Across the pair, recognisable rhythm and contour are preserved while tonic function becomes dominant function.",
         startEvent: 1,
         endEvent: 31,
       },
@@ -1035,9 +1035,9 @@ export const schoenbergSourceMaterial: Record<
         endEvent: 23,
       },
       {
-        label: "compare 35a / 35b",
+        label: "Compare the two Beethoven passages",
         detail:
-          "Both examples make Schoenberg's complementary repetition unusually exposed: phrase identity stays obvious while tonic support is replaced by dominant support.",
+          "Both passages make complementary repetition unusually clear: phrase identity stays obvious while tonic support is replaced by dominant support.",
         startEvent: 0,
         endEvent: 23,
       },
@@ -1049,7 +1049,7 @@ export const schoenbergSourceMaterial: Record<
     "Ex. 35a-b",
     "The clearest tonic / dominant pair",
     [
-      { label: "First phrase", detail: "Schoenberg says the first phrase employs only tonic harmony (I)." },
+      { label: "First phrase", detail: "The first phrase employs only tonic harmony (I)." },
       { label: "Second phrase", detail: "The second phrase employs only dominant harmony (V)." },
       { label: "Melody adapts", detail: "The melodic line changes enough to conform to the new harmony." },
     ],
@@ -1078,9 +1078,9 @@ export const schoenbergSourceMaterial: Record<
     "Ex. 40a-c",
     "What carries identity?",
     [
-      { label: "40a", detail: "The dominant-form melody follows the contour of the tonic phrase exactly." },
-      { label: "40b-c", detail: "Rhythm is preserved while contour is treated more freely." },
-      { label: "Comparison", detail: "Schoenberg uses the group to show that different features can carry the relationship." },
+      { label: "Strict contour", detail: "The dominant-form melody follows the contour of the tonic phrase exactly." },
+      { label: "Freer contour", detail: "Rhythm is preserved while contour is treated more freely." },
+      { label: "Comparison", detail: "The comparison shows that different features can carry the relationship." },
     ],
   ),
   "s04.ex41": map(
@@ -1102,7 +1102,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Continuation needs remoter forms",
         detail:
-          "Because the sentence beginning already contains repetition, Schoenberg says the continuation demands more remotely varied motive-forms rather than another presentation.",
+          "Because the sentence beginning already contains repetition, the continuation needs more remotely varied motive-forms rather than another presentation.",
       },
       {
         label: "Development can also reduce",
@@ -1130,7 +1130,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Tonic form → dominant form",
         detail:
-          "Schoenberg labels the opening phrase forms explicitly before the continuation begins.",
+          "The opening phrase forms are stated explicitly before the continuation begins.",
       },
       {
         label: "Climactic ascension",
@@ -1150,7 +1150,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Cadential destination can vary",
         detail:
-          "Schoenberg notes that a sentence may close on I, V or III with a suitable full, half, Phrygian, plagal, perfect or imperfect cadence according to function.",
+          "A sentence may close on I, V or III with a suitable full, half, Phrygian, plagal, perfect or imperfect cadence according to function.",
       },
     ],
     "The labels and reduction process are taken from Schoenberg's text and the printed annotations in Ex. 52. A complete native two-staff transcription remains pending.",
@@ -1173,7 +1173,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Remote variation",
         detail:
-          "Schoenberg says the motive-form in m. 5 is a very remote variation, based on a third and indirectly derived from the marked figure b.",
+          "The motive-form in m. 5 is a very remote variation, based on a third and indirectly derived from the earlier marked figure.",
       },
       {
         label: "Repetition explains the length",
@@ -1211,7 +1211,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Alternative cadential regions",
         detail:
-          "Schoenberg supplies alternatives because the main endings lead to V and III in major and v and III in minor; the alternatives move toward the relative-major region.",
+          "The alternative endings change the cadential region: the main endings lead to V and III in major and v and III in minor, while the alternatives move toward the relative-major region.",
       },
     ],
     "The interactive map preserves Schoenberg's explicit comment on Exs. 54-56. The dense multi-voice examples themselves still await verified native transcription.",
@@ -1224,7 +1224,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Practice form is an abstraction",
         detail:
-          "Schoenberg warns that masterworks often differ considerably from the simple eight-measure scheme.",
+          "These literature examples differ considerably from the simple eight-measure scheme.",
       },
       {
         label: "Condensed continuation",
@@ -1406,14 +1406,14 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "mm. 5-6: short phrase pair",
         detail:
-          "Schoenberg singles out the two one-measure phrases in mm. 5-6 as the point after which the extension begins.",
+          "The two one-measure phrases in mm. 5-6 mark the point after which the extension begins.",
         startEvent: 31,
         endEvent: 48,
       },
       {
         label: "mm. 7-11: interpolation",
         detail:
-          "Schoenberg's diagnostic omission test removes mm. 7-11. Hearing this span in the actual Mozart excerpt makes the source of the extension concrete rather than merely verbal.",
+          "Remove mm. 7-11 mentally: the simpler underlying span becomes audible, making the source of the extension concrete.",
         startEvent: 49,
         endEvent: 112,
       },
@@ -1455,7 +1455,7 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Remote forms need repetition",
         detail:
-          "Remote motive-forms in mm. 5-6 are followed by a modified repetition in mm. 7-8; Schoenberg calls such repetitions consequences of comprehensibility.",
+          "Remote motive-forms in mm. 5-6 are followed by a modified repetition in mm. 7-8. Repetition helps the remote material become comprehensible.",
       },
     ],
     "Ex. 59a (Mozart K. 280-I) is now present separately as a complete native playable score. This map carries Schoenberg's measure-by-measure analysis across the remaining Mozart examples 59b-i, whose native notation is still pending.",
@@ -1468,12 +1468,12 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Unusual VI ending",
         detail:
-          "Schoenberg calls the ending on VI unusual and the anticipation of VI through a deceptive cadence still more unusual.",
+          "The ending on VI is unusual, and its anticipation through a deceptive cadence is more unusual still.",
       },
       {
         label: "Remarkable beginning",
         detail:
-          "He points out the beginning on VII-II and compares it with the Finale of Beethoven's String Quartet Op. 130.",
+          "The beginning on VII-II is a striking exception rather than a normal sentence opening.",
       },
       {
         label: "Short segment + condensation",
@@ -1501,12 +1501,12 @@ export const schoenbergSourceMaterial: Record<
       {
         label: "Theme less complicated than it looks",
         detail:
-          "Schoenberg says the analysis shows a less complicated theme than first glance suggests; melody need not always remain in the highest voice.",
+          "The theme is less complicated than its surface first suggests, and the melody need not always remain in the highest voice.",
       },
       {
         label: "Melody and accompaniment exchange",
         detail:
-          "Accompaniment and melody may exchange places; Schoenberg also remarks on the unusual bass treatment below mm. 6-7.",
+          "Accompaniment and melody may exchange places, and the bass treatment below mm. 6-7 is unusually active.",
       },
       {
         label: "Developing variation",

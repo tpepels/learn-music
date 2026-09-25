@@ -131,6 +131,8 @@ On narrow screens the two columns collapse to one column.
 Do not put essential theory below the workspace.
 Do not hide essential instructions in expandable details.
 
+Source cards are part of the learner-facing teaching surface. Their titles, analysis-tab labels and analysis details follow the same rules as lesson copy: teach the musical point directly, do not expose book indices, and do not phrase the explanation as "Schoenberg says..." or "the chapter says...". Keep attribution, reference numbers and fidelity notes in internal metadata instead.
+
 ---
 
 ## 5. Content-depth rule
