@@ -23,7 +23,7 @@ const lesson = lessonContentSchema.parse({
   description:
     "Chapter VIII is much richer than a simple presentation-continuation formula. Schoenberg defines liquidation, relates it to shortening and cadence, develops sequence-like procedures, then uses Examples 52-61 to show how real sentences expand, overlap, interpolate repetitions, exchange voices and depart from the eight-measure practice form without losing musical logic.",
   overview:
-    "A-D establish the core techniques. E-K then follow Schoenberg's actual Examples 52-61 in the order of his discussion. L rebuilds the sentence after those examples. Source maps reproduce Schoenberg's own labels and written analysis; PLAY / LAB studies underneath are separate application material.",
+    "Move from an established beginning into development, sequence, shortening and liquidation, then shape those processes toward a convincing cadence. Later examples show how real sentences expand, overlap and depart from the simple eight-measure model.",
 });
 
 function visitedAll(values: string[], required: string[]): boolean {
