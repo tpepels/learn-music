@@ -332,15 +332,15 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg says that in Exs. 35a and 35b the first phrase employs only tonic harmony and the second only dominant harmony. He also says the melody is modified enough to conform with the harmony. These examples make the tonic-form / dominant-form relation unusually easy to hear.",
         instruction:
-          "Play native Ex. 35a first and use the Tonic form / Dominant form analysis tabs on the score itself. Hear the F-minor phrase answered over C-dominant harmony, including the E-natural adjustment in the answer. Then use the Ex. 35 map to compare 35a with 35b before trying the separate PLAY / LAB application study.",
+          "Play both native book excerpts first. In Ex. 35a, hear the F-minor phrase answered over C-dominant harmony, including the E-natural adjustment. In Ex. 35b, hear the same tonic-form / dominant-form principle compressed into 2/4. Use the score analysis tabs, then use the Ex. 35 map to summarize the comparison before trying the separate PLAY / LAB application.",
         recognition:
           "Does the answer feel like the same phrase adapted to a different harmonic function rather than a literal pitch copy?",
         source: {
           reference:
             "Example 35a Beethoven Op.2/1-I; Example 35b Beethoven Op.10/2-I",
-          exampleIds: ["s04.ex35a", "s04.ex35"],
+          exampleIds: ["s04.ex35a", "s04.ex35b", "s04.ex35"],
           focus:
-            "Ex. 35a is now present as a native playable grand-staff transcription of the complete excerpt Schoenberg prints. The source map keeps the comparison with 35b explicit; the PLAY / LAB study below remains separate application.",
+            "Both Ex. 35a and Ex. 35b are now present as native playable grand-staff transcriptions of the complete excerpts Schoenberg prints. The source map summarizes the comparison; the PLAY / LAB study below remains separate application.",
         },
         terms: [
           {
@@ -362,8 +362,10 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         const state = compositionStudy[SCHOENBERG_SENTENCE_IDS.ex35];
         return [
           {
-            label: "You studied Schoenberg's native Ex. 35a score",
-            complete: studiedSource(experiments, "s04.ex35a"),
+            label: "You studied both native Ex. 35 scores",
+            complete:
+              studiedSource(experiments, "s04.ex35a") &&
+              studiedSource(experiments, "s04.ex35b"),
           },
           { label: "You listened to the separate PLAY / LAB application", complete: heardPlayback(experiments) },
           { label: "You identified tonic form answered by dominant form", complete: state?.decision === "related" },
