@@ -85,7 +85,8 @@ describe("Schoenberg learning track", () => {
     expect(literature.source?.exampleIds).toEqual(["s01.ex2e"]);
     expect(repair.source?.exampleIds).toEqual(["s01.ex2e", "s01.ex4c"]);
 
-    expect(literature.instruction).toContain("native Ex. 2e");
+    expect(literature.instruction).toContain("Play Ex. 2e");
+    expect(literature.instruction).not.toContain("native");
     expect(repair.instruction).toContain("Study Ex. 2e and Ex. 4c");
     expect(repair.instruction).not.toContain("source-analysis map");
   });

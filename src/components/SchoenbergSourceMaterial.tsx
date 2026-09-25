@@ -155,6 +155,17 @@ export function sourceContentStartX(score: SchoenbergSourceScore): number {
   return Math.max(130, notationEnd + (score.meter ? 38 : 20));
 }
 
+export function sourceStemDirection(
+  midis: number[],
+  clef: StaffClef,
+): "up" | "down" {
+  if (!midis.length) return "up";
+  const middleLineMidi = clef === "treble" ? 71 : 50; // B4 / D3
+  const averageStep =
+    midis.reduce((sum, midi) => sum + diatonicStep(midi), 0) / midis.length;
+  return averageStep >= diatonicStep(middleLineMidi) ? "down" : "up";
+}
+
 function sourceRestGlyph(durationEighths: number): string {
   if (durationEighths >= 8) return "𝄻";
   if (durationEighths >= 4) return "𝄼";
@@ -348,6 +359,13 @@ function SourceScore({
             const y = ys.length
               ? ys.reduce((sum, value) => sum + value, 0) / ys.length
               : top + 20;
+            const stemDirection = sourceStemDirection(midis, clef);
+            const stemDown = stemDirection === "down";
+            const highestY = ys.length ? Math.min(...ys) : y;
+            const lowestY = ys.length ? Math.max(...ys) : y;
+            const stemX = x + (stemDown ? -6.5 : 6.5);
+            const stemStartY = stemDown ? highestY : lowestY;
+            const stemEndY = stemDown ? lowestY + 30 : highestY - 30;
             const durationEighths = event.duration * unitToEighth;
             const open = durationEighths >= 4;
             const dotted = [1.5, 3, 6].some(
@@ -440,20 +458,27 @@ function SourceScore({
                     })}
                     {durationEighths < 8 ? (
                       <line
-                        x1={x + 6.5}
-                        x2={x + 6.5}
-                        y1={y}
-                        y2={y - 30}
+                        x1={stemX}
+                        x2={stemX}
+                        y1={stemStartY}
+                        y2={stemEndY}
                         className="source-score-stem"
                       />
                     ) : null}
-                    {Array.from({ length: flags }, (_, flagIndex) => (
-                      <path
-                        key={flagIndex}
-                        d={`M ${x + 6.5} ${y - 30 + flagIndex * 7} q 13 6 8 18`}
-                        className="source-score-flag"
-                      />
-                    ))}
+                    {Array.from({ length: flags }, (_, flagIndex) => {
+                      const flagY = stemEndY + (stemDown ? -flagIndex * 7 : flagIndex * 7);
+                      return (
+                        <path
+                          key={flagIndex}
+                          d={
+                            stemDown
+                              ? `M ${stemX} ${flagY} q -13 -6 -8 -18`
+                              : `M ${stemX} ${flagY} q 13 6 8 18`
+                          }
+                          className="source-score-flag"
+                        />
+                      );
+                    })}
                   </>
                 )}
                 {!score.barlines?.length && event.barAfter ? (

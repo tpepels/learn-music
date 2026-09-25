@@ -21,9 +21,9 @@ const lesson = lessonContentSchema.parse({
   eyebrow: "Schoenberg · Chapter VIII · Completion of the Sentence",
   hero: "Carry an established beginning through development, shortening and liquidation until a cadence can genuinely end the sentence.",
   description:
-    "Chapter VIII is much richer than a simple presentation-continuation formula. Schoenberg defines liquidation, relates it to shortening and cadence, develops sequence-like procedures, then uses Examples 52-61 to show how real sentences expand, overlap, interpolate repetitions, exchange voices and depart from the eight-measure practice form without losing musical logic.",
+    "Completing a sentence involves more than attaching a continuation to a presentation. Development, sequence, shortening, liquidation and cadence interact, while real sentences may expand, overlap, interpolate repetitions and depart from the simple eight-measure model without losing musical logic.",
   overview:
-    "A-D establish the core techniques. E-K then follow Schoenberg's actual Examples 52-61 in the order of his discussion. L rebuilds the sentence after those examples. Source maps reproduce Schoenberg's own labels and written analysis; PLAY / LAB studies underneath are separate application material.",
+    "Move from an established beginning into development, sequence, shortening and liquidation, then shape those processes toward a convincing cadence. Later examples show how real sentences expand, overlap and depart from the simple eight-measure model.",
 });
 
 function visitedAll(values: string[], required: string[]): boolean {
@@ -67,9 +67,9 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         learn:
           "Hear why the second half of a sentence must do more than repeat the already-established beginning.",
         explanation:
-          "Schoenberg says the beginning of the sentence already includes repetition. The continuation therefore demands more remotely varied motive-forms. He treats the sentence as a higher construction that not only states an idea but immediately begins a kind of development.",
+          "The beginning of a sentence already contains repetition, so the continuation usually needs more remotely varied motive-forms. A sentence therefore does more than state an idea: it begins developing that idea almost immediately.",
         instruction:
-          "Read the Chapter VIII source map, then compare Keep repeating the opening, Developed continuation and New unrelated material. Choose the version that develops the established motive without replacing it.",
+          "Compare Keep repeating the opening, Developed continuation and New unrelated material. Choose the version that develops the established motive without replacing it.",
         recognition:
           "After the opening is established, does the music begin to work on it, merely repeat it, or abandon it?",
         source: {
@@ -128,7 +128,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         learn:
           "Hear sequence-like procedure as directional continuation rather than static repetition.",
         explanation:
-          "Schoenberg says sequence-like procedures are very useful in sentence continuations. The pattern is usually already a transformation or condensation of preceding motive-forms. With a correct harmonic connection it may begin on different scale degrees; quasi-sequential repetitions may also vary the interval or other features.",
+          "Sequence-like procedures are especially useful in sentence continuations. The repeated pattern is usually already a transformation or condensation of earlier motive-forms. With a convincing harmonic connection it can begin on different scale degrees, and quasi-sequential repetitions may vary interval or other features.",
         instruction:
           "Use the Chapter VIII map, then compare Repeat one fragment, Sequential treatment and New unrelated material. Follow steps 17-28 and choose the version in which one derived pattern moves through new pitch levels.",
         recognition:
@@ -189,7 +189,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         learn:
           "Hear shortening and loss of characteristic features prepare a real ending.",
         explanation:
-          "Schoenberg defines liquidation as gradual elimination of characteristic features until only relatively uncharacteristic residues remain. He says it is generally supported by shortening of the phrase. Together with a cadence or half cadence, this process can provide adequate delimitation.",
+          "Liquidation gradually eliminates characteristic features until only relatively uncharacteristic residues remain. It is usually supported by shortening of the phrase. Combined with a cadence or half cadence, this process can provide a convincing boundary.",
         instruction:
           "Study the Chapter VIII map, then compare Keep full motive-forms, Liquidate toward cadence and Abrupt cut to cadence. Choose the version that progressively reduces the motive before the V-I ending.",
         recognition:
@@ -260,9 +260,9 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         letter: "D",
         title: "First attempt - complete a sentence",
         learn:
-          "Build a complete presentation-development-liquidation-cadence process before examining Schoenberg's detailed examples.",
+          "Build a complete presentation-development-liquidation-cadence process.",
         explanation:
-          "The eight-measure practice form is an abstraction, but it is useful because it lets the basic procedures be heard clearly. Schoenberg immediately goes beyond it in the following examples.",
+          "The eight-measure practice form is an abstraction, but it is useful because it makes the basic procedures easy to hear. Real sentences can then expand or distort that model while preserving the same functions.",
         instruction:
           "Start with Sequence → liquidation → cadence. Listen to all 32 steps, then edit at least two pitches in steps 17-24 so the continuation sounds less mechanical while preserving its connection to the source. Compare at least two notation views.",
         recognition:
@@ -305,11 +305,11 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         letter: "E",
         title: "Ex. 52 - watch full phrases become residues",
         learn:
-          "Follow Schoenberg's printed labels from tonic/dominant forms through ascension, reduction and melodic residues.",
+          "Follow the progression from tonic and dominant forms through ascension, reduction and melodic residues.",
         explanation:
-          "Schoenberg uses Ex. 52 to make liquidation visible. He states that two-measure phrases are reduced or condensed to one measure, and in Ex. 52c four measures are condensed to two. The printed analysis labels tonic form, dominant form, climactic ascension, reduction and melodic residues.",
+          "Ex. 52 makes liquidation visible. Two-measure phrases are reduced or condensed to one measure, and in Ex. 52c four measures are condensed to two. The passage moves from tonic and dominant forms through climactic ascent, reduction and finally melodic residues.",
         instruction:
-          "Open every Ex. 52 source-analysis tab in order. Then play the fixed liquidation study below. Compare the full motive-forms at the start with the increasingly sparse material near the cadence.",
+          "Work through Ex. 52 in order, then compare the full motive-forms at the start with the increasingly sparse material near the cadence.",
         recognition:
           "Can you hear shortening as part of the formal process rather than as arbitrary deletion?",
         source: {
@@ -324,7 +324,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         ],
         workspace: "composition-study",
         checksLabel: "Trace Ex. 52",
-        successLabel: "You followed the source from full phrase to residue",
+        successLabel: "You followed the phrase from full form to residue",
       }),
       evaluate: ({ experiments }) => [
         { label: "You worked through the Ex. 52 analysis", complete: studiedSource(experiments, "s05.ex52", 5) },
@@ -339,9 +339,9 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         learn:
           "Understand why a sentence may grow longer when a remote motive-form needs repetition before it becomes comprehensible.",
         explanation:
-          "Schoenberg calls the motive-form in Ex. 53b, m. 5 a very remote variation. Its repetitions account for the twelve-measure length. Ex. 53a also shows the later material becoming reduced and finally residual.",
+          "In Ex. 53b, m. 5 introduces a very remote variation whose repetitions account for the twelve-measure length. Ex. 53a likewise shows later material becoming progressively reduced and finally residual.",
         instruction:
-          "Open all four Ex. 53 source-analysis tabs. Then play the developmental application below. Listen for the difference between extending because material needs establishment and merely filling time.",
+          "Work through Ex. 53, then listen for the difference between extending material because it still needs establishment and merely filling time.",
         recognition:
           "Would the remote form be intelligible if it appeared only once?",
         source: {
@@ -370,9 +370,9 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         learn:
           "See one broken-chord source transformed progressively until it can support contrasting sentence continuations.",
         explanation:
-          "Schoenberg says Exs. 54-56 are based on the broken-chord form Ex. 7b. Ex. 54 progressively varies it; the continuations use sequence-like procedures and mostly free transpositions. He also supplies alternative endings because different cadential regions change the formal effect.",
+          "Examples 54-56 grow from the broken-chord form of Ex. 7b. Ex. 54 varies it progressively; the continuations use sequence-like procedures and mostly free transpositions. Alternative endings show how different cadential regions change the formal effect.",
         instruction:
-          "Work through all five source-analysis tabs. Then play the sequence application. Notice that the sequential pattern is itself already a transformed or condensed motive-form.",
+          "Work through Exs. 54-56, then listen to the sequential treatment. Notice that the sequential pattern is already a transformed or condensed motive-form rather than a neutral pattern pasted on top.",
         recognition:
           "Can you trace the sequence back through progressive variation to the earlier broken-chord source?",
         source: {
@@ -401,9 +401,9 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         learn:
           "Hear why masterwork sentences may depart from equal proportions while retaining the same formal logic.",
         explanation:
-          "Introducing Examples 57-61, Schoenberg says the eight-measure practice form is only an abstraction. In almost all of these literature examples the continuation uses condensed phrases that give way to a cadence contour, with closing measures often reduced to residues of the basic motive.",
+          "The eight-measure practice form is only an abstraction. In most of Examples 57-61 the continuation uses condensed phrases that give way to a cadential contour, with the closing measures often reduced to residues of the basic motive.",
         instruction:
-          "Open all four source-analysis tabs, then listen to the developmental application. Do not count equal blocks first; listen for establishment, more remote continuation and movement toward cadence.",
+          "Work through Exs. 57-58 and listen for establishment, a more remote continuation and movement toward cadence. Do not begin by counting equal blocks.",
         recognition:
           "Can a sentence remain clear when its proportions are unequal?",
         source: {
@@ -430,11 +430,11 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         letter: "I",
         title: "Ex. 59 - diagnose extension by omission",
         learn:
-          "Use Schoenberg's own analytical test: remove suspected insertions mentally and see whether the underlying practice-form span reappears.",
+          "Use an omission test: mentally remove suspected insertions and see whether a simpler underlying span reappears.",
         explanation:
-          "Schoenberg describes Mozart's technique of producing irregularity through interpolation of incidental repetitions. For Ex. 59 he repeatedly asks which measures could be omitted. The point is diagnostic: the omitted material reveals what caused the extension.",
+          "Mozart often produces irregular length through interpolation of incidental repetitions. In Ex. 59, asking which measures could be omitted exposes the simpler span underneath and reveals exactly what caused the extension.",
         instruction:
-          "Start by playing the complete native Ex. 59a from Mozart's K. 280-I and use its analysis spans to locate mm. 5-6 and Schoenberg's tested insertion in mm. 7-11. Then work through the Ex. 59 source map for 59b-i before playing the separate application.",
+          "Play Ex. 59a from Mozart's K. 280-I and locate mm. 5-6 and the inserted passage in mm. 7-11. Then continue through Ex. 59b-i and listen for how omission, overlap, sequence and repetition change the continuation without destroying its connection to the opening.",
         recognition:
           "If the inserted material vanished, can you still perceive the simpler structural span underneath?",
         source: {
@@ -452,11 +452,11 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         successLabel: "You found the simpler form underneath Mozart's insertions",
       }),
       evaluate: ({ experiments }) => [
-        { label: "You played or inspected native Mozart Ex. 59a", complete:
+        { label: "You played or inspected Mozart Ex. 59a", complete:
             (experiments["source.play"]?.values ?? []).includes("s05.ex59a") ||
             (experiments["source.note"]?.values ?? []).some((value) => value.startsWith("s05.ex59a:")) ||
             (experiments["source.analysis"]?.values ?? []).some((value) => value.startsWith("s05.ex59a:")) },
-        { label: "You worked through Schoenberg's Ex. 59 analysis", complete: studiedSource(experiments, "s05.ex59", 5) },
+        { label: "You worked through the Ex. 59 analysis", complete: studiedSource(experiments, "s05.ex59", 5) },
         { label: "You listened to the extension application", complete: heardPlayback(experiments) },
       ],
     },
@@ -466,11 +466,11 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         letter: "J",
         title: "Ex. 60 - learn from unusual cases without making them rules",
         learn:
-          "Study exceptional endings, beginnings and extensions while preserving Schoenberg's distinction between masterwork evidence and safe student procedure.",
+          "Study exceptional endings, beginnings and extensions without treating every unusual solution as a reusable formula.",
         explanation:
-          "Schoenberg calls several features of Ex. 60 unusual: an ending on VI, anticipation of VI through deceptive cadence, a remarkable beginning on VII-II, and extensions produced in different ways. He explicitly says some alternatives would be safer for a student. The lesson is analytical breadth, not permission to imitate every singularity mechanically.",
+          "Ex. 60 contains several unusual features: an ending on VI, anticipation of VI through deceptive cadence, a beginning on VII-II, and extensions produced in different ways. Some of these solutions are risky to imitate mechanically. The point is to understand what makes each exception function in context.",
         instruction:
-          "Open all five Ex. 60 tabs. Then play the quasi-sequential application. For each source tab ask: is Schoenberg presenting a normal procedure, an analyzable exception, or a warning?",
+          "Work through Ex. 60, then listen to the quasi-sequential study. For each case ask whether it demonstrates a normal procedure, an unusual exception, or a warning about what is risky to imitate.",
         recognition:
           "Can you understand why an exceptional passage works without mistaking the exception for a default recipe?",
         source: {
@@ -499,7 +499,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         learn:
           "Trace a sentence in which melody, accompaniment and motive-forms change roles while the underlying process remains comprehensible.",
         explanation:
-          "Schoenberg says Ex. 61a is less complicated than it first appears and notes that melody need not always occupy the highest voice. In Ex. 61b, one-measure phrases are reduced to half-measure residues; he calls it a clear illustration of the style of 'developing variation'. Ex. 61d shows another kind of extension through insertion and refrain-like return.",
+          "Ex. 61a is less complicated than it first appears and shows that melody need not always occupy the highest voice. In Ex. 61b, one-measure phrases are reduced to half-measure residues, giving a clear example of developing variation. Ex. 61d shows another kind of extension through insertion and refrain-like return.",
         instruction:
           "Open all five Ex. 61 tabs. Then play the liquidation application. Listen for the important distinction: developing variation changes the material progressively, while liquidation eventually strips characteristic detail away.",
         recognition:
@@ -530,7 +530,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         learn:
           "Use the chapter's complete lesson: establish clearly, develop as remotely as comprehensibility permits, justify extensions, liquidate and delimit.",
         explanation:
-          "Schoenberg's examples show that the practice form is a foundation, not a cage. Longer or irregular sentences become intelligible when their extra length follows motivic and formal logic - remote forms may need repetition, sequences may extend, insertions may be diagnosed, and residues can prepare cadence.",
+          "The practice form is a foundation, not a cage. Longer or irregular sentences remain intelligible when their extra length follows motivic and formal logic: remote forms may need repetition, sequences may extend, insertions can create expansion, and residues can prepare a cadence.",
         instruction:
           "Build a fresh complete sentence. Edit at least four continuation pitches in steps 17-24, listen to the full form, and compare at least two notation views. Keep the ending only if you can explain why the continuation is related, why any extension is justified, and why liquidation makes the cadence possible.",
         recognition:

@@ -19,7 +19,7 @@ const lesson = lessonContentSchema.parse({
   eyebrow: "Schoenberg · Chapters I-II",
   hero: "Learn how a small musical unit becomes comprehensible, varied and usable.",
   description:
-    "Schoenberg begins with comprehensibility, logic and coherence, then treats the phrase as the smallest structural unit. His phrase examples move from literature to practical studies: chord tones, changing note-values, upbeats, passing notes, repetitions and embellishment.",
+    "A phrase is the smallest structural unit that can be heard as a coherent musical thought. The lesson moves from recognising complete phrases to constructing them with chord tones, changing note-values, upbeats, passing notes, repetitions and embellishment.",
   overview:
     "This lesson now follows that progression in detail. Analyse literature examples, then work through the practical sequence of Examples 5-11 before constructing your own phrase study.",
 });
@@ -55,7 +55,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Hear the phrase as a small structural unit, then locate the characteristic material that helps it hold together.",
         explanation:
-          "Chapter I defines form in terms of organization, logic and coherence. Chapter II then calls the phrase the smallest structural unit, comparable to something sung in one breath. Schoenberg stresses continuity and forward movement, with phrase endings normally differentiated enough to create punctuation.",
+          "A phrase is a small structural unit that can be grasped as one coherent thought, comparable to something sung in one breath. Continuity and forward movement hold it together, while the ending is normally differentiated enough to create punctuation.",
         instruction:
           "Play the phrase once without looking for labels. Then mark steps 1-4 as the opening characteristic idea and switch between at least two notation views. Treat the bracket as analysis of the phrase, not as a claim that every phrase is four notes long.",
         recognition:
@@ -105,11 +105,11 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         letter: "B",
         title: "Literature: phrase identity can survive change",
         learn:
-          "Read Schoenberg's literature examples as evidence that phrases can differ greatly in surface while remaining intelligible units.",
+          "Hear how phrases can differ greatly in surface while remaining intelligible musical units.",
         explanation:
-          "Examples 1-2 collect short phrases from Beethoven and other composers. They differ in length, contour and rhythmic activity. The point is not that one contour defines a phrase; it is that a phrase can be grasped as a unit through the coordination of melodic, rhythmic and harmonic factors. Ex. 2e is reproduced below as native, playable notation from the book.",
+          "Examples 1-2 collect short phrases from Beethoven and other composers. They differ in length, contour and rhythmic activity. No single contour defines a phrase: melodic shape, rhythm and harmony work together so that the listener hears the passage as one unit. Ex. 2e makes this especially clear through its two slurred spans and simple arpeggiated contour.",
         instruction:
-          "First play and study the native Ex. 2e from Beethoven's Symphony No. 3-I. Follow the two slurred spans, tonic-arpeggio contour and rhythmic shape as one phrase rather than reducing it to a fixed number of steps. Then use the interactive comparison below: audition Exact repeat, Related change and Unrelated change and choose Related change.",
+          "Play Ex. 2e and follow the two slurred spans, arpeggiated contour and rhythmic shape as one phrase. Then compare Exact repeat, Related change and Unrelated change below and choose the version that changes the material while still sounding connected.",
         recognition:
           "Which version sounds changed while still belonging to the same musical thought?",
         source: {
@@ -207,11 +207,11 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         letter: "D",
         title: "Ex. 5 - make melody from chord tones",
         learn:
-          "Experience Schoenberg's first practical phrase exercise: several melodic units can be invented from one fixed harmony.",
+          "Invent several different melodic units while keeping the harmony fixed.",
         explanation:
-          "In his Comment on Examples, Schoenberg recommends making many phrase sketches over a predetermined harmony. Example 5 takes the tonic of F major and creates different melodic contours from arrangements of the chord tones. The limitation is deliberate: invention is practised while harmony stays fixed.",
+          "Making many phrase sketches over a predetermined harmony isolates melodic invention from harmonic choice. Example 5 keeps an F-major tonic fixed and creates different contours by rearranging its chord tones. The limitation is deliberate: only the melody is allowed to change.",
         instruction:
-          "First play the native Ex. 5a exactly as Schoenberg prints it: F-A-C over the fixed F-major tonic. Then use the broader Ex. 5 analysis map to see what the group varies. After that, make the same kind of constrained study in PLAY / LAB, transposed to C major: write at least six notes in steps 1-8 using only C, E and G, listen, and revise at least one step.",
+          "Play Ex. 5a: F-A-C over a fixed F-major tonic. Notice that the harmony stays fixed while the melodic shape changes. Then make the same kind of study below in C major: write at least six notes in steps 1-8 using only C, E and G, listen, and revise at least one step.",
         recognition:
           "How many genuinely different melodic shapes can the same three chord tones produce?",
         source: {
@@ -256,9 +256,9 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Hear how rhythm alone can produce a different phrase character while the pitch material stays restricted.",
         explanation:
-          "After the simple broken-chord contours of Ex. 5, Schoenberg's Ex. 6 uses smaller note-values. His comment is explicit: the smaller values produce different results even though the harmonic basis has not changed.",
+          "After the simple broken-chord contours of Ex. 5, Ex. 6 uses smaller note-values. The harmonic basis stays the same, but the shorter durations create a noticeably different melodic result.",
         instruction:
-          "First play the native Ex. 6a from the book and compare it with Ex. 5a: the pitch material is still simple, but the note-values are shorter. Then play the PLAY / LAB reduction and inspect Staff and Degrees before choosing the matching answer.",
+          "Play Ex. 6a and compare it with Ex. 5a. The pitch material remains simple, but the shorter note-values make the phrase more active. Then inspect the Staff and Degrees views below and choose the statement that describes the change.",
         recognition:
           "Does the phrase feel more active even though it still lives inside the same simple harmonic world?",
         source: {
@@ -292,9 +292,9 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Hear how pickup motion and mixed durations can make the same restricted pitch material more flexible.",
         explanation:
-          "Example 7 remains confined to chord tones but combines different note-values and adds upbeats. Schoenberg uses it to show how much variety can be created before passing notes or chromatic embellishment are introduced.",
+          "Example 7 remains confined to chord tones but combines different note-values and adds upbeats. This already creates substantial variety before any passing notes or chromatic embellishment are introduced.",
         instruction:
-          "First play the native Ex. 7a and hear the printed B-flat upbeat lead into the longer F-D span. Then play the PLAY / LAB reduction and look at its rests and mixed durations in Staff view. Choose the answer that best describes what Ex. 7 adds to the earlier studies.",
+          "Play Ex. 7a and hear how the B-flat upbeat leads into the longer F-D span. Then inspect the rests and mixed durations in Staff view and choose the answer that best describes what this adds to the earlier studies.",
         recognition:
           "Can a phrase become more fluid before you add any new harmonic pitch?",
         source: {
@@ -330,9 +330,9 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Hear passing notes as a way of adding fluency between structural chord tones.",
         explanation:
-          "Schoenberg says Exs. 8 and 9 build on Exs. 5 and 7 and show how simple melodic and rhythmic additions contribute fluency and vitality. Ex. 8 specifically varies Ex. 5 by adding passing notes.",
+          "Examples 8 and 9 build on the earlier chord-tone and rhythmic studies. Simple melodic and rhythmic additions make the line more fluent and lively; Ex. 8 does this by adding passing notes to the material of Ex. 5.",
         instruction:
-          "First play native Ex. 8a and follow F-A-B-flat-C: the added B-flat connects the structural tones directly in Schoenberg's printed example. Then play the PLAY / LAB reduction and choose the technique being added.",
+          "Play Ex. 8a and follow F-A-B-flat-C. The added B-flat connects the structural tones by step. Then compare the study below and choose the technique being added.",
         recognition:
           "Which notes feel like connective motion rather than new harmonic pillars?",
         source: {
@@ -370,7 +370,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Hear how local note repetition can join passing motion to a more articulated rhythmic surface.",
         explanation:
-          "Example 9 varies Ex. 7 by adding passing notes and note repetitions. This matters because Schoenberg is not adding complexity all at once: each example preserves earlier resources and adds another controllable device.",
+          "Example 9 varies Ex. 7 by adding passing notes and note repetitions. Complexity is introduced one device at a time, so the effect of each new resource remains easy to hear.",
         instruction:
           "Play the reduction and look for adjacent repeated pitches as well as stepwise connecting motion. Choose the description that matches Ex. 9.",
         recognition:
@@ -408,11 +408,11 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         letter: "I",
         title: "Exs. 10-11 - embellish, but do not obscure",
         learn:
-          "Hear the trade-off Schoenberg points out: embellishment can create flexibility and richness, but too many small notes can obscure the harmony.",
+          "Hear the trade-off in embellishment: extra detail can create flexibility and richness, but too many small notes can obscure the harmony.",
         explanation:
-          "Examples 10 and 11 continue the previous studies with more elaborate embellishment, changing notes and appoggiatura-like figures. Schoenberg explicitly warns that this richer detail can overburden the melody with small notes and obscure the harmonic basis.",
+          "Examples 10 and 11 continue the previous studies with more elaborate embellishment, changing notes and appoggiatura-like figures. The danger is overloading the melody with small notes until the harmonic basis becomes hard to hear.",
         instruction:
-          "Play the denser reduction and compare Staff with Degrees. Then choose the statement that matches Schoenberg's warning about these later examples.",
+          "Play the denser study and compare Staff with Degrees. Then choose the statement that best describes the risk created by too much embellishment.",
         recognition:
           "At what point does detail stop clarifying the line and start competing with the harmonic skeleton?",
         source: {
@@ -440,7 +440,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
           { label: "You listened to the denser reduction", complete: heardPlayback(experiments) },
           { label: "You inspected more than one notation", complete: inspectedTwoNotations(experiments) },
           { label: "The reduction includes chromatic ornamental detail", complete: hasChromaticDetail },
-          { label: "You identified Schoenberg's warning about obscuring harmony", complete: state?.decision === "related" },
+          { label: "You identified the risk of obscuring the harmony", complete: state?.decision === "related" },
         ];
       },
     },
@@ -450,9 +450,9 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         letter: "J",
         title: "Make your own phrase study",
         learn:
-          "Use Schoenberg's Chapter II practice method: constrain the material, make a phrase, then revise it until the elements coordinate naturally.",
+          "Constrain the material, make a phrase, then revise it until melody, rhythm and harmony coordinate naturally.",
         explanation:
-          "Schoenberg says a beginning composer's invention often does not flow freely and recommends making many phrase sketches over predetermined harmony. The sequence of Exs. 5-11 is a practical ladder: chord tones first, then rhythmic variety, upbeats, passing notes, repetitions and finally richer embellishment.",
+          "When invention does not yet flow freely, making many short phrase sketches over a predetermined harmony isolates the problem. Examples 5-11 form a practical ladder: chord tones first, then rhythmic variety, upbeats, passing notes, repetitions and finally richer embellishment.",
         instruction:
           "Write a phrase in steps 1-8 and a related continuation in steps 9-16. Start with C-E-G as structural tones, but you may add passing or changing notes. Use at least three notes in each half, listen, revise at least one step, and inspect two notation views before finishing.",
         recognition:
