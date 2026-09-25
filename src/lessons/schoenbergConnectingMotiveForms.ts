@@ -21,7 +21,7 @@ const lesson = lessonContentSchema.parse({
   description:
     "Chapter IV moves from making motive-forms to connecting them. Schoenberg names common content, rhythmic similarities and coherent harmony as sources of logic, then adds melodic balance and phrase shape before Examples 30-34 demonstrate increasingly remote ways of building phrases from one basic motive.",
   overview:
-    "The lesson keeps the earlier PLAY / LAB comparison and repair exercises, then follows the book's own progression through melodic waves and Examples 30-34. Schoenberg's own analytical distinctions are built into each source map; the editable workspace is the separate application layer.",
+    "Build phrases from related motive-forms by balancing common content with enough change to create motion. The exercises move from basic connection and melodic balance toward increasingly remote but still comprehensible variants.",
 });
 
 function inspectedTwoNotations(
