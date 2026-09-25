@@ -5,6 +5,13 @@ export type SchoenbergSourceEvent = {
   accidental?: "♭" | "♯" | "♮";
 };
 
+export type SchoenbergAnalysisSegment = {
+  label: string;
+  detail: string;
+  startEvent?: number;
+  endEvent?: number;
+};
+
 export type SchoenbergSourceScore = {
   kind: "score";
   id: string;
@@ -20,6 +27,7 @@ export type SchoenbergSourceScore = {
   events: SchoenbergSourceEvent[];
   slurs?: Array<{ start: number; end: number }>;
   annotation?: string;
+  analysis?: SchoenbergAnalysisSegment[];
 };
 
 export type SchoenbergSourceMap = {
@@ -29,10 +37,7 @@ export type SchoenbergSourceMap = {
   title: string;
   fidelity: "source-analysis";
   fidelityNote: string;
-  segments: Array<{
-    label: string;
-    detail: string;
-  }>;
+  segments: SchoenbergAnalysisSegment[];
 };
 
 export type SchoenbergSourceMaterial =
