@@ -3,15 +3,25 @@ import { schoenbergDevelopingVariationLesson } from "./schoenbergDevelopingVaria
 import { schoenbergConnectingMotiveFormsLesson } from "./schoenbergConnectingMotiveForms";
 import { schoenbergBeginningSentenceLesson } from "./schoenbergBeginningSentence";
 import { schoenbergCompletingSentenceLesson } from "./schoenbergCompletingSentence";
+import { schoenbergPeriodLesson } from "./schoenbergPeriod";
+import { schoenbergAccompanimentLesson } from "./schoenbergAccompaniment";
+import { schoenbergCharacterMoodLesson } from "./schoenbergCharacterMood";
+import { schoenbergMelodyThemeLesson } from "./schoenbergMelodyTheme";
+import { schoenbergSelfCriticismLesson } from "./schoenbergSelfCriticism";
 
 const laterLessons = [
   schoenbergDevelopingVariationLesson,
   schoenbergConnectingMotiveFormsLesson,
   schoenbergBeginningSentenceLesson,
   schoenbergCompletingSentenceLesson,
+  schoenbergPeriodLesson,
+  schoenbergAccompanimentLesson,
+  schoenbergCharacterMoodLesson,
+  schoenbergMelodyThemeLesson,
+  schoenbergSelfCriticismLesson,
 ];
 
-describe("Schoenberg S02-S05 teaching depth", () => {
+describe("Schoenberg S02-S10 teaching depth", () => {
   it("keeps every concept explanation substantial and multi-paragraph", () => {
     for (const lesson of laterLessons) {
       for (const exercise of lesson.exercises) {
