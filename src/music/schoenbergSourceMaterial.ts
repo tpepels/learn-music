@@ -1527,6 +1527,408 @@ export const schoenbergSourceMaterial: Record<
     "Ex. 61 uses Brahms, principally Cello Sonata Op. 38 and Violin Sonata Op. 78-II. This map follows Schoenberg's analysis, including his explicit use of 'developing variation'; native multi-voice transcription remains pending.",
   ),
 
+
+  "s06.period-overview": map(
+    "s06.period-overview",
+    "Chs. VI-VII",
+    "Antecedent and consequent",
+    [
+      {
+        label: "Postponed repetition",
+        detail:
+          "A period delays the larger return of its opening idea. Contrasting but related material intervenes before the opening is heard again.",
+      },
+      {
+        label: "Antecedent",
+        detail:
+          "The first half joins the opening phrase to more remote motive-forms and reaches a caesura - a perceptible punctuation in melody and harmony.",
+      },
+      {
+        label: "Consequent",
+        detail:
+          "The second half returns enough of the antecedent to be recognised, but changes what is needed to reach a stronger cadence.",
+      },
+      {
+        label: "Practice form",
+        detail:
+          "Four measures plus four measures is a useful practice model, not a law. Real periods can extend, contract and redistribute their functions.",
+      },
+    ],
+    "Source-grounded analytical map of Chapters VI-VII. Native transcriptions of the printed literature examples 42-51 remain pending.",
+  ),
+
+  "s06.antecedent": map(
+    "s06.antecedent",
+    "Ch. VI",
+    "How the antecedent creates contrast",
+    [
+      {
+        label: "Move beyond the opening",
+        detail:
+          "The later part of the antecedent should normally use more remote motive-forms instead of immediately repeating the first phrase.",
+      },
+      {
+        label: "Increase or reduce activity",
+        detail:
+          "Contrast can come from an increase in smaller note-values, but reduction and longer values can also mark a change of function.",
+      },
+      {
+        label: "Change contour or register",
+        detail:
+          "A shift of direction, register or contour can create contrast while preserving enough common material for coherence.",
+      },
+      {
+        label: "Shape the caesura",
+        detail:
+          "The antecedent ending is often marked by a changed contour, a recession from a high point, reduced activity and harmonic punctuation.",
+      },
+      {
+        label: "Bridge a remote form",
+        detail:
+          "If the move to a remote derivative feels abrupt, a shared feature such as an upbeat or preceding motive-form can act as a connective.",
+      },
+    ],
+    "Analytical reconstruction of the antecedent-construction principles in Chapter VI. It does not reproduce any untranscribed score example.",
+  ),
+
+  "s06.consequent": map(
+    "s06.consequent",
+    "Ch. VII",
+    "How the consequent returns and closes",
+    [
+      {
+        label: "Modified return",
+        detail:
+          "The consequent is a repetition of the antecedent in function, but an unchanged complete copy is rare. At least the cadence normally changes.",
+      },
+      {
+        label: "Change harmony early enough",
+        detail:
+          "A stronger final cadence may require harmonic deviation before the last moment, sometimes beginning well before the final phrase.",
+      },
+      {
+        label: "Cadence contour",
+        detail:
+          "As the harmony approaches closure, the melody usually assumes a recognisable cadential shape that contrasts with the preceding continuation.",
+      },
+      {
+        label: "Rhythm can carry identity",
+        detail:
+          "Preserving a characteristic rhythm can keep the return comprehensible even when melodic contour and interval detail change substantially.",
+      },
+      {
+        label: "Lengths can be irregular",
+        detail:
+          "Literature periods frequently depart from the simple eight-measure model when extension or remote material requires more space.",
+      },
+    ],
+    "Analytical reconstruction of the consequent principles in Chapter VII. Native notation for examples 42-51 remains pending.",
+  ),
+
+  "s07.accompaniment-function": map(
+    "s07.accompaniment-function",
+    "Ch. IX",
+    "Accompaniment has a musical job",
+    [
+      {
+        label: "Complement the subject",
+        detail:
+          "Accompaniment should support tonality, rhythm, phrasing, contour, character and mood rather than behave as an unrelated addition.",
+      },
+      {
+        label: "Reveal harmony",
+        detail:
+          "One central task is to make the implied harmony clear, especially when the melodic line alone is ambiguous.",
+      },
+      {
+        label: "Create a unifying motion",
+        detail:
+          "A recurring accompanimental movement can bind a passage together even while its harmony changes.",
+      },
+      {
+        label: "Respect the instrument",
+        detail:
+          "A useful accompaniment fits the practical resources and limitations of the instrument or ensemble that must play it.",
+      },
+    ],
+  ),
+
+  "s07.accompaniment-space": map(
+    "s07.accompaniment-space",
+    "Ch. IX - Omissibility",
+    "When accompaniment can disappear",
+    [
+      {
+        label: "Self-sufficient melody",
+        detail:
+          "A melodically and harmonically clear passage can sometimes stand alone. Removing support can increase transparency and contrast.",
+      },
+      {
+        label: "Upbeats and openings",
+        detail:
+          "Unaccompanied pickups and openings can work when their harmonic meaning remains clear.",
+      },
+      {
+        label: "Ambiguity needs support",
+        detail:
+          "When harmony or rhythm becomes difficult to infer, accompaniment becomes structurally useful rather than optional.",
+      },
+    ],
+  ),
+
+  "s07.accompaniment-motive": map(
+    "s07.accompaniment-motive",
+    "Ch. IX - Motive of the Accompaniment",
+    "Give the accompaniment its own motive",
+    [
+      {
+        label: "Simple rhythmic identity",
+        detail:
+          "An accompanimental motive is usually simpler than the principal melodic motive. Repeated rhythm is often enough to establish its identity.",
+      },
+      {
+        label: "Adapt to harmony",
+        detail:
+          "The pattern should survive harmonic change by adapting its pitches while preserving its characteristic motion.",
+      },
+      {
+        label: "Be able to change or stop",
+        detail:
+          "A good accompanimental motive can be modified, liquidated or abandoned when the theme, cadence or texture requires a different treatment.",
+      },
+    ],
+  ),
+
+  "s07.accompaniment-bass": map(
+    "s07.accompaniment-bass",
+    "Ch. IX - Bass Line",
+    "Treat the bass as a second melody",
+    [
+      {
+        label: "Follow harmonic function",
+        detail:
+          "The bass clarifies roots and inversions, but it should still form a coherent line rather than jump mechanically from chord to chord.",
+      },
+      {
+        label: "Use contour and continuity",
+        detail:
+          "Register, direction, repeated notes and leaps all affect whether the bass feels like a musical line rather than a list of roots.",
+      },
+      {
+        label: "Inversions can improve fluency",
+        detail:
+          "A different bass chord tone can smooth the line when strict root position would create awkward repetition or large jumps.",
+      },
+    ],
+  ),
+
+  "s08.character": map(
+    "s08.character",
+    "Ch. X",
+    "Character comes from combined musical choices",
+    [
+      {
+        label: "Tempo is not enough",
+        detail:
+          "Two pieces at a similar speed can have very different characters. Rhythm, articulation, register, harmony and accompaniment all contribute.",
+      },
+      {
+        label: "Rhythm is highly characteristic",
+        detail:
+          "Recurring rhythmic behaviour can establish a manner of movement that is recognised before individual pitches are remembered.",
+      },
+      {
+        label: "Accompaniment matters",
+        detail:
+          "The same melodic idea can acquire a different character when its supporting texture, articulation or accompanimental motion changes.",
+      },
+      {
+        label: "Keep a definite character in mind",
+        detail:
+          "A clear imagined manner - calm, agitated, playful, solemn, flowing - helps individual compositional choices point in the same direction.",
+      },
+    ],
+  ),
+
+  "s08.descriptive-motion": map(
+    "s08.descriptive-motion",
+    "Ex. 68",
+    "Descriptive motion in the literature",
+    [
+      {
+        label: "Flowing water",
+        detail:
+          "Continuous flowing motion can make a texture suggest a brook or river without literally imitating one sound.",
+      },
+      {
+        label: "Flickering fire",
+        detail:
+          "Rapid irregular movement and changing sonority can support an image of flickering flames.",
+      },
+      {
+        label: "Physical gesture",
+        detail:
+          "Repeated figures, trills and directional gestures can suggest movement such as tearing, turning or creaking.",
+      },
+      {
+        label: "Musical coherence first",
+        detail:
+          "The descriptive association is convincing only when the rhythmic and harmonic material also works as organised music.",
+      },
+    ],
+    "Source-analysis map of the descriptive examples discussed with Example 68. No note-for-note transcription is claimed.",
+  ),
+
+  "s09.vocal-melody": map(
+    "s09.vocal-melody",
+    "Ch. XI - Vocal Melody",
+    "Singability as a starting point",
+    [
+      {
+        label: "Smooth connection",
+        detail:
+          "Stepwise motion and moderate intervals make successive tones easier to connect and remember as one line.",
+      },
+      {
+        label: "Wave-like contour",
+        detail:
+          "A balanced melody usually rises and falls in waves instead of moving continuously in one direction.",
+      },
+      {
+        label: "Use register purposefully",
+        detail:
+          "Extreme high notes attract attention and are most effective when reserved for structurally important points such as a climax.",
+      },
+      {
+        label: "Harmony supports intonation",
+        detail:
+          "A line is easier to grasp when dissonance, chromaticism and modulation remain coordinated with a clear harmonic context.",
+      },
+    ],
+  ),
+
+  "s09.instrumental-melody": map(
+    "s09.instrumental-melody",
+    "Ch. XI - Instrumental Melody",
+    "Instrumental freedom still needs control",
+    [
+      {
+        label: "Wider technical possibilities",
+        detail:
+          "Instruments can sustain, leap, repeat and move rapidly in ways that exceed ordinary vocal limitations.",
+      },
+      {
+        label: "Instrument-specific limits remain",
+        detail:
+          "Range, fingering, breath, articulation and timbre still determine which melodic gestures feel natural on a particular instrument.",
+      },
+      {
+        label: "Singable thinking remains useful",
+        detail:
+          "Even a line no human voice could perform can benefit from continuity, balance and phrase direction associated with singing.",
+      },
+    ],
+  ),
+
+  "s09.melody-theme": map(
+    "s09.melody-theme",
+    "Ch. XI - Melody versus Theme",
+    "A melody and a theme do different jobs",
+    [
+      {
+        label: "Melody tends toward self-containment",
+        detail:
+          "A melody can present a balanced, relatively complete line whose internal phrasing gives it a strong sense of identity on its own.",
+      },
+      {
+        label: "A theme implies consequences",
+        detail:
+          "A theme can deliberately create unrest or a structural problem that gains meaning through what later sections do with it.",
+      },
+      {
+        label: "Context defines the function",
+        detail:
+          "The same attractive succession of notes is not automatically a theme. Its formal tendency and the continuation it demands matter.",
+      },
+    ],
+  ),
+
+  "s10.self-criticism": map(
+    "s10.self-criticism",
+    "Ch. XII",
+    "A practical revision loop",
+    [
+      {
+        label: "Listen separately",
+        detail:
+          "Hear melody and harmony on their own as well as together. One layer can hide weaknesses in another.",
+      },
+      {
+        label: "Analyse",
+        detail:
+          "Identify the characteristic motive-features, what is actually being developed and where passages contain little structural content.",
+      },
+      {
+        label: "Eliminate non-essentials",
+        detail:
+          "Remove embellishment, remote variation or register changes that add activity without improving the musical argument.",
+      },
+      {
+        label: "Avoid monotony",
+        detail:
+          "Check repeated tones and figures, contour, compass, climax and phrase endings for unnecessary sameness.",
+      },
+      {
+        label: "Watch the bass",
+        detail:
+          "Treat the bass as a second melody with its own rhythm, contour and continuity rather than an automatic sequence of roots.",
+      },
+      {
+        label: "Make many sketches",
+        detail:
+          "Try several methods and variants, then combine the strongest results. Systematic sketching can stimulate invention.",
+      },
+      {
+        label: "Watch the harmony",
+        detail:
+          "Review harmonic rhythm, root progression and bass motion together. Activity on the surface cannot compensate for a static or incoherent foundation.",
+      },
+    ],
+  ),
+
+  "s10.diagnostics": map(
+    "s10.diagnostics",
+    "Ch. XII - Illustrations of Self-Criticism",
+    "Diagnose the actual problem",
+    [
+      {
+        label: "Break too pronounced",
+        detail:
+          "A discontinuity can sometimes be repaired by connecting the harmony or carrying a feature across the boundary.",
+      },
+      {
+        label: "Passage feels empty",
+        detail:
+          "A span can be rhythmically active yet contribute little new motive, harmonic or formal information.",
+      },
+      {
+        label: "Surface is overcrowded",
+        detail:
+          "Chromatic or ornamental activity can become disproportionate to the simpler material around it.",
+      },
+      {
+        label: "Harmony is static",
+        detail:
+          "Busy melodic motion cannot by itself create direction if the underlying harmonic progression remains inert.",
+      },
+      {
+        label: "Harmony changes too quickly",
+        detail:
+          "Too many remote harmonies in a short span can make an otherwise simple context feel unbalanced and difficult to grasp.",
+      },
+    ],
+  ),
+
 };
 
 export function getSchoenbergSourceMaterial(
