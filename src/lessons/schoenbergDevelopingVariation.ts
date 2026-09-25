@@ -20,7 +20,7 @@ const lesson = lessonContentSchema.parse({
   description:
     "Chapter III first asks what constitutes a motive, then distinguishes exact, modified and developed repetition. Schoenberg's Examples 12-16 come from literature and isolate characteristic features; Examples 17-29 then vary one broken-chord motive systematically through rhythm, interval, metric placement, harmony and melodic adaptation.",
   overview:
-    "The lesson follows that order rather than collapsing the chapter into generic transformations. Source material from Examples 12-29 is built into the lesson as native score data where verified and interactive source-analysis maps elsewhere; the study workspace then applies those same distinctions.",
+    "Work from recognisable motive identity toward progressively freer variation. The lesson moves from characteristic features to exact transformations, rhythmic change, embellishment, metric displacement, harmonic adaptation and finally combined treatment.",
 });
 
 function inspectedTwoNotations(
