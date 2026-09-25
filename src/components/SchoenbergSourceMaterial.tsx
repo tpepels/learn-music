@@ -534,6 +534,10 @@ function SourceScore({
               ys,
               stemDirection,
             );
+            const leftmostNoteheadX =
+              x + Math.min(0, ...noteheadOffsets);
+            const rightmostNoteheadX =
+              x + Math.max(0, ...noteheadOffsets);
             const stemDown = stemDirection === "down";
             const highestY = ys.length ? Math.min(...ys) : y;
             const lowestY = ys.length ? Math.max(...ys) : y;
@@ -603,7 +607,7 @@ function SourceScore({
                           ))}
                           {accidental ? (
                             <text
-                              x={noteX - 17 - pitchIndex * 2}
+                              x={leftmostNoteheadX - 17 - pitchIndex * 2}
                               y={noteY + 5}
                               className="source-score-accidental"
                             >
@@ -618,7 +622,7 @@ function SourceScore({
                             className={open ? "is-open" : ""}
                           />
                           {dotted ? (
-                            <circle cx={noteX + 13} cy={noteY} r="1.8" />
+                            <circle cx={rightmostNoteheadX + 13} cy={noteY} r="1.8" />
                           ) : null}
                         </g>
                       );
