@@ -211,6 +211,36 @@ describe("Schoenberg source material", () => {
     expect(naturalB?.accidental).toBe("♮");
   });
 
+  it("stores Mozart K. 280-I Ex. 59a as the complete native fourteen-measure excerpt", () => {
+    const material = getSchoenbergSourceMaterial("s05.ex59a");
+    expect(material?.kind).toBe("score");
+    if (!material || material.kind !== "score") return;
+
+    expect(material.keyLabel).toContain("F major");
+    expect(material.meter).toBe("3/4");
+    expect(material.durationUnit).toBe("sixteenth");
+    expect(material.barlines).toHaveLength(14);
+    expect(material.barlines?.at(-1)).toBe(168);
+    expect(material.events.some((event) => event.staff === "bass")).toBe(true);
+    expect(material.events.some((event) => Array.isArray(event.midi))).toBe(true);
+    expect(material.events.some((event) => event.at === 144)).toBe(true);
+    expect(material.analysis?.map((segment) => segment.label)).toEqual([
+      "mm. 5-6: short phrase pair",
+      "mm. 7-11: interpolation",
+      "mm. 12-14: return toward closure",
+    ]);
+  });
+
+  it("identifies the actual composers in Schoenberg's S05 literature groups", () => {
+    const ex57 = getSchoenbergSourceMaterial("s05.ex57-58");
+    const ex60 = getSchoenbergSourceMaterial("s05.ex60");
+    const ex61 = getSchoenbergSourceMaterial("s05.ex61");
+
+    expect(ex57?.title).toMatch(/Bach and Haydn/);
+    expect(ex60?.title).toMatch(/Schubert/);
+    expect(ex61?.title).toMatch(/Brahms/);
+  });
+
   it("makes every native source score interactive beyond passive playback", () => {
     const scores = Object.values(schoenbergSourceMaterial).filter(
       (material) => material.kind === "score",
