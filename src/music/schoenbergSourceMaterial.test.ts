@@ -155,6 +155,20 @@ describe("Schoenberg source material", () => {
     expect(augmentation.meter).toBeUndefined();
   });
 
+  it("stores Ex. 31a with its retained rhythmic profile", () => {
+    const material = getSchoenbergSourceMaterial("s03.ex31a");
+    expect(material?.kind).toBe("score");
+    if (!material || material.kind !== "score") return;
+
+    expect(material.durationUnit).toBe("sixteenth");
+    expect(material.events.map((event) => event.midi)).toEqual([
+      74, 72, 70, 72, 74, 72, 70,
+    ]);
+    expect(material.events.map((event) => event.duration)).toEqual([
+      2, 2, 6, 2, 2, 1, 1,
+    ]);
+  });
+
   it("makes every native source score interactive beyond passive playback", () => {
     const scores = Object.values(schoenbergSourceMaterial).filter(
       (material) => material.kind === "score",
