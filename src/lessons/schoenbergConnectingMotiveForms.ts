@@ -431,7 +431,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
           "Can you still trace the derivation even when several characteristic features are being altered at once?",
         source: {
           reference: "Example 33 - farther-reaching variations through combined changes",
-          exampleIds: ["s03.ex33"],
+          exampleIds: ["s03.ex31", "s03.ex32", "s03.ex33"],
           focus:
             "The source map records Schoenberg's farther-reaching combined changes in Ex. 33. The study below deliberately combines parameters as application.",
         },
