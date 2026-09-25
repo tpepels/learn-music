@@ -8,6 +8,11 @@ import { schoenbergAccompanimentLesson } from "./schoenbergAccompaniment";
 import { schoenbergCharacterMoodLesson } from "./schoenbergCharacterMood";
 import { schoenbergMelodyThemeLesson } from "./schoenbergMelodyTheme";
 import { schoenbergSelfCriticismLesson } from "./schoenbergSelfCriticism";
+import { schoenbergSmallTernaryLesson } from "./schoenbergSmallTernary";
+import { schoenbergIrregularConstructionLesson } from "./schoenbergIrregularConstruction";
+import { schoenbergMinuetLesson } from "./schoenbergMinuet";
+import { schoenbergScherzoLesson } from "./schoenbergScherzo";
+import { schoenbergThemeVariationsLesson } from "./schoenbergThemeVariations";
 
 const laterLessons = [
   schoenbergDevelopingVariationLesson,
@@ -19,9 +24,14 @@ const laterLessons = [
   schoenbergCharacterMoodLesson,
   schoenbergMelodyThemeLesson,
   schoenbergSelfCriticismLesson,
+  schoenbergSmallTernaryLesson,
+  schoenbergIrregularConstructionLesson,
+  schoenbergMinuetLesson,
+  schoenbergScherzoLesson,
+  schoenbergThemeVariationsLesson,
 ];
 
-describe("Schoenberg S02-S10 teaching depth", () => {
+describe("Schoenberg S02-S15 teaching depth", () => {
   it("keeps every concept explanation substantial and multi-paragraph", () => {
     for (const lesson of laterLessons) {
       for (const exercise of lesson.exercises) {
