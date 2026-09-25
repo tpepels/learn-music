@@ -2,6 +2,9 @@ name: Validate branch manually
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - ui/simplify-schoenberg-copy-and-notation
 
 permissions:
   contents: read
