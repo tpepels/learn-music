@@ -440,7 +440,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
           { label: "You listened to the denser reduction", complete: heardPlayback(experiments) },
           { label: "You inspected more than one notation", complete: inspectedTwoNotations(experiments) },
           { label: "The reduction includes chromatic ornamental detail", complete: hasChromaticDetail },
-          { label: "You identified Schoenberg's warning about obscuring harmony", complete: state?.decision === "related" },
+          { label: "You identified the risk of obscuring the harmony", complete: state?.decision === "related" },
         ];
       },
     },
