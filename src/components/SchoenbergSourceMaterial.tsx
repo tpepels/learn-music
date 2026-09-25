@@ -265,6 +265,36 @@ export function sourceStemDirection(
   return averageStep >= naturalDiatonicStep(middleLineMidi) ? "down" : "up";
 }
 
+export function sourceChordNoteheadOffsets(
+  ys: number[],
+  stemDirection: "up" | "down",
+): number[] {
+  const offsets = ys.map(() => 0);
+  if (ys.length < 2) return offsets;
+
+  const direction = stemDirection === "up" ? 13 : -13;
+  const indices = ys
+    .map((_, index) => index)
+    .sort((a, b) =>
+      stemDirection === "up"
+        ? ys[b] - ys[a] // low to high
+        : ys[a] - ys[b], // high to low
+    );
+
+  let previous: number | undefined;
+  for (const index of indices) {
+    if (
+      previous !== undefined &&
+      Math.abs(ys[index] - ys[previous]) <= 5.1
+    ) {
+      offsets[index] = offsets[previous] === 0 ? direction : 0;
+    }
+    previous = index;
+  }
+
+  return offsets;
+}
+
 function sourceRestGlyph(durationEighths: number): string {
   if (durationEighths >= 8) return "𝄻";
   if (durationEighths >= 4) return "𝄼";
@@ -500,6 +530,10 @@ function SourceScore({
               score.keySignature,
               eventAccidentals,
             );
+            const noteheadOffsets = sourceChordNoteheadOffsets(
+              ys,
+              stemDirection,
+            );
             const stemDown = stemDirection === "down";
             const highestY = ys.length ? Math.min(...ys) : y;
             const lowestY = ys.length ? Math.max(...ys) : y;
@@ -548,6 +582,7 @@ function SourceScore({
                   <>
                     {midis.map((midi, pitchIndex) => {
                       const noteY = ys[pitchIndex];
+                      const noteX = x + noteheadOffsets[pitchIndex];
                       const explicit = eventAccidentals[pitchIndex];
                       const accidental = sourceDisplayedAccidental(
                         midi,
@@ -559,8 +594,8 @@ function SourceScore({
                           {ledgerYs(noteY, clef, grand).map((ledgerY) => (
                             <line
                               key={ledgerY}
-                              x1={x - 11}
-                              x2={x + 11}
+                              x1={noteX - 11}
+                              x2={noteX + 11}
                               y1={ledgerY}
                               y2={ledgerY}
                               className="source-score-ledger"
@@ -568,7 +603,7 @@ function SourceScore({
                           ))}
                           {accidental ? (
                             <text
-                              x={x - 17 - pitchIndex * 2}
+                              x={noteX - 17 - pitchIndex * 2}
                               y={noteY + 5}
                               className="source-score-accidental"
                             >
@@ -576,14 +611,14 @@ function SourceScore({
                             </text>
                           ) : null}
                           <ellipse
-                            cx={x}
+                            cx={noteX}
                             cy={noteY}
                             rx="7.5"
                             ry="5.2"
                             className={open ? "is-open" : ""}
                           />
                           {dotted ? (
-                            <circle cx={x + 13} cy={noteY} r="1.8" />
+                            <circle cx={noteX + 13} cy={noteY} r="1.8" />
                           ) : null}
                         </g>
                       );
