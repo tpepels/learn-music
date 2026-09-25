@@ -92,6 +92,7 @@ describe("Schoenberg S02 - The motive", () => {
           "diminution",
           "augmentation",
         ]),
+        "source.play": experiment(2, ["s02.ex14b", "s02.ex14c"]),
       }),
     );
 
