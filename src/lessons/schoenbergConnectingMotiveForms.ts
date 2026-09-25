@@ -41,13 +41,9 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
         learn:
           "Hear the balance between common factors that create relationship and contrast that prevents the phrase from becoming stiff.",
         explanation:
-          "Musical logic can arise from several kinds of common factor at once. Shared pitch or interval content links forms to the same source; rhythmic similarity can make changed forms feel immediately related; coherent harmony can reinforce the connection even when the melodic surface changes. No single factor has to remain identical in every derivative.
-
-The practical problem is balance. Too much sameness produces stiffness and mere repetition; too little shared material makes the succession sound arbitrary. A convincing phrase keeps enough common ground for the listener to follow the derivation while allowing enough contrast for the music to move.",
+          "Musical logic can arise from several kinds of common factor at once. Shared pitch or interval content links forms to the same source; rhythmic similarity can make changed forms feel immediately related; coherent harmony can reinforce the connection even when the melodic surface changes. No single factor has to remain identical in every derivative.\n\nThe practical problem is balance. Too much sameness produces stiffness and mere repetition; too little shared material makes the succession sound arbitrary. A convincing phrase keeps enough common ground for the listener to follow the derivation while allowing enough contrast for the music to move.",
         instruction:
-          "Audition Too much sameness, Connected motive-forms and Disconnected ideas all the way through rather than judging the first changed cell alone. Listen for which version lets each new form feel like a consequence of what came before.
-
-Choose the version in which relationship remains audible without collapsing into exact repetition. Be able to name at least one common factor - rhythm, contour, interval content, pitch content or harmonic direction - that helps the chain hold together.",
+          "Audition Too much sameness, Connected motive-forms and Disconnected ideas all the way through rather than judging the first changed cell alone. Listen for which version lets each new form feel like a consequence of what came before.\n\nChoose the version in which relationship remains audible without collapsing into exact repetition. Be able to name at least one common factor - rhythm, contour, interval content, pitch content or harmonic direction - that helps the chain hold together.",
         recognition:
           "Can you hear one family of material across the phrase even though the later forms do not merely copy the first?",
         source: {
@@ -100,13 +96,9 @@ Choose the version in which relationship remains audible without collapsing into
         learn:
           "Use common factors to make a changed form feel prepared rather than abruptly inserted.",
         explanation:
-          "Connection is easier to hear when change is distributed rather than abrupt. An intermediate motive-form can preserve one feature from the earlier form while already introducing another feature that belongs to the later form. Rhythm, interval shape, contour and pitch content can all serve this bridging function.
-
-This makes the bridge more than a compromise between two endpoints. It can actively prepare the destination so that a remote form sounds earned when it arrives. The listener should be able to hear a chain of relationships, not simply notice that all three forms came from the same original source on paper.",
+          "Connection is easier to hear when change is distributed rather than abrupt. An intermediate motive-form can preserve one feature from the earlier form while already introducing another feature that belongs to the later form. Rhythm, interval shape, contour and pitch content can all serve this bridging function.\n\nThis makes the bridge more than a compromise between two endpoints. It can actively prepare the destination so that a remote form sounds earned when it arrives. The listener should be able to hear a chain of relationships, not simply notice that all three forms came from the same original source on paper.",
         instruction:
-          "The first and third forms are fixed. Compare Weak bridge, Connecting bridge and Foreign insertion in the middle position, but do not stop listening at the bridge itself.
-
-Continue into the destination and ask whether the middle form made that arrival more intelligible. Choose the bridge that preserves a perceptible line of relationship across all three forms rather than merely sounding pleasant in isolation.",
+          "The first and third forms are fixed. Compare Weak bridge, Connecting bridge and Foreign insertion in the middle position, but do not stop listening at the bridge itself.\n\nContinue into the destination and ask whether the middle form made that arrival more intelligible. Choose the bridge that preserves a perceptible line of relationship across all three forms rather than merely sounding pleasant in isolation.",
         recognition:
           "Does the middle form make the later form sound prepared, or does the phrase suddenly seem to start a different thought?",
         source: {
@@ -154,13 +146,9 @@ Continue into the destination and ask whether the middle form made that arrival 
         learn:
           "Restore a demonstrable relationship to the basic motive without turning every form into an exact copy.",
         explanation:
-          "A broken connection does not have to be repaired by restoring a literal copy. Derivation can remain audible through rhythmic features, transposed shapes, ancillary notes, displacement, reduction or omission. Different forms may preserve different evidence as long as the chain remains comprehensible.
-
-The useful question is therefore diagnostic: what exactly makes the offending form sound foreign? Repair only enough of that relationship to restore continuity. If every detail is forced back toward the source, the phrase loses the very variation that should make it progress.",
+          "A broken connection does not have to be repaired by restoring a literal copy. Derivation can remain audible through rhythmic features, transposed shapes, ancillary notes, displacement, reduction or omission. Different forms may preserve different evidence as long as the chain remains comprehensible.\n\nThe useful question is therefore diagnostic: what exactly makes the offending form sound foreign? Repair only enough of that relationship to restore continuity. If every detail is forced back toward the source, the phrase loses the very variation that should make it progress.",
         instruction:
-          "a and a¹ establish the family, but a² breaks the chain. Listen once before editing and decide whether the problem is mainly contour, interval pattern, pitch content or rhythmic placement.
-
-Edit steps 9-12 in Piano roll until a² shares enough evidence with the family to belong again. Then listen to all four forms from the beginning. Stop when the repair restores continuity without turning a² into a duplicate.",
+          "a and a¹ establish the family, but a² breaks the chain. Listen once before editing and decide whether the problem is mainly contour, interval pattern, pitch content or rhythmic placement.\n\nEdit steps 9-12 in Piano roll until a² shares enough evidence with the family to belong again. Then listen to all four forms from the beginning. Stop when the repair restores continuity without turning a² into a duplicate.",
         recognition:
           "After your repair, does a² sound like a changed member of the same family rather than a replacement idea?",
         source: {
@@ -206,13 +194,9 @@ Edit steps 9-12 in Piano roll until a² shares enough evidence with the family t
         learn:
           "Treat transformation as phrase construction: the forms now have to work together as a complete musical unit.",
         explanation:
-          "Motive-forms are not valuable merely because their derivation can be demonstrated. Once they are combined, they must also fulfil phrase functions: one form may establish the idea, another continue it, another intensify or contrast it, and another help the unit close. Derivation supplies coherence, but phrase direction supplies purpose.
-
-This is the point where motivic technique and form meet. A phrase built from perfectly related forms can still fail if it sounds like a catalogue. The forms must create an intelligible progression with a sense of beginning, continuation and enough completion to be grasped as one unit.",
+          "Motive-forms are not valuable merely because their derivation can be demonstrated. Once they are combined, they must also fulfil phrase functions: one form may establish the idea, another continue it, another intensify or contrast it, and another help the unit close. Derivation supplies coherence, but phrase direction supplies purpose.\n\nThis is the point where motivic technique and form meet. A phrase built from perfectly related forms can still fail if it sounds like a catalogue. The forms must create an intelligible progression with a sense of beginning, continuation and enough completion to be grasped as one unit.",
         instruction:
-          "Choose three transformations for a¹, a² and a³, but assign them phrase jobs rather than treating them as three independent demonstrations. Decide which form should feel like continuation, which should intensify or redirect the phrase, and which should help it settle.
-
-Listen to the complete result, inspect two notations, then revise at least one pitch if a connection feels weak or mechanical. Keep the derivation clear while making the four forms sound like one purposeful phrase.",
+          "Choose three transformations for a¹, a² and a³, but assign them phrase jobs rather than treating them as three independent demonstrations. Decide which form should feel like continuation, which should intensify or redirect the phrase, and which should help it settle.\n\nListen to the complete result, inspect two notations, then revise at least one pitch if a connection feels weak or mechanical. Keep the derivation clear while making the four forms sound like one purposeful phrase.",
         recognition:
           "Does this sound like a phrase with an internal direction, or merely four demonstrations placed next to each other?",
         source: {
@@ -259,13 +243,9 @@ Listen to the complete result, inspect two notations, then revise at least one p
         learn:
           "Hear a well-balanced melodic progression: elevations answered by depressions, intermediate high points, recessions and compensated leaps.",
         explanation:
-          "Melodic coherence depends not only on motivic derivation but also on the larger shape of the line. A balanced progression often moves in waves: elevations are answered by depressions, higher points are approached through lesser peaks and recessions, and long motion in one direction is eventually balanced by motion in the other.
-
-Large leaps can be made more intelligible when they are compensated by stepwise motion in the opposite direction, and a manageable overall compass helps the listener retain the line. These are not rigid formulas; they are ways of preventing a succession of locally related motive-forms from producing an ungainly global contour.",
+          "Melodic coherence depends not only on motivic derivation but also on the larger shape of the line. A balanced progression often moves in waves: elevations are answered by depressions, higher points are approached through lesser peaks and recessions, and long motion in one direction is eventually balanced by motion in the other.\n\nLarge leaps can be made more intelligible when they are compensated by stepwise motion in the opposite direction, and a manageable overall compass helps the listener retain the line. These are not rigid formulas; they are ways of preventing a succession of locally related motive-forms from producing an ungainly global contour.",
         instruction:
-          "Play the complete melody once without analysing it, then follow its rises and recessions in Staff view. Notice where an intermediate high point prepares the later, stronger one and where downward motion provides relief.
-
-Switch to Degrees and compare the same contour abstractly. Choose the description that best matches the large melodic wave rather than focusing on one isolated interval.",
+          "Play the complete melody once without analysing it, then follow its rises and recessions in Staff view. Notice where an intermediate high point prepares the later, stronger one and where downward motion provides relief.\n\nSwitch to Degrees and compare the same contour abstractly. Choose the description that best matches the large melodic wave rather than focusing on one isolated interval.",
         recognition:
           "Can you hear the second, higher point as prepared by the earlier rise and recession rather than as an isolated jump?",
         source: {
@@ -312,13 +292,9 @@ Switch to Degrees and compare the same contour abstractly. Choose the descriptio
         learn:
           "See the first phrase-building example as a demonstration that one derived broken-chord figure can generate a larger complete unit.",
         explanation:
-          "A single derivative can provide enough material for a complete phrase when its characteristic features are redistributed across a longer span. The point is not to repeat the derivative cell unchanged, but to let it generate successive related events whose local differences still point back to the same source.
-
-This creates continuity at two levels: the listener can recognise the derivation from cell to cell, while the accumulation of those cells forms a larger phrase with its own direction. The derivative becomes material for form rather than an object displayed repeatedly.",
+          "A single derivative can provide enough material for a complete phrase when its characteristic features are redistributed across a longer span. The point is not to repeat the derivative cell unchanged, but to let it generate successive related events whose local differences still point back to the same source.\n\nThis creates continuity at two levels: the listener can recognise the derivation from cell to cell, while the accumulation of those cells forms a larger phrase with its own direction. The derivative becomes material for form rather than an object displayed repeatedly.",
         instruction:
-          "Play the study through all four related cells and listen for both levels at once: the local resemblance between cells and the larger direction of the phrase.
-
-Choose the statement that best explains how one derivative can generate a complete unit. A correct answer should account for continuity as well as transformation.",
+          "Play the study through all four related cells and listen for both levels at once: the local resemblance between cells and the larger direction of the phrase.\n\nChoose the statement that best explains how one derivative can generate a complete unit. A correct answer should account for continuity as well as transformation.",
         recognition:
           "Do the later cells feel like consequences of one derivative rather than new material introduced each time?",
         source: {
@@ -360,13 +336,9 @@ Choose the statement that best explains how one derivative can generate a comple
         learn:
           "Hear how ancillary notes can vary the original form while its essential rhythmic features keep the motive-forms closely related.",
         explanation:
-          "Ancillary notes can change the pitch surface considerably without destroying identity when the essential rhythmic profile remains stable. The added notes decorate or fill the intervallic content, but the listener still recognises the same temporal pattern underneath.
-
-This is a useful example of unequal feature importance. Pitch detail is allowed to become more elaborate because rhythm is taking on a stronger unifying role. The closer the rhythmic correspondence, the farther some other features can move before the relationship becomes obscure.",
+          "Ancillary notes can change the pitch surface considerably without destroying identity when the essential rhythmic profile remains stable. The added notes decorate or fill the intervallic content, but the listener still recognises the same temporal pattern underneath.\n\nThis is a useful example of unequal feature importance. Pitch detail is allowed to become more elaborate because rhythm is taking on a stronger unifying role. The closer the rhythmic correspondence, the farther some other features can move before the relationship becomes obscure.",
         instruction:
-          "Play the complete rhythmic source until its duration profile is familiar. Then compare the changed cells without looking at the note names first and ask whether the rhythm alone is enough to identify the family.
-
-Finally inspect the pitches and ancillary notes. Listen for how much surface change becomes possible because the rhythmic skeleton remains unusually stable.",
+          "Play the complete rhythmic source until its duration profile is familiar. Then compare the changed cells without looking at the note names first and ask whether the rhythm alone is enough to identify the family.\n\nFinally inspect the pitches and ancillary notes. Listen for how much surface change becomes possible because the rhythmic skeleton remains unusually stable.",
         recognition:
           "If the pitch surface changes, can the rhythm still tell you immediately that the forms belong together?",
         source: {
@@ -408,13 +380,9 @@ Finally inspect the pitches and ancillary notes. Listen for how much surface cha
         learn:
           "Hear how strict rhythmic preservation can hold motive-forms together despite changes of interval, direction and transposition.",
         explanation:
-          "Rhythm can remain fixed even while intervals, contour direction and pitch level change. In such cases the repeated temporal profile becomes the principal carrier of identity, allowing the melodic surface to range much more freely than it could if every feature changed at once.
-
-Transposition extends this principle over larger spans. A recognisable rhythmic form can appear at different scale degrees and with different intervallic detail while still sounding like one family. This provides a practical way to generate thematic length without relying on literal melodic repetition.",
+          "Rhythm can remain fixed even while intervals, contour direction and pitch level change. In such cases the repeated temporal profile becomes the principal carrier of identity, allowing the melodic surface to range much more freely than it could if every feature changed at once.\n\nTransposition extends this principle over larger spans. A recognisable rhythmic form can appear at different scale degrees and with different intervallic detail while still sounding like one family. This provides a practical way to generate thematic length without relying on literal melodic repetition.",
         instruction:
-          "Play the four cells and first listen only for the repeated duration pattern. Then replay them while following contour and pitch level.
-
-Choose the statement that best describes why the cells remain related. The key is to separate the stable rhythmic identity from the freer melodic changes layered onto it.",
+          "Play the four cells and first listen only for the repeated duration pattern. Then replay them while following contour and pitch level.\n\nChoose the statement that best describes why the cells remain related. The key is to separate the stable rhythmic identity from the freer melodic changes layered onto it.",
         recognition:
           "How far can pitch direction change before the repeated rhythm becomes the main carrier of identity?",
         source: {
@@ -456,13 +424,9 @@ Choose the statement that best describes why the cells remain related. The key i
         learn:
           "Hear a more remote family resemblance when rhythm, ancillary notes, intervals and direction all change together.",
         explanation:
-          "More remote motive-forms arise when several kinds of change are combined: rhythm may shift while ancillary notes are added and interval size or direction also changes. Family resemblance then becomes distributed across partial clues rather than carried by one nearly exact feature.
-
-Such combinations are inherently risky. A result may be technically derived yet still sound stiff, crowded or opaque. Producing several versions is therefore part of the method: comparison reveals which combinations preserve enough comprehensibility and which have crossed the point where derivation is no longer audible.",
+          "More remote motive-forms arise when several kinds of change are combined: rhythm may shift while ancillary notes are added and interval size or direction also changes. Family resemblance then becomes distributed across partial clues rather than carried by one nearly exact feature.\n\nSuch combinations are inherently risky. A result may be technically derived yet still sound stiff, crowded or opaque. Producing several versions is therefore part of the method: comparison reveals which combinations preserve enough comprehensibility and which have crossed the point where derivation is no longer audible.",
         instruction:
-          "Play the cells after revisiting the two simpler source groups above. Identify which features have now changed simultaneously and which traces of the source remain.
-
-Choose the statement that best explains the family resemblance. Do not accept 'they use similar notes' as sufficient if rhythm, contour and interval treatment no longer support the connection.",
+          "Play the cells after revisiting the two simpler source groups above. Identify which features have now changed simultaneously and which traces of the source remain.\n\nChoose the statement that best explains the family resemblance. Do not accept 'they use similar notes' as sufficient if rhythm, contour and interval treatment no longer support the connection.",
         recognition:
           "Can you still trace the derivation even when several characteristic features are being altered at once?",
         source: {
@@ -504,13 +468,9 @@ Choose the statement that best explains the family resemblance. Do not accept 't
         learn:
           "Use rhythmic shifting, added upbeats, reduction and omission without letting remote motive-forms become incomprehensible.",
         explanation:
-          "Rhythmic shifts, added upbeats, reduction and omission can push a motive-form far from its starting point. Those procedures are useful because they create material for continuation, contrast and formal differentiation, but the same freedom can make the derivation difficult to follow.
-
-The final test is therefore formal as well as motivic. A remote form must still participate in a comprehensible phrase: entries should feel connected, reductions should seem purposeful, and omissions should help shape direction rather than merely fragment the material. Technical derivation alone does not guarantee musical logic.",
+          "Rhythmic shifts, added upbeats, reduction and omission can push a motive-form far from its starting point. Those procedures are useful because they create material for continuation, contrast and formal differentiation, but the same freedom can make the derivation difficult to follow.\n\nThe final test is therefore formal as well as motivic. A remote form must still participate in a comprehensible phrase: entries should feel connected, reductions should seem purposeful, and omissions should help shape direction rather than merely fragment the material. Technical derivation alone does not guarantee musical logic.",
         instruction:
-          "Play the passage from beginning to end and notice the rests, shifted entries and progressive thinning. Ask where each change helps the phrase continue and where it risks interrupting continuity.
-
-Choose the statement that captures both requirements: remote transformations can create useful contrast, but the result still has to be graspable as one phrase rather than as disconnected evidence of derivation.",
+          "Play the passage from beginning to end and notice the rests, shifted entries and progressive thinning. Ask where each change helps the phrase continue and where it risks interrupting continuity.\n\nChoose the statement that captures both requirements: remote transformations can create useful contrast, but the result still has to be graspable as one phrase rather than as disconnected evidence of derivation.",
         recognition:
           "Does the reduction still have enough continuity to sound intentionally derived, or have the shifts and omissions broken comprehensibility?",
         source: {
