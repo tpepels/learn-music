@@ -46,6 +46,7 @@ function SourceScore({
   score: SchoenbergSourceScore;
 }) {
   const [playingIndex, setPlayingIndex] = useState<number | null>(null);
+  const [activeAnalysis, setActiveAnalysis] = useState(0);
   const timers = useRef<number[]>([]);
   const recordLearningExperiment = useStudioStore(
     (state) => state.recordLearningExperiment,
@@ -103,6 +104,8 @@ function SourceScore({
   };
 
   const xForEvent = (index: number) => 130 + positions[index] * 34;
+  const analysis = score.analysis ?? [];
+  const activeSegment = analysis[activeAnalysis];
 
   return (
     <section className="source-score" aria-label={score.reference + " native score"}>
@@ -171,6 +174,13 @@ function SourceScore({
                 className={[
                   "source-score-event",
                   playingIndex === index ? "is-playing" : "",
+                  activeSegment &&
+                  activeSegment.startEvent !== undefined &&
+                  activeSegment.endEvent !== undefined &&
+                  index >= activeSegment.startEvent &&
+                  index <= activeSegment.endEvent
+                    ? "is-analysis-active"
+                    : "",
                 ].filter(Boolean).join(" ")}
                 onClick={() => {
                   if (event.midi !== null) {
@@ -272,6 +282,34 @@ function SourceScore({
         </svg>
       </div>
 
+      {analysis.length ? (
+        <div className="source-analysis-tabs is-score-analysis" role="tablist">
+          {analysis.map((entry, index) => (
+            <button
+              type="button"
+              key={entry.label}
+              className={activeAnalysis === index ? "is-active" : ""}
+              onClick={() => {
+                setActiveAnalysis(index);
+                recordLearningExperiment(
+                  "source.analysis",
+                  score.id + ":" + index,
+                );
+              }}
+              role="tab"
+              aria-selected={activeAnalysis === index}
+            >
+              {entry.label}
+            </button>
+          ))}
+        </div>
+      ) : null}
+      {activeSegment ? (
+        <div className="source-analysis-detail is-score-analysis">
+          <strong>{activeSegment.label}</strong>
+          <p>{activeSegment.detail}</p>
+        </div>
+      ) : null}
       <p className="source-material-fidelity">{score.fidelityNote}</p>
     </section>
   );
