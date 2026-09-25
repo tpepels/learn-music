@@ -106,6 +106,32 @@ describe("Schoenberg source material", () => {
     ]);
   });
 
+  it("stores Exs. 17a-19a as the printed broken-chord progression of techniques", () => {
+    const ex17a = getSchoenbergSourceMaterial("s02.ex17a");
+    const ex18a = getSchoenbergSourceMaterial("s02.ex18a");
+    const ex19a = getSchoenbergSourceMaterial("s02.ex19a");
+
+    expect(ex17a?.kind).toBe("score");
+    expect(ex18a?.kind).toBe("score");
+    expect(ex19a?.kind).toBe("score");
+    if (
+      !ex17a || ex17a.kind !== "score" ||
+      !ex18a || ex18a.kind !== "score" ||
+      !ex19a || ex19a.kind !== "score"
+    ) return;
+
+    expect(ex17a.events.map((event) => event.midi)).toEqual([72, 69, 65, 69]);
+    expect(ex17a.events.map((event) => event.duration)).toEqual([2, 2, 2, 2]);
+
+    expect(ex18a.events.map((event) => event.midi)).toEqual([
+      72, 70, 69, 65, 69,
+    ]);
+    expect(ex18a.events.map((event) => event.duration)).toEqual([2, 1, 1, 2, 2]);
+
+    expect(ex19a.events.map((event) => event.midi)).toEqual([69, 65, 60, 65]);
+    expect(ex19a.events.map((event) => event.duration)).toEqual([2, 2, 2, 2]);
+  });
+
   it("stores Ex. 14 diminution and augmentation as the same pitches at different scales", () => {
     const diminution = getSchoenbergSourceMaterial("s02.ex14b");
     const augmentation = getSchoenbergSourceMaterial("s02.ex14c");
@@ -127,6 +153,20 @@ describe("Schoenberg source material", () => {
     );
     expect(diminution.meter).toBeUndefined();
     expect(augmentation.meter).toBeUndefined();
+  });
+
+  it("stores Ex. 31a with its retained rhythmic profile", () => {
+    const material = getSchoenbergSourceMaterial("s03.ex31a");
+    expect(material?.kind).toBe("score");
+    if (!material || material.kind !== "score") return;
+
+    expect(material.durationUnit).toBe("sixteenth");
+    expect(material.events.map((event) => event.midi)).toEqual([
+      74, 72, 70, 72, 74, 72, 70,
+    ]);
+    expect(material.events.map((event) => event.duration)).toEqual([
+      2, 2, 6, 2, 2, 1, 1,
+    ]);
   });
 
   it("makes every native source score interactive beyond passive playback", () => {

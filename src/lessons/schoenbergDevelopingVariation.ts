@@ -229,14 +229,14 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         explanation:
           "Schoenberg says Examples 17-29 are based solely on a broken chord so the methods can be shown as systematically as practicable. Ex. 17 begins with rhythmic changes. His list includes changing note lengths, note repetitions and repetition of rhythmic features. The restricted pitch material is deliberate experimental control.",
         instruction:
-          "Compare Note lengths / rhythm with Note repetition. Listen to both against the same source half. The pitches are intentionally simple: concentrate on how different rhythmic treatment changes character and continuity.",
+          "Start with native Ex. 17a: play the four equal quarter notes and treat them as the baseline. Then open Schoenberg's Ex. 17 analysis map and compare his rhythmic operations. Only after that use the PLAY / LAB controls for Note lengths / rhythm and Note repetition.",
         recognition:
           "How much can the temporal shape change before the broken-chord identity stops being obvious?",
         source: {
           reference: "Example 17 - Developing variations of a motive based on a broken chord: Rhythmic changes",
-          exampleIds: ["s02.ex17"],
+          exampleIds: ["s02.ex17a", "s02.ex17"],
           focus:
-            "The source map preserves the rhythmic resources Schoenberg isolates in Ex. 17. The controls below apply two of those procedures to PLAY / LAB's own broken-chord study.",
+            "Ex. 17a is reproduced natively as the printed C-A-F-A quarter-note baseline. The source map then preserves the larger set of rhythmic resources Schoenberg explores; the controls below are separate PLAY / LAB application.",
         },
         terms: [
           {
@@ -276,15 +276,15 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         explanation:
           "The sequence is carefully staged. Ex. 18 adds ancillary notes. Ex. 19 changes the original order. Ex. 20 embellishes Ex. 19. Ex. 21 demonstrates reduction, omission and condensation. Schoenberg is showing that development is not synonymous with adding more notes - subtraction can be just as developmental.",
         instruction:
-          "Compare Ancillary notes, Order / direction and Reduction / condensation. Listen before looking, then inspect Staff. Leave selected the one whose process you can explain most clearly.",
+          "First compare native Ex. 18a and Ex. 19a. Hear B-flat inserted between C and A in Ex. 18a, then hear the broken-chord tones reordered as A-F-C-F in Ex. 19a. Use the Exs. 18-21 source map for the later embellishment and reduction stages, then apply Ancillary notes, Order / direction and Reduction / condensation in the workspace.",
         recognition:
           "Do you hear development as one generic kind of 'variation', or can you distinguish addition, reordering and reduction?",
         source: {
           reference:
             "Examples 18-21 - Addition of ancillary notes; Changing the original order; Embellishing Ex. 19; Reduction, omission, condensation",
-          exampleIds: ["s02.ex18-21"],
+          exampleIds: ["s02.ex18a", "s02.ex19a", "s02.ex18-21"],
           focus:
-            "The order matters: Schoenberg first adds, then reorders, then embellishes the reordered form, and finally demonstrates reduction and condensation.",
+            "Native Exs. 18a and 19a put the first two printed operations directly in the lesson. The source map continues the sequence through Exs. 20-21, so the application follows Schoenberg's order rather than collapsing the procedures together.",
         },
         terms: [
           {

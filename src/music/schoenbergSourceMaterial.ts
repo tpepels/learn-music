@@ -584,6 +584,116 @@ export const schoenbergSourceMaterial: Record<
       },
     ],
   ),
+  "s02.ex17a": {
+    kind: "score",
+    id: "s02.ex17a",
+    reference: "Ex. 17a",
+    title: "Broken-chord motive before rhythmic variation",
+    attribution: "Subexample a transcribed from Schoenberg's Ex. 17",
+    fidelity: "verified-excerpt",
+    fidelityNote:
+      "Native transcription of Ex. 17a from the supplied scan. The four-note C-A-F-A broken-chord motive is printed as four quarter notes; later Ex. 17 variants alter its rhythm. No time signature is printed for this isolated exercise, so PLAY / LAB does not invent one.",
+    clef: "treble",
+    keyLabel: "2 flats · printed key signature",
+    keySignature: -2,
+    bpm: 88,
+    events: [
+      { midi: 72, duration: 2 },
+      { midi: 69, duration: 2 },
+      { midi: 65, duration: 2 },
+      { midi: 69, duration: 2, barAfter: true },
+    ],
+    analysis: [
+      {
+        label: "fixed broken-chord pitches",
+        detail:
+          "C-A-F-A is deliberately plain. Schoenberg keeps the pitch identity obvious so the rhythmic changes in the following variants can be compared directly.",
+        startEvent: 0,
+        endEvent: 3,
+      },
+      {
+        label: "baseline rhythm",
+        detail:
+          "All four notes are quarter notes in Ex. 17a. Treat this as the baseline before comparing the later rhythmic variants.",
+        startEvent: 0,
+        endEvent: 3,
+      },
+    ],
+  },
+  "s02.ex18a": {
+    kind: "score",
+    id: "s02.ex18a",
+    reference: "Ex. 18a",
+    title: "Addition of an ancillary note",
+    attribution: "Subexample a transcribed from Schoenberg's Ex. 18",
+    fidelity: "verified-excerpt",
+    fidelityNote:
+      "Native transcription of Ex. 18a from the supplied scan. Schoenberg inserts B-flat between C and A while retaining the C-A-F-A broken-chord framework from Ex. 17.",
+    clef: "treble",
+    keyLabel: "2 flats · printed key signature",
+    keySignature: -2,
+    bpm: 88,
+    events: [
+      { midi: 72, duration: 2 },
+      { midi: 70, duration: 1 },
+      { midi: 69, duration: 1 },
+      { midi: 65, duration: 2 },
+      { midi: 69, duration: 2, barAfter: true },
+    ],
+    analysis: [
+      {
+        label: "source tones",
+        detail:
+          "C, A, F and A preserve the broken-chord source used in Ex. 17.",
+        startEvent: 0,
+        endEvent: 4,
+      },
+      {
+        label: "ancillary B-flat",
+        detail:
+          "The inserted B-flat fills the motion from C to A. The added note changes the intervallic surface without replacing the motive.",
+        startEvent: 0,
+        endEvent: 2,
+      },
+    ],
+  },
+  "s02.ex19a": {
+    kind: "score",
+    id: "s02.ex19a",
+    reference: "Ex. 19a",
+    title: "Changing the original order",
+    attribution: "Subexample a transcribed from Schoenberg's Ex. 19",
+    fidelity: "verified-excerpt",
+    fidelityNote:
+      "Native transcription of Ex. 19a from the supplied scan. The same F-major broken-chord material is reordered as A-F-C-F, keeping the pitch resource while changing its succession.",
+    clef: "treble",
+    keyLabel: "2 flats · printed key signature",
+    keySignature: -2,
+    bpm: 88,
+    events: [
+      { midi: 69, duration: 2 },
+      { midi: 65, duration: 2 },
+      { midi: 60, duration: 2 },
+      { midi: 65, duration: 2, barAfter: true },
+    ],
+    analysis: [
+      {
+        label: "same pitch resource",
+        detail:
+          "The pitches still belong to the same broken-chord family used in the preceding studies.",
+        startEvent: 0,
+        endEvent: 3,
+      },
+      {
+        label: "new order",
+        detail:
+          "A-F-C-F changes the succession itself. This is Schoenberg's next distinct operation after adding ancillary notes.",
+        startEvent: 0,
+        endEvent: 3,
+      },
+    ],
+  },
+
   "s02.ex17": map(
     "s02.ex17",
     "Ex. 17",
@@ -667,6 +777,47 @@ export const schoenbergSourceMaterial: Record<
       { label: "Phrase construction", detail: "The derivatives are ordered so they become a coherent phrase rather than isolated exercises." },
     ],
   ),
+  "s03.ex31a": {
+    kind: "score",
+    id: "s03.ex31a",
+    reference: "Ex. 31a",
+    title: "Closely related motive-form",
+    attribution: "First subexample transcribed from Schoenberg's Ex. 31",
+    fidelity: "verified-excerpt",
+    fidelityNote:
+      "Native transcription of the first complete bar of Ex. 31a from the supplied scan. The printed rhythm is preserved exactly; the following Ex. 31 variants remain in the source-analysis map until their full notation is transcribed.",
+    clef: "treble",
+    keyLabel: "2 flats · printed key signature",
+    keySignature: -2,
+    bpm: 92,
+    durationUnit: "sixteenth",
+    events: [
+      { midi: 74, duration: 2 },
+      { midi: 72, duration: 2 },
+      { midi: 70, duration: 6 },
+      { midi: 72, duration: 2 },
+      { midi: 74, duration: 2 },
+      { midi: 72, duration: 1 },
+      { midi: 70, duration: 1, barAfter: true },
+    ],
+    analysis: [
+      {
+        label: "essential rhythm",
+        detail:
+          "The eighth-eighth-dotted-quarter-eighth-eighth-sixteenth-sixteenth profile is one of the rhythmic identities Schoenberg preserves through the closely related forms that follow.",
+        startEvent: 0,
+        endEvent: 6,
+      },
+      {
+        label: "compact pitch relation",
+        detail:
+          "The line circles D-C-B-flat and returns through the same small collection, making the rhythmic profile especially easy to recognize.",
+        startEvent: 0,
+        endEvent: 6,
+      },
+    ],
+  },
+
   "s03.ex31": map(
     "s03.ex31",
     "Ex. 31",
