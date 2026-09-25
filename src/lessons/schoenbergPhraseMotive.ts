@@ -292,7 +292,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Hear how pickup motion and mixed durations can make the same restricted pitch material more flexible.",
         explanation:
-          "Example 7 remains confined to chord tones but combines different note-values and adds upbeats. Schoenberg uses it to show how much variety can be created before passing notes or chromatic embellishment are introduced.",
+          "Example 7 remains confined to chord tones but combines different note-values and adds upbeats. This already creates substantial variety before any passing notes or chromatic embellishment are introduced.",
         instruction:
           "Play Ex. 7a and hear how the B-flat upbeat leads into the longer F-D span. Then inspect the rests and mixed durations in Staff view and choose the answer that best describes what this adds to the earlier studies.",
         recognition:
@@ -330,7 +330,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Hear passing notes as a way of adding fluency between structural chord tones.",
         explanation:
-          "Schoenberg says Exs. 8 and 9 build on Exs. 5 and 7 and show how simple melodic and rhythmic additions contribute fluency and vitality. Ex. 8 specifically varies Ex. 5 by adding passing notes.",
+          "Examples 8 and 9 build on the earlier chord-tone and rhythmic studies. Simple melodic and rhythmic additions make the line more fluent and lively; Ex. 8 does this by adding passing notes to the material of Ex. 5.",
         instruction:
           "Play Ex. 8a and follow F-A-B-flat-C. The added B-flat connects the structural tones by step. Then compare the study below and choose the technique being added.",
         recognition:
@@ -452,7 +452,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Use Schoenberg's Chapter II practice method: constrain the material, make a phrase, then revise it until the elements coordinate naturally.",
         explanation:
-          "Schoenberg says a beginning composer's invention often does not flow freely and recommends making many phrase sketches over predetermined harmony. The sequence of Exs. 5-11 is a practical ladder: chord tones first, then rhythmic variety, upbeats, passing notes, repetitions and finally richer embellishment.",
+          "When invention does not yet flow freely, making many short phrase sketches over a predetermined harmony isolates the problem. Examples 5-11 form a practical ladder: chord tones first, then rhythmic variety, upbeats, passing notes, repetitions and finally richer embellishment.",
         instruction:
           "Write a phrase in steps 1-8 and a related continuation in steps 9-16. Start with C-E-G as structural tones, but you may add passing or changing notes. Use at least three notes in each half, listen, revise at least one step, and inspect two notation views before finishing.",
         recognition:
