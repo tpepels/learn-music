@@ -374,10 +374,10 @@ function SourceScore({
     event.staff ?? score.clef;
 
   return (
-    <section className="source-score" aria-label={score.reference + " score"}>
+    <section className="source-score" aria-label={score.title + " score"}>
       <div className="source-material-heading">
         <div>
-          <strong>{score.reference} · {score.title}</strong>
+          <strong>{score.title}</strong>
         </div>
         <button type="button" onClick={play}>Play example</button>
       </div>
@@ -393,7 +393,7 @@ function SourceScore({
           viewBox={`0 0 ${width} ${svgHeight}`}
           style={{ minWidth: width }}
           role="img"
-          aria-label={score.reference + " " + score.title}
+          aria-label={score.title}
         >
           {grand ? (
             <>
@@ -675,10 +675,10 @@ function SourceMap({
   const segment = material.segments[active];
 
   return (
-    <section className="source-analysis-map" aria-label={material.reference + " analysis map"}>
+    <section className="source-analysis-map" aria-label={material.title + " analysis"}>
       <div className="source-material-heading">
         <div>
-          <strong>{material.reference} · {material.title}</strong>
+          <strong>{material.title}</strong>
         </div>
       </div>
       <div className="source-analysis-tabs" role="tablist">
