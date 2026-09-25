@@ -16,7 +16,7 @@ const lesson = lessonContentSchema.parse({
   id: "schoenberg.beginning-sentence",
   number: 4,
   title: "Beginning the sentence",
-  eyebrow: "Schoenberg · Chapter V · Construction of Simple Themes (1)",
+  eyebrow: "Schoenberg · Beginning the Sentence",
   hero: "Establish the basic motive immediately, then learn how tonic and dominant forms can answer one another without becoming mechanical copies.",
   description:
     "A sentence usually establishes its basic idea through immediate repetition. The answering phrase may change pitch, contour, harmony and accompaniment while preserving enough relationship for the opening to remain unmistakable.",
@@ -53,9 +53,9 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         learn:
           "Hear the first distinction between the two theme types: the sentence repeats its opening idea immediately, while the period postpones that larger repetition.",
         explanation:
-          "The sentence and period differ in how the second phrase behaves and what follows it. A sentence normally repeats its opening idea immediately. A period postpones that repetition while more remote, contrasting motive-forms help complete the antecedent. This exercise isolates that timing difference.",
+          "The sentence and period can begin from similarly simple material, but they organize repetition differently. A sentence normally confirms its opening idea immediately: the second phrase is recognisably the same basic idea, repeated exactly, transposed or harmonically adapted. A period delays that larger return while the antecedent moves through more contrasting material.\n\nThe distinction is functional, not merely numerical. What matters is when the listener receives confirmation of the opening idea. Immediate repetition strengthens the basic idea early and leaves later space for continuation; delayed repetition creates a different expectation and therefore a different thematic design.",
         instruction:
-          "Audition Immediate repetition, Delayed return and Contrasting second phrase. Listen through the boundary at step 9. Choose the opening that most clearly behaves as the beginning of a sentence.",
+          "Audition Immediate repetition, Delayed return and Contrasting second phrase from the beginning through the boundary at step 9. Focus on when the first idea is confirmed rather than on which version simply sounds most familiar.\n\nChoose the opening that most clearly behaves as a sentence beginning. You should be able to point to the second phrase and say why it functions as immediate repetition of the basic idea rather than contrast or postponed return.",
         recognition:
           "Does the second phrase confirm the opening idea immediately, or does the music postpone that confirmation?",
         source: {
@@ -119,9 +119,9 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         learn:
           "Hear why repetition remains intelligible even when the phrase moves to another pitch level.",
         explanation:
-          "When a sentence begins with a short phrase, the following phrase may repeat it exactly or at another pitch level. Melody or harmony may change slightly as long as the repetition remains obvious. Exact repetition, harmonic variation, rhythmic variation and sequence-like transposition are all possible.",
+          "Immediate repetition does not require the second phrase to occupy the same absolute pitches. A short basic idea can be repeated exactly, transposed to another pitch level, or adjusted slightly in melody or harmony while remaining unmistakably the same idea. The listener recognises the relation through preserved interval pattern, rhythm, contour or harmonic function.\n\nThis flexibility is essential because repetition also has to serve musical direction. A transposed repetition can move the phrase toward a new harmonic area without sacrificing identity. The requirement is therefore perceptual clarity: the second phrase must sound like a return of the opening idea before its differences are heard as variation.",
         instruction:
-          "Compare Exact repetition, Transposed repetition and Contrasting second phrase. Use Staff and Degrees to check what your ear hears. Choose the version that changes absolute pitch while preserving the interval pattern.",
+          "Compare Exact repetition, Transposed repetition and Contrasting second phrase. Listen first without looking at Degrees and decide which version still sounds like the opening idea despite moving to a new pitch level.\n\nThen use Staff and Degrees to verify what your ear detected. Choose the version that changes absolute pitch while preserving the interval pattern strongly enough for the second phrase to function as repetition rather than contrast.",
         recognition:
           "If every pitch moves but the internal distances stay the same, can the second phrase still function as repetition rather than contrast?",
         source: {
@@ -145,7 +145,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
           {
             term: "Sequence",
             definition:
-              "A repetition transferred to another pitch level; Schoenberg points to sequential cases among the cited literature examples.",
+              "A repetition transferred to another pitch level while preserving enough internal relationships to remain recognisable.",
           },
         ],
         workspace: "composition-study",
@@ -189,9 +189,9 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         learn:
           "Preserve rhythm and contour strongly enough to hear repetition while changed harmony creates contrast and direction.",
         explanation:
-          "Complementary repetition preserves enough rhythm and melodic contour for the answer to remain clearly related while contrast enters through changed harmony and the melodic adjustments that harmony requires. Tonic-form and dominant-form pairs are the clearest examples.",
+          "Complementary repetition lets the second phrase remain recognisably the same basic idea while assigning it a different harmonic function. Rhythm and contour often provide the strongest continuity, while individual pitches are adjusted to fit the new harmony. A tonic-form answered by a dominant-form makes this relation especially easy to hear.\n\nThe useful principle is that harmonic contrast need not destroy thematic identity. The answer should sound both familiar and directional: familiar because its motivic features are preserved, directional because the harmonic support changes its function and creates expectation for what follows.",
         instruction:
-          "Compare Tonic → tonic, Tonic → dominant and Contrasting second phrase. Listen for the low supporting harmony as well as the melody. Choose the version that keeps the repeated idea audible while changing its support from I to V.",
+          "Compare Tonic → tonic, Tonic → dominant and Contrasting second phrase while listening to the supporting bass as carefully as the melody. Notice that the tonic-to-dominant version changes function without requiring the melodic idea to become unrecognisable.\n\nChoose the version that keeps the repeated idea audible while moving its support from I to V. Then state which features of the melody made the repetition clear despite the harmonic change.",
         recognition:
           "Can the melody still sound like repetition while the harmony makes the second phrase function as an answer rather than a copy?",
         source: {
@@ -205,12 +205,12 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
           {
             term: "Tonic form",
             definition:
-              "Schoenberg's term for an appearance of the phrase associated with tonic harmony or tonic function.",
+              "An appearance of the phrase associated primarily with tonic harmony or tonic function.",
           },
           {
             term: "Dominant form",
             definition:
-              "Schoenberg's term for the related answer adapted to dominant harmony or dominant function.",
+              "The related answering form adapted primarily to dominant harmony or dominant function.",
           },
           {
             term: "Complementary repetition",
@@ -265,9 +265,9 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         learn:
           "Construct a sentence opening in which the basic idea is established immediately and unmistakably.",
         explanation:
-          "The central requirement is simple: establish the basic motive in the opening phrase and repeat it immediately in a way that remains unmistakably related. This first attempt gives you something concrete to compare with the literature sources that follow.",
+          "The central requirement of a sentence beginning is clarity of establishment. The opening phrase presents the basic idea; the next phrase confirms it immediately through repetition that may be exact, transposed or harmonically adapted. By the end of the beginning, the listener should know what material the sentence is about.\n\nThat confirmation should not make the music feel finished. A successful beginning strengthens identity while still leaving enough harmonic or melodic tension for continuation. This first construction gives you a practical baseline before the literature sources show how freely composers can satisfy the same function.",
         instruction:
-          "Reshape at least three notes of the supplied basic idea in steps 1-8. Choose Exact repetition, Transposed repetition or Tonic → dominant. The second half regenerates from your basic idea. Listen to the full opening and compare at least two notation views.",
+          "Reshape at least three notes of the supplied basic idea in steps 1-8 so that it has a clear contour and rhythmic identity. Then choose Exact repetition, Transposed repetition or Tonic → dominant for the answering phrase.\n\nListen to the full 16-step beginning and compare at least two notation views. Revise if the second phrase sounds either unrelated or so final that no continuation seems necessary. The goal is immediate confirmation plus forward pressure.",
         recognition:
           "By step 16, is the listener more certain what the basic idea is, while still hearing enough movement to want a continuation?",
         source: {
@@ -281,7 +281,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
           {
             term: "Beginning of the sentence",
             definition:
-              "Schoenberg's term for the opening construction in which the basic motive is presented and immediately repeated.",
+              "The opening construction in which the basic idea is presented and immediately repeated.",
           },
           {
             term: "Formal function",
@@ -330,9 +330,9 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         learn:
           "Hear the clearest version of complementary repetition before the later examples complicate it.",
         explanation:
-          "In the two Beethoven sources, the first phrase uses tonic harmony and the second uses dominant harmony. The melody changes enough to fit the new harmony while preserving the relationship between the phrases. The tonic-form / dominant-form relation is therefore unusually exposed.",
+          "The two Beethoven sources make complementary repetition unusually easy to hear. In each, the first phrase has tonic function and the answering phrase moves to dominant function. Melodic details change where the new harmony requires them, but the repeated phrase remains perceptually obvious.\n\nThis shows why 'same phrase' and 'same pitches' are not equivalent. The answer can preserve rhythm, contour and phrase shape while changing particular notes to express its new harmonic role. The stronger the functional relation, the less need there is for a mechanical pitch-for-pitch copy.",
         instruction:
-          "Play the two Beethoven sources below. In the F-minor passage, hear the opening phrase answered over C-dominant harmony, including the E-natural adjustment. In the 2/4 passage, hear the same tonic-form / dominant-form principle in a more compressed form. Then identify what changes and what remains functionally the same.",
+          "Play the two Beethoven sources below. In the F-minor passage, listen for the E-natural adjustment that helps the answer fit C-dominant harmony. In the shorter 2/4 passage, hear the same tonic-form / dominant-form relation in a more compressed phrase.\n\nCompare the two and identify which features carry repetition most strongly. The important result is to hear harmonic function changing while phrase identity remains intact.",
         recognition:
           "Does the answer feel like the same phrase adapted to a different harmonic function rather than a literal pitch copy?",
         source: {
@@ -381,9 +381,9 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         learn:
           "Move beyond the simplest I → V answer and hear tonic / dominant forms that contain internal harmonic motion.",
         explanation:
-          "One source presents a tonic form based on I-V-I answered by a dominant form based on V-I-V. Another lets the dominant form include passing harmonies. Complementary repetition therefore does not require each phrase to sit on one chord; the larger functional relationship can remain clear while internal harmony becomes richer.",
+          "Complementary repetition can remain clear even when each phrase contains internal harmonic motion. One source outlines a tonic form based on I-V-I and answers it with V-I-V; another enriches the dominant form with passing harmonies. The listener still hears the larger tonic/dominant relation because the structural functions remain complementary.\n\nThis prevents an overly simple interpretation of sentence beginnings. 'Tonic form' and 'dominant form' describe the larger harmonic role of the phrases, not a requirement that every event in the first phrase be tonic and every event in the second be dominant.",
         instruction:
-          "Compare the two complementary-harmony sources below, then listen for the internal I-V-I / V-I-V motion before choosing the matching statement.",
+          "Compare the two complementary-harmony sources below and first identify the larger tonic-form / dominant-form relation. Then listen inside each phrase for the I-V-I / V-I-V motion and for passing harmonies that enrich the surface.\n\nChoose the statement that best distinguishes large-scale function from local harmonic detail.",
         recognition:
           "Can you hear a tonic-form / dominant-form relationship even when each phrase contains more than one harmony?",
         source: {
@@ -426,9 +426,9 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         learn:
           "Preserve the complementary function without mechanically reproducing every passing harmony or part-writing detail.",
         explanation:
-          "The next sources show that passing harmonies do not need to be mechanically preserved in the answer. Beneath elaborate part-writing, a simple structural relation such as I-IV answered by V-I can remain the real organizing principle. Retain that structural relation rather than copying every local event.",
+          "A convincing answer preserves the structural relation, not necessarily every local harmonic event. Passing harmonies in the first phrase may disappear or be replaced in the second if copying them would make the answer awkward. Beneath more elaborate part-writing, a comparatively simple relation such as I-IV answered by V-I can still govern the pair.\n\nThis is a general compositional principle: preserve what makes the function intelligible and allow subordinate details to adapt. Mechanical copying can actually weaken clarity when the harmonic job of the second phrase is different.",
         instruction:
-          "Compare the two sources below and listen for the busier tonic side against the simpler dominant answer.",
+          "Compare the two sources below and listen for the difference between a busier tonic side and a simpler dominant answer. Try to hear the structural harmonic relation before following every passing event.\n\nThen decide why the simpler answer is more convincing than a literal reconstruction of every detail. The exercise is about hierarchy: main harmonies define the function, while passing harmonies remain subordinate.",
         recognition:
           "Can the second phrase be a convincing answer even when it does not reproduce the first phrase's internal harmonic route event by event?",
         source: {
@@ -447,7 +447,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
           {
             term: "Mechanical preservation",
             definition:
-              "Literal copying of local events whether or not the musical function requires it - precisely what Schoenberg says these examples avoid.",
+              "Literal copying of local events even when the new harmonic or formal function calls for adaptation.",
           },
         ],
         workspace: "composition-study",
@@ -471,9 +471,9 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         learn:
           "Compare two kinds of dominant-form answer: one following the tonic contour closely, another preserving rhythm while contour changes more freely.",
         explanation:
-          "One answer follows the contour of the tonic phrase exactly; the freer versions preserve the rhythm while treating contour more flexibly. The comparison shows how one feature can carry identity while another is allowed to change.",
+          "Complementary repetition can preserve different features with different degrees of strictness. One answer follows the tonic contour closely, making melodic resemblance the main carrier of identity. Freer answers retain the rhythm while changing contour more substantially.\n\nThe comparison shows that phrase identity is not tied to one privileged surface feature. If rhythm is strong and distinctive enough, it can preserve the sense of repetition even when melodic direction changes. What matters is that some characteristic relation remains perceptually dominant.",
         instruction:
-          "Compare the strict and freer contour sources below. Then play all 32 steps: the first pair keeps the contour stricter, while the second allows freer contour but preserves the rhythmic relationship.",
+          "Compare the strict and freer contour sources below. First listen for melodic shape, then replay them listening mainly for rhythm.\n\nIn the 32-step study, compare the stricter pair with the freer one. Decide when contour stops carrying the relationship and rhythm takes over as the main evidence that the answer belongs to the opening.",
         recognition:
           "In the second pair, can rhythm preserve phrase identity even when the melodic contour no longer copies the first phrase exactly?",
         source: {
@@ -516,9 +516,9 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         learn:
           "Learn why a literal harmonic answer can become impractical and how regular accompaniment can act as a unifying factor.",
         explanation:
-          "The final sources vary the dominant answer more than the harmonic change alone requires. When a tonic form contains too many harmonies, a literal answer becomes impractical. Answering only the main harmonies can make the relation clearer, while a definite and regular accompaniment can animate the harmony and unify the passage.",
+          "When the tonic form contains many local harmonies, a literal harmonic answer may become overloaded or obscure the larger relation. The answer can instead respond to the main structural harmonies, allowing subordinate events to be simplified or reorganised. This often makes the complementary function clearer rather than less faithful.\n\nA definite and regular accompaniment can help unify the pair by supplying continuity underneath these adjustments. The accompaniment is therefore not merely decoration; its consistency can make a freer melodic and harmonic answer easier to comprehend.",
         instruction:
-          "Compare the two pairs below. The first exaggerates a busy literal answer; the second makes the underlying harmonic relationship clearer. Listen for why the simpler relation is easier to grasp.",
+          "Compare the two pairs below. In the first, listen for the strain created by trying to answer too many local harmonic events; in the second, hear how concentrating on the main harmonies clarifies the larger relation.\n\nAlso notice the role of regular accompaniment in holding the texture together. Choose the interpretation that explains both harmonic simplification and the unifying effect of the accompaniment.",
         recognition:
           "Does the second pair feel clearer because the answer preserves the main relation instead of trying to duplicate every local harmonic event?",
         source: {
@@ -560,9 +560,9 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         learn:
           "Preserve the relationship you need, but do not copy features mechanically when the harmony or phrase function requires adaptation.",
         explanation:
-          "The source sequence progressively loosens the answer. The simplest cases make tonic and dominant forms almost transparent; later passages admit passing harmonies, non-mechanical harmonic correspondence, freer contour with preserved rhythm, and simplification to main harmonies. The general lesson is controlled preservation, not literal duplication.",
+          "The source sequence progressively loosens what must be preserved in the answer. The clearest cases expose tonic and dominant functions almost transparently; later passages admit passing harmonies, non-mechanical correspondence, freer contour with preserved rhythm, and simplification to only the main harmonic pillars.\n\nAcross all of them, the same principle survives: repeat enough characteristic material for the answer to be heard as the same basic idea, but adapt whatever must change to serve the new harmonic and formal function. Literal duplication is only one possible solution, not the goal.",
         instruction:
-          "Build a fresh opening. Edit at least four notes in the basic idea, choose Exact repetition, Transposed repetition or Tonic → dominant, listen, compare two notation views, then revise until the answer sounds related without feeling mechanically copied.",
+          "Build a fresh opening and give the basic idea a clear rhythmic and melodic identity. Edit at least four notes, then choose Exact repetition, Transposed repetition or Tonic → dominant as the answering strategy.\n\nListen to the full opening, compare two notation views, and revise until you can explain which feature carries the relationship. Keep the answer only when it sounds immediately related but still contributes harmonic or melodic direction toward a continuation.",
         recognition:
           "Can you name which feature carries the relationship in your answer - pitch pattern, contour, rhythm, harmonic function, or some combination?",
         source: {
@@ -575,7 +575,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
           {
             term: "Controlled preservation",
             definition:
-              "A modern summary of the chapter's technique: retain the features needed for comprehensibility while adapting others to harmony and function.",
+              "Retain the features needed for comprehensibility while adapting others to the new harmony and formal function.",
           },
           {
             term: "Complementary answer",
@@ -584,7 +584,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
           },
         ],
         workspace: "composition-study",
-        checksLabel: "Apply the Chapter V models",
+        checksLabel: "Apply the sentence-opening principles",
         successLabel: "Your answer is recognisably related without being mechanically copied",
       }),
       evaluate: ({ compositionStudy, experiments }) => {
