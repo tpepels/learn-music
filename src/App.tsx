@@ -459,6 +459,11 @@ const lessonGlyphs: Record<string, string> = {
   "schoenberg.connecting-motive-forms": "S",
   "schoenberg.beginning-sentence": "S",
   "schoenberg.completing-sentence": "S",
+  "schoenberg.period": "S",
+  "schoenberg.accompaniment": "S",
+  "schoenberg.character-mood": "S",
+  "schoenberg.melody-theme": "S",
+  "schoenberg.self-criticism": "S",
 };
 
 function App() {
