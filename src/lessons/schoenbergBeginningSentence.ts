@@ -4,7 +4,7 @@ import {
   studySentenceHarmonyIsComplementary,
   studySentenceHasImmediateRepetition,
 } from "../music/study";
-import { heardPlayback } from "./learningEvidence";
+import { heardPlayback, studiedSource } from "./learningEvidence";
 import {
   exerciseContentSchema,
   lessonContentSchema,
@@ -361,9 +361,13 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
       evaluate: ({ compositionStudy, experiments }) => {
         const state = compositionStudy[SCHOENBERG_SENTENCE_IDS.ex35];
         return [
-          { label: "You listened to the Ex. 35 reduction", complete: heardPlayback(experiments) },
+          {
+            label: "You studied Schoenberg's native Ex. 35a score",
+            complete: studiedSource(experiments, "s04.ex35a"),
+          },
+          { label: "You listened to the separate PLAY / LAB application", complete: heardPlayback(experiments) },
           { label: "You identified tonic form answered by dominant form", complete: state?.decision === "related" },
-          { label: "The reduction begins on I and answers on V", complete: state?.harmony?.[0] === "I" && state?.harmony?.[8] === "V" },
+          { label: "The application begins on I and answers on V", complete: state?.harmony?.[0] === "I" && state?.harmony?.[8] === "V" },
         ];
       },
     },
