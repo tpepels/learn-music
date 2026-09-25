@@ -82,7 +82,7 @@ export const schoenbergSourceMaterial: Record<
     kind: "score",
     id: "s01.ex2e",
     reference: "Ex. 2e",
-    title: "Beethoven - Symphony No. 3-I",
+    title: "Beethoven - Eroica opening theme",
     attribution: "Melodic line transcribed from Schoenberg's Ex. 2e",
     fidelity: "full-melodic-line",
     fidelityNote:
@@ -127,7 +127,7 @@ export const schoenbergSourceMaterial: Record<
   "s01.ex4c": map(
     "s01.ex4c",
     "Ex. 4c",
-    "Beethoven - Symphony No. 3, Scherzo",
+    "Beethoven - Eroica Scherzo phrase",
     [
       {
         label: "Repeated-note character",
