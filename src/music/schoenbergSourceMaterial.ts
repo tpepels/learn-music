@@ -8,6 +8,8 @@ export type SchoenbergSourceEvent = {
   voice?: number;
   barAfter?: boolean;
   accidental?: "♭" | "♯" | "♮";
+  /** Per-pitch accidentals for simultaneous chords. */
+  accidentals?: Array<"♭" | "♯" | "♮" | null>;
 };
 
 export type SchoenbergAnalysisSegment = {
@@ -887,6 +889,88 @@ export const schoenbergSourceMaterial: Record<
       { label: "Complementary repetition", detail: "Rhythm and contour can preserve the repetition while harmony supplies contrast." },
     ],
   ),
+  "s04.ex35a": {
+    kind: "score",
+    id: "s04.ex35a",
+    reference: "Ex. 35a",
+    title: "Beethoven - Piano Sonata Op. 2/1-I",
+    attribution: "Complete excerpt transcribed from Schoenberg's Ex. 35a",
+    fidelity: "verified-excerpt",
+    fidelityNote:
+      "Native grand-staff transcription of the complete excerpt printed by Schoenberg: the quarter-note pickup and four following measures. The first two measures present the tonic form over F-minor harmony; the second pair gives the dominant form over C-dominant harmony. Notes and onsets were checked against the supplied scan.",
+    clef: "treble",
+    keyLabel: "F minor · 4 flats",
+    keySignature: -4,
+    meter: "2/2",
+    bpm: 104,
+    events: [
+      { midi: 60, duration: 2, at: 0, staff: "treble" },
+
+      { midi: 65, duration: 2, at: 2, staff: "treble" },
+      { midi: null, duration: 8, at: 2, staff: "bass" },
+      { midi: 68, duration: 2, at: 4, staff: "treble" },
+      { midi: 72, duration: 2, at: 6, staff: "treble" },
+      { midi: 77, duration: 2, at: 8, staff: "treble" },
+
+      { midi: 80, duration: 3, at: 10, staff: "treble" },
+      { midi: null, duration: 2, at: 10, staff: "bass" },
+      { midi: [53, 56, 60], duration: 2, at: 12, staff: "bass" },
+      { midi: 79, duration: 1 / 3, at: 13, staff: "treble" },
+      { midi: 77, duration: 1 / 3, at: 13 + 1 / 3, staff: "treble" },
+      { midi: 76, duration: 1 / 3, at: 13 + 2 / 3, staff: "treble", accidental: "♮" },
+      { midi: 77, duration: 2, at: 14, staff: "treble" },
+      { midi: [53, 56, 60], duration: 2, at: 14, staff: "bass" },
+      { midi: null, duration: 2, at: 16, staff: "treble" },
+      { midi: [53, 56, 60], duration: 2, at: 16, staff: "bass" },
+
+      { midi: 67, duration: 2, at: 18, staff: "treble" },
+      { midi: [52, 55, 58, 60], duration: 2, at: 18, staff: "bass", accidentals: ["♮", null, null, null] },
+      { midi: 72, duration: 2, at: 20, staff: "treble" },
+      { midi: null, duration: 6, at: 20, staff: "bass" },
+      { midi: 76, duration: 2, at: 22, staff: "treble", accidental: "♮" },
+      { midi: 79, duration: 2, at: 24, staff: "treble" },
+
+      { midi: 82, duration: 3, at: 26, staff: "treble" },
+      { midi: null, duration: 2, at: 26, staff: "bass" },
+      { midi: [52, 55, 58, 60], duration: 2, at: 28, staff: "bass", accidentals: ["♮", null, null, null] },
+      { midi: 80, duration: 1 / 3, at: 29, staff: "treble" },
+      { midi: 79, duration: 1 / 3, at: 29 + 1 / 3, staff: "treble" },
+      { midi: 77, duration: 1 / 3, at: 29 + 2 / 3, staff: "treble" },
+      { midi: 79, duration: 2, at: 30, staff: "treble" },
+      { midi: [52, 55, 58, 60], duration: 2, at: 30, staff: "bass", accidentals: ["♮", null, null, null] },
+      { midi: null, duration: 2, at: 32, staff: "treble" },
+      { midi: [52, 55, 58, 60], duration: 2, at: 32, staff: "bass", accidentals: ["♮", null, null, null] },
+    ],
+    barlines: [2, 10, 18, 26, 34],
+    slurs: [
+      { start: 5, end: 11 },
+      { start: 22, end: 28 },
+    ],
+    analysis: [
+      {
+        label: "tonic form",
+        detail:
+          "After the pickup, the first two full measures stay on tonic harmony. The melody outlines F minor and then closes its first phrase over repeated tonic chords.",
+        startEvent: 1,
+        endEvent: 15,
+      },
+      {
+        label: "dominant form",
+        detail:
+          "The answering two measures preserve the phrase shape while adapting pitches to dominant harmony; E-natural belongs to that harmonic change.",
+        startEvent: 16,
+        endEvent: 32,
+      },
+      {
+        label: "complementary repetition",
+        detail:
+          "Compare the two pairs as Schoenberg asks: recognizable rhythmic/contour relation is preserved while tonic function becomes dominant function.",
+        startEvent: 1,
+        endEvent: 32,
+      },
+    ],
+  },
+
   "s04.ex35": map(
     "s04.ex35",
     "Ex. 35a-b",
