@@ -2,9 +2,6 @@ name: Validate branch manually
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - ui/clarify-schoenberg-example-flow
 
 permissions:
   contents: read
