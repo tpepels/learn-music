@@ -206,6 +206,21 @@ export const SCHOENBERG_COMPLETION_COMPOSE_IDS = new Set<string>([
   SCHOENBERG_COMPLETION_IDS.final,
 ]);
 
+export const SCHOENBERG_PERIOD_IDS = {
+  distinguish: "schoenberg.period.a",
+  antecedent: "schoenberg.period.b",
+  consequent: "schoenberg.period.c",
+  compose: "schoenberg.period.d",
+} as const;
+
+export const SCHOENBERG_PERIOD_EXERCISE_IDS = new Set<string>(
+  Object.values(SCHOENBERG_PERIOD_IDS),
+);
+
+export const SCHOENBERG_PERIOD_COMPOSE_IDS = new Set<string>([
+  SCHOENBERG_PERIOD_IDS.compose,
+]);
+
 export const studyTransformationFeature: Record<
   Exclude<StudyTransformation, "source">,
   StudyFeature
@@ -1327,6 +1342,71 @@ export function setStudyCompletionSourceStepState(
   };
 }
 
+const periodLength = 32;
+
+export function studyPeriodSequence(): StudySequence {
+  const antecedentOpening = [60, 62, 64, 67, 65, 64, 62, 60];
+  const antecedentContrast = [64, 67, 69, 67, 65, 62, 59, 55];
+  const consequentOpening = [60, 62, 64, 67, 65, 64, 62, 60];
+  const consequentCadence = [65, 67, 69, 67, 64, 62, 59, 60];
+  const harmony = Array<StudyHarmony>(periodLength).fill(null);
+  harmony[0] = "I";
+  harmony[8] = "I";
+  harmony[12] = "V";
+  harmony[16] = "I";
+  harmony[24] = "V";
+  harmony[30] = "I";
+
+  return {
+    notes: [
+      ...antecedentOpening,
+      ...antecedentContrast,
+      ...consequentOpening,
+      ...consequentCadence,
+    ],
+    durations: padDurations([], 1, periodLength),
+    harmony,
+  };
+}
+
+export function studyPeriodHasContrast(notes: Array<number | null>): boolean {
+  if (notes.length < periodLength) return false;
+  const opening = notes.slice(0, 8);
+  const continuation = notes.slice(8, 16);
+  const identical = opening.every((note, index) => note === continuation[index]);
+  return !identical && continuation.filter((note) => note !== null).length >= 5;
+}
+
+export function studyPeriodHasReturn(notes: Array<number | null>): boolean {
+  if (notes.length < periodLength) return false;
+  const opening = notes.slice(0, 8).filter((note): note is number => note !== null);
+  const returnPhrase = notes.slice(16, 24).filter((note): note is number => note !== null);
+  if (opening.length < 4 || returnPhrase.length < 4 || opening.length !== returnPhrase.length) {
+    return false;
+  }
+  const openingIntervals = opening.slice(1).map((note, index) => note - opening[index]);
+  const returnIntervals = returnPhrase.slice(1).map((note, index) => note - returnPhrase[index]);
+  return openingIntervals.filter(
+    (interval, index) => sign(interval) === sign(returnIntervals[index]),
+  ).length >= Math.max(3, openingIntervals.length - 2);
+}
+
+export function studyPeriodHasCadentialClose(
+  notes: Array<number | null>,
+  harmony: StudyHarmony[],
+): boolean {
+  if (notes.length < periodLength) return false;
+  const finalActive = [...notes.slice(24, 32)]
+    .reverse()
+    .find((note): note is number => note !== null);
+  return (
+    finalActive !== undefined &&
+    finalActive % 12 === 0 &&
+    harmony[24] === "V" &&
+    harmony[30] === "I"
+  );
+}
+
 function baseState(sequence: StudySequence): StudyExerciseState {
   return {
     notes: [...sequence.notes],
@@ -1817,6 +1897,31 @@ function defaultExerciseState(id: string): StudyExerciseState {
     };
   }
 
+  if (id === SCHOENBERG_PERIOD_IDS.distinguish) {
+    return {
+      ...baseState(studySentenceSequence("delayed")),
+      sentenceMode: "delayed",
+      notation: "staff",
+    };
+  }
+
+  if (
+    id === SCHOENBERG_PERIOD_IDS.antecedent ||
+    id === SCHOENBERG_PERIOD_IDS.consequent
+  ) {
+    return {
+      ...baseState(studyPeriodSequence()),
+      notation: "staff",
+    };
+  }
+
+  if (id === SCHOENBERG_PERIOD_IDS.compose) {
+    return {
+      ...baseState(studyPeriodSequence()),
+      notation: "piano-roll",
+    };
+  }
+
   return baseState({
     notes: padStudyNotes([]),
     durations: padDurations(),
@@ -1829,6 +1934,7 @@ const allStudyExerciseIds = [
   ...Object.values(SCHOENBERG_CONNECTION_IDS),
   ...Object.values(SCHOENBERG_SENTENCE_IDS),
   ...Object.values(SCHOENBERG_COMPLETION_IDS),
+  ...Object.values(SCHOENBERG_PERIOD_IDS),
 ];
 
 export function initialCompositionStudyState(): CompositionStudyState {
