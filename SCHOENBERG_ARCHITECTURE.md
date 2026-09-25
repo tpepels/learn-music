@@ -237,7 +237,8 @@ The coverage ledger remains authoritative for whether material is:
 
 Rules:
 
-- never invent pitches, rhythm, meter, harmony, attribution or analytical claims
+- never invent pitches, rhythm, meter, clef, harmony, attribution or analytical claims
+- treat clef as source data when claiming engraving fidelity; if a register-appropriate clef is used without direct verification of the printed clef, document that explicitly as an adaptation/verification gap
 - do not add a time signature when the printed subexample has none
 - do not convert an application study into a supposed source score
 - do not silently upgrade a map to a native score without verification
