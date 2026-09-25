@@ -1,6 +1,11 @@
 export type SchoenbergSourceEvent = {
-  midi: number | null;
+  /** One pitch, a simultaneous chord, or a rest. */
+  midi: number | number[] | null;
   duration: number;
+  /** Explicit onset in durationUnit units. Omit for legacy sequential notation. */
+  at?: number;
+  staff?: "treble" | "bass";
+  voice?: number;
   barAfter?: boolean;
   accidental?: "♭" | "♯" | "♮";
 };
@@ -28,6 +33,8 @@ export type SchoenbergSourceScore = {
   bpm: number;
   durationUnit?: "eighth" | "sixteenth";
   events: SchoenbergSourceEvent[];
+  /** Explicit barline positions in durationUnit units for polyphonic excerpts. */
+  barlines?: number[];
   slurs?: Array<{ start: number; end: number }>;
   annotation?: string;
   analysis?: SchoenbergAnalysisSegment[];
