@@ -309,7 +309,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         explanation:
           "Ex. 52 makes liquidation visible. Two-measure phrases are reduced or condensed to one measure, and in Ex. 52c four measures are condensed to two. The passage moves from tonic and dominant forms through climactic ascent, reduction and finally melodic residues.",
         instruction:
-          "Work through Ex. 52 in order, then compare the full motive-forms at the start with the increasingly sparse material near the cadence.",
+          "Work through Example 52 in order, then compare the full motive-forms at the start with the increasingly sparse material near the cadence.",
         recognition:
           "Can you hear shortening as part of the formal process rather than as arbitrary deletion?",
         source: {
@@ -341,7 +341,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         explanation:
           "In Ex. 53b, m. 5 introduces a very remote variation whose repetitions account for the twelve-measure length. Ex. 53a likewise shows later material becoming progressively reduced and finally residual.",
         instruction:
-          "Work through Ex. 53, then listen for the difference between extending material because it still needs establishment and merely filling time.",
+          "Work through Example 53, then listen for the difference between extending material because it still needs establishment and merely filling time.",
         recognition:
           "Would the remote form be intelligible if it appeared only once?",
         source: {
@@ -372,7 +372,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         explanation:
           "Examples 54-56 grow from the broken-chord form of Ex. 7b. Ex. 54 varies it progressively; the continuations use sequence-like procedures and mostly free transpositions. Alternative endings show how different cadential regions change the formal effect.",
         instruction:
-          "Work through Exs. 54-56, then listen to the sequential treatment. Notice that the sequential pattern is already a transformed or condensed motive-form rather than a neutral pattern pasted on top.",
+          "Work through Examples 54-56, then listen to the sequential treatment. Notice that the sequential pattern is already a transformed or condensed motive-form rather than a neutral pattern pasted on top.",
         recognition:
           "Can you trace the sequence back through progressive variation to the earlier broken-chord source?",
         source: {
@@ -403,7 +403,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         explanation:
           "The eight-measure practice form is only an abstraction. In most of Examples 57-61 the continuation uses condensed phrases that give way to a cadential contour, with the closing measures often reduced to residues of the basic motive.",
         instruction:
-          "Work through Exs. 57-58 and listen for establishment, a more remote continuation and movement toward cadence. Do not begin by counting equal blocks.",
+          "Work through Examples 57-58 and listen for establishment, a more remote continuation and movement toward cadence. Do not begin by counting equal blocks.",
         recognition:
           "Can a sentence remain clear when its proportions are unequal?",
         source: {
@@ -434,7 +434,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         explanation:
           "Mozart often produces irregular length through interpolation of incidental repetitions. In Ex. 59, asking which measures could be omitted exposes the simpler span underneath and reveals exactly what caused the extension.",
         instruction:
-          "Play Ex. 59a from Mozart's K. 280-I and locate mm. 5-6 and the inserted passage in mm. 7-11. Then continue through Ex. 59b-i and listen for how omission, overlap, sequence and repetition change the continuation without destroying its connection to the opening.",
+          "Play Example 59a from Mozart's K. 280-I and locate mm. 5-6 and the inserted passage in mm. 7-11. Then continue through Examples 59b-i and listen for how omission, overlap, sequence and repetition change the continuation without destroying its connection to the opening.",
         recognition:
           "If the inserted material vanished, can you still perceive the simpler structural span underneath?",
         source: {
@@ -470,7 +470,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         explanation:
           "Ex. 60 contains several unusual features: an ending on VI, anticipation of VI through deceptive cadence, a beginning on VII-II, and extensions produced in different ways. Some of these solutions are risky to imitate mechanically. The point is to understand what makes each exception function in context.",
         instruction:
-          "Work through Ex. 60, then listen to the quasi-sequential study. For each case ask whether it demonstrates a normal procedure, an unusual exception, or a warning about what is risky to imitate.",
+          "Work through Example 60, then listen to the quasi-sequential study. For each case ask whether it demonstrates a normal procedure, an unusual exception, or a warning about what is risky to imitate.",
         recognition:
           "Can you understand why an exceptional passage works without mistaking the exception for a default recipe?",
         source: {
@@ -501,7 +501,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         explanation:
           "Ex. 61a is less complicated than it first appears and shows that melody need not always occupy the highest voice. In Ex. 61b, one-measure phrases are reduced to half-measure residues, giving a clear example of developing variation. Ex. 61d shows another kind of extension through insertion and refrain-like return.",
         instruction:
-          "Open all five Ex. 61 tabs. Then play the liquidation application. Listen for the important distinction: developing variation changes the material progressively, while liquidation eventually strips characteristic detail away.",
+          "Open all five Example 61 tabs. Then play the liquidation application. Listen for the important distinction: developing variation changes the material progressively, while liquidation eventually strips characteristic detail away.",
         recognition:
           "Can the surface become increasingly different while the formal and motivic connection remains intelligible?",
         source: {
