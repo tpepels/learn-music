@@ -9876,112 +9876,159 @@ body {
 /* Schoenberg track: explanation and exercise are deliberately separate. */
 
 .schoenberg-guide {
-  padding: 20px;
+  padding: 22px;
   border-color: rgba(255,255,255,0.09);
   background: rgba(26,24,38,0.72);
   overflow: visible;
 }
 
-.schoenberg-guide-explanation {
-  max-width: 900px;
+.schoenberg-guide-reading-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap: 22px;
+  align-items: stretch;
 }
 
-.schoenberg-guide-explanation .section-label {
-  color: var(--cyan);
+.schoenberg-guide-explanation,
+.schoenberg-guide-exercise {
+  min-width: 0;
 }
 
-.schoenberg-guide-explanation h2 {
-  margin: 6px 0 9px;
-  color: var(--text);
-  font-size: 20px;
-  line-height: 1.25;
-}
-
-.schoenberg-guide-explanation > p {
-  margin: 0;
-  color: #c9c2d3;
-  font-size: 15px;
-  line-height: 1.62;
-}
-
-.schoenberg-guide-terms {
-  margin-top: 12px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px 18px;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.5;
-}
-
-.schoenberg-guide-terms p {
-  max-width: 640px;
-  margin: 0;
-}
-
-.schoenberg-guide-terms strong {
-  color: #c9c2d3;
-}
-
-.schoenberg-guide-example-section {
-  margin-top: 20px;
-  padding-top: 15px;
-  border-top: 1px solid rgba(255,255,255,0.07);
-}
-
+.schoenberg-guide-explanation .section-label,
+.schoenberg-guide-exercise .section-label,
 .schoenberg-guide-example-section > .section-label {
   color: var(--cyan);
 }
 
-.schoenberg-guide-examples {
-  margin-top: 8px;
+.schoenberg-guide-explanation h2 {
+  margin: 7px 0 12px;
+  color: var(--text);
+  font-size: 22px;
+  line-height: 1.26;
+}
+
+.schoenberg-guide-copy {
+  display: grid;
+  gap: 10px;
+}
+
+.schoenberg-guide-copy p {
+  margin: 0;
+  color: #d0cad8;
+  font-size: 16px;
+  line-height: 1.68;
 }
 
 .schoenberg-guide-exercise {
-  margin-top: 22px;
-  padding: 16px 17px;
-  border: 1px solid rgba(95,225,239,0.2);
+  padding: 17px 18px;
+  border: 1px solid rgba(95,225,239,0.22);
   border-radius: 11px;
-  background: rgba(95,225,239,0.045);
+  background: rgba(95,225,239,0.05);
 }
 
-.schoenberg-guide-exercise .section-label {
-  color: var(--cyan);
+.schoenberg-guide-exercise .schoenberg-guide-copy {
+  margin-top: 8px;
 }
 
-.schoenberg-guide-exercise > p {
-  margin: 7px 0 0;
-  color: #e2ddea;
+.schoenberg-guide-exercise .schoenberg-guide-copy p {
+  color: #e5e0e9;
+}
+
+.schoenberg-guide-listen {
+  margin-top: 15px;
+  padding-top: 13px;
+  border-top: 1px solid rgba(95,225,239,0.14);
+}
+
+.schoenberg-guide-listen strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #d6d0dc;
+  font-size: 13px;
+  letter-spacing: 0.035em;
+}
+
+.schoenberg-guide-listen p {
+  margin: 0;
+  color: #bdb6c8;
   font-size: 15px;
   line-height: 1.58;
 }
 
-.schoenberg-guide-exercise .schoenberg-guide-listen {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(95,225,239,0.12);
-  color: var(--muted);
-  font-size: 13px;
+.schoenberg-guide-terms {
+  margin-top: 18px;
+  padding-top: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 24px;
+  border-top: 1px solid rgba(255,255,255,0.065);
 }
 
-.schoenberg-guide-listen strong {
-  color: #c9c2d3;
+.schoenberg-guide-terms p {
+  margin: 0;
+  display: grid;
+  gap: 3px;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.52;
+}
+
+.schoenberg-guide-terms strong {
+  color: #d6d0dc;
+  font-size: 14px;
+}
+
+.schoenberg-guide-example-section {
+  margin-top: 21px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.schoenberg-guide-examples {
+  margin-top: 9px;
 }
 
 .schoenberg-guide .source-score,
 .schoenberg-guide .source-analysis-map {
-  padding: 12px;
+  padding: 14px;
   border-radius: 10px;
   background: rgba(255,255,255,0.018);
 }
 
 .schoenberg-guide .source-material-heading strong {
   margin-top: 0;
-  font-size: 14px;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.schoenberg-guide .source-material-heading > button {
+  font-size: 12px;
+}
+
+.schoenberg-guide .source-score-meta span {
+  font-size: 11px;
+}
+
+.schoenberg-guide .source-analysis-tabs button {
+  min-height: 34px;
+  padding: 8px 10px;
+  font-size: 12px;
 }
 
 .schoenberg-guide .source-analysis-detail {
   min-height: 0;
+  padding: 11px 12px;
+}
+
+.schoenberg-guide .source-analysis-detail p {
+  font-size: 13.5px;
+  line-height: 1.58;
+}
+
+@media (max-width: 1000px) {
+  .schoenberg-guide-reading-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 700px) {
@@ -9989,8 +10036,12 @@ body {
     padding: 16px;
   }
 
-  .schoenberg-guide-exercise {
-    padding: 14px;
+  .schoenberg-guide-terms {
+    grid-template-columns: 1fr;
+  }
+
+  .schoenberg-guide-copy p {
+    font-size: 15px;
   }
 }
 
