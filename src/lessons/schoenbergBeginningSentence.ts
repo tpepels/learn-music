@@ -332,7 +332,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         explanation:
           "In Exs. 35a and 35b the first phrase uses tonic harmony and the second uses dominant harmony. The melody changes enough to fit the new harmony while preserving the relationship between the phrases. The tonic-form / dominant-form relation is therefore unusually exposed.",
         instruction:
-          "Play Ex. 35a and Ex. 35b. In Ex. 35a, hear the F-minor phrase answered over C-dominant harmony, including the E-natural adjustment. In Ex. 35b, hear the same tonic-form / dominant-form principle compressed into 2/4. Then compare the two openings below and identify what changes and what remains functionally the same.",
+          "Play Example 35a and Example 35b. In Example 35a, hear the F-minor phrase answered over C-dominant harmony, including the E-natural adjustment. In Example 35b, hear the same tonic-form / dominant-form principle compressed into 2/4. Then compare the two openings below and identify what changes and what remains functionally the same.",
         recognition:
           "Does the answer feel like the same phrase adapted to a different harmonic function rather than a literal pitch copy?",
         source: {
@@ -383,7 +383,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         explanation:
           "Ex. 36 presents a tonic form based on I-V-I answered by a dominant form based on V-I-V. In Ex. 37 the dominant form includes passing harmonies. Complementary repetition therefore does not require each phrase to sit on one chord; the larger functional relationship can remain clear while internal harmony becomes richer.",
         instruction:
-          "Compare Exs. 36-37, then listen for the internal I-V-I / V-I-V motion before choosing the matching statement.",
+          "Compare Examples 36-37, then listen for the internal I-V-I / V-I-V motion before choosing the matching statement.",
         recognition:
           "Can you hear a tonic-form / dominant-form relationship even when each phrase contains more than one harmony?",
         source: {
@@ -428,7 +428,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         explanation:
           "In Ex. 38 the passing harmonies of the tonic form are not mechanically preserved in the dominant form. In Ex. 39 the tonic form is basically I-IV and the dominant form V-I, even though elaborate part-writing disguises that simplicity. Retain the structural relation rather than copying every local event.",
         instruction:
-          "Compare Exs. 38-39 and listen for the busier tonic side against the simpler dominant answer.",
+          "Compare Examples 38-39 and listen for the busier tonic side against the simpler dominant answer.",
         recognition:
           "Can the second phrase be a convincing answer even when it does not reproduce the first phrase's internal harmonic route event by event?",
         source: {
@@ -473,7 +473,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         explanation:
           "In Ex. 40a the dominant-form melody follows the contour of the tonic phrase exactly. In Exs. 40b and 40c the rhythm is preserved while the contour is treated more freely. The comparison shows how one feature can carry identity while another is allowed to change.",
         instruction:
-          "Compare Ex. 40a with 40b-c. Then play all 32 steps below: the first pair keeps the contour stricter, while the second allows freer contour but preserves the rhythmic relationship.",
+          "Compare Example 40a with Examples 40b-c. Then play all 32 steps below: the first pair keeps the contour stricter, while the second allows freer contour but preserves the rhythmic relationship.",
         recognition:
           "In the second pair, can rhythm preserve phrase identity even when the melodic contour no longer copies the first phrase exactly?",
         source: {
@@ -518,7 +518,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         explanation:
           "In Ex. 41 the dominant forms vary more than the harmonic change alone requires. When a tonic form contains too many harmonies, a literal answer becomes impractical. Answering only the main harmonies can make the relation clearer, while a definite and regular accompaniment can animate the harmony and unify the passage.",
         instruction:
-          "Compare the two Ex. 41 pairs. The first exaggerates a busy literal answer; the second makes the underlying harmonic relationship clearer. Listen for why the simpler relation is easier to grasp.",
+          "Compare the two Example 41 pairs. The first exaggerates a busy literal answer; the second makes the underlying harmonic relationship clearer. Listen for why the simpler relation is easier to grasp.",
         recognition:
           "Does the second pair feel clearer because the answer preserves the main relation instead of trying to duplicate every local harmonic event?",
         source: {

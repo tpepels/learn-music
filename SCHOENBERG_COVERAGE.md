@@ -18,11 +18,14 @@ Status terms:
 
 ## Rules
 
-1. A lesson may not ask the learner to analyse a named example unless source material for that example is present in the lesson.
-2. A PLAY / LAB reduction or exercise must never be labelled or rendered as if it were Schoenberg's original notation.
-3. Native transcriptions are verified against the supplied book scan before being marked **Native score**.
-4. Complex source material may ship first as a clearly labelled interactive source-analysis map, but the missing native transcription remains visible here until completed.
-5. When a native source score is available, it should be playable and its displayed notation and playback must derive from the same structured data.
+The full implementation contract is in `SCHOENBERG_ARCHITECTURE.md`. In particular, **exercise** always means a PLAY / LAB lettered step and **example** always means book source material.
+
+1. A lesson may not ask the learner to analyse a named example unless source material for that example is present on that exercise screen.
+2. Every `source.exampleIds` entry must resolve through the source registry.
+3. A PLAY / LAB application study must never be labelled or rendered as if it were Schoenberg's original notation.
+4. Native transcriptions are verified against the supplied book scan before being marked **Native score**.
+5. Complex source material may ship first as a clearly labelled interactive source-analysis map, but the missing native transcription remains visible here until completed.
+6. When a native source score is available, it should be playable and its displayed notation and playback must derive from the same structured data.
 
 
 ## S01-S05 recheck - native/interactivity pass

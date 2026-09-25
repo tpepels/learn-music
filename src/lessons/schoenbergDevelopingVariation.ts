@@ -50,7 +50,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         explanation:
           "Almost any rhythmicized succession of notes can function as a basic motive, but too many unrelated features weaken its identity. Ex. 12 contrasts simple rhythmic shapes with the repeated-note character of Beethoven's Fifth, while Ex. 13 shows how successive thirds can dominate a larger passage. A few strongly treated features are enough.",
         instruction:
-          "Play Ex. 12b and compare its repeated-note character with the Brahms example in Ex. 13. Ask what actually carries the motive's identity in each case. Then inspect Staff and Degrees below and choose the statement that best matches what you hear.",
+          "Play Example 12b and compare its repeated-note character with the Brahms material in Example 13. Ask what actually carries the motive's identity in each case. Then inspect Staff and Degrees below and choose the statement that best matches what you hear.",
         recognition:
           "What is doing the identifying work here - sheer length and complexity, or a small feature that keeps returning?",
         source: {
@@ -100,7 +100,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         explanation:
           "Exact repetition does not have to mean literal repetition of absolute pitches and durations. Transposition, inversion, retrograde, diminution and augmentation can preserve the underlying relationships strictly enough to remain exact transformations. Ex. 14 isolates these operations.",
         instruction:
-          "Play Ex. 14b Diminution and Ex. 14c Augmentation. Hear the same G-E-C-A-F-D-C-sharp-G succession at two rhythmic scales. Then compare Inversion, Retrograde, Diminution and Augmentation below and ask which musical relationships each operation preserves.",
+          "Play Example 14b Diminution and Example 14c Augmentation. Hear the same G-E-C-A-F-D-C-sharp-G succession at two rhythmic scales. Then compare Inversion, Retrograde, Diminution and Augmentation below and ask which musical relationships each operation preserves.",
         recognition:
           "Can the motive remain structurally the same even when every absolute pitch or duration changes?",
         source: {
@@ -229,7 +229,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         explanation:
           "Examples 17-29 deliberately keep the pitch source to a broken chord so each transformation can be heard clearly. Ex. 17 begins with rhythmic changes: changing note lengths, repeating notes and repeating rhythmic features. The restricted pitch material acts as experimental control.",
         instruction:
-          "Play Ex. 17a as the baseline: four equal quarter notes. Then compare the rhythmic alternatives and use the controls for Note lengths / rhythm and Note repetition. Listen for how strongly each rhythmic change alters the motive's character.",
+          "Play Example 17a as the baseline: four equal quarter notes. Then compare the rhythmic alternatives and use the controls for Note lengths / rhythm and Note repetition. Listen for how strongly each rhythmic change alters the motive's character.",
         recognition:
           "How much can the temporal shape change before the broken-chord identity stops being obvious?",
         source: {
@@ -276,7 +276,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         explanation:
           "The sequence is carefully staged. Ex. 18 adds ancillary notes. Ex. 19 changes the original order. Ex. 20 embellishes Ex. 19. Ex. 21 demonstrates reduction, omission and condensation. Development can therefore proceed by subtraction as well as addition.",
         instruction:
-          "Compare Ex. 18a and Ex. 19a. Hear B-flat inserted between C and A in Ex. 18a, then hear the broken-chord tones reordered as A-F-C-F in Ex. 19a. Continue through the later embellishment and reduction stages, then try Ancillary notes, Order / direction and Reduction / condensation below.",
+          "Compare Example 18a and Example 19a. Hear B-flat inserted between C and A in Example 18a, then hear the broken-chord tones reordered as A-F-C-F in Example 19a. Continue through the later embellishment and reduction stages, then try Ancillary notes, Order / direction and Reduction / condensation below.",
         recognition:
           "Do you hear development as one generic kind of 'variation', or can you distinguish addition, reordering and reduction?",
         source: {
@@ -426,7 +426,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         explanation:
           "Harmony can be changed by inserting material in the middle, as in Ex. 26, or by substituting a different chord or succession, as in Ex. 27. The harmonic route itself becomes a variable while motivic continuity is maintained.",
         instruction:
-          "Play the reduction with its simplified support. Choose the description that matches Exs. 26-27. Then switch notation once so you can separate the melodic relation from the harmonic change you are hearing.",
+          "Play the reduction with its simplified support. Choose the description that matches Examples 26-27. Then switch notation once so you can separate the melodic relation from the harmonic change you are hearing.",
         recognition:
           "Can the harmony take a different route while the motive still sounds like one continuing object?",
         source: {
