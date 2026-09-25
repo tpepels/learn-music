@@ -153,7 +153,7 @@ Then use Staff and Degrees to verify what your ear detected. Choose the version 
           {
             term: "Sequence",
             definition:
-              "A repetition transferred to another pitch level; Schoenberg points to sequential cases among the cited literature examples.",
+              "A repetition transferred to another pitch level while preserving enough internal relationships to remain recognisable.",
           },
         ],
         workspace: "composition-study",
@@ -217,12 +217,12 @@ Choose the version that keeps the repeated idea audible while moving its support
           {
             term: "Tonic form",
             definition:
-              "Schoenberg's term for an appearance of the phrase associated with tonic harmony or tonic function.",
+              "An appearance of the phrase associated primarily with tonic harmony or tonic function.",
           },
           {
             term: "Dominant form",
             definition:
-              "Schoenberg's term for the related answer adapted to dominant harmony or dominant function.",
+              "The related answering form adapted primarily to dominant harmony or dominant function.",
           },
           {
             term: "Complementary repetition",
@@ -297,7 +297,7 @@ Listen to the full 16-step beginning and compare at least two notation views. Re
           {
             term: "Beginning of the sentence",
             definition:
-              "Schoenberg's term for the opening construction in which the basic motive is presented and immediately repeated.",
+              "The opening construction in which the basic idea is presented and immediately repeated.",
           },
           {
             term: "Formal function",
@@ -475,7 +475,7 @@ Then decide why the simpler answer is more convincing than a literal reconstruct
           {
             term: "Mechanical preservation",
             definition:
-              "Literal copying of local events whether or not the musical function requires it - precisely what Schoenberg says these examples avoid.",
+              "Literal copying of local events even when the new harmonic or formal function calls for adaptation.",
           },
         ],
         workspace: "composition-study",
@@ -615,7 +615,7 @@ Listen to the full opening, compare two notation views, and revise until you can
           {
             term: "Controlled preservation",
             definition:
-              "A modern summary of the chapter's technique: retain the features needed for comprehensibility while adapting others to harmony and function.",
+              "Retain the features needed for comprehensibility while adapting others to the new harmony and formal function.",
           },
           {
             term: "Complementary answer",
@@ -624,7 +624,7 @@ Listen to the full opening, compare two notation views, and revise until you can
           },
         ],
         workspace: "composition-study",
-        checksLabel: "Apply the Chapter V models",
+        checksLabel: "Apply the sentence-opening principles",
         successLabel: "Your answer is recognisably related without being mechanically copied",
       }),
       evaluate: ({ compositionStudy, experiments }) => {
