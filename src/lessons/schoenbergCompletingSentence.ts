@@ -91,7 +91,7 @@ Choose the version that changes function at the right moment: it should stop mer
           {
             term: "Development",
             definition:
-              "For Schoenberg, development includes growth and extension but also reduction, condensation and intensification.",
+              "Development includes growth and extension, but also reduction, condensation and intensification of established material.",
           },
         ],
         workspace: "composition-study",
@@ -293,7 +293,7 @@ Then edit at least two pitches in steps 17-24 so the continuation sounds less me
           {
             term: "Practice form",
             definition:
-              "Schoenberg's deliberately simplified model used to learn procedures that real art forms may treat more freely.",
+              "A deliberately simplified model used to learn formal procedures that real music may treat more freely.",
           },
         ],
         workspace: "composition-study",
@@ -410,7 +410,7 @@ Then listen to the sequential treatment and trace its pattern backward through t
           exampleIds: ["s05.ex54-56"],
         },
         terms: [
-          { term: "Quasi-sequential", definition: "Schoenberg's term for sequence-like repetition in which some features may be freely varied rather than strictly transposed." },
+          { term: "Quasi-sequential", definition: "Sequence-like repetition in which some features are freely varied rather than reproduced by strict transposition." },
         ],
         workspace: "composition-study",
         checksLabel: "Trace the progression",
@@ -445,7 +445,7 @@ Only after hearing those functions should you notice the proportions. Ask whethe
           exampleIds: ["s05.ex57-58"],
         },
         terms: [
-          { term: "Cadence contour", definition: "The characteristic melodic motion toward a cadence discussed in the preceding period chapter and reused here." },
+          { term: "Cadence contour", definition: "A characteristic melodic shape that helps direct the phrase toward a cadence." },
         ],
         workspace: "composition-study",
         checksLabel: "Hear form beyond equal blocks",
@@ -481,7 +481,7 @@ Continue through the remaining Mozart analyses and compare different causes of e
         },
         terms: [
           { term: "Interpolation", definition: "Insertion of additional material into an otherwise simpler formal span." },
-          { term: "Omission test", definition: "An analytical procedure - used explicitly by Schoenberg here - of mentally removing measures to identify what produced an extension." },
+          { term: "Omission test", definition: "An analytical procedure of mentally removing a passage to reveal the simpler structural span underneath an extension." },
         ],
         workspace: "composition-study",
         checksLabel: "Diagnose the extension",
@@ -555,7 +555,7 @@ Then play the liquidation application. Compare progressive developing variation 
           exampleIds: ["s05.ex61"],
         },
         terms: [
-          { term: "Developing variation", definition: "Schoenberg's term for progressive transformation in which later motive-forms grow out of earlier ones and influence what follows." },
+          { term: "Developing variation", definition: "Progressive transformation in which later motive-forms grow out of earlier ones and influence what follows." },
         ],
         workspace: "composition-study",
         checksLabel: "Trace developing variation",
@@ -572,7 +572,7 @@ Then play the liquidation application. Compare progressive developing variation 
         letter: "L",
         title: "Rebuild the sentence after the literature studies",
         learn:
-          "Use the chapter's complete lesson: establish clearly, develop as remotely as comprehensibility permits, justify extensions, liquidate and delimit.",
+          "Use the complete process: establish clearly, develop as remotely as comprehensibility permits, justify extensions, liquidate and delimit.",
         explanation:
           "The practice form is a foundation for hearing functions, not a cage for measuring every sentence. Longer or irregular forms remain comprehensible when their extra length can be explained by musical causes: a remote derivative may need repetition, a sequence may extend directional motion, an insertion may enlarge a span, or liquidation may take time to reduce characteristic material.
 
@@ -605,7 +605,7 @@ Compare at least two notation views and listen to the entire form after each sub
           },
         ],
         workspace: "composition-study",
-        checksLabel: "Complete the Chapter VIII sentence",
+        checksLabel: "Complete the full sentence process",
         successLabel: "Your sentence establishes, develops, liquidates and closes",
       }),
       evaluate: ({ compositionStudy, experiments }) => {
