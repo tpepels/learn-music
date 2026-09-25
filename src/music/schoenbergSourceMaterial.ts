@@ -971,6 +971,80 @@ export const schoenbergSourceMaterial: Record<
     ],
   },
 
+  "s04.ex35b": {
+    kind: "score",
+    id: "s04.ex35b",
+    reference: "Ex. 35b",
+    title: "Beethoven - Piano Sonata Op. 10/2-I",
+    attribution: "Complete excerpt transcribed from Schoenberg's Ex. 35b",
+    fidelity: "verified-excerpt",
+    fidelityNote:
+      "Native grand-staff transcription of the complete pickup and four-measure excerpt printed by Schoenberg. The first phrase remains on F-major tonic harmony; the answering phrase remains on C-dominant harmony. Notes and onsets were checked against the supplied scan.",
+    clef: "treble",
+    keyLabel: "F major · 1 flat",
+    keySignature: -1,
+    meter: "2/4",
+    bpm: 104,
+    events: [
+      { midi: [57, 60, 65, 69], duration: 1, at: 0, staff: "treble" },
+      { midi: [41, 48, 53], duration: 1, at: 0, staff: "bass" },
+
+      { midi: [60, 65, 69, 72], duration: 2, at: 1, staff: "treble" },
+      { midi: [41, 48, 53], duration: 2, at: 1, staff: "bass" },
+      { midi: null, duration: 1, at: 3, staff: "treble" },
+      { midi: null, duration: 1, at: 3, staff: "bass" },
+      { midi: 72, duration: 1 / 3, at: 4, staff: "treble" },
+      { midi: 71, duration: 1 / 3, at: 4 + 1 / 3, staff: "treble", accidental: "♮" },
+      { midi: 74, duration: 1 / 3, at: 4 + 2 / 3, staff: "treble" },
+
+      { midi: 72, duration: 2, at: 5, staff: "treble" },
+      { midi: null, duration: 1, at: 7, staff: "treble" },
+      { midi: null, duration: 1, at: 7, staff: "bass" },
+      { midi: [60, 65, 69], duration: 1, at: 8, staff: "treble" },
+      { midi: [41, 48, 53], duration: 1, at: 8, staff: "bass" },
+
+      { midi: [60, 67, 70], duration: 2, at: 9, staff: "treble" },
+      { midi: [40, 48, 52], duration: 2, at: 9, staff: "bass", accidentals: ["♮", null, "♮"] },
+      { midi: null, duration: 1, at: 11, staff: "treble" },
+      { midi: null, duration: 1, at: 11, staff: "bass" },
+      { midi: 70, duration: 1 / 3, at: 12, staff: "treble" },
+      { midi: 69, duration: 1 / 3, at: 12 + 1 / 3, staff: "treble" },
+      { midi: 72, duration: 1 / 3, at: 12 + 2 / 3, staff: "treble" },
+
+      { midi: 70, duration: 2, at: 13, staff: "treble" },
+      { midi: null, duration: 4, at: 13, staff: "bass" },
+      { midi: null, duration: 2, at: 15, staff: "treble" },
+    ],
+    barlines: [1, 5, 9, 13, 17],
+    slurs: [
+      { start: 6, end: 8 },
+      { start: 18, end: 20 },
+    ],
+    analysis: [
+      {
+        label: "tonic form",
+        detail:
+          "The pickup and first two measures remain on F-major tonic harmony. The small triplet ornaments the tonic-form phrase without changing its harmonic function.",
+        startEvent: 0,
+        endEvent: 13,
+      },
+      {
+        label: "dominant form",
+        detail:
+          "The answering two measures move to dominant harmony. The melody is adjusted to the C-dominant sonority while preserving the compact rhythmic shape.",
+        startEvent: 14,
+        endEvent: 23,
+      },
+      {
+        label: "compare 35a / 35b",
+        detail:
+          "Both examples make Schoenberg's complementary repetition unusually exposed: phrase identity stays obvious while tonic support is replaced by dominant support.",
+        startEvent: 0,
+        endEvent: 23,
+      },
+    ],
+  },
+
   "s04.ex35": map(
     "s04.ex35",
     "Ex. 35a-b",
