@@ -82,7 +82,8 @@ describe("Schoenberg source score layout", () => {
       <SchoenbergSourceMaterial id="s01.ex4c" />,
     );
 
-    expect(html).toContain("Ex. 4c");
+    expect(html).toContain("Beethoven - Symphony No. 3, Scherzo");
+    expect(html).not.toContain("Ex. 4c");
     expect(html).not.toContain("Analytical extraction");
   });
 
