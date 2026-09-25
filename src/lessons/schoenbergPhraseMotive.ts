@@ -21,7 +21,7 @@ const lesson = lessonContentSchema.parse({
   description:
     "A phrase is the smallest structural unit that can be heard as a coherent musical thought. The lesson moves from recognising complete phrases to constructing them with chord tones, changing note-values, upbeats, passing notes, repetitions and embellishment.",
   overview:
-    "This lesson now follows that progression in detail. Analyse literature examples, then work through the practical sequence of Examples 5-11 before constructing your own phrase study.",
+    "This lesson follows that progression in detail. Analyse short literature passages, then move from constrained broken-chord sketches through rhythmic variation, passing motion and embellishment before constructing your own phrase study.",
 });
 
 function revisedStepCount(values: string[]): number {
@@ -109,7 +109,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         explanation:
           "The literature examples deliberately resist a single formula for phrase construction. Their lengths, contours and rhythmic surfaces differ, yet each can still be heard as a coherent unit because melodic motion, rhythm and implied harmony cooperate. Internal repetitions or characteristic figures may help bind the phrase, but they are features inside the larger unit rather than a substitute for it.\n\nEx. 2e, from the opening of Beethoven's Eroica, is useful because the material is simple enough to hear the organization directly. The two slurred spans create internal grouping, while the arpeggiated contour and harmonic stability make the whole line intelligible as one phrase rather than as isolated notes.",
         instruction:
-          "Play Example 2e several times. Follow the two internal spans, but listen past the slurs to the complete phrase: where does the line feel stable, where does it continue, and where does it finally settle?\n\nThen audition Exact repeat, Related change and Unrelated change below. Choose the version that changes enough to avoid mere duplication while preserving enough contour, rhythm or harmonic implication to remain part of the same musical thought.",
+          "Play the Eroica opening theme below several times. Follow the two internal spans, but listen past the slurs to the complete phrase: where does the line feel stable, where does it continue, and where does it finally settle?\n\nThen audition Exact repeat, Related change and Unrelated change below. Choose the version that changes enough to avoid mere duplication while preserving enough contour, rhythm or harmonic implication to remain part of the same musical thought.",
         recognition:
           "Which version sounds changed while still belonging to the same musical thought?",
         source: {
@@ -157,9 +157,9 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Keep a phrase recognisable while changing its continuation.",
         explanation:
-          "A phrase may contain features that recur and act as points of recognition. Those features can be rhythmic, intervallic, registral or contour-based; their importance depends on how they are treated. Preserving every detail is unnecessary, but changing every important feature at once weakens the relationship between one part of the phrase and the next.\n\nEx. 2e shows a clear contour and internal grouping. Ex. 4c is more strongly identified by repeated-note rhythm before the line begins to rise. Together they show two different ways a continuation can remain related: it may preserve the general melodic shape, or it may preserve a characteristic rhythmic behaviour while changing the pitches more freely.",
+          "A phrase may contain features that recur and act as points of recognition. Those features can be rhythmic, intervallic, registral or contour-based; their importance depends on how they are treated. Preserving every detail is unnecessary, but changing every important feature at once weakens the relationship between one part of the phrase and the next.\n\nThe Eroica opening is strongly shaped by contour and internal grouping. The Scherzo phrase is more strongly identified by repeated-note rhythm before the line begins to rise. Together they show two different ways a continuation can remain related: it may preserve the general melodic shape, or it may preserve a characteristic rhythmic behaviour while changing the pitches more freely.",
         instruction:
-          "Study Example 2e and Example 4c below before editing. Decide which characteristic you are going to preserve - for example the direction of the contour, a repeated-note rhythm, or the way the line moves away from and back toward a central pitch.\n\nLeave steps 1-4 unchanged. Rewrite steps 5-8 so the continuation clearly retains at least one characteristic feature, but changes enough pitch or direction that it is not a literal copy. Play the whole eight-step phrase after every substantial edit.",
+          "Listen to the Eroica opening and the Scherzo phrase below before editing. Decide which characteristic you are going to preserve - for example the direction of the contour, a repeated-note rhythm, or the way the line moves away from and back toward a central pitch.\n\nLeave steps 1-4 unchanged. Rewrite steps 5-8 so the continuation clearly retains at least one characteristic feature, but changes enough pitch or direction that it is not a literal copy. Play the whole eight-step phrase after every substantial edit.",
         recognition:
           "Does the second half still sound like the same phrase family without simply repeating the first half?",
         source: {
@@ -205,13 +205,13 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: SCHOENBERG_STUDY_IDS.compose,
         letter: "D",
-        title: "Ex. 5 - make melody from chord tones",
+        title: "Make melody from chord tones",
         learn:
           "Invent several different melodic units while keeping the harmony fixed.",
         explanation:
           "Early phrase-writing becomes easier when the variables are separated. By fixing the harmony first, you can concentrate on melodic contour and rhythm without having to solve harmony at the same time. The purpose is technical fluency: repeated sketches gradually make the coordination of melodic, rhythmic and harmonic factors less awkward.\n\nExample 5 uses only the tonic harmony of F major. Different arrangements of F-A-C create different melodic units even though the harmonic material never changes. This is the point of the restriction: learn how much variety contour alone can produce before adding more resources.",
         instruction:
-          "Play Example 5a and identify its three structural pitches: F, A and C. Notice that changing their order changes the melodic profile without changing the harmony.\n\nIn the study below, use the equivalent C-major tonic material C-E-G. Write at least six notes in steps 1-8, make the contour purposeful rather than random, listen to it, and then revise at least one step after hearing the result.",
+          "Play the F-major broken-chord source below and identify its three structural pitches: F, A and C. Notice that changing their order changes the melodic profile without changing the harmony.\n\nIn the study below, use the equivalent C-major tonic material C-E-G. Write at least six notes in steps 1-8, make the contour purposeful rather than random, listen, and then revise at least one step after hearing the result.",
         recognition:
           "How many genuinely different melodic shapes can the same three chord tones produce?",
         source: {
@@ -252,13 +252,13 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: SCHOENBERG_STUDY_IDS.noteValues,
         letter: "E",
-        title: "Ex. 6 - smaller note values",
+        title: "Create activity with smaller note values",
         learn:
           "Hear how rhythm alone can produce a different phrase character while the pitch material stays restricted.",
         explanation:
-          "Example 6 keeps the same basic harmonic restriction but changes the rhythmic scale. Smaller note-values create more events within the same span, so the line feels more active even before any new pitch resource is introduced.\n\nThis separates two compositional variables that are easy to confuse: pitch content may remain almost unchanged while rhythm alters density, momentum and phrase character. The exercise is therefore about hearing rhythmic activity as an independent source of variation.",
+          "The next source keeps the same basic harmonic restriction but changes the rhythmic scale. Smaller note-values create more events within the same span, so the line feels more active even before any new pitch resource is introduced.\n\nThis separates two compositional variables that are easy to confuse: pitch content may remain almost unchanged while rhythm alters density, momentum and phrase character. The exercise is therefore about hearing rhythmic activity as an independent source of variation.",
         instruction:
-          "Play Example 6a and compare it with Example 5a. The pitch material remains simple, but the shorter note-values make the phrase more active. Then inspect the Staff and Degrees views below and choose the statement that describes the change.",
+          "Compare the shorter-note-value source with the earlier broken-chord source shown beside it. The pitch material remains simple, but the shorter durations make the phrase more active. Then inspect the Staff and Degrees views below and choose the statement that describes the change.",
         recognition:
           "Does the phrase feel more active even though it still lives inside the same simple harmonic world?",
         source: {
@@ -288,13 +288,13 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: SCHOENBERG_STUDY_IDS.upbeats,
         letter: "F",
-        title: "Ex. 7 - upbeats and varied note values",
+        title: "Use an upbeat and varied note values",
         learn:
           "Hear how pickup motion and mixed durations can make the same restricted pitch material more flexible.",
         explanation:
-          "Example 7 still avoids new harmonic pitches, but it loosens the rhythmic treatment. Mixed note-values and upbeats change where events fall in relation to the beat, giving the line a more flexible entrance and a less mechanical surface.\n\nThe important point is that fluency does not require immediate melodic complication. A phrase can become more animated through duration and metric placement alone while the pitch material remains structurally simple.",
+          "This source still avoids new harmonic pitches, but it loosens the rhythmic treatment. Mixed note-values and an upbeat change where events fall in relation to the beat, giving the line a more flexible entrance and a less mechanical surface.\n\nThe important point is that fluency does not require immediate melodic complication. A phrase can become more animated through duration and metric placement alone while the pitch material remains structurally simple.",
         instruction:
-          "Play Example 7a and hear how the B-flat upbeat leads into the longer F-D span. Then inspect the rests and mixed durations in Staff view and choose the answer that best describes what this adds to the earlier studies.",
+          "Play the upbeat source below and hear how the B-flat pickup leads into the longer F-D span. Then inspect the rests and mixed durations in Staff view and choose the answer that best describes what this adds to the earlier studies.",
         recognition:
           "Can a phrase become more fluid before you add any new harmonic pitch?",
         source: {
@@ -326,13 +326,13 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: SCHOENBERG_STUDY_IDS.passingNotes,
         letter: "G",
-        title: "Ex. 8 - add passing notes",
+        title: "Connect structural tones with passing notes",
         learn:
           "Hear passing notes as a way of adding fluency between structural chord tones.",
         explanation:
-          "Example 8 begins to enrich the earlier broken-chord studies with non-chord tones. Passing notes connect structural pitches by step, filling larger intervals and giving the melody a more continuous surface without replacing the underlying harmonic framework.\n\nThis is a useful distinction: the chord tones remain the structural points, while the added note belongs to the motion between them. The added detail should make the line more fluent, not make the harmonic basis harder to perceive.",
+          "The next source enriches the earlier broken-chord studies with a non-chord tone. A passing note connects structural pitches by step, filling a larger interval and giving the melody a more continuous surface without replacing the underlying harmonic framework.\n\nThis is a useful distinction: the chord tones remain the structural points, while the added note belongs to the motion between them. The added detail should make the line more fluent, not make the harmonic basis harder to perceive.",
         instruction:
-          "Play Example 8a and follow F-A-B-flat-C. The added B-flat connects the structural tones by step. Then compare the study below and choose the technique being added.",
+          "Play the passing-note source below and follow F-A-B-flat-C. The added B-flat connects the structural tones by step. Then compare the study below and choose the technique being added.",
         recognition:
           "Which notes feel like connective motion rather than new harmonic pillars?",
         source: {
@@ -366,13 +366,13 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: SCHOENBERG_STUDY_IDS.repetitions,
         letter: "H",
-        title: "Ex. 9 - passing notes plus repetition",
+        title: "Combine passing notes with repetition",
         learn:
           "Hear how local note repetition can join passing motion to a more articulated rhythmic surface.",
         explanation:
-          "Example 9 combines resources that were previously isolated. The varied note-values and upbeat character of Ex. 7 remain, while passing notes and local pitch repetitions add continuity and articulation.\n\nBecause the techniques are introduced progressively, you can hear what each one contributes. Repetition can emphasize or group a pitch; passing motion can connect structural tones. Their combination produces a richer surface without requiring a new harmonic foundation.",
+          "The next variation combines resources that were previously isolated. Varied note-values and upbeat motion remain, while passing notes and local pitch repetitions add continuity and articulation.\n\nBecause the techniques are introduced progressively, you can hear what each one contributes. Repetition can emphasize or group a pitch; passing motion can connect structural tones. Their combination produces a richer surface without requiring a new harmonic foundation.",
         instruction:
-          "Play the reduction and look for adjacent repeated pitches as well as stepwise connecting motion. Choose the description that matches Example 9.",
+          "Play the study and look for adjacent repeated pitches as well as stepwise connecting motion. Choose the description that best matches what you hear.",
         recognition:
           "Can you hear repetition acting as articulation inside an otherwise flowing line?",
         source: {
@@ -406,11 +406,11 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: SCHOENBERG_STUDY_IDS.embellishment,
         letter: "I",
-        title: "Exs. 10-11 - embellish, but do not obscure",
+        title: "Embellish without obscuring the harmony",
         learn:
           "Hear the trade-off in embellishment: extra detail can create flexibility and richness, but too many small notes can obscure the harmony.",
         explanation:
-          "Examples 10 and 11 push embellishment further. Changing notes, appoggiatura-like figures and denser small-note motion can give a melody flexibility and richness of detail, but the benefit has a limit.\n\nWhen too many small notes compete for attention, the structural pitches and implied harmony become difficult to hear. The compositional question is therefore not simply whether ornament is attractive, but whether the underlying line remains legible through the decoration.",
+          "The final embellishment sources push the process further. Changing notes, appoggiatura-like figures and denser small-note motion can give a melody flexibility and richness of detail, but the benefit has a limit.\n\nWhen too many small notes compete for attention, the structural pitches and implied harmony become difficult to hear. The compositional question is therefore not simply whether ornament is attractive, but whether the underlying line remains legible through the decoration.",
         instruction:
           "Play the denser study and compare Staff with Degrees. Then choose the statement that best describes the risk created by too much embellishment.",
         recognition:
@@ -452,7 +452,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Constrain the material, make a phrase, then revise it until melody, rhythm and harmony coordinate naturally.",
         explanation:
-          "The sequence of Examples 5-11 is a practice method rather than a catalogue of effects. Start with a predetermined harmony, make many short sketches, and add one source of complexity at a time. The progression moves from chord-tone contours to smaller values, mixed rhythm and upbeats, then to passing notes, repetitions and richer embellishment.\n\nThe goal is coordination. A successful phrase should make melody, rhythm and harmony feel mutually supportive rather than independently assembled. Repetition of the exercise matters: awkward early sketches are expected, and revision after listening is part of acquiring fluency.",
+          "The sequence you have just worked through is a practice method rather than a catalogue of effects. Start with a predetermined harmony, make many short sketches, and add one source of complexity at a time. The progression moves from chord-tone contours to smaller values, mixed rhythm and upbeats, then to passing notes, repetitions and richer embellishment.\n\nThe goal is coordination. A successful phrase should make melody, rhythm and harmony feel mutually supportive rather than independently assembled. Repetition of the exercise matters: awkward early sketches are expected, and revision after listening is part of acquiring fluency.",
         instruction:
           "Build the first half in steps 1-8 over the tonic framework C-E-G. Give it a recognisable contour and rhythmic character. You may add passing or changing notes, but keep the structural pitches audible.\n\nThen write a related continuation in steps 9-16. It should belong to the first half without merely copying it. Use at least three notes in each half, listen to the complete phrase, revise at least one step after hearing it, and compare two notation views before finishing.",
         recognition:
