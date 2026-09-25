@@ -23,9 +23,20 @@ export function LearningPanel({
         className="exercise-guide schoenberg-guide"
         aria-label="Current exercise guide"
       >
-        <div className="schoenberg-guide-copy">
+        <div className="schoenberg-guide-explanation">
+          <span className="section-label">Explanation</span>
           <h2>{exercise.learn}</h2>
           <p>{exercise.explanation}</p>
+
+          {exercise.terms.length > 0 ? (
+            <div className="schoenberg-guide-terms" aria-label="Terms">
+              {exercise.terms.map((item) => (
+                <p key={item.term}>
+                  <strong>{item.term}:</strong> {item.definition}
+                </p>
+              ))}
+            </div>
+          ) : null}
         </div>
 
         {exercise.source?.exampleIds?.length ? (
@@ -36,24 +47,13 @@ export function LearningPanel({
           </div>
         ) : null}
 
-        <div className="schoenberg-guide-action">
-          <p>
-            <strong>Do:</strong> {exercise.instruction}
+        <section className="schoenberg-guide-exercise" aria-label="Exercise">
+          <span className="section-label">Exercise</span>
+          <p>{exercise.instruction}</p>
+          <p className="schoenberg-guide-listen">
+            <strong>Listen for:</strong> {exercise.recognition}
           </p>
-          <p>
-            <strong>Listen:</strong> {exercise.recognition}
-          </p>
-        </div>
-
-        {exercise.terms.length > 0 ? (
-          <div className="schoenberg-guide-terms">
-            {exercise.terms.map((item) => (
-              <p key={item.term}>
-                <strong>{item.term}:</strong> {item.definition}
-              </p>
-            ))}
-          </div>
-        ) : null}
+        </section>
       </section>
     );
   }

@@ -86,7 +86,7 @@ export const schoenbergSourceMaterial: Record<
     attribution: "Melodic line transcribed from Schoenberg's Ex. 2e",
     fidelity: "full-melodic-line",
     fidelityNote:
-      "Native transcription of the complete melodic line reproduced by Schoenberg. Orchestral doubling is not part of the book excerpt.",
+      "Native transcription of the complete melodic line reproduced by Schoenberg. This is the opening Eroica first-movement theme in its cello register, so the bass clef is intentional. Orchestral doubling is not part of the book excerpt.",
     clef: "bass",
     keyLabel: "E♭ major · 3 flats",
     keySignature: -3,
