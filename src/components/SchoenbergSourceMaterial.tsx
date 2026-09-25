@@ -221,6 +221,33 @@ export function sourceContentStartX(score: SchoenbergSourceScore): number {
   return Math.max(130, notationEnd + (score.meter ? 38 : 20));
 }
 
+const SOURCE_EIGHTH_SPACING = 28;
+const SOURCE_BARLINE_GAP = 22;
+const SOURCE_POSITION_EPSILON = 1e-6;
+
+export function sourceHorizontalX(
+  positionUnits: number,
+  unitToEighth: number,
+  contentStartX: number,
+  barlinePositions: number[],
+  kind: "event" | "barline" = "event",
+): number {
+  const barsBefore = barlinePositions.filter(
+    (bar) => bar < positionUnits - SOURCE_POSITION_EPSILON,
+  ).length;
+  const barAtPosition = barlinePositions.some(
+    (bar) => Math.abs(bar - positionUnits) <= SOURCE_POSITION_EPSILON,
+  );
+
+  const base =
+    contentStartX +
+    positionUnits * unitToEighth * SOURCE_EIGHTH_SPACING +
+    barsBefore * SOURCE_BARLINE_GAP;
+
+  if (kind === "barline") return base + SOURCE_BARLINE_GAP / 2;
+  return base + (barAtPosition ? SOURCE_BARLINE_GAP : 0);
+}
+
 export function sourceStemDirection(
   midis: number[],
   clef: StaffClef,
@@ -305,7 +332,21 @@ function SourceScore({
   );
   const totalEighths = totalUnits * unitToEighth;
   const contentStartX = sourceContentStartX(score);
-  const width = Math.max(700, contentStartX + totalEighths * 34 + 48);
+  const barlinePositions = useMemo(() => {
+    if (score.barlines?.length) return [...score.barlines];
+    return score.events.flatMap((event, index) =>
+      event.barAfter
+        ? [positions[index] + Math.max(0.25, event.duration)]
+        : [],
+    );
+  }, [positions, score.barlines, score.events]);
+  const width = Math.max(
+    700,
+    contentStartX +
+      totalEighths * SOURCE_EIGHTH_SPACING +
+      barlinePositions.length * SOURCE_BARLINE_GAP +
+      48,
+  );
   const svgHeight = grand ? 232 : 176;
 
   useEffect(
@@ -364,9 +405,19 @@ function SourceScore({
     );
   };
 
-  const xForPosition = (position: number) =>
-    contentStartX + position * unitToEighth * 34;
-  const xForEvent = (index: number) => xForPosition(positions[index]);
+  const xForPosition = (
+    position: number,
+    kind: "event" | "barline" = "event",
+  ) =>
+    sourceHorizontalX(
+      position,
+      unitToEighth,
+      contentStartX,
+      barlinePositions,
+      kind,
+    );
+  const xForEvent = (index: number) =>
+    xForPosition(positions[index], "event");
   const analysis = score.analysis ?? [];
   const activeSegment = analysis[activeAnalysis];
 
@@ -414,8 +465,8 @@ function SourceScore({
           {(score.barlines ?? []).map((position) => (
             <line
               key={position}
-              x1={xForPosition(position)}
-              x2={xForPosition(position)}
+              x1={xForPosition(position, "barline")}
+              x2={xForPosition(position, "barline")}
               y1={grand ? staffTop("treble", true) : staffTop(score.clef, false) - 4}
               y2={grand ? staffTop("bass", true) + 40 : staffTop(score.clef, false) + 44}
               className="source-score-barline"
@@ -566,9 +617,11 @@ function SourceScore({
                   <line
                     x1={xForPosition(
                       positions[index] + Math.max(0.25, event.duration),
+                      "barline",
                     )}
                     x2={xForPosition(
                       positions[index] + Math.max(0.25, event.duration),
+                      "barline",
                     )}
                     y1={staffTop(clef, grand) - 4}
                     y2={staffTop(clef, grand) + 44}

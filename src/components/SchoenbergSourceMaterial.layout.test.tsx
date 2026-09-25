@@ -3,6 +3,7 @@ import { describe, expect, it } from "vitest";
 import {
   sourceContentStartX,
   sourceDisplayedAccidental,
+  sourceHorizontalX,
   sourceNoteSpelling,
   sourceStemDirection,
   SchoenbergSourceMaterial,
@@ -60,6 +61,26 @@ describe("Schoenberg source score layout", () => {
     expect(sourceDisplayedAccidental(52, -3)).toBe("♮");
     expect(sourceDisplayedAccidental(61, 1)).toBe("♯");
     expect(sourceDisplayedAccidental(61, -2)).toBe("♭");
+  });
+
+  it("keeps barlines between adjacent note onsets", () => {
+    const bars = [6, 12];
+    const previousNoteX = sourceHorizontalX(4, 1, 160, bars, "event");
+    const barlineX = sourceHorizontalX(6, 1, 160, bars, "barline");
+    const nextNoteX = sourceHorizontalX(6, 1, 160, bars, "event");
+
+    expect(previousNoteX).toBeLessThan(barlineX);
+    expect(barlineX).toBeLessThan(nextNoteX);
+    expect(nextNoteX - barlineX).toBeGreaterThanOrEqual(10);
+  });
+
+  it("compresses temporal spacing compared with the old 34px-per-eighth layout", () => {
+    const bars: number[] = [];
+    const start = sourceHorizontalX(0, 1, 160, bars);
+    const fourEighthsLater = sourceHorizontalX(4, 1, 160, bars);
+
+    expect(fourEighthsLater - start).toBe(112);
+    expect(fourEighthsLater - start).toBeLessThan(136);
   });
 
   it("uses conventional stem direction around the middle staff line", () => {
