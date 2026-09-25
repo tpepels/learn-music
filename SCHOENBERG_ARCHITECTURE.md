@@ -288,4 +288,4 @@ Before changing a lesson:
 10. merge safely only when the latest deliberate validation is green
 11. verify exact-main Pages deployment
 
-Do not start a new Schoenberg lesson merely because the previous lesson compiles. The current lessons should first meet the same readability, source-integrity and notation standard.
+Do not start a new Schoenberg lesson merely because the previous lesson compiles. Every implemented lesson should meet the same readability, source-integrity and notation standard before the track moves further into the book.
