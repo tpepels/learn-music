@@ -147,30 +147,37 @@ describe("Schoenberg S05 completing the sentence", () => {
     ];
 
     for (const spec of specs) {
+      const sourceAnalysis = sourceVisits(spec.id, spec.count);
+      const experiments: LessonContext["experiments"] = {
+        "transport.play": experiment(1, ["composition-study"]),
+        "source.analysis": experiment(spec.count, sourceAnalysis),
+      };
+      if (spec.id === "s05.ex59") {
+        experiments["source.play"] = experiment(1, ["s05.ex59a"]);
+      }
+
       const checks =
         schoenbergCompletingSentenceLesson.exercises[spec.index].evaluate(
-          context(initialCompositionStudyState(), {
-            "transport.play": experiment(1, ["composition-study"]),
-            "source.analysis": experiment(
-              spec.count,
-              sourceVisits(spec.id, spec.count),
-            ),
-          }),
+          context(initialCompositionStudyState(), experiments),
         );
       expect(
         checks.every((check) => check.complete),
         schoenbergCompletingSentenceLesson.exercises[spec.index].id,
       ).toBe(true);
 
+      const incompleteExperiments: LessonContext["experiments"] = {
+        "transport.play": experiment(1, ["composition-study"]),
+        "source.analysis": experiment(
+          Math.max(0, spec.count - 1),
+          sourceVisits(spec.id, Math.max(0, spec.count - 1)),
+        ),
+      };
+      if (spec.id === "s05.ex59") {
+        incompleteExperiments["source.play"] = experiment(1, ["s05.ex59a"]);
+      }
       const incomplete =
         schoenbergCompletingSentenceLesson.exercises[spec.index].evaluate(
-          context(initialCompositionStudyState(), {
-            "transport.play": experiment(1, ["composition-study"]),
-            "source.analysis": experiment(
-              Math.max(0, spec.count - 1),
-              sourceVisits(spec.id, Math.max(0, spec.count - 1)),
-            ),
-          }),
+          context(initialCompositionStudyState(), incompleteExperiments),
         );
       expect(incomplete.some((check) => !check.complete)).toBe(true);
     }
