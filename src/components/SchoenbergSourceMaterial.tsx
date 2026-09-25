@@ -40,6 +40,49 @@ function sourceAccidental(midi: number): string {
       : "";
 }
 
+const TREBLE_FLAT_MIDIS = [71, 76, 69, 74, 67, 72, 65];
+const TREBLE_SHARP_MIDIS = [77, 72, 79, 74, 69, 76, 71];
+const BASS_FLAT_MIDIS = [47, 52, 45, 50, 43, 48, 41];
+const BASS_SHARP_MIDIS = [53, 48, 55, 50, 45, 52, 47];
+
+function keySignaturePitchClasses(keySignature = 0): Set<number> {
+  const flats = [10, 3, 8, 1, 6, 11, 4];
+  const sharps = [6, 1, 8, 3, 10, 5, 0];
+  const source = keySignature < 0 ? flats : sharps;
+  return new Set(source.slice(0, Math.min(7, Math.abs(keySignature))));
+}
+
+function KeySignature({
+  score,
+}: {
+  score: SchoenbergSourceScore;
+}) {
+  const count = Math.min(7, Math.abs(score.keySignature ?? 0));
+  if (!count) return null;
+
+  const flats = (score.keySignature ?? 0) < 0;
+  const midis =
+    score.clef === "treble"
+      ? flats ? TREBLE_FLAT_MIDIS : TREBLE_SHARP_MIDIS
+      : flats ? BASS_FLAT_MIDIS : BASS_SHARP_MIDIS;
+  const glyph = flats ? "♭" : "♯";
+
+  return (
+    <>
+      {midis.slice(0, count).map((midi, index) => (
+        <text
+          key={index}
+          x={76 + index * 13}
+          y={sourceStaffY(midi, score.clef) + 5}
+          className="source-score-accidental source-score-key-signature"
+        >
+          {glyph}
+        </text>
+      ))}
+    </>
+  );
+}
+
 function SourceScore({
   score,
 }: {
@@ -151,12 +194,13 @@ function SourceScore({
           <text x="38" y="91" className="source-score-clef">
             {score.clef === "treble" ? "𝄞" : "𝄢"}
           </text>
+          <KeySignature score={score} />
           {score.meter ? (
             <>
-              <text x="84" y="75" className="source-score-meter">
+              <text x={84 + Math.abs(score.keySignature ?? 0) * 13} y="75" className="source-score-meter">
                 {score.meter.split("/")[0]}
               </text>
-              <text x="84" y="91" className="source-score-meter">
+              <text x={84 + Math.abs(score.keySignature ?? 0) * 13} y="91" className="source-score-meter">
                 {score.meter.split("/")[1]}
               </text>
             </>
@@ -176,9 +220,19 @@ function SourceScore({
                 : event.duration === 3 || event.duration === 6;
             const flags =
               durationEighths <= 0.5 ? 2 : durationEighths <= 1 ? 1 : 0;
+            const signaturePitchClasses = keySignaturePitchClasses(
+              score.keySignature,
+            );
+            const pitchClass =
+              event.midi === null
+                ? null
+                : ((event.midi % 12) + 12) % 12;
+            const inferredAccidental =
+              event.midi === null ? "" : sourceAccidental(event.midi);
             const accidental =
-              event.accidental ??
-              (event.midi === null ? "" : sourceAccidental(event.midi));
+              pitchClass !== null && signaturePitchClasses.has(pitchClass)
+                ? ""
+                : event.accidental ?? inferredAccidental;
 
             return (
               <g
