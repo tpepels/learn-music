@@ -16,7 +16,7 @@ const lesson = lessonContentSchema.parse({
   id: "schoenberg.beginning-sentence",
   number: 4,
   title: "Beginning the sentence",
-  eyebrow: "Schoenberg · Chapter V · Construction of Simple Themes (1)",
+  eyebrow: "Schoenberg · Beginning the Sentence",
   hero: "Establish the basic motive immediately, then learn how tonic and dominant forms can answer one another without becoming mechanical copies.",
   description:
     "A sentence usually establishes its basic idea through immediate repetition. The answering phrase may change pitch, contour, harmony and accompaniment while preserving enough relationship for the opening to remain unmistakable.",
