@@ -155,13 +155,13 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         letter: "C",
         title: "Beethoven: repair the relationship",
         learn:
-          "Use the kind of family resemblance visible in Schoenberg's Beethoven phrase examples to repair a weak continuation.",
+          "Keep a phrase recognisable while changing its continuation.",
         explanation:
-          "Schoenberg selected two different passages from Beethoven's Symphony No. 3 in these early phrase examples. Ex. 2e is reproduced as native score data; Ex. 4c is represented by an interactive source-analysis map while its clean note-for-note transcription remains pending. The editable miniature is application material, not a replacement for either source example.",
+          "Phrase identity can survive substantial change when a characteristic feature remains clear. In Ex. 2e, the contour and two slurred spans make the phrase easy to hear as one unit. In Ex. 4c, repeated notes establish a strong rhythmic character before the line rises. A continuation can therefore change pitches or direction without sounding unrelated, provided it preserves enough of the original character.",
         instruction:
-          "Play and inspect Ex. 2e, then step through the Ex. 4c source-analysis map. In Ex. 2e, trace the complete slurred phrase and contour. In Ex. 4c, focus on the repeated-note rhythmic character and its continuation. Then move to the editable miniature: keep steps 1-4 as the source and rewrite steps 5-8 until they are recognisably related but not identical.",
+          "Study Ex. 2e and Ex. 4c, then edit the miniature below. Leave steps 1-4 unchanged. Rewrite steps 5-8 so the continuation keeps a recognisable contour or rhythmic feature from the opening but is not an exact copy.",
         recognition:
-          "After looking at Beethoven first, can you make your continuation preserve a clearly recognisable feature without merely copying the source?",
+          "Does the second half still sound like the same phrase family without simply repeating the first half?",
         source: {
           reference: "Example 2e - Beethoven, Symphony No. 3-I · Example 4c - Beethoven, Symphony No. 3, Scherzo",
           focus:
