@@ -18,7 +18,7 @@ const lesson = lessonContentSchema.parse({
   eyebrow: "Schoenberg · Chapter III · The Motive",
   hero: "Learn what a motive can preserve while rhythm, interval, harmony and context change.",
   description:
-    "Chapter III first asks what constitutes a motive, then distinguishes exact, modified and developed repetition. Schoenberg's Examples 12-16 come from literature and isolate characteristic features; Examples 17-29 then vary one broken-chord motive systematically through rhythm, interval, metric placement, harmony and melodic adaptation.",
+    "A motive needs a small number of characteristic features that remain perceptible as the material changes. The lesson moves from exact and modified repetition into systematic changes of rhythm, interval, metric placement, harmony and melodic adaptation.",
   overview:
     "Work from recognisable motive identity toward progressively freer variation. The lesson moves from characteristic features to exact transformations, rhythmic change, embellishment, metric displacement, harmonic adaptation and finally combined treatment.",
 });
@@ -48,7 +48,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         learn:
           "Hear how a very small number of characteristic rhythmic or intervallic features can be enough to establish a motive.",
         explanation:
-          "Schoenberg explicitly says that any rhythmicized succession of notes can serve as a basic motive, but that it should not contain too many different features. Ex. 12 contrasts simple rhythmic shapes with the note-repetition character of Beethoven's Fifth Symphony; Ex. 13 shows Brahms's Fourth Symphony built largely from successive thirds. The lesson is economy: identity can come from a few strongly treated features.",
+          "Almost any rhythmicized succession of notes can function as a basic motive, but too many unrelated features weaken its identity. Ex. 12 contrasts simple rhythmic shapes with the repeated-note character of Beethoven's Fifth, while Ex. 13 shows how successive thirds can dominate a larger passage. A few strongly treated features are enough.",
         instruction:
           "Play Ex. 12b and compare its repeated-note character with the Brahms example in Ex. 13. Ask what actually carries the motive's identity in each case. Then inspect Staff and Degrees below and choose the statement that best matches what you hear.",
         recognition:
@@ -96,13 +96,13 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         letter: "B",
         title: "Ex. 14 - exact repetition can transform",
         learn:
-          "Understand Schoenberg's broader use of exact repetition: note relations can be preserved under inversion, retrograde, diminution and augmentation.",
+          "Understand how note relationships can remain exact under inversion, retrograde, diminution and augmentation.",
         explanation:
-          "Schoenberg distinguishes exact, modified and developed repetition. He says that transposition to another degree, inversion, retrograde, diminution and augmentation can still count as exact repetitions if the features and note relationships are strictly preserved. Ex. 14 demonstrates inversion, retrograde, retrograde inversion, diminution and augmentation explicitly.",
+          "Exact repetition does not have to mean literal repetition of absolute pitches and durations. Transposition, inversion, retrograde, diminution and augmentation can preserve the underlying relationships strictly enough to remain exact transformations. Ex. 14 isolates these operations.",
         instruction:
           "Play Ex. 14b Diminution and Ex. 14c Augmentation. Hear the same G-E-C-A-F-D-C-sharp-G succession at two rhythmic scales. Then compare Inversion, Retrograde, Diminution and Augmentation below and ask which musical relationships each operation preserves.",
         recognition:
-          "Can the motive remain 'the same' in Schoenberg's technical sense even when every absolute pitch or duration changes?",
+          "Can the motive remain structurally the same even when every absolute pitch or duration changes?",
         source: {
           reference: "Example 14 - inversion, retrograde, retrograde inversion, diminution and augmentation",
           exampleIds: ["s02.ex14b", "s02.ex14c", "s02.ex14"],
@@ -177,9 +177,9 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         learn:
           "See how several kinds of change can operate together in actual musical continuation rather than as isolated classroom tricks.",
         explanation:
-          "After the abstract transformations of Ex. 14, Schoenberg turns to motive-forms in context. Ex. 15 combines transposition with changes of direction and includes Beethoven Op.2/3-II. Ex. 16 labels transposition, embellishment, rhythmic change, a filled-in interval, chain and sequence, including Beethoven Op.22-III. The point is cumulative treatment: one basic motive can survive several interacting modifications.",
+          "After the isolated transformations of Ex. 14, Exs. 15-16 show motive-forms in context. Transposition, changes of direction, embellishment, rhythmic change, filled-in intervals, chains and sequences can interact while one basic motive remains recognisable.",
         instruction:
-          "Play the four-part reduction and follow its repeated contour in Staff or Degrees. Choose the statement that best matches why Schoenberg places Exs. 15-16 before the systematic broken-chord studies.",
+          "Play the four-part study and follow the recurring contour in Staff or Degrees. Choose the statement that best describes what remains recognisable while several transformations interact.",
         recognition:
           "Can you still hear one family of material after pitch level, direction, rhythm and detail have all shifted?",
         source: {
@@ -274,7 +274,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         learn:
           "Distinguish addition, reordering, embellishment and reduction as different ways of changing intervallic material.",
         explanation:
-          "The sequence is carefully staged. Ex. 18 adds ancillary notes. Ex. 19 changes the original order. Ex. 20 embellishes Ex. 19. Ex. 21 demonstrates reduction, omission and condensation. Schoenberg is showing that development is not synonymous with adding more notes - subtraction can be just as developmental.",
+          "The sequence is carefully staged. Ex. 18 adds ancillary notes. Ex. 19 changes the original order. Ex. 20 embellishes Ex. 19. Ex. 21 demonstrates reduction, omission and condensation. Development can therefore proceed by subtraction as well as addition.",
         instruction:
           "Compare Ex. 18a and Ex. 19a. Hear B-flat inserted between C and A in Ex. 18a, then hear the broken-chord tones reordered as A-F-C-F in Ex. 19a. Continue through the later embellishment and reduction stages, then try Ancillary notes, Order / direction and Reduction / condensation below.",
         recognition:
@@ -327,7 +327,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         learn:
           "Hear the difference between adding an upbeat, shifting familiar features to other beats and changing metric grouping.",
         explanation:
-          "Ex. 22 adds upbeats and repeats features. Ex. 23 shifts features to other beats. Ex. 24 changes the metre - a device Schoenberg notes is seldom usable within a piece. These examples separate three ways of changing where the listener feels the motive in relation to the beat.",
+          "Ex. 22 adds upbeats and repeats features. Ex. 23 shifts features to other beats. Ex. 24 changes the metre, a much more disruptive operation. The three examples separate different ways of changing where the listener feels the motive in relation to the beat.",
         instruction:
           "Compare Add upbeat, Shift to other beats and Change metre / grouping. Use Piano roll to see placement and Staff to hear the rhythmic effect. Notice that moving the same material within the bar can change its character even when the pitches remain familiar.",
         recognition:
@@ -381,7 +381,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         learn:
           "Hear that motivic preservation may require melodic adjustment when the harmonic context changes.",
         explanation:
-          "Schoenberg's next category is harmonic change. Ex. 25 explicitly adapts the motive to richer harmony and refers back to Ex. 21d. His list includes use of inversions and additions at the end. The melody is not treated as an untouchable object laid over new chords; it can be adjusted so motive and harmony remain coherent together.",
+          "The next category is harmonic change. Ex. 25 adapts the motive to richer harmony, including inversions and additions at the end. The melody is not an untouchable object laid over new chords; it can be adjusted so motive and harmony remain coherent together.",
         instruction:
           "Listen to the melody against the changing harmonic support. Choose the statement that best describes how the melodic form adapts when the harmony becomes richer.",
         recognition:
@@ -424,7 +424,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         learn:
           "Follow the same motive through harmonic insertions and substitutions rather than treating every chord change as a new idea.",
         explanation:
-          "Schoenberg's list says harmony can be changed by insertions in the middle (Ex. 26) and by substituting a different chord or succession (Ex. 27). These examples matter because they move beyond 'decorate the melody': the harmonic route itself can be varied while motivic continuity is maintained.",
+          "Harmony can be changed by inserting material in the middle, as in Ex. 26, or by substituting a different chord or succession, as in Ex. 27. The harmonic route itself becomes a variable while motivic continuity is maintained.",
         instruction:
           "Play the reduction with its simplified support. Choose the description that matches Exs. 26-27. Then switch notation once so you can separate the melodic relation from the harmonic change you are hearing.",
         recognition:
@@ -468,7 +468,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         learn:
           "Connect transposition and sequence with adaptation to passing harmony and accompaniment.",
         explanation:
-          "Schoenberg finishes the systematic series by saying the melody is adapted through transposition (Ex. 28), addition of passing harmonies (Ex. 29), and 'semi-contrapuntal' treatment of the accompaniment (Ex. 29). This is a decisive step: variation now involves the relationship between motive, harmony and accompanying voice rather than one isolated melodic line.",
+          "The final examples adapt the melody through transposition, passing harmonies and semi-contrapuntal treatment of the accompaniment. Variation now involves the relationship between motive, harmony and accompanying voice rather than one isolated melodic line.",
         instruction:
           "Listen to the sequential treatment and changing support. Choose the statement that includes all three resources at work: transposition, passing harmony and semi-contrapuntal accompaniment.",
         recognition:
@@ -515,7 +515,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         letter: "J",
         title: "Exs. 17-29 - make a systematic variation series",
         learn:
-          "Use Schoenberg's broken-chord method yourself: keep one source simple enough that each transformation can be heard and judged.",
+          "Keep one source simple enough that every transformation can be heard and judged clearly.",
         explanation:
           "The final exercise keeps the source intentionally plain so the available transformations remain easy to hear and compare. The aim is not to make the source impressive; it is to make each change intelligible and to keep the resulting motive recognisably related.",
         instruction:
