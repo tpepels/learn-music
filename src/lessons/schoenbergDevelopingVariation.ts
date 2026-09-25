@@ -227,7 +227,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         learn:
           "Use one broken-chord motive to isolate rhythmic changes while pitch identity stays easy to compare.",
         explanation:
-          "Schoenberg says Examples 17-29 are based solely on a broken chord so the methods can be shown as systematically as practicable. Ex. 17 begins with rhythmic changes. His list includes changing note lengths, note repetitions and repetition of rhythmic features. The restricted pitch material is deliberate experimental control.",
+          "Examples 17-29 deliberately keep the pitch source to a broken chord so each transformation can be heard clearly. Ex. 17 begins with rhythmic changes: changing note lengths, repeating notes and repeating rhythmic features. The restricted pitch material acts as experimental control.",
         instruction:
           "Play Ex. 17a as the baseline: four equal quarter notes. Then compare the rhythmic alternatives and use the controls for Note lengths / rhythm and Note repetition. Listen for how strongly each rhythmic change alters the motive's character.",
         recognition:
@@ -517,7 +517,7 @@ export const schoenbergDevelopingVariationLesson: LessonDefinition = {
         learn:
           "Use Schoenberg's broken-chord method yourself: keep one source simple enough that each transformation can be heard and judged.",
         explanation:
-          "Schoenberg says Examples 17-29 are based solely on a broken chord so the available methods can be shown systematically, and that exploring these resources helps develop technical skill and inventive faculty. The final exercise therefore keeps the source intentionally plain. Your job is not to make the source impressive; it is to make the treatment intelligible.",
+          "The final exercise keeps the source intentionally plain so the available transformations remain easy to hear and compare. The aim is not to make the source impressive; it is to make each change intelligible and to keep the resulting motive recognisably related.",
         instruction:
           "Choose at least three transformations for the second half. Include one rhythmic or metric change and one pitch/order change. Listen, inspect another notation, then revise at least one pitch manually in Piano roll. Keep only a result whose relation to the broken-chord source you can still explain.",
         recognition:
