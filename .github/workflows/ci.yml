@@ -2,6 +2,9 @@ name: Validate branch manually
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - docs/schoenberg-rules-and-architecture
 
 permissions:
   contents: read
