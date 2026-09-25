@@ -10238,7 +10238,7 @@ body {
 
 .source-score-clef {
   fill: #282621;
-  font-family: "Times New Roman", serif;
+  font-family: "Noto Music", "Segoe UI Symbol", "Apple Symbols", serif;
   font-size: 44px;
 }
 
@@ -10253,7 +10253,7 @@ body {
 .source-score-accidental,
 .source-score-rest {
   fill: #282621;
-  font-family: Georgia, serif;
+  font-family: "Noto Music", "Segoe UI Symbol", "Apple Symbols", Georgia, serif;
   font-size: 20px;
   text-anchor: middle;
 }
