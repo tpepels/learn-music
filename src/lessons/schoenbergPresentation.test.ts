@@ -9,6 +9,11 @@ import { schoenbergAccompanimentLesson } from "./schoenbergAccompaniment";
 import { schoenbergCharacterMoodLesson } from "./schoenbergCharacterMood";
 import { schoenbergMelodyThemeLesson } from "./schoenbergMelodyTheme";
 import { schoenbergSelfCriticismLesson } from "./schoenbergSelfCriticism";
+import { schoenbergSmallTernaryLesson } from "./schoenbergSmallTernary";
+import { schoenbergIrregularConstructionLesson } from "./schoenbergIrregularConstruction";
+import { schoenbergMinuetLesson } from "./schoenbergMinuet";
+import { schoenbergScherzoLesson } from "./schoenbergScherzo";
+import { schoenbergThemeVariationsLesson } from "./schoenbergThemeVariations";
 
 const lessons = [
   schoenbergPhraseMotiveLesson,
@@ -21,6 +26,11 @@ const lessons = [
   schoenbergCharacterMoodLesson,
   schoenbergMelodyThemeLesson,
   schoenbergSelfCriticismLesson,
+  schoenbergSmallTernaryLesson,
+  schoenbergIrregularConstructionLesson,
+  schoenbergMinuetLesson,
+  schoenbergScherzoLesson,
+  schoenbergThemeVariationsLesson,
 ];
 
 describe("Schoenberg learner-facing copy", () => {
