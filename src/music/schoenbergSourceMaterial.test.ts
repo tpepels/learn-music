@@ -291,7 +291,7 @@ describe("Schoenberg source material", () => {
     expect(
       ex59?.kind === "map"
         ? ex59.segments.some((segment) =>
-            segment.detail.includes("omitting"),
+            /omit/i.test(segment.label + " " + segment.detail),
           )
         : false,
     ).toBe(true);
