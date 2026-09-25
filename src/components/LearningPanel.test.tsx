@@ -79,20 +79,20 @@ describe("LearningPanel", () => {
     expect(html).toContain("The musical idea");
     expect(html).toContain("A direct explanation");
     expect(html).toContain("data-source-id=\"s01.example\"");
-    expect(html).toContain("Explanation");
+    expect(html).toContain("Concept");
     expect(html).toContain("Examples");
     expect(html).toContain("Exercise");
-    expect(html).toContain("<strong>Listen for:</strong>");
-    expect(html).toContain("<strong>Phrase:</strong>");
+    expect(html).toContain("<strong>Listen for</strong>");
+    expect(html).toContain("<strong>Phrase</strong>");
 
-    const explanationIndex = html.indexOf("Explanation");
+    const conceptIndex = html.indexOf("Concept");
+    const exerciseIndex = html.indexOf("Exercise");
     const examplesIndex = html.indexOf("Examples");
     const sourceIndex = html.indexOf("data-source-id=\"s01.example\"");
-    const exerciseIndex = html.indexOf("Exercise");
-    expect(explanationIndex).toBeGreaterThanOrEqual(0);
-    expect(examplesIndex).toBeGreaterThan(explanationIndex);
+    expect(conceptIndex).toBeGreaterThanOrEqual(0);
+    expect(exerciseIndex).toBeGreaterThan(conceptIndex);
+    expect(examplesIndex).toBeGreaterThan(exerciseIndex);
     expect(sourceIndex).toBeGreaterThan(examplesIndex);
-    expect(exerciseIndex).toBeGreaterThan(sourceIndex);
 
     expect(html).not.toContain("<strong>Do:</strong>");
     expect(html).not.toContain("From the book");

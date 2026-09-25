@@ -55,9 +55,9 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Hear the phrase as a small structural unit, then locate the characteristic material that helps it hold together.",
         explanation:
-          "A phrase is a small structural unit that can be grasped as one coherent thought, comparable to something sung in one breath. Continuity and forward movement hold it together, while the ending is normally differentiated enough to create punctuation.",
+          "Form begins with organization: musical events must be related strongly enough that the listener can retain and connect them. Subdivision helps because an idea that is too extended or insufficiently articulated becomes difficult to grasp. The phrase is the first practical unit of that organization - a group of integrated events with enough completeness to be heard as one musical thought.\n\nA phrase is not defined by a fixed number of notes or measures. Its size depends on metre and tempo, and it often crosses metrical divisions instead of filling them neatly. What matters is continuity through the body of the phrase and a perceptible differentiation at the end. That punctuation may come from rhythmic reduction, a relaxation of contour, smaller intervals, fewer notes, or another audible change that makes the boundary clear.",
         instruction:
-          "Play the phrase once without looking for labels. Then mark steps 1-4 as the opening characteristic idea and switch between at least two notation views. Treat the bracket as analysis of the phrase, not as a claim that every phrase is four notes long.",
+          "First play the entire phrase without selecting anything. Listen for where it seems to begin, how it continues, and where its energy starts to relax. Then mark steps 1-4 as the opening characteristic idea and compare at least two notation views.\n\nThe bracket is only an analytical aid: it identifies material that helps the phrase cohere. Do not treat four notes, one bar, or any other fixed length as the definition of a phrase.",
         recognition:
           "Can you hear one small unit being established and then carried forward toward an ending?",
         source: {
@@ -107,9 +107,9 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Hear how phrases can differ greatly in surface while remaining intelligible musical units.",
         explanation:
-          "Examples 1-2 collect short phrases from Beethoven and other composers. They differ in length, contour and rhythmic activity. No single contour defines a phrase: melodic shape, rhythm and harmony work together so that the listener hears the passage as one unit. Ex. 2e makes this especially clear through its two slurred spans and simple arpeggiated contour.",
+          "The literature examples deliberately resist a single formula for phrase construction. Their lengths, contours and rhythmic surfaces differ, yet each can still be heard as a coherent unit because melodic motion, rhythm and implied harmony cooperate. Internal repetitions or characteristic figures may help bind the phrase, but they are features inside the larger unit rather than a substitute for it.\n\nEx. 2e, from the opening of Beethoven's Eroica, is useful because the material is simple enough to hear the organization directly. The two slurred spans create internal grouping, while the arpeggiated contour and harmonic stability make the whole line intelligible as one phrase rather than as isolated notes.",
         instruction:
-          "Play Ex. 2e and follow the two slurred spans, arpeggiated contour and rhythmic shape as one phrase. Then compare Exact repeat, Related change and Unrelated change below and choose the version that changes the material while still sounding connected.",
+          "Play Ex. 2e several times. Follow the two internal spans, but listen past the slurs to the complete phrase: where does the line feel stable, where does it continue, and where does it finally settle?\n\nThen audition Exact repeat, Related change and Unrelated change below. Choose the version that changes enough to avoid mere duplication while preserving enough contour, rhythm or harmonic implication to remain part of the same musical thought.",
         recognition:
           "Which version sounds changed while still belonging to the same musical thought?",
         source: {
@@ -157,9 +157,9 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Keep a phrase recognisable while changing its continuation.",
         explanation:
-          "Phrase identity can survive substantial change when a characteristic feature remains clear. In Ex. 2e, the contour and two slurred spans make the phrase easy to hear as one unit. In Ex. 4c, repeated notes establish a strong rhythmic character before the line rises. A continuation can therefore change pitches or direction without sounding unrelated, provided it preserves enough of the original character.",
+          "A phrase may contain features that recur and act as points of recognition. Those features can be rhythmic, intervallic, registral or contour-based; their importance depends on how they are treated. Preserving every detail is unnecessary, but changing every important feature at once weakens the relationship between one part of the phrase and the next.\n\nEx. 2e shows a clear contour and internal grouping. Ex. 4c is more strongly identified by repeated-note rhythm before the line begins to rise. Together they show two different ways a continuation can remain related: it may preserve the general melodic shape, or it may preserve a characteristic rhythmic behaviour while changing the pitches more freely.",
         instruction:
-          "Study Ex. 2e and Ex. 4c, then edit the miniature below. Leave steps 1-4 unchanged. Rewrite steps 5-8 so the continuation keeps a recognisable contour or rhythmic feature from the opening but is not an exact copy.",
+          "Study Ex. 2e and Ex. 4c before editing. Decide which characteristic you are going to preserve - for example the direction of the contour, a repeated-note rhythm, or the way the line moves away from and back toward a central pitch.\n\nLeave steps 1-4 unchanged. Rewrite steps 5-8 so the continuation clearly retains at least one characteristic feature, but changes enough pitch or direction that it is not a literal copy. Play the whole eight-step phrase after every substantial edit.",
         recognition:
           "Does the second half still sound like the same phrase family without simply repeating the first half?",
         source: {
@@ -209,9 +209,9 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Invent several different melodic units while keeping the harmony fixed.",
         explanation:
-          "Making many phrase sketches over a predetermined harmony isolates melodic invention from harmonic choice. Example 5 keeps an F-major tonic fixed and creates different contours by rearranging its chord tones. The limitation is deliberate: only the melody is allowed to change.",
+          "Early phrase-writing becomes easier when the variables are separated. By fixing the harmony first, you can concentrate on melodic contour and rhythm without having to solve harmony at the same time. The purpose is technical fluency: repeated sketches gradually make the coordination of melodic, rhythmic and harmonic factors less awkward.\n\nExample 5 uses only the tonic harmony of F major. Different arrangements of F-A-C create different melodic units even though the harmonic material never changes. This is the point of the restriction: learn how much variety contour alone can produce before adding more resources.",
         instruction:
-          "Play Ex. 5a: F-A-C over a fixed F-major tonic. Notice that the harmony stays fixed while the melodic shape changes. Then make the same kind of study below in C major: write at least six notes in steps 1-8 using only C, E and G, listen, and revise at least one step.",
+          "Play Ex. 5a and identify its three structural pitches: F, A and C. Notice that changing their order changes the melodic profile without changing the harmony.\n\nIn the study below, use the equivalent C-major tonic material C-E-G. Write at least six notes in steps 1-8, make the contour purposeful rather than random, listen to it, and then revise at least one step after hearing the result.",
         recognition:
           "How many genuinely different melodic shapes can the same three chord tones produce?",
         source: {
@@ -256,7 +256,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Hear how rhythm alone can produce a different phrase character while the pitch material stays restricted.",
         explanation:
-          "After the simple broken-chord contours of Ex. 5, Ex. 6 uses smaller note-values. The harmonic basis stays the same, but the shorter durations create a noticeably different melodic result.",
+          "Example 6 keeps the same basic harmonic restriction but changes the rhythmic scale. Smaller note-values create more events within the same span, so the line feels more active even before any new pitch resource is introduced.\n\nThis separates two compositional variables that are easy to confuse: pitch content may remain almost unchanged while rhythm alters density, momentum and phrase character. The exercise is therefore about hearing rhythmic activity as an independent source of variation.",
         instruction:
           "Play Ex. 6a and compare it with Ex. 5a. The pitch material remains simple, but the shorter note-values make the phrase more active. Then inspect the Staff and Degrees views below and choose the statement that describes the change.",
         recognition:
@@ -292,7 +292,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Hear how pickup motion and mixed durations can make the same restricted pitch material more flexible.",
         explanation:
-          "Example 7 remains confined to chord tones but combines different note-values and adds upbeats. This already creates substantial variety before any passing notes or chromatic embellishment are introduced.",
+          "Example 7 still avoids new harmonic pitches, but it loosens the rhythmic treatment. Mixed note-values and upbeats change where events fall in relation to the beat, giving the line a more flexible entrance and a less mechanical surface.\n\nThe important point is that fluency does not require immediate melodic complication. A phrase can become more animated through duration and metric placement alone while the pitch material remains structurally simple.",
         instruction:
           "Play Ex. 7a and hear how the B-flat upbeat leads into the longer F-D span. Then inspect the rests and mixed durations in Staff view and choose the answer that best describes what this adds to the earlier studies.",
         recognition:
@@ -330,7 +330,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Hear passing notes as a way of adding fluency between structural chord tones.",
         explanation:
-          "Examples 8 and 9 build on the earlier chord-tone and rhythmic studies. Simple melodic and rhythmic additions make the line more fluent and lively; Ex. 8 does this by adding passing notes to the material of Ex. 5.",
+          "Example 8 begins to enrich the earlier broken-chord studies with non-chord tones. Passing notes connect structural pitches by step, filling larger intervals and giving the melody a more continuous surface without replacing the underlying harmonic framework.\n\nThis is a useful distinction: the chord tones remain the structural points, while the added note belongs to the motion between them. The added detail should make the line more fluent, not make the harmonic basis harder to perceive.",
         instruction:
           "Play Ex. 8a and follow F-A-B-flat-C. The added B-flat connects the structural tones by step. Then compare the study below and choose the technique being added.",
         recognition:
@@ -370,7 +370,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Hear how local note repetition can join passing motion to a more articulated rhythmic surface.",
         explanation:
-          "Example 9 varies Ex. 7 by adding passing notes and note repetitions. Complexity is introduced one device at a time, so the effect of each new resource remains easy to hear.",
+          "Example 9 combines resources that were previously isolated. The varied note-values and upbeat character of Ex. 7 remain, while passing notes and local pitch repetitions add continuity and articulation.\n\nBecause the techniques are introduced progressively, you can hear what each one contributes. Repetition can emphasize or group a pitch; passing motion can connect structural tones. Their combination produces a richer surface without requiring a new harmonic foundation.",
         instruction:
           "Play the reduction and look for adjacent repeated pitches as well as stepwise connecting motion. Choose the description that matches Ex. 9.",
         recognition:
@@ -410,7 +410,7 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Hear the trade-off in embellishment: extra detail can create flexibility and richness, but too many small notes can obscure the harmony.",
         explanation:
-          "Examples 10 and 11 continue the previous studies with more elaborate embellishment, changing notes and appoggiatura-like figures. The danger is overloading the melody with small notes until the harmonic basis becomes hard to hear.",
+          "Examples 10 and 11 push embellishment further. Changing notes, appoggiatura-like figures and denser small-note motion can give a melody flexibility and richness of detail, but the benefit has a limit.\n\nWhen too many small notes compete for attention, the structural pitches and implied harmony become difficult to hear. The compositional question is therefore not simply whether ornament is attractive, but whether the underlying line remains legible through the decoration.",
         instruction:
           "Play the denser study and compare Staff with Degrees. Then choose the statement that best describes the risk created by too much embellishment.",
         recognition:
@@ -452,9 +452,9 @@ export const schoenbergPhraseMotiveLesson: LessonDefinition = {
         learn:
           "Constrain the material, make a phrase, then revise it until melody, rhythm and harmony coordinate naturally.",
         explanation:
-          "When invention does not yet flow freely, making many short phrase sketches over a predetermined harmony isolates the problem. Examples 5-11 form a practical ladder: chord tones first, then rhythmic variety, upbeats, passing notes, repetitions and finally richer embellishment.",
+          "The sequence of Examples 5-11 is a practice method rather than a catalogue of effects. Start with a predetermined harmony, make many short sketches, and add one source of complexity at a time. The progression moves from chord-tone contours to smaller values, mixed rhythm and upbeats, then to passing notes, repetitions and richer embellishment.\n\nThe goal is coordination. A successful phrase should make melody, rhythm and harmony feel mutually supportive rather than independently assembled. Repetition of the exercise matters: awkward early sketches are expected, and revision after listening is part of acquiring fluency.",
         instruction:
-          "Write a phrase in steps 1-8 and a related continuation in steps 9-16. Start with C-E-G as structural tones, but you may add passing or changing notes. Use at least three notes in each half, listen, revise at least one step, and inspect two notation views before finishing.",
+          "Build the first half in steps 1-8 over the tonic framework C-E-G. Give it a recognisable contour and rhythmic character. You may add passing or changing notes, but keep the structural pitches audible.\n\nThen write a related continuation in steps 9-16. It should belong to the first half without merely copying it. Use at least three notes in each half, listen to the complete phrase, revise at least one step after hearing it, and compare two notation views before finishing.",
         recognition:
           "Can you explain which notes are structural, which are connective or ornamental, and why the second half still belongs to the first?",
         source: {
