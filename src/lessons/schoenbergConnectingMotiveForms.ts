@@ -338,7 +338,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
         explanation:
           "Schoenberg says that in Ex. 31 the original form is varied by adding ancillary notes, although all notes of the basic motive are retained. The printed heading emphasizes that the motive-forms remain closely related because essential rhythmic features are retained.",
         instruction:
-          "Start with native Ex. 31a and play its complete first bar. Hear the eighth-eighth-dotted-quarter-eighth-eighth-sixteenth-sixteenth profile before opening the Ex. 31 source-analysis map. Then use the PLAY / LAB reduction to compare changed cells while listening for that kind of retained rhythmic identity.",
+          "Play the complete first bar of Ex. 31a and hear its eighth-eighth-dotted-quarter-eighth-eighth-sixteenth-sixteenth profile. Then compare the changed cells below and listen for how that rhythmic identity survives even when pitch and detail change.",
         recognition:
           "If the pitch surface changes, can the rhythm still tell you immediately that the forms belong together?",
         source: {
