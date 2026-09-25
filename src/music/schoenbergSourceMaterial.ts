@@ -943,7 +943,7 @@ export const schoenbergSourceMaterial: Record<
     ],
     barlines: [2, 10, 18, 26, 34],
     slurs: [
-      { start: 5, end: 11 },
+      { start: 6, end: 12 },
       { start: 22, end: 28 },
     ],
     analysis: [
