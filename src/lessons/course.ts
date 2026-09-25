@@ -42,6 +42,11 @@ import { schoenbergDevelopingVariationLesson } from "./schoenbergDevelopingVaria
 import { schoenbergConnectingMotiveFormsLesson } from "./schoenbergConnectingMotiveForms";
 import { schoenbergBeginningSentenceLesson } from "./schoenbergBeginningSentence";
 import { schoenbergCompletingSentenceLesson } from "./schoenbergCompletingSentence";
+import { schoenbergPeriodLesson } from "./schoenbergPeriod";
+import { schoenbergAccompanimentLesson } from "./schoenbergAccompaniment";
+import { schoenbergCharacterMoodLesson } from "./schoenbergCharacterMood";
+import { schoenbergMelodyThemeLesson } from "./schoenbergMelodyTheme";
+import { schoenbergSelfCriticismLesson } from "./schoenbergSelfCriticism";
 import type { LessonDefinition } from "./types";
 
 export const playLabLessons: LessonDefinition[] = [
@@ -90,6 +95,11 @@ export const schoenbergLessons: LessonDefinition[] = [
   schoenbergConnectingMotiveFormsLesson,
   schoenbergBeginningSentenceLesson,
   schoenbergCompletingSentenceLesson,
+  schoenbergPeriodLesson,
+  schoenbergAccompanimentLesson,
+  schoenbergCharacterMoodLesson,
+  schoenbergMelodyThemeLesson,
+  schoenbergSelfCriticismLesson,
 ];
 
 export type LearningTrackId = "play-lab" | "schoenberg";

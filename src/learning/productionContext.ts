@@ -1481,6 +1481,158 @@ export const productionContext: Record<string, ProductionContext> = {
     realWorld: "Audit the whole theme on the timeline: label the opening, each developmental process, any insertion or extension, the liquidation and the cadence, then remove anything you cannot justify musically.",
   },
 
+  "schoenberg.period.a": {
+    why: "Postponing the larger repetition creates the long-range question-and-answer relation that distinguishes a period from a sentence opening.",
+    when: "Use this when choosing whether a theme should confirm its opening immediately or delay the return until after contrasting material.",
+    tools: ["Staff notation", "Phrase markers", "Loop playback", "Piano roll"],
+    visual: "phrase-form",
+    realWorld: "In a score or MIDI timeline, mark the first idea, the contrasting continuation and the later return so the timing of repetition is visible as well as audible.",
+  },
+  "schoenberg.period.b": {
+    why: "A convincing antecedent needs contrast without losing coherence, plus enough melodic and harmonic punctuation to create a caesura.",
+    when: "Use this while writing the first half of a period after the opening phrase has already established the basic material.",
+    tools: ["Staff notation", "Piano roll", "Phrase markers", "Roman numerals"],
+    visual: "phrase-form",
+    realWorld: "Loop the first half of the theme and reshape the second phrase until its contour and harmony create punctuation without sounding unrelated.",
+  },
+  "schoenberg.period.c": {
+    why: "The consequent has to sound like a return while changing enough material to reach a stronger final cadence than the antecedent.",
+    when: "Use this when the second half of a period either copies the first too literally or fails to sound recognisably related.",
+    tools: ["Staff notation", "Roman numerals", "Piano roll", "Loop playback"],
+    visual: "phrase-form",
+    realWorld: "Compare the opening of the consequent against the antecedent, then inspect where melody and harmony begin to diverge on the way to the final cadence.",
+  },
+  "schoenberg.period.d": {
+    why: "Writing the complete period coordinates local motivic connection with long-range return, punctuation and stronger closure.",
+    when: "Use this after practising antecedent and consequent separately, before moving into larger thematic forms.",
+    tools: ["Piano roll", "Staff notation", "Phrase markers", "Roman numerals"],
+    visual: "phrase-form",
+    realWorld: "Build and loop the whole 32-step form, then revise the four functional regions while checking that contrast, return and cadence remain audible.",
+  },
+
+  "schoenberg.accompaniment.a": {
+    why: "Removing accompaniment where the melody is self-sufficient creates useful transparency and reveals whether the support is actually contributing.",
+    when: "Use this during arrangement when every bar is fully layered and you want to know which moments can stand with less support.",
+    tools: ["Arrangement view", "Track mute", "Loop playback", "Layer controls"],
+    visual: "arrangement",
+    realWorld: "Mute bass and chords for selected bars in a DAW, then compare whether the exposed melody remains clear and whether the later return of support adds meaning.",
+  },
+  "schoenberg.accompaniment.b": {
+    why: "A recurring accompaniment rhythm can unify changing harmony without requiring the supporting pitches to remain identical.",
+    when: "Use this when a chord part feels like unrelated blocks and needs one recognisable motion across several harmonies.",
+    tools: ["Piano roll", "Harmony sequencer", "Rhythm grid", "Loop playback"],
+    visual: "harmony",
+    realWorld: "Keep one rhythmic MIDI pattern across several bars while adapting its notes to the current chord, then listen for the repeated motion rather than the exact pitches.",
+  },
+  "schoenberg.accompaniment.c": {
+    why: "Complementary and offbeat motion keeps accompaniment active while leaving rhythmic space for the principal line.",
+    when: "Use this when the support is harmonically correct but sounds heavy, block-like or constantly in competition with the melody.",
+    tools: ["Piano roll", "Harmony sequencer", "Grid", "Loop playback"],
+    visual: "harmony",
+    realWorld: "Move selected chord entries away from strong beats and leave gaps so supporting voices answer the main line instead of duplicating its rhythm.",
+  },
+  "schoenberg.accompaniment.d": {
+    why: "A bass that behaves like a coherent secondary melody can clarify harmony without becoming a mechanical sequence of roots.",
+    when: "Use this when bass notes technically fit the chords but the line contains awkward jumps, excessive repetition or no larger contour.",
+    tools: ["Bass piano roll", "Chord track", "Loop playback", "Inversion choices"],
+    visual: "bassline",
+    realWorld: "Solo or foreground the bass MIDI, revise repeated roots and leaps, then restore the other parts and check that the harmonic foundation remains clear.",
+  },
+
+  "schoenberg.character-mood.a": {
+    why: "Accent and timing can change the physical character of a passage even when its pitches and tempo remain fixed.",
+    when: "Use this when a groove is technically correct but its manner feels generic or emotionally undefined.",
+    tools: ["Groove controls", "Velocity editor", "Swing", "Loop playback"],
+    visual: "groove-feel",
+    realWorld: "Keep BPM fixed in a DAW while changing swing and MIDI velocities, then A/B the versions to hear how timing and emphasis alter character.",
+  },
+  "schoenberg.character-mood.b": {
+    why: "Separating tempo from mood prevents speed from becoming a substitute for more specific rhythmic and expressive decisions.",
+    when: "Use this when two sections need different characters without changing the global tempo or when a tempo label feels too vague.",
+    tools: ["Swing control", "Velocity editor", "Loop playback", "Groove template"],
+    visual: "groove-feel",
+    realWorld: "Create two groove variants at the same BPM and compare their accent and timing profiles instead of reaching for the tempo slider.",
+  },
+  "schoenberg.character-mood.c": {
+    why: "Texture and layer density frame the same musical idea differently, so entries and omissions can reinforce a chosen expressive character.",
+    when: "Use this while arranging when the musical material works but the section still lacks a clear sense of intimacy, weight, motion or space.",
+    tools: ["Arrangement view", "Track mutes", "Layer blocks", "Loop playback"],
+    visual: "arrangement",
+    realWorld: "Duplicate an arrangement section and change only which layers enter or leave, then compare how density changes the perceived character.",
+  },
+  "schoenberg.character-mood.d": {
+    why: "A definite character emerges when timing, accents and dynamics repeatedly support the same behavioural idea rather than making unrelated local gestures.",
+    when: "Use this near the end of a groove pass when individual edits sound interesting but the whole pattern still lacks one coherent manner.",
+    tools: ["Velocity editor", "Swing", "Loop playback", "Groove controls"],
+    visual: "groove-feel",
+    realWorld: "Loop the pattern and remove velocity or timing changes that do not support the intended character, keeping only deliberate local contrasts.",
+  },
+
+  "schoenberg.melody-theme.a": {
+    why: "Singable behaviour gives melodic writing a practical discipline of continuity, manageable range and memorable phrase direction.",
+    when: "Use this while sketching a melody before adding extreme leaps, chromatic detail or instrument-specific virtuosity.",
+    tools: ["Piano roll", "Keyboard", "Loop playback", "Range display"],
+    visual: "melody-harmony",
+    realWorld: "Write the MIDI line, play it through once, then try to hum its contour back and revise intervals that feel disconnected or hard to retain.",
+  },
+  "schoenberg.melody-theme.b": {
+    why: "A wave-like contour gives a high point structural meaning because the melody approaches, reaches and leaves it rather than simply touching an extreme note.",
+    when: "Use this when a melody wanders without direction or reaches its highest pitch too early and then has nowhere to develop.",
+    tools: ["Piano roll", "Staff notation", "Contour view", "Loop playback"],
+    visual: "melody-harmony",
+    realWorld: "Trace the MIDI contour visually, then reshape intermediate rises and recessions so the main high point occurs as part of a larger arc.",
+  },
+  "schoenberg.melody-theme.c": {
+    why: "Instrumental freedom is most convincing when a large leap or agile gesture is absorbed into an otherwise coherent melodic line.",
+    when: "Use this when writing for an instrument that can move beyond ordinary vocal limits without wanting the line to become arbitrary.",
+    tools: ["Piano roll", "Keyboard", "Interval view", "Loop playback"],
+    visual: "melody-harmony",
+    realWorld: "Insert a larger MIDI leap, then adjust the following notes so stepwise motion in the opposite direction restores balance.",
+  },
+  "schoenberg.melody-theme.d": {
+    why: "Distinguishing melody from theme clarifies whether an idea should sound self-contained or deliberately create a need for later consequences.",
+    when: "Use this when deciding whether a line is meant to stand as a complete tune or function as thematic material for a larger form.",
+    tools: ["Piano roll", "Staff notation", "Loop playback", "Phrase markers"],
+    visual: "melody-harmony",
+    realWorld: "A/B a stable ending against a less settled one in the same MIDI phrase and notice how the formal tendency changes without replacing the whole idea.",
+  },
+
+  "schoenberg.self-criticism.a": {
+    why: "Listening before editing separates an audible problem from an imagined one and prevents random revision based only on what the grid looks like.",
+    when: "Use this at the start of any revision pass before moving notes, changing harmony or adding detail.",
+    tools: ["Loop playback", "Solo/mute", "Piano roll", "Staff notation"],
+    visual: "reference",
+    realWorld: "Play the phrase without touching the editor, identify one concrete weakness by ear, and only then make the first MIDI change.",
+  },
+  "schoenberg.self-criticism.b": {
+    why: "Removing non-essential detail can expose the musical idea, while checking monotony prevents simplification from becoming lifeless sameness.",
+    when: "Use this when a phrase feels either overcrowded or repetitive and you cannot tell which notes are structurally necessary.",
+    tools: ["Piano roll", "Mute/delete", "Loop playback", "Contour view"],
+    visual: "melody-harmony",
+    realWorld: "Duplicate the MIDI clip, simplify one version, and compare whether the phrase becomes clearer without losing useful pitch, rhythmic or registral variety.",
+  },
+  "schoenberg.self-criticism.c": {
+    why: "Auditing the bass separately reveals melodic weaknesses that can be hidden when the upper texture supplies all the interest.",
+    when: "Use this during revision when the harmony works but the low line feels mechanical, repetitive or awkward between chords.",
+    tools: ["Bass piano roll", "Solo", "Chord track", "Loop playback"],
+    visual: "bassline",
+    realWorld: "Solo the bass MIDI, revise its contour and repeated notes, then restore the mix and confirm that the harmonic function still reads clearly.",
+  },
+  "schoenberg.self-criticism.d": {
+    why: "Harmonic rhythm has to create structural motion of its own because busy melodic or accompanimental surface activity cannot substitute for progression.",
+    when: "Use this when a section feels static despite many notes, or restless because the harmony changes too often for the phrase.",
+    tools: ["Harmony sequencer", "Chord track", "Piano roll", "Loop playback"],
+    visual: "harmony",
+    realWorld: "Ignore decorative notes and follow only the chord changes across the DAW timeline, then simplify or redistribute them until the rate of motion fits the phrase.",
+  },
+  "schoenberg.self-criticism.e": {
+    why: "Making several sketches exposes accidental choices and gives revision a real comparison instead of treating the first solution as inevitable.",
+    when: "Use this before finalising a melody or theme, especially when repeated small edits have made it difficult to hear the original problem objectively.",
+    tools: ["Clip duplicate", "Piano roll", "A/B playback", "Versioned sketches"],
+    visual: "reference",
+    realWorld: "Duplicate the MIDI clip into several versions, try different solutions, and compare them from the same starting point before choosing the strongest one.",
+  },
+
 };
 
 export function getProductionContext(exerciseId: string): ProductionContext {

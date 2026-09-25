@@ -5,6 +5,11 @@ import { schoenbergDevelopingVariationLesson } from "./schoenbergDevelopingVaria
 import { schoenbergConnectingMotiveFormsLesson } from "./schoenbergConnectingMotiveForms";
 import { schoenbergBeginningSentenceLesson } from "./schoenbergBeginningSentence";
 import { schoenbergCompletingSentenceLesson } from "./schoenbergCompletingSentence";
+import { schoenbergPeriodLesson } from "./schoenbergPeriod";
+import { schoenbergAccompanimentLesson } from "./schoenbergAccompaniment";
+import { schoenbergCharacterMoodLesson } from "./schoenbergCharacterMood";
+import { schoenbergMelodyThemeLesson } from "./schoenbergMelodyTheme";
+import { schoenbergSelfCriticismLesson } from "./schoenbergSelfCriticism";
 
 const lessons = [
   schoenbergPhraseMotiveLesson,
@@ -12,6 +17,11 @@ const lessons = [
   schoenbergConnectingMotiveFormsLesson,
   schoenbergBeginningSentenceLesson,
   schoenbergCompletingSentenceLesson,
+  schoenbergPeriodLesson,
+  schoenbergAccompanimentLesson,
+  schoenbergCharacterMoodLesson,
+  schoenbergMelodyThemeLesson,
+  schoenbergSelfCriticismLesson,
 ];
 
 describe("Schoenberg architecture integrity", () => {
