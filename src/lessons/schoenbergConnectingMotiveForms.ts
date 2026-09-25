@@ -294,7 +294,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
         explanation:
           "Example 30 builds a complete phrase from a broken-chord derivative of Ex. 21d. Motive features remain traceable across the phrase, showing how isolated motive-forms can become continuous phrase material.",
         instruction:
-          "Play the reduction and follow the four related cells. Choose the statement that best captures why Ex. 30 is placed first in the phrase-building sequence.",
+          "Play the reduction and follow the four related cells. Choose the statement that best captures why Example 30 is placed first in the phrase-building sequence.",
         recognition:
           "Do the later cells feel like consequences of one derivative rather than new material introduced each time?",
         source: {
@@ -338,7 +338,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
         explanation:
           "In Ex. 31 the original form is varied by adding ancillary notes while retaining all notes of the basic motive. The motive-forms remain closely related because their essential rhythmic features are preserved.",
         instruction:
-          "Play the complete first bar of Ex. 31a and hear its eighth-eighth-dotted-quarter-eighth-eighth-sixteenth-sixteenth profile. Then compare the changed cells below and listen for how that rhythmic identity survives even when pitch and detail change.",
+          "Play the complete first bar of Example 31a and hear its eighth-eighth-dotted-quarter-eighth-eighth-sixteenth-sixteenth profile. Then compare the changed cells below and listen for how that rhythmic identity survives even when pitch and detail change.",
         recognition:
           "If the pitch surface changes, can the rhythm still tell you immediately that the forms belong together?",
         source: {
@@ -426,7 +426,7 @@ export const schoenbergConnectingMotiveFormsLesson: LessonDefinition = {
         explanation:
           "Ex. 33 produces more far-reaching variations by combining rhythmic changes with ancillary notes and changes of interval and direction. Some attempts will sound stiff or overcrowded; making many such sketches is still useful because it exposes which combinations remain clear and which do not.",
         instruction:
-          "Play the cells and compare them with Exs. 31-32. Choose the statement that best explains why the more complicated variants still belong to the same family.",
+          "Play the cells and compare them with Examples 31-32. Choose the statement that best explains why the more complicated variants still belong to the same family.",
         recognition:
           "Can you still trace the derivation even when several characteristic features are being altered at once?",
         source: {
