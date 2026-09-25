@@ -17,12 +17,6 @@ export function LearningPanel({
   exercise: ExerciseDefinition;
   lessonNumber: number;
 }) {
-  const context = getProductionContext(exercise.id);
-  const transfer = getDawTransfer(exercise.workspace);
-  const playLabRepresentation = getPlayLabRepresentation(exercise.workspace);
-  const checkpoint =
-    exercise.letter === "A" ? getDawCheckpoint(lessonNumber) : undefined;
-
   if (exercise.id.startsWith("schoenberg.")) {
     return (
       <section
@@ -63,6 +57,12 @@ export function LearningPanel({
       </section>
     );
   }
+
+  const context = getProductionContext(exercise.id);
+  const transfer = getDawTransfer(exercise.workspace);
+  const playLabRepresentation = getPlayLabRepresentation(exercise.workspace);
+  const checkpoint =
+    exercise.letter === "A" ? getDawCheckpoint(lessonNumber) : undefined;
 
   return (
     <section className="exercise-guide" aria-label="Current exercise guide">
