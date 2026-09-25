@@ -156,11 +156,10 @@ export const schoenbergSourceMaterial: Record<
     attribution: "First F-major broken-chord study as printed by Schoenberg",
     fidelity: "verified-excerpt",
     fidelityNote:
-      "Native transcription of Ex. 5a from the supplied book scan: F-A-C over the fixed tonic harmony. This is the actual printed subexample, not the C-major PLAY / LAB application study.",
+      "Native transcription of Ex. 5a from the supplied book scan: F-A-C over the fixed tonic harmony. The isolated subexample prints no time signature, so PLAY / LAB does not invent one. This is the actual printed source, not the C-major application study.",
     clef: "treble",
     keyLabel: "F major · 1 flat",
     keySignature: -1,
-    meter: "4/4",
     bpm: 84,
     events: [
       { midi: 65, duration: 4 },
