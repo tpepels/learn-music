@@ -225,7 +225,7 @@ Listen to the complete result, inspect two notations, then revise at least one p
           {
             term: "Complete musical unit",
             definition:
-              "Schoenberg's description of the phrase-like result that motive derivation should ultimately produce.",
+              "A complete, comprehensible phrase that results from motive-forms working together rather than appearing as isolated transformations.",
           },
           {
             term: "Structural function",
