@@ -60,7 +60,7 @@ function SourceScore({
         (score.durationUnit === "sixteenth" ? 0.5 : 1);
       return current;
     });
-  }, [score.events]);
+  }, [score.durationUnit, score.events]);
 
   const unitToEighth = score.durationUnit === "sixteenth" ? 0.5 : 1;
   const totalEighths = score.events.reduce(
@@ -263,8 +263,8 @@ function SourceScore({
                 )}
                 {event.barAfter ? (
                   <line
-                    x1={x + Math.max(22, event.duration * 17)}
-                    x2={x + Math.max(22, event.duration * 17)}
+                    x1={x + Math.max(14, event.duration * unitToEighth * 17)}
+                    x2={x + Math.max(14, event.duration * unitToEighth * 17)}
                     y1="52"
                     y2="100"
                     className="source-score-barline"
