@@ -66,7 +66,6 @@ If source fidelity or coverage changes, update the ledger in the same PR.
 Use these words consistently:
 
 - **Exercise A/B/C...** = app lesson step.
-- **Exercise A/B/C...** = app lesson step.
 - **Source passage / source example** = material from the book shown to the learner.
 - **Study** or **application study** = editable PLAY / LAB material.
 - **Book index** = internal provenance such as `Ex. 2e`; never a teaching label.
@@ -251,8 +250,8 @@ Rules:
 At minimum, Schoenberg work must keep regression coverage for:
 
 - source IDs resolving
-- named source examples required by an exercise being present on that screen
-- exercise/example terminology separation
+- every source ID required by an exercise resolving and being present on that screen
+- exercise/source terminology separation
 - learner-facing implementation/provenance language not leaking into copy
 - source notation spacing
 - enharmonic spelling and accidentals
@@ -281,9 +280,10 @@ Before changing a lesson:
    - exercise logic
 5. change the smallest correct layer
 6. add/update focused tests
-7. run full typecheck/tests/build
-8. restore manual-only branch CI
-9. merge safely
-10. verify exact-main Pages deployment
+7. finish the coherent change set before opening a draft PR
+8. mark the draft ready only once to trigger one deliberate validation cycle
+9. if validation fails, return the PR to draft, consolidate fixes, then run one new review cycle
+10. merge safely only when the latest deliberate validation is green
+11. verify exact-main Pages deployment
 
 Do not start a new Schoenberg lesson merely because the previous lesson compiles. The current lessons should first meet the same readability, source-integrity and notation standard.
