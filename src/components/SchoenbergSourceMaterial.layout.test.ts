@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { sourceContentStartX } from "./SchoenbergSourceMaterial";
+import {
+  sourceContentStartX,
+  sourceStemDirection,
+} from "./SchoenbergSourceMaterial";
 import type { SchoenbergSourceScore } from "../music/schoenbergSourceMaterial";
 
 function score(overrides: Partial<SchoenbergSourceScore> = {}): SchoenbergSourceScore {
@@ -31,6 +34,13 @@ describe("Schoenberg source score layout", () => {
 
     const meterX = 84 + 3 * 13;
     expect(threeFlats - meterX).toBeGreaterThanOrEqual(38);
+  });
+
+  it("uses conventional stem direction around the middle staff line", () => {
+    expect(sourceStemDirection([60], "treble")).toBe("up");
+    expect(sourceStemDirection([77], "treble")).toBe("down");
+    expect(sourceStemDirection([43], "bass")).toBe("up");
+    expect(sourceStemDirection([55], "bass")).toBe("down");
   });
 
   it("keeps compact examples compact when no meter is printed", () => {
