@@ -93,6 +93,22 @@ export const schoenbergSourceMaterial: Record<
       { start: 0, end: 3 },
       { start: 4, end: 7 },
     ],
+    analysis: [
+      {
+        label: "first span",
+        detail:
+          "Follow the first four notes as one slurred phrase member rather than separate events.",
+        startEvent: 0,
+        endEvent: 3,
+      },
+      {
+        label: "answering span",
+        detail:
+          "The second slur continues the same phrase identity while changing contour and register.",
+        startEvent: 4,
+        endEvent: 7,
+      },
+    ],
   },
 
   "s01.ex4c": map(
@@ -137,6 +153,15 @@ export const schoenbergSourceMaterial: Record<
       { midi: 69, duration: 4, barAfter: true },
       { midi: 72, duration: 8, barAfter: true },
     ],
+    analysis: [
+      {
+        label: "broken-chord constraint",
+        detail:
+          "Every sounded pitch belongs to the F-major tonic triad. The compositional problem is contour, not harmony.",
+        startEvent: 0,
+        endEvent: 2,
+      },
+    ],
   },
 
   "s01.ex6a": {
@@ -157,6 +182,15 @@ export const schoenbergSourceMaterial: Record<
       { midi: 72, duration: 2 },
       { midi: null, duration: 2, barAfter: true },
     ],
+    analysis: [
+      {
+        label: "same pitches, smaller values",
+        detail:
+          "The F-A-C pitch resource stays restricted while the shorter durations create a more active melodic unit.",
+        startEvent: 0,
+        endEvent: 3,
+      },
+    ],
   },
 
   "s01.ex7a": {
@@ -175,6 +209,22 @@ export const schoenbergSourceMaterial: Record<
       { midi: 70, duration: 2, accidental: "♭", barAfter: true },
       { midi: 77, duration: 4 },
       { midi: 74, duration: 4, barAfter: true },
+    ],
+    analysis: [
+      {
+        label: "upbeat",
+        detail:
+          "The B-flat pickup begins before the longer F-D span, changing the metric entrance without abandoning the restricted pitch world.",
+        startEvent: 0,
+        endEvent: 0,
+      },
+      {
+        label: "varied values",
+        detail:
+          "The longer following notes contrast with the short pickup and create a less square phrase shape.",
+        startEvent: 1,
+        endEvent: 2,
+      },
     ],
   },
 
@@ -195,6 +245,22 @@ export const schoenbergSourceMaterial: Record<
       { midi: 69, duration: 3 },
       { midi: 70, duration: 1, accidental: "♭", barAfter: true },
       { midi: 72, duration: 4, barAfter: true },
+    ],
+    analysis: [
+      {
+        label: "structural chord tones",
+        detail:
+          "F, A and C retain the broken-chord framework inherited from Ex. 5.",
+        startEvent: 0,
+        endEvent: 3,
+      },
+      {
+        label: "passing B-flat",
+        detail:
+          "The short B-flat fills the motion from A to C, demonstrating the new resource introduced in Ex. 8.",
+        startEvent: 1,
+        endEvent: 3,
+      },
     ],
   },
 
@@ -370,6 +436,22 @@ export const schoenbergSourceMaterial: Record<
       { start: 0, end: 3 },
       { start: 4, end: 7 },
     ],
+    analysis: [
+      {
+        label: "first rhythmic cell",
+        detail:
+          "Three repeated short notes lead to a longer arrival - one of the characteristic features Schoenberg wants isolated.",
+        startEvent: 0,
+        endEvent: 3,
+      },
+      {
+        label: "answering cell",
+        detail:
+          "The pitch level changes, but the same short-short-short-long relation preserves motivic identity.",
+        startEvent: 4,
+        endEvent: 7,
+      },
+    ],
   },
   "s02.ex14b": {
     kind: "score",
@@ -392,6 +474,15 @@ export const schoenbergSourceMaterial: Record<
       { midi: 62, duration: 1 },
       { midi: 61, duration: 1, accidental: "♯", barAfter: true },
       { midi: 67, duration: 1, barAfter: true },
+    ],
+    analysis: [
+      {
+        label: "diminution",
+        detail:
+          "The complete pitch succession is retained while every value is compressed to the same short duration.",
+        startEvent: 0,
+        endEvent: 7,
+      },
     ],
   },
 
@@ -416,6 +507,15 @@ export const schoenbergSourceMaterial: Record<
       { midi: 62, duration: 4 },
       { midi: 61, duration: 4, accidental: "♯", barAfter: true },
       { midi: 67, duration: 4, barAfter: true },
+    ],
+    analysis: [
+      {
+        label: "augmentation",
+        detail:
+          "The same pitch succession heard in Ex. 14b is expanded to half-note values, making the proportional transformation directly audible.",
+        startEvent: 0,
+        endEvent: 7,
+      },
     ],
   },
 
