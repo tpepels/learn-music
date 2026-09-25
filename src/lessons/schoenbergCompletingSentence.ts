@@ -21,7 +21,7 @@ const lesson = lessonContentSchema.parse({
   eyebrow: "Schoenberg · Chapter VIII · Completion of the Sentence",
   hero: "Carry an established beginning through development, shortening and liquidation until a cadence can genuinely end the sentence.",
   description:
-    "Chapter VIII is much richer than a simple presentation-continuation formula. Schoenberg defines liquidation, relates it to shortening and cadence, develops sequence-like procedures, then uses Examples 52-61 to show how real sentences expand, overlap, interpolate repetitions, exchange voices and depart from the eight-measure practice form without losing musical logic.",
+    "Completing a sentence involves more than attaching a continuation to a presentation. Development, sequence, shortening, liquidation and cadence interact, while real sentences may expand, overlap, interpolate repetitions and depart from the simple eight-measure model without losing musical logic.",
   overview:
     "Move from an established beginning into development, sequence, shortening and liquidation, then shape those processes toward a convincing cadence. Later examples show how real sentences expand, overlap and depart from the simple eight-measure model.",
 });
@@ -189,7 +189,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         learn:
           "Hear shortening and loss of characteristic features prepare a real ending.",
         explanation:
-          "Schoenberg defines liquidation as gradual elimination of characteristic features until only relatively uncharacteristic residues remain. He says it is generally supported by shortening of the phrase. Together with a cadence or half cadence, this process can provide adequate delimitation.",
+          "Liquidation gradually eliminates characteristic features until only relatively uncharacteristic residues remain. It is usually supported by shortening of the phrase. Combined with a cadence or half cadence, this process can provide a convincing boundary.",
         instruction:
           "Study the Chapter VIII map, then compare Keep full motive-forms, Liquidate toward cadence and Abrupt cut to cadence. Choose the version that progressively reduces the motive before the V-I ending.",
         recognition:
@@ -260,9 +260,9 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         letter: "D",
         title: "First attempt - complete a sentence",
         learn:
-          "Build a complete presentation-development-liquidation-cadence process before examining Schoenberg's detailed examples.",
+          "Build a complete presentation-development-liquidation-cadence process.",
         explanation:
-          "The eight-measure practice form is an abstraction, but it is useful because it lets the basic procedures be heard clearly. Schoenberg immediately goes beyond it in the following examples.",
+          "The eight-measure practice form is an abstraction, but it is useful because it makes the basic procedures easy to hear. Real sentences can then expand or distort that model while preserving the same functions.",
         instruction:
           "Start with Sequence → liquidation → cadence. Listen to all 32 steps, then edit at least two pitches in steps 17-24 so the continuation sounds less mechanical while preserving its connection to the source. Compare at least two notation views.",
         recognition:
@@ -305,7 +305,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         letter: "E",
         title: "Ex. 52 - watch full phrases become residues",
         learn:
-          "Follow Schoenberg's printed labels from tonic/dominant forms through ascension, reduction and melodic residues.",
+          "Follow the progression from tonic and dominant forms through ascension, reduction and melodic residues.",
         explanation:
           "Ex. 52 makes liquidation visible. Two-measure phrases are reduced or condensed to one measure, and in Ex. 52c four measures are condensed to two. The passage moves from tonic and dominant forms through climactic ascent, reduction and finally melodic residues.",
         instruction:
@@ -430,9 +430,9 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         letter: "I",
         title: "Ex. 59 - diagnose extension by omission",
         learn:
-          "Use Schoenberg's own analytical test: remove suspected insertions mentally and see whether the underlying practice-form span reappears.",
+          "Use an omission test: mentally remove suspected insertions and see whether a simpler underlying span reappears.",
         explanation:
-          "Schoenberg describes Mozart's technique of producing irregularity through interpolation of incidental repetitions. For Ex. 59 he repeatedly asks which measures could be omitted. The point is diagnostic: the omitted material reveals what caused the extension.",
+          "Mozart often produces irregular length through interpolation of incidental repetitions. In Ex. 59, asking which measures could be omitted exposes the simpler span underneath and reveals exactly what caused the extension.",
         instruction:
           "Play Ex. 59a from Mozart's K. 280-I and locate mm. 5-6 and the inserted passage in mm. 7-11. Then continue through Ex. 59b-i and listen for how omission, overlap, sequence and repetition change the continuation without destroying its connection to the opening.",
         recognition:
@@ -466,7 +466,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         letter: "J",
         title: "Ex. 60 - learn from unusual cases without making them rules",
         learn:
-          "Study exceptional endings, beginnings and extensions while preserving Schoenberg's distinction between masterwork evidence and safe student procedure.",
+          "Study exceptional endings, beginnings and extensions without treating every unusual solution as a reusable formula.",
         explanation:
           "Ex. 60 contains several unusual features: an ending on VI, anticipation of VI through deceptive cadence, a beginning on VII-II, and extensions produced in different ways. Some of these solutions are risky to imitate mechanically. The point is to understand what makes each exception function in context.",
         instruction:
@@ -530,7 +530,7 @@ export const schoenbergCompletingSentenceLesson: LessonDefinition = {
         learn:
           "Use the chapter's complete lesson: establish clearly, develop as remotely as comprehensibility permits, justify extensions, liquidate and delimit.",
         explanation:
-          "Schoenberg's examples show that the practice form is a foundation, not a cage. Longer or irregular sentences become intelligible when their extra length follows motivic and formal logic - remote forms may need repetition, sequences may extend, insertions may be diagnosed, and residues can prepare cadence.",
+          "The practice form is a foundation, not a cage. Longer or irregular sentences remain intelligible when their extra length follows motivic and formal logic: remote forms may need repetition, sequences may extend, insertions can create expansion, and residues can prepare a cadence.",
         instruction:
           "Build a fresh complete sentence. Edit at least four continuation pitches in steps 17-24, listen to the full form, and compare at least two notation views. Keep the ending only if you can explain why the continuation is related, why any extension is justified, and why liquidation makes the cadence possible.",
         recognition:
