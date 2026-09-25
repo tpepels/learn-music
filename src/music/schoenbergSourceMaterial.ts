@@ -777,6 +777,47 @@ export const schoenbergSourceMaterial: Record<
       { label: "Phrase construction", detail: "The derivatives are ordered so they become a coherent phrase rather than isolated exercises." },
     ],
   ),
+  "s03.ex31a": {
+    kind: "score",
+    id: "s03.ex31a",
+    reference: "Ex. 31a",
+    title: "Closely related motive-form",
+    attribution: "First subexample transcribed from Schoenberg's Ex. 31",
+    fidelity: "verified-excerpt",
+    fidelityNote:
+      "Native transcription of the first complete bar of Ex. 31a from the supplied scan. The printed rhythm is preserved exactly; the following Ex. 31 variants remain in the source-analysis map until their full notation is transcribed.",
+    clef: "treble",
+    keyLabel: "2 flats · printed key signature",
+    keySignature: -2,
+    bpm: 92,
+    durationUnit: "sixteenth",
+    events: [
+      { midi: 74, duration: 2 },
+      { midi: 72, duration: 2 },
+      { midi: 70, duration: 6 },
+      { midi: 72, duration: 2 },
+      { midi: 74, duration: 2 },
+      { midi: 72, duration: 1 },
+      { midi: 70, duration: 1, barAfter: true },
+    ],
+    analysis: [
+      {
+        label: "essential rhythm",
+        detail:
+          "The eighth-eighth-dotted-quarter-eighth-eighth-sixteenth-sixteenth profile is one of the rhythmic identities Schoenberg preserves through the closely related forms that follow.",
+        startEvent: 0,
+        endEvent: 6,
+      },
+      {
+        label: "compact pitch relation",
+        detail:
+          "The line circles D-C-B-flat and returns through the same small collection, making the rhythmic profile especially easy to recognize.",
+        startEvent: 0,
+        endEvent: 6,
+      },
+    ],
+  },
+
   "s03.ex31": map(
     "s03.ex31",
     "Ex. 31",
