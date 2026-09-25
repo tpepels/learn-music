@@ -9019,8 +9019,8 @@ body {
 
 .staff-clef {
   fill: #292d2a;
-  font-family: serif;
-  font-size: 39px;
+  font-family: "Noto Music", "Segoe UI Symbol", "Apple Symbols", serif;
+  font-size: 42px;
 }
 
 .staff-note {
@@ -10024,6 +10024,18 @@ body {
 
 .schoenberg-guide .source-score-meta span {
   font-size: 11px;
+}
+
+.schoenberg-guide .source-score-meter {
+  font-size: 19px;
+}
+
+.schoenberg-guide .source-score-key-signature {
+  font-size: 24px;
+}
+
+.schoenberg-guide .source-score-accidental {
+  font-size: 22px;
 }
 
 .schoenberg-guide .source-analysis-tabs button {
