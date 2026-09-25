@@ -1220,7 +1220,7 @@ export const schoenbergSourceMaterial: Record<
   "s05.ex57-58": map(
     "s05.ex57-58",
     "Exs. 57-58",
-    "Literature sentences depart from the eight-measure practice form",
+    "Bach and Haydn - literature sentences depart from the practice form",
     [
       {
         label: "Practice form is an abstraction",
@@ -1243,7 +1243,7 @@ export const schoenbergSourceMaterial: Record<
           "After a twofold statement of the basic phrase, remote derivatives can appear; Schoenberg says the extension in 57a is produced by the sequence in m. 6.",
       },
     ],
-    "This map follows the opening of Schoenberg's 'Illustrations from the literature' discussion and his later generalization of Ex. 57a. Native literature transcriptions remain pending.",
+    "Ex. 57 is Bach's St Matthew Passion No. 12 aria; Ex. 58 collects Haydn piano-sonata examples. This map follows Schoenberg's discussion while native transcriptions of those multi-voice excerpts remain pending.",
   ),
   "s05.ex59a": {
     kind: "score",
@@ -1459,7 +1459,7 @@ export const schoenbergSourceMaterial: Record<
           "Remote motive-forms in mm. 5-6 are followed by a modified repetition in mm. 7-8; Schoenberg calls such repetitions consequences of comprehensibility.",
       },
     ],
-    "This source map reproduces Schoenberg's measure-by-measure explanation of the Mozart examples in Ex. 59. Full native piano notation remains pending.",
+    "Ex. 59a (Mozart K. 280-I) is now present separately as a complete native playable score. This map carries Schoenberg's measure-by-measure analysis across the remaining Mozart examples 59b-i, whose native notation is still pending.",
   ),
   "s05.ex60": map(
     "s05.ex60",
@@ -1492,7 +1492,7 @@ export const schoenbergSourceMaterial: Record<
           "Omitting mm. 7-11 and m. 13 would reduce it to eight measures, but mm. 7-14 can also be heard as an independent four-measure addition with varied repetition.",
       },
     ],
-    "This map follows Schoenberg's explicit comments on the subexamples of Ex. 60. It deliberately does not invent the omitted piano texture or harmony.",
+    "Ex. 60 is a Schubert group: piano sonatas and string quartets. This map follows Schoenberg's explicit comments and deliberately does not invent notation for the still-untranscribed excerpts.",
   ),
   "s05.ex61": map(
     "s05.ex61",
@@ -1525,7 +1525,7 @@ export const schoenbergSourceMaterial: Record<
           "Schoenberg says 61d would be eight measures without insertion of motive-form b and repetition b¹; the opening phrase then returns refrain-like in mm. 8-9.",
       },
     ],
-    "This map follows Schoenberg's analysis of Ex. 61, including his explicit use of the term 'developing variation'. Full multi-voice transcription remains pending.",
+    "Ex. 61 uses Brahms, principally Cello Sonata Op. 38 and Violin Sonata Op. 78-II. This map follows Schoenberg's analysis, including his explicit use of 'developing variation'; native multi-voice transcription remains pending.",
   ),
 
 };
