@@ -514,7 +514,7 @@ function VariationSourceAnswerPanel({
 }) {
   const answers = variationSourceAnswers[exerciseId] ?? [];
   return (
-    <div className="study-source-answer-panel" role="group" aria-label="Book example answer">
+    <div className="study-source-answer-panel" role="group" aria-label="Source passage answer">
       {answers.map((answer) => (
         <button
           type="button"
@@ -673,7 +673,7 @@ function ConnectionSourceAnswerPanel({
 }) {
   const answers = connectionSourceAnswers[exerciseId] ?? [];
   return (
-    <div className="study-source-answer-panel" role="group" aria-label="Chapter IV example answer">
+    <div className="study-source-answer-panel" role="group" aria-label="Motive-form source answer">
       {answers.map((answer) => (
         <button
           type="button"
@@ -1026,7 +1026,7 @@ function SentencePanel({
       <div className="study-connection-copy">
         <span className="section-label">
           {isRecognise
-            ? "Chapter V · beginning the sentence"
+            ? "Beginning the sentence"
             : isRepetition
               ? "Repetition can be exact or transposed"
               : isHarmony
@@ -1281,7 +1281,7 @@ function CompletionPanel({
       <div className="study-connection-copy">
         <span className="section-label">
           {isFunction
-            ? "Chapter VIII · completion of the sentence"
+            ? "Completing the sentence"
             : isSequence
               ? "Sequence-like continuation"
               : isLiquidation
@@ -1473,7 +1473,7 @@ export function CompositionStudyWorkspace({
               : isCompletion
                 ? "Complete sentence · beginning → cadence"
               : isSentenceSource
-                ? "Chapter V examples · tonic form → dominant form"
+                ? "Tonic form → dominant form"
                 : isSentence
                   ? "Basic idea → immediate repetition"
                 : isConnection
@@ -1705,8 +1705,8 @@ export function CompositionStudyWorkspace({
                 ? "Edit the basic idea in the first half. Its repetition is regenerated from the selected sentence-opening strategy; the pale overlay shows the source relationship."
                 : isSentenceSource
                   ? visibleSequence.notes.length > 16
-                    ? "The two 16-step pairs reduce contrasting treatments from the cited book example. Listen to both pairs before answering."
-                    : "This is a compact reduction of the cited book example. Listen to the phrase relationship and the supporting harmony before answering."
+                    ? "Listen to both 16-step pairs before answering. Compare how each one preserves the relation while changing its treatment."
+                    : "Listen to the phrase relationship and the supporting harmony before answering."
                   : "Listen across the boundary at step 9: in a sentence beginning, the basic idea is repeated immediately, even when pitch or harmony changes."
             : isConnection
               ? isConnectionCompose
