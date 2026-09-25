@@ -37,12 +37,17 @@ function context(
 describe("Schoenberg learning track", () => {
   it("keeps the composition course separate from the existing PLAY / LAB course", () => {
     expect(playLabLessons).toHaveLength(37);
-    expect(schoenbergLessons).toEqual([
-      schoenbergPhraseMotiveLesson,
-      schoenbergDevelopingVariationLesson,
-      schoenbergConnectingMotiveFormsLesson,
-      schoenbergBeginningSentenceLesson,
-      schoenbergCompletingSentenceLesson,
+    expect(schoenbergLessons.map((lesson) => lesson.id)).toEqual([
+      "schoenberg.phrase-motive",
+      "schoenberg.developing-variation",
+      "schoenberg.connecting-motive-forms",
+      "schoenberg.beginning-sentence",
+      "schoenberg.completing-sentence",
+      "schoenberg.period",
+      "schoenberg.accompaniment",
+      "schoenberg.character-mood",
+      "schoenberg.melody-theme",
+      "schoenberg.self-criticism",
     ]);
     expect(learningTracks.map((track) => track.id)).toEqual([
       "play-lab",
@@ -62,7 +67,10 @@ describe("Schoenberg learning track", () => {
       getNextImplementedLesson(schoenbergBeginningSentenceLesson.id)?.id,
     ).toBe(schoenbergCompletingSentenceLesson.id);
     expect(
-      getNextImplementedLesson(schoenbergCompletingSentenceLesson.id),
+      getNextImplementedLesson(schoenbergCompletingSentenceLesson.id)?.id,
+    ).toBe("schoenberg.period");
+    expect(
+      getNextImplementedLesson("schoenberg.self-criticism"),
     ).toBeUndefined();
   });
 
