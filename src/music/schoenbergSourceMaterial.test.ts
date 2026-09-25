@@ -62,6 +62,7 @@ describe("Schoenberg source material", () => {
     expect(material.keyLabel).toContain("F major");
     expect(material.events.map((event) => event.midi)).toEqual([65, 69, 72]);
     expect(material.events.map((event) => event.duration)).toEqual([4, 4, 8]);
+    expect(material.meter).toBeUndefined();
   });
 
   it("stores Exs. 6a-8a as verified native Chapter II source excerpts", () => {
