@@ -78,6 +78,18 @@ describe("Schoenberg learning track", () => {
     }
   });
 
+  it("keeps the Chapter I-II teaching substance in the learner copy", () => {
+    const phrase = schoenbergPhraseMotiveLesson.exercises[0];
+    const chordToneStudy = schoenbergPhraseMotiveLesson.exercises[3];
+    const embellishment = schoenbergPhraseMotiveLesson.exercises[8];
+
+    expect(phrase.explanation).toContain("metre and tempo");
+    expect(phrase.explanation).toContain("crosses metrical divisions");
+    expect(chordToneStudy.explanation).toContain("fixing the harmony first");
+    expect(chordToneStudy.explanation).toContain("technical fluency");
+    expect(embellishment.explanation).toContain("implied harmony");
+  });
+
   it("uses native source material instead of raster book crops", () => {
     const literature = schoenbergPhraseMotiveLesson.exercises[1];
     const repair = schoenbergPhraseMotiveLesson.exercises[2];
