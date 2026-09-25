@@ -9873,7 +9873,7 @@ body {
 }
 
 
-/* Schoenberg track: one continuous explanation instead of nested guide layers. */
+/* Schoenberg track: explanation and exercise are deliberately separate. */
 
 .schoenberg-guide {
   padding: 20px;
@@ -9882,55 +9882,33 @@ body {
   overflow: visible;
 }
 
-.schoenberg-guide-copy {
+.schoenberg-guide-explanation {
   max-width: 900px;
 }
 
-.schoenberg-guide-copy h2 {
-  margin: 0 0 9px;
+.schoenberg-guide-explanation .section-label {
+  color: var(--cyan);
+}
+
+.schoenberg-guide-explanation h2 {
+  margin: 6px 0 9px;
   color: var(--text);
   font-size: 20px;
   line-height: 1.25;
 }
 
-.schoenberg-guide-copy > p {
+.schoenberg-guide-explanation > p {
   margin: 0;
   color: #c9c2d3;
   font-size: 15px;
   line-height: 1.62;
 }
 
-.schoenberg-guide-examples {
-  margin-top: 18px;
-}
-
-.schoenberg-guide-action {
-  margin-top: 18px;
-  padding-top: 15px;
-  border-top: 1px solid rgba(255,255,255,0.07);
-}
-
-.schoenberg-guide-action p {
-  margin: 0;
-  color: #ddd8e5;
-  font-size: 14px;
-  line-height: 1.58;
-}
-
-.schoenberg-guide-action p + p {
-  margin-top: 7px;
-}
-
-.schoenberg-guide-action strong,
-.schoenberg-guide-terms strong {
-  color: var(--cyan);
-}
-
 .schoenberg-guide-terms {
-  margin-top: 13px;
+  margin-top: 12px;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 18px;
+  gap: 5px 18px;
   color: var(--muted);
   font-size: 12px;
   line-height: 1.5;
@@ -9939,6 +9917,45 @@ body {
 .schoenberg-guide-terms p {
   max-width: 640px;
   margin: 0;
+}
+
+.schoenberg-guide-terms strong {
+  color: #c9c2d3;
+}
+
+.schoenberg-guide-examples {
+  margin-top: 18px;
+}
+
+.schoenberg-guide-exercise {
+  margin-top: 22px;
+  padding: 16px 17px;
+  border: 1px solid rgba(95,225,239,0.2);
+  border-radius: 11px;
+  background: rgba(95,225,239,0.045);
+}
+
+.schoenberg-guide-exercise .section-label {
+  color: var(--cyan);
+}
+
+.schoenberg-guide-exercise > p {
+  margin: 7px 0 0;
+  color: #e2ddea;
+  font-size: 15px;
+  line-height: 1.58;
+}
+
+.schoenberg-guide-exercise .schoenberg-guide-listen {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(95,225,239,0.12);
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.schoenberg-guide-listen strong {
+  color: #c9c2d3;
 }
 
 .schoenberg-guide .source-score,
@@ -9960,6 +9977,10 @@ body {
 @media (max-width: 700px) {
   .schoenberg-guide {
     padding: 16px;
+  }
+
+  .schoenberg-guide-exercise {
+    padding: 14px;
   }
 }
 
