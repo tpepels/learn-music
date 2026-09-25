@@ -169,6 +169,29 @@ describe("Schoenberg source material", () => {
     ]);
   });
 
+  it("stores Ex. 35a as a polyphonic grand-staff tonic/dominant pair", () => {
+    const material = getSchoenbergSourceMaterial("s04.ex35a");
+    expect(material?.kind).toBe("score");
+    if (!material || material.kind !== "score") return;
+
+    expect(material.keySignature).toBe(-4);
+    expect(material.meter).toBe("2/2");
+    expect(material.barlines).toEqual([2, 10, 18, 26, 34]);
+    expect(material.events.some((event) => event.staff === "bass")).toBe(true);
+    expect(
+      material.events.some(
+        (event) => Array.isArray(event.midi) && event.midi.length === 4,
+      ),
+    ).toBe(true);
+
+    const melody = material.events
+      .filter((event) => event.staff === "treble" && event.midi !== null)
+      .map((event) => event.midi);
+    expect(melody.slice(0, 6)).toEqual([60, 65, 68, 72, 77, 80]);
+    expect(melody).toContain(76);
+    expect(material.events.some((event) => event.at === 13 + 1 / 3)).toBe(true);
+  });
+
   it("makes every native source score interactive beyond passive playback", () => {
     const scores = Object.values(schoenbergSourceMaterial).filter(
       (material) => material.kind === "score",
