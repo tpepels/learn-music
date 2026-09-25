@@ -149,6 +149,12 @@ function Staff({
   );
 }
 
+export function sourceContentStartX(score: SchoenbergSourceScore): number {
+  const keySignatureWidth = Math.abs(score.keySignature ?? 0) * 13;
+  const notationEnd = 84 + keySignatureWidth;
+  return Math.max(130, notationEnd + (score.meter ? 38 : 20));
+}
+
 function sourceRestGlyph(durationEighths: number): string {
   if (durationEighths >= 8) return "𝄻";
   if (durationEighths >= 4) return "𝄼";
@@ -215,7 +221,8 @@ function SourceScore({
     [positions, score.events],
   );
   const totalEighths = totalUnits * unitToEighth;
-  const width = Math.max(700, 170 + totalEighths * 34);
+  const contentStartX = sourceContentStartX(score);
+  const width = Math.max(700, contentStartX + totalEighths * 34 + 48);
   const svgHeight = grand ? 232 : 176;
 
   useEffect(
@@ -275,7 +282,7 @@ function SourceScore({
   };
 
   const xForPosition = (position: number) =>
-    130 + position * unitToEighth * 34;
+    contentStartX + position * unitToEighth * 34;
   const xForEvent = (index: number) => xForPosition(positions[index]);
   const analysis = score.analysis ?? [];
   const activeSegment = analysis[activeAnalysis];
