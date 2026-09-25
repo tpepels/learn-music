@@ -332,7 +332,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg says that in Exs. 35a and 35b the first phrase employs only tonic harmony and the second only dominant harmony. He also says the melody is modified enough to conform with the harmony. These examples make the tonic-form / dominant-form relation unusually easy to hear.",
         instruction:
-          "Play both native book excerpts first. In Ex. 35a, hear the F-minor phrase answered over C-dominant harmony, including the E-natural adjustment. In Ex. 35b, hear the same tonic-form / dominant-form principle compressed into 2/4. Use the score analysis tabs, then use the Ex. 35 map to summarize the comparison before trying the separate PLAY / LAB application.",
+          "Play Ex. 35a and Ex. 35b. In Ex. 35a, hear the F-minor phrase answered over C-dominant harmony, including the E-natural adjustment. In Ex. 35b, hear the same tonic-form / dominant-form principle compressed into 2/4. Then compare the two openings below and identify what changes and what remains functionally the same.",
         recognition:
           "Does the answer feel like the same phrase adapted to a different harmonic function rather than a literal pitch copy?",
         source: {
@@ -362,12 +362,12 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         const state = compositionStudy[SCHOENBERG_SENTENCE_IDS.ex35];
         return [
           {
-            label: "You studied both native Ex. 35 scores",
+            label: "You studied both Ex. 35 scores",
             complete:
               studiedSource(experiments, "s04.ex35a") &&
               studiedSource(experiments, "s04.ex35b"),
           },
-          { label: "You listened to the separate PLAY / LAB application", complete: heardPlayback(experiments) },
+          { label: "You listened to the comparison study", complete: heardPlayback(experiments) },
           { label: "You identified tonic form answered by dominant form", complete: state?.decision === "related" },
           { label: "The application begins on I and answers on V", complete: state?.harmony?.[0] === "I" && state?.harmony?.[8] === "V" },
         ];
@@ -383,7 +383,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg analyses Ex. 36 as a tonic form based on I-V-I answered by a dominant form based on V-I-V. In Ex. 37 he notes that the dominant form includes passing harmonies. Complementary repetition therefore does not mean each phrase must sit on one chord; the larger functional relationship can remain clear while internal harmony becomes richer.",
         instruction:
-          "Study the Exs. 36-37 source map first. Then play the application study and listen for the internal I-V-I / V-I-V motion before choosing the matching statement.",
+          "Compare Exs. 36-37, then listen for the internal I-V-I / V-I-V motion before choosing the matching statement.",
         recognition:
           "Can you hear a tonic-form / dominant-form relationship even when each phrase contains more than one harmony?",
         source: {
@@ -428,7 +428,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg says that in Ex. 38 the passing harmonies of the tonic form are not mechanically preserved in the dominant form. In Ex. 39 the tonic form consists of I-IV while the dominant form is basically V-I, though elaborate part-writing disguises the simplicity. These examples teach abstraction: retain the structural relation, not every local event.",
         instruction:
-          "Study Schoenberg's Exs. 38-39 source map first. Then play the application study and compare the busier tonic side with the simpler dominant answer.",
+          "Compare Exs. 38-39 and listen for the busier tonic side against the simpler dominant answer.",
         recognition:
           "Can the second phrase be a convincing answer even when it does not reproduce the first phrase's internal harmonic route event by event?",
         source: {
@@ -473,7 +473,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         explanation:
           "In the Comment on Examples, Schoenberg says the tonic form of Ex. 40a is followed by a dominant form whose melody follows the contour of the first phrase exactly. In Exs. 40b and 40c the rhythm is preserved while the contour is treated more freely. This is a precise demonstration of which feature can carry identity when another is allowed to change.",
         instruction:
-          "Use the Ex. 40 source map to compare Schoenberg's 40a and 40b-c distinction first. Then play all 32 application steps: the first pair isolates stricter contour, the second isolates freer contour with preserved rhythm.",
+          "Compare Ex. 40a with 40b-c. Then play all 32 steps below: the first pair keeps the contour stricter, while the second allows freer contour but preserves the rhythmic relationship.",
         recognition:
           "In the second pair, can rhythm preserve phrase identity even when the melodic contour no longer copies the first phrase exactly?",
         source: {
@@ -518,7 +518,7 @@ export const schoenbergBeginningSentenceLesson: LessonDefinition = {
         explanation:
           "Schoenberg says the dominant forms in Ex. 41 are varied more than the harmonic change alone requires. When a tonic form contains too many harmonies, a literal dominant-form answer may be impracticable. He proposes answering only the main harmonies; he also stresses that a definite, regular accompaniment can animate the harmony, express character and powerfully unify the passage.",
         instruction:
-          "Read the Ex. 41 source map first. Then compare the two application pairs: the first exaggerates a busy literal answer, while the second exposes the clearer main-harmony relation Schoenberg recommends.",
+          "Compare the two Ex. 41 pairs. The first exaggerates a busy literal answer; the second makes the underlying harmonic relationship clearer. Listen for why the simpler relation is easier to grasp.",
         recognition:
           "Does the second pair feel clearer because the answer preserves the main relation instead of trying to duplicate every local harmonic event?",
         source: {
