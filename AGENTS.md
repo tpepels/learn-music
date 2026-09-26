@@ -28,3 +28,19 @@ The most important learner-facing terminology rule is:
 - Schoenberg's book indices such as `Ex. 2e` or `Ex. 35a` are **internal provenance only**.
 
 Do not expose book index numbers in lesson titles, instructions, explanations, completion text, source-card headings or analysis-tab labels. Name the music or the musical idea instead.
+
+## Levine jazz-piano track
+
+Before changing any Levine lesson, source example, jazz-piano workspace behavior, or shared book-source notation renderer, read:
+
+- `LEVINE_ARCHITECTURE.md` - product, terminology, source-integrity and workspace rules.
+- `LEVINE_COVERAGE.md` - verified source coverage and scan limitations.
+
+Apply the same source-integrity standard as the Schoenberg track:
+
+- **Exercise** = a lettered app step.
+- Book indices such as `Figure 3-2` are internal provenance only.
+- Required source material must be present on the same screen.
+- Practice studies must never be presented as book notation.
+- Do not invent missing tune excerpts, voicings, pitches, rhythms, chord spellings or analysis.
+- The supplied Levine scan ends during Chapter Sixteen; Chapters Seventeen through Twenty-Three are blocked until their pages are supplied.
