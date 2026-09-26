@@ -4,6 +4,7 @@ import {
   clonePattern,
   type Arrangement,
   type BassSequence,
+  type FormSettings,
   type HarmonySequence,
   type StepPattern,
 } from "../music/model";
@@ -126,4 +127,15 @@ export function ensureTextureLayersPresent(
     }
     return next;
   });
+}
+
+export function formArrangementFromSettings(
+  settings: FormSettings,
+): Arrangement {
+  return Array.from(
+    { length: 16 },
+    (_, bar) => ({
+      ...settings.layers[Math.floor(bar / 4)],
+    }),
+  );
 }
