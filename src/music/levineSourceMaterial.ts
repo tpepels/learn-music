@@ -467,6 +467,52 @@ export const levineSourceMaterial: Record<string, LevineSourceMaterial> = {
     ],
   },
 
+  "l03.fig3-4": {
+    kind: "score",
+    id: "l03.fig3-4",
+    reference: "Chapter Three, Figure 3-4",
+    title: "The second three-note II-V-I position",
+    attribution: "Reversed right-hand position reproduced from Figure 3-4",
+    fidelity: "verified-excerpt",
+    fidelityNote:
+      "Structured grand-staff transcription of Figure 3-4. The left hand again plays roots D-G-C, while the right hand reverses the two guide tones so the third of the II chord begins on top.",
+    clef: "treble",
+    keyLabel: "C major · no sharps or flats",
+    bpm: 68,
+    events: [
+      { midi: 50, duration: 4, at: 0, staff: "bass" },
+      { midi: [60, 65], duration: 4, at: 0, staff: "treble" },
+      { midi: 43, duration: 4, at: 4, staff: "bass" },
+      { midi: [59, 65], duration: 4, at: 4, staff: "treble" },
+      { midi: 48, duration: 4, at: 8, staff: "bass" },
+      { midi: [59, 64], duration: 4, at: 8, staff: "treble" },
+    ],
+    barlines: [4, 8, 12],
+    analysis: [
+      {
+        label: "Reverse the guide tones",
+        detail:
+          "The same third and seventh are used, but their vertical order is reversed so F is above C on D minor seventh.",
+        startEvent: 0,
+        endEvent: 1,
+      },
+      {
+        label: "II to V",
+        detail:
+          "F stays while C moves down a half step to B.",
+        startEvent: 0,
+        endEvent: 3,
+      },
+      {
+        label: "V to I",
+        detail:
+          "B stays while F moves down a half step to E.",
+        startEvent: 2,
+        endEvent: 5,
+      },
+    ],
+  },
+
   "l03.fig3-3": map(
     "l03.fig3-3",
     "Chapter Three, Figure 3-3",
