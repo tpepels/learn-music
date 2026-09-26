@@ -58,7 +58,7 @@ describe("Schoenberg learning track", () => {
       "schoenberg.rondo",
       "schoenberg.sonata-allegro",
     ]);
-    expect(belkinLessons).toHaveLength(3);
+    expect(belkinLessons).toHaveLength(6);
     expect(learningTracks.map((track) => track.id)).toEqual([
       "play-lab",
       "schoenberg",

@@ -57,13 +57,26 @@ describe("lesson progression", () => {
       "belkin.punctuating",
       "belkin.presenting",
       "belkin.binary-form",
+      "belkin.contrasting",
+      "belkin.connecting",
+      "belkin.progressing",
     ]);
-    expect(implementedLessons).toHaveLength(58);
+    expect(implementedLessons).toHaveLength(61);
     expect(learningTracks.map((track) => track.id)).toEqual([
       "play-lab",
       "schoenberg",
       "belkin",
     ]);
+    expect(getNextImplementedLesson("belkin.binary-form")?.id).toBe(
+      "belkin.contrasting",
+    );
+    expect(getNextImplementedLesson("belkin.contrasting")?.id).toBe(
+      "belkin.connecting",
+    );
+    expect(getNextImplementedLesson("belkin.connecting")?.id).toBe(
+      "belkin.progressing",
+    );
+    expect(getNextImplementedLesson("belkin.progressing")).toBeUndefined();
   });
 
   it("advances from one exercise to the next inside a lesson", () => {

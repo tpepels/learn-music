@@ -58,6 +58,9 @@ import { schoenbergSonataAllegroLesson } from "./schoenbergSonataAllegro";
 import { belkinPunctuatingLesson } from "./belkinPunctuating";
 import { belkinPresentingLesson } from "./belkinPresenting";
 import { belkinBinaryFormLesson } from "./belkinBinaryForm";
+import { belkinContrastingLesson } from "./belkinContrasting";
+import { belkinConnectingLesson } from "./belkinConnecting";
+import { belkinProgressingLesson } from "./belkinProgressing";
 import type { LessonDefinition } from "./types";
 
 export const playLabLessons: LessonDefinition[] = [
@@ -125,6 +128,9 @@ export const belkinLessons: LessonDefinition[] = [
   belkinPunctuatingLesson,
   belkinPresentingLesson,
   belkinBinaryFormLesson,
+  belkinContrastingLesson,
+  belkinConnectingLesson,
+  belkinProgressingLesson,
 ];
 
 export type LearningTrackId = "play-lab" | "schoenberg" | "belkin";
