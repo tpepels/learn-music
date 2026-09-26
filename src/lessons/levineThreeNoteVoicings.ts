@@ -59,9 +59,9 @@ export const levineThreeNoteVoicingsLesson: LessonDefinition = {
         learn:
           "Hear how little information is needed to define the quality of a seventh chord.",
         explanation:
-          "For most major-seventh, minor-seventh and dominant-seventh chords, the fifth is not the note that distinguishes the quality. The root identifies the chord, while the third and seventh tell you whether it is major seventh, minor seventh or dominant seventh. The chapter therefore reduces these chords to three essential notes: root in the left hand, third and seventh in the right.
+          `For most major-seventh, minor-seventh and dominant-seventh chords, the fifth is not the note that distinguishes the quality. The root identifies the chord, while the third and seventh tell you whether it is major seventh, minor seventh or dominant seventh. The chapter therefore reduces these chords to three essential notes: root in the left hand, third and seventh in the right.
 
-The half-diminished chord is an explicit exception because its flat fifth is part of the quality. Do not turn the three-note rule into a universal claim that fifths never matter.",
+The half-diminished chord is an explicit exception because its flat fifth is part of the quality. Do not turn the three-note rule into a universal claim that fifths never matter.`,
         instruction:
           "Play the source II-V-I several times and step through its analysis. Set the study to C major with ii7-V7-Imaj7 in bars 1-3 and leave bar 4 empty. Clear the notes. For your practice register, write D3-F4-C5, G3-F4-B4 and C3-E4-B4 at the starts of bars 1-3. Play the progression and listen to the right hand separately from the moving roots.",
         recognition:
@@ -132,9 +132,9 @@ The half-diminished chord is an explicit exception because its flat fifth is par
         learn:
           "Use the same third and seventh in the opposite vertical order and preserve the same voice-leading rule.",
         explanation:
-          "The chapter gives a second position by reversing the right-hand guide tones. Instead of beginning Dm7 with the seventh above the third, the third is on top. The notes are still F and C, but their register changes.
+          `The chapter gives a second position by reversing the right-hand guide tones. Instead of beginning Dm7 with the seventh above the third, the third is on top. The notes are still F and C, but their register changes.
 
-The voice-leading logic remains the same. From II to V, the seventh of Dm7 - C - falls a half step to B while F stays. From V to I, the seventh of G7 - F - falls a half step to E while B stays. One voice holds; the other resolves by semitone.",
+The voice-leading logic remains the same. From II to V, the seventh of Dm7 - C - falls a half step to B while F stays. From V to I, the seventh of G7 - F - falls a half step to E while B stays. One voice holds; the other resolves by semitone.`,
         instruction:
           "Play the second source position and visit all three analysis tabs. Clear the study but keep C-major ii7-V7-Imaj7 as the harmonic targets. Write D3-C4-F4, G3-B3-F4 and C3-B3-E4 at the starts of bars 1-3. Play it, then compare its register with the first position.",
         recognition:
@@ -198,9 +198,9 @@ The voice-leading logic remains the same. From II to V, the seventh of Dm7 - C -
         learn:
           "Move the three-note II-V-I system to a new key without abandoning close voice leading.",
         explanation:
-          "The cycle-of-fifths practice is designed to prevent these shapes from becoming a C-major trick. Moving counterclockwise from C to F gives Gm7-C7-Fmaj7. The chord names change, but the job of each guide tone does not: one note can remain common while the seventh of the current chord resolves downward by half step.
+          `The cycle-of-fifths practice is designed to prevent these shapes from becoming a C-major trick. Moving counterclockwise from C to F gives Gm7-C7-Fmaj7. The chord names change, but the job of each guide tone does not: one note can remain common while the seventh of the current chord resolves downward by half step.
 
-For this first transposition, use the second position because it sits comfortably inside the study register. The important test is not whether the chord stacks look identical; it is whether the third-and-seventh motion follows the same rule.",
+For this first transposition, use the second position because it sits comfortably inside the study register. The important test is not whether the chord stacks look identical; it is whether the third-and-seventh motion follows the same rule.`,
         instruction:
           "Study the cycle-of-fifths route. Change the key to F major while keeping ii7-V7-Imaj7 in bars 1-3. Clear the notes and write G3-F4-B-flat4, C3-E4-B-flat4 and F3-E4-A4. Play the result. Check the two upper voices: B-flat falls to A on the final resolution while E stays.",
         recognition:
@@ -263,9 +263,9 @@ For this first transposition, use the second position because it sits comfortabl
         learn:
           "Connect jazz chord-symbol numbers to scale degrees above the seventh instead of treating them as decoration.",
         explanation:
-          "Jazz chord symbols keep counting stacked thirds past the seventh. The ninth, eleventh and thirteenth correspond to scale degrees 2, 4 and 6 placed above the octave. The chapter also points out that musicians sometimes use different numbers for the same pitch class according to harmonic context - the sixth and thirteenth, for example, are octave equivalents.
+          `Jazz chord symbols keep counting stacked thirds past the seventh. The ninth, eleventh and thirteenth correspond to scale degrees 2, 4 and 6 placed above the octave. The chapter also points out that musicians sometimes use different numbers for the same pitch class according to harmonic context - the sixth and thirteenth, for example, are octave equivalents.
 
-Altered symbols change one of those chord tones: flat-nine, sharp-nine, flat-five and sharp-five are not abstract suffixes but instructions about pitches. Later chapters make much more use of these colours; here the goal is simply to read the number as a note relationship.",
+Altered symbols change one of those chord tones: flat-nine, sharp-nine, flat-five and sharp-five are not abstract suffixes but instructions about pitches. Later chapters make much more use of these colours; here the goal is simply to read the number as a note relationship.`,
         instruction:
           "Work through the extension source analysis. Set the study back to C major and clear both targets and notes if necessary. In bar 1 write a C6 sound as C3-E3-G3-A3. In bar 2 write Cmaj7 as C3-E3-G3-B3. Play the two bars and focus only on the upper note: A is scale degree 6, B is scale degree 7. Leave bars 3-4 empty.",
         recognition:
