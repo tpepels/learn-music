@@ -325,10 +325,12 @@ class AudioEngine {
   setMixerSettings(settings: MixerSettings) {
     this.mixerSettings = cloneMixerSettings(settings);
     this.applyMixerSettings();
+    this.applyCurrentAutomationPosition();
   }
 
   setAutomationSettings(settings: AutomationSettings) {
     this.automationSettings = cloneAutomationSettings(settings);
+    this.applyCurrentAutomationPosition();
   }
 
   setDynamicsSettings(settings: DynamicsSettings) {
@@ -997,6 +999,55 @@ class AudioEngine {
         delaySend.gain.rampTo(mono ? 0 : settings.delay, 0.03);
       }
     });
+  }
+
+  private baseMixerVolume(track: MixerTrackId): number {
+    const sourceMixer =
+      this.referenceSnapshot?.mixerSettings ?? this.mixerSettings;
+    const trim = this.referenceSnapshot ? this.referenceTrimDb : 0;
+    return (
+      applyLearningFocusVolume(
+        sourceMixer[track].volume + trim,
+        track,
+        this.learningFocusTrack,
+      ) + this.quietAuditionDb
+    );
+  }
+
+  private applyCurrentAutomationPosition() {
+    if (this.eventId === null) return;
+
+    const barCount = Math.max(1, this.arrangement.length);
+    const barIndex = Math.floor(this.step / 16) % barCount;
+    const localStep = this.step % 16;
+    const progress = localStep / 16;
+    const nextBar = (barIndex + 1) % barCount;
+
+    const currentMelody =
+      this.automationSettings.melodyVolumeDb[barIndex] ?? 0;
+    const nextMelody =
+      this.automationSettings.melodyVolumeDb[nextBar] ?? currentMelody;
+    const melodyOffset =
+      currentMelody + (nextMelody - currentMelody) * progress;
+
+    const currentCutoff =
+      this.automationSettings.chordFilterHz[barIndex] ?? 12000;
+    const nextCutoff =
+      this.automationSettings.chordFilterHz[nextBar] ?? currentCutoff;
+    const cutoff =
+      currentCutoff + (nextCutoff - currentCutoff) * progress;
+
+    const melodyChannel = this.mixerChannels.melody;
+    if (melodyChannel) {
+      melodyChannel.volume.rampTo(
+        this.baseMixerVolume("melody") + melodyOffset,
+        0.03,
+      );
+    }
+
+    if (this.chordAutomationFilter) {
+      this.chordAutomationFilter.frequency.rampTo(cutoff, 0.03);
+    }
   }
 
   private applyAdvancedChannelSettings() {
