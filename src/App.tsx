@@ -695,8 +695,14 @@ function App() {
   }, [sidechainSettings]);
 
   useEffect(() => {
-    audioEngine.setStereoSettings(stereoSettings);
-  }, [stereoSettings]);
+    audioEngine.setStereoSettings({
+      ...stereoSettings,
+      monoAudition:
+        exercise.workspace === "stereo"
+          ? stereoSettings.monoAudition
+          : false,
+    });
+  }, [stereoSettings, exercise.workspace]);
 
   const checks = useMemo(
     () =>
