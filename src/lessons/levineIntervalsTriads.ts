@@ -116,7 +116,7 @@ Major, minor and perfect describe interval quality; the tritone can be named an 
 
 The quality follows a second rule. Major becomes minor and minor becomes major; perfect stays perfect; the tritone remains a tritone. These are practical keyboard rules, not only written-theory facts: they let you recognize the same two pitch classes in a different register.`,
         instruction:
-          "Work through the three source-analysis tabs. Clear the study, then place C4-E4 in bar 1 and E4-C5 in bar 2. In bars 3-4 place C4-F4 and F4-C5. Play the loop. The major third should become a minor sixth, while the perfect fourth becomes a perfect fifth.",
+          "Work through the three analysis tabs. Clear the study, then place C4-E4 in bar 1 and E4-C5 in bar 2. In bars 3-4 place C4-F4 and F4-C5. Play the loop. The major third should become a minor sixth, while the perfect fourth becomes a perfect fifth.",
         recognition:
           "Does the inversion sound related even though the spacing and the bottom note have changed?",
         source: {
