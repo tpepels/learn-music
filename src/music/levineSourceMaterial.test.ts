@@ -114,7 +114,7 @@ describe("Levine source material", () => {
     ]);
   });
 
-  it("keeps Chapters Four through Six as source-analysis maps rather than invented score transcriptions", () => {
+  it("keeps Chapters Four through Eight as source-analysis maps rather than invented score transcriptions", () => {
     const ids = [
       "l04.sus-construction",
       "l04.sus-third",
@@ -128,6 +128,15 @@ describe("Levine source material", () => {
       "l06.shared-tritone",
       "l06.dual-resolution",
       "l06.substitute-ii-v",
+      "l07.rootless-purpose",
+      "l07.a-position",
+      "l07.b-position",
+      "l07.cycle-practice",
+      "l08.half-diminished",
+      "l08.dominant-alterations",
+      "l08.sharp-eleven-minor-major",
+      "l08.diminished-derivation",
+      "l08.sus-phrygian-selection",
     ];
 
     for (const id of ids) {

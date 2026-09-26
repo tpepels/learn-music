@@ -69,8 +69,10 @@ describe("lesson progression", () => {
       "levine.sus-phrygian",
       "levine.adding-notes",
       "levine.tritone-substitution",
+      "levine.left-hand-voicings",
+      "levine.altered-left-hand-voicings",
     ]);
-    expect(implementedLessons).toHaveLength(67);
+    expect(implementedLessons).toHaveLength(69);
     expect(learningTracks.map((track) => track.id)).toEqual([
       "play-lab",
       "schoenberg",
@@ -96,7 +98,13 @@ describe("lesson progression", () => {
     expect(getNextImplementedLesson("levine.adding-notes")?.id).toBe(
       "levine.tritone-substitution",
     );
-    expect(getNextImplementedLesson("levine.tritone-substitution")).toBeUndefined();
+    expect(getNextImplementedLesson("levine.tritone-substitution")?.id).toBe(
+      "levine.left-hand-voicings",
+    );
+    expect(getNextImplementedLesson("levine.left-hand-voicings")?.id).toBe(
+      "levine.altered-left-hand-voicings",
+    );
+    expect(getNextImplementedLesson("levine.altered-left-hand-voicings")).toBeUndefined();
   });
 
   it("advances from one exercise to the next inside a lesson", () => {
