@@ -77,9 +77,9 @@ export const belkinBinaryFormLesson: LessonDefinition = {
         learn:
           "Binary form depends on comparison: both halves use the same main idea, so the listener can hear how the second section changes its function and context.",
         explanation:
-          "Calling a form 'binary' can suggest two different blocks, but the important relation is not unrelated A followed by unrelated B. Both sections draw on one main body of material. A strong middle punctuation makes the division clear, while motivic continuity keeps the whole piece coherent.
+          `Calling a form 'binary' can suggest two different blocks, but the important relation is not unrelated A followed by unrelated B. Both sections draw on one main body of material. A strong middle punctuation makes the division clear, while motivic continuity keeps the whole piece coherent.
 
-The second half therefore needs to sound recognisably connected to the first without merely copying it. Familiar pitches or gestures can return in a changed order, contour or register. That continuity is what allows later instability to feel like development of something known.",
+The second half therefore needs to sound recognisably connected to the first without merely copying it. Familiar pitches or gestures can return in a changed order, contour or register. That continuity is what allows later instability to feel like development of something known.`,
         instruction:
           "Study all three binary-identity principles. In the Motif workspace, use steps 1-8 as the first half and 9-16 as the second. Put at least three sounding notes in each half. Reuse at least two pitches from the first half in the second, but do not copy the halves exactly. Make at least six edits and listen through the full sixteen steps.",
         recognition:
@@ -136,9 +136,9 @@ The second half therefore needs to sound recognisably connected to the first wit
         learn:
           "The second section should normally be less stable and more active than the first. That increase gives the whole binary form a developing trajectory.",
         explanation:
-          "The intensified second half can come from more frequent harmonic change, less regular phrase structure, greater registral movement, denser texture or more fragmentary material. The exact device depends on the style. What matters is that the second part does more with familiar material instead of remaining at the same level of activity.
+          `The intensified second half can come from more frequent harmonic change, less regular phrase structure, greater registral movement, denser texture or more fragmentary material. The exact device depends on the style. What matters is that the second part does more with familiar material instead of remaining at the same level of activity.
 
-Here arrangement changes stand in for that formal activity. The first four bars should establish a relatively stable combination. The last four should retain at least one layer from the opening but change state more often from bar to bar.",
+Here arrangement changes stand in for that formal activity. The first four bars should establish a relatively stable combination. The last four should retain at least one layer from the opening but change state more often from bar to bar.`,
         instruction:
           "Study all three second-half principles. In Arrangement, make bars 1-4 relatively stable, then make bars 5-8 more active. Keep at least one layer from bar 1 present in bar 5, but create more layer-state changes across bars 5-8 than across bars 1-4. Make at least eight arrangement edits and listen through all eight bars.",
         recognition:
@@ -195,9 +195,9 @@ Here arrangement changes stand in for that formal activity. The first four bars 
         learn:
           "Rounded binary gains dramatic shape by leaving the opening's stability, passing through a more unsettled region, then bringing opening material back as resolution.",
         explanation:
-          "The return matters because its function has changed. At the beginning, familiar material establishes home; later, after instability, the same material can sound like recovery. The contrast is therefore not simply between themes but between formal states: departure and return.
+          `The return matters because its function has changed. At the beginning, familiar material establishes home; later, after instability, the same material can sound like recovery. The contrast is therefore not simply between themes but between formal states: departure and return.
 
-A convincing rounded return needs enough difference in the middle to make homecoming perceptible. If the middle never departs, the reprise has little dramatic meaning. If it abandons all connection, the return can feel arbitrary. This arrangement study keeps the relation audible through shared layers.",
+A convincing rounded return needs enough difference in the middle to make homecoming perceptible. If the middle never departs, the reprise has little dramatic meaning. If it abandons all connection, the return can feel arbitrary. This arrangement study keeps the relation audible through shared layers.`,
         instruction:
           "Study all three rounded-binary stages. In Arrangement, make bar 1 a clear opening with at least two active layers. Make bar 5 differ from bar 1 in at least two layer states. Then make bar 7 return to at least two of bar 1's active layers. Make at least seven edits and listen from bar 1 through the return.",
         recognition:
@@ -255,9 +255,9 @@ A convincing rounded return needs enough difference in the middle to make homeco
         learn:
           "The first ending may articulate the midpoint strongly, but the final ending should carry greater formal weight so the whole piece feels complete.",
         explanation:
-          "Related endings invite comparison. If both cadences are identical in every respect, the form can sound as though it simply stopped twice. A more conclusive final cadence can be created by stronger harmonic resolution, longer preparation, greater rhythmic repose, register, texture or other coordinated signals.
+          `Related endings invite comparison. If both cadences are identical in every respect, the form can sound as though it simply stopped twice. A more conclusive final cadence can be created by stronger harmonic resolution, longer preparation, greater rhythmic repose, register, texture or other coordinated signals.
 
-This exercise isolates rhythmic weight while keeping motivic relation obvious. The last note of each half should be the same pitch, but the final one should last longer. That is not a universal formula for binary form; it is a controlled way to hear how two related endings can acquire different formal weights.",
+This exercise isolates rhythmic weight while keeping motivic relation obvious. The last note of each half should be the same pitch, but the final one should last longer. That is not a universal formula for binary form; it is a controlled way to hear how two related endings can acquire different formal weights.`,
         instruction:
           "Study all three ending-hierarchy principles. In the Motif workspace, place a sounding note somewhere in steps 5-8 and use the same pitch as the final sounding note in steps 13-16. Give the final ending a longer duration than the first-half ending. Keep at least three sounding notes in each half, make at least six edits, and listen to both endings in one pass.",
         recognition:
