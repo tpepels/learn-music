@@ -4,6 +4,7 @@ import {
   initialBassSequence,
   initialHarmonySequence,
   initialPattern,
+  type FormSettings,
 } from "../music/model";
 import {
   chordSymbol,
@@ -149,9 +150,9 @@ describe("layered playback fallbacks", () => {
   });
 
   it("rebuilds form playback from the latest section-layer state", () => {
-    const settings = {
-      sections: ["A", "A′", "B", "A"] as const,
-      roles: ["statement", "answer", "contrast", "return"] as const,
+    const settings: FormSettings = {
+      sections: ["A", "A′", "B", "A"],
+      roles: ["statement", "answer", "contrast", "return"],
       layers: Array.from({ length: 4 }, () => ({
         drums: false,
         bass: false,
