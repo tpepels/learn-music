@@ -913,12 +913,22 @@ class AudioEngine {
   private applyDynamicsSettings() {
     if (!this.drumCompressor) return;
 
-    this.drumCompressor.set({
-      threshold: this.dynamicsSettings.threshold,
-      ratio: this.dynamicsSettings.ratio,
-      attack: this.dynamicsSettings.attack,
-      release: this.dynamicsSettings.release,
-    });
+    this.drumCompressor.threshold.rampTo(
+      this.dynamicsSettings.threshold,
+      0.02,
+    );
+    this.drumCompressor.ratio.rampTo(
+      this.dynamicsSettings.ratio,
+      0.02,
+    );
+    this.drumCompressor.attack.rampTo(
+      this.dynamicsSettings.attack,
+      0.02,
+    );
+    this.drumCompressor.release.rampTo(
+      this.dynamicsSettings.release,
+      0.02,
+    );
   }
 
   private applyEffectsSettings() {
