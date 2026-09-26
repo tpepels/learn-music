@@ -1,7 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { audioEngine } from "./audio/engine";
 import { effectiveMonoAudition } from "./audio/productionControlPolicy";
-import { isProductionAuditionWorkspace } from "./audio/workspaceLayerPolicy";
+import {
+  playbackModeForWorkspace,
+  workspaceRequiresPatternA,
+} from "./audio/workspacePlaybackPolicy";
 import {
   canWorkspaceUseTransport,
   resolveLearningFocusTrack,
@@ -57,74 +60,42 @@ async function startWorkspacePlayback(
   bpm: number,
   onStep: (step: number) => void,
 ): Promise<boolean> {
-  if (
-    workspace === "melody" ||
-    workspace === "motif" ||
-    workspace === "minor-key" ||
-    workspace === "harmonic-minor"
-  ) {
-    return audioEngine.playMelodyWithGroove(bpm, onStep);
+  switch (playbackModeForWorkspace(workspace)) {
+    case "direct-audition":
+      return false;
+    case "drums":
+      return audioEngine.playDrums(bpm, onStep);
+    case "context-drums":
+      return audioEngine.playContextDrums(bpm, onStep);
+    case "melody-groove":
+      return audioEngine.playMelodyWithGroove(bpm, onStep);
+    case "harmony-with-melody":
+      return audioEngine.playHarmonyContext(bpm, onStep, true);
+    case "harmony-no-melody":
+      return audioEngine.playHarmonyContext(bpm, onStep, false);
+    case "chord-melody":
+      return audioEngine.playChordMelody(bpm, onStep);
+    case "composition-study":
+      return audioEngine.playStudySequence(bpm, onStep);
+    case "jazz-piano":
+      return audioEngine.playJazzPianoStudy(bpm, onStep);
+    case "chords":
+      return audioEngine.playChords(bpm, onStep);
+    case "voicing-context":
+      return audioEngine.playVoicingContext(bpm, onStep);
+    case "bass":
+      return audioEngine.playBass(bpm, onStep);
+    case "form":
+      return audioEngine.playForm(bpm, onStep);
+    case "arrangement":
+      return audioEngine.playArrangement(bpm, onStep);
+    case "context-arrangement":
+      return audioEngine.playContextArrangement(bpm, onStep);
+    case "texture-context":
+      return audioEngine.playTextureContext(bpm, onStep);
+    case "production-mix":
+      return audioEngine.playProductionMix(bpm, onStep);
   }
-
-  if (workspace === "melody-harmony") {
-    return audioEngine.playHarmonyContext(bpm, onStep, true);
-  }
-
-  if (workspace === "transposition") {
-    return audioEngine.playChordMelody(bpm, onStep);
-  }
-
-  if (workspace === "composition-study") {
-    return audioEngine.playStudySequence(bpm, onStep);
-  }
-
-  if (workspace === "jazz-piano") {
-    return audioEngine.playJazzPianoStudy(bpm, onStep);
-  }
-
-  if (
-    workspace === "harmony-song" ||
-    workspace === "harmonic-function" ||
-    workspace === "minor-harmony"
-  ) {
-    return audioEngine.playHarmonyContext(bpm, onStep, true);
-  }
-
-  if (
-    workspace === "seventh-harmony" ||
-    workspace === "borrowed-harmony"
-  ) {
-    return audioEngine.playHarmonyContext(bpm, onStep, false);
-  }
-
-  if (
-    workspace === "chords" ||
-    workspace === "voicing"
-  ) {
-    return audioEngine.playChords(bpm, onStep);
-  }
-
-  if (workspace === "bass") {
-    return audioEngine.playBass(bpm, onStep);
-  }
-
-  if (workspace === "phrase-form") {
-    return audioEngine.playForm(bpm, onStep);
-  }
-
-  if (
-    workspace === "arrangement" ||
-    workspace === "final-project" ||
-    workspace === "texture"
-  ) {
-    return audioEngine.playArrangement(bpm, onStep);
-  }
-
-  if (isProductionAuditionWorkspace(workspace)) {
-    return audioEngine.playProductionMix(bpm, onStep);
-  }
-
-  return audioEngine.playDrums(bpm, onStep);
 }
 
 function Transport({
@@ -546,6 +517,7 @@ function App() {
   const [confirmLessonReset, setConfirmLessonReset] = useState(false);
   const [confirmCatchUp, setConfirmCatchUp] = useState(false);
 
+  const setActivePattern = useStudioStore((state) => state.setActivePattern);
   const setCurrentLesson = useStudioStore((state) => state.setCurrentLesson);
   const setExerciseIndex = useStudioStore((state) => state.setExerciseIndex);
   const completeExercise = useStudioStore((state) => state.completeExercise);
@@ -606,8 +578,20 @@ function App() {
   }, [exercise.id, setActiveExerciseId]);
 
   useEffect(() => {
-    audioEngine.setPattern(patterns[activePattern]);
-  }, [patterns, activePattern]);
+    if (
+      appMode === "learn" &&
+      workspaceRequiresPatternA(exercise.workspace) &&
+      activePattern !== "A"
+    ) {
+      setActivePattern("A");
+    }
+  }, [appMode, exercise.workspace, activePattern, setActivePattern]);
+
+  useEffect(() => {
+    const usePatternA =
+      appMode === "learn" && workspaceRequiresPatternA(exercise.workspace);
+    audioEngine.setPattern(usePatternA ? patterns.A : patterns[activePattern]);
+  }, [patterns, activePattern, appMode, exercise.workspace]);
 
   useEffect(() => {
     audioEngine.setMelody(melody);

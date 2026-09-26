@@ -191,7 +191,7 @@ export function HarmonySequencerWorkspace({
     removeNote: (step, midi) => toggleHarmonyNote(step, midi),
     setDuration: (step, midi, duration) =>
       setHarmonyDuration(step, midi, duration),
-    audition: (midi) => audioEngine.playPianoNote(midi),
+    audition: (midi) => audioEngine.playChordNote(midi),
   });
 
   return (
@@ -339,7 +339,7 @@ export function HarmonySequencerWorkspace({
             <div className="harmony-roll-row" key={midi}>
               <button
                 className="harmony-note-label"
-                onClick={() => audioEngine.playPianoNote(midi)}
+                onClick={() => audioEngine.playChordNote(midi)}
                 title={"Audition " + harmonyNoteName(midi, mode, tonalContext, showTargets)}
               >
                 {harmonyNoteName(midi, mode, tonalContext, showTargets)}

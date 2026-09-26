@@ -1,4 +1,5 @@
 import { audioEngine } from "../audio/engine";
+import { resolveContextProgression } from "../audio/playbackFallbacks";
 import {
   chordSymbol,
   harmonicBassRootMidi,
@@ -23,8 +24,9 @@ export function BassWorkspace() {
   const durations = useStudioStore((state) => state.bassDurations);
   const setBassStep = useStudioStore((state) => state.setBassStep);
   const setBassDuration = useStudioStore((state) => state.setBassDuration);
-  const progression = useStudioStore((state) => state.harmonicProgression);
+  const projectProgression = useStudioStore((state) => state.harmonicProgression);
   const tonalContext = useStudioStore((state) => state.tonalContext);
+  const progression = resolveContextProgression(projectProgression, tonalContext);
   const currentStep = useStudioStore((state) => state.currentStep);
   const isPlaying = useStudioStore((state) => state.isPlaying);
 
@@ -33,7 +35,7 @@ export function BassWorkspace() {
     addNote: (step, midi) => setBassStep(step, midi),
     removeNote: (step, midi) => setBassStep(step, midi),
     setDuration: (step, _midi, duration) => setBassDuration(step, duration),
-    audition: (midi) => audioEngine.playPianoNote(midi),
+    audition: (midi) => audioEngine.playBassNote(midi),
   });
 
   return (
@@ -78,7 +80,7 @@ export function BassWorkspace() {
           >
             <button
               className="bass-note-label"
-              onClick={() => audioEngine.playPianoNote(pitch.midi)}
+              onClick={() => audioEngine.playBassNote(pitch.midi)}
             >
               <strong>{pitch.name}</strong>
               <span>{isMidiInTonalContext(pitch.midi, tonalContext) ? "key" : "chromatic"}</span>

@@ -4,6 +4,7 @@ import {
   initialBassSequence,
   initialHarmonySequence,
   initialPattern,
+  type FormSettings,
 } from "../music/model";
 import {
   chordSymbol,
@@ -12,8 +13,11 @@ import {
   type TonalContext,
 } from "../music/harmony";
 import {
+  ensureArrangementAudibleIfEmpty,
   ensureProductionLayersPresent,
+  ensureTextureLayersPresent,
   fallbackBassRoot,
+  formArrangementFromSettings,
   hasBassContent,
   hasDrumContent,
   hasWrittenHarmony,
@@ -106,6 +110,64 @@ describe("layered playback fallbacks", () => {
     expect(initialArrangement.every((bar) =>
       Object.values(bar).every((active) => !active),
     )).toBe(true);
+  });
+
+  it("only supplies a final-project arrangement when the learner has none", () => {
+    const emptyResolved = ensureArrangementAudibleIfEmpty(initialArrangement);
+    expect(emptyResolved.every((bar) => Object.values(bar).every(Boolean))).toBe(true);
+
+    const real = initialArrangement.map((bar) => ({ ...bar }));
+    real[2].drums = true;
+    const resolved = ensureArrangementAudibleIfEmpty(real);
+
+    expect(resolved).toEqual(real);
+    expect(resolved).not.toBe(real);
+    expect(real[2].drums).toBe(true);
+    expect(real[2].bass).toBe(false);
+  });
+
+  it("supplies only globally missing texture layers and preserves real arrangement choices", () => {
+    const arrangement = initialArrangement.map((bar) => ({ ...bar }));
+    arrangement[0].drums = true;
+    arrangement[4].drums = true;
+    arrangement[4].melody = true;
+
+    const resolved = ensureTextureLayersPresent(arrangement);
+
+    expect(resolved[0].drums).toBe(true);
+    expect(resolved[1].drums).toBe(false);
+    expect(resolved[0].melody).toBe(false);
+    expect(resolved[4].melody).toBe(true);
+    expect(resolved.every((bar) => bar.bass)).toBe(true);
+    expect(resolved.every((bar) => bar.chords)).toBe(true);
+
+    expect(arrangement[0]).toEqual({
+      drums: true,
+      bass: false,
+      chords: false,
+      melody: false,
+    });
+  });
+
+  it("rebuilds form playback from the latest section-layer state", () => {
+    const settings: FormSettings = {
+      sections: ["A", "A′", "B", "A"],
+      roles: ["statement", "answer", "contrast", "return"],
+      layers: Array.from({ length: 4 }, () => ({
+        drums: false,
+        bass: false,
+        chords: false,
+        melody: false,
+      })),
+    };
+
+    const before = formArrangementFromSettings(settings);
+    expect(before.slice(0, 4).every((bar) => !bar.drums)).toBe(true);
+
+    settings.layers[0].drums = true;
+    const after = formArrangementFromSettings(settings);
+    expect(after.slice(0, 4).every((bar) => bar.drums)).toBe(true);
+    expect(after.slice(4).every((bar) => !bar.drums)).toBe(true);
   });
 
   it("uses a full audition mix without mutating sparse arrangement decisions", () => {

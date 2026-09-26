@@ -4,7 +4,9 @@ import { LayerVolumeStrip } from "./LayerVolumeStrip";
 export function SidechainWorkspace() {
   const settings = useStudioStore((state) => state.sidechainSettings);
   const setSettings = useStudioStore((state) => state.setSidechainSettings);
-  const kickCount = useStudioStore((state) => state.patterns.A.kick.filter(Boolean).length);
+  const kick = useStudioStore((state) => state.patterns.A.kick);
+  const toggleStep = useStudioStore((state) => state.toggleStep);
+  const kickCount = kick.filter(Boolean).length;
 
   return (
     <div className="advanced-production-card sidechain-workspace">
@@ -20,6 +22,45 @@ export function SidechainWorkspace() {
       </div>
 
       <LayerVolumeStrip tracks={["drums", "bass", "chords", "melody"] as const} />
+
+      <section className="sequencer sidechain-trigger-editor" aria-label="Pattern A kick trigger">
+        <div className="sequencer-heading">
+          <div>
+            <span className="section-label">Sidechain trigger · Pattern A</span>
+            <h3>Kick key input</h3>
+          </div>
+          <small>Add or move kicks here while the loop runs. These are the events that make the bass duck.</small>
+        </div>
+        <div className="beat-row" aria-hidden="true">
+          <span />
+          {kick.map((_, step) => (
+            <span className={step % 4 === 0 ? "beat-number" : ""} key={step}>
+              {step % 4 === 0 ? step / 4 + 1 : ""}
+            </span>
+          ))}
+        </div>
+        <div className="track-row track-kick">
+          <div className="track-label">
+            <strong>Kick</strong>
+            <span>key input</span>
+          </div>
+          {kick.map((active, step) => (
+            <button
+              className={[
+                "step",
+                active ? "is-active" : "",
+                step % 4 === 0 ? "is-beat-start" : "",
+              ].filter(Boolean).join(" ")}
+              key={step}
+              aria-label={"Sidechain kick step " + (step + 1)}
+              aria-pressed={active}
+              onClick={() => toggleStep("kick", step)}
+            >
+              <span />
+            </button>
+          ))}
+        </div>
+      </section>
 
       <div className="sidechain-routing">
         <div className="sidechain-source">
