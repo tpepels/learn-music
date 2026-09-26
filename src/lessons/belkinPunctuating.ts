@@ -59,9 +59,9 @@ export const belkinPunctuatingLesson: LessonDefinition = {
         learn:
           "A cadence is not produced by harmony alone. Melodic contour and rhythmic relaxation can make an arrival audible even before the accompaniment tells you what chord it is.",
         explanation:
-          "A useful cadence coordinates several dimensions, but melody and rhythm already carry a great deal of formal information. A line can relax by narrowing its intervals, moving toward a prepared register, arriving on a stronger beat, lengthening its final event or simply reducing activity. The important distinction is between an event that feels like another note in the stream and one that lets the listener breathe.
+          `A useful cadence coordinates several dimensions, but melody and rhythm already carry a great deal of formal information. A line can relax by narrowing its intervals, moving toward a prepared register, arriving on a stronger beat, lengthening its final event or simply reducing activity. The important distinction is between an event that feels like another note in the stream and one that lets the listener breathe.
 
-Do not merely place a long note at the end. Shape the preceding motion so the final event feels prepared. If the phrase is jagged, a smoother approach can create repose; if the phrase is active, a reduction in rhythmic activity can do the same job.",
+Do not merely place a long note at the end. Shape the preceding motion so the final event feels prepared. If the phrase is jagged, a smoother approach can create repose; if the phrase is active, a reduction in rhythmic activity can do the same job.`,
         instruction:
           "Study all four cadence dimensions. In the Melody workspace, write at least four sounding notes. Make the final sounding note last at least twice as long as a normal step and shape the approach so it feels like a release rather than an arbitrary stop. Make at least five edits, listen, then revise once after hearing the whole phrase.",
         recognition:
@@ -125,9 +125,9 @@ Do not merely place a long note at the end. Shape the preceding motion so the fi
         learn:
           "Texture can reinforce or soften a boundary. A thinning texture often feels like energy being released, while a sudden enlargement can turn an arrival into an accent or climax.",
         explanation:
-          "Changes of density, register and timbre can contribute strongly to punctuation, but they work best when they support what the rhythm and phrase are already doing. A change of instrumentation in the middle of an otherwise continuous thought can sound arbitrary; the same change at a prepared boundary can make the structure suddenly obvious.
+          `Changes of density, register and timbre can contribute strongly to punctuation, but they work best when they support what the rhythm and phrase are already doing. A change of instrumentation in the middle of an otherwise continuous thought can sound arbitrary; the same change at a prepared boundary can make the structure suddenly obvious.
 
-Here the Arrangement grid stands in for textural density. You are not trying to make a production trick. You are testing how much the perceived weight of a boundary changes when several layers continue through it versus when the texture deliberately opens up.",
+Here the Arrangement grid stands in for textural density. You are not trying to make a production trick. You are testing how much the perceived weight of a boundary changes when several layers continue through it versus when the texture deliberately opens up.`,
         instruction:
           "Study the cadential-shaping analysis. In Arrangement, keep bars 1-6 active enough to establish continuity. Make bar 7 relatively full, then make bar 8 noticeably thinner by removing at least one layer. Make at least five arrangement edits and listen through the whole eight-bar span. If the final thinning feels too abrupt, revise the preceding bar so the release sounds prepared.",
         recognition:
@@ -181,9 +181,9 @@ Here the Arrangement grid stands in for textural density. You are not trying to 
         learn:
           "A phrase ending does not always need empty space after it. In an elision, the point of arrival also becomes the beginning of the next phrase.",
         explanation:
-          "Elision is useful because it gives one event two formal jobs. The listener hears an arrival, but before the music can settle completely the same sounding event has already become part of the next gesture. This keeps continuity high without erasing the boundary.
+          `Elision is useful because it gives one event two formal jobs. The listener hears an arrival, but before the music can settle completely the same sounding event has already become part of the next gesture. This keeps continuity high without erasing the boundary.
 
-The shared event still needs to make musical sense in both directions. Its duration can bridge the join, while the material after it changes enough to reveal that a new phrase has begun. If nothing changes after the shared event, the boundary disappears; if everything changes too violently, the overlap no longer feels like a connection.",
+The shared event still needs to make musical sense in both directions. Its duration can bridge the join, while the material after it changes enough to reveal that a new phrase has begun. If nothing changes after the shared event, the boundary disappears; if everything changes too violently, the overlap no longer feels like a connection.`,
         instruction:
           "Study the elision analysis. In the Motif workspace, use step 8 as a sounding note that sustains across step 9. Leave step 9 empty so the held note bridges the visual phrase boundary, then begin a changed continuation on step 10 or later. Write at least six sounding notes overall, make at least six edits, and listen through the join.",
         recognition:
@@ -238,9 +238,9 @@ The shared event still needs to make musical sense in both directions. Its durat
         learn:
           "Not every pause should sound equally final. Larger forms depend on a hierarchy in which local breaths remain subordinate to the boundary that actually closes the section.",
         explanation:
-          "A useful way to think about punctuation is comparatively: which arrival is stronger, and why? If every phrase closes with maximum weight, the music repeatedly loses momentum. If every boundary is weak, the listener cannot tell where the larger units are.
+          `A useful way to think about punctuation is comparatively: which arrival is stronger, and why? If every phrase closes with maximum weight, the music repeatedly loses momentum. If every boundary is weak, the listener cannot tell where the larger units are.
 
-The strongest cadence does not have to use every possible signal at once. What matters is that the combined evidence at the final boundary is clearly more conclusive than the internal ones. One dimension can even contradict another to produce a qualified close that says, in effect, 'yes, but continue.'",
+The strongest cadence does not have to use every possible signal at once. What matters is that the combined evidence at the final boundary is clearly more conclusive than the internal ones. One dimension can even contradict another to produce a qualified close that says, in effect, 'yes, but continue.'`,
         instruction:
           "Study the punctuation hierarchy. Use Arrangement to create two internal breaths and a clearly stronger final boundary. Make at least six edits. Keep bars 3 and 5 related to what precedes them so the piece continues, but make bar 8 the largest textural release: it should have fewer active layers than both bars 3 and 5. Listen from bar 1 without stopping and adjust until the final boundary feels categorically stronger.",
         recognition:
