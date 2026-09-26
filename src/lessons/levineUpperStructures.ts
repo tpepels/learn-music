@@ -259,7 +259,7 @@ export const levineUpperStructuresLesson: LessonDefinition = {
           complete: exactStudy(harmonySequence, [
             [0, [52, 58, 62, 66, 69]],
             [8, [52, 58, 63, 68, 72]],
-            [16, [52, 55, 58, 63, 67]],
+            [16, [52, 58, 63, 67, 70]],
           ]),
         },
         {
