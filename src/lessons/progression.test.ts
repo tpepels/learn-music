@@ -79,8 +79,10 @@ describe("lesson progression", () => {
       "levine.upper-structures",
       "levine.pentatonic-scales",
       "levine.voicings-voicings-voicings",
+      "levine.stride-bud-powell",
+      "levine.four-note-scales",
     ]);
-    expect(implementedLessons).toHaveLength(77);
+    expect(implementedLessons).toHaveLength(79);
     expect(learningTracks.map((track) => track.id)).toEqual([
       "play-lab",
       "schoenberg",
@@ -136,7 +138,13 @@ describe("lesson progression", () => {
     expect(getNextImplementedLesson("levine.pentatonic-scales")?.id).toBe(
       "levine.voicings-voicings-voicings",
     );
-    expect(getNextImplementedLesson("levine.voicings-voicings-voicings")).toBeUndefined();
+    expect(getNextImplementedLesson("levine.voicings-voicings-voicings")?.id).toBe(
+      "levine.stride-bud-powell",
+    );
+    expect(getNextImplementedLesson("levine.stride-bud-powell")?.id).toBe(
+      "levine.four-note-scales",
+    );
+    expect(getNextImplementedLesson("levine.four-note-scales")).toBeUndefined();
   });
 
   it("advances from one exercise to the next inside a lesson", () => {

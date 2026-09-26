@@ -114,7 +114,7 @@ describe("Levine source material", () => {
     ]);
   });
 
-  it("keeps Chapters Four through Sixteen as source-analysis maps rather than invented score transcriptions", () => {
+  it("keeps Chapters Four through Eighteen as source-analysis maps rather than invented score transcriptions", () => {
     const ids = [
       "l04.sus-construction",
       "l04.sus-third",
@@ -172,6 +172,15 @@ describe("Levine source material", () => {
       "l16.diminished-motion",
       "l16.double-diminished",
       "l16.three-note-bite",
+      "l17.stride-pulse",
+      "l17.walking-tenths",
+      "l17.within-bar-harmony",
+      "l17.bud-powell-shells",
+      "l18.minor-sixth",
+      "l18.major-key-application",
+      "l18.diminished-subsets",
+      "l18.melodic-minor-cells",
+      "l18.invent-and-rotate",
     ];
 
     for (const id of ids) {
