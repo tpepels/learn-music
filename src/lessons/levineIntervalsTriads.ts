@@ -243,7 +243,7 @@ Listen to the difference before attaching an emotional label. The important tech
 
 This distinction becomes central later when jazz voicings are chosen for smooth movement rather than for root-position clarity. For now, keep the task literal: same three chord tones, three possible bass notes.",
         instruction:
-          "Play the inversion chart below. Clear the study. In the first two bars place C major in root position, first inversion and second inversion on steps 1, 5 and 9. In the last two bars do the same with C minor on steps 17, 21 and 25. Play the complete loop and follow the lowest note of each voicing.",
+          "Play the inversion chart below. Clear the study. In the first two bars place C major on steps 1, 5 and 9 as C4-E4-G4, E3-G3-C4 and G3-C4-E4. In the last two bars place C minor on steps 17, 21 and 25 as C4-E-flat4-G4, E-flat3-G3-C4 and G3-C4-E-flat4. Play the complete loop and follow the lowest note of each voicing.",
         recognition:
           "Can you hear the bass move C-E-G and C-E-flat-G while the chord still remains recognizably C major or C minor?",
         source: {
@@ -279,15 +279,15 @@ This distinction becomes central later when jazz voicings are chosen for smooth 
           label: "C major appears in all three inversions",
           complete:
             sameNotes(harmonySequence[0], [60, 64, 67]) &&
-            sameNotes(harmonySequence[4], [64, 67, 72]) &&
-            sameNotes(harmonySequence[8], [67, 72, 76]),
+            sameNotes(harmonySequence[4], [52, 55, 60]) &&
+            sameNotes(harmonySequence[8], [55, 60, 64]),
         },
         {
           label: "C minor appears in all three inversions",
           complete:
             sameNotes(harmonySequence[16], [60, 63, 67]) &&
-            sameNotes(harmonySequence[20], [63, 67, 72]) &&
-            sameNotes(harmonySequence[24], [67, 72, 75]),
+            sameNotes(harmonySequence[20], [51, 55, 60]) &&
+            sameNotes(harmonySequence[24], [55, 60, 63]),
         },
         {
           label: "You entered the inversion study yourself",
