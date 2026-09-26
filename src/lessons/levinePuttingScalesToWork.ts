@@ -166,7 +166,7 @@ export const levinePuttingScalesToWorkLesson: LessonDefinition = {
         learn:
           "Compare straight eighth-note motion, broken thirds, reversing thirds and a step-plus-skip triplet cell.",
         explanation:
-          "The chapter varies one scale exercise several ways so that scale practice becomes melodic organization rather than mere up-and-down motion. Straight notes establish the collection. Broken thirds add intervallic movement. Reversing the direction of the thirds changes contour. Triplet cells combine a step and a skip.\n\nThe purpose is not to collect licks. It is to make the scale physically and aurally available in several shapes so that a line can respond to the harmony without sounding like a scale drill.",
+          "Vary one scale exercise several ways so that scale practice becomes melodic organization rather than mere up-and-down motion. Straight notes establish the collection. Broken thirds add intervallic movement. Reversing the direction of the thirds changes contour. Triplet cells combine a step and a skip.\n\nThe purpose is not to collect licks. It is to make the scale physically and aurally available in several shapes so that a line can respond to the harmony without sounding like a scale drill.",
         instruction:
           "Study the pattern-variation map. Clear the grid. Write four eight-note C-major patterns in consecutive bars: C-D-E-F-G-A-B-C; C-E-D-F-E-G-F-A; C-E-D-F-E-G-F-D; C-D-E-D-E-F-E-G. Play all four bars and identify which transformation you are hearing.",
         recognition:
@@ -225,7 +225,7 @@ export const levinePuttingScalesToWorkLesson: LessonDefinition = {
         learn:
           "Use repetition to create order, then interrupt it deliberately so the pattern serves the line instead of taking over.",
         explanation:
-          "A sequence can sound musical because repetition gives the listener something to follow. It can also sound mechanical if the pattern continues unchanged for too long. The source therefore treats these exercises as raw material for improvising, not as formulas to run automatically.\n\nA useful practice is to establish the pattern clearly, repeat it once, then change direction or interval content while staying inside the same harmonic field. The listener hears both organization and choice.",
+          "A sequence can sound musical because repetition gives the listener something to follow. It can also sound mechanical if the pattern continues unchanged for too long. Treat these exercises as raw material for improvising, not as formulas to run automatically.\n\nA useful practice is to establish the pattern clearly, repeat it once, then change direction or interval content while staying inside the same harmonic field. The listener hears both organization and choice.",
         instruction:
           "Study the musical-use map. Clear the grid. Write C4-D4-E4-G4, then D4-E4-F4-A4 on steps 1-8. On steps 9-16 break the sequence with G4-F4-E4-C5-B4-G4-A4-E4. Play the line and listen for the moment the repeated cell gives way to a freer contour.",
         recognition:
