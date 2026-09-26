@@ -1,4 +1,6 @@
 import {
+  arrangementLayers,
+  cloneArrangement,
   clonePattern,
   type Arrangement,
   type BassSequence,
@@ -76,4 +78,52 @@ export function ensureProductionLayersPresent(
     chords: true,
     melody: true,
   }));
+}
+
+export function hasArrangementContent(arrangement: Arrangement): boolean {
+  return arrangement.some((bar) => arrangementLayers.some((layer) => bar[layer]));
+}
+
+/**
+ * Final listening contexts should remain faithful to a real arrangement, but
+ * a learner who never arranged anything still needs an audible project.
+ */
+export function ensureArrangementAudibleIfEmpty(
+  arrangement: Arrangement,
+): Arrangement {
+  if (hasArrangementContent(arrangement)) {
+    return cloneArrangement(arrangement);
+  }
+  return ensureProductionLayersPresent(arrangement);
+}
+
+/**
+ * Texture controls need each musical layer somewhere in the audition. Preserve
+ * every existing ON/OFF decision, and only supply layers that are globally
+ * absent from the learner's arrangement.
+ */
+export function ensureTextureLayersPresent(
+  arrangement: Arrangement,
+): Arrangement {
+  const safe =
+    arrangement.length > 0
+      ? cloneArrangement(arrangement)
+      : [{
+          drums: false,
+          bass: false,
+          chords: false,
+          melody: false,
+        }];
+
+  const missing = arrangementLayers.filter(
+    (layer) => !safe.some((bar) => bar[layer]),
+  );
+
+  return safe.map((bar) => {
+    const next = { ...bar };
+    for (const layer of missing) {
+      next[layer] = true;
+    }
+    return next;
+  });
 }
