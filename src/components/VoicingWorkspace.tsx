@@ -1,4 +1,5 @@
 import { audioEngine } from "../audio/engine";
+import { resolveContextProgression } from "../audio/playbackFallbacks";
 import {
   chordSymbol,
   harmonicVoiceLeadingDistance,
@@ -18,8 +19,9 @@ const inversionNames: Record<ChordInversion, string> = {
 };
 
 export function VoicingWorkspace() {
-  const progression = useStudioStore((state) => state.harmonicProgression);
+  const projectProgression = useStudioStore((state) => state.harmonicProgression);
   const tonalContext = useStudioStore((state) => state.tonalContext);
+  const progression = resolveContextProgression(projectProgression, tonalContext);
   const voicing = useStudioStore((state) => state.voicingSettings);
   const setChordInversion = useStudioStore((state) => state.setChordInversion);
   const currentStep = useStudioStore((state) => state.currentStep);
@@ -97,7 +99,7 @@ export function VoicingWorkspace() {
                       </button>
                     ))
                 ) : (
-                  <span className="voicing-empty">Build this chord in lesson 4 first</span>
+                  <span className="voicing-empty">No harmony available</span>
                 )}
               </div>
 
