@@ -63,6 +63,7 @@ describe("Schoenberg learning track", () => {
       "play-lab",
       "schoenberg",
       "belkin",
+      "levine",
     ]);
     expect(getNextImplementedLesson(playLabLessons.at(-1)!.id)).toBeUndefined();
     expect(
