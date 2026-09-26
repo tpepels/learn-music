@@ -64,6 +64,9 @@ import { belkinProgressingLesson } from "./belkinProgressing";
 import { levineIntervalsTriadsLesson } from "./levineIntervalsTriads";
 import { levineMajorModesIiViLesson } from "./levineMajorModesIiVi";
 import { levineThreeNoteVoicingsLesson } from "./levineThreeNoteVoicings";
+import { levineSusPhrygianLesson } from "./levineSusPhrygian";
+import { levineAddingNotesLesson } from "./levineAddingNotes";
+import { levineTritoneSubstitutionLesson } from "./levineTritoneSubstitution";
 import type { LessonDefinition } from "./types";
 
 export const playLabLessons: LessonDefinition[] = [
@@ -140,6 +143,9 @@ export const levineLessons: LessonDefinition[] = [
   levineIntervalsTriadsLesson,
   levineMajorModesIiViLesson,
   levineThreeNoteVoicingsLesson,
+  levineSusPhrygianLesson,
+  levineAddingNotesLesson,
+  levineTritoneSubstitutionLesson,
 ];
 
 export type LearningTrackId = "play-lab" | "schoenberg" | "belkin" | "levine";

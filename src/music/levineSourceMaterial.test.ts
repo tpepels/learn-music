@@ -114,6 +114,30 @@ describe("Levine source material", () => {
     ]);
   });
 
+  it("keeps Chapters Four through Six as source-analysis maps rather than invented score transcriptions", () => {
+    const ids = [
+      "l04.sus-construction",
+      "l04.sus-third",
+      "l04.phrygian",
+      "l04.ii-v-compression",
+      "l05.add-to-shells",
+      "l05.dominant-colour",
+      "l05.major-colour-context",
+      "l05.special-chords",
+      "l06.basic-substitution",
+      "l06.shared-tritone",
+      "l06.dual-resolution",
+      "l06.substitute-ii-v",
+    ];
+
+    for (const id of ids) {
+      const material = getLevineSourceMaterial(id);
+      expect(material?.kind, id).toBe("map");
+      if (!material || material.kind !== "map") continue;
+      expect(material.segments.length, id).toBeGreaterThanOrEqual(3);
+    }
+  });
+
   it("keeps source-card titles and analysis labels free of book indices", () => {
     const bookIndex = /\b(?:Figure|Chapter)\s+\d/i;
 

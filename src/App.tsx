@@ -421,7 +421,10 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
       return (
         <HarmonySequencerWorkspace
           mode="jazz"
-          showTargets={!exercise.id.startsWith("levine.intervals-triads")}
+          showTargets={
+            exercise.id.startsWith("levine.major-modes-ii-v-i") ||
+            exercise.id.startsWith("levine.three-note-voicings")
+          }
         />
       );
   }
@@ -481,6 +484,9 @@ const lessonGlyphs: Record<string, string> = {
   "levine.intervals-triads": "J",
   "levine.major-modes-ii-v-i": "J",
   "levine.three-note-voicings": "J",
+  "levine.sus-phrygian": "J",
+  "levine.adding-notes": "J",
+  "levine.tritone-substitution": "J",
 };
 
 function App() {
