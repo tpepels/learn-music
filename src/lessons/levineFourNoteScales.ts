@@ -208,7 +208,7 @@ export const levineFourNoteScalesLesson: LessonDefinition = {
         },
         {
           label: "You entered the scale and both harmonic contexts",
-          complete: changedControl(experiments, "harmony.note-edit", 28),
+          complete: changedControl(experiments, "harmony.note-edit", 27),
         },
         {
           label: "You listened to the minor-third interchange",
