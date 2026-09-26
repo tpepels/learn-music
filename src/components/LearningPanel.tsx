@@ -108,7 +108,7 @@ export function LearningPanel({
             {exercise.source.exampleIds?.length ? (
               <div className="source-material-list">
                 {exercise.source.exampleIds.map((id) => (
-                  <SourceMaterial id={id} key={id} />
+                  <SchoenbergSourceMaterial id={id} key={id} />
                 ))}
               </div>
             ) : null}
