@@ -317,13 +317,13 @@ export const levineUpperStructuresLesson: LessonDefinition = {
           complete: exactStudy(harmonySequence, [
             [0, [59, 65, 70, 74]],
             [8, [59, 61, 65, 68]],
-            [16, [59, 64, 68, 71]],
-            [24, [59, 67, 71, 74]],
+            [16, [59, 64, 65, 68, 71]],
+            [24, [59, 65, 67, 71, 74]],
           ]),
         },
         {
           label: "You entered all four upper structures",
-          complete: changedControl(experiments, "harmony.note-edit", 16),
+          complete: changedControl(experiments, "harmony.note-edit", 18),
         },
         {
           label: "You listened to the minor-third cycle",
