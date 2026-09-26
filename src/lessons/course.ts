@@ -55,6 +55,9 @@ import { schoenbergThemeVariationsLesson } from "./schoenbergThemeVariations";
 import { schoenbergLargeFormFunctionsLesson } from "./schoenbergLargeFormFunctions";
 import { schoenbergRondoLesson } from "./schoenbergRondo";
 import { schoenbergSonataAllegroLesson } from "./schoenbergSonataAllegro";
+import { belkinPunctuatingLesson } from "./belkinPunctuating";
+import { belkinPresentingLesson } from "./belkinPresenting";
+import { belkinBinaryFormLesson } from "./belkinBinaryForm";
 import type { LessonDefinition } from "./types";
 
 export const playLabLessons: LessonDefinition[] = [
@@ -118,7 +121,13 @@ export const schoenbergLessons: LessonDefinition[] = [
   schoenbergSonataAllegroLesson,
 ];
 
-export type LearningTrackId = "play-lab" | "schoenberg";
+export const belkinLessons: LessonDefinition[] = [
+  belkinPunctuatingLesson,
+  belkinPresentingLesson,
+  belkinBinaryFormLesson,
+];
+
+export type LearningTrackId = "play-lab" | "schoenberg" | "belkin";
 
 export type LearningTrackDefinition = {
   id: LearningTrackId;
@@ -143,11 +152,19 @@ export const learningTracks: LearningTrackDefinition[] = [
     description: "A separate composition track based on Fundamentals of Musical Composition.",
     lessons: schoenbergLessons,
   },
+  {
+    id: "belkin",
+    label: "BELKIN",
+    title: "Composition Craft",
+    description: "A companion craft track based on Musical Composition: Craft and Art.",
+    lessons: belkinLessons,
+  },
 ];
 
 export const implementedLessons: LessonDefinition[] = [
   ...playLabLessons,
   ...schoenbergLessons,
+  ...belkinLessons,
 ];
 
 export const courseOutline = playLabLessons.map((lesson) => ({
