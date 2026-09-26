@@ -1,20 +1,22 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { audioEngine } from "../audio/engine";
 import { useStudioStore } from "../state/studio";
-import {
-  getSchoenbergSourceMaterial,
-  type SchoenbergSourceEvent,
-  type SchoenbergSourceScore,
-} from "../music/schoenbergSourceMaterial";
+import { getSchoenbergSourceMaterial } from "../music/schoenbergSourceMaterial";
+import type {
+  BookSourceEvent,
+  BookSourceMap,
+  BookSourceMaterial,
+  BookSourceScore,
+} from "../music/bookSourceMaterial";
 
 type StaffClef = "treble" | "bass";
 
-function eventMidis(event: SchoenbergSourceEvent): number[] {
+function eventMidis(event: BookSourceEvent): number[] {
   if (event.midi === null) return [];
   return Array.isArray(event.midi) ? event.midi : [event.midi];
 }
 
-type SourceAccidental = NonNullable<SchoenbergSourceEvent["accidental"]>;
+type SourceAccidental = NonNullable<BookSourceEvent["accidental"]>;
 
 const NATURAL_PITCH_CLASS_TO_LETTER = new Map<number, number>([
   [0, 0], // C
@@ -141,7 +143,7 @@ function KeySignature({
   clef,
   grand,
 }: {
-  score: SchoenbergSourceScore;
+  score: BookSourceScore;
   clef: StaffClef;
   grand: boolean;
 }) {
@@ -177,7 +179,7 @@ function Staff({
   grand,
   width,
 }: {
-  score: SchoenbergSourceScore;
+  score: BookSourceScore;
   clef: StaffClef;
   grand: boolean;
   width: number;
@@ -215,7 +217,7 @@ function Staff({
   );
 }
 
-export function sourceContentStartX(score: SchoenbergSourceScore): number {
+export function sourceContentStartX(score: BookSourceScore): number {
   const keySignatureWidth = Math.abs(score.keySignature ?? 0) * 13;
   const notationEnd = 84 + keySignatureWidth;
   return Math.max(130, notationEnd + (score.meter ? 38 : 20));
@@ -319,7 +321,7 @@ function ledgerYs(y: number, clef: StaffClef, grand: boolean): number[] {
 function SourceScore({
   score,
 }: {
-  score: SchoenbergSourceScore;
+  score: BookSourceScore;
 }) {
   const [playingIndices, setPlayingIndices] = useState<number[]>([]);
   const [activeAnalysis, setActiveAnalysis] = useState(0);
@@ -451,7 +453,7 @@ function SourceScore({
   const analysis = score.analysis ?? [];
   const activeSegment = analysis[activeAnalysis];
 
-  const staffForEvent = (event: SchoenbergSourceEvent): StaffClef =>
+  const staffForEvent = (event: BookSourceEvent): StaffClef =>
     event.staff ?? score.clef;
 
   return (
@@ -754,16 +756,14 @@ function SourceScore({
 }
 
 function SourceMap({
-  id,
+  material,
 }: {
-  id: string;
+  material: BookSourceMap;
 }) {
-  const material = getSchoenbergSourceMaterial(id);
   const [active, setActive] = useState(0);
   const recordLearningExperiment = useStudioStore(
     (state) => state.recordLearningExperiment,
   );
-  if (!material || material.kind !== "map") return null;
   const segment = material.segments[active];
 
   return (
@@ -781,7 +781,10 @@ function SourceMap({
             className={active === index ? "is-active" : ""}
             onClick={() => {
               setActive(index);
-              recordLearningExperiment("source.analysis", id + ":" + index);
+              recordLearningExperiment(
+                "source.analysis",
+                material.id + ":" + index,
+              );
             }}
             role="tab"
             aria-selected={active === index}
@@ -795,6 +798,16 @@ function SourceMap({
       </div>
     </section>
   );
+}
+
+export function BookSourceMaterialView({
+  material,
+}: {
+  material: BookSourceMaterial;
+}) {
+  return material.kind === "score"
+    ? <SourceScore score={material} />
+    : <SourceMap material={material} />;
 }
 
 export function SchoenbergSourceMaterial({
@@ -811,7 +824,5 @@ export function SchoenbergSourceMaterial({
     );
   }
 
-  return material.kind === "score"
-    ? <SourceScore score={material} />
-    : <SourceMap id={id} />;
+  return <BookSourceMaterialView material={material} />;
 }
