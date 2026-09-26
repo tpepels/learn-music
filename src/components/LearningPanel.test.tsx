@@ -9,11 +9,18 @@ vi.mock("./SchoenbergSourceMaterial", () => ({
   SchoenbergSourceMaterial: ({ id }: { id: string }) => (
     <div data-source-id={id}>example</div>
   ),
+  BookSourceMaterialView: () => <div />,
 }));
 
 vi.mock("./BelkinSourceMaterial", () => ({
   BelkinSourceMaterial: ({ id }: { id: string }) => (
     <div data-belkin-source-id={id}>belkin example</div>
+  ),
+}));
+
+vi.mock("./LevineSourceMaterial", () => ({
+  LevineSourceMaterial: ({ id }: { id: string }) => (
+    <div data-levine-source-id={id}>jazz example</div>
   ),
 }));
 
@@ -126,6 +133,28 @@ describe("LearningPanel", () => {
     expect(html).toContain('data-belkin-source-id="b01.punctuation-dimensions"');
     expect(html).not.toContain("From the book");
     expect(html).not.toContain("Belkin, Chapter 5");
+    expect(html).not.toContain("Internal provenance");
+    expect(html).not.toContain("Why / theory / vocabulary");
+  });
+
+  it("uses the same direct source-based reading flow for Levine exercises", () => {
+    const item = exercise("levine.intervals-triads.a");
+    item.source = {
+      reference: "Jazz Piano, Chapter One",
+      focus: "Internal provenance that should stay hidden.",
+      exampleIds: ["l01.fig1-1"],
+    };
+
+    const html = renderToStaticMarkup(
+      <LearningPanel exercise={item} lessonNumber={1} />,
+    );
+
+    expect(html).toContain("Concept");
+    expect(html).toContain("Exercise");
+    expect(html).toContain("Examples");
+    expect(html).toContain('data-levine-source-id="l01.fig1-1"');
+    expect(html).not.toContain("From the book");
+    expect(html).not.toContain("Jazz Piano, Chapter One");
     expect(html).not.toContain("Internal provenance");
     expect(html).not.toContain("Why / theory / vocabulary");
   });
