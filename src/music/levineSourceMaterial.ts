@@ -2288,6 +2288,256 @@ export const levineSourceMaterial: Record<string, LevineSourceMaterial> = {
     "Source-grounded map of the experimental four-note-scale method at the end of Chapter Eighteen.",
   ),
 
+
+  "l19.four-way-close": map(
+    "l19.four-way-close",
+    "Chapter Nineteen - Figures 19-3 through 19-5",
+    "Close-position block chords with diminished passing harmony",
+    [
+      {
+        label: "Harmonize every melody attack",
+        detail:
+          "Block-chord playing moves the harmony in the same rhythm as the melody so each important melodic note carries its own voicing.",
+      },
+      {
+        label: "Four-way close keeps the melody on top",
+        detail:
+          "The basic four-note version places three harmony notes directly beneath the melody, creating compact locked motion.",
+      },
+      {
+        label: "Diminished chords fill the passing notes",
+        detail:
+          "Chromatic notes can be added to the scale so stable sixth or seventh chords alternate with diminished-seventh passing chords instead of producing repeated chord types.",
+      },
+      {
+        label: "The diminished chord can be heard as dominant flat nine",
+        detail:
+          "The passing diminished pitch set is often equivalent to a rootless dominant-flat-nine chord, which explains its smooth pull back toward the stable harmony.",
+      },
+    ],
+    "Source-grounded synthesis of the four-way-close scale patterns, added chromatic passing note, and disguised dominant-flat-nine explanation in the opening block-chord section.",
+  ),
+  "l19.shearing": map(
+    "l19.shearing",
+    "Chapter Nineteen - Figures 19-6 and 19-7",
+    "Double the melody below the close-position chord",
+    [
+      {
+        label: "Start from four-way close",
+        detail:
+          "The right hand keeps the compact four-note block chord with the melody as the highest note.",
+      },
+      {
+        label: "Duplicate the melody one octave lower",
+        detail:
+          "The left hand adds the melody note an octave below, creating a five-note texture associated with George Shearing's locked-hands sound.",
+      },
+      {
+        label: "Both hands move as one rhythmic unit",
+        detail:
+          "The lower melody double strengthens the line while the two hands continue to attack in the same rhythm.",
+      },
+    ],
+    "Source-grounded map of the doubled-melody locked-hands texture presented immediately after the basic four-way-close examples.",
+  ),
+  "l19.drop-two": map(
+    "l19.drop-two",
+    "Chapter Nineteen - Figure 19-8 and practice discussion",
+    "Open four-way close into drop 2",
+    [
+      {
+        label: "Count from the melody downward",
+        detail:
+          "Drop 2 begins with a close-position voicing and identifies the second note from the top.",
+      },
+      {
+        label: "Lower that note one octave",
+        detail:
+          "Moving the second-highest note down an octave spreads the same chord tones over a wider range without changing chord quality.",
+      },
+      {
+        label: "The dropped note often moves to the left hand",
+        detail:
+          "The wider spacing makes a natural two-hand distribution and produces a fuller, more orchestral block-chord sound.",
+      },
+      {
+        label: "Practice the families through keys",
+        detail:
+          "The chapter recommends drilling major-sixth, minor-sixth, minor-seventh, dominant-seventh, minor-major and major-seventh drop-2 families until the locations are automatic.",
+      },
+    ],
+    "Source-grounded summary of the drop-2 transformation and the chapter's practice routine for learning the major block-chord families.",
+  ),
+  "l19.chromatic-parallelism": map(
+    "l19.chromatic-parallelism",
+    "Chapter Nineteen - Figures 19-29 through 19-34",
+    "Parallel and chromatic approach motion",
+    [
+      {
+        label: "Treat the drop-2 voicing as a movable shape",
+        detail:
+          "Entire block-chord shapes can move in parallel rather than voice-leading every note independently.",
+      },
+      {
+        label: "Approach from a half step below",
+        detail:
+          "A target chord can be preceded by the same shape displaced down a semitone so all voices resolve upward together.",
+      },
+      {
+        label: "Approach from a half step above",
+        detail:
+          "The same device works from above, producing a compact chromatic resolution into the destination voicing.",
+      },
+      {
+        label: "Melodic-minor colour can supply altered approaches",
+        detail:
+          "When the harmony comes from melodic minor, the chapter recommends thinking from the parent key so parallel drop-2 and altered-dominant colours remain connected.",
+      },
+    ],
+    "Source-grounded map of the later drop-2 parallelism, chromatic-approach, and melodic-minor applications in Chapter Nineteen.",
+  ),
+
+  "l20.clave": map(
+    "l20.clave",
+    "Chapter Twenty - Figures 20-3 through 20-8",
+    "The two-bar clave framework",
+    [
+      {
+        label: "Clave organizes the entire texture",
+        detail:
+          "The chapter treats son clave as the central two-bar rhythmic framework that every salsa component must understand.",
+      },
+      {
+        label: "Forward clave is 3-2",
+        detail:
+          "The three-attack side comes first: beat one, the and of two, and beat four, followed by beats two and three in the second bar.",
+      },
+      {
+        label: "Reverse clave is 2-3",
+        detail:
+          "The same two rhythmic halves are reversed so the two-attack bar precedes the three-attack bar.",
+      },
+      {
+        label: "Melody can imply the direction",
+        detail:
+          "When adapting jazz material, the melody's accents often suggest whether forward or reverse clave fits; if neither fits, a small rhythmic alteration may be necessary.",
+      },
+    ],
+    "Source-grounded map of son-clave direction and the discussion of adapting melodic rhythm to clave.",
+  ),
+  "l20.montuno": map(
+    "l20.montuno",
+    "Chapter Twenty - Figures 20-11 through 20-20",
+    "A repeated offbeat piano engine",
+    [
+      {
+        label: "Montuno is an ostinato",
+        detail:
+          "The piano montuno is a repeated rhythmic-melodic figure that may last two, four or more bars.",
+      },
+      {
+        label: "Offbeats dominate the pattern",
+        detail:
+          "The chapter's basic examples place many attacks on the ands, with ties carrying notes across beat or bar boundaries.",
+      },
+      {
+        label: "Do not keep rewriting the groove",
+        detail:
+          "Once the montuno is established, it normally continues until a new section rather than changing every bar.",
+      },
+      {
+        label: "Clave direction changes the placement",
+        detail:
+          "Reverse and forward clave produce related but differently placed montuno patterns, so the accompaniment must remain aligned with the active clave.",
+      },
+    ],
+    "Source-grounded synthesis of the basic montuno rhythm, offbeat counting, repetition, and forward/reverse-clave examples.",
+  ),
+  "l20.harmonic-montunos": map(
+    "l20.harmonic-montunos",
+    "Chapter Twenty - Figures 20-15 through 20-25",
+    "Preserve the groove while harmony changes",
+    [
+      {
+        label: "One rhythm can serve several chord qualities",
+        detail:
+          "The same montuno pattern is shown over minor-sixth, minor-seventh and dominant-seventh chords.",
+      },
+      {
+        label: "Simple progressions are common",
+        detail:
+          "The chapter applies montunos to I-V and other compact harmonic loops instead of requiring dense jazz harmony.",
+      },
+      {
+        label: "Tenths can replace octaves",
+        detail:
+          "Montunos may be voiced with tenths rather than octave doubling, widening the harmonic sound while preserving the rhythm.",
+      },
+      {
+        label: "Groove outranks constant variation",
+        detail:
+          "Changing a montuno too frequently breaks the pocket; the chapter explicitly prioritizes establishing a stable dance groove.",
+      },
+    ],
+    "Source-grounded map of the chord-quality, progression, and tenth-based montuno variants in the middle of Chapter Twenty.",
+  ),
+  "l20.tumbao-lock": map(
+    "l20.tumbao-lock",
+    "Chapter Twenty - Figures 20-26 through 20-30",
+    "Interlock piano and bass patterns",
+    [
+      {
+        label: "Each rhythm-section instrument has its own pattern",
+        detail:
+          "Piano, bass, percussion and other parts are described as complementary pieces that fit together rather than duplicate a common rhythm.",
+      },
+      {
+        label: "The bass pattern is a tumbao",
+        detail:
+          "The tumbao commonly emphasizes beat four and anticipates the next harmony, creating a forward-moving bass role.",
+      },
+      {
+        label: "Selected attacks coincide",
+        detail:
+          "The chapter's practice exercise aligns piano and bass at specific points such as the and of two while leaving many other attacks separate.",
+      },
+      {
+        label: "Practice both hands to learn the lock",
+        detail:
+          "Playing tumbao in the left hand and montuno in the right is recommended as a coordination exercise even though a real ensemble pianist would usually leave the bass line to the bassist.",
+      },
+    ],
+    "Source-grounded map of the tumbao, montuno-tumbao coordination, and two-hand practice strategy.",
+  ),
+  "l20.rhythmic-soloing": map(
+    "l20.rhythmic-soloing",
+    "Chapter Twenty - Figures 20-31 and 20-32",
+    "Solo with rhythmic weight",
+    [
+      {
+        label: "Rhythm carries the solo",
+        detail:
+          "The chapter recommends giving rhythmic shape more importance than continuous melodic detail when soloing over a dense salsa rhythm section.",
+      },
+      {
+        label: "Octaves increase projection",
+        detail:
+          "Octave lines provide enough weight to remain audible without relying on a constant stream of single notes.",
+      },
+      {
+        label: "Large chords can function as rhythmic attacks",
+        detail:
+          "Chordal figures and repeated punches become part of the improvisational vocabulary alongside octaves.",
+      },
+      {
+        label: "Leave space inside the groove",
+        detail:
+          "The aim is not maximum density but a strong pattern of attacks and rests that sits clearly inside the ensemble rhythm.",
+      },
+    ],
+    "Source-grounded summary of the chapter's rhythm-first advice for salsa piano solos.",
+  ),
+
 };
 
 export function getLevineSourceMaterial(
