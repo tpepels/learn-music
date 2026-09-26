@@ -897,6 +897,256 @@ export const levineSourceMaterial: Record<string, LevineSourceMaterial> = {
     "Source-grounded map of the extended substitute-II-V procedure and the chapter's caution against overusing tritone substitution.",
   ),
 
+
+  "l07.rootless-purpose": map(
+    "l07.rootless-purpose",
+    "Chapter Seven, Figure 7-1 and opening discussion",
+    "Why the root disappears",
+    [
+      {
+        label: "Free the right hand",
+        detail:
+          "Left-hand voicings move the harmony into one hand so the right hand can play melody, a line, or improvisation.",
+      },
+      {
+        label: "No root is required",
+        detail:
+          "The basic shapes omit the root. In an ensemble the bass player often supplies it, and the harmonic context can make the chord clear even when no one states the root at every moment.",
+      },
+      {
+        label: "Use the middle register",
+        detail:
+          "Without the low root, the left hand can move higher and include colour tones such as ninths and thirteenths without becoming muddy.",
+      },
+      {
+        label: "Check the root, then remove it",
+        detail:
+          "A practical way to learn the sound is to add the root briefly elsewhere on the keyboard, then return to the rootless shape and hear the same harmonic identity without it.",
+      },
+    ],
+    "Source-grounded analysis of the opening Chapter Seven discussion and Figure 7-1. The licensed tune melody is not reproduced.",
+  ),
+  "l07.a-position": map(
+    "l07.a-position",
+    "Chapter Seven, Figures 7-2 and 7-3",
+    "Third-seventh-third",
+    [
+      {
+        label: "D minor seventh",
+        detail:
+          "The first rootless II shape is F-A-C-E: third, fifth, seventh and ninth of D minor seventh.",
+      },
+      {
+        label: "One half-step creates G7",
+        detail:
+          "C, the seventh of D minor seventh, falls to B, the third of G7. F, A and E remain in place, producing F-A-B-E.",
+      },
+      {
+        label: "Tonic without the root",
+        detail:
+          "A compact C-major arrival can be E-G-A-D, heard as third, fifth, sixth and ninth. E-G-B-D is another available tonic-major colour.",
+      },
+      {
+        label: "Lowest-note pattern",
+        detail:
+          "The little finger follows third of II, seventh of V, third of I. This pattern is commonly called the A position.",
+      },
+    ],
+    "Source-grounded map of the first basic rootless II-V-I position in Figures 7-2 and 7-3.",
+  ),
+  "l07.b-position": map(
+    "l07.b-position",
+    "Chapter Seven, Figures 7-4 through 7-6",
+    "Seventh-third-seventh",
+    [
+      {
+        label: "Rearrange the II chord",
+        detail:
+          "The same D-minor material is inverted to C-E-F-A: seventh, ninth, third and fifth.",
+      },
+      {
+        label: "The seventh still falls",
+        detail:
+          "C again falls by a half step to B, producing the G7 shape B-E-F-A while the other notes remain fixed.",
+      },
+      {
+        label: "Tonic with the seventh below",
+        detail:
+          "The tonic can be B-C-E-G, read as major seventh, root, third and fifth. Replacing C with D gives the alternative B-D-E-G colour.",
+      },
+      {
+        label: "Reverse lowest-note pattern",
+        detail:
+          "The little finger now follows seventh of II, third of V, seventh of I. This complementary pattern is called the B position.",
+      },
+    ],
+    "Source-grounded map of the second basic rootless II-V-I position and its tonic options in Figures 7-4 through 7-6.",
+  ),
+  "l07.cycle-practice": map(
+    "l07.cycle-practice",
+    "Chapter Seven, Tune-Up discussion and practice tips",
+    "Make the positions automatic",
+    [
+      {
+        label: "Use all twelve keys",
+        detail:
+          "Practice both positions around the cycle of fifths so the same voice-leading rule becomes available in every key.",
+      },
+      {
+        label: "Keep a useful register",
+        detail:
+          "The little finger should remain roughly between middle C and the C an octave below, avoiding voicings that become muddy or unnecessarily high.",
+      },
+      {
+        label: "Recognize II-V motion",
+        detail:
+          "When the change is II to V, the seventh of the II chord falls by a half step. That motion is more reliable than rebuilding the next chord from zero.",
+      },
+      {
+        label: "Choose the nearest position",
+        detail:
+          "For other chord changes, choose the closest available shape with the little finger on the third or seventh, favouring smooth motion and comfortable hand placement.",
+      },
+    ],
+    "Source-grounded summary of the Chapter Seven all-keys routine, Tune-Up application discussion, and printed practice tips.",
+  ),
+
+  "l08.half-diminished": map(
+    "l08.half-diminished",
+    "Chapter Eight, Figures 8-1 and 8-2",
+    "Flatten the fifth inside a known shape",
+    [
+      {
+        label: "Start from minor seventh",
+        detail:
+          "Half-diminished means a minor seventh chord with a flattened fifth, so familiar minor-seven left-hand positions can be altered rather than relearned from scratch.",
+      },
+      {
+        label: "Two familiar positions",
+        detail:
+          "The first two half-diminished shapes correspond directly to the earlier D-minor positions with A lowered to A-flat.",
+      },
+      {
+        label: "More than two choices",
+        detail:
+          "Additional positions place the root, flat fifth, or fourth in the little finger, expanding the available register choices.",
+      },
+      {
+        label: "Context selects the voicing",
+        detail:
+          "The best choice depends on the previous and next chord, keyboard position, melody note and smoothness of motion.",
+      },
+    ],
+    "Source-grounded map of the five half-diminished options introduced in Figures 8-1 and 8-2.",
+  ),
+  "l08.dominant-alterations": map(
+    "l08.dominant-alterations",
+    "Chapter Eight, Figures 8-3 through 8-7",
+    "Alter ninths and thirteenths",
+    [
+      {
+        label: "Flat ninth",
+        detail:
+          "The basic dominant positions can lower the ninth by a semitone while keeping the rest of the rootless framework intact.",
+      },
+      {
+        label: "Sharp five equals flat thirteen",
+        detail:
+          "On a dominant chord the sharp fifth and flat thirteenth are enharmonically the same piano key, so a sharp-five symbol changes the thirteenth in these left-hand shapes.",
+      },
+      {
+        label: "Altered means a collection",
+        detail:
+          "The altered symbol implies more than one isolated change: the chapter points to flat nine, sharp nine, sharp eleven and flat thirteen as part of the altered dominant vocabulary.",
+      },
+      {
+        label: "Tritone substitution reappears",
+        detail:
+          "Altered G7 and D-flat7 can use exactly the same sounding notes, with different spellings and harmonic readings, because the two dominants share their tritone.",
+      },
+    ],
+    "Source-grounded map of the altered-dominant left-hand vocabulary and enharmonic tritone-substitution connection in Figures 8-3 through 8-7.",
+  ),
+  "l08.sharp-eleven-minor-major": map(
+    "l08.sharp-eleven-minor-major",
+    "Chapter Eight, Figures 8-8 through 8-11",
+    "Sharp eleven and a second harmonic identity",
+    [
+      {
+        label: "Move the nearest note",
+        detail:
+          "For G7 sharp eleven, C-sharp is the target. In one compact position the nearest note is B, so B moves to C-sharp while F, A and E stay.",
+      },
+      {
+        label: "The third can disappear",
+        detail:
+          "The resulting sharp-eleven voicing may omit the ordinary third of the dominant. Once alterations are introduced, the exact set of defining tones becomes more flexible.",
+      },
+      {
+        label: "Minor-major uses the same upper notes",
+        detail:
+          "F-A-C-sharp-E can also function as a rootless D minor-major-nine structure: minor third, fifth, major seventh and ninth.",
+      },
+      {
+        label: "Context changes the label",
+        detail:
+          "The same pitch set can therefore support altered dominant or tonic-minor colour depending on the bass and surrounding harmony.",
+      },
+    ],
+    "Source-grounded map of the G7 sharp-eleven and D minor-major relationship shown in Figures 8-8 through 8-11.",
+  ),
+  "l08.diminished-derivation": map(
+    "l08.diminished-derivation",
+    "Chapter Eight, Figure 8-12",
+    "Raise the top of the diminished stack",
+    [
+      {
+        label: "Begin with minor thirds",
+        detail:
+          "A diminished seventh chord is formed by stacking minor thirds.",
+      },
+      {
+        label: "Raise the top note",
+        detail:
+          "Starting from F diminished seventh, raising the top note by a whole step creates a more practical left-hand voicing.",
+      },
+      {
+        label: "The result is familiar",
+        detail:
+          "That transformed pitch set is exactly the same rootless voicing already used for G7 flat nine.",
+      },
+    ],
+    "Source-grounded analysis of the diminished-to-dominant transformation in Figure 8-12.",
+  ),
+  "l08.sus-phrygian-selection": map(
+    "l08.sus-phrygian-selection",
+    "Chapter Eight, Figures 8-13 through 8-15 and concluding discussion",
+    "Reuse shapes, then choose by motion",
+    [
+      {
+        label: "Sus reuses D-minor shapes",
+        detail:
+          "Two of the practical Gsus voicings are identical to the earlier D-minor left-hand positions because the suspended dominant combines the sound of II and V.",
+      },
+      {
+        label: "Phrygian has a compact formula",
+        detail:
+          "The E-Phrygian left-hand voicing is read from the bottom as root, flat ninth, fourth and fifth.",
+      },
+      {
+        label: "Smooth motion comes first",
+        detail:
+          "When several voicings are available, prefer the one that moves smoothly from the previous chord and toward the next chord.",
+      },
+      {
+        label: "Protect the register and melody",
+        detail:
+          "Avoid voicings that are too low, too high, or collide with the right hand. If the melody already supplies an optional colour tone, the left hand may omit it.",
+      },
+    ],
+    "Source-grounded synthesis of the sus and Phrygian left-hand shapes plus the selection criteria applied in the Chapter Eight tune discussion. The licensed tune excerpt is not reproduced.",
+  ),
+
 };
 
 export function getLevineSourceMaterial(
