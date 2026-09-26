@@ -576,17 +576,20 @@ function App() {
   }, [exercise.id, setActiveExerciseId]);
 
   useEffect(() => {
-    if (workspaceRequiresPatternA(exercise.workspace) && activePattern !== "A") {
+    if (
+      appMode === "learn" &&
+      workspaceRequiresPatternA(exercise.workspace) &&
+      activePattern !== "A"
+    ) {
       setActivePattern("A");
     }
-  }, [exercise.workspace, activePattern, setActivePattern]);
+  }, [appMode, exercise.workspace, activePattern, setActivePattern]);
 
   useEffect(() => {
-    const pattern = workspaceRequiresPatternA(exercise.workspace)
-      ? patterns.A
-      : patterns[activePattern];
-    audioEngine.setPattern(pattern);
-  }, [patterns, activePattern, exercise.workspace]);
+    const usePatternA =
+      appMode === "learn" && workspaceRequiresPatternA(exercise.workspace);
+    audioEngine.setPattern(usePatternA ? patterns.A : patterns[activePattern]);
+  }, [patterns, activePattern, appMode, exercise.workspace]);
 
   useEffect(() => {
     audioEngine.setMelody(melody);
