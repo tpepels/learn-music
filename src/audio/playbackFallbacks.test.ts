@@ -108,20 +108,29 @@ describe("layered playback fallbacks", () => {
     )).toBe(true);
   });
 
-  it("preserves existing arrangement decisions and only fills globally absent layers", () => {
+  it("uses a full audition mix without mutating sparse arrangement decisions", () => {
     const arrangement = initialArrangement.map((bar) => ({ ...bar }));
     arrangement[0].drums = true;
     arrangement[4].bass = true;
 
     const resolved = ensureProductionLayersPresent(arrangement);
 
-    expect(resolved.map((bar) => bar.drums)).toEqual([
-      true, false, false, false, false, false, false, false,
-    ]);
-    expect(resolved.map((bar) => bar.bass)).toEqual([
-      false, false, false, false, true, false, false, false,
-    ]);
-    expect(resolved.every((bar) => bar.chords)).toBe(true);
-    expect(resolved.every((bar) => bar.melody)).toBe(true);
+    expect(resolved).toHaveLength(arrangement.length);
+    expect(resolved.every((bar) =>
+      Object.values(bar).every(Boolean),
+    )).toBe(true);
+
+    expect(arrangement[0]).toEqual({
+      drums: true,
+      bass: false,
+      chords: false,
+      melody: false,
+    });
+    expect(arrangement[4]).toEqual({
+      drums: false,
+      bass: true,
+      chords: false,
+      melody: false,
+    });
   });
 });
