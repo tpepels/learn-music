@@ -265,7 +265,7 @@ export const levineSalsaLatinJazzLesson: LessonDefinition = {
         },
         {
           label: "You entered the two-hand rhythm section",
-          complete: changedControl(experiments, "harmony.note-edit", 36),
+          complete: changedControl(experiments, "harmony.note-edit", 40),
         },
         {
           label: "You listened for the interlocking accents",
@@ -324,7 +324,7 @@ export const levineSalsaLatinJazzLesson: LessonDefinition = {
         },
         {
           label: "You entered the complete rhythmic solo phrase",
-          complete: changedControl(experiments, "harmony.note-edit", 28),
+          complete: changedControl(experiments, "harmony.note-edit", 32),
         },
         {
           label: "You listened to the rests and larger attacks",
