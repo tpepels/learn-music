@@ -83,8 +83,11 @@ describe("lesson progression", () => {
       "levine.four-note-scales",
       "levine.block-chords",
       "levine.salsa-latin-jazz",
+      "levine.comping",
+      "levine.loose-ends",
+      "levine.practice-practice-practice",
     ]);
-    expect(implementedLessons).toHaveLength(81);
+    expect(implementedLessons).toHaveLength(84);
     expect(learningTracks.map((track) => track.id)).toEqual([
       "play-lab",
       "schoenberg",
@@ -152,7 +155,16 @@ describe("lesson progression", () => {
     expect(getNextImplementedLesson("levine.block-chords")?.id).toBe(
       "levine.salsa-latin-jazz",
     );
-    expect(getNextImplementedLesson("levine.salsa-latin-jazz")).toBeUndefined();
+    expect(getNextImplementedLesson("levine.salsa-latin-jazz")?.id).toBe(
+      "levine.comping",
+    );
+    expect(getNextImplementedLesson("levine.comping")?.id).toBe(
+      "levine.loose-ends",
+    );
+    expect(getNextImplementedLesson("levine.loose-ends")?.id).toBe(
+      "levine.practice-practice-practice",
+    );
+    expect(getNextImplementedLesson("levine.practice-practice-practice")).toBeUndefined();
   });
 
   it("advances from one exercise to the next inside a lesson", () => {

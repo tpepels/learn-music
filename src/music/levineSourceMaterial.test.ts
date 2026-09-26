@@ -114,7 +114,7 @@ describe("Levine source material", () => {
     ]);
   });
 
-  it("keeps Chapters Four through Twenty as source-analysis maps rather than invented score transcriptions", () => {
+  it("keeps Chapters Four through Twenty-Three as source-analysis maps rather than invented score transcriptions", () => {
     const ids = [
       "l04.sus-construction",
       "l04.sus-third",
@@ -190,6 +190,23 @@ describe("Levine source material", () => {
       "l20.harmonic-montunos",
       "l20.tumbao-lock",
       "l20.rhythmic-soloing",
+      "l21.timing",
+      "l21.space-response",
+      "l21.alterations",
+      "l21.roots-register",
+      "l21.bossa",
+      "l22.sus-families",
+      "l22.sus-reharm",
+      "l22.aeolian",
+      "l22.fifth-mode",
+      "l22.coltrane-cycle",
+      "l22.harmonic-major",
+      "l23.all-keys",
+      "l23.weaknesses",
+      "l23.coordination",
+      "l23.context",
+      "l23.phrase-variation",
+      "l23.listen-transcribe",
     ];
 
     for (const id of ids) {
