@@ -27,6 +27,13 @@ function sounding(sequence: Array<number | null>): number[] {
   return sequence.filter((note): note is number => note !== null);
 }
 
+function lastSoundingIndex(sequence: Array<number | null>): number {
+  for (let index = sequence.length - 1; index >= 0; index -= 1) {
+    if (sequence[index] !== null) return index;
+  }
+  return -1;
+}
+
 function sharedPitches(a: Array<number | null>, b: Array<number | null>): number {
   const first = sounding(a);
   const second = sounding(b);
@@ -152,8 +159,8 @@ Here we isolate shortening. The second phrase should retain material from the fi
       evaluate: ({ melody, experiments }) => {
         const first = melody.slice(0, 8);
         const second = melody.slice(8, 16);
-        const firstLast = first.reduce((last, note, index) => note === null ? last : index, -1);
-        const secondLast = second.reduce((last, note, index) => note === null ? last : index, -1);
+        const firstLast = lastSoundingIndex(first);
+        const secondLast = lastSoundingIndex(second);
         return [
           {
             label: "You studied shortening and lengthening as pacing tools",
@@ -283,10 +290,7 @@ This exercise makes the hierarchy audible in one line. Four compact four-step gr
         const all = sounding(melody);
         const final = sounding(blocks[3]);
         const highest = all.length ? Math.max(...all) : -Infinity;
-        const finalLastGlobal = melody.reduce(
-          (last, note, index) => note === null ? last : index,
-          -1,
-        );
+        const finalLastGlobal = lastSoundingIndex(melody);
         const pitchSets = blocks.map((block) => new Set(sounding(block)));
         const sharedAcrossAll = all.some((pitch) => pitchSets.every((set) => set.has(pitch)));
         return [
