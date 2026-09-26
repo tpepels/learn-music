@@ -43,6 +43,9 @@ export function resolveLearningFocusTrack(
     case "composition-study":
       return "melody";
 
+    case "jazz-piano":
+      return "chords";
+
     case "chords":
     case "harmony-song":
     case "voicing":
