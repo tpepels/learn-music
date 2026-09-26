@@ -181,25 +181,23 @@ export const levineSourceMaterial: Record<string, LevineSourceMaterial> = {
     ],
     analysis: [
       {
-        label: "Root position",
+        label: "C major",
         detail:
-          "With C at the bottom, both triads are in root position.",
+          "Follow C-E-G, E-G-C and G-C-E as root position, first inversion and second inversion.",
         startEvent: 0,
-        endEvent: 3,
+        endEvent: 2,
       },
       {
-        label: "First inversion",
+        label: "C minor",
         detail:
-          "Putting the third at the bottom creates first inversion: E-G-C or E-flat-G-C.",
-        startEvent: 1,
-        endEvent: 4,
-      },
-      {
-        label: "Second inversion",
-        detail:
-          "Putting the fifth at the bottom creates second inversion: G-C-E or G-C-E-flat.",
-        startEvent: 2,
+          "The same three bass positions appear with E-flat: C-E-flat-G, E-flat-G-C and G-C-E-flat.",
+        startEvent: 3,
         endEvent: 5,
+      },
+      {
+        label: "What inversion changes",
+        detail:
+          "The chord tones remain the same; only their vertical order and lowest note change.",
       },
     ],
   },
