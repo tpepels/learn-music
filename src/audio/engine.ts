@@ -13,6 +13,10 @@ import { TransportStartGate } from "./transportStartGate";
 import { syncEighthNoteDelay } from "./tempoSync";
 import { reverbValueChanged } from "./reverbState";
 import {
+  automationValueAtStep,
+  mixerControlTargets,
+} from "./productionControlPolicy";
+import {
   buildArrangementFallbackMelody,
   hasArrangementMelody,
   resolveArrangementFrame,
@@ -325,10 +329,12 @@ class AudioEngine {
   setMixerSettings(settings: MixerSettings) {
     this.mixerSettings = cloneMixerSettings(settings);
     this.applyMixerSettings();
+    this.applyCurrentAutomationPosition();
   }
 
   setAutomationSettings(settings: AutomationSettings) {
     this.automationSettings = cloneAutomationSettings(settings);
+    this.applyCurrentAutomationPosition();
   }
 
   setDynamicsSettings(settings: DynamicsSettings) {
@@ -911,12 +917,22 @@ class AudioEngine {
   private applyDynamicsSettings() {
     if (!this.drumCompressor) return;
 
-    this.drumCompressor.set({
-      threshold: this.dynamicsSettings.threshold,
-      ratio: this.dynamicsSettings.ratio,
-      attack: this.dynamicsSettings.attack,
-      release: this.dynamicsSettings.release,
-    });
+    this.drumCompressor.threshold.rampTo(
+      this.dynamicsSettings.threshold,
+      0.02,
+    );
+    this.drumCompressor.ratio.rampTo(
+      this.dynamicsSettings.ratio,
+      0.02,
+    );
+    this.drumCompressor.attack.rampTo(
+      this.dynamicsSettings.attack,
+      0.02,
+    );
+    this.drumCompressor.release.rampTo(
+      this.dynamicsSettings.release,
+      0.02,
+    );
   }
 
   private applyEffectsSettings() {
@@ -962,6 +978,7 @@ class AudioEngine {
 
     mixerTrackIds.forEach((track) => {
       const settings = sourceMixer[track];
+      const targets = mixerControlTargets(settings, mono);
       const channel = this.mixerChannels[track];
       const filter = this.mixerFilters[track];
       const reverbSend = this.reverbSends[track];
@@ -982,21 +999,59 @@ class AudioEngine {
           focusedVolume + this.quietAuditionDb,
           0.03,
         );
-        channel.pan.rampTo(mono ? 0 : settings.pan, 0.03);
+        channel.pan.rampTo(targets.pan, 0.03);
       }
 
       if (filter) {
-        filter.frequency.rampTo(Math.max(20, settings.highpass), 0.03);
+        filter.frequency.rampTo(targets.highpass, 0.03);
       }
 
       if (reverbSend) {
-        reverbSend.gain.rampTo(mono ? 0 : settings.reverb, 0.03);
+        reverbSend.gain.rampTo(targets.reverb, 0.03);
       }
 
       if (delaySend) {
-        delaySend.gain.rampTo(mono ? 0 : settings.delay, 0.03);
+        delaySend.gain.rampTo(targets.delay, 0.03);
       }
     });
+  }
+
+  private baseMixerVolume(track: MixerTrackId): number {
+    const sourceMixer =
+      this.referenceSnapshot?.mixerSettings ?? this.mixerSettings;
+    const trim = this.referenceSnapshot ? this.referenceTrimDb : 0;
+    return (
+      applyLearningFocusVolume(
+        sourceMixer[track].volume + trim,
+        track,
+        this.learningFocusTrack,
+      ) + this.quietAuditionDb
+    );
+  }
+
+  private applyCurrentAutomationPosition() {
+    if (this.eventId === null) return;
+
+    const melodyOffset = automationValueAtStep(
+      this.automationSettings.melodyVolumeDb,
+      this.step,
+    );
+    const cutoff = automationValueAtStep(
+      this.automationSettings.chordFilterHz,
+      this.step,
+    );
+
+    const melodyChannel = this.mixerChannels.melody;
+    if (melodyChannel) {
+      melodyChannel.volume.rampTo(
+        this.baseMixerVolume("melody") + melodyOffset,
+        0.03,
+      );
+    }
+
+    if (this.chordAutomationFilter) {
+      this.chordAutomationFilter.frequency.rampTo(cutoff, 0.03);
+    }
   }
 
   private applyAdvancedChannelSettings() {
