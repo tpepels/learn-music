@@ -142,12 +142,10 @@ export const levinePracticingScalesLesson: LessonDefinition = {
         },
         {
           label: "C major and D major are both written",
-          complete: exactStudy(harmonySequence, melodicLine([
-            60, 62, 64, 65, 67, 69, 71, 72,
-            0,0,0,0,0,0,0,0,
-          ]).slice(0,8).concat([
+          complete: exactStudy(harmonySequence, [
+            [0,[60]],[1,[62]],[2,[64]],[3,[65]],[4,[67]],[5,[69]],[6,[71]],[7,[72]],
             [16,[62]],[17,[64]],[18,[66]],[19,[67]],[20,[69]],[21,[71]],[22,[73]],[23,[74]],
-          ])),
+          ]),
         },
         {
           label: "You entered both keys",

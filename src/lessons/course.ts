@@ -69,6 +69,9 @@ import { levineAddingNotesLesson } from "./levineAddingNotes";
 import { levineTritoneSubstitutionLesson } from "./levineTritoneSubstitution";
 import { levineLeftHandVoicingsLesson } from "./levineLeftHandVoicings";
 import { levineAlteredLeftHandVoicingsLesson } from "./levineAlteredLeftHandVoicings";
+import { levineScaleTheoryLesson } from "./levineScaleTheory";
+import { levinePuttingScalesToWorkLesson } from "./levinePuttingScalesToWork";
+import { levinePracticingScalesLesson } from "./levinePracticingScales";
 import type { LessonDefinition } from "./types";
 
 export const playLabLessons: LessonDefinition[] = [
@@ -150,6 +153,9 @@ export const levineLessons: LessonDefinition[] = [
   levineTritoneSubstitutionLesson,
   levineLeftHandVoicingsLesson,
   levineAlteredLeftHandVoicingsLesson,
+  levineScaleTheoryLesson,
+  levinePuttingScalesToWorkLesson,
+  levinePracticingScalesLesson,
 ];
 
 export type LearningTrackId = "play-lab" | "schoenberg" | "belkin" | "levine";
