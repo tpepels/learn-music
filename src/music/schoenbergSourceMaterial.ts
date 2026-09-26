@@ -2281,6 +2281,383 @@ export const schoenbergSourceMaterial: Record<
   ),
 
 
+  "s16.transition": map(
+    "s16.transition",
+    "Ch. XVIII - The Transition",
+    "From stable theme to directed motion",
+    [
+      {
+        label: "Establish before moving",
+        detail:
+          "A transition can begin with a short independent idea or grow from the preceding theme, but enough of the idea is stated or repeated for the listener to grasp it before motion intensifies.",
+      },
+      {
+        label: "Let harmony become fluid",
+        detail:
+          "Modulation is a central part of the transition because the music has to leave one stable region and direct attention toward another.",
+      },
+      {
+        label: "Liquidate characteristic detail",
+        detail:
+          "As the transition proceeds, distinctive motive-features are progressively removed so the passage does not establish another stable theme of its own.",
+      },
+      {
+        label: "Prepare the next arrival",
+        detail:
+          "The ending creates an upbeat condition for the following theme, often by settling on a harmony whose function is preparatory rather than final.",
+      },
+    ],
+    "Analytical map of Chapter XVIII transition functions. The literature illustrations remain pending for verified native transcription.",
+  ),
+
+  "s16.retransition": map(
+    "s16.retransition",
+    "Ch. XVIII - The Retransition",
+    "Turn instability into expectation of return",
+    [
+      {
+        label: "The destination is already known",
+        detail:
+          "Unlike a general transition, the retransition points specifically toward the return of principal material and the home region.",
+      },
+      {
+        label: "Remodulation may begin earlier",
+        detail:
+          "The harmonic route back can already be underway before the retransition becomes a clearly separate formal passage.",
+      },
+      {
+        label: "Reduce the remaining motive-material",
+        detail:
+          "Liquidation removes characteristic residues of the contrasting or developmental passage so they no longer compete with the coming return.",
+      },
+      {
+        label: "Concentrate expectation",
+        detail:
+          "A sustained preparatory harmony, often dominant in function, can hold attention on the imminent return and make its entrance convincing.",
+      },
+    ],
+    "Analytical map of the Chapter XVIII retransition discussion; no literature example is represented as a note-for-note score.",
+  ),
+
+  "s16.subordinate-group": map(
+    "s16.subordinate-group",
+    "Ch. XVIII - The Group of Subordinate Themes",
+    "Contrast after the transition becomes stable again",
+    [
+      {
+        label: "Establish the secondary region",
+        detail:
+          "The subordinate group follows transitional motion by becoming comparatively stable in its new tonal and thematic area.",
+      },
+      {
+        label: "Contrast the principal material",
+        detail:
+          "Mood, character, dynamics, rhythm, harmony, register, motive-form and construction can all help differentiate the subordinate region.",
+      },
+      {
+        label: "Stay related at a deeper level",
+        detail:
+          "Contrasting themes can still derive from the movement's basic motive, so contrast need not mean importing unrelated material.",
+      },
+      {
+        label: "Use looser construction",
+        detail:
+          "Repetition, juxtaposition and several shorter formulations can organize a subordinate group where a tightly integrated principal theme would use more internal development.",
+      },
+    ],
+    "Analytical map of Chapter XVIII subordinate-theme functions. Dense literature examples remain untranscribed.",
+  ),
+
+  "s16.coda": map(
+    "s16.coda",
+    "Ch. XVIII - The Coda",
+    "Complete a form that has already resolved",
+    [
+      {
+        label: "Add after the essential form",
+        detail:
+          "A coda is an optional addition after the movement's main structural obligations have already been fulfilled; it is not a substitute for a missing return or tonal resolution.",
+      },
+      {
+        label: "Reuse existing material",
+        detail:
+          "Closing passages often recall themes, motives or cadential figures already heard rather than establishing another independent thematic region.",
+      },
+      {
+        label: "Reduce and liquidate",
+        detail:
+          "Motive-fragments and codettas can become progressively shorter and simpler as the ending approaches.",
+      },
+      {
+        label: "Confirm closure",
+        detail:
+          "Repeated cadential motion and tonic emphasis can strengthen finality once the larger tonal and thematic balance has already been restored.",
+      },
+    ],
+    "Analytical map of Chapter XVIII coda functions. The source illustrations remain pending for verified native notation.",
+  ),
+
+  "s17.rondo-types": map(
+    "s17.rondo-types",
+    "Ch. XIX - The Rondo Forms",
+    "Recurrence separated by contrast",
+    [
+      {
+        label: "Repetition is the organizing principle",
+        detail:
+          "Rondo forms are characterized by the return of one or more principal themes between intervening contrasting sections.",
+      },
+      {
+        label: "Simple designs can stay compact",
+        detail:
+          "Short forms can use patterns such as A-B-A or A-B-A-B, while larger rondos introduce additional contrasting sections.",
+      },
+      {
+        label: "A can anchor several departures",
+        detail:
+          "Patterns such as A-B-A-C-A keep the principal section as the listener's stable reference while B and C provide different contrasts.",
+      },
+      {
+        label: "Scale increases structural demands",
+        detail:
+          "Larger rondos expand the subordinate sections and connective work, so recurrence has to remain strong enough to orient the listener across a longer span.",
+      },
+    ],
+    "Analytical map of the Chapter XIX rondo taxonomy. It preserves the formal distinctions without inventing source melodies.",
+  ),
+
+  "s17.return-variation": map(
+    "s17.return-variation",
+    "Ch. XIX - Variations and Changes in the Recapitulation",
+    "Refresh the refrain without hiding it",
+    [
+      {
+        label: "Preserve the melodic outline",
+        detail:
+          "The principal theme's characteristic contour and structural organization normally remain clear enough for immediate recognition when it returns.",
+      },
+      {
+        label: "Change the setting",
+        detail:
+          "Sonority, instrumentation, register and accompaniment can vary while the formal identity of the returning theme remains stable.",
+      },
+      {
+        label: "Add figuration or counterpoint",
+        detail:
+          "Ornament, new inner voices and contrapuntal additions can refresh a recurrence without turning it into a different theme.",
+      },
+      {
+        label: "Recognition limits variation",
+        detail:
+          "A return loses its formal function if transformation is so extensive that the listener no longer recognizes the principal material.",
+      },
+    ],
+  ),
+
+  "s17.subordinate-return": map(
+    "s17.subordinate-return",
+    "Ch. XIX - Changes and Adaptations in the Recapitulation",
+    "Adapt a return to a new tonal role",
+    [
+      {
+        label: "The returning role has changed",
+        detail:
+          "Subordinate material that first appeared away from the tonic can require recomposition when it returns inside the home region.",
+      },
+      {
+        label: "Preserve thematic landmarks",
+        detail:
+          "Characteristic contour, rhythm, proportions and other identity-bearing features keep the listener oriented while pitches or continuation change.",
+      },
+      {
+        label: "Alter what harmony requires",
+        detail:
+          "Transposition, voice-leading changes, sequence and rewritten continuations can adapt familiar material to its new tonal context.",
+      },
+      {
+        label: "Do not vary beyond recognition",
+        detail:
+          "Adaptation succeeds only while the listener can still hear the passage as the return of earlier subordinate material.",
+      },
+    ],
+  ),
+
+  "s17.sonata-rondo": map(
+    "s17.sonata-rondo",
+    "Ch. XIX - The Sonata-Rondo",
+    "Combine recurrent refrain with developmental middle",
+    [
+      {
+        label: "Keep the rondo recurrence",
+        detail:
+          "The principal A material still returns between contrasting regions and remains the movement's recurring point of orientation.",
+      },
+      {
+        label: "Let the middle elaborate",
+        detail:
+          "The central C section can work with previously heard thematic elements rather than behaving only as another self-contained episode.",
+      },
+      {
+        label: "Increase harmonic mobility",
+        detail:
+          "A developmental middle can move through changing regions and gain instability in the manner of sonata-allegro elaboration.",
+      },
+      {
+        label: "Return after development",
+        detail:
+          "The later recurrence restores the principal material after the developmental middle, joining rondo repetition to sonata-like recapitulation.",
+      },
+    ],
+  ),
+
+  "s18.exposition": map(
+    "s18.exposition",
+    "Ch. XX - The Exposition",
+    "Present the movement's main contrasts",
+    [
+      {
+        label: "Principal material establishes stability",
+        detail:
+          "The opening theme or group establishes the primary tonal region and gives the movement its initial thematic identity.",
+      },
+      {
+        label: "Transition makes the form fluid",
+        detail:
+          "The transition connects principal and subordinate regions by changing harmonic direction and reducing stable thematic behaviour.",
+      },
+      {
+        label: "Subordinate material establishes contrast",
+        detail:
+          "A contrasting thematic group becomes stable in its own region and normally differs in character or construction from the principal group.",
+      },
+      {
+        label: "Closing material confirms arrival",
+        detail:
+          "Codettas or a closing group reinforce the exposition's destination and complete the presentation before the elaboration begins.",
+      },
+    ],
+    "Analytical map of Chapter XX exposition functions. Literature examples remain untranscribed and are not replaced by invented notation.",
+  ),
+
+  "s18.elaboration": map(
+    "s18.elaboration",
+    "Ch. XX - The Elaboration",
+    "Work familiar material through unstable contexts",
+    [
+      {
+        label: "Use material already exposed",
+        detail:
+          "The central section usually works with thematic elements already presented rather than depending on an entirely new set of principal ideas.",
+      },
+      {
+        label: "Make harmony roving",
+        detail:
+          "Changing regions and modulatory motion distinguish the elaboration from the more stable thematic presentation of the exposition.",
+      },
+      {
+        label: "Sequence and vary",
+        detail:
+          "Motive-forms can be sequenced, recombined, transferred and varied so one source generates several connected developmental segments.",
+      },
+      {
+        label: "Shorten and intensify",
+        detail:
+          "Later developmental segments can become shorter while region changes accelerate, increasing pressure toward the return.",
+      },
+      {
+        label: "Liquidate toward retransition",
+        detail:
+          "Partial liquidation reduces thematic obligations near the end of the elaboration and helps convert developmental momentum into preparation.",
+      },
+    ],
+  ),
+
+  "s18.retransition": map(
+    "s18.retransition",
+    "Ch. XX - The Retransition",
+    "Focus developmental motion toward home",
+    [
+      {
+        label: "Neutralize the roaming motion",
+        detail:
+          "The retransition turns the elaboration's changing harmonic course into a more concentrated preparation for the home region.",
+      },
+      {
+        label: "Liquidate remaining material",
+        detail:
+          "Characteristic fragments are reduced so unresolved developmental gestures do not compete with the returning principal theme.",
+      },
+      {
+        label: "Prolong preparation",
+        detail:
+          "Dominant or other upbeat harmony can be prolonged to hold expectation on the tonic that will begin the recapitulation.",
+      },
+      {
+        label: "Mark the junction",
+        detail:
+          "Changes of rhythm, register, dynamics or texture can clarify the boundary between the end of development and the recapitulation.",
+      },
+    ],
+  ),
+
+  "s18.sonata-architecture": map(
+    "s18.sonata-architecture",
+    "Ch. XX - The Sonata-Allegro",
+    "Stability, elaboration and restored balance",
+    [
+      {
+        label: "Exposition presents the contrasts",
+        detail:
+          "Principal and subordinate thematic regions are established with the transition and closing functions that connect and complete them.",
+      },
+      {
+        label: "Elaboration destabilizes",
+        detail:
+          "The middle section places familiar material in changing contexts and normally increases harmonic and thematic mobility.",
+      },
+      {
+        label: "Retransition prepares return",
+        detail:
+          "Developmental motion is reduced and focused until the principal region can return convincingly.",
+      },
+      {
+        label: "Recapitulation restores balance",
+        detail:
+          "Principal material returns and the earlier subordinate contrast is reorganized within the home tonal region rather than simply copied from the exposition.",
+      },
+    ],
+    "Analytical map of Chapter XX large-scale functions. The app does not claim a native score for the literature examples.",
+  ),
+
+  "s18.recapitulation-coda": map(
+    "s18.recapitulation-coda",
+    "Ch. XX - Recapitulation and Coda",
+    "Return familiar material in a new structural role",
+    [
+      {
+        label: "Restore the principal region",
+        detail:
+          "The recapitulation makes the return of principal material clear after the instability of the central elaboration.",
+      },
+      {
+        label: "Adapt the transition",
+        detail:
+          "The transition can be shortened, expanded or rerouted because it now provides contrast without needing to establish the exposition's original secondary key.",
+      },
+      {
+        label: "Bring subordinate material home",
+        detail:
+          "The subordinate group normally returns in the tonic region, which can require substantial recomposition while thematic identity remains recognizable.",
+      },
+      {
+        label: "Add coda only after balance is restored",
+        detail:
+          "A coda may repeat tonic cadences or recall earlier themes, but it follows the recapitulation rather than repairing a structural return that never happened.",
+      },
+    ],
+  ),
+
+
 };
 
 export function getSchoenbergSourceMaterial(
