@@ -487,6 +487,8 @@ const lessonGlyphs: Record<string, string> = {
   "levine.sus-phrygian": "J",
   "levine.adding-notes": "J",
   "levine.tritone-substitution": "J",
+  "levine.left-hand-voicings": "J",
+  "levine.altered-left-hand-voicings": "J",
 };
 
 function App() {

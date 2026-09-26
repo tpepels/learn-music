@@ -67,6 +67,8 @@ import { levineThreeNoteVoicingsLesson } from "./levineThreeNoteVoicings";
 import { levineSusPhrygianLesson } from "./levineSusPhrygian";
 import { levineAddingNotesLesson } from "./levineAddingNotes";
 import { levineTritoneSubstitutionLesson } from "./levineTritoneSubstitution";
+import { levineLeftHandVoicingsLesson } from "./levineLeftHandVoicings";
+import { levineAlteredLeftHandVoicingsLesson } from "./levineAlteredLeftHandVoicings";
 import type { LessonDefinition } from "./types";
 
 export const playLabLessons: LessonDefinition[] = [
@@ -146,6 +148,8 @@ export const levineLessons: LessonDefinition[] = [
   levineSusPhrygianLesson,
   levineAddingNotesLesson,
   levineTritoneSubstitutionLesson,
+  levineLeftHandVoicingsLesson,
+  levineAlteredLeftHandVoicingsLesson,
 ];
 
 export type LearningTrackId = "play-lab" | "schoenberg" | "belkin" | "levine";
