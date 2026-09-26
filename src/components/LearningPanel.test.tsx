@@ -9,6 +9,13 @@ vi.mock("./SchoenbergSourceMaterial", () => ({
   SchoenbergSourceMaterial: ({ id }: { id: string }) => (
     <div data-source-id={id}>example</div>
   ),
+  BookSourceMaterialView: () => <div />,
+}));
+
+vi.mock("./LevineSourceMaterial", () => ({
+  LevineSourceMaterial: ({ id }: { id: string }) => (
+    <div data-source-id={id}>jazz example</div>
+  ),
 }));
 
 vi.mock("../learning/productionContext", () => ({
@@ -100,6 +107,22 @@ describe("LearningPanel", () => {
     expect(html).not.toContain("Meta commentary");
     expect(html).not.toContain("Why / theory / vocabulary");
     expect(html).not.toContain("PLAY / LAB → DAW");
+  });
+
+  it("uses the same source-grounded reading flow for Levine exercises", () => {
+    const html = renderToStaticMarkup(
+      <LearningPanel
+        exercise={exercise("levine.intervals-triads.a")}
+        lessonNumber={1}
+      />,
+    );
+
+    expect(html).toContain("Concept");
+    expect(html).toContain("Exercise");
+    expect(html).toContain("Examples");
+    expect(html).toContain("data-source-id=\"s01.example\"");
+    expect(html).not.toContain("From the book");
+    expect(html).not.toContain("Why / theory / vocabulary");
   });
 
   it("keeps the existing layered guide for non-Schoenberg exercises", () => {
