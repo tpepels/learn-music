@@ -493,6 +493,9 @@ const lessonGlyphs: Record<string, string> = {
   "levine.scale-theory": "J",
   "levine.putting-scales-to-work": "J",
   "levine.practicing-scales": "J",
+  "levine.so-what-chords": "J",
+  "levine.fourth-chords": "J",
+  "levine.upper-structures": "J",
 };
 
 function App() {
