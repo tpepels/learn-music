@@ -1461,6 +1461,30 @@ class AudioEngine {
     return true;
   }
 
+  async playJazzPianoStudy(
+    bpm: number,
+    onStep: (step: number) => void,
+  ) {
+    if (!(await this.prepare(bpm, onStep, ["chords"]))) return false;
+    const transport = Tone.getTransport();
+    const totalTransportSteps = 64;
+
+    this.eventId = transport.scheduleRepeat((time) => {
+      const globalStep = this.step;
+
+      if (globalStep % 2 === 0) {
+        const harmonyStep = globalStep / 2;
+        this.triggerWrittenHarmonyStep(harmonyStep, time, 0.62);
+        Tone.getDraw().schedule(() => this.onStep?.(harmonyStep), time);
+      }
+
+      this.step = (this.step + 1) % totalTransportSteps;
+    }, "16n");
+
+    transport.start();
+    return true;
+  }
+
   private async startArrangementPlayback(
     bpm: number,
     onStep: (bar: number) => void,
