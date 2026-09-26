@@ -53,6 +53,9 @@ describe("Schoenberg learning track", () => {
       "schoenberg.minuet",
       "schoenberg.scherzo",
       "schoenberg.theme-variations",
+      "schoenberg.large-form-functions",
+      "schoenberg.rondo",
+      "schoenberg.sonata-allegro",
     ]);
     expect(learningTracks.map((track) => track.id)).toEqual([
       "play-lab",
@@ -78,7 +81,10 @@ describe("Schoenberg learning track", () => {
       getNextImplementedLesson("schoenberg.self-criticism")?.id,
     ).toBe("schoenberg.small-ternary");
     expect(
-      getNextImplementedLesson("schoenberg.theme-variations"),
+      getNextImplementedLesson("schoenberg.theme-variations")?.id,
+    ).toBe("schoenberg.large-form-functions");
+    expect(
+      getNextImplementedLesson("schoenberg.sonata-allegro"),
     ).toBeUndefined();
   });
 
