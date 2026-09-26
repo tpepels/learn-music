@@ -47,9 +47,9 @@ export const levineIntervalsTriadsLesson: LessonDefinition = {
         learn:
           "Treat an interval as the distance between two notes, then hear how that distance changes while the lower C stays fixed.",
         explanation:
-          "An interval describes the space between two notes. The source chart keeps middle C on the bottom and moves the upper note from the minor second all the way to the octave, so interval size can be compared without also changing the reference pitch. The most useful habit is to connect three things at once: the written interval, its physical span on the keyboard, and its sound.
+          `An interval describes the space between two notes. The source chart keeps middle C on the bottom and moves the upper note from the minor second all the way to the octave, so interval size can be compared without also changing the reference pitch. The most useful habit is to connect three things at once: the written interval, its physical span on the keyboard, and its sound.
 
-Major, minor and perfect describe interval quality; the tritone can be named an augmented fourth or diminished fifth. Do not reduce the exercise to counting semitones. The staff spelling and the sound are both part of the interval.",
+Major, minor and perfect describe interval quality; the tritone can be named an augmented fourth or diminished fifth. Do not reduce the exercise to counting semitones. The staff spelling and the sound are both part of the interval.`,
         instruction:
           "Play the complete interval chart below first. Then clear the piano study and build four dyads, one at the start of each bar: C4-D-flat4, C4-E4, C4-F-sharp4 and C4-G4. Play the four-bar study and compare how the minor second, major third, tritone and perfect fifth expand away from the same C.",
         recognition:
@@ -112,9 +112,9 @@ Major, minor and perfect describe interval quality; the tritone can be named an 
         learn:
           "Move one note through the octave and hear the complementary interval that results.",
         explanation:
-          "To invert an interval, move the lower note above the upper note, or the upper note below the lower note. The numerical names are complementary: they add to nine. A third becomes a sixth, a second becomes a seventh, and a fourth becomes a fifth.
+          `To invert an interval, move the lower note above the upper note, or the upper note below the lower note. The numerical names are complementary: they add to nine. A third becomes a sixth, a second becomes a seventh, and a fourth becomes a fifth.
 
-The quality follows a second rule. Major becomes minor and minor becomes major; perfect stays perfect; the tritone remains a tritone. These are practical keyboard rules, not only written-theory facts: they let you recognize the same two pitch classes in a different register.",
+The quality follows a second rule. Major becomes minor and minor becomes major; perfect stays perfect; the tritone remains a tritone. These are practical keyboard rules, not only written-theory facts: they let you recognize the same two pitch classes in a different register.`,
         instruction:
           "Work through the three source-analysis tabs. Clear the study, then place C4-E4 in bar 1 and E4-C5 in bar 2. In bars 3-4 place C4-F4 and F4-C5. Play the loop. The major third should become a minor sixth, while the perfect fourth becomes a perfect fifth.",
         recognition:
@@ -176,9 +176,9 @@ The quality follows a second rule. Major becomes minor and minor becomes major; 
         learn:
           "Hear triad quality as the result of stacking two thirds in different combinations.",
         explanation:
-          "A triad stacks one third on top of another. Four basic combinations follow. Major uses a major third with a minor third above it; minor reverses that order; diminished stacks two minor thirds; augmented stacks two major thirds. The source keeps C as the common root so the quality change is isolated.
+          `A triad stacks one third on top of another. Four basic combinations follow. Major uses a major third with a minor third above it; minor reverses that order; diminished stacks two minor thirds; augmented stacks two major thirds. The source keeps C as the common root so the quality change is isolated.
 
-Listen to the difference before attaching an emotional label. The important technical point is that changing one chord tone can change the quality while the root stays fixed.",
+Listen to the difference before attaching an emotional label. The important technical point is that changing one chord tone can change the quality while the root stays fixed.`,
         instruction:
           "Play the four source triads. Clear the study, then put one root-position C triad at the start of each bar: C-E-G, C-E-flat-G, C-E-flat-G-flat, and C-E-G-sharp. Play all four in sequence and identify which third changed from one quality to the next.",
         recognition:
@@ -239,9 +239,9 @@ Listen to the difference before attaching an emotional label. The important tech
         learn:
           "Keep chord identity while changing which chord tone is on the bottom.",
         explanation:
-          "A triad is in root position when the root is the lowest note. Put the third on the bottom and it becomes first inversion; put the fifth on the bottom and it becomes second inversion. The chord tones do not change, but the spacing, bass note and keyboard shape do.
+          `A triad is in root position when the root is the lowest note. Put the third on the bottom and it becomes first inversion; put the fifth on the bottom and it becomes second inversion. The chord tones do not change, but the spacing, bass note and keyboard shape do.
 
-This distinction becomes central later when jazz voicings are chosen for smooth movement rather than for root-position clarity. For now, keep the task literal: same three chord tones, three possible bass notes.",
+This distinction becomes central later when jazz voicings are chosen for smooth movement rather than for root-position clarity. For now, keep the task literal: same three chord tones, three possible bass notes.`,
         instruction:
           "Play the inversion chart below. Clear the study. In the first two bars place C major on steps 1, 5 and 9 as C4-E4-G4, E3-G3-C4 and G3-C4-E4. In the last two bars place C minor on steps 17, 21 and 25 as C4-E-flat4-G4, E-flat3-G3-C4 and G3-C4-E-flat4. Play the complete loop and follow the lowest note of each voicing.",
         recognition:
