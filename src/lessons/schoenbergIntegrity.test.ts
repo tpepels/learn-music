@@ -1,38 +1,8 @@
 import { describe, expect, it } from "vitest";
 import { schoenbergSourceMaterial } from "../music/schoenbergSourceMaterial";
-import { schoenbergPhraseMotiveLesson } from "./schoenbergPhraseMotive";
-import { schoenbergDevelopingVariationLesson } from "./schoenbergDevelopingVariation";
-import { schoenbergConnectingMotiveFormsLesson } from "./schoenbergConnectingMotiveForms";
-import { schoenbergBeginningSentenceLesson } from "./schoenbergBeginningSentence";
-import { schoenbergCompletingSentenceLesson } from "./schoenbergCompletingSentence";
-import { schoenbergPeriodLesson } from "./schoenbergPeriod";
-import { schoenbergAccompanimentLesson } from "./schoenbergAccompaniment";
-import { schoenbergCharacterMoodLesson } from "./schoenbergCharacterMood";
-import { schoenbergMelodyThemeLesson } from "./schoenbergMelodyTheme";
-import { schoenbergSelfCriticismLesson } from "./schoenbergSelfCriticism";
-import { schoenbergSmallTernaryLesson } from "./schoenbergSmallTernary";
-import { schoenbergIrregularConstructionLesson } from "./schoenbergIrregularConstruction";
-import { schoenbergMinuetLesson } from "./schoenbergMinuet";
-import { schoenbergScherzoLesson } from "./schoenbergScherzo";
-import { schoenbergThemeVariationsLesson } from "./schoenbergThemeVariations";
+import { schoenbergLessons } from "./course";
 
-const lessons = [
-  schoenbergPhraseMotiveLesson,
-  schoenbergDevelopingVariationLesson,
-  schoenbergConnectingMotiveFormsLesson,
-  schoenbergBeginningSentenceLesson,
-  schoenbergCompletingSentenceLesson,
-  schoenbergPeriodLesson,
-  schoenbergAccompanimentLesson,
-  schoenbergCharacterMoodLesson,
-  schoenbergMelodyThemeLesson,
-  schoenbergSelfCriticismLesson,
-  schoenbergSmallTernaryLesson,
-  schoenbergIrregularConstructionLesson,
-  schoenbergMinuetLesson,
-  schoenbergScherzoLesson,
-  schoenbergThemeVariationsLesson,
-];
+const lessons = schoenbergLessons;
 
 describe("Schoenberg architecture integrity", () => {
   it("resolves every source example id through the source registry", () => {
