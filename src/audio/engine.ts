@@ -13,6 +13,10 @@ import { TransportStartGate } from "./transportStartGate";
 import { syncEighthNoteDelay } from "./tempoSync";
 import { reverbValueChanged } from "./reverbState";
 import {
+  automationValueAtStep,
+  mixerControlTargets,
+} from "./productionControlPolicy";
+import {
   buildArrangementFallbackMelody,
   hasArrangementMelody,
   resolveArrangementFrame,
@@ -974,6 +978,7 @@ class AudioEngine {
 
     mixerTrackIds.forEach((track) => {
       const settings = sourceMixer[track];
+      const targets = mixerControlTargets(settings, mono);
       const channel = this.mixerChannels[track];
       const filter = this.mixerFilters[track];
       const reverbSend = this.reverbSends[track];
@@ -994,19 +999,19 @@ class AudioEngine {
           focusedVolume + this.quietAuditionDb,
           0.03,
         );
-        channel.pan.rampTo(mono ? 0 : settings.pan, 0.03);
+        channel.pan.rampTo(targets.pan, 0.03);
       }
 
       if (filter) {
-        filter.frequency.rampTo(Math.max(20, settings.highpass), 0.03);
+        filter.frequency.rampTo(targets.highpass, 0.03);
       }
 
       if (reverbSend) {
-        reverbSend.gain.rampTo(mono ? 0 : settings.reverb, 0.03);
+        reverbSend.gain.rampTo(targets.reverb, 0.03);
       }
 
       if (delaySend) {
-        delaySend.gain.rampTo(mono ? 0 : settings.delay, 0.03);
+        delaySend.gain.rampTo(targets.delay, 0.03);
       }
     });
   }
@@ -1027,25 +1032,14 @@ class AudioEngine {
   private applyCurrentAutomationPosition() {
     if (this.eventId === null) return;
 
-    const barCount = Math.max(1, this.arrangement.length);
-    const barIndex = Math.floor(this.step / 16) % barCount;
-    const localStep = this.step % 16;
-    const progress = localStep / 16;
-    const nextBar = (barIndex + 1) % barCount;
-
-    const currentMelody =
-      this.automationSettings.melodyVolumeDb[barIndex] ?? 0;
-    const nextMelody =
-      this.automationSettings.melodyVolumeDb[nextBar] ?? currentMelody;
-    const melodyOffset =
-      currentMelody + (nextMelody - currentMelody) * progress;
-
-    const currentCutoff =
-      this.automationSettings.chordFilterHz[barIndex] ?? 12000;
-    const nextCutoff =
-      this.automationSettings.chordFilterHz[nextBar] ?? currentCutoff;
-    const cutoff =
-      currentCutoff + (nextCutoff - currentCutoff) * progress;
+    const melodyOffset = automationValueAtStep(
+      this.automationSettings.melodyVolumeDb,
+      this.step,
+    );
+    const cutoff = automationValueAtStep(
+      this.automationSettings.chordFilterHz,
+      this.step,
+    );
 
     const melodyChannel = this.mixerChannels.melody;
     if (melodyChannel) {
