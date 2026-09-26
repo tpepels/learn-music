@@ -58,6 +58,9 @@ import { schoenbergSonataAllegroLesson } from "./schoenbergSonataAllegro";
 import { belkinPunctuatingLesson } from "./belkinPunctuating";
 import { belkinPresentingLesson } from "./belkinPresenting";
 import { belkinBinaryFormLesson } from "./belkinBinaryForm";
+import { belkinContrastingLesson } from "./belkinContrasting";
+import { belkinConnectingLesson } from "./belkinConnecting";
+import { belkinProgressingLesson } from "./belkinProgressing";
 import { levineIntervalsTriadsLesson } from "./levineIntervalsTriads";
 import { levineMajorModesIiViLesson } from "./levineMajorModesIiVi";
 import { levineThreeNoteVoicingsLesson } from "./levineThreeNoteVoicings";
@@ -128,6 +131,9 @@ export const belkinLessons: LessonDefinition[] = [
   belkinPunctuatingLesson,
   belkinPresentingLesson,
   belkinBinaryFormLesson,
+  belkinContrastingLesson,
+  belkinConnectingLesson,
+  belkinProgressingLesson,
 ];
 
 export const levineLessons: LessonDefinition[] = [

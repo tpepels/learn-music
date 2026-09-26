@@ -58,19 +58,32 @@ describe("lesson progression", () => {
       "belkin.punctuating",
       "belkin.presenting",
       "belkin.binary-form",
+      "belkin.contrasting",
+      "belkin.connecting",
+      "belkin.progressing",
     ]);
     expect(levineLessons.map((lesson) => lesson.id)).toEqual([
       "levine.intervals-triads",
       "levine.major-modes-ii-v-i",
       "levine.three-note-voicings",
     ]);
-    expect(implementedLessons).toHaveLength(61);
+    expect(implementedLessons).toHaveLength(64);
     expect(learningTracks.map((track) => track.id)).toEqual([
       "play-lab",
       "schoenberg",
       "belkin",
       "levine",
     ]);
+    expect(getNextImplementedLesson("belkin.binary-form")?.id).toBe(
+      "belkin.contrasting",
+    );
+    expect(getNextImplementedLesson("belkin.contrasting")?.id).toBe(
+      "belkin.connecting",
+    );
+    expect(getNextImplementedLesson("belkin.connecting")?.id).toBe(
+      "belkin.progressing",
+    );
+    expect(getNextImplementedLesson("belkin.progressing")).toBeUndefined();
   });
 
   it("advances from one exercise to the next inside a lesson", () => {
