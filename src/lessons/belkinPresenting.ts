@@ -61,9 +61,9 @@ export const belkinPresentingLesson: LessonDefinition = {
         learn:
           "Successive phrases become a stable presentation when the listener can hear what they share before being asked to process larger contrasts.",
         explanation:
-          "Listeners automatically compare neighbouring phrases. Shared motives, accompaniment, length, register, texture and harmonic region all contribute to familiarity. Stability is useful because it lets the musical idea become memorable; the second phrase can then vary details without sounding like a new subject.
+          `Listeners automatically compare neighbouring phrases. Shared motives, accompaniment, length, register, texture and harmonic region all contribute to familiarity. Stability is useful because it lets the musical idea become memorable; the second phrase can then vary details without sounding like a new subject.
 
-The point is not literal duplication. A related second phrase should preserve enough salient information to be recognised while changing something meaningful - contour, ending, register or local intensity. Because the material remains familiar, those differences become easier to hear.",
+The point is not literal duplication. A related second phrase should preserve enough salient information to be recognised while changing something meaningful - contour, ending, register or local intensity. Because the material remains familiar, those differences become easier to hear.`,
         instruction:
           "Study all three presentation principles. In the Motif workspace, use steps 1-8 as the first phrase and 9-16 as a related second phrase. Put at least three sounding notes in each half. Make the two halves share at least two pitches, but do not make them exact copies. Make at least six edits and listen through both phrases without stopping.",
         recognition:
@@ -125,9 +125,9 @@ The point is not literal duplication. A related second phrase should preserve en
         learn:
           "Phrase length is an expressive variable. Shortening successive phrases can increase pressure, while lengthening them can create delay or relaxation.",
         explanation:
-          "Asymmetry is not automatically irregular or unstable. When the listener can still hear the relationship between phrases, a difference in length becomes part of the pacing. A shorter answering phrase can feel as though the music is breathing faster and pressing toward a goal. A longer one can postpone closure and make time feel more spacious.
+          `Asymmetry is not automatically irregular or unstable. When the listener can still hear the relationship between phrases, a difference in length becomes part of the pacing. A shorter answering phrase can feel as though the music is breathing faster and pressing toward a goal. A longer one can postpone closure and make time feel more spacious.
 
-Here we isolate shortening. The second phrase should retain material from the first but occupy a smaller span. The goal is to hear acceleration at the formal level, not merely to play faster notes.",
+Here we isolate shortening. The second phrase should retain material from the first but occupy a smaller span. The goal is to hear acceleration at the formal level, not merely to play faster notes.`,
         instruction:
           "Study all three phrase-length effects. In the Motif workspace, make the first phrase occupy at least six of steps 1-8. In steps 9-16, write a related response that uses at least three sounding notes but whose last sounding note occurs earlier than the last sounding note of the first phrase. Keep at least one pitch in common. Make at least six edits and listen to how the shorter response changes the pacing.",
         recognition:
@@ -189,9 +189,9 @@ Here we isolate shortening. The second phrase should retain material from the fi
         learn:
           "A paragraph is more than a chain of phrases: several related phrases form one larger thought whose final articulation is clearly strongest.",
         explanation:
-          "A paragraph contains more than two phrases, keeps recognisable thematic material in circulation, and reserves its strongest articulation for the end. What follows that boundary should be able to sound like a new direction. The internal phrases can vary in intensity, length and detail, but their common identity must remain audible.
+          `A paragraph contains more than two phrases, keeps recognisable thematic material in circulation, and reserves its strongest articulation for the end. What follows that boundary should be able to sound like a new direction. The internal phrases can vary in intensity, length and detail, but their common identity must remain audible.
 
-The Arrangement workspace cannot reproduce Belkin's score examples, so here density acts as one controlled dimension of hierarchy. Recurrent layers establish continuity across four phrase regions, while the last region grows into the local climax before the final release.",
+The Arrangement workspace cannot reproduce Belkin's score examples, so here density acts as one controlled dimension of hierarchy. Recurrent layers establish continuity across four phrase regions, while the last region grows into the local climax before the final release.`,
         instruction:
           "Study all four paragraph requirements. Treat bars 1-2, 3-4, 5-6 and 7-8 as four phrase regions. Keep at least one layer active at the start of all four regions so they belong together. Make bar 7 the fullest phrase opening, with at least three active layers. Make at least eight arrangement edits and listen through the complete eight bars.",
         recognition:
@@ -254,9 +254,9 @@ The Arrangement workspace cannot reproduce Belkin's score examples, so here dens
         learn:
           "Related phrases become a hierarchy when repetition leads somewhere. The last phrase should confirm the group with the clearest local culmination and punctuation.",
         explanation:
-          "Familiar material lets the listener compare successive statements. That comparison becomes formally useful when later phrases intensify or clarify something heard earlier. Register, rhythmic activity and cadence can all contribute to a local climax, while the final punctuation tells us that the larger unit is complete.
+          `Familiar material lets the listener compare successive statements. That comparison becomes formally useful when later phrases intensify or clarify something heard earlier. Register, rhythmic activity and cadence can all contribute to a local climax, while the final punctuation tells us that the larger unit is complete.
 
-This exercise makes the hierarchy audible in one line. Four compact four-step groups should share material, but the last group must contain the highest pitch of the complete passage and finish with a longer final event. The constraints are intentionally simple so you can hear how register and rhythmic repose cooperate.",
+This exercise makes the hierarchy audible in one line. Four compact four-step groups should share material, but the last group must contain the highest pitch of the complete passage and finish with a longer final event. The constraints are intentionally simple so you can hear how register and rhythmic repose cooperate.`,
         instruction:
           "Study the higher-level grouping analysis. In the Motif workspace, treat each block of four steps as a phrase. Put at least two sounding notes in every block and reuse at least one pitch across all four. Make the highest pitch of the entire passage occur in steps 13-16. Give the final sounding note a duration of at least two steps. Make at least eight edits and listen from the beginning.",
         recognition:
