@@ -568,6 +568,335 @@ export const levineSourceMaterial: Record<string, LevineSourceMaterial> = {
     ],
     "Source-grounded summary of the terminology illustrated by Figures 3-9 through 3-11. The individual printed voicing examples remain pending for native transcription.",
   ),
+  "l04.sus-construction": map(
+    "l04.sus-construction",
+    "Chapter Four, Figures 4-1 through 4-3",
+    "Build and name the suspended sound",
+    [
+      {
+        label: "Bass plus upper triad",
+        detail:
+          "A simple sus voicing places the chord root in the bass and a major triad a whole step below that root above it. For Gsus, the upper triad is F major and is commonly placed in second inversion.",
+      },
+      {
+        label: "The suspended fourth",
+        detail:
+          "The name sus refers to the fourth above the root. Unlike a traditional suspension, the fourth in this jazz sonority does not have to resolve down to the third.",
+      },
+      {
+        label: "Several symbols",
+        detail:
+          "The same family may appear as Gsus, G7sus4, Gsus4, F/G or Dm7/G. The slash-chord spellings emphasize the upper structure and bass separately.",
+      },
+      {
+        label: "II and V together",
+        detail:
+          "Dm7/G makes the functional compression audible: the upper D-minor-seventh material supplies II while G in the bass supplies the V root.",
+      },
+    ],
+    "Source-grounded map of the suspended-chord construction and alternate symbols explained with Figures 4-1 through 4-3; no tune excerpt is reconstructed.",
+  ),
+  "l04.sus-third": map(
+    "l04.sus-third",
+    "Chapter Four, Figures 4-5 and 4-6",
+    "The third can coexist with the fourth",
+    [
+      {
+        label: "Voicings can vary",
+        detail:
+          "Suspended voicings can double a note or reinforce the fifth in the left hand while preserving the characteristic fourth.",
+      },
+      {
+        label: "The third is not forbidden",
+        detail:
+          "The third may be included with the suspended fourth when the voicing places the third above the fourth.",
+      },
+      {
+        label: "Duration changes the effect",
+        detail:
+          "The fourth-and-third combination can sound very dissonant on a short chord; a longer-lasting sus chord gives more room for that colour to settle.",
+      },
+      {
+        label: "Resolution remains available",
+        detail:
+          "Although the fourth need not resolve, a suspended dominant can still move smoothly into its tonic when the progression calls for it.",
+      },
+    ],
+    "Source-grounded summary of the suspended voicing variants and fourth-plus-third discussion around Figures 4-5 and 4-6.",
+  ),
+  "l04.phrygian": map(
+    "l04.phrygian",
+    "Chapter Four, Figure 4-7",
+    "Dominant colour over the thirteenth",
+    [
+      {
+        label: "Change the bass",
+        detail:
+          "A Phrygian chord here is a dominant seventh with its thirteenth used in the bass instead of the dominant root. Putting E under G7 gives the central example.",
+      },
+      {
+        label: "Several accepted labels",
+        detail:
+          "The same sonority may be written G7/E, Esusb9 or E Phrygian; the chapter notes that no single chord symbol is universally accepted.",
+      },
+      {
+        label: "Modal connection",
+        detail:
+          "E Phrygian uses the pitch collection of C major beginning on its third degree, which explains the close relation to G7 over E.",
+      },
+      {
+        label: "New dominant direction",
+        detail:
+          "With E in the bass, the chord resolves smoothly to A major seventh, so the bass E-A becomes the functional dominant-to-tonic motion.",
+      },
+    ],
+    "Source-grounded map of the Phrygian-chord definition, spellings and E-to-A resolution presented with Figure 4-7.",
+  ),
+  "l04.ii-v-compression": map(
+    "l04.ii-v-compression",
+    "Chapter Four, Figure 4-8 and practice discussion",
+    "Compress a II-V into one colour",
+    [
+      {
+        label: "Two functions, one sonority",
+        detail:
+          "Sus and Phrygian sonorities can combine the material of a II-V pair into one sustained chord instead of stating II and V separately.",
+      },
+      {
+        label: "Bass defines the reading",
+        detail:
+          "A slash-chord bass can preserve the dominant direction while the upper structure retains notes associated with the preceding II chord.",
+      },
+      {
+        label: "Use it as reharmonization",
+        detail:
+          "The chapter presents this as a practical way to reharmonize standards rather than as a requirement that every II-V be compressed.",
+      },
+    ],
+    "Source-grounded analysis of the Chapter Four reharmonization principle; the licensed tune passage in Figure 4-8 is deliberately not reproduced.",
+  ),
+
+  "l05.add-to-shells": map(
+    "l05.add-to-shells",
+    "Chapter Five, Figures 5-1 through 5-3",
+    "Add one note to the three-note shell",
+    [
+      {
+        label: "II gets its fifth",
+        detail:
+          "For an unaltered II chord, the first easy addition to the root-third-seventh shell is the fifth.",
+      },
+      {
+        label: "V gets its ninth",
+        detail:
+          "For the dominant, add the ninth or flat ninth to the basic shell.",
+      },
+      {
+        label: "I gets its fifth",
+        detail:
+          "For the tonic major-seventh chord, the first straightforward addition is again the fifth.",
+      },
+      {
+        label: "One pitch can stay",
+        detail:
+          "The fifth of II and the ninth of V are the same pitch, so that added note can remain stationary across the II-to-V move.",
+      },
+    ],
+    "Source-grounded summary of the first added-note procedure in Chapter Five, including the common-tone relation between II's fifth and V's ninth.",
+  ),
+  "l05.dominant-colour": map(
+    "l05.dominant-colour",
+    "Chapter Five, Figures 5-11a through 5-11h",
+    "Dominant additions and alterations",
+    [
+      {
+        label: "Natural ninth",
+        detail:
+          "A dominant seventh can add the natural ninth while keeping its third and minor seventh intact.",
+      },
+      {
+        label: "Alter the ninth",
+        detail:
+          "The ninth may be lowered to flat nine or raised to sharp nine, producing a direct chromatic change above the same dominant framework.",
+      },
+      {
+        label: "Other dominant colours",
+        detail:
+          "The chapter's dominant family also includes sharp eleven, thirteenth, flat thirteen or sharp five, and an altered-dominant symbol.",
+      },
+      {
+        label: "Alt means more than one note",
+        detail:
+          "The altered symbol implies a broader collection of altered dominant tones rather than merely one isolated sharp-nine or flat-thirteen change.",
+      },
+    ],
+    "Source-grounded map of the dominant additions and alterations displayed across Figures 5-11a through 5-11h; dense printed voicings are not reconstructed.",
+  ),
+  "l05.major-colour-context": map(
+    "l05.major-colour-context",
+    "Chapter Five, Figures 5-8 through 5-12",
+    "Choose added notes by musical context",
+    [
+      {
+        label: "Major-chord options",
+        detail:
+          "Major-seventh voicings can add or emphasize the fifth, sixth, ninth, sharp fourth or raised fifth in different contexts.",
+      },
+      {
+        label: "Sixth can replace the seventh",
+        detail:
+          "On a tonic-major chord the sixth can be used in place of the major seventh, and sixth plus ninth can be heard together.",
+      },
+      {
+        label: "Melody may supply a tone",
+        detail:
+          "If the melody already contains a chord tone, the accompaniment does not always need to duplicate it.",
+      },
+      {
+        label: "No fixed formula",
+        detail:
+          "Density, darkness or brightness, register, melody and musical context all influence which extra notes make a convincing voicing.",
+      },
+    ],
+    "Source-grounded synthesis of the added-note choices and explicit no-hard-rules discussion in the second half of Chapter Five.",
+  ),
+  "l05.special-chords": map(
+    "l05.special-chords",
+    "Chapter Five, Figures 5-10 through 5-16",
+    "Four special seventh-chord structures",
+    [
+      {
+        label: "Half-diminished",
+        detail:
+          "A half-diminished chord is a minor seventh chord with a flattened fifth and commonly functions as II in a minor-key II-V-I.",
+      },
+      {
+        label: "Minor-major seventh",
+        detail:
+          "A minor-major chord combines a minor third and perfect fifth with a major seventh and normally functions as a tonic-minor chord rather than as II.",
+      },
+      {
+        label: "Diminished seventh",
+        detail:
+          "The diminished seventh is built as a series of stacked minor thirds and uses the small-circle chord symbol.",
+      },
+      {
+        label: "Whole-tone dominant",
+        detail:
+          "The whole-tone chord shown is a dominant seventh with an augmented fifth: major third, augmented fifth and minor seventh, often used in a dominant function.",
+      },
+    ],
+    "Source-grounded map of the half-diminished, minor-major, diminished-seventh and augmented-dominant definitions at the end of Chapter Five.",
+  ),
+
+  "l06.basic-substitution": map(
+    "l06.basic-substitution",
+    "Chapter Six, Figures 6-1 through 6-3",
+    "Replace G7 with D-flat7",
+    [
+      {
+        label: "Substitute dominant",
+        detail:
+          "In a C-major II-V-I, D-flat7 can substitute for G7 because the two dominant roots are a tritone apart.",
+      },
+      {
+        label: "Same destination",
+        detail:
+          "Both versions can resolve into C major, so the substitute changes the route without changing the target tonic.",
+      },
+      {
+        label: "Chromatic bass",
+        detail:
+          "Replacing G7 with D-flat7 changes the bass from D-G-C to the smooth semitone descent D-D-flat-C.",
+      },
+    ],
+    "Source-grounded map of the first tritone-substitution comparison in Chapter Six; no licensed tune excerpt is reconstructed.",
+  ),
+  "l06.shared-tritone": map(
+    "l06.shared-tritone",
+    "Chapter Six, Figures 6-4 and 6-5",
+    "The shared third-and-seventh tritone",
+    [
+      {
+        label: "G7 guide tones",
+        detail:
+          "The third and seventh of G7 are B and F, a tritone apart.",
+      },
+      {
+        label: "D-flat7 guide tones",
+        detail:
+          "The third and seventh of D-flat7 are F and C-flat. C-flat is enharmonically the same sounding pitch as B.",
+      },
+      {
+        label: "Functions exchange",
+        detail:
+          "The same two sounding pitches trade chord roles: B is the third of G7 while its enharmonic C-flat is the seventh of D-flat7; F is the seventh of G7 and the third of D-flat7.",
+      },
+      {
+        label: "Roots mirror the interval",
+        detail:
+          "The roots G and D-flat are themselves a tritone apart, giving a practical root-level way to locate the substitute.",
+      },
+    ],
+    "Source-grounded explanation of why G7 and D-flat7 share their defining tritone, as demonstrated in Figures 6-4 and 6-5.",
+  ),
+  "l06.dual-resolution": map(
+    "l06.dual-resolution",
+    "Chapter Six, Figures 6-6 through 6-9",
+    "Each dominant has its own tonic",
+    [
+      {
+        label: "Dominant instability",
+        detail:
+          "A dominant seventh and its internal tritone are unstable and strongly seek resolution.",
+      },
+      {
+        label: "G7 to C",
+        detail:
+          "G7 resolves to C as the ordinary V-I in C major.",
+      },
+      {
+        label: "D-flat7 to G-flat",
+        detail:
+          "D-flat7 can also resolve normally to G-flat, its own tonic, before it is heard in a substitute role.",
+      },
+      {
+        label: "Context selects the meaning",
+        detail:
+          "The same D-flat7 therefore has an ordinary dominant reading toward G-flat and a substitute-dominant reading toward C.",
+      },
+    ],
+    "Source-grounded map of the ordinary dominant resolutions used in Chapter Six to establish the substitute chord's dual harmonic reading.",
+  ),
+  "l06.substitute-ii-v": map(
+    "l06.substitute-ii-v",
+    "Chapter Six, Figures 6-12 and 6-13",
+    "Precede the substitute dominant with its II",
+    [
+      {
+        label: "Treat the substitute as V",
+        detail:
+          "Once D-flat7 replaces G7, it can be approached as a real dominant by placing its own II chord, A-flat minor seventh, before it.",
+      },
+      {
+        label: "A-flat minor to D-flat7",
+        detail:
+          "A-flat-minor7-D-flat7 forms a II-V whose dominant can then resolve unexpectedly to C instead of continuing to G-flat.",
+      },
+      {
+        label: "The device can continue",
+        detail:
+          "Bebop practice extends the idea through additional substitute II-V motion and tritone-substitution chains.",
+      },
+      {
+        label: "Do not apply it mechanically",
+        detail:
+          "The chapter warns that excessive substitution can create an awkward bass line or clash with the melody, so the actual musical context remains decisive.",
+      },
+    ],
+    "Source-grounded map of the extended substitute-II-V procedure and the chapter's caution against overusing tritone substitution.",
+  ),
+
 };
 
 export function getLevineSourceMaterial(
