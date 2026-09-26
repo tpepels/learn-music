@@ -10,6 +10,7 @@ import {
   minorHarmonyPalette,
   romanNumeral,
   type HarmonicChord,
+  type TonalContext,
   type TonalMode,
 } from "../music/harmony";
 import {
@@ -34,9 +35,41 @@ export type HarmonySequencerMode =
   | "borrowed"
   | "jazz";
 
-function harmonyNoteName(midi: number, mode: HarmonySequencerMode): string {
+const JAZZ_SHARP_NAMES = [
+  "C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B",
+] as const;
+const JAZZ_FLAT_NAMES = [
+  "C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭", "A", "B♭", "B",
+] as const;
+const JAZZ_DUAL_NAMES: Partial<Record<number, string>> = {
+  1: "C♯/D♭",
+  3: "D♯/E♭",
+  6: "F♯/G♭",
+  8: "G♯/A♭",
+  10: "A♯/B♭",
+};
+
+function harmonyNoteName(
+  midi: number,
+  mode: HarmonySequencerMode,
+  tonalContext?: TonalContext,
+  showTargets = true,
+): string {
   const pitchClass = ((midi % 12) + 12) % 12;
   const octave = Math.floor(midi / 12) - 1;
+
+  if (mode === "jazz") {
+    if (!showTargets && JAZZ_DUAL_NAMES[pitchClass]) {
+      return JAZZ_DUAL_NAMES[pitchClass] + String(octave);
+    }
+
+    const flatKey = tonalContext
+      ? [1, 3, 5, 8, 10].includes(tonalContext.tonic)
+      : false;
+    const names = flatKey ? JAZZ_FLAT_NAMES : JAZZ_SHARP_NAMES;
+    return names[pitchClass] + String(octave);
+  }
+
   if (mode === "minor" && pitchClass === 8) return "G♯" + octave;
   return midiNoteName(midi);
 }
@@ -307,9 +340,9 @@ export function HarmonySequencerWorkspace({
               <button
                 className="harmony-note-label"
                 onClick={() => audioEngine.playPianoNote(midi)}
-                title={"Audition " + harmonyNoteName(midi, mode)}
+                title={"Audition " + harmonyNoteName(midi, mode, tonalContext, showTargets)}
               >
-                {harmonyNoteName(midi, mode)}
+                {harmonyNoteName(midi, mode, tonalContext, showTargets)}
               </button>
 
               {Array.from({ length: HARMONY_STEPS }, (_, step) => {
@@ -362,7 +395,7 @@ export function HarmonySequencerWorkspace({
                       })
                     }
                     aria-label={
-                      harmonyNoteName(midi, mode) +
+                      harmonyNoteName(midi, mode, tonalContext, showTargets) +
                       " at bar " +
                       (Math.floor(step / 8) + 1) +
                       ", eighth " +
@@ -375,11 +408,11 @@ export function HarmonySequencerWorkspace({
                     aria-pressed={active || sustained}
                     title={
                       active || sustained
-                        ? harmonyNoteName(midi, mode) +
+                        ? harmonyNoteName(midi, mode, tonalContext, showTargets) +
                           " · " +
                           noteDurationLabel(duration) +
                           " · drag horizontally to resize"
-                        : "Click or drag to draw " + harmonyNoteName(midi, mode)
+                        : "Click or drag to draw " + harmonyNoteName(midi, mode, tonalContext, showTargets)
                     }
                   >
                     <span />
