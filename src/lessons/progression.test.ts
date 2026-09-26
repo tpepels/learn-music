@@ -4,6 +4,7 @@ import {
   getNextImplementedLesson,
   implementedLessons,
   learningTracks,
+  levineLessons,
   playLabLessons,
   schoenbergLessons,
 } from "./course";
@@ -58,11 +59,17 @@ describe("lesson progression", () => {
       "belkin.presenting",
       "belkin.binary-form",
     ]);
-    expect(implementedLessons).toHaveLength(58);
+    expect(levineLessons.map((lesson) => lesson.id)).toEqual([
+      "levine.intervals-triads",
+      "levine.major-modes-ii-v-i",
+      "levine.three-note-voicings",
+    ]);
+    expect(implementedLessons).toHaveLength(61);
     expect(learningTracks.map((track) => track.id)).toEqual([
       "play-lab",
       "schoenberg",
       "belkin",
+      "levine",
     ]);
   });
 
