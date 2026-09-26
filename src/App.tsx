@@ -77,6 +77,10 @@ async function startWorkspacePlayback(
     return audioEngine.playStudySequence(bpm, onStep);
   }
 
+  if (workspace === "jazz-piano") {
+    return audioEngine.playJazzPianoStudy(bpm, onStep);
+  }
+
   if (
     workspace === "harmony-song" ||
     workspace === "harmonic-function" ||
@@ -413,6 +417,13 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
       return <TranspositionWorkspace />;
     case "composition-study":
       return <CompositionStudyWorkspace exerciseId={exercise.id} />;
+    case "jazz-piano":
+      return (
+        <HarmonySequencerWorkspace
+          mode="jazz"
+          showTargets={!exercise.id.startsWith("levine.intervals-triads")}
+        />
+      );
   }
 }
 
@@ -467,6 +478,9 @@ const lessonGlyphs: Record<string, string> = {
   "belkin.punctuating": "B",
   "belkin.presenting": "B",
   "belkin.binary-form": "B",
+  "levine.intervals-triads": "J",
+  "levine.major-modes-ii-v-i": "J",
+  "levine.three-note-voicings": "J",
 };
 
 function App() {
@@ -906,6 +920,10 @@ function App() {
       case "composition-study":
         resetStudyExercise(exercise.id);
         break;
+      case "jazz-piano":
+        clearChords();
+        clearHarmonySequence();
+        break;
     }
   };
 
@@ -974,7 +992,9 @@ function App() {
                   ? "S"
                   : activeTrack.id === "belkin"
                     ? "B"
-                    : "LESSON "}
+                    : activeTrack.id === "levine"
+                      ? "J"
+                      : "LESSON "}
                 {String(lesson.number).padStart(2, "0")}
               </span>
               <strong>{lesson.title}</strong>
@@ -1084,7 +1104,9 @@ function App() {
                       ? "S"
                       : activeTrack.id === "belkin"
                         ? "B"
-                        : ""}
+                        : activeTrack.id === "levine"
+                          ? "J"
+                          : ""}
                     {String(item.number).padStart(2, "0")}
                   </span>
                   <span>
