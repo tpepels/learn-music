@@ -10,7 +10,7 @@ Status terms:
 
 ## Supplied scan
 
-The supplied PDF contains 150 scanned pages. Its table of contents lists 23 chapters, but the file itself ends during Chapter Sixteen. Chapters Seventeen through Twenty-Three are named in the contents but their pages are not present, so they cannot yet be implemented as source-grounded lessons.
+The supplied PDF contains 316 PDF pages. An earlier coverage pass mistook a 150-page indexed preview for the complete file. Direct inspection of the attached PDF confirms that it continues beyond Chapter Sixteen. Later chapters remain unimplemented until their pages are audited in the same source-grounded way.
 
 | Lesson | Book coverage | Source status in app | Application |
 | --- | --- | --- | --- |
@@ -28,9 +28,9 @@ The supplied PDF contains 150 scanned pages. Its table of contents lists 23 chap
 | L12 So What chords | Ch. 12 | **Interactive source analysis** covers the three-perfect-fourths-plus-major-third construction, the five inversions, parallel planing, and diatonic extension through major-scale harmony. Licensed tune excerpts remain untranscribed. | Build and transpose the five-note shape, rotate the major third through inversions, move the voicing chromatically in parallel, extend it diatonically through C major |
 | L13 Fourth chords | Ch. 13 | **Interactive source analysis** covers the C6/9 all-fourths voicing, diatonic quartal extension and its tritones, melody-note omission, and combining fourth voicings with different tritone placement. Licensed tune examples remain untranscribed. | Revoice C6/9 as perfect fourths, extend the stack through C major, reduce the accompaniment under a melody note, compare quartal tension profiles |
 | L14 Upper structures | Ch. 14 | **Interactive source analysis** covers triads over the dominant guide-tone tritone, upper-structure naming, II/flat-VI/VI/sharp-IV-minor families, triad inversions, Lydian-dominant/altered/diminished parent scales, and diminished minor-third interchangeability. Licensed tune excerpts remain untranscribed. | Build D major over C7, compare four upper structures, invert the right-hand triad, connect structures to parent scales, cycle diminished-derived colours by minor thirds |
-| L15 Pentatonic scales | Ch. 15 | Source pages present; implementation pending. | Pending |
-| L16 Voicings, voicings, voicings | Ch. 16 | Source pages present only through the supplied scan's endpoint; implementation pending and coverage must be verified against the available pages. | Pending |
-| L17-L23 | Chs. 17-23 | **Blocked** - chapter pages are absent from the supplied PDF. Only their titles are visible in the table of contents. | Not implemented |
+| L15 Pentatonic scales | Ch. 15 | **Interactive source analysis** covers the 1-2-3-5-6 major pentatonic, its modes and minor-pentatonic rotation, the I/IV/V pentatonics inside a major key, V-pentatonic use across II-V-I, avoid-note derivation, and the in-sen/altered-pentatonic alternatives. Licensed tune excerpts remain untranscribed. | Build major/minor pentatonic rotations, compare the three in-key collections, keep G pentatonic over II-V-I, derive it by removing C and F, compare in-sen and altered pentatonic |
+| L16 Voicings, voicings, voicings | Ch. 16 | **Interactive source analysis** covers combining So What/fourth/upper-structure voicings in II-V-I, diminished-derived minor-third motion, double-diminished eight-note sonorities, and the chapter's compact three-note half-step voicing formulas. Tune-specific examples and the many individual voicing arrays remain untranscribed. | Mix three voicing systems in II-V-I, move dominant colour by minor thirds, split a diminished scale between the hands, compare compact three-note interval formulas |
+| L17-L23 | Chs. 17-23 | **Pending source audit** - the attached PDF continues beyond Chapter Sixteen, but these chapters have not yet been inspected and mapped into lessons. | Not implemented |
 
 ## Rules
 
