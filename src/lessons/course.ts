@@ -81,6 +81,9 @@ import { levineStrideBudPowellLesson } from "./levineStrideBudPowell";
 import { levineFourNoteScalesLesson } from "./levineFourNoteScales";
 import { levineBlockChordsLesson } from "./levineBlockChords";
 import { levineSalsaLatinJazzLesson } from "./levineSalsaLatinJazz";
+import { levineCompingLesson } from "./levineComping";
+import { levineLooseEndsLesson } from "./levineLooseEnds";
+import { levinePracticePracticePracticeLesson } from "./levinePracticePracticePractice";
 import type { LessonDefinition } from "./types";
 
 export const playLabLessons: LessonDefinition[] = [
@@ -174,6 +177,9 @@ export const levineLessons: LessonDefinition[] = [
   levineFourNoteScalesLesson,
   levineBlockChordsLesson,
   levineSalsaLatinJazzLesson,
+  levineCompingLesson,
+  levineLooseEndsLesson,
+  levinePracticePracticePracticeLesson,
 ];
 
 export type LearningTrackId = "play-lab" | "schoenberg" | "belkin" | "levine";
