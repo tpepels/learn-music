@@ -52,6 +52,9 @@ import { schoenbergIrregularConstructionLesson } from "./schoenbergIrregularCons
 import { schoenbergMinuetLesson } from "./schoenbergMinuet";
 import { schoenbergScherzoLesson } from "./schoenbergScherzo";
 import { schoenbergThemeVariationsLesson } from "./schoenbergThemeVariations";
+import { schoenbergLargeFormFunctionsLesson } from "./schoenbergLargeFormFunctions";
+import { schoenbergRondoLesson } from "./schoenbergRondo";
+import { schoenbergSonataAllegroLesson } from "./schoenbergSonataAllegro";
 import type { LessonDefinition } from "./types";
 
 export const playLabLessons: LessonDefinition[] = [
@@ -110,6 +113,9 @@ export const schoenbergLessons: LessonDefinition[] = [
   schoenbergMinuetLesson,
   schoenbergScherzoLesson,
   schoenbergThemeVariationsLesson,
+  schoenbergLargeFormFunctionsLesson,
+  schoenbergRondoLesson,
+  schoenbergSonataAllegroLesson,
 ];
 
 export type LearningTrackId = "play-lab" | "schoenberg";
