@@ -30,6 +30,7 @@ import {
   ensureProductionLayersPresent,
   ensureTextureLayersPresent,
   fallbackBassRoot,
+  formArrangementFromSettings,
   hasBassContent,
   hasWrittenHarmony,
   resolveContextDrumPattern,
@@ -1846,13 +1847,7 @@ class AudioEngine {
     return this.startArrangementPlayback(
       bpm,
       onStep,
-      () =>
-        Array.from(
-          { length: 16 },
-          (_, bar) => ({
-            ...this.formSettings.layers[Math.floor(bar / 4)],
-          }),
-        ),
+      () => formArrangementFromSettings(this.formSettings),
     );
   }
 
