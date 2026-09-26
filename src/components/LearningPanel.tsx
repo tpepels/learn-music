@@ -1,5 +1,6 @@
 import { ConceptVisual } from "./ConceptVisual";
 import { SchoenbergSourceMaterial } from "./SchoenbergSourceMaterial";
+import { LevineSourceMaterial } from "./LevineSourceMaterial";
 import { getProductionContext } from "../learning/productionContext";
 import {
   dawStages,
@@ -17,7 +18,13 @@ export function LearningPanel({
   exercise: ExerciseDefinition;
   lessonNumber: number;
 }) {
-  if (exercise.id.startsWith("schoenberg.")) {
+  const bookCourse =
+    exercise.id.startsWith("schoenberg.") || exercise.id.startsWith("levine.");
+  const SourceMaterial = exercise.id.startsWith("levine.")
+    ? LevineSourceMaterial
+    : SchoenbergSourceMaterial;
+
+  if (bookCourse) {
     return (
       <section
         className="exercise-guide schoenberg-guide"
@@ -64,7 +71,7 @@ export function LearningPanel({
             <span className="section-label">Examples</span>
             <div className="source-material-list schoenberg-guide-examples">
               {exercise.source.exampleIds.map((id) => (
-                <SchoenbergSourceMaterial id={id} key={id} />
+                <SourceMaterial id={id} key={id} />
               ))}
             </div>
           </section>
@@ -100,7 +107,7 @@ export function LearningPanel({
             {exercise.source.exampleIds?.length ? (
               <div className="source-material-list">
                 {exercise.source.exampleIds.map((id) => (
-                  <SchoenbergSourceMaterial id={id} key={id} />
+                  <SourceMaterial id={id} key={id} />
                 ))}
               </div>
             ) : null}
