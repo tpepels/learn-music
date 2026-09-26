@@ -47,9 +47,7 @@ export const levineAlteredLeftHandVoicingsLesson: LessonDefinition = {
         learn:
           "Turn familiar D-minor-seven shapes into D half-diminished by lowering only the fifth.",
         explanation:
-          "A half-diminished chord is a minor seventh with a flat fifth. The first two practical left-hand shapes can therefore be made directly from the Dm7 positions you already know: keep the third, seventh and ninth, but lower A to A-flat.
-
-There are more possible positions than these two. The choice depends on where the harmony came from, where it is going, the register, and the melody. The useful habit is to recognize the altered interval inside a familiar shape instead of treating every half-diminished voicing as unrelated material.",
+          "A half-diminished chord is a minor seventh with a flat fifth. The first two practical left-hand shapes can therefore be made directly from the Dm7 positions you already know: keep the third, seventh and ninth, but lower A to A-flat.\n\nThere are more possible positions than these two. The choice depends on where the harmony came from, where it is going, the register, and the melody. The useful habit is to recognize the altered interval inside a familiar shape instead of treating every half-diminished voicing as unrelated material.",
         instruction:
           "Study the half-diminished options. Clear the grid. In bar 1 write the familiar Dm7 A-position F3-A3-C4-E4. In bar 2 lower only the fifth to make F3-A-flat3-C4-E4. In bar 3 write the alternate D half-diminished position C4-E4-F4-A-flat4. Leave bar 4 empty and play all three.",
         recognition:
@@ -107,9 +105,7 @@ There are more possible positions than these two. The choice depends on where th
         learn:
           "Hear flat nine, flat thirteen and the combined altered sound as changes to the same rootless G7 framework.",
         explanation:
-          "Start from the rootless G7 shape F-A-B-E. Lowering A to A-flat gives the flat ninth. Lowering E to E-flat gives the flat thirteenth, which is enharmonically the same piano key as the sharp fifth. Applying both altered directions more strongly gives the altered-dominant colour.
-
-The altered symbol implies a wider altered collection rather than one fixed four-note stack. In these left-hand shapes, a practical route is to raise the ninth and lower the thirteenth while preserving the dominant function.",
+          "Start from the rootless G7 shape F-A-B-E. Lowering A to A-flat gives the flat ninth. Lowering E to E-flat gives the flat thirteenth, which is enharmonically the same piano key as the sharp fifth. Applying both altered directions more strongly gives the altered-dominant colour.\n\nThe altered symbol implies a wider altered collection rather than one fixed four-note stack. In these left-hand shapes, a practical route is to raise the ninth and lower the thirteenth while preserving the dominant function.",
         instruction:
           "Study the dominant alterations. Clear the grid. Write F3-A3-B3-E4 in bar 1 for the unaltered G7 shape. In bar 2 write F3-A-flat3-B3-E4 for G7 flat nine. In bar 3 write F3-A3-B3-E-flat4 for G7 flat thirteen. In bar 4 write F3-B-flat3-B3-E-flat4 for an altered G7 colour. Play the four bars and listen to each changed pitch against the stable F and B.",
         recognition:
@@ -168,9 +164,7 @@ The altered symbol implies a wider altered collection rather than one fixed four
         learn:
           "Turn a rootless G7 voicing into G7 sharp eleven, then hear the same upper structure as minor-major harmony over D.",
         explanation:
-          "The sharp eleven of G is C-sharp. In the compact F-A-B-E dominant shape, B is the closest note to C-sharp, so moving B upward produces F-A-C-sharp-E. This voicing omits the ordinary third of G7, which is acceptable here because altered dominant colour loosens the requirement that every defining tone be present in every voicing.
-
-The same four upper notes also form a rootless D minor-major-nine sound: F, A, C-sharp and E are the minor third, fifth, major seventh and ninth of D. Adding D underneath makes that second identity explicit.",
+          "The sharp eleven of G is C-sharp. In the compact F-A-B-E dominant shape, B is the closest note to C-sharp, so moving B upward produces F-A-C-sharp-E. This voicing omits the ordinary third of G7, which is acceptable here because altered dominant colour loosens the requirement that every defining tone be present in every voicing.\n\nThe same four upper notes also form a rootless D minor-major-nine sound: F, A, C-sharp and E are the minor third, fifth, major seventh and ninth of D. Adding D underneath makes that second identity explicit.",
         instruction:
           "Study the sharp-eleven and minor-major relationship. Clear the grid. In bar 1 write F3-A3-B3-E4. In bar 2 move B3 to C-sharp4, giving F3-A3-C-sharp4-E4. In bar 3 add D3 underneath the same four notes. Leave bar 4 empty and play the three sounds.",
         recognition:
@@ -228,9 +222,7 @@ The same four upper notes also form a rootless D minor-major-nine sound: F, A, C
         learn:
           "Raise one note of an F diminished-seventh stack and arrive at a familiar rootless G7 flat-nine voicing.",
         explanation:
-          "A diminished seventh chord is a chain of minor thirds. A practical left-hand transformation starts with F diminished seventh, F-A-flat-B-D. Raising the top D by a whole step to E gives F-A-flat-B-E.
-
-That resulting pitch set is exactly the rootless G7 flat-nine voicing already used in this chapter. The connection is useful because it turns what looks like a new dominant shape into a small alteration of a symmetrical diminished chord.",
+          "A diminished seventh chord is a chain of minor thirds. A practical left-hand transformation starts with F diminished seventh, F-A-flat-B-D. Raising the top D by a whole step to E gives F-A-flat-B-E.\n\nThat resulting pitch set is exactly the rootless G7 flat-nine voicing already used in this chapter. The connection is useful because it turns what looks like a new dominant shape into a small alteration of a symmetrical diminished chord.",
         instruction:
           "Study the diminished transformation. Clear the grid. In bar 1 write F3-A-flat3-B3-D4. In bar 2 raise only D4 to E4. In bar 3 write the alternate G7 flat-nine position B3-E4-F4-A-flat4. Leave bar 4 empty and play the sequence.",
         recognition:
@@ -288,9 +280,7 @@ That resulting pitch set is exactly the rootless G7 flat-nine voicing already us
         learn:
           "Recognize D-minor rootless shapes inside Gsus, then build the compact E-Phrygian left-hand structure.",
         explanation:
-          "A Gsus chord can contain the same upper notes as Dm7 because the suspended dominant combines the sound of II and V. That means familiar D-minor left-hand positions can be reused instead of memorizing another unrelated family.
-
-For an E-Phrygian left-hand voicing, read upward from the bass as root, flat ninth, fourth and fifth: E-F-A-B. When choosing among these and the other new shapes, favour smooth motion, avoid a register so low that it becomes muddy, and leave room for the right hand. If the melody already supplies an optional colour tone, the left hand does not have to duplicate it.",
+          "A Gsus chord can contain the same upper notes as Dm7 because the suspended dominant combines the sound of II and V. That means familiar D-minor left-hand positions can be reused instead of memorizing another unrelated family.\n\nFor an E-Phrygian left-hand voicing, read upward from the bass as root, flat ninth, fourth and fifth: E-F-A-B. When choosing among these and the other new shapes, favour smooth motion, avoid a register so low that it becomes muddy, and leave room for the right hand. If the melody already supplies an optional colour tone, the left hand does not have to duplicate it.",
         instruction:
           "Study the reuse and selection rules. Clear the grid. In bar 1 write the three-note Gsus shape F3-A3-C4. In bar 2 expand it to F3-A3-C4-E4, the same upper notes as the familiar Dm7 A-position. In bar 3 write the E-Phrygian shape E3-F3-A3-B3. Leave bar 4 empty. Play the loop and keep every voicing in the clear middle register.",
         recognition:
