@@ -77,6 +77,10 @@ async function startWorkspacePlayback(
     return audioEngine.playStudySequence(bpm, onStep);
   }
 
+  if (workspace === "jazz-piano") {
+    return audioEngine.playJazzPianoStudy(bpm, onStep);
+  }
+
   if (
     workspace === "harmony-song" ||
     workspace === "harmonic-function" ||
@@ -413,6 +417,13 @@ function Workspace({ exercise }: { exercise: ExerciseDefinition }) {
       return <TranspositionWorkspace />;
     case "composition-study":
       return <CompositionStudyWorkspace exerciseId={exercise.id} />;
+    case "jazz-piano":
+      return (
+        <HarmonySequencerWorkspace
+          mode="jazz"
+          showTargets={!exercise.id.startsWith("levine.intervals-triads")}
+        />
+      );
   }
 }
 
@@ -464,6 +475,9 @@ const lessonGlyphs: Record<string, string> = {
   "schoenberg.character-mood": "S",
   "schoenberg.melody-theme": "S",
   "schoenberg.self-criticism": "S",
+  "levine.intervals-triads": "J",
+  "levine.major-modes-ii-v-i": "J",
+  "levine.three-note-voicings": "J",
 };
 
 function App() {
