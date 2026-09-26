@@ -1147,6 +1147,349 @@ export const levineSourceMaterial: Record<string, LevineSourceMaterial> = {
     "Source-grounded synthesis of the sus and Phrygian left-hand shapes plus the selection criteria applied in the Chapter Eight tune discussion. The licensed tune excerpt is not reproduced.",
   ),
 
+
+  "l09.major-scale-harmony": map(
+    "l09.major-scale-harmony",
+    "Chapter Nine, Figures 9-2 through 9-10",
+    "Chord and scale as one pitch field",
+    [
+      {
+        label: "Modes generate chord qualities",
+        detail:
+          "The same major-scale collection produces different seventh-chord qualities when a different degree becomes the root: major seventh on Ionian, minor seventh on Dorian, and dominant seventh on Mixolydian.",
+      },
+      {
+        label: "The fourth needs care on major seventh",
+        detail:
+          "Holding the natural fourth over a major-seventh chord produces a conspicuous clash. The source treats the label 'avoid note' as contextual rather than absolute: passing or resolving use can still be musical.",
+      },
+      {
+        label: "Lydian raises the fourth",
+        detail:
+          "Lydian differs from the ordinary major mode by its raised fourth, giving the major-seventh harmony a sharp-eleven colour without the same semitone friction against the third.",
+      },
+      {
+        label: "Harmony decides the reading",
+        detail:
+          "A pitch collection becomes useful only in relation to the chord underneath it; scale names are shorthand for that chord-scale relationship, not a substitute for listening.",
+      },
+    ],
+    "Source-grounded synthesis of the major-scale harmony discussion, the contextual avoid-note explanation, and the Lydian comparison in Chapter Nine.",
+  ),
+  "l09.melodic-minor-harmony": map(
+    "l09.melodic-minor-harmony",
+    "Chapter Nine, Figures 9-19 through 9-25",
+    "Rotate melodic minor into new chord colours",
+    [
+      {
+        label: "Minor third with major seventh",
+        detail:
+          "Melodic minor begins with a minor third but keeps a major seventh, so its first mode supports minor-major harmony rather than an ordinary minor seventh chord.",
+      },
+      {
+        label: "Fourth mode is Lydian dominant",
+        detail:
+          "Starting the collection on its fourth degree creates a dominant mode with a raised fourth: major third, minor seventh and sharp eleven.",
+      },
+      {
+        label: "Seventh mode is altered",
+        detail:
+          "Starting the same collection on its seventh degree produces the altered mode, containing flat nine, sharp nine, sharp eleven and flat thirteen around the dominant guide tones.",
+      },
+      {
+        label: "One collection supports several roots",
+        detail:
+          "The melodic-minor modes share one set of notes while their roots and chord functions change; the source emphasizes the practical interchangeability of the upper voicing material when the root is supplied separately.",
+      },
+    ],
+    "Source-grounded map of the melodic-minor harmony chart and its minor-major, Lydian-dominant and altered applications.",
+  ),
+  "l09.half-diminished-modes": map(
+    "l09.half-diminished-modes",
+    "Chapter Nine, Figures 9-13, 9-22 and 9-23",
+    "Two half-diminished scale choices",
+    [
+      {
+        label: "Locrian supplies flat nine",
+        detail:
+          "Ordinary Locrian from major-scale harmony fits the half-diminished chord tones but places a flat second, heard as flat nine, above the root.",
+      },
+      {
+        label: "Locrian sharp-two supplies natural nine",
+        detail:
+          "The sixth mode of melodic minor raises that second while preserving the minor third, flat fifth and minor seventh of the half-diminished chord.",
+      },
+      {
+        label: "Both remain usable",
+        detail:
+          "The natural-nine version is presented as a common modern choice, while the older Locrian sound is explicitly retained as a valid option.",
+      },
+    ],
+    "Source-grounded comparison of Locrian and Locrian sharp-two for half-diminished harmony.",
+  ),
+  "l09.diminished-harmony": map(
+    "l09.diminished-harmony",
+    "Chapter Nine, Figures 9-27 through 9-39",
+    "Minor-third symmetry in diminished harmony",
+    [
+      {
+        label: "Alternate half and whole steps",
+        detail:
+          "The diminished scale alternates semitones and whole tones. Beginning with the opposite interval order produces the companion diminished form used for different harmonic contexts.",
+      },
+      {
+        label: "Minor-third transposition preserves the set",
+        detail:
+          "Because the pattern is symmetrical, moving the starting point by a minor third produces the same eight pitch classes in a new order.",
+      },
+      {
+        label: "Several dominant-flat-nine roots share one scale",
+        detail:
+          "Dominant-flat-nine chords whose roots are separated by minor thirds can be drawn from the same diminished collection, making their upper structures closely interchangeable.",
+      },
+      {
+        label: "Bass context still matters",
+        detail:
+          "The source cautions against calling every diminished sonority a substitute dominant. The bass and surrounding progression can give the same notes a different harmonic role.",
+      },
+    ],
+    "Source-grounded synthesis of the diminished-scale symmetry, dominant-flat-nine interchangeability, and bass-context cautions in Chapter Nine.",
+  ),
+  "l09.whole-tone-harmony": map(
+    "l09.whole-tone-harmony",
+    "Chapter Nine, Figures 9-40 through 9-42",
+    "Two whole-tone collections",
+    [
+      {
+        label: "Only whole steps",
+        detail:
+          "A whole-tone scale contains six notes separated entirely by whole steps, so every interval pattern repeats uniformly through the collection.",
+      },
+      {
+        label: "Only two distinct scales",
+        detail:
+          "Transposing by a whole step merely rotates the same six pitch classes. The chromatic octave therefore divides into only two different whole-tone collections.",
+      },
+      {
+        label: "Dominant raised-five colour",
+        detail:
+          "The scale naturally supports a dominant with raised fifth and raised fourth or sharp eleven, with no single scale tone treated as an avoid note inside that symmetrical sound.",
+      },
+      {
+        label: "Use the colour briefly",
+        detail:
+          "The source notes that whole-tone harmony can become monotonous because its notes have such equal status, so it is especially effective in shorter spans.",
+      },
+    ],
+    "Source-grounded map of the whole-tone symmetry, dominant raised-five application, and practice guidance at the end of Chapter Nine.",
+  ),
+
+  "l10.sequence-linking": map(
+    "l10.sequence-linking",
+    "Chapter Ten, Figures 10-1 through 10-5",
+    "Carry a melodic cell through changing scales",
+    [
+      {
+        label: "Repeat a recognizable cell",
+        detail:
+          "A sequence repeats a melodic idea at a different pitch level, giving the line continuity while the harmony underneath it changes.",
+      },
+      {
+        label: "Link one scale into the next",
+        detail:
+          "The practice goal is to move directly from the current note into the pitch collection required by the next chord rather than stopping between scales.",
+      },
+      {
+        label: "Use the current register",
+        detail:
+          "A new chord does not require the line to return to the root or to a memorized starting position; the next scale begins where the phrase has actually arrived.",
+      },
+      {
+        label: "Hearing and fingering develop together",
+        detail:
+          "The exercise simultaneously trains the scale for each harmony and the physical transition between those scales.",
+      },
+    ],
+    "Source-grounded summary of the sequence exercise and its chord-to-chord linking purpose in the opening of Chapter Ten.",
+  ),
+  "l10.continuous-entry": map(
+    "l10.continuous-entry",
+    "Chapter Ten, discussion around Figures 10-1 through 10-5",
+    "Enter a scale on any available note",
+    [
+      {
+        label: "Do not wait for the root",
+        detail:
+          "Fluent chord-scale playing requires immediate access to the scale from whatever note is nearest to the ongoing melodic line.",
+      },
+      {
+        label: "Preserve direction when useful",
+        detail:
+          "If the line is already rising or falling, the next scale can continue that motion rather than resetting its contour at the chord boundary.",
+      },
+      {
+        label: "Same collection can change meaning",
+        detail:
+          "When two adjacent chords draw from the same parent collection, continuity of the notes makes the shift in harmonic emphasis easier to hear.",
+      },
+    ],
+    "Source-grounded analysis of the chapter's instruction to know each scale from any starting point and connect scales without root resets.",
+  ),
+  "l10.pattern-variants": map(
+    "l10.pattern-variants",
+    "Chapter Ten, Figures 10-6 through 10-10",
+    "Transform the scale pattern",
+    [
+      {
+        label: "Begin with straight motion",
+        detail:
+          "Straight eighth-note scale motion establishes the pitch collection and a clear baseline pattern.",
+      },
+      {
+        label: "Break the scale into thirds",
+        detail:
+          "Alternating notes a third apart turns adjacent scale motion into a more intervallic melodic shape.",
+      },
+      {
+        label: "Reverse the third pattern",
+        detail:
+          "Changing the direction of successive thirds creates another contour while preserving the same underlying scale.",
+      },
+      {
+        label: "Use triplet cells",
+        detail:
+          "Triplets and triplet figures combining a step with a skip add rhythmic and intervallic variety to the same practice material.",
+      },
+    ],
+    "Source-grounded map of the pattern variations shown in the second half of Chapter Ten.",
+  ),
+  "l10.musical-use": map(
+    "l10.musical-use",
+    "Chapter Ten, discussion after Figures 10-6 through 10-10 and practice tips",
+    "Use patterns without sounding mechanical",
+    [
+      {
+        label: "Patterns can be musical",
+        detail:
+          "A repeated cell can organize a line and create expectation, making it useful material for improvisation rather than merely a technical drill.",
+      },
+      {
+        label: "Too much repetition becomes mechanical",
+        detail:
+          "Running a sequence continuously can make an otherwise melodic line feel automatic, so the pattern should be varied or abandoned when the phrase calls for it.",
+      },
+      {
+        label: "Practice through real progressions",
+        detail:
+          "The chapter directs the player to carry these transformations through many chords and progressions so the pattern adapts to harmony rather than remaining a fixed lick.",
+      },
+    ],
+    "Source-grounded synthesis of the chapter's warning against mechanical sequencing and its practice guidance.",
+  ),
+
+  "l11.starting-notes": map(
+    "l11.starting-notes",
+    "Chapter Eleven, Figures 11-1 through 11-3",
+    "Make every scale degree an entrance",
+    [
+      {
+        label: "Root-to-root drills are too narrow",
+        detail:
+          "Traditional long scale runs begin and end on the root, but improvisation requires access to every note as a possible beginning.",
+      },
+      {
+        label: "Start on successive scale degrees",
+        detail:
+          "The exercise moves the starting point through the scale so the hand experiences the same collection from different modal entrances.",
+      },
+      {
+        label: "Reverse direction",
+        detail:
+          "Changing from ascending to descending motion prevents the hand from relying on one fixed motor pattern.",
+      },
+      {
+        label: "De-program the fingers",
+        detail:
+          "The stated goal is to undo root-only conditioning so the scale becomes available under many melodic circumstances.",
+      },
+    ],
+    "Source-grounded map of the flexible-start major-scale routine at the beginning of Chapter Eleven.",
+  ),
+  "l11.key-rotation": map(
+    "l11.key-rotation",
+    "Chapter Eleven, practice discussion following Figures 11-1 through 11-3",
+    "Rotate the routine through keys",
+    [
+      {
+        label: "Change key from day to day",
+        detail:
+          "The source suggests practicing the flexible-start exercise in a different major key on successive days rather than exhausting every key in one session.",
+      },
+      {
+        label: "Preserve the exercise, change the pitches",
+        detail:
+          "The same starting-note and direction-changing routine is transferred intact while the key signature changes.",
+      },
+      {
+        label: "Aim for equal access",
+        detail:
+          "The long-term purpose is to remove the special status of the most familiar keys and make the whole keyboard feel usable.",
+      },
+    ],
+    "Source-grounded summary of the daily key-rotation plan in Chapter Eleven.",
+  ),
+  "l11.symmetric-practice": map(
+    "l11.symmetric-practice",
+    "Chapter Eleven, Figures 11-4 through 11-7",
+    "Practice symmetrical scales on their own terms",
+    [
+      {
+        label: "Diminished has eight notes",
+        detail:
+          "The diminished scale's eight-note structure and alternating interval pattern require a practice shape different from the seven-note major and melodic-minor routines.",
+      },
+      {
+        label: "Whole tone has six notes",
+        detail:
+          "The six-note whole-tone collection likewise receives its own directional pattern rather than being forced into a major-scale template.",
+      },
+      {
+        label: "The pattern should expose the symmetry",
+        detail:
+          "Practicing these scales through their characteristic interval structures helps the ear and hand recognize the symmetry directly.",
+      },
+    ],
+    "Source-grounded map of the diminished- and whole-tone-specific scale exercises in Chapter Eleven.",
+  ),
+  "l11.fingering": map(
+    "l11.fingering",
+    "Chapter Eleven, Figures 11-8 through 11-10 and fingering discussion",
+    "Use conventional fingering intelligently",
+    [
+      {
+        label: "Traditional fingering is a strong default",
+        detail:
+          "The source recommends conventional scale fingerings because they have proved practical for fluent keyboard motion across the main scale families.",
+      },
+      {
+        label: "Charts mark reliable hand landmarks",
+        detail:
+          "Separate fingering tables are supplied for major, melodic-minor, diminished and whole-tone scales, including useful fourth-finger anchor notes in many keys.",
+      },
+      {
+        label: "The phrase can override the default",
+        detail:
+          "If the musical line stops before the normal thumb-under point or has a different range, common sense may make a different fingering more efficient.",
+      },
+      {
+        label: "Fingering serves movement",
+        detail:
+          "The practical aim is comfortable, continuous playing, not obedience to a fingering pattern after it stops helping the phrase.",
+      },
+    ],
+    "Source-grounded synthesis of the fingering charts and the explicit discussion of when conventional fingering should be adapted.",
+  ),
+
 };
 
 export function getLevineSourceMaterial(
