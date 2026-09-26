@@ -2038,6 +2038,256 @@ export const levineSourceMaterial: Record<string, LevineSourceMaterial> = {
     "Source-grounded map of the three-note 'bite' voicing rules summarized in Figure 16-31.",
   ),
 
+
+  "l17.stride-pulse": map(
+    "l17.stride-pulse",
+    "Chapter Seventeen - Figures 17-1 through 17-3",
+    "Bass on strong beats, chords between",
+    [
+      {
+        label: "Bass and chord have separate jobs",
+        detail:
+          "Stride places a low root or fifth on beats one and three and answers it with a higher triad or seventh-chord voicing on beats two and four.",
+      },
+      {
+        label: "The leap is part of the texture",
+        detail:
+          "The left hand covers a wide register because it alternates between bass function and chord function instead of holding one compact voicing.",
+      },
+      {
+        label: "Later stride uses richer chord shapes",
+        detail:
+          "The same rhythmic design can use more modern left-hand voicings on the chord beats without changing the low-high-low-high pulse.",
+      },
+      {
+        label: "Pedal is not the engine",
+        detail:
+          "The chapter recommends practicing the motion without depending on sustain, so the hand learns to connect the rhythm cleanly on its own.",
+      },
+    ],
+    "Source-grounded map of the basic stride pattern and its modernization at the opening of Chapter Seventeen.",
+  ),
+  "l17.walking-tenths": map(
+    "l17.walking-tenths",
+    "Chapter Seventeen - Figures 17-4 through 17-6",
+    "Walking tenths as two moving outer voices",
+    [
+      {
+        label: "A tenth joins bass and upper voice",
+        detail:
+          "Walking tenths pair a moving bass with an upper note roughly a tenth above it, creating a compact contrapuntal alternative to bass-chord stride.",
+      },
+      {
+        label: "The outer-note pattern is the memory aid",
+        detail:
+          "The text recommends first hearing and memorizing the top and bottom contours rather than reducing the passage to abstract chord labels.",
+      },
+      {
+        label: "Chromatic motion can be easier to remember",
+        detail:
+          "A line whose upper notes move chromatically can form a strong visual and aural pattern even when the chord-by-chord analysis is more complicated.",
+      },
+      {
+        label: "Do not force an impossible span",
+        detail:
+          "When the hand cannot comfortably reach a tenth, the notes may be arpeggiated or released; musical continuity matters more than holding every interval physically.",
+      },
+    ],
+    "Source-grounded synthesis of the walking-tenths discussion and memorization advice in Chapter Seventeen.",
+  ),
+  "l17.within-bar-harmony": map(
+    "l17.within-bar-harmony",
+    "Chapter Seventeen - Figure 17-7",
+    "Add harmonic motion without changing the stride frame",
+    [
+      {
+        label: "A tonic bar can contain more than tonic",
+        detail:
+          "A bar with one major-seventh chord can be enriched by introducing another harmony on a later beat while the stride rhythm continues.",
+      },
+      {
+        label: "II can enter on beat three",
+        detail:
+          "One option inserts the minor-seventh chord on scale degree two on the third beat before returning to the larger progression.",
+      },
+      {
+        label: "V can enter on beat three",
+        detail:
+          "A second option uses the dominant on the third beat as the added colour.",
+      },
+      {
+        label: "II-V can fill beats three and four",
+        detail:
+          "The fullest option places II on beat three and V on beat four, creating a short turnaround inside a bar that still retains the stride pulse.",
+      },
+    ],
+    "Source-grounded map of the three harmonic-enrichment options shown in Figure 17-7.",
+  ),
+  "l17.bud-powell-shells": map(
+    "l17.bud-powell-shells",
+    "Chapter Seventeen - Bud Powell voicings discussion and Figures 17-16 through 17-24",
+    "Sparse low left-hand harmony for bebop",
+    [
+      {
+        label: "The voicings are skeletal",
+        detail:
+          "Bud Powell-style left-hand chords often use only two notes, sometimes three, rather than the denser four-note rootless voicings developed later.",
+      },
+      {
+        label: "Roots and defining intervals dominate",
+        detail:
+          "The common ingredients are roots, thirds or tenths, sixths and sevenths - enough information to imply the chord without filling the middle register.",
+      },
+      {
+        label: "Lower placement creates right-hand space",
+        detail:
+          "Because these voicings sit lower on the keyboard, the right hand can use a much wider melodic range around and below middle C.",
+      },
+      {
+        label: "Different shell choices can support the same line",
+        detail:
+          "The chapter compares several Bud Powell left-hand variants under the same bebop melody, showing that there is no single mandatory shell for each chord.",
+      },
+    ],
+    "Source-grounded map of the Bud Powell voicing concept and the comparative examples in the second half of Chapter Seventeen.",
+  ),
+
+  "l18.minor-sixth": map(
+    "l18.minor-sixth",
+    "Chapter Eighteen - Figures 18-1 through 18-9",
+    "Root, third, fifth and sixth from melodic minor",
+    [
+      {
+        label: "The four notes outline minor sixth",
+        detail:
+          "A minor-sixth four-note scale selects root, minor third, fifth and natural sixth from a melodic-minor key.",
+      },
+      {
+        label: "The pattern can move quickly",
+        detail:
+          "Because only four notes are involved, the collection can be cascaded rapidly through registers or carried through chord changes without sounding like a full seven-note scale run.",
+      },
+      {
+        label: "The same notes can become altered dominant colour",
+        detail:
+          "A minor-sixth scale built on a dominant root can also supply root, sharp ninth, fifth and thirteenth over a dominant sharp-nine chord.",
+      },
+      {
+        label: "Related blues materials overlap",
+        detail:
+          "The chapter compares minor-sixth, minor-pentatonic and blues-scale lines over dominant sharp-nine harmony because their pitch content and blues colour overlap strongly.",
+      },
+    ],
+    "Source-grounded synthesis of the minor-sixth four-note scale and its early applications in Chapter Eighteen.",
+  ),
+  "l18.major-key-application": map(
+    "l18.major-key-application",
+    "Chapter Eighteen - Figures 18-10 through 18-13",
+    "Minor-sixth cells inside major and melodic-minor harmony",
+    [
+      {
+        label: "Build on scale degree two",
+        detail:
+          "In major-scale harmony, the minor-sixth collection built on the second degree can be played over several chords derived from the parent major key.",
+      },
+      {
+        label: "The tonic exposes the natural fourth",
+        detail:
+          "Over a major-seventh tonic, the degree-two minor-sixth collection contains the parent scale's fourth, which can become the most exposed note in the line.",
+      },
+      {
+        label: "Build on scale degree six for the tonic",
+        detail:
+          "A minor-sixth collection from the sixth degree replaces that natural fourth with the raised fourth, changing the tonic toward Lydian colour.",
+      },
+      {
+        label: "One melodic-minor cell can cross many derived chords",
+        detail:
+          "When the same four-note collection comes from one melodic-minor parent, it may be retained across multiple chord qualities derived from that parent scale.",
+      },
+    ],
+    "Source-grounded map of the major-key and melodic-minor applications surrounding Figures 18-10 through 18-13.",
+  ),
+  "l18.diminished-subsets": map(
+    "l18.diminished-subsets",
+    "Chapter Eighteen - Figure 18-14",
+    "Invent four notes inside diminished symmetry",
+    [
+      {
+        label: "There is no single diminished four-note formula",
+        detail:
+          "The eight-note diminished scale contains many possible four-note subsets, and the chapter explicitly encourages inventing combinations that sound good.",
+      },
+      {
+        label: "Symmetry multiplies the uses",
+        detail:
+          "A chosen subset belongs to a scale that repeats under minor-third transposition, so related dominant-flat-nine chords can share the same melodic material.",
+      },
+      {
+        label: "Ear quality still decides",
+        detail:
+          "The theoretical relationship is only a starting point; the subset should be retained because its melodic sound works in context.",
+      },
+    ],
+    "Source-grounded map of the diminished four-note-scale invitation and its symmetrical dominant applications.",
+  ),
+  "l18.melodic-minor-cells": map(
+    "l18.melodic-minor-cells",
+    "Chapter Eighteen - Figures 18-23 and 18-24",
+    "Two cells characteristic of one melodic-minor key",
+    [
+      {
+        label: "First cell uses 1-3-5-7",
+        detail:
+          "The first four-note collection selects root, third, fifth and seventh from melodic minor.",
+      },
+      {
+        label: "Second cell uses 3-5-7-9",
+        detail:
+          "The second begins on the third and continues with fifth, seventh and ninth, sharing three notes with the first cell.",
+      },
+      {
+        label: "Their interval content is distinctive",
+        detail:
+          "The text notes that these exact four-note combinations occur only in the key of that melodic-minor parent rather than in major, diminished or whole-tone scales.",
+      },
+      {
+        label: "Exceptions can improve the line",
+        detail:
+          "The application example occasionally departs from the strict four-note sets because an absolutely consistent pattern can sound too perfect and less musical.",
+      },
+    ],
+    "Source-grounded synthesis of the two characteristic melodic-minor cells and their flexible application in Chapter Eighteen.",
+  ),
+  "l18.invent-and-rotate": map(
+    "l18.invent-and-rotate",
+    "Chapter Eighteen - Figure 18-25 and concluding discussion",
+    "Generate possibilities, then let the ear decide",
+    [
+      {
+        label: "Four-note possibilities are enormous",
+        detail:
+          "The chapter closes by noting that only a small fraction of theoretically possible four-note scales sound useful in actual music.",
+      },
+      {
+        label: "Select four notes from a parent scale",
+        detail:
+          "One practical search method is to choose four notes from a familiar scale such as C major and treat them as a new melodic cell.",
+      },
+      {
+        label: "Practice every rotation",
+        detail:
+          "Each chosen set has four modal starting points, and practicing all of them reveals different contours and tonal emphases inside the same pitch collection.",
+      },
+      {
+        label: "The final test is musical",
+        detail:
+          "After trying the collection over chords, the only decisive question is whether it sounds good enough to keep using.",
+      },
+    ],
+    "Source-grounded map of the experimental four-note-scale method at the end of Chapter Eighteen.",
+  ),
+
 };
 
 export function getLevineSourceMaterial(
