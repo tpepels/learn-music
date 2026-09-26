@@ -71,8 +71,11 @@ describe("lesson progression", () => {
       "levine.tritone-substitution",
       "levine.left-hand-voicings",
       "levine.altered-left-hand-voicings",
+      "levine.scale-theory",
+      "levine.putting-scales-to-work",
+      "levine.practicing-scales",
     ]);
-    expect(implementedLessons).toHaveLength(69);
+    expect(implementedLessons).toHaveLength(72);
     expect(learningTracks.map((track) => track.id)).toEqual([
       "play-lab",
       "schoenberg",
@@ -104,7 +107,16 @@ describe("lesson progression", () => {
     expect(getNextImplementedLesson("levine.left-hand-voicings")?.id).toBe(
       "levine.altered-left-hand-voicings",
     );
-    expect(getNextImplementedLesson("levine.altered-left-hand-voicings")).toBeUndefined();
+    expect(getNextImplementedLesson("levine.altered-left-hand-voicings")?.id).toBe(
+      "levine.scale-theory",
+    );
+    expect(getNextImplementedLesson("levine.scale-theory")?.id).toBe(
+      "levine.putting-scales-to-work",
+    );
+    expect(getNextImplementedLesson("levine.putting-scales-to-work")?.id).toBe(
+      "levine.practicing-scales",
+    );
+    expect(getNextImplementedLesson("levine.practicing-scales")).toBeUndefined();
   });
 
   it("advances from one exercise to the next inside a lesson", () => {
