@@ -316,6 +316,15 @@ const transferProfiles: Record<Workspace, DawTransferProfile> = {
     vocabulary: ["transpose", "semitone", "key", "scale degree", "MIDI transform"],
     stage: "notes",
   },
+  "jazz-piano": {
+    concept: "A jazz-piano voicing is still polyphonic MIDI: several pitches sound together, and their register and spacing determine the keyboard shape.",
+    changes: "You are choosing chord tones, extensions, alterations, bass notes, and voice-leading while keeping the result playable and audible as one piano part.",
+    dawLocation: "In a DAW this is an ordinary piano-instrument MIDI track edited in the piano roll, with simultaneous notes forming each voicing.",
+    whyItMatters: "Reading jazz harmony as editable note data makes chord symbols, voicings, and substitutions transferable to any piano-roll environment.",
+    pitfall: "A chord symbol does not specify one mandatory voicing. The actual notes, bass placement, register, and surrounding melody determine the sound.",
+    vocabulary: ["piano roll", "voicing", "guide tones", "extension", "voice leading"],
+    stage: "notes",
+  },
   "composition-study": {
     concept: "The same musical passage can be represented as conventional notation, piano-roll events, scale degrees, and analytical annotations.",
     changes: "You are changing and analysing note relationships while the app keeps multiple representations synchronized.",
@@ -358,6 +367,7 @@ const playLabRepresentations: Record<Workspace, string> = {
   "minor-harmony": "PLAY/LAB uses the existing harmony piano roll for minor progressions, including the altered dominant, instead of introducing another notation system.",
   "seventh-harmony": "PLAY/LAB extends the familiar chord stacks by one editable note, so seventh chords remain ordinary MIDI voicings.",
   "borrowed-harmony": "PLAY/LAB leaves chromatic notes editable in the same harmony grid so out-of-key colour is treated as deliberate note data, not an exception mode.",
+  "jazz-piano": "PLAY/LAB uses a piano-only polyphonic grid where chord tones, extensions, alterations, bass notes, and voice leading are entered and heard directly.",
   "instrument-palette": "PLAY/LAB keeps the MIDI material fixed while voice selectors change the instrument that performs it, making content and timbre separate layers.",
   transposition: "PLAY/LAB shows chord symbols beside Roman numerals, then lets you change the tonic alone or transpose the written MIDI material with it.",
   "composition-study": "PLAY/LAB keeps Staff, Piano roll, Degrees and motive annotations tied to one study phrase so analytical notation and editable note data stay connected.",

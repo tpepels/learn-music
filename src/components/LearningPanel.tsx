@@ -1,5 +1,6 @@
 import { ConceptVisual } from "./ConceptVisual";
 import { BelkinSourceMaterial } from "./BelkinSourceMaterial";
+import { LevineSourceMaterial } from "./LevineSourceMaterial";
 import { SchoenbergSourceMaterial } from "./SchoenbergSourceMaterial";
 import { getProductionContext } from "../learning/productionContext";
 import {
@@ -19,12 +20,16 @@ export function LearningPanel({
   lessonNumber: number;
 }) {
   const sourceTrack =
-    exercise.id.startsWith("schoenberg.") || exercise.id.startsWith("belkin.");
+    exercise.id.startsWith("schoenberg.") ||
+    exercise.id.startsWith("belkin.") ||
+    exercise.id.startsWith("levine.");
 
   if (sourceTrack) {
     const SourceMaterial = exercise.id.startsWith("belkin.")
       ? BelkinSourceMaterial
-      : SchoenbergSourceMaterial;
+      : exercise.id.startsWith("levine.")
+        ? LevineSourceMaterial
+        : SchoenbergSourceMaterial;
 
     return (
       <section

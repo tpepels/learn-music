@@ -25,6 +25,7 @@ describe("transport routing", () => {
     expect(canWorkspaceUseTransport("melody")).toBe(true);
     expect(canWorkspaceUseTransport("chords")).toBe(true);
     expect(canWorkspaceUseTransport("harmony-song")).toBe(true);
+    expect(canWorkspaceUseTransport("jazz-piano")).toBe(true);
     expect(canWorkspaceUseTransport("mixer")).toBe(true);
   });
 
@@ -37,6 +38,7 @@ describe("transport routing", () => {
     expect(resolveLearningFocusTrack("learn", "groove-feel")).toBe("drums");
     expect(resolveLearningFocusTrack("learn", "melody-harmony")).toBe("melody");
     expect(resolveLearningFocusTrack("learn", "harmonic-function")).toBe("chords");
+    expect(resolveLearningFocusTrack("learn", "jazz-piano")).toBe("chords");
     expect(resolveLearningFocusTrack("learn", "bass")).toBe("bass");
   });
 

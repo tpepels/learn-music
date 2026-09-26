@@ -4,6 +4,7 @@ import {
   getNextImplementedLesson,
   implementedLessons,
   learningTracks,
+  levineLessons,
   playLabLessons,
   schoenbergLessons,
 } from "./course";
@@ -61,11 +62,20 @@ describe("lesson progression", () => {
       "belkin.connecting",
       "belkin.progressing",
     ]);
-    expect(implementedLessons).toHaveLength(61);
+    expect(levineLessons.map((lesson) => lesson.id)).toEqual([
+      "levine.intervals-triads",
+      "levine.major-modes-ii-v-i",
+      "levine.three-note-voicings",
+      "levine.sus-phrygian",
+      "levine.adding-notes",
+      "levine.tritone-substitution",
+    ]);
+    expect(implementedLessons).toHaveLength(67);
     expect(learningTracks.map((track) => track.id)).toEqual([
       "play-lab",
       "schoenberg",
       "belkin",
+      "levine",
     ]);
     expect(getNextImplementedLesson("belkin.binary-form")?.id).toBe(
       "belkin.contrasting",
@@ -77,6 +87,16 @@ describe("lesson progression", () => {
       "belkin.progressing",
     );
     expect(getNextImplementedLesson("belkin.progressing")).toBeUndefined();
+    expect(getNextImplementedLesson("levine.three-note-voicings")?.id).toBe(
+      "levine.sus-phrygian",
+    );
+    expect(getNextImplementedLesson("levine.sus-phrygian")?.id).toBe(
+      "levine.adding-notes",
+    );
+    expect(getNextImplementedLesson("levine.adding-notes")?.id).toBe(
+      "levine.tritone-substitution",
+    );
+    expect(getNextImplementedLesson("levine.tritone-substitution")).toBeUndefined();
   });
 
   it("advances from one exercise to the next inside a lesson", () => {

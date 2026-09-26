@@ -61,6 +61,12 @@ import { belkinBinaryFormLesson } from "./belkinBinaryForm";
 import { belkinContrastingLesson } from "./belkinContrasting";
 import { belkinConnectingLesson } from "./belkinConnecting";
 import { belkinProgressingLesson } from "./belkinProgressing";
+import { levineIntervalsTriadsLesson } from "./levineIntervalsTriads";
+import { levineMajorModesIiViLesson } from "./levineMajorModesIiVi";
+import { levineThreeNoteVoicingsLesson } from "./levineThreeNoteVoicings";
+import { levineSusPhrygianLesson } from "./levineSusPhrygian";
+import { levineAddingNotesLesson } from "./levineAddingNotes";
+import { levineTritoneSubstitutionLesson } from "./levineTritoneSubstitution";
 import type { LessonDefinition } from "./types";
 
 export const playLabLessons: LessonDefinition[] = [
@@ -133,7 +139,16 @@ export const belkinLessons: LessonDefinition[] = [
   belkinProgressingLesson,
 ];
 
-export type LearningTrackId = "play-lab" | "schoenberg" | "belkin";
+export const levineLessons: LessonDefinition[] = [
+  levineIntervalsTriadsLesson,
+  levineMajorModesIiViLesson,
+  levineThreeNoteVoicingsLesson,
+  levineSusPhrygianLesson,
+  levineAddingNotesLesson,
+  levineTritoneSubstitutionLesson,
+];
+
+export type LearningTrackId = "play-lab" | "schoenberg" | "belkin" | "levine";
 
 export type LearningTrackDefinition = {
   id: LearningTrackId;
@@ -165,12 +180,20 @@ export const learningTracks: LearningTrackDefinition[] = [
     description: "A companion craft track based on Musical Composition: Craft and Art.",
     lessons: belkinLessons,
   },
+  {
+    id: "levine",
+    label: "LEVINE",
+    title: "Jazz Piano",
+    description: "A source-grounded jazz-piano course based on The Jazz Piano Book.",
+    lessons: levineLessons,
+  },
 ];
 
 export const implementedLessons: LessonDefinition[] = [
   ...playLabLessons,
   ...schoenbergLessons,
   ...belkinLessons,
+  ...levineLessons,
 ];
 
 export const courseOutline = playLabLessons.map((lesson) => ({

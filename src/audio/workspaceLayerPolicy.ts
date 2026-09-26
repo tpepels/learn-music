@@ -19,6 +19,7 @@ export const workspacePlaybackLayers: Partial<
   "minor-harmony": ["drums", "chords", "melody"],
   "seventh-harmony": ["drums", "chords"],
   "borrowed-harmony": ["drums", "chords"],
+  "jazz-piano": ["chords"],
   bass: ["drums", "chords", "bass"],
   "phrase-form": fullMix,
   arrangement: fullMix,

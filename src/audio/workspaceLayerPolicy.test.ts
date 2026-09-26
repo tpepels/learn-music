@@ -36,6 +36,10 @@ describe("Music & Production layer audibility contract", () => {
     }
   });
 
+  it("keeps Levine jazz-piano playback piano-only", () => {
+    expect(playbackLayersForWorkspace("jazz-piano")).toEqual(["chords"]);
+  });
+
   it("uses all four independent mixer layers in processor/audition workspaces", () => {
     for (const workspace of productionAuditionWorkspaces) {
       expect(playbackLayersForWorkspace(workspace)).toEqual([

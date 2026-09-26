@@ -87,6 +87,7 @@ export const exerciseContentSchema = z.object({
     "instrument-palette",
     "transposition",
     "composition-study",
+    "jazz-piano",
   ]),
   checksLabel: z.string(),
   successLabel: z.string(),
