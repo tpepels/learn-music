@@ -6,8 +6,6 @@ export function SidechainWorkspace() {
   const setSettings = useStudioStore((state) => state.setSidechainSettings);
   const kick = useStudioStore((state) => state.patterns.A.kick);
   const toggleStep = useStudioStore((state) => state.toggleStep);
-  const currentStep = useStudioStore((state) => state.currentStep);
-  const isPlaying = useStudioStore((state) => state.isPlaying);
   const kickCount = kick.filter(Boolean).length;
 
   return (
@@ -51,7 +49,6 @@ export function SidechainWorkspace() {
               className={[
                 "step",
                 active ? "is-active" : "",
-                isPlaying && currentStep === step ? "is-playhead" : "",
                 step % 4 === 0 ? "is-beat-start" : "",
               ].filter(Boolean).join(" ")}
               key={step}
