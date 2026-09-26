@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { audioEngine } from "../audio/engine";
+import { resolveContextProgression } from "../audio/playbackFallbacks";
 import {
   chordSymbol,
   harmonicChordPitchClasses,
@@ -21,8 +22,9 @@ import {
 export function MelodyHarmonyWorkspace() {
   const melody = useStudioStore((state) => state.melody);
   const durations = useStudioStore((state) => state.melodyDurations);
-  const chords = useStudioStore((state) => state.harmonicProgression);
+  const projectChords = useStudioStore((state) => state.harmonicProgression);
   const tonalContext = useStudioStore((state) => state.tonalContext);
+  const chords = resolveContextProgression(projectChords, tonalContext);
   const currentStep = useStudioStore((state) => state.currentStep);
   const isPlaying = useStudioStore((state) => state.isPlaying);
   const setMelodyStep = useStudioStore((state) => state.setMelodyStep);
