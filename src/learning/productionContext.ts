@@ -1778,6 +1778,94 @@ export const productionContext: Record<string, ProductionContext> = {
     realWorld: "Sketch several variation textures as neighbouring blocks, then reorder or revise their density until the complete sequence has a perceptible trajectory.",
   },
 
+
+  "schoenberg.large-form-functions.a": {
+    why: "A transition works when harmonic direction and reduction of stable thematic behaviour make the next section feel prepared instead of merely adjacent.",
+    when: "Use this between established formal regions when the music needs to leave one area and create expectation for another.",
+    tools: ["Harmony sequencer", "Roman-numeral view", "Loop playback"],
+    visual: "harmonic-function",
+    realWorld: "In a DAW, compare a tonic-ending progression with one that stops on dominant preparation and notice which one makes the next section feel necessary.",
+  },
+  "schoenberg.large-form-functions.b": {
+    why: "Motivic liquidation clears space for a return by reducing characteristic activity without cutting the preceding section off abruptly.",
+    when: "Use this near the end of a developmental or contrasting passage when too much local activity is competing with the coming return.",
+    tools: ["Motif editor", "Piano roll", "Loop playback"],
+    visual: "motif",
+    realWorld: "Thin the last few MIDI events of a phrase into a small residue, then loop directly into the returning section and judge the boundary by ear.",
+  },
+  "schoenberg.large-form-functions.c": {
+    why: "A subordinate group needs enough contrast to establish a second stable region while retaining common material that keeps the movement coherent.",
+    when: "Use this after a transition when the new section should sound settled and distinct rather than like continued connective motion.",
+    tools: ["Section markers", "Layer controls", "Loop playback"],
+    visual: "phrase-form",
+    realWorld: "Build two contrasting section blocks with one common layer, then compare whether the second region sounds stable without becoming a different song.",
+  },
+  "schoenberg.large-form-functions.d": {
+    why: "A coda strengthens an ending by completing and reducing material whose main structural work is already finished.",
+    when: "Use this after the return or final cadence when the movement needs a little more confirmation but not another large formal argument.",
+    tools: ["Section duplicate", "Layer controls", "Loop playback"],
+    visual: "phrase-form",
+    realWorld: "Duplicate the return into a final block, remove some layers, and compare whether the reduced version sounds more like completion than another section.",
+  },
+
+  "schoenberg.rondo.a": {
+    why: "Rondo form depends on a principal section being memorable enough to orient the listener each time it returns between different contrasts.",
+    when: "Use this when a movement should alternate familiarity and departure rather than progress through one continuous developmental arc.",
+    tools: ["Section markers", "Layer controls", "Loop playback"],
+    visual: "phrase-form",
+    realWorld: "Arrange A-B-A-C blocks, hide the section names, and test whether the third block is still immediately heard as the principal return.",
+  },
+  "schoenberg.rondo.b": {
+    why: "A varied refrain avoids mechanical repetition while keeping the formal landmark clear enough to be recognized at once.",
+    when: "Use this on later returns of a rondo theme when an exact copy feels inert but a major rewrite would weaken orientation.",
+    tools: ["Section duplicate", "Layer controls", "A/B playback"],
+    visual: "phrase-form",
+    realWorld: "Duplicate the opening block into the return position, change one supporting layer, and compare the exact and varied versions by ear.",
+  },
+  "schoenberg.rondo.c": {
+    why: "Returning subordinate material often needs adaptation because its later tonal role is different even though its thematic identity should remain audible.",
+    when: "Use this when a secondary idea comes back in a new harmonic setting and cannot simply be copied note for note.",
+    tools: ["Motif editor", "Piano roll", "A/B playback"],
+    visual: "motif",
+    realWorld: "Keep the characteristic notes of a short MIDI cell while adjusting other pitches, then compare whether the return still belongs to the same thematic family.",
+  },
+  "schoenberg.rondo.d": {
+    why: "Sonata-rondo gains larger-scale tension when the central contrast develops familiar material instead of behaving like another independent episode.",
+    when: "Use this when a recurring rondo needs a more consequential middle before its final returns.",
+    tools: ["Section markers", "Layer controls", "Loop playback"],
+    visual: "phrase-form",
+    realWorld: "Make the C block share one recognizable layer with A while changing enough of the texture that it feels developmental rather than simply repetitive.",
+  },
+
+  "schoenberg.sonata-allegro.a": {
+    why: "An exposition becomes intelligible when stable principal and subordinate regions are separated by directed transition and followed by clear closing confirmation.",
+    when: "Use this while planning the opening large section of a movement before beginning developmental work.",
+    tools: ["Arrangement view", "Section markers", "Loop playback"],
+    visual: "arrangement",
+    realWorld: "Map principal, transition, subordinate and closing functions onto neighbouring timeline blocks and listen for the shift from stability to motion to new stability.",
+  },
+  "schoenberg.sonata-allegro.b": {
+    why: "Elaboration creates developmental energy by transforming material already heard and placing it in more unstable changing contexts.",
+    when: "Use this in the central section after the exposition has established enough thematic material to work with.",
+    tools: ["Motif editor", "Piano roll", "Loop playback"],
+    visual: "motif",
+    realWorld: "Duplicate a short MIDI source cell into several later blocks, transform each one differently, and reduce the final block as the return approaches.",
+  },
+  "schoenberg.sonata-allegro.c": {
+    why: "Retransition turns developmental instability into focused expectation so the recapitulation arrives as a consequence rather than a reset.",
+    when: "Use this near the end of the elaboration when the harmony and motives need to converge toward the home region.",
+    tools: ["Harmony sequencer", "Roman-numeral view", "Loop playback"],
+    visual: "harmonic-function",
+    realWorld: "Stop a progression on dominant function and loop into a tonic return, comparing it with a fully resolved version to hear how preparation changes the formal boundary.",
+  },
+  "schoenberg.sonata-allegro.d": {
+    why: "Hearing exposition, elaboration, preparation and recapitulation as different functions reveals the large stability-instability-return curve behind local details.",
+    when: "Use this after the individual sections work separately and the complete movement still needs a convincing large-scale argument.",
+    tools: ["Section markers", "Layer controls", "Loop playback"],
+    visual: "phrase-form",
+    realWorld: "Play the complete macro timeline without stopping and revise only where the developmental contrast, thinning preparation or final return fails to read by ear.",
+  },
+
 };
 
 export function getProductionContext(exerciseId: string): ProductionContext {
