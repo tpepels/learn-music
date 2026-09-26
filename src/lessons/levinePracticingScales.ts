@@ -51,7 +51,7 @@ export const levinePracticingScalesLesson: LessonDefinition = {
         learn:
           "Practice the C-major collection first from C, then from D, while reversing direction so the hand cannot rely on one memorized run.",
         explanation:
-          "Root-to-root scale practice trains only one of the possible entrances into a scale. The chapter replaces that habit by starting on each note of the collection and reversing direction as the exercise moves.\n\nThe point is to de-program the idea that a scale begins on its root. In improvisation you need the whole pitch field under your hands, including entries that begin on the third, fifth, seventh or any other scale degree.",
+          "Root-to-root scale practice trains only one of the possible entrances into a scale. Replace that habit by starting on each note of the collection and reversing direction as the exercise moves.\n\nThe point is to de-program the idea that a scale begins on its root. In improvisation you need the whole pitch field under your hands, including entries that begin on the third, fifth, seventh or any other scale degree.",
         instruction:
           "Study the starting-note routine. Clear the grid. Write C4-D4-E4-F4-G4-A4-B4-C5 on steps 1-8. Then start from D5 and descend D5-C5-B4-A4-G4-F4-E4-D4 on steps 9-16. Play both directions without a pause.",
         recognition:
@@ -108,7 +108,7 @@ export const levinePracticingScalesLesson: LessonDefinition = {
         learn:
           "Use the same contour in C major and D major so key rotation becomes part of the practice instead of a separate theory exercise.",
         explanation:
-          "The chapter suggests changing the major key from day to day rather than exhausting every key in one session. A practical rotation might begin with C on one day, D on the next, then E, and continue until the keyboard feels equally available away from familiar keys.\n\nThe exercise below compresses that long-term routine into one comparison. The contour remains the same while F and C become F-sharp and C-sharp in D major.",
+          "Change the major key from day to day rather than exhausting every key in one session. A practical rotation might begin with C on one day, D on the next, then E, and continue until the keyboard feels equally available away from familiar keys.\n\nThe exercise below compresses that long-term routine into one comparison. The contour remains the same while F and C become F-sharp and C-sharp in D major.",
         instruction:
           "Study the key-rotation plan. Clear the grid. Write C4-D4-E4-F4-G4-A4-B4-C5 on steps 1-8. Then write D4-E4-F-sharp4-G4-A4-B4-C-sharp5-D5 on steps 17-24. Play the two keys with the same pulse and contour.",
         recognition:
@@ -165,7 +165,7 @@ export const levinePracticingScalesLesson: LessonDefinition = {
         learn:
           "Practice an eight-note diminished collection and a six-note whole-tone collection as different interval systems instead of forcing one major-scale fingering idea onto both.",
         explanation:
-          "The diminished and whole-tone scales need slightly different practice patterns because their interval structures are different from the seven-note major and melodic-minor scales. The diminished scale has eight notes and alternates two interval sizes; the whole-tone scale has six notes and only one interval size.\n\nThe source gives separate practice figures for these systems. What matters is that the pattern reinforces the scale's own symmetry rather than hiding it behind a generic root-to-root run.",
+          "The diminished and whole-tone scales need slightly different practice patterns because their interval structures are different from the seven-note major and melodic-minor scales. The diminished scale has eight notes and alternates two interval sizes; the whole-tone scale has six notes and only one interval size.\n\nUse separate practice shapes for these systems so the pattern reinforces each scale's own symmetry rather than hiding it behind a generic root-to-root run.",
         instruction:
           "Study the symmetrical-scale practice map. Clear the grid. On steps 1-8 write G3-A-flat3-B-flat3-B3-C-sharp4-D4-E4-F4. On steps 17-22 write G3-A3-B3-C-sharp4-E-flat4-F4. Play the diminished collection first, then the whole-tone collection.",
         recognition:
@@ -222,7 +222,7 @@ export const levinePracticingScalesLesson: LessonDefinition = {
         learn:
           "Play a conventional right-hand C-major fingering, then recognize when a shorter musical destination makes the thumb-under motion unnecessary.",
         explanation:
-          "Traditional fingering is still useful because it makes fluent scale motion repeatable. For a one-octave right-hand C-major scale, the familiar pattern is 1-2-3-1-2-3-4-5. The source also marks useful fourth-finger anchor notes for other keys and supplies separate charts for melodic minor, diminished and whole-tone scales.\n\nBut fingering serves the phrase. If a line stops before the point where the thumb-under motion would become useful, following the full scale fingering mechanically can create extra motion. The destination of the actual line decides whether to continue the standard pattern or break it.",
+          "Traditional fingering is still useful because it makes fluent scale motion repeatable. For a one-octave right-hand C-major scale, the familiar pattern is 1-2-3-1-2-3-4-5. Useful fourth-finger anchor notes help orient other keys, and the fingering changes for melodic minor, diminished and whole-tone scales.\n\nBut fingering serves the phrase. If a line stops before the point where the thumb-under motion would become useful, following the full scale fingering mechanically can create extra motion. The destination of the actual line decides whether to continue the standard pattern or break it.",
         instruction:
           "Study the fingering map. Clear the grid. Write C4-D4-E4-F4-G4-A4-B4-C5 on steps 1-8 and play it on your keyboard with right-hand fingers 1-2-3-1-2-3-4-5. Then replay only C-D-E-F and notice that a phrase ending on F does not need the same continuation strategy as a full octave.",
         recognition:
