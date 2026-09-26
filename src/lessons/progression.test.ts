@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  belkinLessons,
   getNextImplementedLesson,
   implementedLessons,
   learningTracks,
@@ -9,7 +10,7 @@ import {
 import { getAdvanceDestination } from "./progression";
 
 describe("lesson progression", () => {
-  it("keeps the existing curriculum intact and adds a separate Schoenberg track", () => {
+  it("keeps the existing curriculum intact and adds separate source-based tracks", () => {
     expect(playLabLessons).toHaveLength(37);
     expect(
       playLabLessons.flatMap((lesson) => lesson.exercises),
@@ -52,10 +53,16 @@ describe("lesson progression", () => {
       "schoenberg.rondo",
       "schoenberg.sonata-allegro",
     ]);
-    expect(implementedLessons).toHaveLength(55);
+    expect(belkinLessons.map((lesson) => lesson.id)).toEqual([
+      "belkin.punctuating",
+      "belkin.presenting",
+      "belkin.binary-form",
+    ]);
+    expect(implementedLessons).toHaveLength(58);
     expect(learningTracks.map((track) => track.id)).toEqual([
       "play-lab",
       "schoenberg",
+      "belkin",
     ]);
   });
 

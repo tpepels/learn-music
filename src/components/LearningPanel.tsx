@@ -1,4 +1,5 @@
 import { ConceptVisual } from "./ConceptVisual";
+import { BelkinSourceMaterial } from "./BelkinSourceMaterial";
 import { SchoenbergSourceMaterial } from "./SchoenbergSourceMaterial";
 import { getProductionContext } from "../learning/productionContext";
 import {
@@ -17,7 +18,14 @@ export function LearningPanel({
   exercise: ExerciseDefinition;
   lessonNumber: number;
 }) {
-  if (exercise.id.startsWith("schoenberg.")) {
+  const sourceTrack =
+    exercise.id.startsWith("schoenberg.") || exercise.id.startsWith("belkin.");
+
+  if (sourceTrack) {
+    const SourceMaterial = exercise.id.startsWith("belkin.")
+      ? BelkinSourceMaterial
+      : SchoenbergSourceMaterial;
+
     return (
       <section
         className="exercise-guide schoenberg-guide"
@@ -64,7 +72,7 @@ export function LearningPanel({
             <span className="section-label">Examples</span>
             <div className="source-material-list schoenberg-guide-examples">
               {exercise.source.exampleIds.map((id) => (
-                <SchoenbergSourceMaterial id={id} key={id} />
+                <SourceMaterial id={id} key={id} />
               ))}
             </div>
           </section>

@@ -11,6 +11,12 @@ vi.mock("./SchoenbergSourceMaterial", () => ({
   ),
 }));
 
+vi.mock("./BelkinSourceMaterial", () => ({
+  BelkinSourceMaterial: ({ id }: { id: string }) => (
+    <div data-belkin-source-id={id}>belkin example</div>
+  ),
+}));
+
 vi.mock("../learning/productionContext", () => ({
   getProductionContext: () => ({
     why: "why",
@@ -100,6 +106,28 @@ describe("LearningPanel", () => {
     expect(html).not.toContain("Meta commentary");
     expect(html).not.toContain("Why / theory / vocabulary");
     expect(html).not.toContain("PLAY / LAB → DAW");
+  });
+
+  it("uses the same direct source-based reading flow for Belkin exercises", () => {
+    const item = exercise("belkin.punctuating.a");
+    item.source = {
+      reference: "Belkin, Chapter 5",
+      focus: "Internal provenance that should stay hidden.",
+      exampleIds: ["b01.punctuation-dimensions"],
+    };
+
+    const html = renderToStaticMarkup(
+      <LearningPanel exercise={item} lessonNumber={1} />,
+    );
+
+    expect(html).toContain("Concept");
+    expect(html).toContain("Exercise");
+    expect(html).toContain("Examples");
+    expect(html).toContain('data-belkin-source-id="b01.punctuation-dimensions"');
+    expect(html).not.toContain("From the book");
+    expect(html).not.toContain("Belkin, Chapter 5");
+    expect(html).not.toContain("Internal provenance");
+    expect(html).not.toContain("Why / theory / vocabulary");
   });
 
   it("keeps the existing layered guide for non-Schoenberg exercises", () => {
