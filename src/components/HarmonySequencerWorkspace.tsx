@@ -168,7 +168,9 @@ export function HarmonySequencerWorkspace({
           <span className="section-label">{config.eyebrow}</span>
           <h2>{config.title}</h2>
           <div className="daw-strip">
-            <span>KEY {keyLabel(tonalContext).toUpperCase()}</span>
+            {mode === "jazz" && !showTargets
+              ? <span>FREE PIANO GRID</span>
+              : <span>KEY {keyLabel(tonalContext).toUpperCase()}</span>}
             <span>GRID 1/8</span>
             <span>POLYPHONIC</span>
             <span>32 STEPS</span>
@@ -188,7 +190,7 @@ export function HarmonySequencerWorkspace({
               }
             />
 
-      <HarmonyKeyControl modes={allowedModes} />
+      {showTargets ? <HarmonyKeyControl modes={allowedModes} /> : null}
 
       {showTargets ? (
         <>
@@ -311,7 +313,9 @@ export function HarmonySequencerWorkspace({
               </button>
 
               {Array.from({ length: HARMONY_STEPS }, (_, step) => {
-                const chord = progression[Math.floor(step / 8)];
+                const chord = showTargets
+                  ? progression[Math.floor(step / 8)]
+                  : null;
                 const pitchClass = ((midi % 12) + 12) % 12;
                 const chordTone = Boolean(
                   chord && harmonicChordPitchClasses(chord, tonalContext).includes(pitchClass),
