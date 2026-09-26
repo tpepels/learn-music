@@ -77,6 +77,8 @@ import { levineFourthChordsLesson } from "./levineFourthChords";
 import { levineUpperStructuresLesson } from "./levineUpperStructures";
 import { levinePentatonicScalesLesson } from "./levinePentatonicScales";
 import { levineVoicingsVoicingsLesson } from "./levineVoicingsVoicings";
+import { levineStrideBudPowellLesson } from "./levineStrideBudPowell";
+import { levineFourNoteScalesLesson } from "./levineFourNoteScales";
 import type { LessonDefinition } from "./types";
 
 export const playLabLessons: LessonDefinition[] = [
@@ -166,6 +168,8 @@ export const levineLessons: LessonDefinition[] = [
   levineUpperStructuresLesson,
   levinePentatonicScalesLesson,
   levineVoicingsVoicingsLesson,
+  levineStrideBudPowellLesson,
+  levineFourNoteScalesLesson,
 ];
 
 export type LearningTrackId = "play-lab" | "schoenberg" | "belkin" | "levine";
