@@ -1,4 +1,4 @@
-import { activeLayerCount, arrangementLayers } from "../music/model";
+import { activeLayerCount, arrangementLayers, type ArrangementBar } from "../music/model";
 import { heardPlayback } from "./learningEvidence";
 import {
   exerciseContentSchema,
@@ -29,8 +29,8 @@ function sounding(sequence: Array<number | null>): number[] {
 }
 
 function layerDifference(
-  left: Record<(typeof arrangementLayers)[number], boolean>,
-  right: Record<(typeof arrangementLayers)[number], boolean>,
+  left: ArrangementBar,
+  right: ArrangementBar,
 ): number {
   return arrangementLayers.filter((layer) => left[layer] !== right[layer]).length;
 }
