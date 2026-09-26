@@ -26,7 +26,9 @@ import {
   resolveArrangementMelodyEvent,
 } from "./arrangementPlayback";
 import {
+  ensureArrangementAudibleIfEmpty,
   ensureProductionLayersPresent,
+  ensureTextureLayersPresent,
   fallbackBassRoot,
   hasBassContent,
   hasWrittenHarmony,
@@ -1168,6 +1170,32 @@ class AudioEngine {
     return true;
   }
 
+  async playContextDrums(bpm: number, onStep: (step: number) => void) {
+    if (!(await this.prepare(bpm, onStep, ["drums"]))) return false;
+    const transport = Tone.getTransport();
+
+    this.eventId = transport.scheduleRepeat((time) => {
+      const step = this.step;
+      const drums = resolveContextDrumPattern(this.pattern);
+
+      if (drums.kick[step]) {
+        this.triggerKick(time, this.grooveFeelSettings.velocities.kick[step] ?? 0.9);
+      }
+      if (drums.snare[step]) {
+        this.triggerSnare(time, this.grooveFeelSettings.velocities.snare[step] ?? 0.72);
+      }
+      if (drums.hat[step]) {
+        this.triggerHat(time, this.grooveFeelSettings.velocities.hat[step] ?? 0.42);
+      }
+
+      Tone.getDraw().schedule(() => this.onStep?.(step), time);
+      this.step = (this.step + 1) % 16;
+    }, "16n");
+
+    transport.start();
+    return true;
+  }
+
   async playMelody(bpm: number, onStep: (step: number) => void) {
     if (!(await this.prepare(bpm, onStep, ["piano"]))) return false;
     const transport = Tone.getTransport();
@@ -1348,6 +1376,36 @@ class AudioEngine {
       const barIndex = Math.floor(globalStep / 16);
       const localStep = globalStep % 16;
       const chord = this.harmonicProgression[barIndex];
+
+      if (chord) {
+        const inversion = this.voicingSettings.inversions[barIndex] ?? 0;
+        this.triggerChordPattern(chord, inversion, localStep, time, 0.6);
+      }
+
+      if (localStep === 0) {
+        Tone.getDraw().schedule(() => this.onStep?.(barIndex), time);
+      }
+      this.step = (this.step + 1) % totalSteps;
+    }, "16n");
+
+    transport.start();
+    return true;
+  }
+
+  async playVoicingContext(bpm: number, onStep: (step: number) => void) {
+    if (!(await this.prepare(bpm, onStep, ["chords"]))) return false;
+    const transport = Tone.getTransport();
+    const totalSteps = Math.max(1, this.harmonicProgression.length) * 16;
+
+    this.eventId = transport.scheduleRepeat((time) => {
+      const globalStep = this.step;
+      const barIndex = Math.floor(globalStep / 16);
+      const localStep = globalStep % 16;
+      const progression = resolveContextProgression(
+        this.harmonicProgression,
+        this.tonalContext,
+      );
+      const chord = progression[barIndex % progression.length];
 
       if (chord) {
         const inversion = this.voicingSettings.inversions[barIndex] ?? 0;
@@ -1785,17 +1843,38 @@ class AudioEngine {
   }
 
   async playForm(bpm: number, onStep: (bar: number) => void) {
-    const formArrangement: Arrangement = Array.from(
-      { length: 16 },
-      (_, bar) => ({
-        ...this.formSettings.layers[Math.floor(bar / 4)],
-      }),
-    );
-
     return this.startArrangementPlayback(
       bpm,
       onStep,
-      () => formArrangement,
+      () =>
+        Array.from(
+          { length: 16 },
+          (_, bar) => ({
+            ...this.formSettings.layers[Math.floor(bar / 4)],
+          }),
+        ),
+    );
+  }
+
+  async playContextArrangement(
+    bpm: number,
+    onStep: (bar: number) => void,
+  ) {
+    return this.startArrangementPlayback(
+      bpm,
+      onStep,
+      () => ensureArrangementAudibleIfEmpty(this.arrangement),
+    );
+  }
+
+  async playTextureContext(
+    bpm: number,
+    onStep: (bar: number) => void,
+  ) {
+    return this.startArrangementPlayback(
+      bpm,
+      onStep,
+      () => ensureTextureLayersPresent(this.arrangement),
     );
   }
 
@@ -1827,6 +1906,18 @@ class AudioEngine {
       Tone.Time("8n").toSeconds() * Math.max(0.25, eighthSteps),
       undefined,
       velocity,
+    );
+  }
+
+  async playChordNote(midi: number) {
+    await Tone.start();
+    this.ensureVoices(["chords"]);
+    await Tone.loaded();
+    this.triggerChordNotes(
+      Tone.Frequency(midi, "midi").toNote(),
+      "8n",
+      undefined,
+      0.72,
     );
   }
 
