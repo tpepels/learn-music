@@ -464,6 +464,9 @@ const lessonGlyphs: Record<string, string> = {
   "schoenberg.character-mood": "S",
   "schoenberg.melody-theme": "S",
   "schoenberg.self-criticism": "S",
+  "belkin.punctuating": "B",
+  "belkin.presenting": "B",
+  "belkin.binary-form": "B",
 };
 
 function App() {
@@ -967,7 +970,11 @@ function App() {
           {appMode === "learn" ? (
             <>
               <span className="topbar-lesson-kicker">
-                {activeTrack.id === "schoenberg" ? "S" : "LESSON "}
+                {activeTrack.id === "schoenberg"
+                  ? "S"
+                  : activeTrack.id === "belkin"
+                    ? "B"
+                    : "LESSON "}
                 {String(lesson.number).padStart(2, "0")}
               </span>
               <strong>{lesson.title}</strong>
@@ -1073,7 +1080,11 @@ function App() {
                 >
                   <span className="course-number">
                     <b>{lessonGlyphs[item.id] ?? "•"}</b>
-                    {activeTrack.id === "schoenberg" ? "S" : ""}
+                    {activeTrack.id === "schoenberg"
+                      ? "S"
+                      : activeTrack.id === "belkin"
+                        ? "B"
+                        : ""}
                     {String(item.number).padStart(2, "0")}
                   </span>
                   <span>
