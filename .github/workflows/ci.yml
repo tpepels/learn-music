@@ -2,9 +2,6 @@ name: Validate review cycle
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - fix/lesson-7-8-live-audio-controls-rebased
   pull_request:
     types:
       - ready_for_review
