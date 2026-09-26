@@ -1490,6 +1490,324 @@ export const levineSourceMaterial: Record<string, LevineSourceMaterial> = {
     "Source-grounded synthesis of the fingering charts and the explicit discussion of when conventional fingering should be adapted.",
   ),
 
+
+  "l12.basic-shape": map(
+    "l12.basic-shape",
+    "Chapter Twelve, Figures 12-2 through 12-4",
+    "Three fourths and a major third",
+    [
+      {
+        label: "Read the chord intervallically",
+        detail:
+          "The basic D voicing is D-G-C-F-A. The first four notes form three perfect fourths and the final interval F-A is a major third.",
+      },
+      {
+        label: "Chord tones remain visible",
+        detail:
+          "Relative to D, the same notes are root, eleventh, minor seventh, minor third and fifth, so the interval shape and the chord spelling describe the same sound from different angles.",
+      },
+      {
+        label: "Move the shape as one object",
+        detail:
+          "Because the voicing is easy to recognize by spacing, it can be transposed intact while preserving its characteristic colour.",
+      },
+    ],
+    "Source-grounded map of the interval construction and transposable five-note shape introduced at the start of Chapter Twelve.",
+  ),
+  "l12.inversions": map(
+    "l12.inversions",
+    "Chapter Twelve, Figures 12-16 and 12-17",
+    "Five positions of one pitch collection",
+    [
+      {
+        label: "Every chord tone can reach the bottom",
+        detail:
+          "The five-note voicing has five inversions, each keeping the same pitch classes while changing the bass and register.",
+      },
+      {
+        label: "The major third moves through the stack",
+        detail:
+          "The one major third changes location in each inversion while the remaining adjacent intervals retain the fourth-based character.",
+      },
+      {
+        label: "Use inversions for sustained harmony",
+        detail:
+          "When a modal chord lasts long enough, changing inversion creates movement without requiring a new harmonic function.",
+      },
+    ],
+    "Source-grounded analysis of the five inversions and their use for sustained modal harmony at the end of Chapter Twelve.",
+  ),
+  "l12.parallel-motion": map(
+    "l12.parallel-motion",
+    "Chapter Twelve, Figures 12-10 through 12-15",
+    "Move the voicing in parallel",
+    [
+      {
+        label: "Preserve the complete shape",
+        detail:
+          "Parallel motion moves every note together rather than voice-leading each chord tone independently.",
+      },
+      {
+        label: "Half steps intensify the colour",
+        detail:
+          "Sliding the whole structure by semitone gives each voice a chromatic neighbour at the same time, producing a strong but highly organized shift.",
+      },
+      {
+        label: "Structure makes dissonance coherent",
+        detail:
+          "Repeating the same interval pattern before and after the move gives the ear a stable reference even when the passing harmony is sharply dissonant.",
+      },
+    ],
+    "Source-grounded map of the parallel-motion examples and structural explanation in the middle of Chapter Twelve; licensed melodies are not reproduced.",
+  ),
+  "l12.diatonic-extension": map(
+    "l12.diatonic-extension",
+    "Chapter Twelve, Figure 12-7 and surrounding discussion",
+    "Extend the voicing through the major scale",
+    [
+      {
+        label: "Move each voice diatonically",
+        detail:
+          "The five-note structure can be shifted through the notes of C major rather than transposed by identical chromatic intervals.",
+      },
+      {
+        label: "The interval pattern changes",
+        detail:
+          "Because the major scale has unequal step sizes, some derived voicings contain tritones or minor ninths instead of only perfect fourths and one major third.",
+      },
+      {
+        label: "Modal context can absorb the tension",
+        detail:
+          "The resulting shapes are not all conventional minor-seventh voicings, but they can be used as deliberate modal colours over a sustained tonal area.",
+      },
+    ],
+    "Source-grounded summary of the diatonic extension of the five-note voicing and the discussion of its more dissonant modal variants.",
+  ),
+
+  "l13.c69-fourths": map(
+    "l13.c69-fourths",
+    "Chapter Thirteen, Figure 13-4",
+    "A six-nine chord as pure fourths",
+    [
+      {
+        label: "Start on the third",
+        detail:
+          "The C six-nine voicing begins on E, the third of the chord, and rises E-A-D-G-C.",
+      },
+      {
+        label: "Four perfect fourths",
+        detail:
+          "The notes form a continuous stack of perfect fourths, making the hand shape easier to remember than a list of chord degrees.",
+      },
+      {
+        label: "Root on top",
+        detail:
+          "The root C appears at the top of the voicing instead of the bass, leaving the lower register open for another harmonic layer.",
+      },
+    ],
+    "Source-grounded map of the C six-nine fourth voicing in Figure 13-4.",
+  ),
+  "l13.diatonic-fourths": map(
+    "l13.diatonic-fourths",
+    "Chapter Thirteen, Figure 13-5",
+    "Extend fourth voicings through C major",
+    [
+      {
+        label: "Move the stack through the scale",
+        detail:
+          "Each voice moves to the next scale degree, generating a chain of related fourth-based voicings across C major.",
+      },
+      {
+        label: "Not every fourth stays perfect",
+        detail:
+          "The major scale naturally introduces the tritone F-B, so some shapes contain an augmented fourth among the otherwise quartal intervals.",
+      },
+      {
+        label: "Tension is part of the vocabulary",
+        detail:
+          "The more dissonant shapes can be used selectively in modal playing to create movement and colour without changing the underlying tonal field.",
+      },
+    ],
+    "Source-grounded map of the diatonically extended fourth voicings shown in Figure 13-5.",
+  ),
+  "l13.melody-omission": map(
+    "l13.melody-omission",
+    "Chapter Thirteen, Figure 13-6 and surrounding discussion",
+    "Let the melody supply the top note",
+    [
+      {
+        label: "Do not duplicate automatically",
+        detail:
+          "A five- or six-note fourth voicing can be reduced when the melody already supplies its highest chord tone.",
+      },
+      {
+        label: "The lower structure still identifies the colour",
+        detail:
+          "Removing the top note leaves enough fourth-based information for the accompaniment to retain its harmonic character.",
+      },
+      {
+        label: "Create more register choices",
+        detail:
+          "The reduced shape frees space near the melody and gives the pianist more practical voicing positions.",
+      },
+    ],
+    "Source-grounded summary of the melody-note omission principle demonstrated after Figure 13-5.",
+  ),
+  "l13.combined-fourths": map(
+    "l13.combined-fourths",
+    "Chapter Thirteen, Figures 13-7 and 13-8",
+    "Combine fourth voicings with different tritone placement",
+    [
+      {
+        label: "Fourth voicings can follow one another",
+        detail:
+          "Successive quartal shapes retain a family resemblance even when their internal interval content is not identical.",
+      },
+      {
+        label: "A tritone can sit high or low",
+        detail:
+          "Moving the augmented fourth to a different register changes the tension profile of the voicing without abandoning fourth-based harmony.",
+      },
+      {
+        label: "Use spacing as orchestration",
+        detail:
+          "The position of the dissonant interval matters as much as its presence, allowing the pianist to choose a sharper or softer colour from related shapes.",
+      },
+    ],
+    "Source-grounded map of the paired fourth voicings and tritone placement discussed in Figures 13-7 and 13-8.",
+  ),
+
+  "l14.basic-upper-structure": map(
+    "l14.basic-upper-structure",
+    "Chapter Fourteen, Figures 14-2 and 14-3",
+    "A triad above the dominant tritone",
+    [
+      {
+        label: "Keep the guide tones below",
+        detail:
+          "For C7, E and B-flat form the third-and-seventh tritone that anchors the dominant quality.",
+      },
+      {
+        label: "Add a familiar triad",
+        detail:
+          "Placing D major above that tritone adds D, F-sharp and A: the ninth, sharp eleventh and thirteenth of C7.",
+      },
+      {
+        label: "Name the structure by its triad root",
+        detail:
+          "Because D lies a major second above C, the D-major triad is called upper structure II.",
+      },
+    ],
+    "Source-grounded map of the upper-structure definition and the D-major-over-C7 example.",
+  ),
+  "l14.basic-family": map(
+    "l14.basic-family",
+    "Chapter Fourteen, Figures 14-2 through 14-6",
+    "Four foundational upper structures",
+    [
+      {
+        label: "Upper structure II",
+        detail:
+          "D major over the C7 tritone supplies ninth, sharp eleventh and thirteenth colour.",
+      },
+      {
+        label: "Upper structure flat VI",
+        detail:
+          "A-flat major over the same guide tones produces an altered dominant colour associated with the flat-six upper-triad root.",
+      },
+      {
+        label: "Upper structure VI",
+        detail:
+          "A major over the C7 guide tones supplies another dominant colour whose upper-triad root is a major sixth above C.",
+      },
+      {
+        label: "Upper structure sharp IV minor",
+        detail:
+          "F-sharp minor adds a minor upper triad rooted a tritone above C and is used with flat-nine/sharp-eleven dominant colour.",
+      },
+    ],
+    "Source-grounded summary of the four upper structures introduced first in Chapter Fourteen.",
+  ),
+  "l14.inversions": map(
+    "l14.inversions",
+    "Chapter Fourteen, Figure 14-3 and inversion discussion",
+    "Invert the triad while the core stays fixed",
+    [
+      {
+        label: "The upper structure remains the same triad",
+        detail:
+          "Root position, first inversion and second inversion all retain the same upper-structure identity.",
+      },
+      {
+        label: "The guide-tone core can remain stationary",
+        detail:
+          "Changing only the right-hand triad position alters register and top note without requiring the left-hand dominant tritone to move.",
+      },
+      {
+        label: "Choose the inversion for the melody",
+        detail:
+          "The inversion whose top note and spacing best fit the melodic register is often the most useful one in practice.",
+      },
+    ],
+    "Source-grounded map of the upper-triad inversion principle presented with Figure 14-3.",
+  ),
+  "l14.scale-families": map(
+    "l14.scale-families",
+    "Chapter Fourteen, Figures 14-14 and 14-15",
+    "Trace upper structures back to scale families",
+    [
+      {
+        label: "Lydian dominant",
+        detail:
+          "Upper structures such as D major over C7 can be understood as triads drawn from the Lydian-dominant collection.",
+      },
+      {
+        label: "Altered",
+        detail:
+          "Other upper structures come from the altered collection and package several altered tensions into one familiar triad.",
+      },
+      {
+        label: "Half-step/whole-step diminished",
+        detail:
+          "Diminished-derived upper structures organize another set of dominant-flat-nine colours from a symmetrical scale.",
+      },
+      {
+        label: "Scale and voicing are linked",
+        detail:
+          "The comparison shows that upper-structure choices are not isolated tricks: each belongs to a larger chord-scale system.",
+      },
+    ],
+    "Source-grounded synthesis of the complete upper-structure chart and the three scale families compared in Figures 14-14 and 14-15.",
+  ),
+  "l14.diminished-symmetry": map(
+    "l14.diminished-symmetry",
+    "Chapter Fourteen, Figures 14-11 and 14-17 through 14-22",
+    "Move upper structures by minor thirds",
+    [
+      {
+        label: "Diminished harmony repeats by minor third",
+        detail:
+          "A half-step/whole-step diminished collection reproduces the same pitch classes when its reference point moves by three semitones.",
+      },
+      {
+        label: "Related dominants share upper material",
+        detail:
+          "Dominant-flat-nine chords with roots a minor third apart can use closely related or interchangeable upper structures because they come from the same diminished collection.",
+      },
+      {
+        label: "Minor-third motion creates a voicing path",
+        detail:
+          "Moving upper material by minor thirds gives the pianist a systematic way to create motion through sustained or related dominant harmony.",
+      },
+      {
+        label: "Context still decides the root",
+        detail:
+          "The shared collection does not erase harmonic function; the bass and progression determine which dominant interpretation is active.",
+      },
+    ],
+    "Source-grounded map of the diminished-derived upper-structure interchangeability and minor-third motion developed in the later part of Chapter Fourteen.",
+  ),
+
 };
 
 export function getLevineSourceMaterial(

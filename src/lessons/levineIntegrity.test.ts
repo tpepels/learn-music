@@ -7,7 +7,7 @@ describe("Levine jazz-piano architecture integrity", () => {
     const track = learningTracks.find((entry) => entry.id === "levine");
     expect(track).toBeDefined();
     expect(track?.lessons).toEqual(levineLessons);
-    expect(track?.lessons.map((lesson) => lesson.number)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
+    expect(track?.lessons.map((lesson) => lesson.number)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]);
   });
 
   it("resolves every source example id through the Levine source registry", () => {
