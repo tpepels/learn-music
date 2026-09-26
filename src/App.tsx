@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { audioEngine } from "./audio/engine";
+import { effectiveMonoAudition } from "./audio/productionControlPolicy";
 import { isProductionAuditionWorkspace } from "./audio/workspaceLayerPolicy";
 import {
   canWorkspaceUseTransport,
@@ -697,10 +698,10 @@ function App() {
   useEffect(() => {
     audioEngine.setStereoSettings({
       ...stereoSettings,
-      monoAudition:
-        exercise.workspace === "stereo"
-          ? stereoSettings.monoAudition
-          : false,
+      monoAudition: effectiveMonoAudition(
+        exercise.workspace,
+        stereoSettings.monoAudition,
+      ),
     });
   }, [stereoSettings, exercise.workspace]);
 
