@@ -47,9 +47,7 @@ export const levineLeftHandVoicingsLesson: LessonDefinition = {
         learn:
           "Compare a rooted C major seventh with two compact rootless tonic colours.",
         explanation:
-          "A left-hand voicing can omit the root completely. The missing root may be supplied by the bass player, implied by the progression, or briefly checked elsewhere on the keyboard. Removing it creates room for the right hand and lets the left hand use colour tones such as the ninth and thirteenth.
-
-The important question is whether the harmony still reads clearly. A compact C-major shape such as E-G-B-D contains the third, fifth, major seventh and ninth. E-G-A-D replaces the major seventh with the sixth while retaining the same tonic identity.",
+          "A left-hand voicing can omit the root completely. The missing root may be supplied by the bass player, implied by the progression, or briefly checked elsewhere on the keyboard. Removing it creates room for the right hand and lets the left hand use colour tones such as the ninth and thirteenth.\n\nThe important question is whether the harmony still reads clearly. A compact C-major shape such as E-G-B-D contains the third, fifth, major seventh and ninth. E-G-A-D replaces the major seventh with the sixth while retaining the same tonic identity.",
         instruction:
           "Study the rootless-voicing idea. Clear the piano grid. In bar 1 write C3-E3-G3-B3. In bar 2 remove the root and write E3-G3-B3-D4. In bar 3 write E3-G3-A3-D4. Leave bar 4 empty. Play the loop and listen for what changes when C disappears but the upper structure remains.",
         recognition:
@@ -107,9 +105,7 @@ The important question is whether the harmony still reads clearly. A compact C-m
         learn:
           "Keep three notes nearly fixed while the seventh of II drops a half step into the third of V.",
         explanation:
-          "In the first basic position, Dm7 is F-A-C-E: third, fifth, seventh and ninth. When the harmony moves to G7, only C needs to fall to B. The result F-A-B-E contains the seventh, ninth, third and thirteenth of G7.
-
-For the tonic, E-G-A-D gives the third, fifth, sixth and ninth of C. The lowest note therefore follows a simple pattern across the progression: third of II, seventh of V, third of I. This is commonly called the A position.",
+          "In the first basic position, Dm7 is F-A-C-E: third, fifth, seventh and ninth. When the harmony moves to G7, only C needs to fall to B. The result F-A-B-E contains the seventh, ninth, third and thirteenth of G7.\n\nFor the tonic, E-G-A-D gives the third, fifth, sixth and ninth of C. The lowest note therefore follows a simple pattern across the progression: third of II, seventh of V, third of I. This is commonly called the A position.",
         instruction:
           "Study the A-position voice leading. Clear the grid. Write F3-A3-C4-E4 in bar 1, F3-A3-B3-E4 in bar 2, and E3-G3-A3-D4 in bar 3. Leave bar 4 empty. Play the loop and follow C4-B3 while the other notes stay close.",
         recognition:
@@ -167,9 +163,7 @@ For the tonic, E-G-A-D gives the third, fifth, sixth and ninth of C. The lowest 
         learn:
           "Invert the same rootless material so the lowest note follows seventh-third-seventh.",
         explanation:
-          "The second basic position reverses the lowest-note pattern. Dm7 becomes C-E-F-A: seventh, ninth, third and fifth. Lower C to B and the G7 voicing becomes B-E-F-A: third, thirteenth, seventh and ninth.
-
-The tonic can then be B-C-E-G, heard as major seventh, root, third and fifth. A common alternative replaces the root C with the ninth D. The lowest note now follows seventh of II, third of V, seventh of I. This is the B position.",
+          "The second basic position reverses the lowest-note pattern. Dm7 becomes C-E-F-A: seventh, ninth, third and fifth. Lower C to B and the G7 voicing becomes B-E-F-A: third, thirteenth, seventh and ninth.\n\nThe tonic can then be B-C-E-G, heard as major seventh, root, third and fifth. A common alternative replaces the root C with the ninth D. The lowest note now follows seventh of II, third of V, seventh of I. This is the B position.",
         instruction:
           "Study the B-position pattern. Clear the grid. Use the higher register so every note fits comfortably: C4-E4-F4-A4 in bar 1, B3-E4-F4-A4 in bar 2, and B3-C4-E4-G4 in bar 3. Leave bar 4 empty and play the loop.",
         recognition:
@@ -227,9 +221,7 @@ The tonic can then be B-C-E-G, heard as major seventh, root, third and fifth. A 
         learn:
           "Move the same A-position rule from C major to F major instead of memorizing isolated shapes.",
         explanation:
-          "The positions are meant to be practiced through all twelve keys. The cycle of fifths gives a systematic route: after C, move to F, then B-flat, E-flat and onward. The rule stays the same even though every absolute pitch changes.
-
-When the chord change is a II-V, the seventh of II falls by a half step. Keep the left-hand shape in a useful middle register and learn the sound and physical shape together rather than calculating every interval from scratch each time.",
+          "The positions are meant to be practiced through all twelve keys. The cycle of fifths gives a systematic route: after C, move to F, then B-flat, E-flat and onward. The rule stays the same even though every absolute pitch changes.\n\nWhen the chord change is a II-V, the seventh of II falls by a half step. Keep the left-hand shape in a useful middle register and learn the sound and physical shape together rather than calculating every interval from scratch each time.",
         instruction:
           "Study the transposition routine. Clear the grid. Put the C-major A-position II-V-I on bar 1 beat 1, bar 1 beat 3 and bar 2 beat 1: F3-A3-C4-E4, F3-A3-B3-E4, E3-G3-A3-D4. Then put the same rule in F major on bar 3 beat 1, bar 3 beat 3 and bar 4 beat 1: B-flat3-D4-F4-A4, B-flat3-D4-E4-A4, A3-C4-D4-G4. Play the whole four-bar loop.",
         recognition:
