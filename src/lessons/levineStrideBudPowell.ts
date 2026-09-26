@@ -108,7 +108,7 @@ export const levineStrideBudPowellLesson: LessonDefinition = {
         explanation:
           "Walking tenths replace the large bass-to-chord jump with two voices moving together. The left hand outlines a bass line while the upper note sits roughly a tenth above it. The ear can follow both the bass contour and the top voice as one contrapuntal gesture.\n\nThe hand does not need to hold every interval literally if the span is uncomfortable. Arpeggiate or release notes as needed. The musical point is the two-voice contour, not physical strain.",
         instruction:
-          "Study the walking-tenths idea. Clear the grid. On steps 1-4 write C2-E3, D2-F3, D-sharp2-F-sharp3, and E2-G3. Repeat the same four pairs on steps 9-12 one octave higher in the upper voice if comfortable. Play slowly and listen to the chromatic E-F-F-sharp-G top line against the rising bass.",
+          "Study the walking-tenths idea. Clear the grid. On steps 1-4 write C2-E3, D2-F3, D-sharp2-F-sharp3, and E2-G3. Repeat the same four pairs on steps 9-12 one octave higher as a complete two-voice line if comfortable. Play slowly and listen to the chromatic E-F-F-sharp-G top line against the rising bass.",
         recognition:
           "Can you hear the two outer voices as a connected line rather than four isolated intervals?",
         source: {
@@ -142,7 +142,7 @@ export const levineStrideBudPowellLesson: LessonDefinition = {
           label: "The four chromatic tenths are written",
           complete: exactStudy(harmonySequence, [
             [0,[36,52]],[1,[38,53]],[2,[39,54]],[3,[40,55]],
-            [8,[36,64]],[9,[38,65]],[10,[39,66]],[11,[40,67]],
+            [8,[48,64]],[9,[50,65]],[10,[51,66]],[11,[52,67]],
           ]),
         },
         {
@@ -204,7 +204,7 @@ export const levineStrideBudPowellLesson: LessonDefinition = {
         },
         {
           label: "You entered both accompaniment versions",
-          complete: changedControl(experiments, "harmony.note-edit", 24),
+          complete: changedControl(experiments, "harmony.note-edit", 20),
         },
         {
           label: "You listened to the added harmonic motion",
