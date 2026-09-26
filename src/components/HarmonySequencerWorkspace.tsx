@@ -31,7 +31,8 @@ export type HarmonySequencerMode =
   | "function"
   | "minor"
   | "sevenths"
-  | "borrowed";
+  | "borrowed"
+  | "jazz";
 
 function harmonyNoteName(midi: number, mode: HarmonySequencerMode): string {
   const pitchClass = ((midi % 12) + 12) % 12;
@@ -79,12 +80,20 @@ const configs: Record<
     contextLabel: "YOUR GROOVE",
     hint: "Keep a major tonic while borrowing iv or ♭VII from the parallel minor.",
   },
+  jazz: {
+    eyebrow: "Jazz piano study · four bars",
+    title: "Build and hear the voicing",
+    contextLabel: "PIANO ONLY",
+    hint: "Use the grid as a keyboard study: place the notes, keep the voicing in a playable register, then listen before judging it.",
+  },
 };
 
 export function HarmonySequencerWorkspace({
   mode = "basic",
+  showTargets = true,
 }: {
   mode?: HarmonySequencerMode;
+  showTargets?: boolean;
 }) {
   const progression = useStudioStore((state) => state.harmonicProgression);
   const tonalContext = useStudioStore((state) => state.tonalContext);
@@ -95,6 +104,7 @@ export function HarmonySequencerWorkspace({
   const toggleHarmonyNote = useStudioStore((state) => state.toggleHarmonyNote);
   const setHarmonyDuration = useStudioStore((state) => state.setHarmonyDuration);
   const clearHarmonyBar = useStudioStore((state) => state.clearHarmonyBar);
+  const clearHarmonySequence = useStudioStore((state) => state.clearHarmonySequence);
   const currentStep = useStudioStore((state) => state.currentStep);
   const isPlaying = useStudioStore((state) => state.isPlaying);
   const [selectedSlot, setSelectedSlot] = useState(0);
@@ -104,7 +114,7 @@ export function HarmonySequencerWorkspace({
     if (mode === "minor" && tonalContext.mode === "major") {
       setTonalContext({ tonic: 9, mode: "natural-minor" });
     } else if (
-      (mode === "sevenths" || mode === "borrowed") &&
+      (mode === "sevenths" || mode === "borrowed" || mode === "jazz") &&
       tonalContext.mode !== "major"
     ) {
       setTonalContext({ tonic: 0, mode: "major" });
@@ -114,7 +124,7 @@ export function HarmonySequencerWorkspace({
   const palette: HarmonicChord[] =
     mode === "minor"
       ? minorHarmonyPalette(tonalContext)
-      : mode === "sevenths"
+      : mode === "sevenths" || mode === "jazz"
         ? diatonicPalette(tonalContext, true)
         : mode === "borrowed"
           ? borrowedMajorPalette(tonalContext)
@@ -125,7 +135,7 @@ export function HarmonySequencerWorkspace({
   const allowedModes: readonly TonalMode[] =
     mode === "minor"
       ? ["natural-minor", "harmonic-minor"]
-      : mode === "borrowed"
+      : mode === "borrowed" || mode === "jazz"
         ? ["major"]
         : ["major", "natural-minor", "harmonic-minor"];
 
@@ -170,88 +180,104 @@ export function HarmonySequencerWorkspace({
 
       <LayerVolumeStrip
               tracks={
-                mode === "sevenths" || mode === "borrowed"
-                  ? (["drums", "chords"] as const)
-                  : (["drums", "chords", "melody"] as const)
+                mode === "jazz"
+                  ? (["chords"] as const)
+                  : mode === "sevenths" || mode === "borrowed"
+                    ? (["drums", "chords"] as const)
+                    : (["drums", "chords", "melody"] as const)
               }
             />
 
       <HarmonyKeyControl modes={allowedModes} />
 
-      <div className="harmony-chord-slots">
-        {progression.map((chord, index) => (
-          <button
-            key={index}
-            className={[
-              "harmony-chord-slot",
-              selectedSlot === index ? "is-selected" : "",
-            ].filter(Boolean).join(" ")}
-            onClick={() => void selectSlot(index)}
-          >
-            <span>Bar {index + 1}</span>
-            <strong>{chord ? chordSymbol(chord, tonalContext) : "—"}</strong>
-            <small>
-              {chord ? romanNumeral(chord, tonalContext) : "choose harmony"}
-            </small>
-          </button>
-        ))}
-      </div>
-
-      <div className="harmony-chord-palette">
-        {palette.map((chord) => {
-          const symbol = chordSymbol(chord, tonalContext);
-          const numeral = romanNumeral(chord, tonalContext);
-          const selected = progression[selectedSlot];
-          const isSelected =
-            selected &&
-            chordSymbol(selected, tonalContext) === symbol &&
-            romanNumeral(selected, tonalContext) === numeral;
-          return (
+      {showTargets ? (
+        <>
+        <div className="harmony-chord-slots">
+          {progression.map((chord, index) => (
             <button
-              key={numeral + ":" + symbol}
-              onClick={() => void chooseChord(chord)}
-              className={isSelected ? "is-selected" : ""}
-              aria-label={
-                "Set bar " +
-                (selectedSlot + 1) +
-                " to " +
-                symbol +
-                " (" +
-                numeral +
-                ") and preview the chord"
-              }
+              key={index}
+              className={[
+                "harmony-chord-slot",
+                selectedSlot === index ? "is-selected" : "",
+              ].filter(Boolean).join(" ")}
+              onClick={() => void selectSlot(index)}
             >
-              <strong>{symbol}</strong>
-              <span>{numeral}</span>
-              <small>set + hear</small>
+              <span>Bar {index + 1}</span>
+              <strong>{chord ? chordSymbol(chord, tonalContext) : "—"}</strong>
+              <small>
+                {chord ? romanNumeral(chord, tonalContext) : "choose harmony"}
+              </small>
             </button>
-          );
-        })}
-      </div>
-
-      <div className="harmony-target-note">
-        <strong>Chord buttons set the target for bar {selectedSlot + 1} and play it once.</strong>
-        <span>
-          They change the label and highlighted chord tones. They never write or replace your MIDI notes.
-        </span>
-      </div>
-
-      <div className="harmony-clear-actions">
-        <button
-          onClick={() => setHarmonicSlot(selectedSlot, null)}
-          disabled={progression[selectedSlot] === null}
-        >
-          Clear chord
-        </button>
-        <button
-          onClick={() => clearHarmonyBar(selectedSlot)}
-          disabled={harmonySequence
-            .slice(selectedSlot * 8, selectedSlot * 8 + 8)
-            .every((notes) => notes.length === 0)}
-        >
-          Clear notes in bar {selectedSlot + 1}
-        </button>
-      </div>
+          ))}
+        </div>
+  
+        <div className="harmony-chord-palette">
+          {palette.map((chord) => {
+            const symbol = chordSymbol(chord, tonalContext);
+            const numeral = romanNumeral(chord, tonalContext);
+            const selected = progression[selectedSlot];
+            const isSelected =
+              selected &&
+              chordSymbol(selected, tonalContext) === symbol &&
+              romanNumeral(selected, tonalContext) === numeral;
+            return (
+              <button
+                key={numeral + ":" + symbol}
+                onClick={() => void chooseChord(chord)}
+                className={isSelected ? "is-selected" : ""}
+                aria-label={
+                  "Set bar " +
+                  (selectedSlot + 1) +
+                  " to " +
+                  symbol +
+                  " (" +
+                  numeral +
+                  ") and preview the chord"
+                }
+              >
+                <strong>{symbol}</strong>
+                <span>{numeral}</span>
+                <small>set + hear</small>
+              </button>
+            );
+          })}
+        </div>
+  
+        <div className="harmony-target-note">
+          <strong>Chord buttons set the target for bar {selectedSlot + 1} and play it once.</strong>
+          <span>
+            They change the label and highlighted chord tones. They never write or replace your MIDI notes.
+          </span>
+        </div>
+  
+        <div className="harmony-clear-actions">
+          <button
+            onClick={() => setHarmonicSlot(selectedSlot, null)}
+            disabled={progression[selectedSlot] === null}
+          >
+            Clear chord
+          </button>
+          <button
+            onClick={() => clearHarmonyBar(selectedSlot)}
+            disabled={harmonySequence
+              .slice(selectedSlot * 8, selectedSlot * 8 + 8)
+              .every((notes) => notes.length === 0)}
+          >
+            Clear notes in bar {selectedSlot + 1}
+          </button>
+        </div>
+  
+          </>
+      ) : (
+        <div className="harmony-clear-actions">
+          <button
+            onClick={clearHarmonySequence}
+            disabled={harmonySequence.every((notes) => notes.length === 0)}
+          >
+            Clear piano study
+          </button>
+        </div>
+      )}
 
       <div className="harmony-roll-scroll">
         <div className="harmony-roll-header">
