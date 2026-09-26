@@ -51,7 +51,7 @@ export const levineScaleTheoryLesson: LessonDefinition = {
         learn:
           "Compare C Ionian with C Lydian and isolate the one pitch that changes the major-seventh colour.",
         explanation:
-          "A scale and its chord are two forms of the same harmonic material: one heard horizontally, the other vertically. Over C major seventh, C Ionian supplies the notes of the C-major scale, but the fourth F creates a strong rub when it is held against the chord. The source calls this an avoid note, while stressing that the term is not absolute - a passing or quickly resolved dissonance can still be musical.\n\nC Lydian changes only that fourth, raising F to F-sharp. That removes the semitone against E and gives the major-seventh chord a different colour while leaving the remaining C-major chord tones intact.",
+          "A scale and its chord are two forms of the same harmonic material: one heard horizontally, the other vertically. Over C major seventh, C Ionian supplies the notes of the C-major scale, but the fourth F creates a strong rub when it is held against the chord. This is often called an avoid note, but the term is not absolute - a passing or quickly resolved dissonance can still be musical.\n\nC Lydian changes only that fourth, raising F to F-sharp. That removes the semitone against E and gives the major-seventh chord a different colour while leaving the remaining C-major chord tones intact.",
         instruction:
           "Study the major-scale harmony map. Clear the piano grid. In bar 1 write C4-D4-E4-F4-G4-A4-B4-C5 on steps 1-8. In bar 3 write C4-D4-E4-F-sharp4-G4-A4-B4-C5 on steps 17-24. Play the loop and focus on F versus F-sharp.",
         recognition:
@@ -166,7 +166,7 @@ export const levineScaleTheoryLesson: LessonDefinition = {
         learn:
           "Compare A Locrian with A Locrian sharp-two and hear how only the ninth changes.",
         explanation:
-          "A half-diminished chord can be paired with ordinary Locrian from a major scale, but that scale gives the chord a flat ninth. The sixth mode of melodic minor raises that note while leaving the root, minor third, flat fifth and minor seventh intact.\n\nOn A half-diminished, A Locrian contains B-flat; A Locrian sharp-two contains B-natural. The source presents the natural-nine version as a common choice while explicitly noting that the older Locrian sound is still valid.",
+          "A half-diminished chord can be paired with ordinary Locrian from a major scale, but that scale gives the chord a flat ninth. The sixth mode of melodic minor raises that note while leaving the root, minor third, flat fifth and minor seventh intact.\n\nOn A half-diminished, A Locrian contains B-flat; A Locrian sharp-two contains B-natural. The natural-nine version is a common choice, while the older Locrian sound remains valid.",
         instruction:
           "Study the half-diminished comparison. Clear the grid. Write A3-B-flat3-C4-D4-E-flat4-F4-G4-A4 on steps 1-8. Then write A3-B3-C4-D4-E-flat4-F4-G4-A4 on steps 17-24. Play the two modes and listen only to the second scale degree.",
         recognition:
@@ -223,7 +223,7 @@ export const levineScaleTheoryLesson: LessonDefinition = {
         learn:
           "Start the same half-step/whole-step diminished collection on G and E and discover that the pitch set is unchanged.",
         explanation:
-          "The diminished scale alternates half steps and whole steps. Because that interval pattern is symmetrical, transposing the scale by a minor third reproduces the same collection. A G half-step/whole-step scale and an E half-step/whole-step scale therefore contain exactly the same eight pitch classes.\n\nThat symmetry is also why dominant flat-nine chords whose roots lie a minor third apart can share diminished-scale material. The source warns that this harmonic ambiguity does not mean every apparent diminished chord is automatically a substitute dominant; the bass and surrounding progression still matter.",
+          "The diminished scale alternates half steps and whole steps. Because that interval pattern is symmetrical, transposing the scale by a minor third reproduces the same collection. A G half-step/whole-step scale and an E half-step/whole-step scale therefore contain exactly the same eight pitch classes.\n\nThat symmetry is also why dominant flat-nine chords whose roots lie a minor third apart can share diminished-scale material. This harmonic ambiguity does not mean every apparent diminished chord is automatically a substitute dominant; the bass and surrounding progression still matter.",
         instruction:
           "Study the diminished symmetry map. Clear the grid. Write G3-A-flat3-B-flat3-B3-C-sharp4-D4-E4-F4 on steps 1-8. On steps 17-24 write the same pitch collection starting from E3: E3-F3-G3-A-flat3-B-flat3-B3-C-sharp4-D4. Play the two rotations.",
         recognition:
@@ -280,7 +280,7 @@ export const levineScaleTheoryLesson: LessonDefinition = {
         learn:
           "Compare the two possible whole-tone scales and hear why transposing within one of them does not create a new pitch set.",
         explanation:
-          "A whole-tone scale contains only whole steps. That makes it symmetrical: move the starting note by a whole step and the same six pitch classes return in a different order. There are therefore only two distinct whole-tone collections.\n\nIn dominant harmony the scale naturally contains the major third, minor seventh, raised fourth and raised fifth. The source treats its notes as freely interchangeable within that sound and recommends using the colour in relatively short doses because the symmetry weakens any sense of tonal hierarchy.",
+          "A whole-tone scale contains only whole steps. That makes it symmetrical: move the starting note by a whole step and the same six pitch classes return in a different order. There are therefore only two distinct whole-tone collections.\n\nIn dominant harmony the scale naturally contains the major third, minor seventh, raised fourth and raised fifth. Its notes are freely interchangeable within that sound, and the colour is most effective in relatively short doses because the symmetry weakens any sense of tonal hierarchy.",
         instruction:
           "Study the whole-tone harmony map. Clear the grid. Write G3-A3-B3-C-sharp4-E-flat4-F4 on steps 1-6. On steps 17-22 write the other collection: A-flat3-B-flat3-C4-D4-E4-F-sharp4. Play both six-note scales and compare their uniform spacing.",
         recognition:
