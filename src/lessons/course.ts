@@ -55,6 +55,9 @@ import { schoenbergThemeVariationsLesson } from "./schoenbergThemeVariations";
 import { schoenbergLargeFormFunctionsLesson } from "./schoenbergLargeFormFunctions";
 import { schoenbergRondoLesson } from "./schoenbergRondo";
 import { schoenbergSonataAllegroLesson } from "./schoenbergSonataAllegro";
+import { levineIntervalsTriadsLesson } from "./levineIntervalsTriads";
+import { levineMajorModesIiViLesson } from "./levineMajorModesIiVi";
+import { levineThreeNoteVoicingsLesson } from "./levineThreeNoteVoicings";
 import type { LessonDefinition } from "./types";
 
 export const playLabLessons: LessonDefinition[] = [
@@ -118,7 +121,13 @@ export const schoenbergLessons: LessonDefinition[] = [
   schoenbergSonataAllegroLesson,
 ];
 
-export type LearningTrackId = "play-lab" | "schoenberg";
+export const levineLessons: LessonDefinition[] = [
+  levineIntervalsTriadsLesson,
+  levineMajorModesIiViLesson,
+  levineThreeNoteVoicingsLesson,
+];
+
+export type LearningTrackId = "play-lab" | "schoenberg" | "levine";
 
 export type LearningTrackDefinition = {
   id: LearningTrackId;
@@ -143,11 +152,19 @@ export const learningTracks: LearningTrackDefinition[] = [
     description: "A separate composition track based on Fundamentals of Musical Composition.",
     lessons: schoenbergLessons,
   },
+  {
+    id: "levine",
+    label: "LEVINE",
+    title: "Jazz Piano",
+    description: "A source-grounded jazz-piano course based on The Jazz Piano Book.",
+    lessons: levineLessons,
+  },
 ];
 
 export const implementedLessons: LessonDefinition[] = [
   ...playLabLessons,
   ...schoenbergLessons,
+  ...levineLessons,
 ];
 
 export const courseOutline = playLabLessons.map((lesson) => ({
