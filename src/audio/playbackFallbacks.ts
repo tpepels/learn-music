@@ -1,6 +1,4 @@
 import {
-  arrangementLayers,
-  cloneArrangement,
   clonePattern,
   type Arrangement,
   type BassSequence,
@@ -64,35 +62,18 @@ export function fallbackBassRoot(
 }
 
 /**
- * Production processors need an audible source on every fader even when the
- * learner skipped the arrangement lesson. Existing layer entries remain
- * untouched; only layers missing from the entire arrangement are auditioned
- * as production context.
+ * Production-learning workspaces need every processor to have a continuous
+ * audible target. They intentionally audition all four project layers in
+ * every bar, without mutating the learner's stored arrangement.
  */
 export function ensureProductionLayersPresent(
   arrangement: Arrangement,
 ): Arrangement {
-  const safe =
-    arrangement.length > 0
-      ? cloneArrangement(arrangement)
-      : Array.from({ length: 8 }, () => ({
-          drums: false,
-          bass: false,
-          chords: false,
-          melody: false,
-        }));
-
-  const missing = arrangementLayers.filter(
-    (layer) => !safe.some((bar) => bar[layer]),
-  );
-
-  if (missing.length === 0) return safe;
-
-  return safe.map((bar) => {
-    const next = { ...bar };
-    missing.forEach((layer) => {
-      next[layer] = true;
-    });
-    return next;
-  });
+  const barCount = Math.max(1, arrangement.length);
+  return Array.from({ length: barCount }, () => ({
+    drums: true,
+    bass: true,
+    chords: true,
+    melody: true,
+  }));
 }
