@@ -1,37 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { schoenbergDevelopingVariationLesson } from "./schoenbergDevelopingVariation";
-import { schoenbergConnectingMotiveFormsLesson } from "./schoenbergConnectingMotiveForms";
-import { schoenbergBeginningSentenceLesson } from "./schoenbergBeginningSentence";
-import { schoenbergCompletingSentenceLesson } from "./schoenbergCompletingSentence";
-import { schoenbergPeriodLesson } from "./schoenbergPeriod";
-import { schoenbergAccompanimentLesson } from "./schoenbergAccompaniment";
-import { schoenbergCharacterMoodLesson } from "./schoenbergCharacterMood";
-import { schoenbergMelodyThemeLesson } from "./schoenbergMelodyTheme";
-import { schoenbergSelfCriticismLesson } from "./schoenbergSelfCriticism";
-import { schoenbergSmallTernaryLesson } from "./schoenbergSmallTernary";
-import { schoenbergIrregularConstructionLesson } from "./schoenbergIrregularConstruction";
-import { schoenbergMinuetLesson } from "./schoenbergMinuet";
-import { schoenbergScherzoLesson } from "./schoenbergScherzo";
-import { schoenbergThemeVariationsLesson } from "./schoenbergThemeVariations";
+import { schoenbergLessons } from "./course";
 
-const laterLessons = [
-  schoenbergDevelopingVariationLesson,
-  schoenbergConnectingMotiveFormsLesson,
-  schoenbergBeginningSentenceLesson,
-  schoenbergCompletingSentenceLesson,
-  schoenbergPeriodLesson,
-  schoenbergAccompanimentLesson,
-  schoenbergCharacterMoodLesson,
-  schoenbergMelodyThemeLesson,
-  schoenbergSelfCriticismLesson,
-  schoenbergSmallTernaryLesson,
-  schoenbergIrregularConstructionLesson,
-  schoenbergMinuetLesson,
-  schoenbergScherzoLesson,
-  schoenbergThemeVariationsLesson,
-];
+const laterLessons = schoenbergLessons.slice(1);
 
-describe("Schoenberg S02-S15 teaching depth", () => {
+describe("Schoenberg S02+ teaching depth", () => {
   it("keeps every concept explanation substantial and multi-paragraph", () => {
     for (const lesson of laterLessons) {
       for (const exercise of lesson.exercises) {
