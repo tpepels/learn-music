@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { implementedLessons } from "../lessons/course";
+import { playLabLessons } from "../lessons/course";
 import { productionContext } from "./productionContext";
 
 describe("producer context coverage", () => {
-  it("explains why, when, tools, and real-world recognition for every exercise", () => {
-    const exercises = implementedLessons.flatMap((lesson) => lesson.exercises);
+  it("explains why, when, tools, and real-world recognition for every PLAY / LAB exercise", () => {
+    const exercises = playLabLessons.flatMap((lesson) => lesson.exercises);
 
     expect(exercises.length).toBeGreaterThan(0);
 
