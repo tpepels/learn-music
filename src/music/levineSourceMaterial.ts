@@ -1808,6 +1808,236 @@ export const levineSourceMaterial: Record<string, LevineSourceMaterial> = {
     "Source-grounded map of the diminished-derived upper-structure interchangeability and minor-third motion developed in the later part of Chapter Fourteen.",
   ),
 
+
+  "l15.major-pentatonic": map(
+    "l15.major-pentatonic",
+    "Chapter Fifteen, Figures 15-2 through 15-5",
+    "Five-note major and minor centers",
+    [
+      {
+        label: "Remove fourth and seventh",
+        detail:
+          "The familiar major pentatonic contains scale degrees one, two, three, five and six, omitting the fourth and seventh of the major scale.",
+      },
+      {
+        label: "Hear the interval pattern",
+        detail:
+          "Its spacing is whole step, whole step, minor third, whole step before the octave closes.",
+      },
+      {
+        label: "Rotate the same five notes",
+        detail:
+          "Like any scale, the pentatonic collection has modes. Starting from its fifth degree produces the commonly named minor pentatonic sound without changing the pitch set.",
+      },
+    ],
+    "Source-grounded map of the basic pentatonic construction and modal rotation in the opening of Chapter Fifteen.",
+  ),
+  "l15.in-key-pentatonics": map(
+    "l15.in-key-pentatonics",
+    "Chapter Fifteen, Figures 15-6 through 15-9",
+    "Three pentatonic collections inside one major key",
+    [
+      {
+        label: "C, F and G stay inside C major",
+        detail:
+          "Major pentatonic scales rooted on C, F and G all use only notes from the C-major collection.",
+      },
+      {
+        label: "The labels show derivation",
+        detail:
+          "Calling them I, IV and V pentatonic identifies their roots inside the key; the names are practical orientation rather than separate chord functions.",
+      },
+      {
+        label: "Different roots emphasize different colour tones",
+        detail:
+          "Over D minor seventh, G pentatonic includes B and E, heard as the sixth and ninth of the chord, giving a more extended colour than a collection centered on the chord itself.",
+      },
+    ],
+    "Source-grounded synthesis of the three pentatonic collections occurring naturally in C major and their use over diatonic harmony.",
+  ),
+  "l15.v-pentatonic-ii-v-i": map(
+    "l15.v-pentatonic-ii-v-i",
+    "Chapter Fifteen, Figure 15-10 and surrounding discussion",
+    "One pentatonic across II-V-I",
+    [
+      {
+        label: "Use the dominant pentatonic",
+        detail:
+          "In C major, G pentatonic can be retained across D minor seventh, G7 and C major rather than changing scale with every chord.",
+      },
+      {
+        label: "The notes change function",
+        detail:
+          "G, A, B, D and E become different chord tones and extensions as the harmony moves underneath them.",
+      },
+      {
+        label: "Continuity is the benefit",
+        detail:
+          "The five-note field gives the improvised line a common melodic language across the entire progression.",
+      },
+    ],
+    "Source-grounded map of the V-pentatonic II-V-I strategy demonstrated in Chapter Fifteen.",
+  ),
+  "l15.avoid-note-derivation": map(
+    "l15.avoid-note-derivation",
+    "Chapter Fifteen, Figures 15-13 and 15-14",
+    "Derive the pentatonic by removing friction",
+    [
+      {
+        label: "D minor seventh accepts the C-major field",
+        detail:
+          "Within the C-major II-V-I discussion, the II chord does not introduce an avoid note that must be removed from the parent major collection.",
+      },
+      {
+        label: "G7 makes C the strongest clash",
+        detail:
+          "On the dominant, the fourth C is the note singled out for special care.",
+      },
+      {
+        label: "C major seventh makes F the strongest clash",
+        detail:
+          "On the tonic major-seventh chord, the fourth F creates the corresponding sustained friction.",
+      },
+      {
+        label: "Remove C and F",
+        detail:
+          "Deleting those two notes from C major leaves D, E, G, A and B: exactly the G-major-pentatonic pitch set.",
+      },
+    ],
+    "Source-grounded derivation of the V pentatonic from the avoid-note discussion near the end of the main pentatonic section.",
+  ),
+  "l15.other-five-note-scales": map(
+    "l15.other-five-note-scales",
+    "Chapter Fifteen, Figures 15-17 through 15-21",
+    "In-sen and altered pentatonic colours",
+    [
+      {
+        label: "In-sen uses uneven spacing",
+        detail:
+          "The E in-sen example uses E, F, A, B and D, producing half step, major third, whole step and minor third.",
+      },
+      {
+        label: "In-sen links to larger scales",
+        detail:
+          "The collection can be derived from both major and melodic-minor material depending on which note is treated as the parent-scale reference.",
+      },
+      {
+        label: "Altered pentatonic changes the final step",
+        detail:
+          "The E altered-pentatonic example uses E, F, A, B and C-sharp, changing the last interval to a whole step.",
+      },
+      {
+        label: "Melodic minor supplies the altered form",
+        detail:
+          "The altered pentatonic is presented as a five-note subset derived from the second degree of melodic minor and used over altered dominant colour.",
+      },
+    ],
+    "Source-grounded map of the alternative five-note scales presented after the major-pentatonic material in Chapter Fifteen.",
+  ),
+
+  "l16.mixed-voicing-ii-v-i": map(
+    "l16.mixed-voicing-ii-v-i",
+    "Chapter Sixteen, Figures 16-1 through 16-6",
+    "Combine voicing systems inside one progression",
+    [
+      {
+        label: "Start with a So What minor voicing",
+        detail:
+          "The II chord can use the five-note fourth-based voicing learned earlier rather than a conventional rootless shell.",
+      },
+      {
+        label: "Switch to an upper-structure dominant",
+        detail:
+          "The V chord can use an upper-structure voicing, including altered or flat-nine colour, without requiring the same construction as the II chord.",
+      },
+      {
+        label: "Resolve into a fourth-based tonic",
+        detail:
+          "The I chord can use a quartal major voicing, creating three distinct construction methods across one II-V-I.",
+      },
+      {
+        label: "Judge the result by connection",
+        detail:
+          "The chapter emphasizes smooth voice leading and a convincing harmonic background rather than loyalty to one voicing formula.",
+      },
+    ],
+    "Source-grounded synthesis of the mixed So What, upper-structure and fourth-voicing II-V-I examples at the start of Chapter Sixteen.",
+  ),
+  "l16.diminished-motion": map(
+    "l16.diminished-motion",
+    "Chapter Sixteen, Figures 16-6 through 16-11",
+    "Move dominant voicings by minor thirds",
+    [
+      {
+        label: "Flat-nine harmony draws from diminished symmetry",
+        detail:
+          "Dominant flat-nine voicings can be related through the same half-step/whole-step diminished collection used earlier.",
+      },
+      {
+        label: "Minor-third motion preserves the pitch field",
+        detail:
+          "Moving upper material by three semitones rotates the same diminished resources into a new voicing position.",
+      },
+      {
+        label: "Use the motion inside one dominant area",
+        detail:
+          "The symmetry creates internal movement while the guide tones and bass context continue to define the dominant function.",
+      },
+    ],
+    "Source-grounded map of the minor-third diminished motion developed in the early-middle part of Chapter Sixteen.",
+  ),
+  "l16.double-diminished": map(
+    "l16.double-diminished",
+    "Chapter Sixteen, Figures 16-9 through 16-11",
+    "Two diminished chords make one eight-note field",
+    [
+      {
+        label: "Give each hand a diminished seventh chord",
+        detail:
+          "One hand can play a diminished-seventh chord while the other hand plays the complementary diminished-seventh chord from the same scale.",
+      },
+      {
+        label: "The two sets interlock",
+        detail:
+          "The hands do not merely duplicate each other; their pitch classes fill the alternating gaps of the eight-note diminished collection.",
+      },
+      {
+        label: "The combined sonority contains the whole scale",
+        detail:
+          "Together the two four-note shapes sound all eight notes of the diminished scale at once, turning a scale into a dense keyboard voicing.",
+      },
+    ],
+    "Source-grounded analysis of the double-diminished sonority and diminished-scale coverage described around Figures 16-9 through 16-11.",
+  ),
+  "l16.three-note-bite": map(
+    "l16.three-note-bite",
+    "Chapter Sixteen, Figure 16-31 and surrounding discussion",
+    "Compact half-step voicing formulas",
+    [
+      {
+        label: "Major seventh uses seventh-root-third",
+        detail:
+          "On a major-seventh chord, the compact cell uses the seventh, root and third, producing a bottom half step followed by a major third.",
+      },
+      {
+        label: "Other major-scale harmony uses three key degrees",
+        detail:
+          "For II, V, suspended, Phrygian and Lydian-related chords, the formula uses the third, fourth and sixth degrees of the parent major key.",
+      },
+      {
+        label: "Melodic minor uses second-third-fifth",
+        detail:
+          "For chords derived from melodic minor, the corresponding compact cell uses the second, third and fifth degrees of the melodic-minor key.",
+      },
+      {
+        label: "Dominant flat-nine tightens the upper interval",
+        detail:
+          "Dominant-flat-nine cells keep the bottom semitone but use a minor third above it, distinguishing them from the half-step-plus-major-third family.",
+      },
+    ],
+    "Source-grounded map of the three-note 'bite' voicing rules summarized in Figure 16-31.",
+  ),
+
 };
 
 export function getLevineSourceMaterial(
