@@ -16,6 +16,7 @@ import {
   ensureProductionLayersPresent,
   ensureTextureLayersPresent,
   fallbackBassRoot,
+  formArrangementFromSettings,
   hasBassContent,
   hasDrumContent,
   hasWrittenHarmony,
@@ -145,6 +146,27 @@ describe("layered playback fallbacks", () => {
       chords: false,
       melody: false,
     });
+  });
+
+  it("rebuilds form playback from the latest section-layer state", () => {
+    const settings = {
+      sections: ["A", "A′", "B", "A"] as const,
+      roles: ["statement", "answer", "contrast", "return"] as const,
+      layers: Array.from({ length: 4 }, () => ({
+        drums: false,
+        bass: false,
+        chords: false,
+        melody: false,
+      })),
+    };
+
+    const before = formArrangementFromSettings(settings);
+    expect(before.slice(0, 4).every((bar) => !bar.drums)).toBe(true);
+
+    settings.layers[0].drums = true;
+    const after = formArrangementFromSettings(settings);
+    expect(after.slice(0, 4).every((bar) => bar.drums)).toBe(true);
+    expect(after.slice(4).every((bar) => !bar.drums)).toBe(true);
   });
 
   it("uses a full audition mix without mutating sparse arrangement decisions", () => {
