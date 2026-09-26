@@ -5,6 +5,7 @@ import {
   studyBlocksAreRelated,
 } from "../music/study";
 import {
+  belkinLessons,
   getNextImplementedLesson,
   learningTracks,
   playLabLessons,
@@ -57,9 +58,11 @@ describe("Schoenberg learning track", () => {
       "schoenberg.rondo",
       "schoenberg.sonata-allegro",
     ]);
+    expect(belkinLessons).toHaveLength(3);
     expect(learningTracks.map((track) => track.id)).toEqual([
       "play-lab",
       "schoenberg",
+      "belkin",
     ]);
     expect(getNextImplementedLesson(playLabLessons.at(-1)!.id)).toBeUndefined();
     expect(
