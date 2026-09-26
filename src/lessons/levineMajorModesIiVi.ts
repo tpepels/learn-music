@@ -48,9 +48,9 @@ export const levineMajorModesIiViLesson: LessonDefinition = {
         learn:
           "Take every other note from a mode - 1, 3, 5 and 7 - and hear the seventh-chord quality that results.",
         explanation:
-          "The seven modes in this chapter are rotations of the major-scale note collection: each begins on a different degree. Their names remain attached to those degrees in every major key. A seventh chord is formed by selecting alternate notes from the mode, so its root, third, fifth and seventh reveal the quality.
+          `The seven modes in this chapter are rotations of the major-scale note collection: each begins on a different degree. Their names remain attached to those degrees in every major key. A seventh chord is formed by selecting alternate notes from the mode, so its root, third, fifth and seventh reveal the quality.
 
-Three modes establish the central major-key chord types. C Ionian produces C major seventh; D Dorian produces D minor seventh; G Mixolydian produces G dominant seventh. The third and seventh are the variables that distinguish these qualities most clearly.",
+Three modes establish the central major-key chord types. C Ionian produces C major seventh; D Dorian produces D minor seventh; G Mixolydian produces G dominant seventh. The third and seventh are the variables that distinguish these qualities most clearly.`,
         instruction:
           "Step through the seven-mode overview, then play the C-Ionian, D-Dorian and G-Mixolydian source scores. In the piano study set the key to C major. Clear the notes and set the four bar targets to Cmaj7, Dm7, G7 and Cmaj7. At the start of each bar write the four chord tones in root position: C-E-G-B, D-F-A-C, G-B-D-F, then C-E-G-B again.",
         recognition:
@@ -131,9 +131,9 @@ Three modes establish the central major-key chord types. C Ionian produces C maj
         learn:
           "Connect minor seventh, dominant seventh and major seventh into the basic major-key II-V-I.",
         explanation:
-          "In a major key, the II, V and I chords combine three qualities already derived from the modes. II is minor seventh, V is dominant seventh and I is major seventh. In C major that gives Dm7-G7-Cmaj7.
+          `In a major key, the II, V and I chords combine three qualities already derived from the modes. II is minor seventh, V is dominant seventh and I is major seventh. In C major that gives Dm7-G7-Cmaj7.
 
-Treat the Roman numerals as relationships rather than fixed chord names. II-V-I is useful precisely because the same relationship can be moved to another key. For now, keep the voicings in root position so the harmonic identity is unmistakable; smooth voice leading becomes the next chapter's problem.",
+Treat the Roman numerals as relationships rather than fixed chord names. II-V-I is useful precisely because the same relationship can be moved to another key. For now, keep the voicings in root position so the harmonic identity is unmistakable; smooth voice leading becomes the next chapter's problem.`,
         instruction:
           "Study the II-V-I source analysis. Keep C major selected. Clear the fourth bar target and all written notes. Set bars 1-3 to Dm7, G7 and Cmaj7. Write each complete seventh chord at the start of its bar and leave bar 4 empty. Play the progression several times and listen to the dominant chord as the point of greatest pull before I.",
         recognition:
@@ -205,9 +205,9 @@ Treat the Roman numerals as relationships rather than fixed chord names. II-V-I 
         learn:
           "Preserve harmonic function while every absolute chord name changes.",
         explanation:
-          "A progression is learned more deeply when it is separated from one set of note names. In F major, the same II-V-I degrees become Gm7-C7-Fmaj7. The chord qualities do not change: II remains minor seventh, V remains dominant seventh and I remains major seventh.
+          `A progression is learned more deeply when it is separated from one set of note names. In F major, the same II-V-I degrees become Gm7-C7-Fmaj7. The chord qualities do not change: II remains minor seventh, V remains dominant seventh and I remains major seventh.
 
-Changing the key control preserves the stored harmonic degrees, but the written piano notes are absolute pitches. That distinction is useful: first watch the chord symbols move with the key, then deliberately rewrite the keyboard voicings for the new roots.",
+Changing the key control preserves the stored harmonic degrees, but the written piano notes are absolute pitches. That distinction is useful: first watch the chord symbols move with the key, then deliberately rewrite the keyboard voicings for the new roots.`,
         instruction:
           "Start from the C-major II-V-I, then change only the key to F major. Confirm that the targets read Gm7-C7-Fmaj7. Clear the written notes and rebuild those three root-position seventh chords at the starts of bars 1-3: G-B-flat-D-F, C-E-G-B-flat, F-A-C-E. Leave bar 4 empty and play the result.",
         recognition:
