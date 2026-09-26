@@ -917,6 +917,10 @@ function App() {
       case "composition-study":
         resetStudyExercise(exercise.id);
         break;
+      case "jazz-piano":
+        clearChords();
+        clearHarmonySequence();
+        break;
     }
   };
 
