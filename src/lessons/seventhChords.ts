@@ -43,16 +43,16 @@ export const seventhChordsLesson: LessonDefinition = {
         id: "harmony.seventh-chords.a",
         letter: "A",
         title: "Turn C into Cmaj7",
-        learn: "Hear exactly what the added B changes.",
+        learn: "Hear exactly what a major seventh adds to a triad.",
         explanation:
-          "C major contains C–E–G. Cmaj7 adds B. The chord still functions as tonic, but the extra note makes the colour less plain and creates a semitone relationship with C.",
+          "A maj7 chord keeps the major triad and adds a note eleven semitones above the root. The harmonic function can remain tonic while the extra note adds colour and a close semitone relationship with the octave root.",
         instruction:
-          "In bar 1, choose plain C and play it once. Then change the bar to Cmaj7 and add B to the MIDI so C, E, G and B all appear. Leave Cmaj7 selected.",
+          "In bar 1, choose plain C and play it once. Then change the bar to Cmaj7, derive the added major seventh from the interval definition, and write the complete four-note chord yourself.",
         recognition:
           "Mute B, then add it back. Does Cmaj7 feel like the same home chord with more tension inside it, or like a completely different chord?",
         terms: [
-          { term: "Major seventh", definition: "An interval eleven semitones above the root; B above C." },
-          { term: "Cmaj7", definition: "C major plus its major seventh: C–E–G–B." },
+          { term: "Major seventh", definition: "An interval eleven semitones above the root." },
+          { term: "maj7", definition: "A major triad with a major seventh added above its root." },
         ],
         workspace: "seventh-harmony",
         checksLabel: "Add the seventh",
@@ -79,13 +79,13 @@ export const seventhChordsLesson: LessonDefinition = {
         title: "Make V7 resolve",
         learn: "Write the guide tones that strengthen G7→Cmaj7.",
         explanation:
-          "G7 adds F to the G-major triad. In the move G7→Cmaj7, B tends upward to C while F tends downward to E. Those small motions help explain the strength of dominant-seventh resolution.",
+          "A dominant seventh contains two guide tones whose small contrary motions help make V7→I feel directed: the leading tone rises to tonic while the chordal seventh falls by step. Derive those voices from the two chord symbols.",
         instruction:
-          "Put G7 in bar 2 and Cmaj7 in bar 3. Write all four notes of both chords. Then make sure F appears in the G7 bar and E appears in the following Cmaj7 bar so you can hear the guide-tone motion.",
+          "Put G7 in bar 2 and Cmaj7 in bar 3 and write all four notes of both chords from their symbols. Then identify the two guide tones and keep them in a register where you can follow their stepwise resolution by ear.",
         recognition:
           "Compare G→C with G7→Cmaj7. Which inner notes make the second move feel more directed?",
         terms: [
-          { term: "Dominant seventh", definition: "A major triad with a minor seventh added; G–B–D–F in C major." },
+          { term: "Dominant seventh", definition: "A major triad with a minor seventh added above its root." },
           { term: "Guide tone", definition: "A chord tone whose small motion strongly communicates harmonic direction." },
         ],
         workspace: "seventh-harmony",
