@@ -88,7 +88,7 @@ export const soundSynthesisLesson: LessonDefinition = {
         title: "Turn the phrase into a pluck",
         learn: "Use envelope shape to change the role of the same musical material.",
         explanation:
-          "An amplitude envelope describes how loudness changes over time. Attack controls how quickly a note reaches its level; release controls how long it fades after the note ends. These time shapes strongly affect whether a sound feels percussive, plucked, or pad-like.",
+          "An amplitude envelope describes how loudness changes over time. A common ADSR envelope has four stages: attack rises from silence, decay falls from the initial peak, sustain is the held level, and release fades after the note ends. This simplified synth exposes only attack and release; decay and sustain are fixed. Those two available stages are enough to hear a strong contrast between a pluck and a pad without pretending you are controlling a full ADSR envelope.",
         instruction:
           "Switch to triangle, set Attack to 0.08 seconds or less and Release to 0.4 seconds or less, then use Play current melody. Compare the result with the darker sustained sawtooth from B: the notes should now speak separately and rhythmically.",
         recognition:
@@ -96,8 +96,10 @@ export const soundSynthesisLesson: LessonDefinition = {
         terms: [
           { term: "Envelope", definition: "A time-varying shape that controls a parameter such as amplitude." },
           { term: "Attack", definition: "How long a sound takes to rise from silence after a note begins." },
+          { term: "Decay", definition: "The time after the initial peak during which an ADSR envelope falls toward its sustain level." },
+          { term: "Sustain", definition: "The level an ADSR envelope holds while a note continues after the decay stage." },
           { term: "Release", definition: "How long a sound takes to fade after a note ends." },
-          { term: "ADSR", definition: "Attack, Decay, Sustain, Release: a common four-stage envelope model." },
+          { term: "ADSR", definition: "Attack, Decay, Sustain, Release: a common four-stage envelope model; only attack and release are adjustable in this lab." },
         ],
         workspace: "synth",
         checksLabel: "Shape time",
