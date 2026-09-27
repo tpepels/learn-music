@@ -161,7 +161,7 @@ export const playLabScopeByLessonId: Record<string, PlayLabLessonScope> = {
       "Use a secondary dominant to tonicize a non-tonic chord with a chromatic note.",
     ],
     prerequisites: ["Diatonic triads, scale degrees and chord progressions from Lessons 3-4."],
-    scope: "Tonicization is temporary. Full modulation to a new key is not part of this lesson.",
+    scope: "Tonicization is temporary. This lesson introduces one dominant-seventh formula only as needed; seventh-chord families come in Lesson 27, and full modulation is not covered.",
   },
   "composition.phrase-form": {
     objectives: [
