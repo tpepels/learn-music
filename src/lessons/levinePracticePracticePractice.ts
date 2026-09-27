@@ -52,6 +52,10 @@ export const levinePracticePracticePracticeLesson: LessonDefinition = {
           "Study the all-keys practice strategy. Clear the grid. In bars 1-2 write the C-major rootless II-V-I: F3-A3-C4-E4, then F3-A3-B3-E4, then E3-G3-A3-D4 on steps 1, 5 and 7. In bars 3-4 transpose the same logic to F major: B-flat3-D4-F4-A4, then B-flat3-D4-E4-A4, then A3-C4-D4-G4 on steps 17, 21 and 23. Play both keys.",
         recognition:
           "Can you hear the same functional motion even though none of the absolute pitches are the same?",
+        takeaway:
+          "Practicing in all keys means moving the harmonic rule and voice leading, not reproducing one memorized keyboard shape at a new height.",
+        hint:
+          "Before playing the new key, name II, V and I and locate each chord's third and seventh. Let those functions rebuild the voicing.",
         source: {
           reference: "Chapter Twenty-Three - opening discussion and Practice everything in every key",
           focus:
@@ -109,6 +113,10 @@ export const levinePracticePracticePracticeLesson: LessonDefinition = {
           "Study the weakness-targeting method. Clear the grid. Choose a key, voicing or chord family that currently feels slow. Build at least three different shapes or positions from that one weak area, using at least 12 note entries in total. Spread them across the loop, play them, and revise anything that still makes you hesitate.",
         recognition:
           "After one focused pass, can you name exactly what still feels slow instead of merely saying the whole key is difficult?",
+        takeaway:
+          "Useful practice targets a specific weakness that can be named and retested, not a vague feeling that an entire key is difficult.",
+        hint:
+          "Compare one difficult shape or transition with an easy version. Time it or count hesitations, then name the exact note or movement that causes the delay.",
         source: {
           reference: "Chapter Twenty-Three - Practice to your weaknesses",
           focus:
@@ -159,6 +167,10 @@ export const levinePracticePracticePracticeLesson: LessonDefinition = {
           "Study the coordination routine. Clear the grid. On steps 1-4 hold the Dm7 shell F3-C4 under D4-F4-A4-B4 one melody note at a time. On steps 9-12 hold the G7 shell F3-B3 under G4-A4-B4-D5. On steps 17-20 hold the C-major shell E3-B3 under C5-D5-E5-G5. Play the whole three-stage sequence evenly.",
         recognition:
           "Can each hand keep its own role without the right-hand pattern disturbing the left-hand shell?",
+        takeaway:
+          "Combine skills only after each layer is secure alone; coordination improves through accurate slow repetition, not forced speed.",
+        hint:
+          "Play the left-hand shell alone, then the right-hand line alone. Combine one chord at a time and slow down immediately if either role starts following the other.",
         source: {
           reference: "Chapter Twenty-Three - Figures 23-1 through 23-3 and Practice more than one thing at the same time",
           focus:
@@ -217,6 +229,10 @@ export const levinePracticePracticePracticeLesson: LessonDefinition = {
           "Study context-based practice. Clear the grid. Write E3-G3-B3-D4 for C major in bar 1, G3-C-sharp4-E4-A4 for A7 in bar 2, F3-A3-C4-E4 for Dm7 in bar 3, and F3-A3-B3-E4 for G7 in bar 4. Play the loop repeatedly and notice which transition feels least automatic.",
         recognition:
           "Can you hear the four voicings as one progression rather than four flash-card answers?",
+        takeaway:
+          "A voicing is learned when you can enter and leave it inside a progression, not merely find it from silence.",
+        hint:
+          "Loop only the transition that hesitates. Once two neighboring chords connect smoothly, add the next chord rather than replaying the whole progression blindly.",
         source: {
           reference: "Chapter Twenty-Three - Practice within the context of tunes and Figures 23-4 through 23-20",
           focus:
@@ -276,6 +292,10 @@ export const levinePracticePracticePracticeLesson: LessonDefinition = {
           "Study the phrase-variation method. Clear the grid. Keep C3 under bars 1-2: write G4-A4-B4-E5 on steps 1-4, then D5-B4-A4-G4 on steps 9-12 so the second version begins from C major\'s ninth. Keep F3 under bars 3-4: transpose the first contour to C5-D5-E5-A5 on steps 17-20, then write G5-E5-D5-C5 on steps 25-28. Play all four and listen for both family resemblance and the change of harmonic center.",
         recognition:
           "Can you still hear one family of ideas even though starting note, direction and key keep changing?",
+        takeaway:
+          "A practiced phrase should become flexible raw material: preserve its identity while changing one feature at a time.",
+        hint:
+          "Keep three things fixed and change one - starting degree, direction, rhythm or key. If the phrase becomes unrecognizable, restore one of the original features.",
         source: {
           reference: "Chapter Twenty-Three - Figures 23-16 through 23-19 and lick-practice discussion",
           focus:
@@ -335,6 +355,10 @@ export const levinePracticePracticePracticeLesson: LessonDefinition = {
           "Study the listen-and-transcribe method. Clear the grid. Choose a four-note phrase from a recording or sing one from memory. Enter at least four notes by ear, play them back, and make corrections until the grid matches what you can sing. Do not copy the notes from a score.",
         recognition:
           "Can you sing the phrase before touching the keyboard, and can you explain which note needed the most correction?",
+        takeaway:
+          "Ear-first learning begins with something you can sing; notation and theory come after the sound is stable in memory.",
+        hint:
+          "Loop only a few notes. Sing the fragment away from the keyboard, find the first and last notes, then fill the middle before trying to name the harmony.",
         source: {
           reference: "Chapter Twenty-Three - Listen, listen, listen; Transcribing; Play along with records",
           focus:

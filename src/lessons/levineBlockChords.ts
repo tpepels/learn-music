@@ -52,6 +52,10 @@ export const levineBlockChordsLesson: LessonDefinition = {
           "Study the close-position alternation. Clear the grid. Harmonize the obvious ascending melody C5-D5-E5-F5: on step 1 write E4-G4-A4-C5; on step 2 write F4-A-flat4-B4-D5; on step 3 write G4-A4-C5-E5; on step 4 write A-flat4-B4-D5-F5. Repeat the four-step pattern once on steps 5-8. Play it and follow only the top note first, then listen to the changing harmony underneath.",
         recognition:
           "Can you follow C-D-E-F as one melody while the diminished sonorities behave like passing dominant colour underneath it?",
+        takeaway:
+          "Block-chord texture keeps the melody on top while close-position harmony moves with it; passing diminished chords connect stable C6-family shapes.",
+        hint:
+          "Follow only the top notes C-D-E-F first. Once that line is obvious, inspect the harmony underneath and notice where the diminished passing shapes occur.",
         source: {
           reference: "Chapter Nineteen - Figures 19-3 through 19-5",
           focus:
@@ -109,6 +113,10 @@ export const levineBlockChordsLesson: LessonDefinition = {
           "Study melody doubling. Clear the grid. In bar 1 write C4-E4-G4-A4. In bar 2 add A3 underneath the same voicing, giving A3-C4-E4-G4-A4. In bar 3 move the doubled shape up a whole step to B3-D4-F-sharp4-A4-B4. Leave bar 4 empty and play the three versions.",
         recognition:
           "Does the doubled lower melody make the line feel stronger without making the harmony feel like a different chord family?",
+        takeaway:
+          "Shearing-style locked hands reinforce the melody by doubling it an octave below the close-position block chord.",
+        hint:
+          "Build the ordinary four-way-close chord first. Then copy only the top melody note exactly one octave lower; do not invent a new bass line.",
         source: {
           reference: "Chapter Nineteen - Figures 19-6 and 19-7",
           focus:
@@ -167,6 +175,10 @@ export const levineBlockChordsLesson: LessonDefinition = {
           "Study the drop-2 transformation. Clear the grid. Write C4-E4-G4-A4 in bar 1. In bar 2 drop G4 by one octave to make G3-C4-E4-A4. In bar 3 start from E4-G4-A4-C5 and drop A4 to A3, giving A3-E4-G4-C5. Leave bar 4 empty and play all three.",
         recognition:
           "Can you hear the same harmonic material open up when one inner note moves down an octave?",
+        takeaway:
+          "Drop 2 keeps the same chord tones but opens the voicing by moving the second note from the top down one octave.",
+        hint:
+          "Count downward from the melody: top note is 1, next is 2. Move only that second-from-top note down twelve semitones.",
         source: {
           reference: "Chapter Nineteen - Figure 19-8 and practice discussion",
           focus:
@@ -225,6 +237,10 @@ export const levineBlockChordsLesson: LessonDefinition = {
           "Study the chromatic approach. Clear the grid. Put G3-C4-E4-A4 in bar 2 as the target C6 drop-2 voicing. In bar 1 approach it from a half step below with F-sharp3-B3-E-flat4-A-flat4. In bar 3 approach the target from a half step above with A-flat3-D-flat4-F4-B-flat4, then return to G3-C4-E4-A4 in bar 4. Play the four-bar loop.",
         recognition:
           "Can you hear both outside shapes as parallel approaches whose tension disappears when every voice resolves by semitone?",
+        takeaway:
+          "A chromatic approach voicing preserves the target shape while every voice resolves by semitone into it.",
+        hint:
+          "Build the target drop-2 chord first. Copy the entire shape one semitone below and one semitone above; every voice should then move one key into the target.",
         source: {
           reference: "Chapter Nineteen - Figures 19-29 through 19-34",
           focus:

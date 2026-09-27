@@ -52,6 +52,10 @@ export const levineVoicingsVoicingsLesson: LessonDefinition = {
           "Study the mixed-voicing progression. Clear the grid. Write D3-G3-C4-F4-A4 in bar 1 for Dm7. In bar 2 write B3-E4-F4-G-sharp4-B4 for G7 flat nine using upper structure VI. In bar 3 write E3-A3-D4-G4-C5 for C major. Leave bar 4 empty and play the progression.",
         recognition:
           "Can you hear the construction method change while the progression itself still feels smoothly connected?",
+        takeaway:
+          "Different voicing systems can coexist in one II-V-I; smooth function and voice leading matter more than using one construction method throughout.",
+        hint:
+          "Name II, V and I first. Build each requested voicing language, then choose registers so the top and inner voices move as little as possible.",
         source: {
           reference: "Chapter Sixteen - Figures 16-1 through 16-6",
           focus:
@@ -110,6 +114,10 @@ export const levineVoicingsVoicingsLesson: LessonDefinition = {
           "Study the diminished motion. Clear the grid. Keep B3-F4 as the G7 guide-tone core. In bar 1 add E4-G-sharp4-B4. In bar 2 add G4-B4-D5. In bar 3 add B-flat4-D5-F5. Leave bar 4 empty and play the three related colours.",
         recognition:
           "Can you hear the right-hand structures cycle by minor thirds while B-F keeps the dominant identity stable?",
+        takeaway:
+          "Diminished-derived dominant colours can cycle by minor thirds while the guide-tone tritone keeps the dominant function anchored.",
+        hint:
+          "Keep B-F fixed as the dominant core. Move the upper material exactly three semitones at a time and listen for continuity beneath the changing colour.",
         source: {
           reference: "Chapter Sixteen - Figures 16-6 through 16-11",
           focus:
@@ -168,6 +176,10 @@ export const levineVoicingsVoicingsLesson: LessonDefinition = {
           "Study the double-diminished construction. Clear the grid. In bar 1 write F-sharp2-A2-C3-E-flat3. In bar 2 write F3-A-flat3-B3-D4. In bar 3 combine both hands into one eight-note sonority. Leave bar 4 empty and play the three stages.",
         recognition:
           "Can you hear the final sonority as two simple symmetrical chords combining into one complete diminished field?",
+        takeaway:
+          "Two interlocking diminished-seventh chords can supply all eight notes of one diminished scale.",
+        hint:
+          "Sort the combined notes from low to high. If they alternate half step and whole step through the octave, the two simple chords have formed the full diminished field.",
         source: {
           reference: "Chapter Sixteen - Figures 16-8 through 16-11",
           focus:
@@ -226,6 +238,10 @@ export const levineVoicingsVoicingsLesson: LessonDefinition = {
           "Study the compact intervallic cells. Clear the grid. Write B3-C4-E4 in bar 1, E4-F4-A4 in bar 2, D4-E-flat4-G4 in bar 3, and C4-D-flat4-E4 in bar 4. Play each shape and compare the interval above the bottom semitone.",
         recognition:
           "Can you distinguish the half-step-plus-major-third family from the tighter dominant-flat-nine version?",
+        takeaway:
+          "Compact three-note voicings can be remembered as interval formulas: half step plus major third, or half step plus minor third.",
+        hint:
+          "Ignore chord labels at first. Use the Keyboard view to measure the two adjacent gaps; the second gap tells you which three-note family you have.",
         source: {
           reference: "Chapter Sixteen - Figure 16-31 and surrounding discussion",
           focus:

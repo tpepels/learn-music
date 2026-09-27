@@ -53,11 +53,25 @@ describe("Levine jazz-piano architecture integrity", () => {
           exercise.explanation,
           exercise.instruction,
           exercise.recognition,
+          exercise.takeaway ?? "",
+          exercise.hint ?? "",
           exercise.checksLabel,
           exercise.successLabel,
           ...exercise.terms.flatMap((term) => [term.term, term.definition]),
         ].join(" ");
         expect(learnerCopy, exercise.id).not.toMatch(forbidden);
+      }
+    }
+  });
+
+  it("gives every Levine exercise one memory target and one non-spoiling hint", () => {
+    for (const lesson of levineLessons) {
+      for (const exercise of lesson.exercises) {
+        expect(exercise.takeaway?.trim().length ?? 0, exercise.id).toBeGreaterThan(18);
+        expect(exercise.takeaway?.length ?? 0, exercise.id).toBeLessThanOrEqual(180);
+        expect(exercise.hint?.trim().length ?? 0, exercise.id).toBeGreaterThan(18);
+        expect(exercise.hint?.length ?? 0, exercise.id).toBeLessThanOrEqual(260);
+        expect(exercise.hint, exercise.id).not.toBe(exercise.instruction);
       }
     }
   });

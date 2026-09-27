@@ -75,6 +75,23 @@ export function LearningPanel({
               <strong>Listen for</strong>
               <p>{exercise.recognition}</p>
             </div>
+
+            {isLevine && exercise.takeaway ? (
+              <div className="jazz-make-stick">
+                <span>Make this stick</span>
+                <strong>{exercise.takeaway}</strong>
+              </div>
+            ) : null}
+
+            {isLevine && exercise.hint ? (
+              <details className="jazz-hint">
+                <summary>
+                  <span>Need a hint?</span>
+                  <b>Show</b>
+                </summary>
+                <p>{exercise.hint}</p>
+              </details>
+            ) : null}
           </section>
         </div>
 

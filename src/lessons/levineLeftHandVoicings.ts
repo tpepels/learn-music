@@ -52,6 +52,10 @@ export const levineLeftHandVoicingsLesson: LessonDefinition = {
           "Study the rootless-voicing idea. Clear the piano grid. In bar 1 write C3-E3-G3-B3. In bar 2 remove the root and write E3-G3-B3-D4. In bar 3 write E3-G3-A3-D4. Leave bar 4 empty. Play the loop and listen for what changes when C disappears but the upper structure remains.",
         recognition:
           "Do the two rootless shapes still sound like C-major harmony, and can you hear the ninth or sixth as colour rather than as a new root?",
+        takeaway:
+          "A rootless voicing keeps the guide tones and useful colour tones while another instrument or context supplies the root.",
+        hint:
+          "Name the chord's third and seventh before touching the keyboard. Those tones should still make the harmony recognizable after the root disappears.",
         source: {
           reference: "Chapter Seven - Figure 7-1 and opening discussion",
           focus:
@@ -110,6 +114,10 @@ export const levineLeftHandVoicingsLesson: LessonDefinition = {
           "Study the A-position voice leading. Clear the grid. Write F3-A3-C4-E4 in bar 1, F3-A3-B3-E4 in bar 2, and E3-G3-A3-D4 in bar 3. Leave bar 4 empty. Play the loop and follow C4-B3 while the other notes stay close.",
         recognition:
           "Can you hear that the move from II to V is produced mainly by one half-step change rather than by rebuilding the chord?",
+        takeaway:
+          "A-position II-V-I works because most notes stay close and one guide tone makes a crucial half-step move.",
+        hint:
+          "Compare II and V note by note. Keep the common tones where they are and find the single half-step change before thinking about the whole shape.",
         source: {
           reference: "Chapter Seven - Figures 7-2 and 7-3",
           focus:
@@ -168,6 +176,10 @@ export const levineLeftHandVoicingsLesson: LessonDefinition = {
           "Study the B-position pattern. Clear the grid. Use the higher register so every note fits comfortably: C4-E4-F4-A4 in bar 1, B3-E4-F4-A4 in bar 2, and B3-C4-E4-G4 in bar 3. Leave bar 4 empty and play the loop.",
         recognition:
           "Does the B-position sequence feel like the same II-V-I mechanism viewed from a different inversion?",
+        takeaway:
+          "B-position is the same harmonic mechanism in another inversion, not a second unrelated set of chords.",
+        hint:
+          "Track the lowest note's function - seventh, third, seventh - while keeping the rest of the voices as close as possible.",
         source: {
           reference: "Chapter Seven - Figures 7-4 through 7-6",
           focus:
@@ -226,6 +238,10 @@ export const levineLeftHandVoicingsLesson: LessonDefinition = {
           "Study the transposition routine. Clear the grid. Put the C-major A-position II-V-I on bar 1 beat 1, bar 1 beat 3 and bar 2 beat 1: F3-A3-C4-E4, F3-A3-B3-E4, E3-G3-A3-D4. Then put the same rule in F major on bar 3 beat 1, bar 3 beat 3 and bar 4 beat 1: B-flat3-D4-F4-A4, B-flat3-D4-E4-A4, A3-C4-D4-G4. Play the whole four-bar loop.",
         recognition:
           "Can you follow the same third-seventh-third pattern in both keys without treating the F-major version as a separate trick?",
+        takeaway:
+          "Rootless voicings should transpose as a voice-leading rule, not as memorized absolute pitches.",
+        hint:
+          "In the new key, locate each chord's third and seventh first. Rebuild the colour tones around those guide tones instead of copying hand positions.",
         source: {
           reference: "Chapter Seven - cycle-of-fifths practice and practice tips",
           focus:

@@ -86,7 +86,11 @@ For every exercise:
 - connect written notation, keyboard shape and sound;
 - make the learner play and listen rather than only identify labels;
 - separate chord-symbol knowledge from actual voicing and voice leading;
+- state one concise **Make this stick** memory target - the rule, sound or physical relationship worth carrying into the next lesson;
+- provide one collapsed **Need a hint?** prompt that redirects attention to a useful first move or listening cue without simply dumping the completed answer;
 - use enough explanation to make the task intelligible without the book open beside the app.
+
+Hints are support, not a second answer key. Prefer prompts such as "hold the guide tones and change only X", "follow the top note", "find the common tones first", or "listen to the bass center" over restating every pitch from the instruction.
 
 Do not repeatedly write "Levine says..." when the musical principle can be taught directly.
 
@@ -133,13 +137,13 @@ Completion should require both musical state and evidence of interaction/listeni
 
 ## 9. Supplied-source boundary
 
-The supplied PDF is a 150-page scan. It contains the book through Chapter Sixteen and ends during that chapter. The table of contents names Chapters Seventeen through Twenty-Three, but their chapter pages are not present in the supplied file.
+The supplied PDF contains 316 PDF pages. An earlier indexed preview exposed only the first 150 pages, which led to an obsolete assumption that the scan ended during Chapter Sixteen. Direct page inspection of the attached PDF confirms later chapter material through Chapter Twenty-Three.
 
 Therefore:
 
-- Chapters 1-16 may be implemented from this source after page-by-page verification.
-- Chapters 17-23 remain blocked for source-grounded implementation until their pages are supplied.
-- The table of contents alone is not sufficient evidence for lesson content or examples in those chapters.
+- Chapters 1-23 may be implemented only from pages that have actually been inspected in the supplied scan.
+- The coverage ledger records which passages are native scores and which remain source-grounded analysis.
+- A table-of-contents entry alone is never sufficient evidence for pitches, voicings, rhythms or tune excerpts.
 
 ## 10. Workflow
 

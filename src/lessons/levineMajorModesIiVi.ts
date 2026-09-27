@@ -55,6 +55,10 @@ Three modes establish the central major-key chord types. C Ionian produces C maj
           "Step through the seven-mode overview, then play the C-Ionian, D-Dorian and G-Mixolydian source scores. In the piano study set the key to C major. Clear the notes and set the four bar targets to Cmaj7, Dm7, G7 and Cmaj7. At the start of each bar write the four chord tones in root position: C-E-G-B, D-F-A-C, G-B-D-F, then C-E-G-B again.",
         recognition:
           "Can you hear that the note collection stays closely related while the root and the third/seventh combination change the chord quality?",
+        takeaway:
+          "A seventh chord from a mode is built from 1-3-5-7; the third and seventh make its quality easiest to hear.",
+        hint:
+          "Start on the modal root and take every other scale note. If the result is unclear, identify the third and seventh before worrying about the fifth.",
         source: {
           reference: "Chapter Two - Figures 2-1, 2-2, 2-4 and 2-6",
           focus:
@@ -138,6 +142,10 @@ Treat the Roman numerals as relationships rather than fixed chord names. II-V-I 
           "Study the II-V-I source analysis. Keep C major selected. Clear the fourth bar target and all written notes. Set bars 1-3 to Dm7, G7 and Cmaj7. Write each complete seventh chord at the start of its bar and leave bar 4 empty. Play the progression several times and listen to the dominant chord as the point of greatest pull before I.",
         recognition:
           "Does G7 sound like a destination, or does it make the following Cmaj7 feel necessary?",
+        takeaway:
+          "Major-key II-V-I means minor seventh on II, dominant seventh on V, then major seventh on I.",
+        hint:
+          "Follow the guide tones of G7: B wants to rise to C and F wants to fall to E. That pull is why V sounds unfinished.",
         source: {
           reference: "Chapter Two - II-V-I explanation and practice",
           focus:
@@ -212,6 +220,10 @@ Changing the key control preserves the stored harmonic degrees, but the written 
           "Start from the C-major II-V-I, then change only the key to F major. Confirm that the targets read Gm7-C7-Fmaj7. Clear the written notes and rebuild those three root-position seventh chords at the starts of bars 1-3: G-B-flat-D-F, C-E-G-B-flat, F-A-C-E. Leave bar 4 empty and play the result.",
         recognition:
           "Can you hear the same II-V-I function even though every chord name and keyboard shape has moved?",
+        takeaway:
+          "Harmonic function survives transposition: move the II-V-I rule, not a memorized C-major hand shape.",
+        hint:
+          "In F major, locate scale degrees 2, 5 and 1 first: G, C and F. Build the same chord qualities from those roots.",
         source: {
           reference: "Chapter Two - II-V-I transposition practice",
           focus:

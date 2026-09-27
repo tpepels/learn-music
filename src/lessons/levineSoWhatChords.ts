@@ -52,6 +52,10 @@ export const levineSoWhatChordsLesson: LessonDefinition = {
           "Study the interval construction. Clear the piano grid. In bar 1 write D3-G3-C4-F4-A4. In bar 2 transpose the entire shape up a whole step to E3-A3-D4-G4-B4. Leave bars 3-4 empty and play the loop.",
         recognition:
           "Can you hear the same voicing identity after every note moves by the same interval?",
+        takeaway:
+          "The core So What shape is an interval formula: three perfect fourths with a major third on top.",
+        hint:
+          "Build upward from the lowest note and use the Keyboard view to verify 5-5-5-4 semitone gaps before transposing the whole shape.",
         source: {
           reference: "Chapter Twelve - Figures 12-2 through 12-4",
           focus:
@@ -109,6 +113,10 @@ export const levineSoWhatChordsLesson: LessonDefinition = {
           "Study the inversion principle. Clear the grid. Write D3-G3-C4-F4-A4 in bar 1, G3-C4-F4-A4-D5 in bar 2, and C4-F4-A4-D5-G5 in bar 3. Leave bar 4 empty. Play the three positions slowly.",
         recognition:
           "Can you locate the major third by ear as it moves to a different place inside each inversion?",
+        takeaway:
+          "Inverting the voicing keeps the same five pitch classes while the single major third moves to a new place inside the stack.",
+        hint:
+          "Ignore chord names and inspect adjacent keyboard gaps. Find the one 4-semitone gap in each inversion; the rest of the characteristic stack is fourth-based.",
         source: {
           reference: "Chapter Twelve - Figures 12-16 and 12-17",
           focus:
@@ -167,6 +175,10 @@ export const levineSoWhatChordsLesson: LessonDefinition = {
           "Study the parallel-motion idea. Clear the grid. Write D3-G3-C4-F4-A4 in bar 1, E-flat3-A-flat3-D-flat4-G-flat4-B-flat4 in bar 2, and E3-A3-D4-G4-B4 in bar 3. Leave bar 4 empty and play all three.",
         recognition:
           "Does the repeated interval shape make the chromatic movement sound organized even though all five voices shift together?",
+        takeaway:
+          "Parallel planing means every voice moves by the same interval, so the voicing's internal shape stays unchanged.",
+        hint:
+          "Pick one note as a reference and move every other note by exactly the same number of semitones. If one interval changes, the planing is no longer exact.",
         source: {
           reference: "Chapter Twelve - Figures 12-10 through 12-15",
           focus:
@@ -225,6 +237,10 @@ export const levineSoWhatChordsLesson: LessonDefinition = {
           "Study the diatonic extension. Clear the grid. Write D3-G3-C4-F4-A4 in bar 1, E3-A3-D4-G4-B4 in bar 2, and F3-B3-E4-A4-C5 in bar 3. Leave bar 4 empty and play the three related structures.",
         recognition:
           "Can you hear the third voicing as a more tense member of the same diatonic family rather than as an unrelated mistake?",
+        takeaway:
+          "Diatonic planing moves each voice through the scale, so family resemblance remains even when some internal intervals change.",
+        hint:
+          "Move each note to the next pitch in C major independently. Then inspect the Keyboard view for the new tritone or minor-ninth tensions instead of correcting them away.",
         source: {
           reference: "Chapter Twelve - Figure 12-7 and surrounding discussion",
           focus:

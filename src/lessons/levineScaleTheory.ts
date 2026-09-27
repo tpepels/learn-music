@@ -56,6 +56,10 @@ export const levineScaleTheoryLesson: LessonDefinition = {
           "Study the major-scale harmony map. Clear the piano grid. Keep the Cmaj7 guide-tone shell E3-B3 under every scale note. On steps 1-8 add C4-D4-E4-F4-G4-A4-B4-C5. On steps 17-24 add C4-D4-E4-F-sharp4-G4-A4-B4-C5 over the same shell. Play the loop and focus on F versus F-sharp against E and B.",
         recognition:
           "Can you hear why the natural fourth needs more care over C major seventh while the raised fourth settles into the chord more easily?",
+        takeaway:
+          "Over a major-seventh chord, Ionian and Lydian differ at one crucial place: natural 4 versus sharp 4.",
+        hint:
+          "Keep the Cmaj7 shell sounding and compare only F with F-sharp. If you hear too much information, stop the scale and alternate those two notes.",
         source: {
           reference: "Chapter Nine - Figures 9-3 through 9-10",
           focus:
@@ -115,6 +119,10 @@ export const levineScaleTheoryLesson: LessonDefinition = {
           "Study the melodic-minor mode map. Clear the grid. Give each rotation its own bass center: C3 under C-D-E-flat-F-G-A-B-C on steps 1-8; F3 under F-G-A-B-C-D-E-flat-F on steps 9-16; and B2 under B-C-D-E-flat-F-G-A-B on steps 17-24. Play all three and listen for the same pitch collection taking on three different centers.",
         recognition:
           "Can you hear that the notes remain the same while the starting point changes the harmonic identity from minor-major to Lydian dominant to altered dominant?",
+        takeaway:
+          "One melodic-minor pitch collection can serve several harmonies; the bass/root and chord function tell you which mode you are hearing.",
+        hint:
+          "Do not chase seven new notes. Keep the collection fixed and focus on the bass center first: C, then F, then B.",
         source: {
           reference: "Chapter Nine - Figures 9-19 through 9-25",
           focus:
@@ -173,6 +181,10 @@ export const levineScaleTheoryLesson: LessonDefinition = {
           "Study the half-diminished comparison. Clear the grid. Keep A2-E-flat3 as a root/flat-fifth anchor. On steps 1-8 add A3-B-flat3-C4-D4-E-flat4-F4-G4-A4. On steps 17-24 add A3-B3-C4-D4-E-flat4-F4-G4-A4 over the same anchor. Play the two modes and listen only to B-flat versus B-natural.",
         recognition:
           "Can you hear the natural ninth as a cleaner colour without losing the half-diminished identity?",
+        takeaway:
+          "Locrian sharp-2 keeps the half-diminished chord tones but replaces the flat ninth with a natural ninth.",
+        hint:
+          "Hold the A half-diminished core A-C-E-flat-G. Compare only B-flat and B-natural above it.",
         source: {
           reference: "Chapter Nine - Figures 9-13, 9-22 and 9-23",
           focus:
@@ -232,6 +244,10 @@ export const levineScaleTheoryLesson: LessonDefinition = {
           "Study the diminished symmetry map. Clear the grid. Write G3-A-flat3-B-flat3-B3-C-sharp4-D4-E4-F4 on steps 1-8. On steps 17-24 write the same pitch collection starting from E3: E3-F3-G3-A-flat3-B-flat3-B3-C-sharp4-D4. Play the two rotations.",
         recognition:
           "Can you hear the second line as the same eight-note world rotated by a minor third rather than as a newly constructed scale?",
+        takeaway:
+          "The half-whole diminished scale repeats under transposition by a minor third, so several dominant roots can share one pitch set.",
+        hint:
+          "Write one complete diminished collection, then start from a note three semitones away. Check how many pitch classes are actually new.",
         source: {
           reference: "Chapter Nine - Figures 9-27 through 9-39",
           focus:
@@ -289,6 +305,10 @@ export const levineScaleTheoryLesson: LessonDefinition = {
           "Study the whole-tone harmony map. Clear the grid. Write G3-A3-B3-C-sharp4-E-flat4-F4 on steps 1-6. On steps 17-22 write the other collection: A-flat3-B-flat3-C4-D4-E4-F-sharp4. Play both six-note scales and compare their uniform spacing.",
         recognition:
           "Can you hear that each collection has no half-step landmarks and therefore feels less anchored than the major or melodic-minor modes?",
+        takeaway:
+          "Whole-tone harmony has only two distinct pitch collections because every adjacent note is two semitones away.",
+        hint:
+          "Build by whole steps only. If a transposition lands on a note already in the collection, expect the same six pitch classes in a new order.",
         source: {
           reference: "Chapter Nine - Figures 9-40 through 9-42",
           focus:

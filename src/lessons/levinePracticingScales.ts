@@ -56,6 +56,10 @@ export const levinePracticingScalesLesson: LessonDefinition = {
           "Study the starting-note routine. Clear the grid. Write C4-D4-E4-F4-G4-A4-B4-C5 on steps 1-8. Then start from D5 and descend D5-C5-B4-A4-G4-F4-E4-D4 on steps 9-16. Play both directions without a pause.",
         recognition:
           "Does the D-starting descent still sound like the same C-major collection even though neither its first nor last note is C?",
+        takeaway:
+          "Knowing a scale means being able to enter and leave it from any degree and in either direction, not only run root to root.",
+        hint:
+          "Name the pitch collection before you start. Then choose a non-root note and keep the same key in your ear while changing direction.",
         source: {
           reference: "Chapter Eleven - Figures 11-1 through 11-3",
           focus:
@@ -113,6 +117,10 @@ export const levinePracticingScalesLesson: LessonDefinition = {
           "Study the key-rotation plan. Clear the grid. Write C4-D4-E4-F4-G4-A4-B4-C5 on steps 1-8. Then write D4-E4-F-sharp4-G4-A4-B4-C-sharp5-D5 on steps 17-24. Play the two keys with the same pulse and contour.",
         recognition:
           "Can you hear the key change without changing the physical idea of the exercise?",
+        takeaway:
+          "A practice pattern should survive transposition; preserve its contour and interval logic while the key changes.",
+        hint:
+          "Think in scale degrees, not letter names. Move the whole contour from C major to D major and check the altered scale tones only afterward.",
         source: {
           reference: "Chapter Eleven - practice discussion following Figures 11-1 through 11-3",
           focus:
@@ -170,6 +178,10 @@ export const levinePracticingScalesLesson: LessonDefinition = {
           "Study the symmetrical-scale practice map. Clear the grid. On steps 1-8 write G3-A-flat3-B-flat3-B3-C-sharp4-D4-E4-F4. On steps 17-22 write G3-A3-B3-C-sharp4-E-flat4-F4. Play the diminished collection first, then the whole-tone collection.",
         recognition:
           "Can you feel the alternating half/whole pulse of the diminished scale versus the completely even spacing of the whole-tone scale?",
+        takeaway:
+          "Diminished and whole-tone scales are different symmetrical systems, so they deserve practice shapes that reveal their own interval pattern.",
+        hint:
+          "For diminished, say 'half-whole' as you play. For whole tone, check that every move is exactly a whole step.",
         source: {
           reference: "Chapter Eleven - Figures 11-4 through 11-7",
           focus:
@@ -227,6 +239,10 @@ export const levinePracticingScalesLesson: LessonDefinition = {
           "Study the fingering map. Clear the grid. Write C4-D4-E4-F4-G4-A4-B4-C5 on steps 1-8 and play it on your keyboard with right-hand fingers 1-2-3-1-2-3-4-5. Then replay only C-D-E-F and notice that a phrase ending on F does not need the same continuation strategy as a full octave.",
         recognition:
           "Can you keep the standard fingering available while treating it as a means to fluent motion rather than an obligation independent of the phrase?",
+        takeaway:
+          "Fingering is a tool for fluent phrasing, not a rule that overrides the musical destination.",
+        hint:
+          "This is a physical self-check: the app can verify notes, not fingers. Play slowly with 1-2-3-1-2-3-4-5, then try the shorter phrase and decide whether the thumb crossing still helps.",
         source: {
           reference: "Chapter Eleven - Figures 11-8 through 11-10 and fingering discussion",
           focus:

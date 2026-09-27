@@ -56,6 +56,10 @@ export const levinePentatonicScalesLesson: LessonDefinition = {
           "Study the five-note construction. Clear the piano grid. On steps 1-5 keep C3 underneath C4-D4-E4-G4-A4. In bar 3 keep A2 underneath A3-C4-D4-E4-G4 on steps 17-21. Play both and listen to how the same five pitch classes change identity when the bass establishes a new center.",
         recognition:
           "Can you hear the second collection as a new tonal center rather than a different set of notes?",
+        takeaway:
+          "Major pentatonic is 1-2-3-5-6; its common minor mode uses the same five pitch classes with scale degree 6 as the center.",
+        hint:
+          "Keep the notes fixed and let the bass decide the center. Compare C underneath the collection with A underneath it before changing anything else.",
         source: {
           reference: "Chapter Fifteen - Figures 15-2 through 15-5",
           focus:
@@ -113,6 +117,10 @@ export const levinePentatonicScalesLesson: LessonDefinition = {
           "Study the three in-key pentatonics. Clear the grid. Write C-D-E-G-A on steps 1-5, F-G-A-C-D on steps 9-13, and G-A-B-D-E on steps 17-21. Play all three and listen for which notes distinguish each collection.",
         recognition:
           "Can you hear the G collection become brighter because B and E remain available?",
+        takeaway:
+          "Inside one major key, pentatonics on I, IV and V offer three overlapping five-note colour sets without leaving the key.",
+        hint:
+          "Build 1-2-3-5-6 from C, then F, then G using only C-major notes. Compare which two notes change between neighboring collections.",
         source: {
           reference: "Chapter Fifteen - Figures 15-6 through 15-9",
           focus:
@@ -171,6 +179,10 @@ export const levinePentatonicScalesLesson: LessonDefinition = {
           "Study the II-V-I application. Clear the grid. On steps 1-5 combine the Dm7 guide tones F3-C4 with G4-A4-B4-D5-E5. On steps 9-13 use the G7 guide tones F3-B3 under the same five melody notes. On steps 17-21 use E3-B3 for Cmaj7 under the same melody notes. Play the whole loop.",
         recognition:
           "Can you hear the same G pentatonic notes change function as the guide-tone shell changes underneath them?",
+        takeaway:
+          "A single pentatonic collection can cross II-V-I; the chord underneath changes what each repeated note means.",
+        hint:
+          "Keep G-A-B-D-E unchanged in the upper part. Listen to the left-hand shell at each chord change and notice which upper notes become guide tones or extensions.",
         source: {
           reference: "Chapter Fifteen - Figure 15-10 and surrounding discussion",
           focus:
@@ -229,6 +241,10 @@ export const levinePentatonicScalesLesson: LessonDefinition = {
           "Study the avoid-note derivation. Clear the grid. Write C4-D4-E4-F4-G4-A4-B4 on steps 1-7. In bar 3 write only G4-A4-B4-D5-E5 on steps 17-21. Play the full scale, then the reduced collection.",
         recognition:
           "Can you hear the five-note version as the C-major field with its two strongest sustained clashes removed?",
+        takeaway:
+          "A pentatonic can be understood as a larger scale with two potentially awkward sustained notes removed.",
+        hint:
+          "Start with all seven C-major notes and physically remove C and F. Hear what remains before naming the result G pentatonic.",
         source: {
           reference: "Chapter Fifteen - Figures 15-13 and 15-14",
           focus:
@@ -286,6 +302,10 @@ export const levinePentatonicScalesLesson: LessonDefinition = {
           "Study the two alternative five-note scales. Clear the grid. Write E4-F4-A4-B4-D5 on steps 1-5. In bar 3 write E4-F4-A4-B4-C-sharp5 on steps 17-21. Play both and focus on D versus C-sharp.",
         recognition:
           "Can you hear how one changed note shifts the collection from the in-sen colour toward melodic-minor-derived altered harmony?",
+        takeaway:
+          "Changing one note inside a five-note collection can redirect its harmonic colour while most of the hand shape stays familiar.",
+        hint:
+          "Hold E-F-A-B fixed. Alternate only D and C-sharp and listen to how that single pitch changes the collection's pull.",
         source: {
           reference: "Chapter Fifteen - Figures 15-17 through 15-21",
           focus:

@@ -52,6 +52,10 @@ export const levineCompingLesson: LessonDefinition = {
           "Study the timing map. Clear the grid. Write C6 as C4-E4-G4-A4 on step 2, one eighth after the start of bar 1. Write the same voicing on step 9, exactly at the start of bar 2. Then write it on step 16, the final eighth of bar 2, so it anticipates bar 3. Leave the rest empty and play the loop.",
         recognition:
           "Can you hear the first attack as late, the second as centered and the third as pulling into the next bar?",
+        takeaway:
+          "Comping placement changes feel even when the chord does not: late relaxes, centered firms up, anticipation pushes forward.",
+        hint:
+          "Tap a steady beat and keep the voicing identical. Move only its attack relative to the beat so your ear is comparing timing, not harmony.",
         source: {
           reference: "Chapter Twenty-One - Figures 21-1 through 21-4",
           focus:
@@ -110,6 +114,10 @@ export const levineCompingLesson: LessonDefinition = {
           "Study the space-and-response map. Clear the grid. Use the same short melody twice: C5-D5-E5-G5 on steps 1, 3, 5 and 7 of bar 1, then again on steps 17, 19, 21 and 23 of bar 3. In bar 1 crowd every melody attack with E3-G3-B3-D4 underneath it. In bar 3 leave the melody alone and answer it with that chord only on steps 20 and 24. Play the loop and compare how clearly the melody speaks.",
         recognition:
           "Which version lets the melody read more clearly - the chords on every note, or the two answers placed after parts of the phrase?",
+        takeaway:
+          "Good comping is a conversation: silence and well-placed responses can support a solo more than constant chord attacks.",
+        hint:
+          "Follow the melody instead of the chords. Let one short phrase finish, then place your response in the gap rather than directly on every melody note.",
         source: {
           reference: "Chapter Twenty-One - opening discussion, Figure 21-6 and ensemble advice",
           focus:
@@ -167,6 +175,10 @@ export const levineCompingLesson: LessonDefinition = {
           "Study the alteration guidelines. Clear the grid. In bar 1 write E3-G3-B3-D4 with melody G4. In bar 2 change G3 to F-sharp3 for Lydian colour but put melody F4 above it so you can hear the semitone collision. In bar 3 write F3-A3-B3-E4 for G9 with melody D5. In bar 4 use the D-flat7 substitute F3-A-flat3-B3-E-flat4 under that same D5. Play all four and decide where the altered comping helps and where the melody makes it too exposed.",
         recognition:
           "Can you hear both altered choices as plausible colours while also hearing why a melody note could force you back to the simpler version?",
+        takeaway:
+          "An alteration is only useful if it supports the melody; theoretical permission does not override an audible collision.",
+        hint:
+          "Hold the melody note in your ear and A/B the plain and altered voicing underneath it. If the clash dominates the line, simplify the comping.",
         source: {
           reference: "Chapter Twenty-One - alteration guidelines and Figures 21-5 through 21-6",
           focus:
@@ -221,11 +233,15 @@ export const levineCompingLesson: LessonDefinition = {
         learn:
           "Hear how low roots strengthen self-contained harmony but rootless shapes leave more space for a bassist.",
         explanation:
-          "There is no universal ban on roots when comping with a bass player. Many pianists avoid them much of the time, while others use them freely. The real question is whether the piano and bass are supporting or crowding one another.\n\nCompare a rooted D-minor and G-dominant shape with compact rootless versions. The rootless forms move upward into the middle register and reserve the low fundamental for the bassist.",
+          "There is no universal ban on roots when comping with a bass player. Many pianists avoid them much of the time, while others use them freely. The real question is whether the piano and bass are supporting or crowding one another.\n\nCompare rooted and rootless versions of the same Dm9 and G9 colours. The only conceptual change should be whether the low fundamental is present; the remaining chord tones stay available in the middle register for a fair register comparison.",
         instruction:
-          "Study the roots-and-register map. Clear the grid. Write D3-F3-A3-C4 in bar 1, then the rootless Dm9 colour F3-A3-C4-E4 in bar 2. Write G2-F3-B3-D4 in bar 3, then the rootless G9 colour F3-A3-B3-E4 in bar 4. Play the loop and focus on the low-register weight.",
+          "Study the roots-and-register map. Clear the grid. Write rooted Dm9 as D3-F3-A3-C4-E4 in bar 1, then remove only D3 for the rootless version F3-A3-C4-E4 in bar 2. Write rooted G9 as G2-F3-A3-B3-E4 in bar 3, then remove only G2 for F3-A3-B3-E4 in bar 4. Play the loop and focus on what changes when the fundamental disappears.",
         recognition:
           "Can you hear why the rooted shapes may be useful alone but can occupy space a bassist might already be filling?",
+        takeaway:
+          "Roots in comping are a register and ensemble choice, not a universal rule; rootless shapes often make more room for a bassist.",
+        hint:
+          "Compare the same function with and without the low root. Imagine a bass instrument already occupying that register and notice which version leaves more space.",
         source: {
           reference: "Chapter Twenty-One - root-position discussion, register advice and bass-solo guidance",
           focus:
@@ -256,15 +272,15 @@ export const levineCompingLesson: LessonDefinition = {
         {
           label: "Rooted and rootless minor and dominant shapes are written",
           complete: exactStudy(harmonySequence, [
-            [0,[50,53,57,60]],
+            [0,[50,53,57,60,64]],
             [8,[53,57,60,64]],
-            [16,[43,53,59,62]],
+            [16,[43,53,57,59,64]],
             [24,[53,57,59,64]],
           ]),
         },
         {
-          label: "You entered all four register choices",
-          complete: changedControl(experiments, "harmony.note-edit", 16),
+          label: "You entered both rooted and rootless comparisons",
+          complete: changedControl(experiments, "harmony.note-edit", 18),
         },
         {
           label: "You listened to the low-register contrast",
@@ -285,6 +301,10 @@ export const levineCompingLesson: LessonDefinition = {
           "Study the bossa-comping map. Clear the grid. With E3-G3-B3-D4, attack on steps 1, 4, 7, 9, 12 and 15 across bars 1-2. Repeat exactly those relative attack positions in bars 3-4 with F3-A3-C4-E4. Play the four-bar loop without adding extra attacks.",
         recognition:
           "Can you keep the rhythmic cell unchanged while your ear follows the harmonic change?",
+        takeaway:
+          "A bossa comping pattern can keep one rhythmic identity while the chord voicing changes underneath it.",
+        hint:
+          "Clap the two-bar rhythm without pitches first. Once it is steady, transpose only the voicing and leave every attack in the same place.",
         source: {
           reference: "Chapter Twenty-One - Bossa nova section and Figures 21-7 through 21-13",
           focus:
