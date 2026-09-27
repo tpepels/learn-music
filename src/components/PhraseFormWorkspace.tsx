@@ -38,7 +38,7 @@ export function PhraseFormWorkspace() {
           </div>
         </div>
         <span className="workspace-hint">
-          The labels name the relationship. The layer buttons decide what each four-bar section sounds like.
+          This lab isolates orchestration as one source of formal contrast. The notes stay shared; the layer buttons change the section texture.
         </span>
       </div>
 
@@ -102,15 +102,15 @@ export function PhraseFormWorkspace() {
       <div className="form-language">
         <article>
           <strong>Repeat</strong>
-          <p>If two sections are both A, give them recognisably similar sounding material instead of only the same letter.</p>
+          <p>If two sections are both A, restore the same layer fingerprint so the return is audible without relying on the letter.</p>
         </article>
         <article>
           <strong>Develop</strong>
-          <p>Keep enough of A to recognise it, then change one audible part.</p>
+          <p>Keep enough of A's orchestration to recognise it, then change one layer. Other kinds of thematic development are outside this workspace.</p>
         </article>
         <article>
           <strong>Contrast</strong>
-          <p>Change the texture enough for B to register as a new section while keeping the track connected.</p>
+          <p>Change the orchestration enough for B to register as a new section while the shared musical material keeps the track connected.</p>
         </article>
         <article>
           <strong>Return</strong>
