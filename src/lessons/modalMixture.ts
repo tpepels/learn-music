@@ -30,9 +30,9 @@ const lesson = lessonContentSchema.parse({
   eyebrow: "Harmony · Chromatic colour",
   hero: "Change one note outside the key and hear how much colour it adds.",
   description:
-    "Stay with the groove while focusing on C-major harmony again. Bring Fm and B♭ into that harmony by writing the chromatic notes yourself, without the earlier A-minor melody masking the colour.",
+    "Stay with the groove while focusing on C-major harmony again. Borrow chords from the parallel minor and derive the chromatic notes yourself instead of treating the new chord symbols as preset colours.",
   overview:
-    "C can remain home while one chord borrows notes from C minor. The effect often comes from a single changed pitch—A to A♭, or B to B♭—so make that note change yourself and listen to the line it creates.",
+    "The tonic can remain C while one chord borrows material from C minor. Often only one scale degree changes, so listen for the semitone voice-leading that creates the borrowed colour.",
 });
 
 export const modalMixtureLesson: LessonDefinition = {
@@ -43,11 +43,11 @@ export const modalMixtureLesson: LessonDefinition = {
         id: "harmony.modal-mixture.a",
         letter: "A",
         title: "Change F into Fm",
-        learn: "Hear the borrowed A♭ by changing one chord tone yourself.",
+        learn: "Hear borrowed minor iv by changing one chord tone yourself.",
         explanation:
-          "Modal mixture keeps the tonal centre but borrows material from the parallel mode. In C major, F major is F–A–C while F minor is F–A♭–C: changing only A to A♭ imports the minor-mode ♭6 without changing C as the tonal home. The effect comes from hearing that chromatic note against the established major-key context, not from treating Fm as a new key.",
+          "Modal mixture keeps the tonal centre but borrows material from the parallel mode. To turn IV into minor iv, keep the root and fifth and lower the chord's third by one semitone. The effect comes from hearing that single chromatic change against the established major-key context.",
         instruction:
-          "Set C in bar 1. In bar 2, choose F first and write F/A/C. Play it. Then change bar 2 to Fm, replace A with A♭, and leave Fm selected. Keep C in bar 3 so you can hear the return.",
+          "Set C in bar 1. In bar 2, build F major and play it. Then change bar 2 to Fm by lowering only the third of the chord by one semitone. Keep C in bar 3 so you can hear the borrowed chord return home.",
         recognition:
           "Keep F and C fixed while moving A down to A♭. How much of the colour comes from that one semitone?",
         terms: [
@@ -80,9 +80,9 @@ export const modalMixtureLesson: LessonDefinition = {
         title: "Write ♭VII",
         learn: "Put B♭ into the key and hear a less dominant kind of motion.",
         explanation:
-          "B♭ major is borrowed into C major as ♭VII. It removes the leading-tone B natural from the harmony and creates a broader, more modal sound than G→C dominant motion.",
+          "♭VII is a major chord rooted on the lowered seventh degree of the major key. It removes the ordinary leading-tone pull and creates broader modal motion than V→I.",
         instruction:
-          "Set C → B♭ → F → C. Rewrite the harmony notes so bar 2 contains B♭/D/F and every written note fits the chord above it. Use at least two separate time positions in the B♭ bar.",
+          "Set C → B♭ → F → C. In bar 2, derive the three notes of the ♭VII major triad from its root and quality rather than from a supplied pitch list. Use at least two separate time positions in that bar.",
         recognition:
           "Play the B♭ bar by itself, then inside the loop. Does it sound foreign alone but convincing once C frames the phrase?",
         terms: [
