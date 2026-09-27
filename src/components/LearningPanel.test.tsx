@@ -159,13 +159,17 @@ describe("LearningPanel", () => {
     expect(html).not.toContain("Why / theory / vocabulary");
   });
 
-  it("keeps the existing layered guide for non-Schoenberg exercises", () => {
+  it("shows the learning idea first for PLAY LAB exercises", () => {
     const html = renderToStaticMarkup(
       <LearningPanel exercise={exercise("music.test.a")} lessonNumber={1} />,
     );
 
     expect(html).toContain("From the book");
-    expect(html).toContain("Why / theory / vocabulary");
+    expect(html).toContain("Idea");
+    expect(html).toContain("Try it");
+    expect(html).toContain("What did you hear?");
+    expect(html).toContain("Vocabulary / DAW transfer");
     expect(html).toContain("PLAY / LAB → DAW");
+    expect(html).not.toContain("Why / theory / vocabulary");
   });
 });
