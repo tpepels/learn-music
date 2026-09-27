@@ -122,7 +122,7 @@ export const harmonicMinorLesson: LessonDefinition = {
         terms: [
           { term: "Augmented second", definition: "An interval spanning three semitones but spelled as two adjacent scale degrees, such as F to G♯." },
           { term: "Interval", definition: "The measured distance between two pitches." },
-          { term: "Melodic minor", definition: "A minor-scale variant historically used to smooth melodic motion by raising degrees 6 and 7 when ascending." },
+
         ],
         workspace: "harmonic-minor",
         checksLabel: "Hear the characteristic gap",

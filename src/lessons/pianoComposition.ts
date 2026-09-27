@@ -38,7 +38,7 @@ export const pianoCompositionLesson: LessonDefinition = {
         title: "Map the key of C major",
         learn: "Recognise the seven notes that belong to C major.",
         explanation:
-          "A major scale is defined by the interval pattern whole–whole–half–whole–whole–whole–half. Starting on C, apply that pattern on the chromatic keyboard to find the seven pitch classes in the key. C is the tonic: the note that should feel most like home.",
+          "A major scale is defined by the interval pattern whole–whole–half–whole–whole–whole–half. A half step is one semitone, the move to the immediately adjacent piano key; a whole step is two semitones. Starting on C, apply that pattern on the chromatic keyboard to find the seven pitch classes in the key. C is the tonic: the note that should feel most like home.",
         instruction:
           "Starting on C, derive the major scale from the whole/half-step pattern and select those seven pitch classes. Audition each move as you go. Make your first attempt from the rule rather than from the checklist.",
         recognition:
@@ -47,7 +47,8 @@ export const pianoCompositionLesson: LessonDefinition = {
           { term: "Key", definition: "A tonal system organised around a home note and its related scale." },
           { term: "Tonic", definition: "Scale degree 1: the home note of a key. In C major, the tonic is C." },
           { term: "Scale", definition: "An ordered collection of pitches defined here by the major-scale whole/half-step pattern." },
-          { term: "Semitone", definition: "The smallest distance between adjacent keys on a piano, including black and white keys." },
+          { term: "Semitone / half step", definition: "The smallest distance between adjacent piano keys, including black and white keys." },
+          { term: "Whole step", definition: "A distance of two semitones." },
         ],
         workspace: "piano-key",
         checksLabel: "Find the key",

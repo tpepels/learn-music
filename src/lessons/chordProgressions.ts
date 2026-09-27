@@ -96,17 +96,18 @@ export const chordProgressionLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "harmony.chords.a",
         letter: "A",
-        title: "Build C major yourself",
-        learn: "Turn the symbol C into actual notes you place in time.",
+        title: "Build the tonic triad yourself",
+        learn: "Build a triad from scale degrees 1, 3 and 5, then turn the chord symbol into notes in time.",
         explanation:
-          "C major is built from C, E and G. You can stack them, spread them across octaves, or place them at different moments. The symbol tells you the harmony; your MIDI decides how it sounds in time.",
+          "A diatonic triad is built by taking every other note of the scale: root, third and fifth. In C major, start on scale degree 1 and derive degrees 3 and 5 from the scale map you made in Lesson 3. You can then stack those pitches, spread them across octaves, or place them at different moments. The chord symbol names the harmony; your MIDI decides how it sounds in time.",
         instruction:
-          "The groove and melody are the ones you made in the previous lessons. Choose C for bar 1, then stack C, E, and G on the first eighth-note position. Press Play and hear that chord enter underneath your existing music.",
+          "The groove and melody are the ones you made in the previous lessons. Choose the tonic chord for bar 1. Using your C-major scale, derive scale degrees 1, 3 and 5 and stack those three pitches on the first eighth-note position. Press Play and hear the chord underneath your existing music.",
         recognition:
           "Play the three notes together, then remove one and add it back. What changes when the third or fifth disappears?",
         terms: [
           { term: "Chord", definition: "A harmonic identity made from two or more pitches heard in relation to one another." },
           { term: "Triad", definition: "A three-note chord containing root, third, and fifth." },
+          { term: "Diatonic triad", definition: "A triad made only from notes of the current key, built by stacking alternate scale degrees." },
           { term: "Root", definition: "The note that gives the chord its name and basic identity." },
           { term: "Piano roll", definition: "A sequencer view with pitch vertically and time horizontally." },
         ],
@@ -150,9 +151,9 @@ export const chordProgressionLesson: LessonDefinition = {
         title: "Write I–IV–V–I",
         learn: "Make harmonic function audible by writing every chord into the phrase.",
         explanation:
-          "In C major, I is C, IV is F and V is G. The return to C matters because G leaves the phrase hanging forward. Write the notes yourself so the function comes from the part you made.",
+          "Roman numerals name chords by scale degree. Build I, IV and V by starting on scale degrees 1, 4 and 5 and taking every other scale note to make a triad. In C major those three functions sound like home, departure and dominant tension; the return to I completes the motion.",
         instruction:
-          "Set the four bars to C–F–G–C. In each bar, place all three notes of that chord somewhere in its eight-step region. They may be stacked or spread out. Keep Play running while you work.",
+          "Set the four bars to I–IV–V–I in C major. Derive each triad from the scale rather than from the checklist, then place all three chord tones somewhere in each bar's eight-step region. They may be stacked or spread out. Keep Play running while you work.",
         recognition:
           "Listen across bars 3–4. If you stop after G, does the loop feel unfinished? What changes when C arrives?",
         terms: [

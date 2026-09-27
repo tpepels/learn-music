@@ -108,7 +108,7 @@ export const automationDynamicsLesson: LessonDefinition = {
         title: "Catch drum peaks",
         learn: "Use compression to reduce loud peaks and make drum dynamics more controlled.",
         explanation:
-          "A compressor turns a signal down automatically when it crosses a threshold. Ratio determines how strongly level above that threshold is reduced. A fast attack catches the front of drum hits quickly, which can make the groove more controlled but can also soften some of its punch.",
+          "A compressor turns a signal down automatically when it crosses a threshold. Ratio determines how strongly level above that threshold is reduced: at 4:1, roughly 4 dB of input rise above threshold becomes 1 dB of output rise, ignoring details such as knee. A fast attack catches the front of drum hits quickly, which can make the groove more controlled but can also soften some of its punch. This lab does not add makeup gain, so judge the change in dynamics and transient shape rather than assuming louder means better.",
         instruction:
           "With the drums looping, set Ratio near 1:1 and listen to the uncompressed attack. Then push Ratio above 3:1, lower Threshold until the louder hits are controlled, and use a fast attack. Finish with a clearly compressed setting, but only after hearing the bypass-like version.",
         recognition:

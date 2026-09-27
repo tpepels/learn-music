@@ -35,16 +35,18 @@ export const gainStagingLoudnessLesson: LessonDefinition = {
         id: "production.gain-staging-loudness.a",
         letter: "A",
         title: "Create level reserve",
-        learn: "Stop treating 0 dB on every channel as the default finishing point.",
+        learn: "Separate fader gain from measured signal level before thinking about headroom.",
         explanation:
-          "When several tracks sum together, their combined signal can approach the system ceiling even when no single channel looks extreme. This lab does not measure real peaks, so lowering every fader is a practice constraint for creating reserve - not a universal headroom rule.",
+          "A channel fader at 0 dB means unity gain: the fader itself is neither boosting nor attenuating. It does not mean the audio signal is at 0 dBFS. In a digital meter, 0 dBFS is the maximum representable peak level; several channels can sum toward that ceiling even when their faders look ordinary. This lab does not measure real peaks, so lowering every fader is a practice constraint for creating reserve, not a universal headroom rule.",
         instruction:
           "While the arrangement plays, attenuate all four channel faders to -6 dB or lower. Listen to the whole track at that lower internal level. Treat -6 dB as this exercise's comparison point, not as a rule that every real mix must follow.",
         recognition:
           "The mix may sound quieter, but did its balance actually get worse? Separate level from quality before making the next decision.",
         terms: [
           { term: "Gain staging", definition: "Managing signal level through each stage of an audio path." },
-          { term: "Headroom", definition: "Level available between current peaks and the system's maximum level." },
+          { term: "Unity gain", definition: "A 0 dB gain setting on a fader or gain stage that neither boosts nor attenuates the signal." },
+          { term: "dBFS", definition: "Decibels relative to digital full scale; 0 dBFS is the maximum representable digital peak level." },
+          { term: "Headroom", definition: "Level available between current measured peaks and the system's maximum level." },
           { term: "Clipping", definition: "Distortion caused when a signal exceeds the available level range." },
         ],
         workspace: "mixer",
@@ -97,9 +99,9 @@ export const gainStagingLoudnessLesson: LessonDefinition = {
         title: "Make louder win on purpose",
         learn: "Hear loudness bias directly before trying to remove it.",
         explanation:
-          "A slightly louder version often feels fuller and more exciting even when nothing else improved. Demonstrating that bias deliberately makes later A/B decisions more trustworthy.",
+          "You already learned the A/B workflow in Lesson 23. Here you reuse it for a narrower question: what happens when the mix balance stays essentially the same but the entire version is louder? A slightly louder version often feels fuller and more exciting even when nothing else improved. That is loudness bias, not a change in arrangement or balance.",
         instruction:
-          "Capture the current mix as a reference. Then raise the live mix so its average channel level is at least 2 dB louder than the snapshot. Switch A/B at least twice before deciding what actually changed besides level.",
+          "Capture the current mix as a reference. Then raise all four live faders by roughly the same amount so the average channel gain is at least 2 dB above the snapshot while the relative balance stays nearly unchanged. Switch A/B at least twice before deciding what actually changed besides level.",
         recognition:
           "Did the louder version initially feel better? Name one difference that remains after you stop thinking about loudness.",
         terms: [
@@ -113,12 +115,23 @@ export const gainStagingLoudnessLesson: LessonDefinition = {
       }),
       evaluate: ({ mixerSettings, referenceMixSettings, experiments }) => {
         const snapshot = referenceMixSettings.snapshot;
+        const deltas = snapshot
+          ? mixerTrackIds.map(
+              (track) =>
+                mixerSettings[track].volume -
+                snapshot.mixerSettings[track].volume,
+            )
+          : [];
         const louder =
-          snapshot !== null &&
-          averageVolume(mixerSettings) - averageVolume(snapshot.mixerSettings) >= 2;
+          deltas.length > 0 &&
+          deltas.reduce((sum, value) => sum + value, 0) / deltas.length >= 2;
+        const balancePreserved =
+          deltas.length > 0 &&
+          Math.max(...deltas) - Math.min(...deltas) <= 1;
         return [
           { label: "A reference snapshot exists", complete: snapshot !== null },
           { label: "The live mix is at least 2 dB louder on average", complete: louder },
+          { label: "All four faders moved by nearly the same amount", complete: balancePreserved },
           { label: "You made at least two A/B comparisons", complete: changedControl(experiments, "reference.compare", 2) },
         ];
       },
@@ -130,7 +143,7 @@ export const gainStagingLoudnessLesson: LessonDefinition = {
         title: "Compensate level before judging",
         learn: "Reduce the easy level advantage before comparing production differences.",
         explanation:
-          "A fair A/B comparison needs similar perceived loudness. This app cannot measure LUFS or RMS, so its guide only estimates a trim from the average fader offsets. Use that as a starting point, then trust repeated listening rather than treating the number as a loudness measurement.",
+          "This deliberately repeats the level-compensation habit from Lesson 23 after you have just experienced loudness bias directly. A fair A/B comparison needs similar perceived loudness. This app cannot measure LUFS or RMS, so its guide only estimates a trim from average fader offsets. Use that as a starting point, then trust repeated listening rather than treating the number as a loudness measurement.",
         instruction:
           "Use the approximate level-offset guide in the Reference workspace and bring the reference trim within 1 dB of its suggestion. Make at least three A/B comparisons, perform the quiet-listening check, and listen for any remaining loudness mismatch before judging tone or balance.",
         recognition:

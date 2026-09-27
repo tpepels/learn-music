@@ -42,15 +42,15 @@ export const chordColorExtensionsLesson: LessonDefinition = {
         id: "harmony.chord-colour.a",
         letter: "A",
         title: "Suspend and resolve",
-        learn: "Hear suspension as a temporary replacement, not just a four-note chord.",
+        learn: "Hear what a sus4 symbol changes, then compare an optional resolution to the major triad.",
         explanation:
-          "Csus4 replaces E with F, producing C–F–G. Resolving F down to E restores C major. The movement is the point: suspension creates a small tension that becomes meaningful when it resolves.",
+          "A modern sus4 chord replaces the third with the fourth: Csus4 is C–F–G, not a four-note C chord with both E and F. Historically, a suspension describes a prepared dissonance that resolves; modern chord symbols often use sus4 as a stable sonority that does not have to resolve. This exercise resolves F down to E so you can hear the contrast clearly, not because every sus4 must resolve.",
         instruction:
           "In the harmony roll place C4–F4–G4 together on one step, then within the next two eighth-note steps place C4–E4–G4 together. Play the transition several times.",
         recognition:
           "Focus on F moving to E. Does the second chord feel more settled even though only one pitch changed?",
         terms: [
-          { term: "Suspension", definition: "A non-chord or replacement tone that delays a more stable chord tone." },
+          { term: "Suspension", definition: "Historically, a prepared dissonance that resolves by step; modern sus chord symbols borrow the replacement idea without requiring a resolution." },
           { term: "sus4", definition: "A chord in which the third is replaced by the fourth." },
           { term: "Resolution", definition: "The movement of a tense or unstable tone toward a more stable one." },
         ],

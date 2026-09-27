@@ -198,12 +198,13 @@ export const harmonicFunctionLesson: LessonDefinition = {
         title: "Write the secondary dominant",
         learn: "Hear chromatic function by placing the altered note yourself.",
         explanation:
-          "D7 contains F♯, a note outside C major. That F♯ pulls upward to G and temporarily makes G feel like a goal. G then resumes its dominant role and points back to C.",
+          "A dominant-seventh chord is a major triad plus a minor seventh, ten semitones above its root. You only need that one seventh-chord formula here; Lesson 27 will compare the main seventh-chord families systematically. Build D7 from D major plus its minor seventh. Its F♯ lies outside C major and pulls upward to G, temporarily making G feel like a goal before G resumes its dominant role and points back to C.",
         instruction:
-          "Set D7 → G → C in bars 1–3 and choose C, Em, or Am in bar 4. In the piano roll, write every tone of D7—including F♯—then rewrite the remaining bars so every sounding note fits its chord.",
+          "Set D7 → G → C in bars 1–3 and choose C, Em, or Am in bar 4. Build all four tones of D7 from the formula major triad + minor seventh, then rewrite the remaining bars so every sounding note fits its chord.",
         recognition:
           "Replace F♯ with F for one pass, then restore it. Which version makes G feel more strongly prepared?",
         terms: [
+          { term: "Dominant seventh", definition: "A major triad with a minor seventh, ten semitones above the root, added to it." },
           { term: "Secondary dominant", definition: "A dominant chord that temporarily points to a chord other than the main tonic." },
           { term: "Tonicization", definition: "Briefly making a non-tonic chord sound like a local point of arrival." },
           { term: "Chromatic note", definition: "A pitch outside the prevailing diatonic scale, used here for harmonic direction." },

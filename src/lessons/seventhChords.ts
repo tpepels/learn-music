@@ -111,15 +111,16 @@ export const seventhChordsLesson: LessonDefinition = {
         id: "harmony.seventh-chords.c",
         letter: "C",
         title: "Write ii7–V7–Imaj7",
-        learn: "Turn a standard progression into an actual four-note accompaniment.",
+        learn: "Build minor 7 as well as dominant 7 and maj7, then use all three in ii7–V7–Imaj7.",
         explanation:
-          "Dm7–G7–Cmaj7 combines functional direction with seventh-chord colour. Each chord has four tones, so writing them exposes voice-leading possibilities that chord labels hide.",
+          "A minor-seventh chord is a minor triad plus a minor seventh, ten semitones above the root. That gives Dm7 its D–F–A triad plus C. Now the three seventh-chord families used here are explicit: ii7 is minor 7, V7 is a dominant seventh, and Imaj7 is major 7. Their different chord qualities combine with the functional direction ii→V→I.",
         instruction:
-          "Set bars 1–3 to Dm7 → G7 → Cmaj7 and keep Cmaj7 in bar 4. Rewrite the piano roll so bars 1–3 each contain all four chord tones. Spread some notes across time instead of using only one vertical block.",
+          "Set bars 1–3 to Dm7 → G7 → Cmaj7 and keep Cmaj7 in bar 4. Derive each four-note chord from its triad quality and seventh, then rewrite the piano roll so bars 1–3 contain all four chord tones. Spread some notes across time instead of using only one vertical block.",
         recognition:
           "Listen only for the seventh in each chord. Does it sound like part of the harmony, and can you hear where it moves next?",
         terms: [
-          { term: "ii7–V7–Imaj7", definition: "A common functional progression using seventh chords on predominant, dominant and tonic." },
+          { term: "Minor seventh chord", definition: "A minor triad with a minor seventh, ten semitones above the root, added to it." },
+          { term: "ii7–V7–Imaj7", definition: "A common functional progression using minor-7, dominant-7 and major-7 chords on predominant, dominant and tonic." },
           { term: "Voice leading", definition: "The way individual chord tones move from one harmony to the next." },
         ],
         workspace: "seventh-harmony",
