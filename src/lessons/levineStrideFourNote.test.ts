@@ -52,7 +52,7 @@ describe("Levine stride and four-note scale chapters", () => {
     const checks = levineStrideBudPowellLesson.exercises[3].evaluate(
       context({
         harmonySequence: sequence([
-          [0,[43,53]],[8,[48,58]],[16,[41,57]],[24,[52,55,57,62]],
+          [0,[43,53]],[8,[48,58]],[16,[41,57]],[24,[57,60,64,67]],
         ]),
         experiments: {
           "source.analysis": experiment(1, ["l17.bud-powell-shells:0"]),
@@ -85,14 +85,14 @@ describe("Levine stride and four-note scale chapters", () => {
     const checks = levineFourNoteScalesLesson.exercises[4].evaluate(
       context({
         harmonySequence: sequence([
-          [0,[60]],[1,[62]],[2,[65]],[3,[67]],
-          [8,[62]],[9,[65]],[10,[67]],[11,[72]],
-          [16,[65]],[17,[67]],[18,[72]],[19,[74]],
-          [24,[67]],[25,[72]],[26,[74]],[27,[77]],
+          [0,[48,60]],[1,[48,62]],[2,[48,65]],[3,[48,67]],
+          [8,[50,62]],[9,[50,65]],[10,[50,67]],[11,[50,72]],
+          [16,[53,65]],[17,[53,67]],[18,[53,72]],[19,[53,74]],
+          [24,[55,67]],[25,[55,72]],[26,[55,74]],[27,[55,77]],
         ]),
         experiments: {
           "source.analysis": experiment(1, ["l18.invent-and-rotate:0"]),
-          "harmony.note-edit": experiment(16),
+          "harmony.note-edit": experiment(32),
           "transport.play": experiment(1, ["jazz-piano"]),
         },
       }),

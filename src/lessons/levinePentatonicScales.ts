@@ -53,7 +53,7 @@ export const levinePentatonicScalesLesson: LessonDefinition = {
         explanation:
           "The familiar major pentatonic uses scale degrees 1, 2, 3, 5 and 6. In C that gives C-D-E-G-A. Its interval pattern is whole step, whole step, minor third, whole step before the octave closes.\n\nLike a seven-note scale, this collection has modes. Starting the same notes from A gives A-C-D-E-G, the commonly named minor pentatonic sound. No pitch classes have changed - only the tonal center has.",
         instruction:
-          "Study the five-note construction. Clear the piano grid. Write C4-D4-E4-G4-A4 on steps 1-5. In bar 3 write A3-C4-D4-E4-G4 on steps 17-21. Play both and listen to how the same five notes change identity when A becomes the center.",
+          "Study the five-note construction. Clear the piano grid. On steps 1-5 keep C3 underneath C4-D4-E4-G4-A4. In bar 3 keep A2 underneath A3-C4-D4-E4-G4 on steps 17-21. Play both and listen to how the same five pitch classes change identity when the bass establishes a new center.",
         recognition:
           "Can you hear the second collection as a new tonal center rather than a different set of notes?",
         source: {
@@ -84,15 +84,15 @@ export const levinePentatonicScalesLesson: LessonDefinition = {
           complete: studiedSource(experiments, "l15.major-pentatonic"),
         },
         {
-          label: "Both pentatonic rotations are written",
+          label: "Both pentatonic centers are written with bass anchors",
           complete: exactStudy(harmonySequence, [
-            ...melodicLine([60, 62, 64, 67, 69]),
-            ...melodicLine([57, 60, 62, 64, 67], 16),
+            [0,[48,60]],[1,[48,62]],[2,[48,64]],[3,[48,67]],[4,[48,69]],
+            [16,[45,57]],[17,[45,60]],[18,[45,62]],[19,[45,64]],[20,[45,67]],
           ]),
         },
         {
-          label: "You entered both five-note collections",
-          complete: changedControl(experiments, "harmony.note-edit", 10),
+          label: "You entered both centered five-note collections",
+          complete: changedControl(experiments, "harmony.note-edit", 20),
         },
         {
           label: "You listened to the changed center",

@@ -13,9 +13,11 @@ function blankSequence(): HarmonySequence {
   return Array.from({ length: 32 }, () => []);
 }
 
-function sequence(notes: Array<[number, number]>): HarmonySequence {
+function sequence(notes: Array<[number, number | number[]]>): HarmonySequence {
   const result = blankSequence();
-  for (const [step, note] of notes) result[step] = [note];
+  for (const [step, note] of notes) {
+    result[step] = Array.isArray(note) ? [...note] : [note];
+  }
   return result;
 }
 
@@ -34,12 +36,14 @@ describe("Levine scale chapters", () => {
     const checks = levineScaleTheoryLesson.exercises[0].evaluate(
       context({
         harmonySequence: sequence([
-          [0,60],[1,62],[2,64],[3,65],[4,67],[5,69],[6,71],[7,72],
-          [16,60],[17,62],[18,64],[19,66],[20,67],[21,69],[22,71],[23,72],
+          [0,[52,59,60]],[1,[52,59,62]],[2,[52,59,64]],[3,[52,59,65]],
+          [4,[52,59,67]],[5,[52,59,69]],[6,[52,59,71]],[7,[52,59,72]],
+          [16,[52,59,60]],[17,[52,59,62]],[18,[52,59,64]],[19,[52,59,66]],
+          [20,[52,59,67]],[21,[52,59,69]],[22,[52,59,71]],[23,[52,59,72]],
         ]),
         experiments: {
           "source.analysis": experiment(1, ["l09.major-scale-harmony:0"]),
-          "harmony.note-edit": experiment(16),
+          "harmony.note-edit": experiment(48),
           "transport.play": experiment(1, ["jazz-piano"]),
         },
       }),

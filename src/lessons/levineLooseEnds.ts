@@ -37,7 +37,7 @@ const lesson = lessonContentSchema.parse({
   description:
     "Compare three G-sus pitch fields, reharmonize minor II chords with melodic-minor sus harmony, distinguish Aeolian VI from dominant VI, explore the fifth mode of melodic minor, build a major-third-cycle turnaround and hear harmonic major.",
   overview:
-    "The unifying lesson is flexibility. Chord symbols can be incomplete, the same symbol can imply different parent scales, and some sounds have no universally agreed name. Theory narrows the possibilities, but the ear and the surrounding bass and melody decide which interpretation is useful.",
+    "This is intentionally a survey rather than one concept to memorize in a sitting. Treat A-B as one sus-harmony cluster, C-D as modal-colour problems, and E-F as larger harmonic systems. Chord symbols can be incomplete and some sounds have no universally agreed name; theory narrows the possibilities, but bass, melody and your ear decide which interpretation is useful.",
 });
 
 export const levineLooseEndsLesson: LessonDefinition = {
@@ -171,7 +171,7 @@ export const levineLooseEndsLesson: LessonDefinition = {
         instruction:
           "Study the Aeolian comparison. Clear the grid. Write G3-A3-B-flat3-C4-D4-E-flat4-F4-G4 on steps 1-8. In bar 3 write G3-A3-B3-C4-D4-E4-F4-G4 on steps 17-24. Play both and focus on the third and sixth.",
         recognition:
-          "Can you hear the minor-six chord family in Aeolian versus the brighter dominant quality of Mixolydian?",
+          "Can you hear the darker Aeolian minor colour versus the brighter dominant quality of Mixolydian?",
         source: {
           reference: "Chapter Twenty-Two - Figures 22-9 through 22-13",
           focus:

@@ -222,9 +222,9 @@ export const levineStrideBudPowellLesson: LessonDefinition = {
         explanation:
           "Bud Powell-style left-hand voicings are deliberately sparse. They often contain only two notes - sometimes three - and emphasize roots, thirds or tenths, sixths and sevenths. Their lower register keeps the harmonic skeleton audible without occupying the middle of the keyboard.\n\nThat space matters because the right hand can then roam across a much wider melodic range. The trade-off is that the left hand sounds more exposed and less lush than later four-note rootless systems.",
         instruction:
-          "Study the skeletal voicing idea. Clear the grid. Write G2-F3 for Gm7 in bar 1, C3-B-flat3 for C7 in bar 2, and F2-A3 for F major in bar 3. In bar 4 write the denser rootless F-major colour E3-G3-A3-D4. Play the loop and compare how much mid-register space each approach occupies.",
+          "Study the skeletal voicing idea. Clear the grid. Write G2-F3 for Gm7 in bar 1 and C3-B-flat3 for C7 in bar 2. In bar 3 write the sparse F-major shell F2-A3. In bar 4 compare the same F-major destination with the denser rootless Fmaj9 colour A3-C4-E4-G4. Play the loop and focus on how much middle-register space the two F-major choices occupy.",
         recognition:
-          "Can you hear the first three chords as harmonically sufficient even though each uses only two left-hand notes?",
+          "Can you hear the sparse F-major shell and denser Fmaj9 colour as the same destination while the denser version occupies much more of the right hand\'s register?",
         source: {
           reference: "Chapter Seventeen - Bud Powell voicings discussion and Figures 17-16 through 17-24",
           focus:
@@ -255,7 +255,7 @@ export const levineStrideBudPowellLesson: LessonDefinition = {
         {
           label: "Three skeletal shells and one dense comparison are written",
           complete: exactStudy(harmonySequence, [
-            [0,[43,53]],[8,[48,58]],[16,[41,57]],[24,[52,55,57,62]],
+            [0,[43,53]],[8,[48,58]],[16,[41,57]],[24,[57,60,64,67]],
           ]),
         },
         {
