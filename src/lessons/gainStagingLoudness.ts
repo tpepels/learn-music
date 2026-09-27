@@ -35,16 +35,18 @@ export const gainStagingLoudnessLesson: LessonDefinition = {
         id: "production.gain-staging-loudness.a",
         letter: "A",
         title: "Create level reserve",
-        learn: "Stop treating 0 dB on every channel as the default finishing point.",
+        learn: "Separate fader gain from measured signal level before thinking about headroom.",
         explanation:
-          "When several tracks sum together, their combined signal can approach the system ceiling even when no single channel looks extreme. This lab does not measure real peaks, so lowering every fader is a practice constraint for creating reserve - not a universal headroom rule.",
+          "A channel fader at 0 dB means unity gain: the fader itself is neither boosting nor attenuating. It does not mean the audio signal is at 0 dBFS. In a digital meter, 0 dBFS is the maximum representable peak level; several channels can sum toward that ceiling even when their faders look ordinary. This lab does not measure real peaks, so lowering every fader is a practice constraint for creating reserve, not a universal headroom rule.",
         instruction:
           "While the arrangement plays, attenuate all four channel faders to -6 dB or lower. Listen to the whole track at that lower internal level. Treat -6 dB as this exercise's comparison point, not as a rule that every real mix must follow.",
         recognition:
           "The mix may sound quieter, but did its balance actually get worse? Separate level from quality before making the next decision.",
         terms: [
           { term: "Gain staging", definition: "Managing signal level through each stage of an audio path." },
-          { term: "Headroom", definition: "Level available between current peaks and the system's maximum level." },
+          { term: "Unity gain", definition: "A 0 dB gain setting on a fader or gain stage that neither boosts nor attenuates the signal." },
+          { term: "dBFS", definition: "Decibels relative to digital full scale; 0 dBFS is the maximum representable digital peak level." },
+          { term: "Headroom", definition: "Level available between current measured peaks and the system's maximum level." },
           { term: "Clipping", definition: "Distortion caused when a signal exceeds the available level range." },
         ],
         workspace: "mixer",
