@@ -1250,8 +1250,8 @@ function App() {
               <div className="checks-before-attempt">
                 <strong>Try it before checking the answer.</strong>
                 <p>
-                  Detailed criteria appear after you play, audition or change
-                  something in this exercise.
+                  Detailed criteria appear after you make a real attempt in
+                  this exercise.
                 </p>
               </div>
             )}
