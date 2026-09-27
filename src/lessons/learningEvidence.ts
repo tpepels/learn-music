@@ -1,7 +1,10 @@
 import type { ExerciseExperiments } from "../music/model";
 
 export function heardPlayback(experiments: ExerciseExperiments): boolean {
-  return (experiments["transport.play"]?.changes ?? 0) >= 1;
+  return (
+    (experiments["transport.play"]?.changes ?? 0) >= 1 &&
+    (experiments["transport.loop"]?.changes ?? 0) >= 1
+  );
 }
 
 export function changedControl(
