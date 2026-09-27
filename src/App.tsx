@@ -49,6 +49,7 @@ import {
   type LearningTrackId,
 } from "./lessons/course";
 import { getAdvanceDestination } from "./lessons/progression";
+import { getPlayLabLessonScope } from "./lessons/playLabScope";
 import { RECOVERED_LESSON_IDS } from "./learning/catchUp";
 import { isExerciseReady } from "./lessons/exerciseReadiness";
 import {
@@ -586,6 +587,8 @@ function App() {
 
   const lesson = getLesson(currentLessonId);
   const activeTrack = getTrackForLesson(lesson.id);
+  const playLabScope =
+    activeTrack.id === "play-lab" ? getPlayLabLessonScope(lesson.id) : undefined;
   const courseOutline = getTrackOutline(activeTrack.id);
   const storedExerciseIndex = exerciseIndexByLesson[lesson.id] ?? 0;
   const exerciseIndex = Math.min(storedExerciseIndex, lesson.exercises.length - 1);
@@ -1229,6 +1232,34 @@ function App() {
                 <span className="section-label">{lesson.eyebrow}</span>
                 <strong>{lesson.hero}</strong>
                 <p>{lesson.overview}</p>
+                {playLabScope && (
+                  <div className="lesson-scope-grid">
+                    <section>
+                      <span className="section-label">Learning targets</span>
+                      <ul>
+                        {playLabScope.objectives.map((objective) => (
+                          <li key={objective}>{objective}</li>
+                        ))}
+                      </ul>
+                    </section>
+                    <section>
+                      <span className="section-label">Built on</span>
+                      {playLabScope.prerequisites.length > 0 ? (
+                        <ul>
+                          {playLabScope.prerequisites.map((prerequisite) => (
+                            <li key={prerequisite}>{prerequisite}</li>
+                          ))}
+                        </ul>
+                      ) : (
+                        <p className="lesson-scope-empty">No prior musical knowledge is required.</p>
+                      )}
+                    </section>
+                    <section className="lesson-scope-boundary">
+                      <span className="section-label">Scope</span>
+                      <p>{playLabScope.scope}</p>
+                    </section>
+                  </div>
+                )}
               </div>
             )}
           </section>
