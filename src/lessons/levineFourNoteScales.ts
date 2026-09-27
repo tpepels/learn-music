@@ -37,7 +37,7 @@ const lesson = lessonContentSchema.parse({
   description:
     "Build minor-sixth four-note scales, use them over major and melodic-minor harmony, invent diminished subsets, and practice characteristic four-note cells from melodic minor and major scales.",
   overview:
-    "A useful four-note scale is not chosen by a universal formula. It is a compact pitch set whose notes sound convincing over the harmony at hand. Some sets are highly characteristic of one parent scale; others work over many chords because symmetrical or modal relationships make them interchangeable.",
+    "Here, a four-note scale is best understood as a compact improvisational subset or cell rather than a new foundational scale system. It is chosen because its notes sound convincing over the harmony at hand. Some sets are highly characteristic of one parent scale; others work over many chords because symmetrical or modal relationships make them interchangeable.",
 });
 
 export const levineFourNoteScalesLesson: LessonDefinition = {
