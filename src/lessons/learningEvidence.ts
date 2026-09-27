@@ -7,6 +7,17 @@ export function heardPlayback(experiments: ExerciseExperiments): boolean {
   );
 }
 
+
+
+export function reflectedOnListening(
+  experiments: ExerciseExperiments,
+  minimumWords = 3,
+): boolean {
+  const answer =
+    experiments["reflection.answer"]?.values.at(-1)?.trim() ?? "";
+  return answer.split(/\s+/).filter(Boolean).length >= minimumWords;
+}
+
 export function changedControl(
   experiments: ExerciseExperiments,
   key: string,
