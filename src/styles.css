@@ -10844,6 +10844,49 @@ body {
   line-height: 1.65;
 }
 
+.lesson-scope-grid {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 14px 18px;
+  margin-top: 16px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(240, 184, 106, 0.18);
+}
+
+.lesson-scope-grid section {
+  min-width: 0;
+}
+
+.lesson-scope-grid ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  color: var(--text);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.lesson-scope-grid li + li {
+  margin-top: 5px;
+}
+
+.lesson-scope-grid .lesson-scope-empty {
+  margin-top: 8px;
+  font-size: 11px;
+}
+
+.lesson-scope-boundary {
+  grid-column: 1 / -1;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.055);
+}
+
+.lesson-scope-boundary p {
+  margin-top: 6px;
+  color: var(--dim);
+  font-size: 10px;
+  line-height: 1.55;
+}
+
 .exercise-guide-concept {
   margin-bottom: 14px;
   padding: 18px 20px;
