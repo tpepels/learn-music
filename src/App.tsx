@@ -797,12 +797,12 @@ function App() {
   const reflectionReady =
     activeTrack.id !== "play-lab" ||
     reflectionAnswer.split(/\s+/).filter(Boolean).length >= 3;
+  const exerciseCompleted = completedExerciseIds.includes(exercise.id);
   const hasAttempt =
     exerciseCompleted ||
     Object.entries(experiments).some(
       ([key, value]) => key !== "reflection.answer" && value.changes > 0,
     );
-  const exerciseCompleted = completedExerciseIds.includes(exercise.id);
   const exerciseReady = isExerciseReady({
     checksReady: checksReady && reflectionReady,
     completed: exerciseCompleted,
