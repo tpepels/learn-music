@@ -107,9 +107,9 @@ export const levineCompingLesson: LessonDefinition = {
         explanation:
           "The accompanist can play many notes or very few. Density only becomes a problem when it competes with the soloist. A useful default is to listen for openings and answer them rather than filling every beat.\n\nThis exercise exaggerates the difference. The busy bar is not automatically wrong, but the sparse bar makes it easier to hear how silence becomes part of the accompaniment.",
         instruction:
-          "Study the space-and-response map. Clear the grid. In bar 1 write E3-G3-B3-D4 on all four beats: steps 1, 3, 5 and 7. Leave bar 2 empty. In bar 3 write the same voicing only on steps 17 and 23. Leave bar 4 empty. Play the loop and compare how much foreground space remains.",
+          "Study the space-and-response map. Clear the grid. Use the same short melody twice: C5-D5-E5-G5 on steps 1, 3, 5 and 7 of bar 1, then again on steps 17, 19, 21 and 23 of bar 3. In bar 1 crowd every melody attack with E3-G3-B3-D4 underneath it. In bar 3 leave the melody alone and answer it with that chord only on steps 20 and 24. Play the loop and compare how clearly the melody speaks.",
         recognition:
-          "Does the sparse version still define the harmony while leaving much more imaginary room for a melody?",
+          "Which version lets the melody read more clearly - the chords on every note, or the two answers placed after parts of the phrase?",
         source: {
           reference: "Chapter Twenty-One - opening discussion, Figure 21-6 and ensemble advice",
           focus:
@@ -140,13 +140,13 @@ export const levineCompingLesson: LessonDefinition = {
         {
           label: "The busy and sparse versions are written",
           complete: exactStudy(harmonySequence, [
-            [0,[52,55,59,62]],[2,[52,55,59,62]],[4,[52,55,59,62]],[6,[52,55,59,62]],
-            [16,[52,55,59,62]],[22,[52,55,59,62]],
+            [0,[52,55,59,62,72]],[2,[52,55,59,62,74]],[4,[52,55,59,62,76]],[6,[52,55,59,62,79]],
+            [16,[72]],[18,[74]],[19,[52,55,59,62]],[20,[76]],[22,[79]],[23,[52,55,59,62]],
           ]),
         },
         {
-          label: "You entered both density levels",
-          complete: changedControl(experiments, "harmony.note-edit", 24),
+          label: "You entered the melody and both density levels",
+          complete: changedControl(experiments, "harmony.note-edit", 32),
         },
         {
           label: "You listened to the added space",
@@ -164,7 +164,7 @@ export const levineCompingLesson: LessonDefinition = {
         explanation:
           "Comping invites reharmonization, but alterations are guidelines rather than automatic replacements. Major tonic harmony can often accept a raised fourth. Dominant harmony can often accept a tritone substitute. Both choices may still clash with the soloist's actual note.\n\nThe test is musical: make the alteration, hear its colour, and be ready to simplify or move on if it conflicts with the line above it.",
         instruction:
-          "Study the alteration guidelines. Clear the grid. Write E3-G3-B3-D4 in bar 1 for C major. In bar 2 change G to F-sharp, giving E3-F-sharp3-B3-D4 for a sharper Lydian colour. In bar 3 write F3-A3-B3-E4 for G9. In bar 4 replace it with F3-A-flat3-B3-E-flat4 for D-flat7, the tritone substitute. Play all four bars.",
+          "Study the alteration guidelines. Clear the grid. In bar 1 write E3-G3-B3-D4 with melody G4. In bar 2 change G3 to F-sharp3 for Lydian colour but put melody F4 above it so you can hear the semitone collision. In bar 3 write F3-A3-B3-E4 for G9 with melody D5. In bar 4 use the D-flat7 substitute F3-A-flat3-B3-E-flat4 under that same D5. Play all four and decide where the altered comping helps and where the melody makes it too exposed.",
         recognition:
           "Can you hear both altered choices as plausible colours while also hearing why a melody note could force you back to the simpler version?",
         source: {
@@ -197,15 +197,15 @@ export const levineCompingLesson: LessonDefinition = {
         {
           label: "The four harmonic colours are written",
           complete: exactStudy(harmonySequence, [
-            [0,[52,55,59,62]],
-            [8,[52,54,59,62]],
-            [16,[53,57,59,64]],
-            [24,[53,56,59,63]],
+            [0,[52,55,59,62,67]],
+            [8,[52,54,59,62,65]],
+            [16,[53,57,59,64,74]],
+            [24,[53,56,59,63,74]],
           ]),
         },
         {
-          label: "You entered all four voicings",
-          complete: changedControl(experiments, "harmony.note-edit", 16),
+          label: "You entered all four voicings with melody context",
+          complete: changedControl(experiments, "harmony.note-edit", 20),
         },
         {
           label: "You listened for colour and possible friction",
