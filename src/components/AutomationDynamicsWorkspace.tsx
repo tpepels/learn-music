@@ -190,11 +190,15 @@ export function AutomationDynamicsWorkspace() {
             <small>Control peaks · reshape punch</small>
           </div>
 
-          <div className="gain-reduction-meter" aria-label="Compression intensity">
+          <div className="gain-reduction-meter" aria-label="Illustrated compression intensity">
             <span style={{ width: compressionAmount + "%" }} />
-            <b>GR</b>
+            <b>GR MODEL</b>
           </div>
         </header>
+
+        <p className="compressor-model-note">
+          The GR graphic is an illustration derived from the settings, not measured signal-dependent gain reduction. Judge the compressor by the audible transient and dynamics.
+        </p>
 
         <div className="compressor-controls">
           <label>
