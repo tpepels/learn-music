@@ -52,6 +52,10 @@ export const levineUpperStructuresLesson: LessonDefinition = {
           "Study the basic construction. Clear the grid. In bar 1 write only E3-B-flat3. In bar 2 add the D-major triad above it: E3-B-flat3-D4-F-sharp4-A4. In bar 3 add C3 in the bass to hear the complete dominant root. Leave bar 4 empty and play the three stages.",
         recognition:
           "Can you hear the complex dominant colour as one simple D-major hand shape sitting above the E-B-flat tritone?",
+        takeaway:
+          "An upper structure turns a complex dominant colour into two simple jobs: left-hand guide tones plus a familiar right-hand triad.",
+        hint:
+          "Build E-B-flat first, then place D-F-sharp-A above it. Name the D-major triad before translating those notes into C7 extensions.",
         source: {
           reference: "Chapter Fourteen - Figures 14-2 and 14-3",
           focus:
@@ -110,6 +114,10 @@ export const levineUpperStructuresLesson: LessonDefinition = {
           "Study the four basic structures. Clear the grid. Over E3-B-flat3, write D4-F-sharp4-A4 in bar 1, E-flat4-A-flat4-C5 in bar 2, E4-A4-C-sharp5 in bar 3, and C-sharp4-F-sharp4-A4 in bar 4. Play all four while keeping the left-hand tritone conceptually fixed.",
         recognition:
           "Can you identify each colour by the right-hand triad shape instead of calculating every altered extension individually?",
+        takeaway:
+          "Changing only the right-hand triad changes the dominant tensions while the left-hand tritone keeps the C7 function stable.",
+        hint:
+          "Freeze E-B-flat. For each colour, identify the right-hand triad by its ordinary triad name before thinking about sharp nines, flat thirteenths or sharp elevens.",
         source: {
           reference: "Chapter Fourteen - Figures 14-2 through 14-6",
           focus:
@@ -169,6 +177,10 @@ export const levineUpperStructuresLesson: LessonDefinition = {
           "Study the inversion rule. Clear the grid. Over E3-B-flat3, write D4-F-sharp4-A4 in bar 1, F-sharp4-A4-D5 in bar 2, and A4-D5-F-sharp5 in bar 3. Leave bar 4 empty and play the three positions.",
         recognition:
           "Can you hear the same dominant colour survive while the top note changes from A to D to F-sharp?",
+        takeaway:
+          "Upper-structure inversion changes register and top note, not the underlying dominant colour or triad identity.",
+        hint:
+          "Leave E-B-flat untouched. Rotate only D-F-sharp-A through its inversions and check that the same three pitch classes remain in the right hand.",
         source: {
           reference: "Chapter Fourteen - Figure 14-3 and accompanying inversion discussion",
           focus:
@@ -227,6 +239,10 @@ export const levineUpperStructuresLesson: LessonDefinition = {
           "Study the scale-family map. Clear the grid. Over E3-B-flat3, write D4-F-sharp4-A4 in bar 1, E-flat4-A-flat4-C5 in bar 2, and E-flat4-G4-B-flat4 in bar 3. Leave bar 4 empty and play the three colours.",
         recognition:
           "Can you hear each right-hand triad as a compact slice of a larger dominant scale rather than as an unrelated substitution?",
+        takeaway:
+          "An upper-structure triad is useful because it is a compact subset of a larger dominant scale family.",
+        hint:
+          "Take the right-hand triad notes and check which parent scale contains all of them over the C7 guide tones. Let the scale explain the colour after you hear it.",
         source: {
           reference: "Chapter Fourteen - Figures 14-14 and 14-15",
           focus:
@@ -285,6 +301,10 @@ export const levineUpperStructuresLesson: LessonDefinition = {
           "Study the diminished-symmetry application. Clear the grid. Keep B3-F4 as the dominant core. Add F4-B-flat4-D5 in bar 1, D-flat4-F4-A-flat4 in bar 2, E4-G-sharp4-B4 in bar 3, and G4-B4-D5 in bar 4. Play the four bars and track the upper-triad roots by minor thirds.",
         recognition:
           "Can you hear the upper structures as rotations of one symmetrical pitch field rather than separate dominant tricks?",
+        takeaway:
+          "Diminished symmetry lets related upper structures move by minor thirds without leaving the same symmetrical pitch field.",
+        hint:
+          "Shift every note of the upper triad up three semitones while keeping the dominant guide tones fixed. Repeat and listen for family resemblance.",
         source: {
           reference: "Chapter Fourteen - Figures 14-11, 14-17 through 14-22",
           focus:

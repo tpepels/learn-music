@@ -56,6 +56,10 @@ export const levineLooseEndsLesson: LessonDefinition = {
           "Study the three sus families. Clear the grid. Write G3-A3-B3-C4-D4-E4-F4-G4 on steps 1-8. Write G3-A-flat3-B-flat3-C4-D4-E-flat4-F4-G4 on steps 9-16. Write G3-A-flat3-B-flat3-C4-D4-E4-F4-G4 on steps 17-24. Put C major seventh C3-E3-G3-B3 on step 25 as the common resolution, then play the loop.",
         recognition:
           "Can you hear the final E-natural distinguish melodic-minor sus colour from the darker Phrygian version?",
+        takeaway:
+          "Similar sus symbols can come from different parent scales; the altered 2nd, 3rd and 6th degrees reveal which pitch field you are using.",
+        hint:
+          "Keep G as the center and compare the changed notes one at a time. The E-flat versus E-natural contrast is especially useful for separating Phrygian from melodic-minor sus colour.",
         source: {
           reference: "Chapter Twenty-Two - Figures 22-1 through 22-4",
           focus:
@@ -115,6 +119,10 @@ export const levineLooseEndsLesson: LessonDefinition = {
           "Study the sus reharmonization. Clear the grid. In bar 1 write E3-G3-B3-D4 on step 1, C-sharp3-G3-B-flat3-E4 on step 5, and D3-F-sharp3-A3-C-sharp4 on step 7. In bar 3 replace the E-minor chord with A2-D3-G3-B-flat3-E4 on step 17, then write A2-C-sharp3-G3-B-flat3-E4 on step 21 and the same D-major chord on step 23. Play both versions.",
         recognition:
           "Does the sus-flat-nine version sound as though the dominant area begins earlier while the final resolution remains intact?",
+        takeaway:
+          "Second-mode melodic-minor sus harmony can replace the minor II and make the following dominant area begin earlier.",
+        hint:
+          "Keep A as the bass and withhold C-sharp at first by using the suspended fourth D. Then introduce C-sharp on A7 and hear the dominant sharpen before D major arrives.",
         source: {
           reference: "Chapter Twenty-Two - Figures 22-5 through 22-8",
           focus:
@@ -172,6 +180,10 @@ export const levineLooseEndsLesson: LessonDefinition = {
           "Study the Aeolian comparison. Clear the grid. Write G3-A3-B-flat3-C4-D4-E-flat4-F4-G4 on steps 1-8. In bar 3 write G3-A3-B3-C4-D4-E4-F4-G4 on steps 17-24. Play both and focus on the third and sixth.",
         recognition:
           "Can you hear the darker Aeolian minor colour versus the brighter dominant quality of Mixolydian?",
+        takeaway:
+          "VI in a major key can remain minor/Aeolian or become dominant; that choice changes both chord quality and available scale colour.",
+        hint:
+          "Hold G as the root. Compare B-flat and E-flat with B-natural and E-natural before playing the complete scales.",
         source: {
           reference: "Chapter Twenty-Two - Figures 22-9 through 22-13",
           focus:
@@ -229,6 +241,10 @@ export const levineLooseEndsLesson: LessonDefinition = {
           "Study the fifth-mode ambiguity. Clear the grid. Write C4-D4-E4-F4-G4-A-flat4-B-flat4-C5 on steps 1-8. On step 17 write C3-E3-G3-B-flat3-A-flat4-F5. On step 25 write C3-E3-G3-B-flat3-A-flat4-G5. Play the scale, then compare the sustained F and G above the chord.",
         recognition:
           "Which upper note sounds more exposed to you, and does moving it quickly change your judgment?",
+        takeaway:
+          "A note can belong to a scale and still sound exposed when sustained against a particular voicing; duration and register matter.",
+        hint:
+          "Sustain F by itself over the chord, then G. After judging the long notes, try each as a quick passing tone and notice whether the tension changes.",
         source: {
           reference: "Chapter Twenty-Two - Figures 22-14 and 22-15",
           focus:
@@ -287,6 +303,10 @@ export const levineLooseEndsLesson: LessonDefinition = {
           "Study the major-third cycle. Clear the grid. Write E3-G3-B3-D4 on step 1, F3-A3-C4-E-flat4 on step 5, B-flat2-D3-F3-A3 on step 9, D-flat3-F3-A-flat3-B3 on step 13, G-flat2-B-flat2-D-flat3-F3 on step 17, A2-C-sharp3-E3-G3 on step 21, and D3-F-sharp3-A3-C-sharp4 on step 25. Play the complete four-bar chain.",
         recognition:
           "Can you hear the tonal centers jump by major thirds while each local dominant still supplies a familiar V-I pull?",
+        takeaway:
+          "A major-third cycle moves among three equally spaced tonic centers, with familiar local dominants making the rapid changes intelligible.",
+        hint:
+          "Find the three major destination chords first. Only after those centers are clear, place each dominant immediately before its target.",
         source: {
           reference: "Chapter Twenty-Two - Figures 22-16 through 22-22",
           focus:
@@ -349,6 +369,10 @@ export const levineLooseEndsLesson: LessonDefinition = {
           "Study harmonic major. Clear the grid. Write C4-D4-E4-F4-G4-A-flat4-B4-C5 on steps 1-8. In bar 3 write C4-D4-E-flat4-F4-G4-A-flat4-B4-C5 on steps 17-24. On step 25 write C3-E3-G3-B3-A-flat4 as a compact harmonic-major chord colour. Play the loop.",
         recognition:
           "Can you hear the single E/E-flat change switch the collection from harmonic major to harmonic minor?",
+        takeaway:
+          "Harmonic major is a major scale with a flat sixth; harmonic minor differs from it only by lowering the third.",
+        hint:
+          "Start from C major and lower A to A-flat. Keep everything else fixed, then lower E to E-flat to hear the single change into harmonic minor.",
         source: {
           reference: "Chapter Twenty-Two - Figures 22-25 through 22-29",
           focus:

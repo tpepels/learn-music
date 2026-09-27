@@ -52,6 +52,10 @@ export const levineSalsaLatinJazzLesson: LessonDefinition = {
           "Study the clave map. Clear the grid. For 3-2 clave, put C4 on steps 1, 4 and 7 of bar 1, then on beats 2 and 3 of bar 2. In bars 3-4 write the reverse 2-3 order: beats 2 and 3 first, then beat 1, the and of 2, and beat 4. Play all four bars and count the two-bar cycle aloud.",
         recognition:
           "Can you feel that 3-2 and 2-3 contain the same two rhythmic halves in opposite order?",
+        takeaway:
+          "3-2 and 2-3 son clave use the same two rhythmic halves; only their bar order changes.",
+        hint:
+          "Count the attacks by bar: three in one half, two in the other. Once 3-2 is secure, swap the bars rather than relearning five new attacks.",
         source: {
           reference: "Chapter Twenty - Figures 20-3 through 20-6",
           focus:
@@ -109,6 +113,10 @@ export const levineSalsaLatinJazzLesson: LessonDefinition = {
           "Study the montuno rhythm. Before touching the grid, clap one full 2-3 son-clave cycle twice. Then use E4-G4 in bars 1-2 on steps 1, 3, 4, 6, 8, 10, 12, 14 and 16. Repeat the identical attack pattern in bars 3-4 with F4-A4. Play the loop while continuing to count or tap the 2-3 clave; do not add extra attacks.",
         recognition:
           "Can you keep the repeated offbeat pattern steady when the pitches change underneath it?",
+        takeaway:
+          "A montuno is a repeated rhythmic-harmonic cell whose syncopation matters more than the exact voicing used for this drill.",
+        hint:
+          "Clap 2-3 clave first, then speak or tap the montuno attacks against it. Add the pitches only after the two rhythms can coexist.",
         source: {
           reference: "Chapter Twenty - Figures 20-11 through 20-20",
           focus:
@@ -168,6 +176,10 @@ export const levineSalsaLatinJazzLesson: LessonDefinition = {
           "Study the harmony-within-groove examples. Clear the grid. On steps 1, 4, 6 and 8 of each bar write these four-note cells: bar 1 C minor-sixth C4-E-flat4-G4-A4; bar 2 C minor-seventh C4-E-flat4-G4-B-flat4; bar 3 C7 C4-E4-G4-B-flat4; bar 4 G7 B3-D4-F4-G4. Keep the attack positions identical in every bar.",
         recognition:
           "Can you hear four different harmonic colours while the rhythmic identity remains unchanged?",
+        takeaway:
+          "Keep the montuno's attack pattern stable while harmony changes; groove identity and chord colour are separate layers.",
+        hint:
+          "Do not move any attack to a new step. Change only the notes sounding on those steps and listen for one groove carrying four harmonies.",
         source: {
           reference: "Chapter Twenty - Figures 20-15 through 20-25",
           focus:
@@ -227,6 +239,10 @@ export const levineSalsaLatinJazzLesson: LessonDefinition = {
           "Study the piano-and-bass lock. First clap the active clave while speaking the montuno attacks. Then clear the grid. In each bar put E4-G4 on steps 1, 4, 6 and 8. Add C2 on step 4 and G2 on step 7. Repeat for four bars, changing the bar-3/4 bass root to F2 and C3 while keeping the right-hand rhythm identical. Play it while continuing to feel the clave underneath.",
         recognition:
           "Can you feel the hands coincide at selected points while the rest of the pattern remains interlocked rather than doubled?",
+        takeaway:
+          "Montuno and tumbao interlock around the clave; they should support one another without simply doubling the same rhythm.",
+        hint:
+          "Practice piano and bass patterns separately, then combine them slowly. Mark the few attacks that coincide and let the remaining notes fill different spaces.",
         source: {
           reference: "Chapter Twenty - Figures 20-26 through 20-30",
           focus:
@@ -286,6 +302,10 @@ export const levineSalsaLatinJazzLesson: LessonDefinition = {
           "Study the rhythm-first solo idea. Clear the grid. In bar 1 write C4-C5 octaves on steps 1 and 4, then E4-G4-B-flat4-C5 as a chord on step 7. In bar 2 write D4-D5 octaves on steps 2 and 6, then E4-G4-B-flat4-D5 on step 8. Repeat those two bars once and play the four-bar phrase.",
         recognition:
           "Does the phrase feel stronger because of the attack pattern and rests rather than because it contains more notes?",
+        takeaway:
+          "In this style, a strong solo idea can come from attack pattern, rests, octaves and chord punches rather than a continuous stream of notes.",
+        hint:
+          "Design the rhythm with claps first. Keep at least one deliberate rest, then assign some attacks to octaves and some to chord punches.",
         source: {
           reference: "Chapter Twenty - Figures 20-31 and 20-32",
           focus:

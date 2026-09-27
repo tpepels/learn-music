@@ -56,6 +56,10 @@ export const levinePuttingScalesToWorkLesson: LessonDefinition = {
           "Study the sequence-linking map. Clear the grid. Write D4-E4-F4-G4, then A-flat4-B-flat4-B4-D-flat5, then C5-D5-E-flat5-F5 on steps 1-12. Play the line as one phrase and listen to the boundary G-A-flat and D-flat-C.",
         recognition:
           "Do the chord changes feel like bends in one line rather than three scales placed next to each other?",
+        takeaway:
+          "A convincing jazz line crosses chord boundaries continuously; it does not announce every new scale by restarting on its root.",
+        hint:
+          "At each chord change, look for the nearest note that belongs to the next sound. Continue the contour from there instead of jumping to the root.",
         source: {
           reference: "Chapter Ten - Figures 10-1 through 10-5",
           focus:
@@ -114,6 +118,10 @@ export const levinePuttingScalesToWorkLesson: LessonDefinition = {
           "Study the continuous-entry principle. Clear the grid. On steps 1-8 keep the Dm7 guide tones F3-C4 under F4-G4-A4-B4-C5-D5-E5-F5. Continue immediately on steps 9-16 with the G7 guide tones F3-B3 under G5-F5-E5-D5-C5-B4-A4-G4. Do not insert a gap or restart from low G.",
         recognition:
           "Can you hear the mode change as a change of harmonic focus even though the line simply continues through the same C-major pitch collection?",
+        takeaway:
+          "The same notes can change harmonic meaning when the chord underneath changes, so continuity and harmonic awareness can coexist.",
+        hint:
+          "Follow the left-hand shell change from Dm7 to G7. Let the right-hand line continue smoothly and listen for the harmony to redefine the notes.",
         source: {
           reference: "Chapter Ten - discussion following Figure 10-1",
           focus:
@@ -164,15 +172,19 @@ export const levinePuttingScalesToWorkLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "levine.putting-scales-to-work.c",
         letter: "C",
-        title: "Transform the same scale into four patterns",
+        title: "Transform the same scale into four pitch patterns",
         learn:
-          "Compare straight eighth-note motion, broken thirds, reversing thirds and a step-plus-skip triplet cell.",
+          "Compare straight scalar motion, broken thirds, reversing thirds and a step-plus-skip cell without pretending the eighth-note grid can display triplet timing.",
         explanation:
-          "Vary one scale exercise several ways so that scale practice becomes melodic organization rather than mere up-and-down motion. Straight notes establish the collection. Broken thirds add intervallic movement. Reversing the direction of the thirds changes contour. Triplet cells combine a step and a skip.\n\nThe purpose is not to collect licks. It is to make the scale physically and aurally available in several shapes so that a line can respond to the harmony without sounding like a scale drill.",
+          "Vary one scale exercise several ways so that scale practice becomes melodic organization rather than mere up-and-down motion. Straight notes establish the collection. Broken thirds add intervallic movement. Reversing the direction of the thirds changes contour. A step-plus-skip cell gives you the pitch order used in the triplet-based practice idea.\n\nThis grid is locked to eighth-note steps, so it teaches the pitch contour, not the original triplet rhythm. Clap or play the final cell as triplets away from the grid if you want to practice that rhythmic layer. The purpose is to make the scale physically and aurally available in several shapes rather than collect finished licks.",
         instruction:
-          "Study the pattern-variation map. Clear the grid. Write four eight-note C-major patterns in consecutive bars: C-D-E-F-G-A-B-C; C-E-D-F-E-G-F-A; C-E-D-F-E-G-F-D; C-D-E-D-E-F-E-G. Play all four bars and identify which transformation you are hearing.",
+          "Study the pattern-variation map. Clear the grid. Write four C-major pitch-order studies in consecutive bars: C-D-E-F-G-A-B-C; C-E-D-F-E-G-F-A; C-E-D-F-E-G-F-D; C-D-E-D-E-F-E-G. Use the grid to compare contour only. Then tap or play the last cell separately as triplets so you do not confuse pitch organization with the grid's eighth-note timing.",
         recognition:
           "Can you hear the same pitch field becoming progressively less scale-like as the interval pattern changes?",
+        takeaway:
+          "Scale practice becomes musical vocabulary when one pitch field is reorganized into different contours; rhythm is a separate layer you should practice honestly.",
+        hint:
+          "Learn the straight scale first. Then compare which scale degrees each pattern visits next rather than memorizing the finished note list.",
         source: {
           reference: "Chapter Ten - Figures 10-6 through 10-10",
           focus:
@@ -232,6 +244,10 @@ export const levinePuttingScalesToWorkLesson: LessonDefinition = {
           "Study the musical-use map. Clear the grid. Write C4-D4-E4-G4, then D4-E4-F4-A4 on steps 1-8. On steps 9-16 break the sequence with G4-F4-E4-C5-B4-G4-A4-E4. Play the line and listen for the moment the repeated cell gives way to a freer contour.",
         recognition:
           "Does the first half establish enough pattern that the broken second half sounds intentional rather than random?",
+        takeaway:
+          "A sequence creates expectation; breaking it deliberately keeps the line from sounding like an exercise.",
+        hint:
+          "Repeat the idea just long enough that you can predict the next version. Change one feature at that moment - direction, interval or landing note.",
         source: {
           reference: "Chapter Ten - discussion after Figures 10-6 through 10-10 and practice tips",
           focus:

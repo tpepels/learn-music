@@ -52,6 +52,10 @@ export const levineAlteredLeftHandVoicingsLesson: LessonDefinition = {
           "Study the half-diminished options. Clear the grid. In bar 1 write the familiar Dm7 A-position F3-A3-C4-E4. In bar 2 lower only the fifth to make F3-A-flat3-C4-E4. In bar 3 write the alternate D half-diminished position C4-E4-F4-A-flat4. Leave bar 4 empty and play all three.",
         recognition:
           "Can you hear that one semitone change converts the familiar minor-seven colour into half-diminished while the rest of the shape stays recognizable?",
+        takeaway:
+          "Half-diminished is one semitone away from a familiar minor-seven shape: lower the fifth and keep the other chord tones.",
+        hint:
+          "Start from Dm7. Find its fifth A and move only that note to A-flat; do not rebuild the whole chord.",
         source: {
           reference: "Chapter Eight - Figures 8-1 and 8-2",
           focus:
@@ -110,6 +114,10 @@ export const levineAlteredLeftHandVoicingsLesson: LessonDefinition = {
           "Study the dominant alterations. Clear the grid. Write F3-A3-B3-E4 in bar 1 for the unaltered G7 shape. In bar 2 write F3-A-flat3-B3-E4 for G7 flat nine. In bar 3 write F3-A3-B3-E-flat4 for G7 flat thirteen. In bar 4 write F3-B-flat3-B3-E-flat4 for an altered G7 colour. Play the four bars and listen to each changed pitch against the stable F and B.",
         recognition:
           "Can you separate the effect of lowering the ninth from lowering the thirteenth before hearing both alterations together?",
+        takeaway:
+          "Dominant alterations are controlled changes inside a stable dominant framework, not brand-new chord families.",
+        hint:
+          "Keep B and F, the G7 guide tones, in your ear. Change the ninth and thirteenth one at a time before combining the alterations.",
         source: {
           reference: "Chapter Eight - Figures 8-3 through 8-7",
           focus:
@@ -169,6 +177,10 @@ export const levineAlteredLeftHandVoicingsLesson: LessonDefinition = {
           "Study the sharp-eleven and minor-major relationship. Clear the grid. In bar 1 write F3-A3-B3-E4. In bar 2 move B3 to C-sharp4, giving F3-A3-C-sharp4-E4. In bar 3 add D3 underneath the same four notes. Leave bar 4 empty and play the three sounds.",
         recognition:
           "Can you hear the same F-A-C-sharp-E upper structure as altered dominant colour without D and as minor-major harmony when D becomes the bass?",
+        takeaway:
+          "A voicing can omit the dominant third and still project sharp-eleven colour; the same upper notes can take on a new identity over a different bass.",
+        hint:
+          "Isolate C-sharp first and hear it against the G/F dominant frame. Then change the bass to D and listen for the upper structure to be reinterpreted.",
         source: {
           reference: "Chapter Eight - Figures 8-8 through 8-11",
           focus:
@@ -227,6 +239,10 @@ export const levineAlteredLeftHandVoicingsLesson: LessonDefinition = {
           "Study the diminished transformation. Clear the grid. In bar 1 write F3-A-flat3-B3-D4. In bar 2 raise only D4 to E4. In bar 3 write the alternate G7 flat-nine position B3-E4-F4-A-flat4. Leave bar 4 empty and play the sequence.",
         recognition:
           "Can you hear the second chord as both a transformed diminished shape and a dominant flat-nine voicing?",
+        takeaway:
+          "Diminished harmony and dominant-flat-nine harmony overlap so strongly that one small pitch change can reveal the dominant.",
+        hint:
+          "Compare the two shapes note by note. Find the three notes that stay fixed, then focus your ear on the one semitone move.",
         source: {
           reference: "Chapter Eight - Figure 8-12",
           focus:
@@ -285,6 +301,10 @@ export const levineAlteredLeftHandVoicingsLesson: LessonDefinition = {
           "Study the reuse and selection rules. Clear the grid. In bar 1 write the three-note Gsus shape F3-A3-C4. In bar 2 expand it to F3-A3-C4-E4, the same upper notes as the familiar Dm7 A-position. In bar 3 write the E-Phrygian shape E3-F3-A3-B3. Leave bar 4 empty. Play the loop and keep every voicing in the clear middle register.",
         recognition:
           "Can you feel the old D-minor hand shape inside Gsus, then hear how the adjacent E-F in the Phrygian shape creates a different tension?",
+        takeaway:
+          "Familiar upper shapes can serve several functions when the bass changes; the bass is part of the chord identity.",
+        hint:
+          "Keep the upper D-minor shape still and change the bass first. Let your ear decide whether the result now feels suspended or Phrygian.",
         source: {
           reference: "Chapter Eight - Figures 8-13 through 8-15 and concluding discussion",
           focus:

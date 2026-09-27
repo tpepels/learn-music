@@ -45,6 +45,8 @@ export const exerciseContentSchema = z.object({
   explanation: z.string(),
   instruction: z.string(),
   recognition: z.string(),
+  takeaway: z.string().optional(),
+  hint: z.string().optional(),
   source: z
     .object({
       reference: z.string(),

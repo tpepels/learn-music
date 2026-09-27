@@ -56,6 +56,10 @@ export const levineFourNoteScalesLesson: LessonDefinition = {
           "Study the minor-sixth construction. Clear the grid. Write C4-E-flat4-G4-A4 on steps 1-4. In bar 3 repeat those same four melody notes while adding the C7 guide-tone shell E3-B-flat3 underneath each note. Play both versions and listen to the change from minor-sixth colour to altered dominant colour.",
         recognition:
           "Can you hear the same four notes function as a minor-sixth outline first and as dominant extensions second?",
+        takeaway:
+          "A four-note scale here is an improvisational cell: the same compact notes can change function when the bass and harmony change.",
+        hint:
+          "Hear the notes first as a C-minor-sixth outline. Then change the harmonic frame and ask what each of those same notes becomes over the dominant.",
         source: {
           reference: "Chapter Eighteen - Figures 18-1 through 18-9",
           focus:
@@ -113,6 +117,10 @@ export const levineFourNoteScalesLesson: LessonDefinition = {
           "Study the major-key application. Clear the grid. Over Dm7, put F3-C4 under D4-F4-A4-B4 on steps 1-4. Over G7, put F3-B3 under the same D-F-A-B line on steps 9-12. Over C major, put E3-B3 under A4-C5-E5-F-sharp5 on steps 17-20. Play all three settings.",
         recognition:
           "Can you hear why the C-major bar changes collection instead of simply carrying F into the tonic?",
+        takeaway:
+          "A useful four-note cell can survive some chord changes, but the collection should change when a sustained note fights the new harmony.",
+        hint:
+          "Keep D-F-A-B through II and V. At the tonic, listen specifically for F against C major; the replacement cell should remove that friction.",
         source: {
           reference: "Chapter Eighteen - Figures 18-10 through 18-13",
           focus:
@@ -171,6 +179,10 @@ export const levineFourNoteScalesLesson: LessonDefinition = {
           "Study the diminished-subset idea. Clear the grid. Use C4-D-flat4-E4-G4 as your four-note subset. In bar 1 write it alone. In bar 2 put the C7 guide tones E3-B-flat3 underneath each note. In bar 3 put the E-flat7 guide tones G3-D-flat4 underneath the same four melody notes. Leave bar 4 empty and play the three versions.",
         recognition:
           "Can you hear the four-note line remain coherent while the dominant root changes by a minor third?",
+        takeaway:
+          "Diminished symmetry lets one chosen four-note subset work over related dominant-flat-nine roots a minor third apart.",
+        hint:
+          "Choose the four-note subset once and freeze it. Move only the dominant root by three semitones and listen for the line to remain coherent.",
         source: {
           reference: "Chapter Eighteen - Figure 18-14",
           focus:
@@ -229,6 +241,10 @@ export const levineFourNoteScalesLesson: LessonDefinition = {
           "Study the characteristic melodic-minor cells. Clear the grid. Write C4-E-flat4-G4-B4 in bar 1 and E-flat4-G4-B4-D5 in bar 2. In bar 3 alternate the two cells on successive beats. Leave bar 4 empty and play the loop.",
         recognition:
           "Can you hear the shared E-flat-G-B core while C and D distinguish the two four-note cells?",
+        takeaway:
+          "The melodic-minor cells 1-3-5-7 and 3-5-7-9 share three notes; one outer note changes their direction and emphasis.",
+        hint:
+          "Find the common E-flat-G-B core first. Then compare C with D as the only note that distinguishes the two cells.",
         source: {
           reference: "Chapter Eighteen - Figures 18-23 and 18-24",
           focus:
@@ -288,6 +304,10 @@ export const levineFourNoteScalesLesson: LessonDefinition = {
           "Study the experiment method. Clear the grid. Give each rotation a bass center: C3 under C4-D4-F4-G4 in bar 1, D3 under D4-F4-G4-C5 in bar 2, F3 under F4-G4-C5-D5 in bar 3, and G3 under G4-C5-D5-F5 in bar 4. Play all four and decide which centered versions you would actually use.",
         recognition:
           "Can you hear the collection remain recognizable while each new starting note changes its melodic pull?",
+        takeaway:
+          "Rotating one four-note set changes its melodic center without changing its pitch content.",
+        hint:
+          "Keep C-D-F-G fixed. Let the bass move through C, D, F and G and judge the pull of each centered version before inventing new notes.",
         source: {
           reference: "Chapter Eighteen - Figure 18-25 and concluding discussion",
           focus:

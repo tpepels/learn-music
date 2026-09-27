@@ -52,6 +52,10 @@ export const levineAddingNotesLesson: LessonDefinition = {
           "Study the first added-note rules. Clear the grid. In bars 1-3 write D3-F4-A4-C5, G3-F4-A4-B4, and C3-E4-G4-B4. Leave bar 4 empty. Play the progression and follow A4 from the D-minor fifth into the G-dominant ninth while the guide tones continue their familiar half-step resolutions.",
         recognition:
           "Can you hear the added note as colour while the third-and-seventh voice leading still tells you where the progression is going?",
+        takeaway:
+          "Added notes are colour; the third-and-seventh skeleton still carries the progression's identity and voice leading.",
+        hint:
+          "Play the three-note shells first. Add only one colour tone at a time and check that the guide tones still move exactly as before.",
         source: {
           reference: "Chapter Five - Figures 5-1 through 5-3",
           focus:
@@ -110,6 +114,10 @@ export const levineAddingNotesLesson: LessonDefinition = {
           "Study the dominant-colour map. Clear the grid. Write G3-B3-F4-A4 in bar 1, G3-B3-F4-A-flat4 in bar 2, and G3-B3-F4-A-sharp4 in bar 3. Leave bar 4 empty. Play the three chords and focus only on the highest note moving A-A-flat-A-sharp around the unchanged G7 core.",
         recognition:
           "Can you identify which ninth is natural, lowered and raised without looking at the grid?",
+        takeaway:
+          "Dominant ninth alterations change one extension while the dominant core stays the same.",
+        hint:
+          "Keep the G7 guide tones B and F fixed. Find A first, then lower or raise only that ninth to hear the three colours cleanly.",
         source: {
           reference: "Chapter Five - Figures 5-11a through 5-11h",
           focus:
@@ -168,6 +176,10 @@ export const levineAddingNotesLesson: LessonDefinition = {
           "Study the major-chord colour choices. Clear the grid. In bar 1 write C3-E3-G3-B3. In bar 2 replace B with A: C3-E3-G3-A3. In bar 3 write C3-E3-A3-D4 to hear sixth and ninth together. Leave bar 4 empty. Play the three chords at the same tempo and compare the top-colour change rather than judging one as universally correct.",
         recognition:
           "Do major seventh, sixth and sixth-plus-ninth all keep a tonic-major identity while changing the amount and kind of colour?",
+        takeaway:
+          "Major tonic can use maj7, 6 or 6/9 colour; none is automatically the one correct ending.",
+        hint:
+          "Keep the basic C-major sound stable and compare only the colour tones B, A, and A plus D. Listen for colour, not a change of function.",
         source: {
           reference: "Chapter Five - Figures 5-8 through 5-12",
           focus:
@@ -226,6 +238,10 @@ export const levineAddingNotesLesson: LessonDefinition = {
           "Study the four families. Clear the grid. Pair 1: write D3-F3-A-flat3-C4 in bar 1 and C3-E-flat3-G3-B3 in bar 2; play them and identify flat fifth versus major seventh. Pair 2: write C3-E-flat3-G-flat3-A3 in bar 3 and C3-E3-G-sharp3-B-flat3 in bar 4; play them and identify stacked minor thirds versus the raised fifth. Then play the whole loop.",
         recognition:
           "Can you hear which chord contains the flat fifth, which has the major seventh over a minor triad, which stacks minor thirds, and which has the augmented fifth?",
+        takeaway:
+          "Identify special chord families by the interval that defines them, not by memorizing four unrelated shapes.",
+        hint:
+          "Work in pairs. First find flat fifth versus major seventh in the two minor-family chords; then compare stacked minor thirds with a raised fifth.",
         source: {
           reference: "Chapter Five - Figures 5-10 through 5-16",
           focus:

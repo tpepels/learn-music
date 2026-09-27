@@ -52,6 +52,10 @@ export const levineTritoneSubstitutionLesson: LessonDefinition = {
           "Study the basic substitution. Clear the grid. In the first half write Dm7, G7, Cmaj7 on steps 1, 5 and 9 as D3-F3-A3-C4, G3-B3-D4-F4, C3-E3-G3-B3. In the second half write Dm7, D-flat7, Cmaj7 on steps 17, 21 and 25 as D3-F3-A3-C4, D-flat3-F3-A-flat3-C-flat4, C3-E3-G3-B3. Play the loop and follow only the lowest note through both versions.",
         recognition:
           "Does D-D-flat-C make the substitute progression sound smoother in the bass even though the middle chord is harmonically more remote by name?",
+        takeaway:
+          "A tritone substitute replaces V7 with the dominant whose root is six semitones away, often creating chromatic bass motion into I.",
+        hint:
+          "Find the original dominant root, move it exactly six semitones, and leave the tonic destination unchanged. Then listen to the bass line first.",
         source: {
           reference: "Chapter Six - Figures 6-1 through 6-3",
           focus:
@@ -113,6 +117,10 @@ export const levineTritoneSubstitutionLesson: LessonDefinition = {
           "Study the shared-tritone map. Clear the grid. In bar 1 write G3-B3-F4. In bar 2 write D-flat3-C-flat4-F4; on the piano grid C-flat appears on the same key as B3. Leave bars 3-4 empty. Play the two shells back and forth and listen for the unchanged B/C-flat-F interval above the moving root.",
         recognition:
           "Can you hear that almost all of the dominant identity survives when the root moves because the two guide tones do not move at all?",
+        takeaway:
+          "G7 and D-flat7 can substitute because their third and seventh form the same tritone, with the roles reversed.",
+        hint:
+          "Freeze B and F. Change only the bass root from G to D-flat and notice how much dominant character survives.",
         source: {
           reference: "Chapter Six - Figures 6-4 and 6-5",
           focus:
@@ -170,6 +178,10 @@ export const levineTritoneSubstitutionLesson: LessonDefinition = {
           "Study the two normal resolutions. Clear the grid. Write G3-B3-D4-F4 in bar 1 and C3-E3-G3-B3 in bar 2. Write D-flat3-F3-A-flat3-C-flat4 in bar 3 and G-flat3-B-flat3-D-flat4-F4 in bar 4. Play the loop and hear each dominant resolve to the tonic implied by its own root.",
         recognition:
           "Can you hear D-flat7 as a normal V of G-flat before asking your ear to accept it as a substitute V of C?",
+        takeaway:
+          "Before hearing a dominant as a substitute, hear it as a normal V7 resolving to its own tonic.",
+        hint:
+          "Resolve G7 to C and D-flat7 to G-flat first. If both cadences sound ordinary, the later substitution will make more sense.",
         source: {
           reference: "Chapter Six - Figures 6-6 through 6-9",
           focus:
@@ -229,6 +241,10 @@ export const levineTritoneSubstitutionLesson: LessonDefinition = {
           "Study the substitute II-V route and the caution attached to it. Clear the grid. Write A-flat3-C-flat4-E-flat4-G-flat4 in bar 1, D-flat3-F3-A-flat3-C-flat4 in bar 2, and C3-E3-G3-B3 in bar 3. Leave bar 4 empty. Play the progression and follow the bass A-flat-D-flat-C while listening for the D-flat dominant's pull into C.",
         recognition:
           "Does the added A-flat-minor chord make D-flat7 feel like a genuine dominant destination before it turns unexpectedly into C?",
+        takeaway:
+          "A substitute dominant can be prepared by its own II chord, creating a substitute II-V before the unexpected tonic.",
+        hint:
+          "Ask 'what is II of D-flat?' Build that minor-seventh chord first, then let D-flat7 resolve chromatically into C.",
         source: {
           reference: "Chapter Six - Figures 6-12 and 6-13",
           focus:

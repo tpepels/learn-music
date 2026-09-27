@@ -52,6 +52,10 @@ export const levineFourthChordsLesson: LessonDefinition = {
           "Study the fourth-stack construction. Clear the grid. In bar 1 write the ordinary C6/9 collection C3-E3-G3-A3-D4. In bar 2 reorganize it as E3-A3-D4-G4-C5. Leave bars 3-4 empty and play the comparison.",
         recognition:
           "Can you hear that the second voicing contains the same basic tonic colour while its fourth-based spacing sounds more open?",
+        takeaway:
+          "Quartal voicing is an intervallic way to voice familiar harmony: C6/9 can be heard as E-A-D-G-C, a chain of perfect fourths.",
+        hint:
+          "Start on E and stack perfect fourths upward. Once the shape is built, relate its notes back to C rather than trying to spell C6/9 in thirds.",
         source: {
           reference: "Chapter Thirteen - Figure 13-4",
           focus:
@@ -109,6 +113,10 @@ export const levineFourthChordsLesson: LessonDefinition = {
           "Study the diatonic fourth family. Clear the grid. Write E3-A3-D4-G4-C5 in bar 1, F3-B3-E4-A4-D5 in bar 2, and G3-C4-F4-B4-E5 in bar 3. Leave bar 4 empty and play the three voicings.",
         recognition:
           "Can you hear the F-B tritone intensify the second voicing while the stacked-fourth family resemblance remains clear?",
+        takeaway:
+          "Diatonic fourth voicings keep the scale fixed, so some 'fourths' become tritones when the major scale requires them.",
+        hint:
+          "Move every voice to the next C-major note. Then use the Keyboard view to find the F-B tritone instead of assuming every gap stayed perfect.",
         source: {
           reference: "Chapter Thirteen - Figure 13-5",
           focus:
@@ -167,6 +175,10 @@ export const levineFourthChordsLesson: LessonDefinition = {
           "Study the melody-omission principle. Clear the grid. In bar 1 write E3-A3-D4-G4-C5. In bar 2 remove the top C and write only E3-A3-D4-G4. Leave bars 3-4 empty. Play both, then play C5 yourself above the shorter bar-2 shape.",
         recognition:
           "Does the four-note accompaniment still imply the same C-major colour once your right hand supplies the missing top note?",
+        takeaway:
+          "If the melody already supplies a chord tone, the accompaniment can omit it and leave more space without losing the harmony.",
+        hint:
+          "Identify the melody pitch first. Remove that same pitch from the accompaniment and listen to whether the remaining four notes still imply the same chord.",
         source: {
           reference: "Chapter Thirteen - Figure 13-6 and surrounding discussion",
           focus:
@@ -224,6 +236,10 @@ export const levineFourthChordsLesson: LessonDefinition = {
           "Study the combined-fourths idea. Clear the grid. Write E3-A3-D4-G4 in bar 1, F3-B3-E4-A4 in bar 2, and G3-C4-F4-B4 in bar 3. Leave bar 4 empty and play them as a progression.",
         recognition:
           "Can you hear how the location of the tritone changes the tension even though all three voicings belong to the same fourth-based language?",
+        takeaway:
+          "In quartal harmony, tension depends not only on whether a tritone is present but on where it sits inside the stack.",
+        hint:
+          "Use the Keyboard view to locate the 6-semitone gap in each voicing. Compare its position rather than treating all fourth-based shapes as equally tense.",
         source: {
           reference: "Chapter Thirteen - Figures 13-7 and 13-8",
           focus:

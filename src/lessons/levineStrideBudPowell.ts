@@ -52,6 +52,10 @@ export const levineStrideBudPowellLesson: LessonDefinition = {
           "Study the stride pattern. Clear the grid. Write four one-bar stride patterns: C with C2 / E3-G3-C4 / G2 / E3-G3-C4; A7 with A2 / G3-C-sharp4-E4 / E2 / G3-C-sharp4-E4; D7 with D2 / C3-F-sharp3-A3 / A2 / C3-F-sharp3-A3; G7 with G2 / F3-B3-D4 / D2 / F3-B3-D4. Put the events on beats 1-4 of each bar and play the full loop.",
         recognition:
           "Can you hear a clear low-high-low-high pulse without the bass notes smearing into the chords?",
+        takeaway:
+          "Stride is an alternating register pattern: low bass, mid-register chord, low fifth or root, mid-register chord.",
+        hint:
+          "Practice the left-hand geography without tempo first. Make the bass notes short and separate from the chord attacks before speeding up.",
         source: {
           reference: "Chapter Seventeen - Figures 17-1 through 17-3",
           focus:
@@ -111,6 +115,10 @@ export const levineStrideBudPowellLesson: LessonDefinition = {
           "Study the walking-tenths idea. Clear the grid. On steps 1-4 write C2-E3, D2-F3, D-sharp2-F-sharp3, and E2-G3. Repeat the same four pairs on steps 9-12 one octave higher as a complete two-voice line if comfortable. Play slowly and listen to the chromatic E-F-F-sharp-G top line against the rising bass.",
         recognition:
           "Can you hear the two outer voices as a connected line rather than four isolated intervals?",
+        takeaway:
+          "Walking tenths are two connected outer voices moving together; think of the line, not a permanently stretched hand shape.",
+        hint:
+          "Do not force a wide hand stretch. Release, roll or revoice the tenth if needed, and listen to the bass and upper voice as two melodic lines.",
         source: {
           reference: "Chapter Seventeen - Figures 17-4 through 17-6",
           focus:
@@ -168,6 +176,10 @@ export const levineStrideBudPowellLesson: LessonDefinition = {
           "Study the within-bar harmony options. Clear the grid. In bar 1 write C2 on beat 1, E3-G3-C4 on beat 2, G2 on beat 3, and E3-G3-C4 on beat 4. In bar 2 keep C2 and the C chord on beats 1-2, then write D3-F3-A3-C4 on beat 3 and G2-F3-B3-D4 on beat 4. Leave bars 3-4 empty and play the comparison.",
         recognition:
           "Does the second bar feel more mobile even though its four-beat stride framework is unchanged?",
+        takeaway:
+          "You can create harmonic motion inside a static tonic bar without disturbing the underlying stride pulse.",
+        hint:
+          "Keep the low-high-low-high rhythm identical. Change only the harmony on the later beats to II and V, then compare the sense of motion.",
         source: {
           reference: "Chapter Seventeen - Figure 17-7",
           focus:
@@ -225,6 +237,10 @@ export const levineStrideBudPowellLesson: LessonDefinition = {
           "Study the skeletal voicing idea. Clear the grid. Write G2-F3 for Gm7 in bar 1 and C3-B-flat3 for C7 in bar 2. In bar 3 write the sparse F-major shell F2-A3. In bar 4 compare the same F-major destination with the denser rootless Fmaj9 colour A3-C4-E4-G4. Play the loop and focus on how much middle-register space the two F-major choices occupy.",
         recognition:
           "Can you hear the sparse F-major shell and denser Fmaj9 colour as the same destination while the denser version occupies much more of the right hand\'s register?",
+        takeaway:
+          "Sparse two-note shells can define harmony while deliberately leaving the middle register open for the right hand.",
+        hint:
+          "Compare the two F-major destinations first. If both sound like F major, focus on how much keyboard territory each one occupies rather than on richness alone.",
         source: {
           reference: "Chapter Seventeen - Bud Powell voicings discussion and Figures 17-16 through 17-24",
           focus:

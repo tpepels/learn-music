@@ -54,6 +54,10 @@ Major, minor and perfect describe interval quality; the tritone can be named an 
           "Play the complete interval chart below first. Then clear the piano study and build four dyads, one at the start of each bar: C4-D-flat4, C4-E4, C4-F-sharp4 and C4-G4. Play the four-bar study and compare how the minor second, major third, tritone and perfect fifth expand away from the same C.",
         recognition:
           "Can you hear the order from most compressed to most open without looking at the labels?",
+        takeaway:
+          "An interval is a distance: its name, keyboard span and sound should all describe the same relationship.",
+        hint:
+          "Keep the lower C fixed. Ignore the interval name at first and watch how many semitone steps the upper key moves away from C.",
         source: {
           reference: "Chapter One - Figure 1-1",
           focus:
@@ -119,6 +123,10 @@ The interval number changes because the new span completes the octave: 3 + 6 = 9
           "Clear the study. In bar 1, eighth 1, enter C4-E4 with the piano keys. Switch the Keyboard view to bar 2 and enter E4-C5. Compare the highlighted keys and confirm 4 semitones became 8: major third to minor sixth. Then repeat the same process with C4-F4 in bar 3 and F4-C5 in bar 4: perfect fourth to perfect fifth. Play the four bars only after you can see why each pair is related.",
         recognition:
           "Can you point to the note that moved through the octave and predict the new interval before reading the interval label?",
+        takeaway:
+          "Inversion keeps the two pitch classes but reverses their order: interval numbers add to nine, major and minor swap, perfect stays perfect.",
+        hint:
+          "Find the note that crossed the octave. Compare the old and new keyboard span before trying to remember the inversion rule.",
         source: {
           reference: "Chapter One - Figures 1-2 through 1-4",
           focus:
@@ -183,6 +191,10 @@ Listen to the difference before attaching an emotional label. The important tech
           "Play the four reference triads. Clear the study, then put one root-position C triad at the start of each bar: C-E-G, C-E-flat-G, C-E-flat-G-flat, and C-E-G-sharp. Play all four in sequence and identify which third changed from one quality to the next.",
         recognition:
           "Can you identify major, minor, diminished and augmented by sound before checking the notes?",
+        takeaway:
+          "Triad quality comes from the order of two stacked thirds: M+m, m+M, m+m or M+M.",
+        hint:
+          "Keep C fixed and compare only the two thirds. If you can name those two intervals, the triad quality follows.",
         source: {
           reference: "Chapter One - Figure 1-6",
           focus:
@@ -246,6 +258,10 @@ This distinction becomes central later when jazz voicings are chosen for smooth 
           "Play the inversion chart below. Clear the study. In the first two bars place C major on steps 1, 5 and 9 as C4-E4-G4, E3-G3-C4 and G3-C4-E4. In the last two bars place C minor on steps 17, 21 and 25 as C4-E-flat4-G4, E-flat3-G3-C4 and G3-C4-E-flat4. Play the complete loop and follow the lowest note of each voicing.",
         recognition:
           "Can you hear the bass move C-E-G and C-E-flat-G while the chord still remains recognizably C major or C minor?",
+        takeaway:
+          "An inversion changes the bass note and keyboard shape, not the chord's three pitch classes.",
+        hint:
+          "Check that all three pitch classes stay the same. Then look only at the lowest key: root, third or fifth tells you the inversion.",
         source: {
           reference: "Chapter One - Figure 1-7",
           focus:

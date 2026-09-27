@@ -66,6 +66,10 @@ The half-diminished chord is an explicit exception because its flat fifth is par
           "Play the source II-V-I several times and step through its analysis. Set the study to C major with ii7-V7-Imaj7 in bars 1-3 and leave bar 4 empty. Clear the notes. For your practice register, write D3-F4-C5, G3-F4-B4 and C3-E4-B4 at the starts of bars 1-3. Play the progression and listen to the right hand separately from the moving roots.",
         recognition:
           "If the fifths disappear, do the three chord qualities still sound unambiguous?",
+        takeaway:
+          "Root, third and seventh are enough to state the root and seventh-chord quality; the fifth is often optional.",
+        hint:
+          "Build the root first, then add only the third and seventh. Ask whether the chord quality is already clear before adding anything else.",
         source: {
           reference: "Chapter Three - Figure 3-2",
           focus:
@@ -139,6 +143,10 @@ The voice-leading logic remains the same. From II to V, the seventh of Dm7 - C -
           "Play the second source position and visit all three analysis tabs. Clear the study but keep C-major ii7-V7-Imaj7 as the harmonic targets. Write D3-C4-F4, G3-B3-F4 and C3-B3-E4 at the starts of bars 1-3. Play it, then compare its register with the first position.",
         recognition:
           "Can you follow one stationary guide tone while the other drops by a half step at each resolution?",
+        takeaway:
+          "Guide-tone voice leading matters more than one fixed vertical order: keep common tones and move the changing voice by the smallest interval.",
+        hint:
+          "Ignore the chord names for a moment. Find the note that can stay put, then look for the half-step move in the other guide tone.",
         source: {
           reference: "Chapter Three - Figure 3-4",
           focus:
@@ -205,6 +213,10 @@ For this first transposition, use the second position because it sits comfortabl
           "Study the cycle-of-fifths route. Change the key to F major while keeping ii7-V7-Imaj7 in bars 1-3. Clear the notes and write G3-F4-B-flat4, C3-E4-B-flat4 and F3-E4-A4. Play the result. Check the two upper voices: B-flat falls to A on the final resolution while E stays.",
         recognition:
           "Does the progression in F feel like the same voice-leading mechanism rather than a new set of memorized shapes?",
+        takeaway:
+          "A voicing system is a movable rule: preserve chord function and close guide-tone motion when the key changes.",
+        hint:
+          "Spell II, V and I in F first. Then identify each chord's third and seventh and choose the closest version of those tones.",
         source: {
           reference: "Chapter Three - Figure 3-3 and cycle practice",
           focus:
@@ -270,6 +282,10 @@ Keep the dominant core C-E-B-flat fixed and change only the extension. The natur
           "Study the extension map. Clear the grid. Keep C3-E3-B-flat3 as the dominant core. In bar 1 add D4 for C9; in bar 2 add F4 for C11; in bar 3 add A4 for C13. Leave bar 4 empty. Play the three chords and name only the top extension before checking the symbol.",
         recognition:
           "Can you identify D, F and A as 9, 11 and 13 above C - and hear why the natural 11 is the most exposed against E?",
+        takeaway:
+          "Extension numbers continue the scale above the octave: 9=2, 11=4 and 13=6.",
+        hint:
+          "Hold the C7 core still. The only note you need to find changes from D to F to A - scale degrees 2, 4 and 6 above C.",
         source: {
           reference: "Chapter Three - Figures 3-9 through 3-11",
           focus:

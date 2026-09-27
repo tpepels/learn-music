@@ -52,6 +52,10 @@ export const levineSusPhrygianLesson: LessonDefinition = {
           "Study the suspended-chord construction and symbol map. Clear the piano grid. At the start of bar 1 write G3-C4-F4-A4. At the start of bar 2 expand it to G3-D4-F4-A4-C5, the Dm7/G form. Leave bars 3-4 empty, play the loop and compare the compact upper triad with the fuller slash-chord version.",
         recognition:
           "Do both voicings keep the same suspended identity even though the second adds D and makes the II-V relationship more explicit?",
+        takeaway:
+          "A sus sound can be heard as a dominant bass supporting an upper structure that withholds the ordinary dominant third.",
+        hint:
+          "Build F-A-C above G first. If you want the fuller version, add D so the upper notes become a Dm7 shape over G.",
         source: {
           reference: "Chapter Four - Figures 4-1 through 4-3",
           focus:
@@ -109,6 +113,10 @@ export const levineSusPhrygianLesson: LessonDefinition = {
           "Study the voicing variants. Clear the grid. In bar 1 write G3-C4-F4-A4. In bar 2 write G3-C4-F4-B4 so the third B is above the suspended fourth C. In bar 3 resolve to C3-B3-E4-G4. Leave bar 4 empty. Play the three sounds slowly and listen to how the second voicing contains both fourth and third before the move to C major seventh.",
         recognition:
           "Does the B sharpen the tension without erasing the suspended C, and does the move to C major seventh still feel like a clear release?",
+        takeaway:
+          "A modern sus voicing can keep the fourth even when the third is present; spacing lets tension and chord identity coexist.",
+        hint:
+          "Do not remove the suspended C. Add B in a different register and listen to the B-C semitone rather than treating B as a replacement.",
         source: {
           reference: "Chapter Four - Figures 4-5 and 4-6",
           focus:
@@ -167,6 +175,10 @@ export const levineSusPhrygianLesson: LessonDefinition = {
           "Study the Phrygian construction. Clear the grid. In bar 1 write E3-G3-B3-D4-F4. In bar 2 write A3-C-sharp4-E4-G-sharp4. Leave bars 3-4 empty and play the loop. First listen only to the bass E-A; then listen to how the G7 upper structure changes meaning when E is underneath it.",
         recognition:
           "Can you hear the E bass as the harmonic anchor rather than hearing only a rootless G7?",
+        takeaway:
+          "Here, the Phrygian-chord colour comes from hearing a dominant-seventh structure over its thirteenth in the bass.",
+        hint:
+          "Build the G7 upper notes first, then place E underneath them. Keep listening to E as the bass center instead of mentally renaming it G7.",
         source: {
           reference: "Chapter Four - Figure 4-7",
           focus:
@@ -224,6 +236,10 @@ export const levineSusPhrygianLesson: LessonDefinition = {
           "Study the II-V compression idea. Clear the grid. Write D3-F3-A3-C4 in bar 1 and G3-B3-D4-F4 in bar 2. In bar 3 replace the two-chord idea with G3-D4-F4-A4-C5, heard as Dm7/G or Gsus. In bar 4 write C3-E3-G3-B3. Play all four bars and compare the separate II-V with the compressed suspended version before the tonic.",
         recognition:
           "Does bar 3 preserve enough of both II and V to make the arrival on C feel prepared even though there is only one chord?",
+        takeaway:
+          "One suspended sonority can contain enough of II and V to prepare the tonic without spelling two separate chords.",
+        hint:
+          "Look for the overlap between Dm7 and G7. A G bass under a Dm7-shaped upper structure is the quickest route to the combined sound.",
         source: {
           reference: "Chapter Four - Figure 4-8 and practice discussion",
           focus:

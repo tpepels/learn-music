@@ -10961,3 +10961,78 @@ body {
 .compressor-model-note {
   padding: 0 2px;
 }
+
+
+/* ==========================================================================
+   LEVINE DIDACTIC CUES · memory + help
+   ========================================================================== */
+
+.jazz-make-stick {
+  margin-top: 13px;
+  padding: 10px 12px;
+  display: grid;
+  gap: 3px;
+  border-left: 3px solid rgba(240,184,106,0.72);
+  border-radius: 0 9px 9px 0;
+  background: rgba(240,184,106,0.045);
+}
+
+.jazz-make-stick span {
+  color: var(--accent);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.jazz-make-stick strong {
+  color: #ddd7e5;
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.jazz-hint {
+  margin-top: 9px;
+  border: 1px solid rgba(95,225,239,0.14);
+  border-radius: 9px;
+  background: rgba(95,225,239,0.025);
+}
+
+.jazz-hint summary {
+  min-height: 34px;
+  padding: 7px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 11.5px;
+  font-weight: 750;
+  cursor: pointer;
+  list-style: none;
+}
+
+.jazz-hint summary::-webkit-details-marker {
+  display: none;
+}
+
+.jazz-hint summary b {
+  color: var(--cyan);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.jazz-hint[open] summary {
+  border-bottom: 1px solid rgba(95,225,239,0.1);
+  color: var(--text);
+}
+
+.jazz-hint p {
+  margin: 0;
+  padding: 10px 11px 11px;
+  color: #c9c4d2;
+  font-size: 12px;
+  line-height: 1.55;
+}
