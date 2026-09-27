@@ -1,6 +1,5 @@
 import type { CSSProperties } from "react";
 import {
-  HARMONY_STEPS,
   harmonyPitches,
   type HarmonySequence,
 } from "../music/model";
