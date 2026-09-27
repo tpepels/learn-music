@@ -210,7 +210,7 @@ export const levinePracticePracticePracticeLesson: LessonDefinition = {
         letter: "D",
         title: "Put a voicing technique inside a progression",
         learn:
-          "Carry one rootless voicing language through I-VI-II-V instead of practicing each chord as an isolated object.",
+          "Carry one compact voicing language through I-VI-II-V instead of practicing each chord as an isolated object.",
         explanation:
           "A voicing learned around the cycle is only partly learned. The next step is to put it into tunes or realistic progressions, where the previous and next chord determine which position is actually useful.\n\nThe four-bar I-VI-II-V loop below forces the shapes to function as a connected harmonic sentence. Listen for the transitions, not just the correctness of each individual chord.",
         instruction:
