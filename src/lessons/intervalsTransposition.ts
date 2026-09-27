@@ -16,7 +16,7 @@ function noteAt(sequence: Array<number | null>, step: number, midi: number) {
 const lesson = lessonContentSchema.parse({
   id: "pitch.intervals-transposition",
   number: 29,
-  title: "Intervals & transposition",
+  title: "Interval distance & transposition",
   eyebrow: "Pitch · New keys",
   hero: "Keep the relationships when the starting point changes.",
   description:
