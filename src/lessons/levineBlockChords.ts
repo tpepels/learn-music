@@ -49,9 +49,9 @@ export const levineBlockChordsLesson: LessonDefinition = {
         explanation:
           "A basic block-chord texture keeps the melody on top and fills the notes directly underneath it. When a scale line moves stepwise, diminished-seventh passing chords can alternate with the main harmony so every melodic note receives a chord without repeating the same sonority twice in a row.\n\nThe diminished shape is not random. B-D-F-A-flat is a rootless G7 flat-nine, so it functions as dominant colour leading back toward C.",
         instruction:
-          "Study the close-position alternation. Clear the grid. Write C6 as C4-E4-G4-A4 on step 1, rootless G7 flat nine as B3-D4-F4-A-flat4 on step 2, the C6 inversion E4-G4-A4-C5 on step 3, and the diminished inversion D4-F4-A-flat4-B4 on step 4. Repeat the four-step pattern once on steps 5-8 and play it.",
+          "Study the close-position alternation. Clear the grid. Harmonize the obvious ascending melody C5-D5-E5-F5: on step 1 write E4-G4-A4-C5; on step 2 write F4-A-flat4-B4-D5; on step 3 write G4-A4-C5-E5; on step 4 write A-flat4-B4-D5-F5. Repeat the four-step pattern once on steps 5-8. Play it and follow only the top note first, then listen to the changing harmony underneath.",
         recognition:
-          "Can you hear the diminished sonority as a passing dominant colour rather than as an unrelated chord?",
+          "Can you follow C-D-E-F as one melody while the diminished sonorities behave like passing dominant colour underneath it?",
         source: {
           reference: "Chapter Nineteen - Figures 19-3 through 19-5",
           focus:
@@ -82,8 +82,8 @@ export const levineBlockChordsLesson: LessonDefinition = {
         {
           label: "The eight-step close-position pattern is written",
           complete: exactStudy(harmonySequence, [
-            [0,[60,64,67,69]],[1,[59,62,65,68]],[2,[64,67,69,72]],[3,[62,65,68,71]],
-            [4,[60,64,67,69]],[5,[59,62,65,68]],[6,[64,67,69,72]],[7,[62,65,68,71]],
+            [0,[64,67,69,72]],[1,[65,68,71,74]],[2,[67,69,72,76]],[3,[68,71,74,77]],
+            [4,[64,67,69,72]],[5,[65,68,71,74]],[6,[67,69,72,76]],[7,[68,71,74,77]],
           ]),
         },
         {
