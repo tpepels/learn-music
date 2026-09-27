@@ -10943,3 +10943,21 @@ body {
 .reflection-check.is-complete {
   color: var(--green);
 }
+
+
+.reference-measurement-note,
+.mixer-meter-note,
+.compressor-model-note {
+  margin: 10px 0 0;
+  color: var(--dim);
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.reference-measurement-note {
+  max-width: 620px;
+}
+
+.compressor-model-note {
+  padding: 0 2px;
+}
