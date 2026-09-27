@@ -36,13 +36,14 @@ export const mixingSpaceLesson: LessonDefinition = {
         title: "Find a balance by losing it first",
         learn: "Hear foreground and background as relative level relationships.",
         explanation:
-          "A fader changes the level of one part relative to all the others. The quickest way to learn that relationship is to deliberately make a part too loud and too quiet, then place it where its musical role becomes clear.",
+          "A fader changes the level of one part relative to all the others. Its scale is shown in decibels (dB), a logarithmic unit for level change: a few dB can already be clearly audible, so dB is not a percentage scale. The quickest way to learn the relationship is to deliberately make a part too loud and too quiet, then place it where its musical role becomes clear. Lesson 32 will later distinguish this fader gain value from measured digital signal level.",
         instruction:
           "Loop the arrangement. Move the MELODY through at least an 8 dB range so you hear it dominate and then disappear. Do the same more gently with CHORDS. Finish with melody clearly above chords, drums clearly above chords, and bass close enough to the drums to form one foundation.",
         recognition:
           "Move the melody a few dB either way. At what point does it stop leading? At what point does it start covering the rest of the track?",
         terms: [
           { term: "Fader", definition: "A level control used to change one channel relative to the rest of the mix." },
+          { term: "Decibel (dB)", definition: "A logarithmic unit used to express level ratios or gain changes; on this fader it describes how much the channel is boosted or attenuated." },
           { term: "Balance", definition: "The relative loudness relationship between the parts of a mix." },
           { term: "Foreground", definition: "Material perceived as especially present or attention-grabbing." },
           { term: "Background", definition: "Supporting material perceived behind more prominent elements." },
