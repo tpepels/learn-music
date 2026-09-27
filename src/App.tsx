@@ -51,6 +51,7 @@ import {
 import { getAdvanceDestination } from "./lessons/progression";
 import { RECOVERED_LESSON_IDS } from "./learning/catchUp";
 import { isExerciseReady } from "./lessons/exerciseReadiness";
+import { reflectedOnListening } from "./lessons/learningEvidence";
 import type { ExerciseDefinition } from "./lessons/types";
 import type { MixerTrackId } from "./music/model";
 import { useStudioStore } from "./state/studio";
@@ -792,11 +793,8 @@ function App() {
   );
 
   const checksReady = checks.every((check) => check.complete);
-  const reflectionAnswer =
-    experiments["reflection.answer"]?.values.at(-1)?.trim() ?? "";
   const reflectionReady =
-    activeTrack.id !== "play-lab" ||
-    reflectionAnswer.split(/\s+/).filter(Boolean).length >= 3;
+    activeTrack.id !== "play-lab" || reflectedOnListening(experiments);
   const exerciseCompleted = completedExerciseIds.includes(exercise.id);
   const hasAttempt =
     exerciseCompleted ||
