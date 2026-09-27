@@ -261,15 +261,15 @@ For this first transposition, use the second position because it sits comfortabl
         letter: "D",
         title: "Read extension numbers as chord tones",
         learn:
-          "Connect jazz chord-symbol numbers to scale degrees above the seventh instead of treating them as decoration.",
+          "Build ninth, eleventh and thirteenth as actual chord tones above the same dominant core.",
         explanation:
-          `Jazz chord symbols keep counting stacked thirds past the seventh. The ninth, eleventh and thirteenth correspond to scale degrees 2, 4 and 6 placed above the octave. The chapter also points out that musicians sometimes use different numbers for the same pitch class according to harmonic context - the sixth and thirteenth, for example, are octave equivalents.
+          `Jazz chord symbols keep counting stacked thirds past the seventh. The ninth, eleventh and thirteenth correspond to scale degrees 2, 4 and 6 placed above the octave. On C7, D is the ninth, F is the eleventh and A is the thirteenth.
 
-Altered symbols change one of those chord tones: flat-nine, sharp-nine, flat-five and sharp-five are not abstract suffixes but instructions about pitches. Later chapters make much more use of these colours; here the goal is simply to read the number as a note relationship.`,
+Keep the dominant core C-E-B-flat fixed and change only the extension. The natural eleventh is deliberately tense against E; hearing that rub is part of learning what the number means. Later altered symbols move these same extension tones up or down by a semitone.`,
         instruction:
-          "Work through the extension source analysis. Set the study back to C major and clear both targets and notes if necessary. In bar 1 write a C6 sound as C3-E3-G3-A3. In bar 2 write Cmaj7 as C3-E3-G3-B3. Play the two bars and focus only on the upper note: A is scale degree 6, B is scale degree 7. Leave bars 3-4 empty.",
+          "Study the extension map. Clear the grid. Keep C3-E3-B-flat3 as the dominant core. In bar 1 add D4 for C9; in bar 2 add F4 for C11; in bar 3 add A4 for C13. Leave bar 4 empty. Play the three chords and name only the top extension before checking the symbol.",
         recognition:
-          "Can you hear the symbol number as a specific chord tone rather than as a name attached to the whole shape?",
+          "Can you identify D, F and A as 9, 11 and 13 above C - and hear why the natural 11 is the most exposed against E?",
         source: {
           reference: "Chapter Three - Figures 3-9 through 3-11",
           focus:
@@ -298,15 +298,16 @@ Altered symbols change one of those chord tones: flat-nine, sharp-nine, flat-fiv
           complete: studiedSource(experiments, "l03.extensions"),
         },
         {
-          label: "C6 and Cmaj7 are written with different top notes",
+          label: "C9, C11 and C13 extensions are all written",
           complete: exactStudy(harmonySequence, [
-            [0, [48, 52, 55, 57]],
-            [8, [48, 52, 55, 59]],
+            [0, [48, 52, 58, 62]],
+            [8, [48, 52, 58, 65]],
+            [16, [48, 52, 58, 69]],
           ]),
         },
         {
-          label: "You built both comparison chords",
-          complete: changedControl(experiments, "harmony.note-edit", 8),
+          label: "You built all three extension chords",
+          complete: changedControl(experiments, "harmony.note-edit", 12),
         },
         {
           label: "You listened to the upper-tone difference",
