@@ -273,7 +273,7 @@ export const levinePracticePracticePracticeLesson: LessonDefinition = {
         explanation:
           "Patterns and licks can coordinate the fingers, ear and harmonic reflexes, but they should become an inner library rather than a memorized solo. A useful drill is to keep enough of the original idea that its identity survives while changing one feature at a time.\n\nStarting the phrase on a fifth, then on a ninth, or transposing it into another key trains flexibility without throwing away the original pattern.",
         instruction:
-          "Study the phrase-variation method. Clear the grid. Write G4-A4-B4-E5 on steps 1-4. In bar 2 write D5-B4-A4-G4 on steps 9-12, beginning from the ninth instead. In bar 3 transpose the first contour to F major as C5-D5-E5-A5 on steps 17-20. In bar 4 write G5-E5-D5-C5 on steps 25-28. Play all four versions.",
+          "Study the phrase-variation method. Clear the grid. Keep C3 under bars 1-2: write G4-A4-B4-E5 on steps 1-4, then D5-B4-A4-G4 on steps 9-12 so the second version begins from C major\'s ninth. Keep F3 under bars 3-4: transpose the first contour to C5-D5-E5-A5 on steps 17-20, then write G5-E5-D5-C5 on steps 25-28. Play all four and listen for both family resemblance and the change of harmonic center.",
         recognition:
           "Can you still hear one family of ideas even though starting note, direction and key keep changing?",
         source: {
@@ -306,15 +306,15 @@ export const levinePracticePracticePracticeLesson: LessonDefinition = {
         {
           label: "All four related phrases are written",
           complete: exactStudy(harmonySequence, [
-            [0,[67]],[1,[69]],[2,[71]],[3,[76]],
-            [8,[74]],[9,[71]],[10,[69]],[11,[67]],
-            [16,[72]],[17,[74]],[18,[76]],[19,[81]],
-            [24,[79]],[25,[76]],[26,[74]],[27,[72]],
+            [0,[48,67]],[1,[48,69]],[2,[48,71]],[3,[48,76]],
+            [8,[48,74]],[9,[48,71]],[10,[48,69]],[11,[48,67]],
+            [16,[53,72]],[17,[53,74]],[18,[53,76]],[19,[53,81]],
+            [24,[53,79]],[25,[53,76]],[26,[53,74]],[27,[53,72]],
           ]),
         },
         {
-          label: "You entered all four phrase variants",
-          complete: changedControl(experiments, "harmony.note-edit", 16),
+          label: "You entered all four centered phrase variants",
+          complete: changedControl(experiments, "harmony.note-edit", 32),
         },
         {
           label: "You listened for family resemblance",
