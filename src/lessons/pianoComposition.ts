@@ -38,15 +38,15 @@ export const pianoCompositionLesson: LessonDefinition = {
         title: "Map the key of C major",
         learn: "Recognise the seven notes that belong to C major.",
         explanation:
-          "A key is a tonal centre plus a family of notes that relate to it. C major uses C, D, E, F, G, A, and B: all the white-key pitch classes on the piano. C is the tonic, the note that feels most like home.",
+          "A major scale is defined by the interval pattern whole–whole–half–whole–whole–whole–half. Starting on C, apply that pattern on the chromatic keyboard to find the seven pitch classes in the key. C is the tonic: the note that should feel most like home.",
         instruction:
-          "Click the pitch classes that belong to C major. Audition them as you go. Select C, D, E, F, G, A, and B, but leave the black-key notes unselected.",
+          "Starting on C, derive the major scale from the whole/half-step pattern and select those seven pitch classes. Audition each move as you go. Make your first attempt from the rule rather than from the checklist.",
         recognition:
           "Play the scale upward, then stop on B before returning to C. Which of those two notes feels finished?",
         terms: [
           { term: "Key", definition: "A tonal system organised around a home note and its related scale." },
           { term: "Tonic", definition: "Scale degree 1: the home note of a key. In C major, the tonic is C." },
-          { term: "Scale", definition: "An ordered collection of pitches. The C major scale is C-D-E-F-G-A-B-C." },
+          { term: "Scale", definition: "An ordered collection of pitches defined here by the major-scale whole/half-step pattern." },
           { term: "Semitone", definition: "The smallest distance between adjacent keys on a piano, including black and white keys." },
         ],
         workspace: "piano-key",
@@ -109,9 +109,9 @@ export const pianoCompositionLesson: LessonDefinition = {
         title: "Use scale degrees 1, 3, and 5",
         learn: "Hear notes by their function inside the key.",
         explanation:
-          "Scale degrees number the notes of a scale from the tonic upward. In C major: C=1, D=2, E=3, F=4, G=5, A=6, B=7. Degrees 1, 3, and 5 form the C-major triad and tend to sound especially stable over C-major harmony.",
+          "Scale degrees number the notes of a scale from the tonic upward. Degrees 1, 3, and 5 form the tonic triad and tend to sound especially stable over tonic harmony. Use the C-major scale you just mapped to work out which note names those degrees represent.",
         instruction:
-          "Edit your melody so it uses C, E, and G somewhere. End the melody on C and listen to the sense of arrival.",
+          "Edit your melody so it uses scale degrees 1, 3, and 5 somewhere, and end on degree 1. Work out the note names from the scale rather than copying them from the checks.",
         recognition:
           "Pause on C, E and G, then on D, F or B. Which notes let the phrase rest, and which seem to ask for another note?",
         terms: [
