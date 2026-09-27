@@ -104,9 +104,9 @@ export const levineSalsaLatinJazzLesson: LessonDefinition = {
         learn:
           "Establish a two-bar repeated chord pattern whose first attacks define the groove and whose later attacks stay mostly off the beat.",
         explanation:
-          "A montuno is an ostinato-like piano figure. It may last two, four or more bars, but once established it usually repeats until a new section arrives. The repetition is not a limitation - it is the groove.\n\nA common reverse-clave pattern begins clearly, then places most later attacks on the ands. Ties and sustained notes can carry the figure across bar lines, so the listener feels a continuous rhythmic cycle instead of eight isolated quarter notes.",
+          "A montuno is an ostinato-like piano figure. It may last two, four or more bars, but once established it usually repeats until a new section arrives. The repetition is not a limitation - it is the groove.\n\nA common reverse-clave pattern begins clearly, then places most later attacks on the ands. In written examples, ties and sustained notes may carry the figure across bar lines. The grid here is an attack-pattern exercise: feel or clap 2-3 clave while you play so the montuno is heard inside the two-bar framework rather than as isolated hits.",
         instruction:
-          "Study the montuno rhythm. Clear the grid. Use the C-major dyad E4-G4 as a neutral harmonic cell. In bars 1-2 place it on steps 1, 3, 4, 6, 8, 10, 12, 14 and 16. Repeat the identical two-bar rhythm in bars 3-4, transposing the dyad to F4-A4. Play the loop without adding extra attacks.",
+          "Study the montuno rhythm. Before touching the grid, clap one full 2-3 son-clave cycle twice. Then use E4-G4 in bars 1-2 on steps 1, 3, 4, 6, 8, 10, 12, 14 and 16. Repeat the identical attack pattern in bars 3-4 with F4-A4. Play the loop while continuing to count or tap the 2-3 clave; do not add extra attacks.",
         recognition:
           "Can you keep the repeated offbeat pattern steady when the pitches change underneath it?",
         source: {
@@ -222,9 +222,9 @@ export const levineSalsaLatinJazzLesson: LessonDefinition = {
         learn:
           "Coordinate a repeated right-hand pattern with a bass line that emphasizes the and of two and beat four.",
         explanation:
-          "In a salsa rhythm section, piano and bass do not duplicate each other continuously. Each part has its own pattern and the parts interlock. The bass pattern is called a tumbao and commonly gives strong weight to beat four.\n\nA useful coordination exercise is to line up the hands at selected points - especially the and of two - while allowing the remaining notes to fall in different places. The result should feel like two gears meshing, not one hand shadowing the other.",
+          "In a salsa rhythm section, clave, piano and bass do not duplicate one another continuously. Each part has its own pattern and the parts interlock. The bass pattern is called a tumbao and commonly gives strong weight to beat four.\n\nA useful coordination exercise is to line up the hands at selected points - especially the and of two - while allowing the remaining notes to fall in different places. The result should feel like two gears meshing, not one hand shadowing the other.",
         instruction:
-          "Study the piano-and-bass lock. Clear the grid. In each bar put the right-hand dyad E4-G4 on steps 1, 4, 6 and 8. Add C2 to the same event on step 4 and G2 to the event on step 7. Repeat the pattern for four bars, changing the bar-3/4 bass root to F2 and C3 while keeping the right-hand rhythm identical.",
+          "Study the piano-and-bass lock. First clap the active clave while speaking the montuno attacks. Then clear the grid. In each bar put E4-G4 on steps 1, 4, 6 and 8. Add C2 on step 4 and G2 on step 7. Repeat for four bars, changing the bar-3/4 bass root to F2 and C3 while keeping the right-hand rhythm identical. Play it while continuing to feel the clave underneath.",
         recognition:
           "Can you feel the hands coincide at selected points while the rest of the pattern remains interlocked rather than doubled?",
         source: {
