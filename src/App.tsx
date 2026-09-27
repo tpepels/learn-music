@@ -51,7 +51,10 @@ import {
 import { getAdvanceDestination } from "./lessons/progression";
 import { RECOVERED_LESSON_IDS } from "./learning/catchUp";
 import { isExerciseReady } from "./lessons/exerciseReadiness";
-import { reflectedOnListening } from "./lessons/learningEvidence";
+import {
+  completedPlaybackCycle,
+  reflectedOnListening,
+} from "./lessons/learningEvidence";
 import type { ExerciseDefinition } from "./lessons/types";
 import type { MixerTrackId } from "./music/model";
 import { useStudioStore } from "./state/studio";
@@ -720,7 +723,7 @@ function App() {
     });
   }, [stereoSettings, exercise.workspace]);
 
-  const checks = useMemo(
+  const evaluatedChecks = useMemo(
     () =>
       exercise.evaluate({
         A: patterns.A,
@@ -791,6 +794,16 @@ function App() {
       compositionStudy,
     ],
   );
+
+  const checks =
+    activeTrack.id === "play-lab" && canWorkspaceUseTransport(exercise.workspace)
+      ? evaluatedChecks.map((check) =>
+          /^You listened\b/i.test(check.label) &&
+          !completedPlaybackCycle(experiments)
+            ? { ...check, complete: false }
+            : check,
+        )
+      : evaluatedChecks;
 
   const checksReady = checks.every((check) => check.complete);
   const reflectionReady =
