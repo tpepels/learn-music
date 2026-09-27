@@ -348,7 +348,7 @@ export function HarmonySequencerWorkspace({
             harmonyNoteName(midi, mode, tonalContext, showTargets)
           }
           onSelectStep={selectJazzStep}
-          onToggleNote={toggleHarmonyNote}
+          onToggleNote={(midi) => toggleHarmonyNote(selectedJazzStep, midi)}
           onAudition={(midi) => void audioEngine.playChordNote(midi)}
         />
       ) : null}
