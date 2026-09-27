@@ -47,7 +47,7 @@ export const levineIntervalsTriadsLesson: LessonDefinition = {
         learn:
           "Treat an interval as the distance between two notes, then hear how that distance changes while the lower C stays fixed.",
         explanation:
-          `An interval describes the space between two notes. The source chart keeps middle C on the bottom and moves the upper note from the minor second all the way to the octave, so interval size can be compared without also changing the reference pitch. The most useful habit is to connect three things at once: the written interval, its physical span on the keyboard, and its sound.
+          `An interval describes the space between two notes. Keep middle C on the bottom while the upper note moves from the minor second all the way to the octave. That lets you compare interval size without also changing the reference pitch. The most useful habit is to connect three things at once: the written interval, its physical span on the keyboard, and its sound.
 
 Major, minor and perfect describe interval quality; the tritone can be named an augmented fourth or diminished fifth. Do not reduce the exercise to counting semitones. The staff spelling and the sound are both part of the interval.`,
         instruction:
@@ -176,11 +176,11 @@ The quality follows a second rule. Major becomes minor and minor becomes major; 
         learn:
           "Hear triad quality as the result of stacking two thirds in different combinations.",
         explanation:
-          `A triad stacks one third on top of another. Four basic combinations follow. Major uses a major third with a minor third above it; minor reverses that order; diminished stacks two minor thirds; augmented stacks two major thirds. The source keeps C as the common root so the quality change is isolated.
+          `A triad stacks one third on top of another. Four basic combinations follow. Major uses a major third with a minor third above it; minor reverses that order; diminished stacks two minor thirds; augmented stacks two major thirds. Keeping C as the common root isolates the change of chord quality.
 
 Listen to the difference before attaching an emotional label. The important technical point is that changing one chord tone can change the quality while the root stays fixed.`,
         instruction:
-          "Play the four source triads. Clear the study, then put one root-position C triad at the start of each bar: C-E-G, C-E-flat-G, C-E-flat-G-flat, and C-E-G-sharp. Play all four in sequence and identify which third changed from one quality to the next.",
+          "Play the four reference triads. Clear the study, then put one root-position C triad at the start of each bar: C-E-G, C-E-flat-G, C-E-flat-G-flat, and C-E-G-sharp. Play all four in sequence and identify which third changed from one quality to the next.",
         recognition:
           "Can you identify major, minor, diminished and augmented by sound before checking the notes?",
         source: {
