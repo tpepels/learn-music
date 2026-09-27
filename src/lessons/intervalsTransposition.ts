@@ -35,9 +35,9 @@ export const intervalsTranspositionLesson: LessonDefinition = {
         title: "Build three intervals from C",
         learn: "Hear a second, third and fifth as distances rather than note names.",
         explanation:
-          "From C, D is a major second above, E is a major third above and G is a perfect fifth above. The note names change in another key; the distances do not.",
+          "Intervals are measured distances. A major second spans two semitones, a major third four, and a perfect fifth seven. The destination note names change when the starting pitch changes; the distances do not.",
         instruction:
-          "In the melody grid place C4 on step 1, D4 on step 3, E4 on step 5 and G4 on step 7. Play the loop and listen to each jump away from C.",
+          "Put C4 on step 1. From that same C, derive a major second for step 3, a major third for step 5, and a perfect fifth for step 7 using the semitone distances in the vocabulary. Then play the loop.",
         recognition:
           "Which distance feels closest to the starting note, and which sounds most open? Try singing the destination before it plays.",
         terms: [
@@ -65,9 +65,9 @@ export const intervalsTranspositionLesson: LessonDefinition = {
         title: "Transpose a motif up a whole step",
         learn: "Preserve a motif by moving every note by the same interval.",
         explanation:
-          "C-D-E-G becomes D-E-F♯-A when every note moves up two semitones. The absolute pitches change, but the contour and interval pattern stay the same.",
+          "A transposition moves every note by the same interval. Moving the whole motif by two semitones changes every absolute pitch while preserving its contour and internal interval pattern.",
         instruction:
-          "Write C4-D4-E4-G4 on steps 1, 3, 5 and 7. Then write its whole-step transposition D4-E4-F♯4-A4 on steps 9, 11, 13 and 15.",
+          "Write C4-D4-E4-G4 on steps 1, 3, 5 and 7. On steps 9, 11, 13 and 15, transpose every source note upward by one whole step. Derive the four destination pitches yourself.",
         recognition:
           "Listen for identity rather than pitch height. Does the second half sound like the same idea moved upward?",
         terms: [
@@ -103,9 +103,9 @@ export const intervalsTranspositionLesson: LessonDefinition = {
         title: "Transpose harmony by function",
         learn: "Separate an absolute chord symbol from the harmonic degree it represents.",
         explanation:
-          "I-IV-V-I is a relationship to the tonic, not a fixed list of chord names. In C major it is C-F-G-C. Change the tonic to D and the same stored harmonic identities become D-G-A-D while the Roman numerals stay I-IV-V-I.",
+          "I-IV-V-I is a relationship to the tonic, not a fixed list of chord names. When the tonic changes, the absolute chord symbols must move to the corresponding scale degrees while the Roman-numeral functions stay the same.",
         instruction:
-          "In the combined workspace choose C major and build I-IV-V-I. Then change only the tonic to D with the key control. Do not use the whole-project transpose buttons yet. Play the result and compare the chord symbols with the Roman numerals.",
+          "In the combined workspace choose C major and build I-IV-V-I. Predict what the four chord symbols should become if D is tonic, then change only the tonic to D with the key control and check your prediction by ear and on screen.",
         recognition:
           "Watch the two labels on each chord. Which part changes when C becomes D, and which part stays fixed?",
         terms: [
@@ -145,7 +145,7 @@ export const intervalsTranspositionLesson: LessonDefinition = {
         explanation:
           "Changing a key label can respell generated harmony, but written MIDI notes are still absolute pitches. A full project transposition moves those notes by the same interval while the structural chord progression keeps its degrees.",
         instruction:
-          "Set the key to C major without using a project-transpose button. Put C4-D4-E4-G4 on steps 1, 3, 5 and 7 and keep I-IV-V-I in the chord track. Then press the D whole-project transpose button once. The motif should become D4-E4-F♯4-A4 and the harmony D-G-A-D.",
+          "Set the key to C major without using a project-transpose button. Put C4-D4-E4-G4 on steps 1, 3, 5 and 7 and keep I-IV-V-I in the chord track. Before pressing the D whole-project transpose button, predict the new melody notes and chord symbols. Then transpose once and compare the result with your prediction.",
         recognition:
           "Play before and after if you want to compare them. The register moved, but the melodic intervals and the harmonic degrees should be unchanged.",
         terms: [
