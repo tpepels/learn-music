@@ -10818,3 +10818,146 @@ body {
     gap: 3px;
   }
 }
+
+
+/* Learning-first lesson framing */
+.lesson-learning-frame {
+  margin-top: 22px;
+  padding: 16px 18px;
+  border-left: 2px solid var(--accent);
+  border-radius: 0 10px 10px 0;
+  background: rgba(240, 184, 106, 0.055);
+}
+
+.lesson-learning-frame > strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+.lesson-learning-frame p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.exercise-guide-concept {
+  margin-bottom: 14px;
+  padding: 18px 20px;
+  border: 1px solid rgba(240, 184, 106, 0.28);
+  border-radius: 12px;
+  background: rgba(240, 184, 106, 0.05);
+}
+
+.exercise-guide-concept h2 {
+  margin: 6px 0 8px;
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.exercise-guide-concept p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.learning-reflection {
+  display: grid;
+  gap: 7px;
+  margin-top: 14px;
+  padding-top: 13px;
+  border-top: 1px solid var(--line);
+}
+
+.learning-reflection strong {
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.learning-reflection textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 58px;
+  border: 1px solid var(--line-strong);
+  border-radius: 8px;
+  background: var(--panel-raised);
+  color: var(--text);
+  padding: 9px 10px;
+  font: inherit;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.learning-reflection textarea:focus {
+  outline: 1px solid var(--accent);
+  border-color: var(--accent);
+}
+
+.learning-reflection small {
+  color: var(--dim);
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+.checks-before-attempt {
+  margin-top: 10px;
+  padding: 12px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.checks-before-attempt strong {
+  display: block;
+  font-size: 10px;
+  color: var(--text);
+}
+
+.checks-before-attempt p {
+  margin: 5px 0 0;
+  color: var(--dim);
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.reflection-check {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 5px;
+  align-items: start;
+  padding: 12px 0;
+  color: var(--dim);
+  border-top: 1px solid rgba(48, 55, 52, 0.7);
+}
+
+.reflection-check p {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.reflection-check.is-complete {
+  color: var(--green);
+}
+
+
+.reference-measurement-note,
+.mixer-meter-note,
+.compressor-model-note {
+  margin: 10px 0 0;
+  color: var(--dim);
+  font-size: 9px;
+  line-height: 1.5;
+}
+
+.reference-measurement-note {
+  max-width: 620px;
+}
+
+.compressor-model-note {
+  padding: 0 2px;
+}

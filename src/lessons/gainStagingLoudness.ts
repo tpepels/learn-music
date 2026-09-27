@@ -22,9 +22,9 @@ const lesson = lessonContentSchema.parse({
   eyebrow: "Production · Levels",
   hero: "Make room before you make it loud.",
   description:
-    "Build a mix with deliberate headroom, rebalance it without chasing zero, then use level-matched A/B comparison to separate genuine improvement from the simple appeal of a louder version.",
+    "Practice leaving level reserve, rebalance without chasing zero, then use an approximate level-compensated A/B comparison to separate genuine improvement from the simple appeal of a louder version.",
   overview:
-    "A fader near 0 dB is not a quality target. Leaving level in reserve makes later processing safer, while level matching prevents louder playback from disguising weak decisions as improvements.",
+    "A fader near 0 dB is not a quality target. In a real DAW, headroom is determined by measured signal peaks at each stage - not by one magic fader position. This lab uses fader attenuation as a simplified way to practise leaving reserve, and its A/B guide is an approximation rather than a LUFS or RMS loudness meter.",
 });
 
 export const gainStagingLoudnessLesson: LessonDefinition = {
@@ -34,12 +34,12 @@ export const gainStagingLoudnessLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "production.gain-staging-loudness.a",
         letter: "A",
-        title: "Create headroom",
+        title: "Create level reserve",
         learn: "Stop treating 0 dB on every channel as the default finishing point.",
         explanation:
-          "When several tracks sum together, individually safe signals can still create a crowded master bus. Pulling channels down gives the mix room for peaks and later processing.",
+          "When several tracks sum together, their combined signal can approach the system ceiling even when no single channel looks extreme. This lab does not measure real peaks, so lowering every fader is a practice constraint for creating reserve - not a universal headroom rule.",
         instruction:
-          "While the arrangement plays, pull all four channel faders to -6 dB or lower. Listen to the whole track at that lower internal level rather than compensating by pushing the channels back up.",
+          "While the arrangement plays, attenuate all four channel faders to -6 dB or lower. Listen to the whole track at that lower internal level. Treat -6 dB as this exercise's comparison point, not as a rule that every real mix must follow.",
         recognition:
           "The mix may sound quieter, but did its balance actually get worse? Separate level from quality before making the next decision.",
         terms: [
@@ -49,7 +49,7 @@ export const gainStagingLoudnessLesson: LessonDefinition = {
         ],
         workspace: "mixer",
         checksLabel: "Make room",
-        successLabel: "Every channel now leaves deliberate level in reserve",
+        successLabel: "Every channel is deliberately attenuated for this reserve exercise",
       }),
       evaluate: ({ mixerSettings, experiments }) => {
         const values = volumes(mixerSettings);
@@ -64,9 +64,9 @@ export const gainStagingLoudnessLesson: LessonDefinition = {
         id: "production.gain-staging-loudness.b",
         letter: "B",
         title: "Rebalance without spending all the headroom",
-        learn: "Use relative level differences while keeping the whole mix comfortably below the top of the faders.",
+        learn: "Use relative level differences without treating unity gain as a target.",
         explanation:
-          "Balance comes from relationships between tracks, not from pushing the loudest track to zero. A mix can have clear foreground and background while every channel remains below unity.",
+          "Balance comes from relationships between tracks, not from pushing the loudest track to zero. Keeping faders below unity in this exercise preserves the level reserve you created, but actual headroom in a DAW must still be judged from signal meters.",
         instruction:
           "Keep every fader at -3 dB or lower. Create at least a 3 dB difference between the loudest and quietest channels and use at least three different fader values. Play the arrangement while you decide which layer deserves the foreground.",
         recognition:
@@ -127,22 +127,22 @@ export const gainStagingLoudnessLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "production.gain-staging-loudness.d",
         letter: "D",
-        title: "Level-match before judging",
-        learn: "Remove the easy loudness advantage and listen for actual production differences.",
+        title: "Compensate level before judging",
+        learn: "Reduce the easy level advantage before comparing production differences.",
         explanation:
-          "A fair comparison needs approximately equal level. Once the gain difference is removed, decisions about tone, width, dynamics and hierarchy become easier to separate from simple loudness preference.",
+          "A fair A/B comparison needs similar perceived loudness. This app cannot measure LUFS or RMS, so its guide only estimates a trim from the average fader offsets. Use that as a starting point, then trust repeated listening rather than treating the number as a loudness measurement.",
         instruction:
-          "Use the level-match guide in the Reference workspace and bring the reference trim within 1 dB of the suggested match. Make at least three A/B comparisons and perform the quiet-listening check before choosing a version.",
+          "Use the approximate level-offset guide in the Reference workspace and bring the reference trim within 1 dB of its suggestion. Make at least three A/B comparisons, perform the quiet-listening check, and listen for any remaining loudness mismatch before judging tone or balance.",
         recognition:
           "After level matching, does the preference survive? If not, the original judgement was mostly a level judgement.",
         terms: [
-          { term: "Level matching", definition: "Adjusting compared sources to similar playback level before evaluating them." },
+          { term: "Level matching", definition: "Adjusting compared sources toward similar perceived loudness before evaluating them; normally done with listening and/or real level or loudness measurement." },
           { term: "Perceived loudness", definition: "How loud a sound seems to a listener, which is not identical to its peak level." },
           { term: "Quiet check", definition: "Listening at low playback level to reveal musical hierarchy without loudness excitement." },
         ],
         workspace: "reference",
         checksLabel: "Make the comparison fair",
-        successLabel: "Your final judgement is no longer based on a simple loudness advantage",
+        successLabel: "You reduced the obvious level advantage before judging the mix",
       }),
       evaluate: ({ mixerSettings, referenceMixSettings, experiments }) => {
         const snapshot = referenceMixSettings.snapshot;

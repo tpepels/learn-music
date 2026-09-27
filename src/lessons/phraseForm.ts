@@ -35,13 +35,13 @@ function formLayerEdits(
 const lesson = lessonContentSchema.parse({
   id: "composition.phrase-form",
   number: 17,
-  title: "Phrase & form",
+  title: "Section form through arrangement",
   eyebrow: "Composition · Structure",
-  hero: "Make repetition and contrast happen in the music.",
+  hero: "Use orchestration to make repetition, contrast and return audible.",
   description:
-    "Build four audible four-bar sections. A, A′ and B are only labels; make those relationships real by changing, keeping and bringing back musical layers.",
+    "Build four audible four-bar sections while the underlying notes stay shared. This workspace isolates one dimension of form: which musical layers are present, absent, repeated or restored.",
   overview:
-    "Form depends on memory. A return only feels like a return if the ear recognises something from before; a B section only earns its name if the music really changes.",
+    "Form depends on memory, but form is larger than a layer plan. Here you are specifically learning how orchestration can mark A, A′, B and return. Melody, harmony and motive can also create formal identity; those are separate compositional dimensions.",
 });
 
 export const phraseFormLesson: LessonDefinition = {
@@ -52,9 +52,9 @@ export const phraseFormLesson: LessonDefinition = {
         id: "composition.phrase-form.a",
         letter: "A",
         title: "Make statement and answer",
-        learn: "Turn A and A′ into two related but audibly different sections.",
+        learn: "Make A and A′ related through orchestration while the musical material stays shared.",
         explanation:
-          "A′ means a varied return of an idea, not a new letter pasted onto the timeline. The second section should preserve enough of A to be recognised while changing at least one musical layer.",
+          "A′ means a varied version of A. In this workspace the notes themselves stay shared, so the variation comes from orchestration: preserve enough layers for recognition, then change at least one layer so the second section has a different texture.",
         instruction:
           "Set section 1 to A and section 2 to A′. Give both at least two active layers. Keep at least two layers shared between them, but change at least one layer in A′. Play through bar 8 and hear what stayed versus what changed.",
         recognition:
@@ -86,9 +86,9 @@ export const phraseFormLesson: LessonDefinition = {
         id: "composition.phrase-form.b",
         letter: "B",
         title: "Create binary form",
-        learn: "Make A and B sound like two stable regions.",
+        learn: "Create a binary section contrast using orchestration alone.",
         explanation:
-          "Binary form needs more than two names. The repeated A should have a stable identity, the repeated B should have its own identity, and the listener should hear a boundary between them.",
+          "Binary form can involve harmony, motives, register, rhythm and texture. This exercise isolates texture: repeated A sections should share one layer identity, repeated B sections another, so you can hear how orchestration alone can mark a formal boundary.",
         instruction:
           "Set the sections to A → A → B → B. Make sections 1 and 2 use the same layer combination, sections 3 and 4 use another matching combination, and make A and B differ by at least two layers. Play all sixteen bars.",
         recognition:
@@ -118,9 +118,9 @@ export const phraseFormLesson: LessonDefinition = {
         id: "composition.phrase-form.c",
         letter: "C",
         title: "Leave and return",
-        learn: "Make the return of A recognisable after a contrasting B.",
+        learn: "Make the return of A recognisable by restoring its orchestration after contrast.",
         explanation:
-          "Ternary thinking depends on memory: the return has meaning because something familiar comes back after contrast. The musical fingerprint of A therefore has to reappear, not merely its letter.",
+          "A return has meaning because something familiar comes back after contrast. Here the fingerprint is deliberately limited to the section's layer plan: restore it exactly so you can isolate the perceptual effect of orchestration returning.",
         instruction:
           "Set A → B → A → A′. Make section 3 restore section 1 exactly. Make B differ from A by at least two layers. Give A′ at least two shared layers with A but one audible change.",
         recognition:
@@ -150,9 +150,9 @@ export const phraseFormLesson: LessonDefinition = {
         id: "composition.phrase-form.d",
         letter: "D",
         title: "Build AABA as music",
-        learn: "Use repetition, contrast, and return in one complete sixteen-bar form.",
+        learn: "Use repeated and contrasting orchestration to make an AABA outline audible.",
         explanation:
-          "AABA works because the first two A sections create memory, B interrupts that pattern, and the final A restores it. The form should remain understandable with the labels hidden.",
+          "AABA works because the first two A sections create memory, B interrupts that pattern, and the final A restores it. In this simplified form lab, section identity comes from the layer plan; a complete composition could also vary motives, harmony and phrase content.",
         instruction:
           "Set A → A → B → A. Give A at least two layers and use the exact same layer plan in sections 1, 2, and 4. Make B differ from A by at least two layers. Play all sixteen bars without watching the labels and listen for the departure and return.",
         recognition:

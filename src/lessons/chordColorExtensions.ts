@@ -80,9 +80,9 @@ export const chordColorExtensionsLesson: LessonDefinition = {
         title: "Add the ninth without replacing the triad",
         learn: "Hear the difference between an added colour tone and a suspension.",
         explanation:
-          "Cadd9 keeps C, E and G and adds D. Because the third remains, the major quality stays explicit while D adds openness above the triad.",
+          "An add9 chord keeps the complete triad - including its third - and adds scale degree 9. Because the third remains, the chord quality stays explicit while the added tone changes its colour.",
         instruction:
-          "Place C, E, G and D together on one harmony step. Try D in more than one octave if the grid allows it, then keep the version where the chord sounds open rather than crowded.",
+          "Build Cadd9 from the symbol rather than from a supplied note list: start with the complete C-major triad, derive its ninth, and add that pitch without removing the third. Try the added tone in more than one octave if the grid allows it.",
         recognition:
           "Compare C major and Cadd9. Can you still hear C major clearly underneath the added D?",
         terms: [
@@ -109,9 +109,9 @@ export const chordColorExtensionsLesson: LessonDefinition = {
         title: "Stack a major ninth chord",
         learn: "Hear how seventh and ninth extensions accumulate harmonic information.",
         explanation:
-          "Cmaj9 contains the C-major triad plus B, the major seventh, and D, the ninth. Five-note chords can sound spacious or congested depending on register and spacing.",
+          "A maj9 chord combines the major triad with a major seventh and a ninth. Five-note chords can sound spacious or congested depending on register and spacing, so construction and voicing are separate decisions.",
         instruction:
-          "Build a voicing containing C, E, G, B and D on one harmony step. Then move at least one upper note by an octave and compare the two spacings before settling on one.",
+          "Construct Cmaj9 from its chord formula: major triad + major seventh + ninth. Put all five chord tones on one harmony step, then move at least one upper note by an octave and compare the spacings.",
         recognition:
           "Which spacing lets you hear the colour tones without turning the middle register into a cluster?",
         terms: [

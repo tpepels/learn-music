@@ -22,9 +22,9 @@ const lesson = lessonContentSchema.parse({
   eyebrow: "Production · Critical listening",
   hero: "Stop trusting the version you heard last.",
   description:
-    "Freeze one version, change the mix, match their loudness and switch between them often. Use quiet and mono playback to reset your ears when the new version starts sounding better simply because it is new.",
+    "Freeze one version, change the mix, compensate obvious level differences and switch between them often. Use quiet and mono playback to reset your ears when the new version starts sounding better simply because it is new.",
   overview:
-    "Your ears adapt fast. A fixed snapshot gives you something stable to return to, and level matching keeps a louder version from winning by default. The point is not to prove that the new mix is better; it is to hear what actually changed.",
+    "Your ears adapt fast. A fixed snapshot gives you something stable to return to. The app's trim guide is only an estimate based on fader offsets, not a loudness measurement, so use it to reduce obvious level bias and then make the judgement by repeated listening.",
 });
 
 export const referenceMixingLesson: LessonDefinition = {
@@ -107,21 +107,21 @@ export const referenceMixingLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "production.reference-mixing.c",
         letter: "C",
-        title: "Level-match before judging",
-        learn: "Remove loudness advantage from an A/B comparison.",
+        title: "Reduce level bias before judging",
+        learn: "Compensate the obvious level difference before an A/B comparison.",
         explanation:
-          "Human listeners often prefer the slightly louder version. Level matching reduces that bias so tonal balance, clarity, width, and dynamics can be compared more fairly.",
+          "Human listeners often prefer the slightly louder version. A real level match uses listening and/or actual loudness measurement. Here the app estimates a trim from average fader offsets, which is useful for practice but is not LUFS, RMS or perceived loudness.",
         instruction:
-          "Use LEVEL-MATCH GUIDE and press MATCH. Then switch A/B until you have made at least three comparisons.",
+          "Apply the ROUGH LEVEL-OFFSET GUIDE, then switch A/B until you have made at least three comparisons. If one version still sounds obviously louder, adjust the trim by ear before judging tone, width or balance.",
         recognition:
           "After level matching, does your preference change? If it does, the louder version may have been winning the first comparison for the wrong reason.",
         terms: [
-          { term: "Level matching", definition: "Adjusting comparison sources to approximately equal perceived loudness before judging them." },
+          { term: "Level matching", definition: "Adjusting comparison sources toward similar perceived loudness before judging them, ideally using listening and real level or loudness measurement." },
           { term: "Loudness bias", definition: "The tendency for a louder version to seem fuller or better even when the underlying change is not an improvement." },
         ],
         workspace: "reference",
         checksLabel: "Remove the louder-is-better bias",
-        successLabel: "The reference is level-matched closely enough for a disciplined comparison",
+        successLabel: "You reduced the obvious level advantage before comparing the mix",
       }),
       evaluate: ({ mixerSettings, referenceMixSettings, experiments }) => {
         const snapshot = referenceMixSettings.snapshot;
@@ -141,12 +141,12 @@ export const referenceMixingLesson: LessonDefinition = {
             complete: true,
           },
           {
-            label: "Reference trim is within 1 dB of the level-match guide",
+            label: "Reference trim is within 1 dB of the rough level-offset guide",
             complete:
               Math.abs(referenceMixSettings.trimDb - suggested) <= 1,
           },
           {
-            label: "You made at least three level-matched comparisons here",
+            label: "You made at least three level-compensated comparisons here",
             complete: changedControl(experiments, "reference.compare", 3),
           },
         ];

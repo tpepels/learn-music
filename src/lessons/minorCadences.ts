@@ -31,9 +31,9 @@ const lesson = lessonContentSchema.parse({
   eyebrow: "Harmony · A minor",
   hero: "Write the notes that make A minor leave home and come back.",
   description:
-    "Use i, iv and the major V7 inside a real four-bar accompaniment. You will place G♯ yourself, hear E7 resolve, and compare tonic versus deceptive endings.",
+    "Use i, iv and V7 inside a real four-bar accompaniment. Derive the altered dominant from the harmonic-minor idea you just learned, hear it resolve, and compare tonic versus deceptive endings.",
   overview:
-    "Your groove and minor melody remain in the loop while you add the harmony beneath them. A minor can use the white-key chords of natural minor and still bring in G♯ when E7 needs a stronger pull home.",
+    "Your groove and minor melody remain in the loop while you add harmony beneath them. Natural-minor chords can establish the key, while the raised seventh inside V7 creates a stronger pull back to tonic.",
 });
 
 export const minorCadencesLesson: LessonDefinition = {
@@ -77,11 +77,11 @@ export const minorCadencesLesson: LessonDefinition = {
         id: "harmony.minor-cadences.b",
         letter: "B",
         title: "Build i–iv–V7–i",
-        learn: "Create the strong minor dominant by writing G♯ into E7.",
+        learn: "Create the strong minor dominant by deriving V7 from harmonic minor.",
         explanation:
-          "E7 is built from E–G♯–B–D. The G♯ does not belong to A natural minor, but raising G to G♯ creates a leading tone only one semitone below A. That tiny distance gives the dominant a strong directional pull toward the tonic, which is why minor-key cadences so often borrow this altered note instead of remaining strictly natural minor.",
+          "A minor-key V7 contains the raised seventh that you learned in harmonic minor. That chord tone sits one semitone below tonic and gives the dominant a stronger directional pull than the natural-minor version.",
         instruction:
-          "Set Am → Dm → E7 → Am. Rewrite every bar. In bar 3, make sure E, G♯, B and D all appear somewhere. Leave a G♯ close to the final Am so you can hear the leading-tone pull.",
+          "Set Am → Dm → E7 → Am. Rewrite every bar and build each chord from its symbol. In bar 3, derive all four tones of E7 yourself and place its leading tone close enough to the final Am that you can hear the semitone pull.",
         recognition:
           "Replace G♯ with G for one pass, then put G♯ back. Which version makes the return to Am pull harder?",
         terms: [
@@ -149,7 +149,7 @@ export const minorCadencesLesson: LessonDefinition = {
         explanation:
           "E7→Am closes strongly. E7→F keeps the phrase open by redirecting the dominant into VI. Comparing the two endings on the same material makes the difference much clearer.",
         instruction:
-          "Build Am → Dm → E7 → Am first and play it. Then change only bar 4 to F, rewrite bar 4 with F/A/C, and leave the final version as Am → Dm → E7 → F.",
+          "Build Am → Dm → E7 → Am first and play it. Then change only bar 4 to F, rebuild that triad from the chord symbol, and leave the final version as Am → Dm → E7 → F.",
         recognition:
           "Play the Am ending and the F ending back to back. Which one closes the door, and which one leaves the phrase open?",
         terms: [

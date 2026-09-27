@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { ConceptVisual } from "./ConceptVisual";
 import { BelkinSourceMaterial } from "./BelkinSourceMaterial";
 import { LevineSourceMaterial } from "./LevineSourceMaterial";
@@ -11,6 +12,7 @@ import {
   getPlayLabRepresentation,
 } from "../learning/dawTransfer";
 import type { ExerciseDefinition } from "../lessons/types";
+import { useStudioStore } from "../state/studio";
 
 export function LearningPanel({
   exercise,
@@ -19,6 +21,20 @@ export function LearningPanel({
   exercise: ExerciseDefinition;
   lessonNumber: number;
 }) {
+  const savedReflection = useStudioStore(
+    (state) =>
+      state.learningExperiments[exercise.id]?.["reflection.answer"]?.values.at(-1) ??
+      "",
+  );
+  const recordLearningExperiment = useStudioStore(
+    (state) => state.recordLearningExperiment,
+  );
+  const [reflection, setReflection] = useState(savedReflection);
+
+  useEffect(() => {
+    setReflection(savedReflection);
+  }, [exercise.id, savedReflection]);
+
   const isLevine = exercise.id.startsWith("levine.");
   const sourceTrack =
     exercise.id.startsWith("schoenberg.") ||
@@ -104,17 +120,43 @@ export function LearningPanel({
   const checkpoint =
     exercise.letter === "A" ? getDawCheckpoint(lessonNumber) : undefined;
 
+  const reflectionWordCount = reflection.trim().split(/\s+/).filter(Boolean).length;
+
   return (
     <section className="exercise-guide" aria-label="Current exercise guide">
+      <section className="exercise-guide-concept" aria-label="Core idea">
+        <span className="section-label">Idea</span>
+        <h2>{exercise.learn}</h2>
+        <p>{exercise.explanation}</p>
+      </section>
+
       <div className="exercise-guide-primary">
         <div className="exercise-guide-do">
-          <span className="section-label">Do this</span>
+          <span className="section-label">Try it</span>
           <p>{exercise.instruction}</p>
         </div>
 
         <div className="exercise-guide-listen">
           <span className="section-label">Listen for</span>
           <p>{exercise.recognition}</p>
+          <label className="learning-reflection">
+            <strong>What did you hear?</strong>
+            <textarea
+              rows={2}
+              value={reflection}
+              placeholder="One short observation - describe the musical difference in your own words."
+              onChange={(event) => setReflection(event.target.value)}
+              onBlur={() => {
+                const answer = reflection.trim();
+                if (answer) recordLearningExperiment("reflection.answer", answer);
+              }}
+            />
+            <small>
+              {reflectionWordCount >= 3
+                ? "Observation ready."
+                : "Write at least three words before completing this exercise."}
+            </small>
+          </label>
         </div>
 
         {exercise.source && (
@@ -136,19 +178,13 @@ export function LearningPanel({
       <details className="exercise-guide-details">
         <summary>
           <div>
-            <strong>Why / theory / vocabulary</strong>
-            <span>Open only when you want the explanation behind the exercise.</span>
+            <strong>Vocabulary / DAW transfer</strong>
+            <span>Open for terminology, the underlying model and where this appears in a DAW.</span>
           </div>
           <b>Open</b>
         </summary>
 
         <div className="exercise-guide-details-body">
-          <section className="exercise-guide-theory">
-            <span className="section-label">Why</span>
-            <h2>{exercise.learn}</h2>
-            <p>{exercise.explanation}</p>
-          </section>
-
           {exercise.terms.length > 0 && (
             <section className="learning-glossary">
               <h3>Terms</h3>

@@ -39,12 +39,12 @@ export const relativeMinorLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "harmony.relative-minor.a",
         letter: "A",
-        title: "Find A natural minor",
+        title: "Find the relative minor of C",
         learn: "Recognise that A natural minor and C major use the same pitch collection but a different tonic.",
         explanation:
-          "A natural minor is A-B-C-D-E-F-G. These are exactly the same pitch classes as C major. The difference is tonal centre: A now behaves as home, and C becomes the minor third above it.",
+          "A relative minor keeps exactly the same pitch collection as its relative major but treats scale degree 6 of the major scale as the new tonic. Start from the C-major collection you already know, find its sixth degree, and hear how the same notes change when that pitch becomes home.",
         instruction:
-          "Select A, B, C, D, E, F, and G on the chromatic keyboard. Leave all other pitch classes unselected. Then place A as the first note of the melody.",
+          "Start from the C-major pitch collection. Find its sixth scale degree and treat that note as the new tonic: keep the same seven pitch classes, then make the new tonic the first sounding melody note.",
         recognition:
           "Play the same seven notes once from C and once from A. Which starting point changes the shape of the scale most clearly to your ear?",
         terms: [
@@ -168,9 +168,9 @@ export const relativeMinorLesson: LessonDefinition = {
         title: "Write the minor colour into the line",
         learn: "Use characteristic minor scale degrees while keeping the tonic clear.",
         explanation:
-          "Natural minor is especially coloured by ♭3, ♭6, and ♭7. In A minor those are C, F, and G. Using them does not automatically make a melody expressive, but they distinguish the interval pattern from A major.",
+          "Natural minor is especially coloured by scale degrees ♭3, ♭6, and ♭7. Those lowered degrees distinguish its interval pattern from the parallel major. Derive their note names from the tonic and the natural-minor scale rather than treating them as a memorised list.",
         instruction:
-          "Write at least eight notes. Include C, F, and G somewhere, stay inside A natural minor, and finish on A.",
+          "Write at least eight notes in A natural minor. Include scale degrees ♭3, ♭6, and ♭7 somewhere and finish on tonic. Work out those pitch names yourself before checking the criteria.",
         recognition:
           "Listen to C, F and G against A. Which of those notes most strongly changes the colour from the major-key phrases you wrote earlier?",
         terms: [
