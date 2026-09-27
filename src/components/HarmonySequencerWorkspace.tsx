@@ -186,6 +186,13 @@ export function HarmonySequencerWorkspace({
         ? ["major"]
         : ["major", "natural-minor", "harmonic-minor"];
 
+  const selectJazzStep = (step: number) => {
+    setSelectedJazzStep(step);
+    if (mode === "jazz" && showTargets) {
+      setSelectedSlot(Math.floor(step / 8));
+    }
+  };
+
   const chooseChord = async (chord: HarmonicChord) => {
     setHarmonicSlot(selectedSlot, chord);
     await audioEngine.playChordPreview(chord);
@@ -340,7 +347,7 @@ export function HarmonySequencerWorkspace({
           formatNote={(midi) =>
             harmonyNoteName(midi, mode, tonalContext, showTargets)
           }
-          onSelectStep={setSelectedJazzStep}
+          onSelectStep={selectJazzStep}
           onToggleNote={toggleHarmonyNote}
           onAudition={(midi) => void audioEngine.playChordNote(midi)}
         />
@@ -420,7 +427,7 @@ export function HarmonySequencerWorkspace({
                     data-note-midi={midi}
                     onPointerDown={(event) => {
                       if (mode === "jazz") {
-                        setSelectedJazzStep(step);
+                        selectJazzStep(step);
                       }
                       beginNoteDrag(event, {
                         step,
