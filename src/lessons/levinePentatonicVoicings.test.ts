@@ -33,12 +33,12 @@ describe("Levine pentatonic and voicing continuation", () => {
     const checks = levinePentatonicScalesLesson.exercises[0].evaluate(
       context({
         harmonySequence: sequence([
-          [0,[60]],[1,[62]],[2,[64]],[3,[67]],[4,[69]],
-          [16,[57]],[17,[60]],[18,[62]],[19,[64]],[20,[67]],
+          [0,[48,60]],[1,[48,62]],[2,[48,64]],[3,[48,67]],[4,[48,69]],
+          [16,[45,57]],[17,[45,60]],[18,[45,62]],[19,[45,64]],[20,[45,67]],
         ]),
         experiments: {
           "source.analysis": experiment(1, ["l15.major-pentatonic:0"]),
-          "harmony.note-edit": experiment(10),
+          "harmony.note-edit": experiment(20),
           "transport.play": experiment(1, ["jazz-piano"]),
         },
       }),
