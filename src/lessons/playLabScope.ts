@@ -14,7 +14,7 @@ export const playLabScopeByLessonId: Record<string, PlayLabLessonScope> = {
     prerequisites: [],
     scope: "This lesson is about rhythmic placement. Velocity, ghost notes and swing arrive later in Lesson 13.",
   },
-  "rhythm.repetition-variation": {
+  "rhythm.variation": {
     objectives: [
       "Preserve enough repetition for a groove to remain recognisable while changing selected events.",
       "Use fills and turnarounds to mark phrase endings and loop returns.",
@@ -53,7 +53,7 @@ export const playLabScopeByLessonId: Record<string, PlayLabLessonScope> = {
     prerequisites: ["A short melody that can be reused while timbre changes."],
     scope: "The lab exposes waveform, cutoff, attack and release. Full ADSR shaping, modulation routing and advanced synthesis are outside this lesson.",
   },
-  "arrangement.form": {
+  "form.arrangement": {
     objectives: [
       "Use layer density to change texture without rewriting the notes.",
       "Create an audible section boundary through contrast.",
@@ -63,7 +63,7 @@ export const playLabScopeByLessonId: Record<string, PlayLabLessonScope> = {
     prerequisites: ["Groove, melody, harmony and a usable sound from Lessons 1-5."],
     scope: "This is arrangement-level form through layer entries and exits. More explicit repeat/contrast/return forms are revisited in Lesson 17.",
   },
-  "production.mixing-space": {
+  "mixing.balance-space": {
     objectives: [
       "Balance foreground and background with relative channel level.",
       "Use panning to create left-centre-right placement.",
@@ -93,7 +93,7 @@ export const playLabScopeByLessonId: Record<string, PlayLabLessonScope> = {
     prerequisites: ["Send/return routing and automation from Lessons 7-8."],
     scope: "These effects are taught as controllable relationships, not as fixed presets or mandatory production recipes.",
   },
-  "project.first-track": {
+  "production.final-project": {
     objectives: [
       "Judge whether groove, melody and harmony still work as musical material.",
       "Judge whether the arrangement has contrast, a peak and breathing room.",
@@ -143,7 +143,7 @@ export const playLabScopeByLessonId: Record<string, PlayLabLessonScope> = {
     prerequisites: ["Basic motif and phrase writing from Lesson 3."],
     scope: "Transposition is used as a motif-development technique here; interval measurement and full-project transposition are taught explicitly in Lesson 29.",
   },
-  "composition.melody-harmony": {
+  "composition.melody-over-harmony": {
     objectives: [
       "Identify melody notes as chord tones or non-chord tones in their current harmonic context.",
       "Use passing tones to connect stable notes by step.",
@@ -173,7 +173,7 @@ export const playLabScopeByLessonId: Record<string, PlayLabLessonScope> = {
     prerequisites: ["Layer-based arrangement and contrast from Lesson 6."],
     scope: "This lab isolates orchestration as a formal cue. Melody, harmony, rhythm and motive can also define form but are not edited independently here.",
   },
-  "composition.texture": {
+  "composition.texture-orchestration": {
     objectives: [
       "Separate musical roles by register before reaching for EQ.",
       "Distinguish closed and open chord spacing without changing harmonic identity.",
@@ -183,7 +183,7 @@ export const playLabScopeByLessonId: Record<string, PlayLabLessonScope> = {
     prerequisites: ["Voicing, bass, melody and arrangement from earlier lessons."],
     scope: "The orchestration model uses four project layers; real instrumentation offers many more timbral and register choices.",
   },
-  "production.eq": {
+  "production.eq-spectral-balance": {
     objectives: [
       "Use high-pass cutoff to find the boundary between cleanup and lost body.",
       "Use bell-filter centre frequency and Q to locate a spectral region.",
@@ -303,7 +303,7 @@ export const playLabScopeByLessonId: Record<string, PlayLabLessonScope> = {
     prerequisites: ["Triads, seventh-chord construction and basic interval distance."],
     scope: "The lesson does not construct 11th and 13th chord families. Modern sus chords may remain unresolved even though the first exercise demonstrates resolution.",
   },
-  "composition.rhythmic-phrasing": {
+  "rhythm.phrasing-space": {
     objectives: [
       "Treat rests and note onsets as part of phrase design.",
       "Use anticipation to create forward pull into a structural beat.",
