@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  completedPlaybackCycle,
   heardPlayback,
   reflectedOnListening,
 } from "./learningEvidence";
@@ -18,17 +19,23 @@ function experiment(
 }
 
 describe("learning evidence", () => {
-  it("does not call a single Play click listening", () => {
+  it("retains the shared started-playback evidence used by source tracks", () => {
     expect(
       heardPlayback({
         "transport.play": experiment(1, ["melody"]),
       }),
-    ).toBe(false);
+    ).toBe(true);
   });
 
-  it("counts listening only after playback completes a loop", () => {
+  it("distinguishes a completed playback cycle from a single Play click", () => {
     expect(
-      heardPlayback({
+      completedPlaybackCycle({
+        "transport.play": experiment(1, ["melody"]),
+      }),
+    ).toBe(false);
+
+    expect(
+      completedPlaybackCycle({
         "transport.play": experiment(1, ["melody"]),
         "transport.loop": experiment(1, ["melody"]),
       }),
