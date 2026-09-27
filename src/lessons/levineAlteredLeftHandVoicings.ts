@@ -162,7 +162,7 @@ export const levineAlteredLeftHandVoicingsLesson: LessonDefinition = {
         letter: "C",
         title: "Replace the third with sharp eleven in this voicing",
         learn:
-          "Replace B with C-sharp inside this compact G7 shape, accepting that the new voicing omits the ordinary dominant third."
+          "Replace B with C-sharp inside this compact G7 shape, accepting that the new voicing omits the ordinary dominant third.",
         explanation:
           "The sharp eleven of G is C-sharp. In the compact F-A-B-E dominant shape, B is the closest note to C-sharp, so moving B upward produces F-A-C-sharp-E. This voicing omits the ordinary third of G7, which is acceptable here because altered dominant colour loosens the requirement that every defining tone be present in every voicing.\n\nThe same four upper notes also form a rootless D minor-major-nine sound: F, A, C-sharp and E are the minor third, fifth, major seventh and ninth of D. Adding D underneath makes that second identity explicit.",
         instruction:
