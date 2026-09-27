@@ -801,7 +801,10 @@ function App() {
   const hasAttempt =
     exerciseCompleted ||
     Object.entries(experiments).some(
-      ([key, value]) => key !== "reflection.answer" && value.changes > 0,
+      ([key, value]) =>
+        key !== "reflection.answer" &&
+        !key.startsWith("transport.") &&
+        value.changes > 0,
     );
   const exerciseReady = isExerciseReady({
     checksReady: checksReady && reflectionReady,
