@@ -22,7 +22,7 @@ export const pulseAndGrooveLesson: LessonDefinition = {
         title: "Four-on-the-floor",
         learn: "Feel where the four beats sit before adding detail.",
         explanation:
-          "In 4/4, the bar is counted 1, 2, 3, 4. A kick on every beat gives you the simplest possible floor: nothing is hidden and nothing pulls against the count yet.",
+          "In 4/4, the bar is counted 1, 2, 3, 4. This sequencer divides that one bar into 16 equal sixteenth-note steps: four steps per beat. That is why the four beat positions are steps 1, 5, 9 and 13. A kick on every beat gives you the simplest possible floor before any subdivision or syncopation is added.",
         instruction:
           "Start playback. Put the kick on beats 1, 2, 3, and 4—steps 1, 5, 9, and 13 on this grid. Count aloud once with the loop.",
         recognition:
@@ -31,6 +31,7 @@ export const pulseAndGrooveLesson: LessonDefinition = {
           { term: "Beat", definition: "The regular pulse you count along with: 1, 2, 3, 4." },
           { term: "Bar", definition: "A repeating group of beats. In 4/4, one bar contains four beats." },
           { term: "4/4", definition: "A metre with four quarter-note beats per bar." },
+          { term: "Sixteenth-note step", definition: "One quarter of a beat in this 16-step bar; four sequencer steps fit inside each beat." },
           { term: "Four-on-the-floor", definition: "A kick drum on every beat of a 4/4 bar." },
         ],
         workspace: "drums",
@@ -80,7 +81,7 @@ export const pulseAndGrooveLesson: LessonDefinition = {
         title: "Subdivide with eighth notes",
         learn: "Hear the smaller pulse between the numbered beats.",
         explanation:
-          "Split each beat in two and you get eighth notes: 1-and-2-and-3-and-4-and. A steady hi-hat can make that smaller pulse audible even when the kick and snare stay simple.",
+          "Split each beat in two and you get eighth notes: 1-and-2-and-3-and-4-and. Because this grid has four sixteenth-note steps per beat, eighth notes land on every other step. A steady hi-hat can make that smaller pulse audible even when the kick and snare stay simple.",
         instruction:
           "While the loop plays, add hi-hats on every eighth-note position. Count 1-and-2-and-3-and-4-and and check that every syllable has a hat.",
         recognition:
