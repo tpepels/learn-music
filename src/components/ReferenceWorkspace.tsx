@@ -50,12 +50,12 @@ export function ReferenceWorkspace() {
     <div className="advanced-production-card reference-workspace">
       <div className="workspace-heading">
         <div>
-          <span className="section-label">Reference practice · loudness-matched A/B</span>
+          <span className="section-label">Reference practice · level-compensated A/B</span>
           <h2>Compare decisions, not volume</h2>
           <div className="daw-strip"><span>SNAPSHOT</span><span>LEVEL MATCH</span><span>A / B</span><span>TRANSLATION</span></div>
         </div>
         <span className="workspace-hint">
-          Capture a known version, change the mix, then switch back and forth. The reference is only useful if louder is not allowed to win automatically.
+          Capture a known version, change the mix, then switch back and forth. The trim guide is a rough fader-based estimate, not a measured loudness value.
         </span>
       </div>
 
@@ -85,11 +85,15 @@ export function ReferenceWorkspace() {
             onChange={(event) => setTrim(Number(event.target.value))} />
         </label>
         <div className="reference-suggestion">
-          <span>LEVEL-MATCH GUIDE</span>
+          <span>ROUGH LEVEL-OFFSET GUIDE</span>
           <strong>{suggestedTrim > 0 ? "+" : ""}{suggestedTrim.toFixed(1)} dB</strong>
-          <button disabled={!reference.snapshot} onClick={() => setTrim(suggestedTrim)}>MATCH</button>
+          <button disabled={!reference.snapshot} onClick={() => setTrim(suggestedTrim)}>APPLY ESTIMATE</button>
         </div>
       </div>
+
+      <p className="reference-measurement-note">
+        This estimate compares average channel-fader offsets. It does not measure LUFS, RMS, peaks or perceived loudness. Use it only as a starting point for listening.
+      </p>
 
       <div className="reference-ab-buttons">
         <button className={!auditioningReference ? "is-active" : ""} onClick={() => {
