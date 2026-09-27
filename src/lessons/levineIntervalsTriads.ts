@@ -110,15 +110,15 @@ Major, minor and perfect describe interval quality; the tritone can be named an 
         letter: "B",
         title: "Invert the interval",
         learn:
-          "Move one note through the octave and hear the complementary interval that results.",
+          "Keep the same two pitch classes, move one through the octave, and watch the physical distance change on the keyboard.",
         explanation:
-          `To invert an interval, move the lower note above the upper note, or the upper note below the lower note. The numerical names are complementary: they add to nine. A third becomes a sixth, a second becomes a seventh, and a fourth becomes a fifth.
+          `Start with C4-E4. The keys are four semitones apart, so the interval is a major third. Now move C4 up one octave to C5. The pitch classes are still C and E, but E4 is now the lower note and C5 is eight semitones above it: a minor sixth. That is what interval inversion means physically.
 
-The quality follows a second rule. Major becomes minor and minor becomes major; perfect stays perfect; the tritone remains a tritone. These are practical keyboard rules, not only written-theory facts: they let you recognize the same two pitch classes in a different register.`,
+The interval number changes because the new span completes the octave: 3 + 6 = 9, 4 + 5 = 9, and so on. The quality changes too: major becomes minor, minor becomes major, while perfect intervals stay perfect. The Keyboard view below makes both rules visible instead of asking you to memorize them abstractly.`,
         instruction:
-          "Work through the three analysis tabs. Clear the study, then place C4-E4 in bar 1 and E4-C5 in bar 2. In bars 3-4 place C4-F4 and F4-C5. Play the loop. The major third should become a minor sixth, while the perfect fourth becomes a perfect fifth.",
+          "Clear the study. In bar 1, eighth 1, enter C4-E4 with the piano keys. Switch the Keyboard view to bar 2 and enter E4-C5. Compare the highlighted keys and confirm 4 semitones became 8: major third to minor sixth. Then repeat the same process with C4-F4 in bar 3 and F4-C5 in bar 4: perfect fourth to perfect fifth. Play the four bars only after you can see why each pair is related.",
         recognition:
-          "Does the inversion sound related even though the spacing and the bottom note have changed?",
+          "Can you point to the note that moved through the octave and predict the new interval before reading the interval label?",
         source: {
           reference: "Chapter One - Figures 1-2 through 1-4",
           focus:

@@ -26,6 +26,7 @@ import {
   useNoteLengthDrag,
 } from "./noteLengthDrag";
 import { HarmonyKeyControl } from "./HarmonyKeyControl";
+import { JazzPianoKeyboardView } from "./JazzPianoKeyboardView";
 
 export type HarmonySequencerMode =
   | "basic"
@@ -117,7 +118,7 @@ const configs: Record<
     eyebrow: "Jazz piano study · four bars",
     title: "Build and hear the voicing",
     contextLabel: "PIANO ONLY",
-    hint: "Use the grid as a keyboard study: place the notes, keep the voicing in a playable register, then listen before judging it.",
+    hint: "Use the keyboard view for physical shape and intervals; use the grid underneath for timing and duration.",
   },
 };
 
@@ -141,6 +142,7 @@ export function HarmonySequencerWorkspace({
   const currentStep = useStudioStore((state) => state.currentStep);
   const isPlaying = useStudioStore((state) => state.isPlaying);
   const [selectedSlot, setSelectedSlot] = useState(0);
+  const [selectedJazzStep, setSelectedJazzStep] = useState(0);
   const config = configs[mode];
 
   useEffect(() => {
@@ -153,6 +155,18 @@ export function HarmonySequencerWorkspace({
       setTonalContext({ tonic: 0, mode: "major" });
     }
   }, [mode, setTonalContext]);
+
+  useEffect(() => {
+    if (mode === "jazz" && isPlaying) {
+      setSelectedJazzStep(currentStep);
+    }
+  }, [currentStep, isPlaying, mode]);
+
+  useEffect(() => {
+    if (mode === "jazz" && showTargets) {
+      setSelectedJazzStep((step) => selectedSlot * 8 + (step % 8));
+    }
+  }, [mode, selectedSlot, showTargets]);
 
   const palette: HarmonicChord[] =
     mode === "minor"
@@ -172,6 +186,13 @@ export function HarmonySequencerWorkspace({
         ? ["major"]
         : ["major", "natural-minor", "harmonic-minor"];
 
+  const selectJazzStep = (step: number) => {
+    setSelectedJazzStep(step);
+    if (mode === "jazz" && showTargets) {
+      setSelectedSlot(Math.floor(step / 8));
+    }
+  };
+
   const chooseChord = async (chord: HarmonicChord) => {
     setHarmonicSlot(selectedSlot, chord);
     await audioEngine.playChordPreview(chord);
@@ -179,6 +200,9 @@ export function HarmonySequencerWorkspace({
 
   const selectSlot = async (index: number) => {
     setSelectedSlot(index);
+    if (mode === "jazz") {
+      setSelectedJazzStep((step) => index * 8 + (step % 8));
+    }
     const chord = progression[index];
     if (chord) {
       await audioEngine.playChordPreview(chord);
@@ -314,6 +338,21 @@ export function HarmonySequencerWorkspace({
         </div>
       )}
 
+      {mode === "jazz" ? (
+        <JazzPianoKeyboardView
+          sequence={harmonySequence}
+          selectedStep={selectedJazzStep}
+          currentStep={currentStep}
+          isPlaying={isPlaying}
+          formatNote={(midi) =>
+            harmonyNoteName(midi, mode, tonalContext, showTargets)
+          }
+          onSelectStep={selectJazzStep}
+          onToggleNote={(midi) => toggleHarmonyNote(selectedJazzStep, midi)}
+          onAudition={(midi) => void audioEngine.playChordNote(midi)}
+        />
+      ) : null}
+
       <div className="harmony-roll-scroll">
         <div className="harmony-roll-header">
           <span />
@@ -386,14 +425,17 @@ export function HarmonySequencerWorkspace({
                     ].filter(Boolean).join(" ")}
                     data-note-step={step}
                     data-note-midi={midi}
-                    onPointerDown={(event) =>
+                    onPointerDown={(event) => {
+                      if (mode === "jazz") {
+                        selectJazzStep(step);
+                      }
                       beginNoteDrag(event, {
                         step,
                         midi,
                         isStart: active,
                         coveringStart,
-                      })
-                    }
+                      });
+                    }}
                     aria-label={
                       harmonyNoteName(midi, mode, tonalContext, showTargets) +
                       " at bar " +

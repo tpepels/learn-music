@@ -19,10 +19,11 @@ export function LearningPanel({
   exercise: ExerciseDefinition;
   lessonNumber: number;
 }) {
+  const isLevine = exercise.id.startsWith("levine.");
   const sourceTrack =
     exercise.id.startsWith("schoenberg.") ||
     exercise.id.startsWith("belkin.") ||
-    exercise.id.startsWith("levine.");
+    isLevine;
 
   if (sourceTrack) {
     const SourceMaterial = exercise.id.startsWith("belkin.")
@@ -38,7 +39,7 @@ export function LearningPanel({
       >
         <div className="schoenberg-guide-reading-grid">
           <section className="schoenberg-guide-explanation" aria-label="Concept">
-            <span className="section-label">Concept</span>
+            <span className="section-label">{isLevine ? "What changes" : "Concept"}</span>
             <h2>{exercise.learn}</h2>
             <div className="schoenberg-guide-copy">
               {exercise.explanation
@@ -48,7 +49,7 @@ export function LearningPanel({
           </section>
 
           <section className="schoenberg-guide-exercise" aria-label="Exercise">
-            <span className="section-label">Exercise</span>
+            <span className="section-label">{isLevine ? "Build & hear" : "Exercise"}</span>
             <div className="schoenberg-guide-copy">
               {exercise.instruction
                 .split(/\n\n+/)
@@ -60,6 +61,17 @@ export function LearningPanel({
             </div>
           </section>
         </div>
+
+        {isLevine ? (
+          <div className="jazz-keyboard-cue">
+            <strong>See it on the piano</strong>
+            <span>
+              The Keyboard view below follows the selected grid step, highlights
+              the actual keys and names the intervals between them. Use the grid
+              for time; use the keyboard for shape.
+            </span>
+          </div>
+        ) : null}
 
         {exercise.terms.length > 0 ? (
           <div className="schoenberg-guide-terms" aria-label="Terms">
@@ -74,7 +86,7 @@ export function LearningPanel({
 
         {exercise.source?.exampleIds?.length ? (
           <section className="schoenberg-guide-example-section" aria-label="Examples">
-            <span className="section-label">Examples</span>
+            <span className="section-label">{isLevine ? "Reference" : "Examples"}</span>
             <div className="source-material-list schoenberg-guide-examples">
               {exercise.source.exampleIds.map((id) => (
                 <SourceMaterial id={id} key={id} />
