@@ -2038,6 +2038,986 @@ export const levineSourceMaterial: Record<string, LevineSourceMaterial> = {
     "Source-grounded map of the three-note 'bite' voicing rules summarized in Figure 16-31.",
   ),
 
+
+  "l17.stride-pulse": map(
+    "l17.stride-pulse",
+    "Chapter Seventeen - Figures 17-1 through 17-3",
+    "Bass on strong beats, chords between",
+    [
+      {
+        label: "Bass and chord have separate jobs",
+        detail:
+          "Stride places a low root or fifth on beats one and three and answers it with a higher triad or seventh-chord voicing on beats two and four.",
+      },
+      {
+        label: "The leap is part of the texture",
+        detail:
+          "The left hand covers a wide register because it alternates between bass function and chord function instead of holding one compact voicing.",
+      },
+      {
+        label: "Later stride uses richer chord shapes",
+        detail:
+          "The same rhythmic design can use more modern left-hand voicings on the chord beats without changing the low-high-low-high pulse.",
+      },
+      {
+        label: "Pedal is not the engine",
+        detail:
+          "The chapter recommends practicing the motion without depending on sustain, so the hand learns to connect the rhythm cleanly on its own.",
+      },
+    ],
+    "Source-grounded map of the basic stride pattern and its modernization at the opening of Chapter Seventeen.",
+  ),
+  "l17.walking-tenths": map(
+    "l17.walking-tenths",
+    "Chapter Seventeen - Figures 17-4 through 17-6",
+    "Walking tenths as two moving outer voices",
+    [
+      {
+        label: "A tenth joins bass and upper voice",
+        detail:
+          "Walking tenths pair a moving bass with an upper note roughly a tenth above it, creating a compact contrapuntal alternative to bass-chord stride.",
+      },
+      {
+        label: "The outer-note pattern is the memory aid",
+        detail:
+          "The text recommends first hearing and memorizing the top and bottom contours rather than reducing the passage to abstract chord labels.",
+      },
+      {
+        label: "Chromatic motion can be easier to remember",
+        detail:
+          "A line whose upper notes move chromatically can form a strong visual and aural pattern even when the chord-by-chord analysis is more complicated.",
+      },
+      {
+        label: "Do not force an impossible span",
+        detail:
+          "When the hand cannot comfortably reach a tenth, the notes may be arpeggiated or released; musical continuity matters more than holding every interval physically.",
+      },
+    ],
+    "Source-grounded synthesis of the walking-tenths discussion and memorization advice in Chapter Seventeen.",
+  ),
+  "l17.within-bar-harmony": map(
+    "l17.within-bar-harmony",
+    "Chapter Seventeen - Figure 17-7",
+    "Add harmonic motion without changing the stride frame",
+    [
+      {
+        label: "A tonic bar can contain more than tonic",
+        detail:
+          "A bar with one major-seventh chord can be enriched by introducing another harmony on a later beat while the stride rhythm continues.",
+      },
+      {
+        label: "II can enter on beat three",
+        detail:
+          "One option inserts the minor-seventh chord on scale degree two on the third beat before returning to the larger progression.",
+      },
+      {
+        label: "V can enter on beat three",
+        detail:
+          "A second option uses the dominant on the third beat as the added colour.",
+      },
+      {
+        label: "II-V can fill beats three and four",
+        detail:
+          "The fullest option places II on beat three and V on beat four, creating a short turnaround inside a bar that still retains the stride pulse.",
+      },
+    ],
+    "Source-grounded map of the three harmonic-enrichment options shown in Figure 17-7.",
+  ),
+  "l17.bud-powell-shells": map(
+    "l17.bud-powell-shells",
+    "Chapter Seventeen - Bud Powell voicings discussion and Figures 17-16 through 17-24",
+    "Sparse low left-hand harmony for bebop",
+    [
+      {
+        label: "The voicings are skeletal",
+        detail:
+          "Bud Powell-style left-hand chords often use only two notes, sometimes three, rather than the denser four-note rootless voicings developed later.",
+      },
+      {
+        label: "Roots and defining intervals dominate",
+        detail:
+          "The common ingredients are roots, thirds or tenths, sixths and sevenths - enough information to imply the chord without filling the middle register.",
+      },
+      {
+        label: "Lower placement creates right-hand space",
+        detail:
+          "Because these voicings sit lower on the keyboard, the right hand can use a much wider melodic range around and below middle C.",
+      },
+      {
+        label: "Different shell choices can support the same line",
+        detail:
+          "The chapter compares several Bud Powell left-hand variants under the same bebop melody, showing that there is no single mandatory shell for each chord.",
+      },
+    ],
+    "Source-grounded map of the Bud Powell voicing concept and the comparative examples in the second half of Chapter Seventeen.",
+  ),
+
+  "l18.minor-sixth": map(
+    "l18.minor-sixth",
+    "Chapter Eighteen - Figures 18-1 through 18-9",
+    "Root, third, fifth and sixth from melodic minor",
+    [
+      {
+        label: "The four notes outline minor sixth",
+        detail:
+          "A minor-sixth four-note scale selects root, minor third, fifth and natural sixth from a melodic-minor key.",
+      },
+      {
+        label: "The pattern can move quickly",
+        detail:
+          "Because only four notes are involved, the collection can be cascaded rapidly through registers or carried through chord changes without sounding like a full seven-note scale run.",
+      },
+      {
+        label: "The same notes can become altered dominant colour",
+        detail:
+          "A minor-sixth scale built on a dominant root can also supply root, sharp ninth, fifth and thirteenth over a dominant sharp-nine chord.",
+      },
+      {
+        label: "Related blues materials overlap",
+        detail:
+          "The chapter compares minor-sixth, minor-pentatonic and blues-scale lines over dominant sharp-nine harmony because their pitch content and blues colour overlap strongly.",
+      },
+    ],
+    "Source-grounded synthesis of the minor-sixth four-note scale and its early applications in Chapter Eighteen.",
+  ),
+  "l18.major-key-application": map(
+    "l18.major-key-application",
+    "Chapter Eighteen - Figures 18-10 through 18-13",
+    "Minor-sixth cells inside major and melodic-minor harmony",
+    [
+      {
+        label: "Build on scale degree two",
+        detail:
+          "In major-scale harmony, the minor-sixth collection built on the second degree can be played over several chords derived from the parent major key.",
+      },
+      {
+        label: "The tonic exposes the natural fourth",
+        detail:
+          "Over a major-seventh tonic, the degree-two minor-sixth collection contains the parent scale's fourth, which can become the most exposed note in the line.",
+      },
+      {
+        label: "Build on scale degree six for the tonic",
+        detail:
+          "A minor-sixth collection from the sixth degree replaces that natural fourth with the raised fourth, changing the tonic toward Lydian colour.",
+      },
+      {
+        label: "One melodic-minor cell can cross many derived chords",
+        detail:
+          "When the same four-note collection comes from one melodic-minor parent, it may be retained across multiple chord qualities derived from that parent scale.",
+      },
+    ],
+    "Source-grounded map of the major-key and melodic-minor applications surrounding Figures 18-10 through 18-13.",
+  ),
+  "l18.diminished-subsets": map(
+    "l18.diminished-subsets",
+    "Chapter Eighteen - Figure 18-14",
+    "Invent four notes inside diminished symmetry",
+    [
+      {
+        label: "There is no single diminished four-note formula",
+        detail:
+          "The eight-note diminished scale contains many possible four-note subsets, and the chapter explicitly encourages inventing combinations that sound good.",
+      },
+      {
+        label: "Symmetry multiplies the uses",
+        detail:
+          "A chosen subset belongs to a scale that repeats under minor-third transposition, so related dominant-flat-nine chords can share the same melodic material.",
+      },
+      {
+        label: "Ear quality still decides",
+        detail:
+          "The theoretical relationship is only a starting point; the subset should be retained because its melodic sound works in context.",
+      },
+    ],
+    "Source-grounded map of the diminished four-note-scale invitation and its symmetrical dominant applications.",
+  ),
+  "l18.melodic-minor-cells": map(
+    "l18.melodic-minor-cells",
+    "Chapter Eighteen - Figures 18-23 and 18-24",
+    "Two cells characteristic of one melodic-minor key",
+    [
+      {
+        label: "First cell uses 1-3-5-7",
+        detail:
+          "The first four-note collection selects root, third, fifth and seventh from melodic minor.",
+      },
+      {
+        label: "Second cell uses 3-5-7-9",
+        detail:
+          "The second begins on the third and continues with fifth, seventh and ninth, sharing three notes with the first cell.",
+      },
+      {
+        label: "Their interval content is distinctive",
+        detail:
+          "The text notes that these exact four-note combinations occur only in the key of that melodic-minor parent rather than in major, diminished or whole-tone scales.",
+      },
+      {
+        label: "Exceptions can improve the line",
+        detail:
+          "The application example occasionally departs from the strict four-note sets because an absolutely consistent pattern can sound too perfect and less musical.",
+      },
+    ],
+    "Source-grounded synthesis of the two characteristic melodic-minor cells and their flexible application in Chapter Eighteen.",
+  ),
+  "l18.invent-and-rotate": map(
+    "l18.invent-and-rotate",
+    "Chapter Eighteen - Figure 18-25 and concluding discussion",
+    "Generate possibilities, then let the ear decide",
+    [
+      {
+        label: "Four-note possibilities are enormous",
+        detail:
+          "The chapter closes by noting that only a small fraction of theoretically possible four-note scales sound useful in actual music.",
+      },
+      {
+        label: "Select four notes from a parent scale",
+        detail:
+          "One practical search method is to choose four notes from a familiar scale such as C major and treat them as a new melodic cell.",
+      },
+      {
+        label: "Practice every rotation",
+        detail:
+          "Each chosen set has four modal starting points, and practicing all of them reveals different contours and tonal emphases inside the same pitch collection.",
+      },
+      {
+        label: "The final test is musical",
+        detail:
+          "After trying the collection over chords, the only decisive question is whether it sounds good enough to keep using.",
+      },
+    ],
+    "Source-grounded map of the experimental four-note-scale method at the end of Chapter Eighteen.",
+  ),
+
+
+  "l19.four-way-close": map(
+    "l19.four-way-close",
+    "Chapter Nineteen - Figures 19-3 through 19-5",
+    "Close-position block chords with diminished passing harmony",
+    [
+      {
+        label: "Harmonize every melody attack",
+        detail:
+          "Block-chord playing moves the harmony in the same rhythm as the melody so each important melodic note carries its own voicing.",
+      },
+      {
+        label: "Four-way close keeps the melody on top",
+        detail:
+          "The basic four-note version places three harmony notes directly beneath the melody, creating compact locked motion.",
+      },
+      {
+        label: "Diminished chords fill the passing notes",
+        detail:
+          "Chromatic notes can be added to the scale so stable sixth or seventh chords alternate with diminished-seventh passing chords instead of producing repeated chord types.",
+      },
+      {
+        label: "The diminished chord can be heard as dominant flat nine",
+        detail:
+          "The passing diminished pitch set is often equivalent to a rootless dominant-flat-nine chord, which explains its smooth pull back toward the stable harmony.",
+      },
+    ],
+    "Source-grounded synthesis of the four-way-close scale patterns, added chromatic passing note, and disguised dominant-flat-nine explanation in the opening block-chord section.",
+  ),
+  "l19.shearing": map(
+    "l19.shearing",
+    "Chapter Nineteen - Figures 19-6 and 19-7",
+    "Double the melody below the close-position chord",
+    [
+      {
+        label: "Start from four-way close",
+        detail:
+          "The right hand keeps the compact four-note block chord with the melody as the highest note.",
+      },
+      {
+        label: "Duplicate the melody one octave lower",
+        detail:
+          "The left hand adds the melody note an octave below, creating a five-note texture associated with George Shearing's locked-hands sound.",
+      },
+      {
+        label: "Both hands move as one rhythmic unit",
+        detail:
+          "The lower melody double strengthens the line while the two hands continue to attack in the same rhythm.",
+      },
+    ],
+    "Source-grounded map of the doubled-melody locked-hands texture presented immediately after the basic four-way-close examples.",
+  ),
+  "l19.drop-two": map(
+    "l19.drop-two",
+    "Chapter Nineteen - Figure 19-8 and practice discussion",
+    "Open four-way close into drop 2",
+    [
+      {
+        label: "Count from the melody downward",
+        detail:
+          "Drop 2 begins with a close-position voicing and identifies the second note from the top.",
+      },
+      {
+        label: "Lower that note one octave",
+        detail:
+          "Moving the second-highest note down an octave spreads the same chord tones over a wider range without changing chord quality.",
+      },
+      {
+        label: "The dropped note often moves to the left hand",
+        detail:
+          "The wider spacing makes a natural two-hand distribution and produces a fuller, more orchestral block-chord sound.",
+      },
+      {
+        label: "Practice the families through keys",
+        detail:
+          "The chapter recommends drilling major-sixth, minor-sixth, minor-seventh, dominant-seventh, minor-major and major-seventh drop-2 families until the locations are automatic.",
+      },
+    ],
+    "Source-grounded summary of the drop-2 transformation and the chapter's practice routine for learning the major block-chord families.",
+  ),
+  "l19.chromatic-parallelism": map(
+    "l19.chromatic-parallelism",
+    "Chapter Nineteen - Figures 19-29 through 19-34",
+    "Parallel and chromatic approach motion",
+    [
+      {
+        label: "Treat the drop-2 voicing as a movable shape",
+        detail:
+          "Entire block-chord shapes can move in parallel rather than voice-leading every note independently.",
+      },
+      {
+        label: "Approach from a half step below",
+        detail:
+          "A target chord can be preceded by the same shape displaced down a semitone so all voices resolve upward together.",
+      },
+      {
+        label: "Approach from a half step above",
+        detail:
+          "The same device works from above, producing a compact chromatic resolution into the destination voicing.",
+      },
+      {
+        label: "Melodic-minor colour can supply altered approaches",
+        detail:
+          "When the harmony comes from melodic minor, the chapter recommends thinking from the parent key so parallel drop-2 and altered-dominant colours remain connected.",
+      },
+    ],
+    "Source-grounded map of the later drop-2 parallelism, chromatic-approach, and melodic-minor applications in Chapter Nineteen.",
+  ),
+
+  "l20.clave": map(
+    "l20.clave",
+    "Chapter Twenty - Figures 20-3 through 20-8",
+    "The two-bar clave framework",
+    [
+      {
+        label: "Clave organizes the entire texture",
+        detail:
+          "The chapter treats son clave as the central two-bar rhythmic framework that every salsa component must understand.",
+      },
+      {
+        label: "Forward clave is 3-2",
+        detail:
+          "The three-attack side comes first: beat one, the and of two, and beat four, followed by beats two and three in the second bar.",
+      },
+      {
+        label: "Reverse clave is 2-3",
+        detail:
+          "The same two rhythmic halves are reversed so the two-attack bar precedes the three-attack bar.",
+      },
+      {
+        label: "Melody can imply the direction",
+        detail:
+          "When adapting jazz material, the melody's accents often suggest whether forward or reverse clave fits; if neither fits, a small rhythmic alteration may be necessary.",
+      },
+    ],
+    "Source-grounded map of son-clave direction and the discussion of adapting melodic rhythm to clave.",
+  ),
+  "l20.montuno": map(
+    "l20.montuno",
+    "Chapter Twenty - Figures 20-11 through 20-20",
+    "A repeated offbeat piano engine",
+    [
+      {
+        label: "Montuno is an ostinato",
+        detail:
+          "The piano montuno is a repeated rhythmic-melodic figure that may last two, four or more bars.",
+      },
+      {
+        label: "Offbeats dominate the pattern",
+        detail:
+          "The chapter's basic examples place many attacks on the ands, with ties carrying notes across beat or bar boundaries.",
+      },
+      {
+        label: "Do not keep rewriting the groove",
+        detail:
+          "Once the montuno is established, it normally continues until a new section rather than changing every bar.",
+      },
+      {
+        label: "Clave direction changes the placement",
+        detail:
+          "Reverse and forward clave produce related but differently placed montuno patterns, so the accompaniment must remain aligned with the active clave.",
+      },
+    ],
+    "Source-grounded synthesis of the basic montuno rhythm, offbeat counting, repetition, and forward/reverse-clave examples.",
+  ),
+  "l20.harmonic-montunos": map(
+    "l20.harmonic-montunos",
+    "Chapter Twenty - Figures 20-15 through 20-25",
+    "Preserve the groove while harmony changes",
+    [
+      {
+        label: "One rhythm can serve several chord qualities",
+        detail:
+          "The same montuno pattern is shown over minor-sixth, minor-seventh and dominant-seventh chords.",
+      },
+      {
+        label: "Simple progressions are common",
+        detail:
+          "The chapter applies montunos to I-V and other compact harmonic loops instead of requiring dense jazz harmony.",
+      },
+      {
+        label: "Tenths can replace octaves",
+        detail:
+          "Montunos may be voiced with tenths rather than octave doubling, widening the harmonic sound while preserving the rhythm.",
+      },
+      {
+        label: "Groove outranks constant variation",
+        detail:
+          "Changing a montuno too frequently breaks the pocket; the chapter explicitly prioritizes establishing a stable dance groove.",
+      },
+    ],
+    "Source-grounded map of the chord-quality, progression, and tenth-based montuno variants in the middle of Chapter Twenty.",
+  ),
+  "l20.tumbao-lock": map(
+    "l20.tumbao-lock",
+    "Chapter Twenty - Figures 20-26 through 20-30",
+    "Interlock piano and bass patterns",
+    [
+      {
+        label: "Each rhythm-section instrument has its own pattern",
+        detail:
+          "Piano, bass, percussion and other parts are described as complementary pieces that fit together rather than duplicate a common rhythm.",
+      },
+      {
+        label: "The bass pattern is a tumbao",
+        detail:
+          "The tumbao commonly emphasizes beat four and anticipates the next harmony, creating a forward-moving bass role.",
+      },
+      {
+        label: "Selected attacks coincide",
+        detail:
+          "The chapter's practice exercise aligns piano and bass at specific points such as the and of two while leaving many other attacks separate.",
+      },
+      {
+        label: "Practice both hands to learn the lock",
+        detail:
+          "Playing tumbao in the left hand and montuno in the right is recommended as a coordination exercise even though a real ensemble pianist would usually leave the bass line to the bassist.",
+      },
+    ],
+    "Source-grounded map of the tumbao, montuno-tumbao coordination, and two-hand practice strategy.",
+  ),
+  "l20.rhythmic-soloing": map(
+    "l20.rhythmic-soloing",
+    "Chapter Twenty - Figures 20-31 and 20-32",
+    "Solo with rhythmic weight",
+    [
+      {
+        label: "Rhythm carries the solo",
+        detail:
+          "The chapter recommends giving rhythmic shape more importance than continuous melodic detail when soloing over a dense salsa rhythm section.",
+      },
+      {
+        label: "Octaves increase projection",
+        detail:
+          "Octave lines provide enough weight to remain audible without relying on a constant stream of single notes.",
+      },
+      {
+        label: "Large chords can function as rhythmic attacks",
+        detail:
+          "Chordal figures and repeated punches become part of the improvisational vocabulary alongside octaves.",
+      },
+      {
+        label: "Leave space inside the groove",
+        detail:
+          "The aim is not maximum density but a strong pattern of attacks and rests that sits clearly inside the ensemble rhythm.",
+      },
+    ],
+    "Source-grounded summary of the chapter's rhythm-first advice for salsa piano solos.",
+  ),
+
+
+  "l21.timing": map(
+    "l21.timing",
+    "Chapter Twenty-One, Figures 21-1 through 21-4",
+    "Place comping around the beat deliberately",
+    [
+      {
+        label: "A repeated delay can drag",
+        detail:
+          "The opening comparison shows chord changes habitually played on the and after the beat and warns that repeating this placement can pull the time backward.",
+      },
+      {
+        label: "On-the-beat attacks add firmness",
+        detail:
+          "Moving the same changes onto the beat produces a more centered and energetic feel without changing the voicings themselves.",
+      },
+      {
+        label: "Anticipation adds forward energy",
+        detail:
+          "Moving a chord to the eighth note before its expected beat creates a strong sense of propulsion and is presented as another useful comping placement.",
+      },
+      {
+        label: "Timing is a choice, not a formula",
+        detail:
+          "Behind, on and ahead of the beat are all available colours; the problem is falling into one placement automatically rather than listening to the ensemble.",
+      },
+    ],
+    "Source-grounded analysis of the timing comparisons at the beginning of the comping chapter. The application study uses simplified voicings rather than reproducing the notated progression.",
+  ),
+  "l21.space-response": map(
+    "l21.space-response",
+    "Chapter Twenty-One, opening discussion, Figure 21-6 and ensemble advice",
+    "Support the soloist without burying the line",
+    [
+      {
+        label: "Comping is accompaniment",
+        detail:
+          "The accompanist's job is to stimulate the soloist harmonically and rhythmically, strengthen the form, and stay out of the soloist's way.",
+      },
+      {
+        label: "Listen before filling space",
+        detail:
+          "The chapter contrasts overly busy accompaniment with timid playing and repeatedly returns to listening as the way to find the useful middle ground.",
+      },
+      {
+        label: "Short attacks can create room",
+        detail:
+          "One example mixes on-beat and anticipated chords with very short attacks, leaving large areas of silence for the soloist.",
+      },
+      {
+        label: "Unknown soloists call for restraint",
+        detail:
+          "When accompanying an unfamiliar player, begin simply, notice how dense or spacious the solo is, and adapt the accompaniment to that style.",
+      },
+    ],
+    "Source-grounded synthesis of the chapter's central space, response and restraint principles. No licensed solo or tune excerpt is reconstructed.",
+  ),
+  "l21.alterations": map(
+    "l21.alterations",
+    "Chapter Twenty-One, alteration guidelines and Figures 21-5 through 21-6",
+    "Alter harmony conditionally",
+    [
+      {
+        label: "Guidelines are not rules",
+        detail:
+          "The alteration list is explicitly framed as a set of tendencies with many exceptions, because the soloist's line can make an otherwise valid reharmonization clash.",
+      },
+      {
+        label: "Major tonic often accepts Lydian colour",
+        detail:
+          "A major I chord is described as frequently able to take a raised fourth, with more adventurous raised-fifth colour also possible in context.",
+      },
+      {
+        label: "Dominants invite several alternatives",
+        detail:
+          "Dominant chords may accept altered tensions or tritone substitution, while the exact choice depends on whether the chord belongs to a II-V and how it resolves.",
+      },
+      {
+        label: "Simplify immediately if the line disagrees",
+        detail:
+          "The practical instruction is to listen carefully and return to a straighter voicing when the soloist's note conflicts with the accompaniment.",
+      },
+    ],
+    "Source-grounded map of the comping alteration guidelines and their explicit caveats. The learner study compares representative colours without claiming a fixed reharmonization rule.",
+  ),
+  "l21.roots-register": map(
+    "l21.roots-register",
+    "Chapter Twenty-One, root-position discussion, register advice and bass-solo guidance",
+    "Choose roots and register for the ensemble",
+    [
+      {
+        label: "Root use with bass is stylistic",
+        detail:
+          "Many pianists avoid root-position chords with a bassist, but the chapter gives prominent counterexamples and treats the issue as a matter of sound and ensemble fit rather than prohibition.",
+      },
+      {
+        label: "Avoid the soloist's register",
+        detail:
+          "Comping high in the same range as a horn solo can mask the soloist, so register choice should respond to the instrument and its current range.",
+      },
+      {
+        label: "Bass solos still need harmonic energy",
+        detail:
+          "The accompanist should leave more room behind a bass solo without becoming so timid that the rhythm section loses energy.",
+      },
+      {
+        label: "Middle and lower registers have different roles",
+        detail:
+          "The text encourages experimenting with different comping ranges, especially when the soloist occupies the lower register.",
+      },
+    ],
+    "Source-grounded synthesis of the root-position, register and bass-solo advice in Chapter Twenty-One.",
+  ),
+  "l21.bossa": map(
+    "l21.bossa",
+    "Chapter Twenty-One, Bossa nova section and Figures 21-7 through 21-13",
+    "Repeat a bossa pattern without making it rigid",
+    [
+      {
+        label: "Bossa uses a two-bar rhythmic frame",
+        detail:
+          "The section describes Brazilian accompaniment as related to a two-bar clave-like organization while allowing more freedom than the strict salsa framework.",
+      },
+      {
+        label: "Practice the pattern over many chords",
+        detail:
+          "The notated examples are offered as patterns to internalize and transfer across harmonies rather than as harmony-specific licks.",
+      },
+      {
+        label: "Repeat signs are for practice",
+        detail:
+          "The text notes that an actual performance need not repeat exactly the same two-bar pattern indefinitely; repetition is a way to learn the groove.",
+      },
+      {
+        label: "One-bar patterns can form larger vamps",
+        detail:
+          "Shorter bossa patterns can also be grouped into longer repeated structures, so the rhythmic identity can operate at several phrase lengths.",
+      },
+    ],
+    "Source-grounded map of the bossa-nova comping section. The editable application rhythm is a practice pattern and is not represented as the printed source notation.",
+  ),
+
+  "l22.sus-families": map(
+    "l22.sus-families",
+    "Chapter Twenty-Two, Figures 22-1 through 22-4",
+    "Three sus families share a function but not a scale",
+    [
+      {
+        label: "Mixolydian supplies ordinary sus",
+        detail:
+          "The first G-sus sound is paired with G Mixolydian from C major and contains the natural ninth and thirteenth.",
+      },
+      {
+        label: "Phrygian darkens the colour",
+        detail:
+          "The second sound uses G Phrygian from E-flat major, adding flat ninth, sharp ninth and flat thirteenth colour.",
+      },
+      {
+        label: "Melodic minor restores the natural thirteenth",
+        detail:
+          "The third sound uses the second mode of F melodic minor, keeping the flat-nine and sharp-nine notes while replacing the Phrygian flat thirteenth with E-natural.",
+      },
+      {
+        label: "The chord symbol may not identify the parent scale",
+        detail:
+          "The discussion emphasizes that similar sus-flat-nine symbols can hide different scale origins, so voicing and context are needed to distinguish them.",
+      },
+    ],
+    "Source-grounded comparison of the three G-sus families and their parent scales in the opening of Chapter Twenty-Two.",
+  ),
+  "l22.sus-reharm": map(
+    "l22.sus-reharm",
+    "Chapter Twenty-Two, Figures 22-5 through 22-8",
+    "Use second-mode sus harmony as a reharmonization",
+    [
+      {
+        label: "Melodic-minor sus appears as a distinct recorded colour",
+        detail:
+          "The chapter points to several examples where a sus-flat-nine chord comes specifically from the second mode of melodic minor rather than from ordinary Phrygian harmony.",
+      },
+      {
+        label: "A minor II can be replaced",
+        detail:
+          "A minor-seventh II chord may be reharmonized as the second-mode sus chord on the following dominant root, beginning the dominant colour earlier.",
+      },
+      {
+        label: "The ordinary dominant can follow",
+        detail:
+          "The sus-flat-nine sonority can move into the dominant with its major third before resolving to the tonic, preserving the larger cadence.",
+      },
+      {
+        label: "Notation is not fully standardized",
+        detail:
+          "The text notes that several slash-chord and sus-flat-nine labels are used in practice for this sound, so the parent scale remains an important clue.",
+      },
+    ],
+    "Source-grounded map of the melodic-minor sus examples and II-chord reharmonizations in Chapter Twenty-Two.",
+  ),
+  "l22.aeolian": map(
+    "l22.aeolian",
+    "Chapter Twenty-Two, Figures 22-9 through 22-13",
+    "Use Aeolian when VI stays minor",
+    [
+      {
+        label: "Aeolian is the sixth major-scale mode",
+        detail:
+          "The chapter identifies Aeolian as the natural mode for a minor-seventh VI chord in a major-key progression.",
+      },
+      {
+        label: "VI need not become dominant",
+        detail:
+          "In I-VI-II-V, the VI chord is often altered into a dominant, but a true minor-seven VI remains a valid option and changes the available scale.",
+      },
+      {
+        label: "Melody can force reinterpretation",
+        detail:
+          "If a melody note conflicts with the plain Aeolian or Mixolydian reading, the accompanist may need to hear the chord as altered rather than force the original scale choice.",
+      },
+      {
+        label: "Chromatic fifth motion is especially effective",
+        detail:
+          "The section highlights Aeolian colour when the fifth of a minor chord moves chromatically to a flat sixth.",
+      },
+    ],
+    "Source-grounded synthesis of the Aeolian-harmony discussion and its contrast with dominant VI.",
+  ),
+  "l22.fifth-mode": map(
+    "l22.fifth-mode",
+    "Chapter Twenty-Two, Figures 22-14 and 22-15",
+    "An uncommon dominant colour tests the limits of labels",
+    [
+      {
+        label: "The scale keeps major third and minor seventh",
+        detail:
+          "The fifth mode of melodic minor has the basic dominant guide tones while also carrying a flat thirteenth.",
+      },
+      {
+        label: "Fourth and fifth can sound exposed",
+        detail:
+          "Both the fourth and fifth may rub strongly against the dense dominant voicing, which makes their treatment highly contextual.",
+      },
+      {
+        label: "No standard chord symbol captures the sound cleanly",
+        detail:
+          "Several possible slash or altered-dominant labels are shown, but the text stresses that none is uniquely definitive.",
+      },
+      {
+        label: "The ear outranks the symbol",
+        detail:
+          "The discussion explicitly asks the player to test notes in the right hand and decide by listening rather than relying on the analytical label alone.",
+      },
+    ],
+    "Source-grounded map of the fifth-mode melodic-minor discussion and its intentionally ambiguous chord-symbol treatment.",
+  ),
+  "l22.coltrane-cycle": map(
+    "l22.coltrane-cycle",
+    "Chapter Twenty-Two, Figures 22-16 through 22-22",
+    "Major-third cycles compress several tonal centers",
+    [
+      {
+        label: "The octave divides into three centers",
+        detail:
+          "The Giant Steps explanation traces tonal centers related by major thirds, producing a cycle through three equally spaced key areas.",
+      },
+      {
+        label: "Each new center can receive its own dominant",
+        detail:
+          "The rapid key changes remain locally familiar because many major chords are preceded by a dominant a fifth above.",
+      },
+      {
+        label: "Countdown inserts the cycle into II-V-I",
+        detail:
+          "A conventional D-major II-V-I keeps the opening E-minor chord, then replaces the expected cadence with dominant-major pairs leading through B-flat and G-flat before D.",
+      },
+      {
+        label: "Conventional motion can frame unconventional motion",
+        detail:
+          "The reharmonized phrase returns to more ordinary changes after the major-third cycle, giving the ear a stable point of reference.",
+      },
+    ],
+    "Source-grounded map of the Giant Steps tonal centers and the Countdown reharmonization described in Chapter Twenty-Two.",
+  ),
+  "l22.harmonic-major": map(
+    "l22.harmonic-major",
+    "Chapter Twenty-Two, Figures 22-25 through 22-29",
+    "Major harmony with a flat sixth",
+    [
+      {
+        label: "Harmonic major lowers scale degree six",
+        detail:
+          "The scale is major in its third and seventh but uses a flat sixth, producing a distinctive major-seventh colour.",
+      },
+      {
+        label: "Harmonic minor differs by the third",
+        detail:
+          "The paired comparison shows that harmonic major and harmonic minor contain the same remaining notes; E-natural versus E-flat is the defining difference in C.",
+      },
+      {
+        label: "The chord symbol may look hybrid",
+        detail:
+          "Because standard chord notation does not describe the sound elegantly, the chapter uses practical hybrid labels and expects some initial ambiguity.",
+      },
+      {
+        label: "Theory is a guide rather than a straightjacket",
+        detail:
+          "The final example intentionally resists a clean scale explanation and closes the chapter by putting musical hearing above the desire to force every sound into one theoretical system.",
+      },
+    ],
+    "Source-grounded synthesis of the harmonic-major section and the chapter's closing warning about over-literal theory.",
+  ),
+
+  "l23.all-keys": map(
+    "l23.all-keys",
+    "Chapter Twenty-Three, Practice everything in every key",
+    "Make the rule independent of one keyboard shape",
+    [
+      {
+        label: "Everything includes tunes",
+        detail:
+          "The chapter recommends practicing voicings, licks, styles, patterns and complete tunes in every key rather than limiting transposition to technical exercises.",
+      },
+      {
+        label: "Context teaches more than isolated cycling",
+        detail:
+          "A voicing taken through twelve keys is useful, but playing it inside a tune in many keys teaches where the voicing actually fits.",
+      },
+      {
+        label: "Alternate keys improve practical flexibility",
+        detail:
+          "Keeping at least one alternate key for a tune develops transposition skill and helps when accompanying singers or other musicians who need a different range.",
+      },
+      {
+        label: "Some tunes reveal a better piano key",
+        detail:
+          "Exploring several keys can expose more comfortable or more idiomatic keyboard layouts than the original key.",
+      },
+    ],
+    "Source-grounded map of the chapter's all-keys practice strategy.",
+  ),
+  "l23.weaknesses": map(
+    "l23.weaknesses",
+    "Chapter Twenty-Three, Practice to your weaknesses",
+    "Spend practice time where fluency actually breaks",
+    [
+      {
+        label: "Notice which keys cause trouble",
+        detail:
+          "The chapter recommends monitoring the cycle and identifying the keys or voicings that take the most time instead of assuming every key needs equal attention.",
+      },
+      {
+        label: "Compare hard and easy versions",
+        detail:
+          "A difficult voicing is compared against the same voicing in a comfortable key so the player can see the real size of the fluency gap.",
+      },
+      {
+        label: "Return specifically to the weak spots",
+        detail:
+          "Once problem keys are identified, practice them again rather than repeating the entire cycle indiscriminately.",
+      },
+      {
+        label: "Short focused sessions can be productive",
+        detail:
+          "Precise diagnosis makes even a few available minutes useful because the player already knows exactly what needs attention.",
+      },
+    ],
+    "Source-grounded map of the weakness-targeting method in Chapter Twenty-Three.",
+  ),
+  "l23.coordination": map(
+    "l23.coordination",
+    "Chapter Twenty-Three, Figures 23-1 through 23-3 and Practice more than one thing at the same time",
+    "Combine skills only after each part works",
+    [
+      {
+        label: "Hand coordination is a major challenge",
+        detail:
+          "The chapter treats independent left- and right-hand roles as one of the central technical problems of jazz piano.",
+      },
+      {
+        label: "Pair patterns with voicings",
+        detail:
+          "Examples combine right-hand sequences with left-hand dominant voicings, then add stride, walking tenths and other previously learned devices.",
+      },
+      {
+        label: "Practice each ingredient separately first",
+        detail:
+          "The recommended sequence is to learn the component ideas alone, combine them, transpose the combined exercise, and finally use it inside tunes.",
+      },
+      {
+        label: "Speed follows accuracy",
+        detail:
+          "If a combined voicing, phrase or progression falls out of control, the instruction is to slow down rather than force the tempo.",
+      },
+    ],
+    "Source-grounded synthesis of the multi-task coordination examples and their explicit practice sequence.",
+  ),
+  "l23.context": map(
+    "l23.context",
+    "Chapter Twenty-Three, Practice within the context of tunes and Figures 23-4 through 23-20",
+    "Turn isolated techniques into musical vocabulary",
+    [
+      {
+        label: "Move every new device into a tune",
+        detail:
+          "After a lick, voicing or pattern works by itself, the next step is to drop it into many places inside a real progression.",
+      },
+      {
+        label: "One tune can host many techniques",
+        detail:
+          "The chapter demonstrates three-note voicings, tritone substitutions, left-hand voicings, pentatonic scales, sus chords, drop-2 shapes and other devices within one standard.",
+      },
+      {
+        label: "Practice the transitions as well as the shapes",
+        detail:
+          "Context reveals which position of a voicing is practical because the surrounding chords determine the easiest and most musical route into and out of it.",
+      },
+      {
+        label: "Keep musical freedom",
+        detail:
+          "The complete example allows changes to chords and phrasing as long as they sound good, reinforcing that practice devices are tools rather than fixed arrangements.",
+      },
+    ],
+    "Source-grounded map of the chapter's extensive tune-context practice sequence. The copyrighted tune notation is not reproduced in the application study.",
+  ),
+  "l23.phrase-variation": map(
+    "l23.phrase-variation",
+    "Chapter Twenty-Three, Figures 23-16 through 23-19 and lick-practice discussion",
+    "Practice phrases as families, not scripts",
+    [
+      {
+        label: "Related licks can start on different degrees",
+        detail:
+          "The chapter compares similar phrases beginning on different chord degrees, including fifth and ninth starts.",
+      },
+      {
+        label: "Rhythm and harmony can vary too",
+        detail:
+          "A recognizable contour may be reharmonized, rhythmically altered or placed over a tritone-substituted progression while remaining part of the same phrase family.",
+      },
+      {
+        label: "Learned material should become unconscious support",
+        detail:
+          "Patterns and licks are described as an inner library that helps the fingers and ear coordinate without replacing the player's main musical ideas.",
+      },
+      {
+        label: "Do not make a memorized solo from the library",
+        detail:
+          "The explicit warning is to use practiced phrases as raw material and instrumental familiarity, not to assemble an entire improvisation from stock patterns.",
+      },
+    ],
+    "Source-grounded map of the lick-variation examples and the chapter's warning against scripted improvisation.",
+  ),
+  "l23.listen-transcribe": map(
+    "l23.listen-transcribe",
+    "Chapter Twenty-Three, Listen, listen, listen; Transcribing; Play along with records; Technique",
+    "Listening closes the loop between practice and music",
+    [
+      {
+        label: "Listen live as well as to recordings",
+        detail:
+          "The chapter encourages watching how rhythm-section players communicate, leave room and coordinate physically, not merely collecting piano recordings.",
+      },
+      {
+        label: "Learn melody and bass before solving every chord",
+        detail:
+          "For ear work, begin with the melody and bass line, then use those anchors to narrow the harmony; uncertain chords can be revisited on later choruses.",
+      },
+      {
+        label: "Play along to match time and energy",
+        detail:
+          "Playing with records is recommended for copying rhythmic patterns, testing voicings and learning to sit in the same groove and energy level as experienced players.",
+      },
+      {
+        label: "Technique should reduce tension, not create it",
+        detail:
+          "The closing technical advice emphasizes useful fingering, avoiding unnecessary muscle tension, breathing normally and using foot tapping only if it helps the pulse without disturbing others.",
+      },
+    ],
+    "Source-grounded synthesis of the chapter's listening, ear-work, play-along and technique advice. The application asks the learner to bring their own very short phrase rather than reproducing copyrighted recorded material.",
+  ),
+
 };
 
 export function getLevineSourceMaterial(

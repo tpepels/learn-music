@@ -471,6 +471,11 @@ const lessonGlyphs: Record<string, string> = {
   "levine.voicings-voicings-voicings": "J",
   "levine.stride-bud-powell": "J",
   "levine.four-note-scales": "J",
+  "levine.block-chords": "J",
+  "levine.salsa-latin-jazz": "J",
+  "levine.comping": "J",
+  "levine.loose-ends": "J",
+  "levine.practice-practice-practice": "J",
 };
 
 function App() {

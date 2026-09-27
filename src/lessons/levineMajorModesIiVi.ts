@@ -34,7 +34,7 @@ const lesson = lessonContentSchema.parse({
   description:
     "Use the major-scale modes as a way to see where jazz seventh chords come from. Extract root, third, fifth and seventh from Ionian, Dorian and Mixolydian, then combine the resulting major-seventh, minor-seventh and dominant-seventh qualities into II-V-I.",
   overview:
-    "The point is not to memorize seven unrelated scales. The same major-scale note collection produces different modal roots and chord qualities. Once II, V and I are understood as degrees, the whole progression can move intact to another major key.",
+    "The point is not to memorize seven unrelated scales. The same major-scale note collection can support different modal centers and chord qualities, but bass and harmony establish the center - merely starting on another note is not enough. Once II, V and I are understood as functions, the whole progression can move intact to another major key.",
 });
 
 export const levineMajorModesIiViLesson: LessonDefinition = {
@@ -48,7 +48,7 @@ export const levineMajorModesIiViLesson: LessonDefinition = {
         learn:
           "Take every other note from a mode - 1, 3, 5 and 7 - and hear the seventh-chord quality that results.",
         explanation:
-          `The seven modes in this chapter are rotations of the major-scale note collection: each begins on a different degree. Their names remain attached to those degrees in every major key. A seventh chord is formed by selecting alternate notes from the mode, so its root, third, fifth and seventh reveal the quality.
+          `The seven modes use rotations of one major-scale note collection, but a mode is heard through its tonal center and supporting harmony, not simply because a scale exercise starts on a different note. Their names remain attached to those scale degrees in every major key. A seventh chord is formed by selecting alternate notes from the mode, so its root, third, fifth and seventh reveal the quality.
 
 Three modes establish the central major-key chord types. C Ionian produces C major seventh; D Dorian produces D minor seventh; G Mixolydian produces G dominant seventh. The third and seventh are the variables that distinguish these qualities most clearly.`,
         instruction:

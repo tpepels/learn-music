@@ -217,13 +217,13 @@ export const levineAddingNotesLesson: LessonDefinition = {
       ...exerciseContentSchema.parse({
         id: "levine.adding-notes.d",
         letter: "D",
-        title: "Separate four special chord families",
+        title: "Compare four special chord families in pairs",
         learn:
-          "Recognize half-diminished, minor-major seventh, diminished seventh and augmented-dominant sounds by their actual interval formulas and functions.",
+          "First contrast two minor-family colours, then contrast symmetrical diminished harmony with an augmented dominant.",
         explanation:
-          "Several chords at the end of the chapter need their own identities. A half-diminished chord is a minor seventh chord with a flat fifth and commonly functions as II in a minor-key II-V-I. A minor-major seventh combines a minor third and perfect fifth with a major seventh and normally behaves as a tonic-minor colour rather than as II.\n\nA diminished seventh chord is built as a chain of minor thirds. The whole-tone dominant shown here has a major third, augmented fifth and minor seventh; it often functions as V. These labels are not interchangeable alterations of one generic seventh chord, so play them side by side and learn the interval structure that makes each one distinct.",
+          "Treat the four sounds as two comparisons. First, D half-diminished is a minor-seventh chord with a flat fifth and commonly functions as II in minor, while C minor-major seventh keeps a perfect fifth but combines a minor third with a major seventh and often behaves as tonic minor.\n\nThen compare two very different structures: C diminished seventh is a chain of minor thirds, while the augmented dominant has a major third, raised fifth and minor seventh. Pause between the pairs and identify the interval that gives each chord its identity before moving on.",
         instruction:
-          "Study the four special families. Clear the grid. Write D3-F3-A-flat3-C4 in bar 1, C3-E-flat3-G3-B3 in bar 2, C3-E-flat3-G-flat3-A3 in bar 3, and C3-E3-G-sharp3-B-flat3 in bar 4. Play the loop and name each formula before checking the label.",
+          "Study the four families. Clear the grid. Pair 1: write D3-F3-A-flat3-C4 in bar 1 and C3-E-flat3-G3-B3 in bar 2; play them and identify flat fifth versus major seventh. Pair 2: write C3-E-flat3-G-flat3-A3 in bar 3 and C3-E3-G-sharp3-B-flat3 in bar 4; play them and identify stacked minor thirds versus the raised fifth. Then play the whole loop.",
         recognition:
           "Can you hear which chord contains the flat fifth, which has the major seventh over a minor triad, which stacks minor thirds, and which has the augmented fifth?",
         source: {

@@ -53,7 +53,7 @@ export const levineScaleTheoryLesson: LessonDefinition = {
         explanation:
           "A scale and its chord are two forms of the same harmonic material: one heard horizontally, the other vertically. Over C major seventh, C Ionian supplies the notes of the C-major scale, but the fourth F creates a strong rub when it is held against the chord. This is often called an avoid note, but the term is not absolute - a passing or quickly resolved dissonance can still be musical.\n\nC Lydian changes only that fourth, raising F to F-sharp. That removes the semitone against E and gives the major-seventh chord a different colour while leaving the remaining C-major chord tones intact.",
         instruction:
-          "Study the major-scale harmony map. Clear the piano grid. In bar 1 write C4-D4-E4-F4-G4-A4-B4-C5 on steps 1-8. In bar 3 write C4-D4-E4-F-sharp4-G4-A4-B4-C5 on steps 17-24. Play the loop and focus on F versus F-sharp.",
+          "Study the major-scale harmony map. Clear the piano grid. Keep the Cmaj7 guide-tone shell E3-B3 under every scale note. On steps 1-8 add C4-D4-E4-F4-G4-A4-B4-C5. On steps 17-24 add C4-D4-E4-F-sharp4-G4-A4-B4-C5 over the same shell. Play the loop and focus on F versus F-sharp against E and B.",
         recognition:
           "Can you hear why the natural fourth needs more care over C major seventh while the raised fourth settles into the chord more easily?",
         source: {
@@ -84,15 +84,17 @@ export const levineScaleTheoryLesson: LessonDefinition = {
           complete: studiedSource(experiments, "l09.major-scale-harmony"),
         },
         {
-          label: "Both C modes are written",
-          complete: exactStudy(harmonySequence, melodicLine([
-            [0, 60], [1, 62], [2, 64], [3, 65], [4, 67], [5, 69], [6, 71], [7, 72],
-            [16, 60], [17, 62], [18, 64], [19, 66], [20, 67], [21, 69], [22, 71], [23, 72],
-          ])),
+          label: "Both C modes are written over the Cmaj7 shell",
+          complete: exactStudy(harmonySequence, [
+            [0,[52,59,60]],[1,[52,59,62]],[2,[52,59,64]],[3,[52,59,65]],
+            [4,[52,59,67]],[5,[52,59,69]],[6,[52,59,71]],[7,[52,59,72]],
+            [16,[52,59,60]],[17,[52,59,62]],[18,[52,59,64]],[19,[52,59,66]],
+            [20,[52,59,67]],[21,[52,59,69]],[22,[52,59,71]],[23,[52,59,72]],
+          ]),
         },
         {
-          label: "You entered the two pitch fields",
-          complete: changedControl(experiments, "harmony.note-edit", 16),
+          label: "You entered both chord-scale fields",
+          complete: changedControl(experiments, "harmony.note-edit", 48),
         },
         {
           label: "You listened to the fourth and sharp fourth",
@@ -110,7 +112,7 @@ export const levineScaleTheoryLesson: LessonDefinition = {
         explanation:
           "Melodic minor harmony uses the same principle as major-scale harmony: modes are rotations of one pitch collection, but their chord qualities are different. C melodic minor is C-D-E-flat-F-G-A-B. Starting the same notes on F gives F Lydian dominant; starting on B gives the altered mode.\n\nThe altered mode compresses many dominant alterations into one scale: flat nine, sharp nine, sharp eleven and flat thirteen are all present around the dominant's third and seventh. The chord symbol is usually shortened to alt instead of listing every alteration.",
         instruction:
-          "Study the melodic-minor mode map. Clear the grid. Write C-D-E-flat-F-G-A-B-C on steps 1-8, F-G-A-B-C-D-E-flat-F on steps 9-16, and B-C-D-E-flat-F-G-A-B on steps 17-24. Play all three lines without changing the pitch collection.",
+          "Study the melodic-minor mode map. Clear the grid. Give each rotation its own bass center: C3 under C-D-E-flat-F-G-A-B-C on steps 1-8; F3 under F-G-A-B-C-D-E-flat-F on steps 9-16; and B2 under B-C-D-E-flat-F-G-A-B on steps 17-24. Play all three and listen for the same pitch collection taking on three different centers.",
         recognition:
           "Can you hear that the notes remain the same while the starting point changes the harmonic identity from minor-major to Lydian dominant to altered dominant?",
         source: {
@@ -141,16 +143,16 @@ export const levineScaleTheoryLesson: LessonDefinition = {
           complete: studiedSource(experiments, "l09.melodic-minor-harmony"),
         },
         {
-          label: "The three rotations are written",
-          complete: exactStudy(harmonySequence, melodicLine([
-            [0, 60], [1, 62], [2, 63], [3, 65], [4, 67], [5, 69], [6, 71], [7, 72],
-            [8, 65], [9, 67], [10, 69], [11, 71], [12, 72], [13, 74], [14, 75], [15, 77],
-            [16, 59], [17, 60], [18, 62], [19, 63], [20, 65], [21, 67], [22, 69], [23, 71],
-          ])),
+          label: "The three rotations are written with distinct bass centers",
+          complete: exactStudy(harmonySequence, [
+            [0,[48,60]],[1,[48,62]],[2,[48,63]],[3,[48,65]],[4,[48,67]],[5,[48,69]],[6,[48,71]],[7,[48,72]],
+            [8,[53,65]],[9,[53,67]],[10,[53,69]],[11,[53,71]],[12,[53,72]],[13,[53,74]],[14,[53,75]],[15,[53,77]],
+            [16,[47,59]],[17,[47,60]],[18,[47,62]],[19,[47,63]],[20,[47,65]],[21,[47,67]],[22,[47,69]],[23,[47,71]],
+          ]),
         },
         {
-          label: "You entered all three modal rotations",
-          complete: changedControl(experiments, "harmony.note-edit", 24),
+          label: "You entered all three centered rotations",
+          complete: changedControl(experiments, "harmony.note-edit", 48),
         },
         {
           label: "You listened to the changing roots",
@@ -168,7 +170,7 @@ export const levineScaleTheoryLesson: LessonDefinition = {
         explanation:
           "A half-diminished chord can be paired with ordinary Locrian from a major scale, but that scale gives the chord a flat ninth. The sixth mode of melodic minor raises that note while leaving the root, minor third, flat fifth and minor seventh intact.\n\nOn A half-diminished, A Locrian contains B-flat; A Locrian sharp-two contains B-natural. The natural-nine version is a common choice, while the older Locrian sound remains valid.",
         instruction:
-          "Study the half-diminished comparison. Clear the grid. Write A3-B-flat3-C4-D4-E-flat4-F4-G4-A4 on steps 1-8. Then write A3-B3-C4-D4-E-flat4-F4-G4-A4 on steps 17-24. Play the two modes and listen only to the second scale degree.",
+          "Study the half-diminished comparison. Clear the grid. Keep A2-E-flat3 as a root/flat-fifth anchor. On steps 1-8 add A3-B-flat3-C4-D4-E-flat4-F4-G4-A4. On steps 17-24 add A3-B3-C4-D4-E-flat4-F4-G4-A4 over the same anchor. Play the two modes and listen only to B-flat versus B-natural.",
         recognition:
           "Can you hear the natural ninth as a cleaner colour without losing the half-diminished identity?",
         source: {
@@ -199,15 +201,17 @@ export const levineScaleTheoryLesson: LessonDefinition = {
           complete: studiedSource(experiments, "l09.half-diminished-modes"),
         },
         {
-          label: "Both A half-diminished modes are written",
-          complete: exactStudy(harmonySequence, melodicLine([
-            [0, 57], [1, 58], [2, 60], [3, 62], [4, 63], [5, 65], [6, 67], [7, 69],
-            [16, 57], [17, 59], [18, 60], [19, 62], [20, 63], [21, 65], [22, 67], [23, 69],
-          ])),
+          label: "Both A half-diminished modes are written over the same anchor",
+          complete: exactStudy(harmonySequence, [
+            [0,[45,51,57]],[1,[45,51,58]],[2,[45,51,60]],[3,[45,51,62]],
+            [4,[45,51,63]],[5,[45,51,65]],[6,[45,51,67]],[7,[45,51,69]],
+            [16,[45,51,57]],[17,[45,51,59]],[18,[45,51,60]],[19,[45,51,62]],
+            [20,[45,51,63]],[21,[45,51,65]],[22,[45,51,67]],[23,[45,51,69]],
+          ]),
         },
         {
-          label: "You entered both scale forms",
-          complete: changedControl(experiments, "harmony.note-edit", 16),
+          label: "You entered both anchored scale forms",
+          complete: changedControl(experiments, "harmony.note-edit", 48),
         },
         {
           label: "You listened to flat-nine versus natural-nine",
