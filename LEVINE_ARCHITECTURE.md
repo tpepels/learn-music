@@ -119,10 +119,15 @@ Do not fork a second engraving engine for Levine. Renderer fixes should remain s
 
 Levine exercises use `workspace: "jazz-piano"` for piano-only study.
 
-The source score and the practice grid have different jobs:
+The source score and the application workspace have different jobs:
 
 - source score = verified book material;
-- practice grid = learner-entered voicing or transposition.
+- time grid = learner-entered timing, duration, voicing or transposition;
+- keyboard view = the same learner-entered study shown as physical piano geometry.
+
+Every Levine exercise uses the shared keyboard view. Selecting a bar and eighth-note step must expose the actual piano keys used at that moment and name the interval relationships between them. The grid teaches **when** notes occur; the keyboard teaches **where** they sit under the hands and **how far apart** they are. Neither view replaces the other.
+
+Teaching copy should connect symbol, keyboard shape and sound explicitly. When an exercise depends on inversion, spacing, a scale center, a chord stack or voice leading, the learner should be able to verify that relationship visually in the keyboard view rather than infer it from row labels alone.
 
 Completion should require both musical state and evidence of interaction/listening so inherited state cannot silently complete a later exercise.
 
