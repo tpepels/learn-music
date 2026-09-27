@@ -118,7 +118,7 @@ The interval number changes because the new span completes the octave: 3 + 6 = 9
         instruction:
           "Clear the study. In bar 1, eighth 1, enter C4-E4 with the piano keys. Switch the Keyboard view to bar 2 and enter E4-C5. Compare the highlighted keys and confirm 4 semitones became 8: major third to minor sixth. Then repeat the same process with C4-F4 in bar 3 and F4-C5 in bar 4: perfect fourth to perfect fifth. Play the four bars only after you can see why each pair is related.",
         recognition:
-          "Can you point to the note that moved through the octave and predict the new interval before reading the interval label?"
+          "Can you point to the note that moved through the octave and predict the new interval before reading the interval label?",
         source: {
           reference: "Chapter One - Figures 1-2 through 1-4",
           focus:
