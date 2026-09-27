@@ -10445,3 +10445,376 @@ body {
 .source-analysis-detail.is-score-analysis {
   margin: 8px 12px 0;
 }
+
+
+/* ==========================================================================
+   LEVINE JAZZ PIANO · keyboard relationship view
+   ========================================================================== */
+
+.jazz-keyboard-cue {
+  margin: 16px 0 0;
+  padding: 11px 13px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  border: 1px solid rgba(240,184,106,0.18);
+  border-radius: 10px;
+  background: rgba(240,184,106,0.045);
+}
+
+.jazz-keyboard-cue strong {
+  flex: 0 0 auto;
+  color: var(--accent);
+  font-size: 12px;
+}
+
+.jazz-keyboard-cue span {
+  color: #c9c3d2;
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
+.jazz-keyboard-view {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 14px;
+  background:
+    linear-gradient(145deg, rgba(159,140,255,0.06), rgba(95,225,239,0.025)),
+    rgba(17,15,27,0.72);
+}
+
+.jazz-keyboard-view-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.jazz-keyboard-view-heading strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--text);
+  font-size: 16px;
+}
+
+.jazz-keyboard-view-heading p {
+  max-width: 640px;
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.jazz-keyboard-view-legend {
+  flex: 0 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px 12px;
+  color: var(--dim);
+  font-size: 10px;
+}
+
+.jazz-keyboard-view-legend span {
+  white-space: nowrap;
+}
+
+.jazz-keyboard-view-legend i {
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  display: inline-block;
+  border-radius: 3px;
+  vertical-align: -1px;
+}
+
+.jazz-keyboard-view-legend i.is-step {
+  background: var(--accent);
+}
+
+.jazz-keyboard-view-legend i.is-bar {
+  border: 1px solid rgba(95,225,239,0.4);
+  background: rgba(95,225,239,0.14);
+}
+
+.jazz-keyboard-navigation {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px 18px;
+  align-items: center;
+}
+
+.jazz-keyboard-bars,
+.jazz-keyboard-steps {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.jazz-keyboard-bars button,
+.jazz-keyboard-steps button {
+  min-height: 31px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.025);
+  color: var(--muted);
+  font: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.jazz-keyboard-bars button {
+  min-width: 58px;
+  padding: 5px 9px;
+}
+
+.jazz-keyboard-bars button i {
+  margin-left: 5px;
+  color: var(--cyan);
+  font-style: normal;
+}
+
+.jazz-keyboard-steps {
+  justify-content: flex-end;
+}
+
+.jazz-keyboard-steps button {
+  width: 31px;
+  padding: 0;
+  position: relative;
+}
+
+.jazz-keyboard-bars button:hover,
+.jazz-keyboard-steps button:hover {
+  border-color: rgba(95,225,239,0.32);
+  color: var(--text);
+}
+
+.jazz-keyboard-bars button.is-active,
+.jazz-keyboard-steps button.is-active {
+  border-color: rgba(240,184,106,0.6);
+  background: rgba(240,184,106,0.11);
+  color: var(--accent);
+}
+
+.jazz-keyboard-steps button.has-notes::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 3px;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: var(--cyan);
+}
+
+.jazz-keyboard-steps button.is-playhead {
+  box-shadow: 0 0 0 1px var(--green);
+}
+
+.jazz-piano-keyboard {
+  position: relative;
+  height: 138px;
+  margin-top: 13px;
+  user-select: none;
+}
+
+.jazz-piano-white-keys {
+  position: absolute;
+  inset: 0;
+  display: flex;
+}
+
+.jazz-piano-key {
+  border: 1px solid rgba(255,255,255,0.13);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    transform 80ms ease,
+    background 110ms ease,
+    border-color 110ms ease,
+    box-shadow 110ms ease;
+}
+
+.jazz-piano-key:active {
+  transform: translateY(2px);
+}
+
+.jazz-piano-key.is-white {
+  min-width: 0;
+  flex: 1;
+  height: 138px;
+  padding: 0 3px 8px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border-radius: 0 0 5px 5px;
+  background: #deded9;
+  color: #26242c;
+}
+
+.jazz-piano-key.is-white + .jazz-piano-key.is-white {
+  border-left-color: rgba(0,0,0,0.32);
+}
+
+.jazz-piano-key.is-black {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  width: 4.1%;
+  height: 84px;
+  padding: 0 2px 7px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border-color: rgba(255,255,255,0.12);
+  border-radius: 0 0 5px 5px;
+  background: #262331;
+  color: #ded9e8;
+  box-shadow: 0 5px 9px rgba(0,0,0,0.34);
+}
+
+.jazz-piano-key span {
+  max-width: 100%;
+  font-size: 9px;
+  font-weight: 750;
+  line-height: 1.05;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.jazz-piano-key.is-black span {
+  font-size: 7.5px;
+}
+
+.jazz-piano-key.is-in-bar.is-white {
+  background:
+    linear-gradient(180deg, rgba(95,225,239,0.18), rgba(95,225,239,0.05)),
+    #deded9;
+  box-shadow: inset 0 -4px 0 rgba(95,225,239,0.45);
+}
+
+.jazz-piano-key.is-in-bar.is-black {
+  border-color: rgba(95,225,239,0.48);
+  box-shadow:
+    inset 0 -4px 0 rgba(95,225,239,0.46),
+    0 5px 9px rgba(0,0,0,0.34);
+}
+
+.jazz-piano-key.is-active.is-white {
+  border-color: #ad7f37;
+  background: #f1c980;
+  box-shadow:
+    inset 0 -5px 0 rgba(110,70,14,0.22),
+    0 0 0 2px rgba(240,184,106,0.2);
+}
+
+.jazz-piano-key.is-active.is-black {
+  border-color: #ffd791;
+  background: #7b5e35;
+  color: white;
+  box-shadow:
+    inset 0 -5px 0 rgba(240,184,106,0.48),
+    0 5px 9px rgba(0,0,0,0.34),
+    0 0 0 2px rgba(240,184,106,0.16);
+}
+
+.jazz-keyboard-relation {
+  margin-top: 11px;
+  padding: 10px 12px;
+  display: grid;
+  grid-template-columns: minmax(180px, 0.72fr) minmax(0, 1.28fr);
+  gap: 14px;
+  align-items: center;
+  border: 1px solid rgba(95,225,239,0.14);
+  border-radius: 10px;
+  background: rgba(95,225,239,0.035);
+}
+
+.jazz-keyboard-relation div {
+  min-width: 0;
+}
+
+.jazz-keyboard-relation span {
+  display: block;
+  color: var(--dim);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.jazz-keyboard-relation strong {
+  display: block;
+  margin-top: 3px;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.jazz-keyboard-relation p {
+  margin: 0;
+  color: #cfc9d8;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.jazz-keyboard-tip {
+  margin: 9px 0 0;
+  color: var(--dim);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+@media (max-width: 1180px) {
+  .jazz-keyboard-view-heading,
+  .jazz-keyboard-navigation {
+    grid-template-columns: 1fr;
+  }
+
+  .jazz-keyboard-view-heading {
+    display: grid;
+  }
+
+  .jazz-keyboard-view-legend,
+  .jazz-keyboard-steps {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 760px) {
+  .jazz-keyboard-view {
+    padding: 12px;
+  }
+
+  .jazz-keyboard-navigation {
+    display: block;
+  }
+
+  .jazz-keyboard-steps {
+    margin-top: 8px;
+  }
+
+  .jazz-keyboard-relation {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .jazz-piano-keyboard {
+    min-width: 620px;
+  }
+
+  .jazz-keyboard-view {
+    overflow-x: auto;
+  }
+
+  .jazz-keyboard-cue {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+  }
+}
