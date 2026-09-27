@@ -223,6 +223,9 @@ export function MixerWorkspace() {
         <span><b>LOW CUT</b> removes very low frequencies</span>
         <span><b>REV / DLY</b> effect sends</span>
       </div>
+      <p className="mixer-meter-note">
+        The vertical strip beside each fader is a teaching graphic that follows the fader setting. It is not a measured peak or loudness meter.
+      </p>
     </div>
   );
 }
