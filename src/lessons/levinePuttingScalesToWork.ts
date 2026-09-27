@@ -111,7 +111,7 @@ export const levinePuttingScalesToWorkLesson: LessonDefinition = {
         explanation:
           "Knowing a chord's scale is not enough if every new harmony makes you jump back to scale degree one. The practical skill is to know the scale well enough to enter it on any note.\n\nThis study moves from D Dorian into G Mixolydian, two modes of the same C-major collection. The pitch material does not change at all; only the harmonic emphasis changes. Keeping the line moving proves that the mode is a harmonic reading, not a fingering pattern that must start on its named root.",
         instruction:
-          "Study the continuous-entry principle. Clear the grid. Write F4-G4-A4-B4-C5-D5-E5-F5 on steps 1-8. Continue immediately with G5-F5-E5-D5-C5-B4-A4-G4 on steps 9-16. Do not insert a gap or jump back to low G when the dominant area begins.",
+          "Study the continuous-entry principle. Clear the grid. On steps 1-8 keep the Dm7 guide tones F3-C4 under F4-G4-A4-B4-C5-D5-E5-F5. Continue immediately on steps 9-16 with the G7 guide tones F3-B3 under G5-F5-E5-D5-C5-B4-A4-G4. Do not insert a gap or restart from low G.",
         recognition:
           "Can you hear the mode change as a change of harmonic focus even though the line simply continues through the same C-major pitch collection?",
         source: {
@@ -142,15 +142,17 @@ export const levinePuttingScalesToWorkLesson: LessonDefinition = {
           complete: studiedSource(experiments, "l10.continuous-entry"),
         },
         {
-          label: "The uninterrupted modal line is written",
-          complete: exactStudy(harmonySequence, melodicLine([
-            65, 67, 69, 71, 72, 74, 76, 77,
-            79, 77, 76, 74, 72, 71, 69, 67,
-          ])),
+          label: "The uninterrupted line is written over Dm7 and G7 shells",
+          complete: exactStudy(harmonySequence, [
+            [0,[53,60,65]],[1,[53,60,67]],[2,[53,60,69]],[3,[53,60,71]],
+            [4,[53,60,72]],[5,[53,60,74]],[6,[53,60,76]],[7,[53,60,77]],
+            [8,[53,59,79]],[9,[53,59,77]],[10,[53,59,76]],[11,[53,59,74]],
+            [12,[53,59,72]],[13,[53,59,71]],[14,[53,59,69]],[15,[53,59,67]],
+          ]),
         },
         {
-          label: "You entered the full connected line",
-          complete: changedControl(experiments, "harmony.note-edit", 16),
+          label: "You entered the full connected line and shells",
+          complete: changedControl(experiments, "harmony.note-edit", 48),
         },
         {
           label: "You listened without a scale reset",
