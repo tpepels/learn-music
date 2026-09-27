@@ -33,8 +33,8 @@ describe("Levine block-chord and salsa chapters", () => {
     const checks = levineBlockChordsLesson.exercises[0].evaluate(
       context({
         harmonySequence: sequence([
-          [0,[60,64,67,69]],[1,[59,62,65,68]],[2,[64,67,69,72]],[3,[62,65,68,71]],
-          [4,[60,64,67,69]],[5,[59,62,65,68]],[6,[64,67,69,72]],[7,[62,65,68,71]],
+          [0,[64,67,69,72]],[1,[65,68,71,74]],[2,[67,69,72,76]],[3,[68,71,74,77]],
+          [4,[64,67,69,72]],[5,[65,68,71,74]],[6,[67,69,72,76]],[7,[68,71,74,77]],
         ]),
         experiments: {
           "source.analysis": experiment(1, ["l19.four-way-close:0"]),
