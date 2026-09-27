@@ -285,7 +285,7 @@ export const levineFourNoteScalesLesson: LessonDefinition = {
         explanation:
           "There are thousands of possible four-note scales, but theory does not decide which ones are worth using. A practical method is to select four notes from a parent scale, rotate the collection through its modes, and try the results over real harmony.\n\nC-D-F-G is one such subset of C major. Its four modes are C-D-F-G, D-F-G-C, F-G-C-D and G-C-D-F. The notes stay the same while the tonal emphasis and melodic contour change.",
         instruction:
-          "Study the experiment method. Clear the grid. Write C4-D4-F4-G4 in bar 1, D4-F4-G4-C5 in bar 2, F4-G4-C5-D5 in bar 3, and G4-C5-D5-F5 in bar 4. Play all four rotations and decide which ones you would actually use.",
+          "Study the experiment method. Clear the grid. Give each rotation a bass center: C3 under C4-D4-F4-G4 in bar 1, D3 under D4-F4-G4-C5 in bar 2, F3 under F4-G4-C5-D5 in bar 3, and G3 under G4-C5-D5-F5 in bar 4. Play all four and decide which centered versions you would actually use.",
         recognition:
           "Can you hear the collection remain recognizable while each new starting note changes its melodic pull?",
         source: {
@@ -316,17 +316,17 @@ export const levineFourNoteScalesLesson: LessonDefinition = {
           complete: studiedSource(experiments, "l18.invent-and-rotate"),
         },
         {
-          label: "All four modes of C-D-F-G are written",
+          label: "All four centered modes of C-D-F-G are written",
           complete: exactStudy(harmonySequence, [
-            [0,[60]],[1,[62]],[2,[65]],[3,[67]],
-            [8,[62]],[9,[65]],[10,[67]],[11,[72]],
-            [16,[65]],[17,[67]],[18,[72]],[19,[74]],
-            [24,[67]],[25,[72]],[26,[74]],[27,[77]],
+            [0,[48,60]],[1,[48,62]],[2,[48,65]],[3,[48,67]],
+            [8,[50,62]],[9,[50,65]],[10,[50,67]],[11,[50,72]],
+            [16,[53,65]],[17,[53,67]],[18,[53,72]],[19,[53,74]],
+            [24,[55,67]],[25,[55,72]],[26,[55,74]],[27,[55,77]],
           ]),
         },
         {
-          label: "You entered all four rotations",
-          complete: changedControl(experiments, "harmony.note-edit", 16),
+          label: "You entered all four centered rotations",
+          complete: changedControl(experiments, "harmony.note-edit", 32),
         },
         {
           label: "You listened to each modal starting point",
