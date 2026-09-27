@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { audioEngine } from "./audio/engine";
 import { effectiveMonoAudition } from "./audio/productionControlPolicy";
 import {
@@ -115,12 +115,25 @@ function Transport({
   );
   const [playbackError, setPlaybackError] = useState<string | null>(null);
   const [soloCurrent, setSoloCurrent] = useState(false);
+  const previousPlaybackStep = useRef<number | null>(null);
 
   const canPlay = canWorkspaceUseTransport(workspace);
+
+  const handlePlaybackStep = (step: number) => {
+    const previous = previousPlaybackStep.current;
+    setCurrentStep(step);
+
+    if (previous !== null && step < previous) {
+      recordLearningExperiment("transport.loop", workspace);
+    }
+
+    previousPlaybackStep.current = step;
+  };
 
   const togglePlayback = async () => {
     if (isPlaying) {
       audioEngine.stop();
+      previousPlaybackStep.current = null;
       setPlaying(false);
       setPlaybackError(null);
       return;
@@ -133,10 +146,11 @@ function Transport({
     try {
       audioEngine.setLearningFocusTrack(learningFocusTrack);
       audioEngine.setLearningSolo(soloCurrent);
+      previousPlaybackStep.current = null;
       const started = await startWorkspacePlayback(
         workspace,
         bpm,
-        setCurrentStep,
+        handlePlaybackStep,
       );
       if (!started) return;
 
@@ -182,10 +196,11 @@ function Transport({
 
     void (async () => {
       try {
+        previousPlaybackStep.current = null;
         const started = await startWorkspacePlayback(
           workspace,
           bpm,
-          setCurrentStep,
+          handlePlaybackStep,
         );
         if (cancelled || !started) return;
       } catch (error) {
@@ -777,9 +792,19 @@ function App() {
   );
 
   const checksReady = checks.every((check) => check.complete);
+  const reflectionAnswer =
+    experiments["reflection.answer"]?.values.at(-1)?.trim() ?? "";
+  const reflectionReady =
+    activeTrack.id !== "play-lab" ||
+    reflectionAnswer.split(/\s+/).filter(Boolean).length >= 3;
+  const hasAttempt =
+    exerciseCompleted ||
+    Object.entries(experiments).some(
+      ([key, value]) => key !== "reflection.answer" && value.changes > 0,
+    );
   const exerciseCompleted = completedExerciseIds.includes(exercise.id);
   const exerciseReady = isExerciseReady({
-    checksReady,
+    checksReady: checksReady && reflectionReady,
     completed: exerciseCompleted,
   });
   const lessonCompleted = completedLessonIds.includes(lesson.id);
@@ -809,11 +834,11 @@ function App() {
     setExerciseIndex(lesson.id, index);
   };
 
-  const advance = (force = false) => {
-    if (!force && !exerciseReady && !exerciseCompleted) return;
+  const advance = (skip = false) => {
+    if (!skip && !exerciseReady && !exerciseCompleted) return;
     setConfirmLessonReset(false);
 
-    if (!exerciseCompleted) {
+    if (!skip && !exerciseCompleted) {
       completeExercise(exercise.id);
     }
 
@@ -828,7 +853,7 @@ function App() {
       return;
     }
 
-    if (!lessonCompleted) {
+    if (!skip && !lessonCompleted) {
       completeLesson(lesson.id);
     }
 
@@ -956,7 +981,8 @@ function App() {
   };
 
   const actionLabel = (() => {
-    if (!exerciseReady && !exerciseCompleted) return "Complete the exercise to continue";
+    if (!checksReady && !exerciseCompleted) return "Complete the exercise to continue";
+    if (!reflectionReady && !exerciseCompleted) return "Describe what you heard to continue";
     if (!isLastExercise) return "Continue to " + lesson.exercises[exerciseIndex + 1].letter;
     if (nextLesson) return "Complete lesson & continue to lesson " + nextLesson.number;
     if (!lessonCompleted) return "Complete lesson";
@@ -1184,6 +1210,13 @@ function App() {
           <section className="music-intro">
             <span className="lesson-context">{lesson.title}</span>
             <h1>{exercise.letter} · {exercise.title}</h1>
+            {activeTrack.id === "play-lab" && (
+              <div className="lesson-learning-frame">
+                <span className="section-label">{lesson.eyebrow}</span>
+                <strong>{lesson.hero}</strong>
+                <p>{lesson.overview}</p>
+              </div>
+            )}
           </section>
 
           <LearningPanel exercise={exercise} lessonNumber={lesson.number} />
@@ -1205,12 +1238,28 @@ function App() {
               <span className="section-label">{exercise.checksLabel}</span>
               <strong>{checks.filter((check) => check.complete).length}/{checks.length}</strong>
             </div>
-            {checks.map((check) => (
-              <div className={check.complete ? "check is-complete" : "check"} key={check.label}>
-                <span>{check.complete ? "✓" : "○"}</span>
-                <p>{check.label}</p>
+            {hasAttempt || exerciseCompleted ? (
+              checks.map((check) => (
+                <div className={check.complete ? "check is-complete" : "check"} key={check.label}>
+                  <span>{check.complete ? "✓" : "○"}</span>
+                  <p>{check.label}</p>
+                </div>
+              ))
+            ) : (
+              <div className="checks-before-attempt">
+                <strong>Try it before checking the answer.</strong>
+                <p>
+                  Detailed criteria appear after you play, audition or change
+                  something in this exercise.
+                </p>
               </div>
-            ))}
+            )}
+            {activeTrack.id === "play-lab" && !exerciseCompleted && (
+              <div className={reflectionReady ? "reflection-check is-complete" : "reflection-check"}>
+                <span>{reflectionReady ? "✓" : "○"}</span>
+                <p>Describe what you heard in your own words</p>
+              </div>
+            )}
           </div>
 
           {(exerciseReady || exerciseCompleted) && (
@@ -1237,7 +1286,7 @@ function App() {
               className="text-button lesson-move-on"
               onClick={() => advance(true)}
             >
-              Move on anyway →
+              Skip for now →
             </button>
           )}
 
